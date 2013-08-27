@@ -1,5 +1,5 @@
 sagelib (5.11.1) UNRELEASED; urgency=low
 
-  * Initial package, builds onl metapackages.
+  * Initial package, builds only metapackages.
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 27 Aug 2013 21:14:43 +0200
