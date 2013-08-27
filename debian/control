@@ -19,7 +19,6 @@ Depends:
  dpkg-dev (>= 1.15.7~),
  ecl (>= 11),
  f2c,
- gap-dev (>= 4r6p4),
  ipython,
  lcalc (>= 0.0.20080205-2),
  libatlas-dev,
@@ -32,7 +31,7 @@ Depends:
  libgc-dev,
  libgcrypt11-dev,
  libgd2-noxpm-dev | libgd2-xpm-dev,
- libgivaro0 (= 3.7.2-1),
+ libgivaro1 (= 3.7.2-1),
  libglpk-dev,
  libgmp-dev (>= 2.1.1),
  libgnutls-dev,
@@ -41,14 +40,13 @@ Depends:
  libiml-dev,
  liblapack-dev,
  liblfunction-dev,
- libm4ri-dev (>= 0.0.20130416),
- libm4rie-dev (>= 0.0.20130416),
  libmpc-dev (>=1.0),
  libmpfi-dev,
  libmpfr-dev,
  libntl-dev,
  libpng12-dev,
  libpynac-dev (>= 0.2.6-1),
+ libratpoints-dev,
  libreadline-dev,
  libsqlite3-dev,
  libsymmetrica-dev,
@@ -68,7 +66,6 @@ Depends:
  python-numpy,
  python-pexpect,
  python-pygments,
- python-rpy,
  python-scipy,
  python-setuptools,
  python-sphinx,
@@ -76,7 +73,6 @@ Depends:
  python-sympy,
  python-twisted-core,
  python-zodb,
- ratpoints,
  r-base-dev,
  sagemath-database-conway-polynomials,
  sagemath-database-elliptic-curves,
@@ -93,7 +89,10 @@ Description: build dependencies of sagelib that are in Debian unstable
  This meta package depends on all build dependencies of sagelib
  that are currently in Debian unstable, but not in testing.
 Depends:
- ${misc:Depends}
+ ${misc:Depends},
+ libm4ri-dev (>= 20130416),
+ libm4rie-dev (>= 20130416),
+ python-rpy
 
 Package: sagelib-builddeps-git
 Architecture: all
@@ -104,6 +103,7 @@ Description: build dependencies of sagelib that are not in Debian
  http://anonscm.debian.org/gitweb/?a=project_list&s=debian-science%2Fpackages
 Depends:
  ${misc:Depends},
+ gap-dev (>= 4r6p4),
  libsingular-dev (>= 3-1-5),
  libflint-dev (>= 1.52),
  libflint-dev (<< 1.53),
