@@ -65,6 +65,7 @@ Depends:
  python-networkx,
  python-numpy,
  python-pexpect,
+ python-ply,
  python-pygments,
  python-scipy,
  python-setuptools,
