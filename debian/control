@@ -7,6 +7,17 @@ Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.4
 X-Python-Version: 2.7
 
+Package: sagelib-runtime-deps
+Architecture: all
+Description: Sagelib runtime dependencies. These are required to run tests, but
+ not real builddeps.
+Depends:
+ python-twisted,
+ python-sympy,
+ python-mpmath,
+ python-networkx,
+ python-scipy
+
 Package: sagelib-builddeps-testing
 Architecture: all
 Description: build dependencies of sagelib that are in Debian testing
@@ -33,7 +44,7 @@ Depends:
  libgd2-noxpm-dev | libgd2-xpm-dev,
  libgivaro-dev (= 3.7.2-1),
  libglpk-dev,
- libgmp-dev (>= 2.1.1),
+ libgmp-dev (>= 2:5.1.2),
  libgnutls-dev,
  libgpg-error-dev,
  libgsl0-dev,
@@ -61,18 +72,13 @@ Depends:
  python-gnutls,
  python-matplotlib,
  python-moinmoin,
- python-mpmath,
- python-networkx,
  python-numpy,
  python-pexpect,
  python-ply,
  python-pygments,
- python-scipy,
  python-setuptools,
  python-sphinx,
  python-sqlalchemy,
- python-sympy,
- python-twisted-core,
  python-zodb,
  r-base-dev,
  sagemath-database-conway-polynomials,
