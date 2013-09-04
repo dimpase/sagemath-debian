@@ -130,4 +130,5 @@ Depends:
  libflint-dev (>= 2.3),
  liblinboxsage-dev (>= 1.3.2),
  libpari-dev (>= 2.4),
- liblrcalc-dev
+ liblrcalc-dev,
+ palp (>= 2.1-2)
