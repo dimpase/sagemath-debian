@@ -81,7 +81,7 @@ Depends:
  python-matplotlib,
  python-moinmoin,
  python-numpy,
- python-pexpect (>= 2.4),
+ python-pexpect (= 2.0),
  python-ply,
  python-pygments,
  python-setuptools,
