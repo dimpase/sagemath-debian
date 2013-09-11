@@ -108,8 +108,7 @@ Depends:
  liblrcalc-dev,
  libm4ri-dev (>= 20130416),
  libm4rie-dev (>= 20130416),
- gap-dev (>= 4r6p5),
- python-rpy
+ gap-dev (>= 4r6p5)
 
 Package: sagelib-builddeps-experimental
 Architecture: all
