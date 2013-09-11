@@ -18,6 +18,10 @@ Depends:
  python-networkx,
  python-rpy2,
  python-scipy,
+ sqlite3,
+ eclib-tools,
+ r-cran-lattice,
+ gap (>= 4r6p4),
  gfan
 
 # some tests will fail with python-matplotlib <=1.2.1
@@ -103,6 +107,7 @@ Depends:
  ${misc:Depends},
  libm4ri-dev (>= 20130416),
  libm4rie-dev (>= 20130416),
+ gap-dev (>= 4r6p5),
  python-rpy
 
 Package: sagelib-builddeps-experimental
@@ -125,7 +130,6 @@ Description: build dependencies of sagelib that are not in Debian
  http://anonscm.debian.org/gitweb/?a=project_list&s=debian-science%2Fpackages
 Depends:
  ${misc:Depends},
- gap-dev (>= 4r6p4~),
  libcdd-dev (>= 094g-4),
  libsingular-dev (>= 3-1-5),
  libflint-dev (>= 2.3),
