@@ -12,6 +12,7 @@ Architecture: all
 Description: Sagelib runtime dependencies. These are required to run tests, but
  not real builddeps.
 Depends:
+ palp,
  python-twisted,
  python-sympy,
  python-mpmath,
@@ -21,6 +22,7 @@ Depends:
  sqlite3,
  eclib-tools,
  r-cran-lattice,
+ rubiks,
  gap (>= 4r6p4),
  gfan
 
@@ -73,7 +75,6 @@ Depends:
  libtachyon-dev,
  libzn-poly-dev,
  maxima,
- palp,
  python2.7-dev,
  python-crypto,
  python-cvxopt,
