@@ -22,6 +22,9 @@ Depends:
  ecl (>= 11),
  eclib-tools,
  f2c,
+ gap (>= 4r6p4),
+ gap-dev (>= 4r6p5-3),
+ gfan,
  ipython,
  lcalc (>= 0.0.20080205-2),
  libatlas-base-dev,
@@ -100,9 +103,6 @@ Description: build dependencies of sagelib that are in Debian unstable
  that are currently in Debian unstable, but not in testing.
 Depends:
  ${misc:Depends},
- gap (>= 4r6p4),
- gap-dev (>= 4r6p5-3),
- gfan,
  liblinboxsage-dev (>= 1.3.2)
 
 Package: sagelib-builddeps-experimental
