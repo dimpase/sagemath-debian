@@ -103,7 +103,9 @@ Description: build dependencies of sagelib that are in Debian unstable
  that are currently in Debian unstable, but not in testing.
 Depends:
  ${misc:Depends},
- liblinboxsage-dev (>= 1.3.2)
+ liblinboxsage-dev (>= 1.3.2),
+ libpolybori-dev (>= 0.8.0),
+ libpolybori-groebner-dev
 
 Package: sagelib-builddeps-experimental
 Architecture: all
@@ -112,8 +114,6 @@ Description: build dependencies of sagelib that are in Debian experimental
  that are currently in Debian experimental, but not in unstable or testing.
 Depends:
  ${misc:Depends},
- libpolybori-dev (>= 0.8.0),
- libpolybori-groebner-dev,
  libppl0.12-dev (>= 1:1.1)
 
 Package: sagelib-builddeps-git
