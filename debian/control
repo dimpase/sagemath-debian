@@ -125,7 +125,7 @@ Description: build dependencies of sagelib that are not in Debian
  http://anonscm.debian.org/gitweb/?a=project_list&s=debian-science%2Fpackages
 Depends:
  ${misc:Depends},
- libsingular-dev (>= 3-1-5),
+ libsingular-dev (>= 3-1-6),
  libflint-dev (>= 2.3),
  libpari-dev (>= 2.4),
  python-pexpect-2.0,
