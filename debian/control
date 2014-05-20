@@ -55,6 +55,8 @@ Depends:
  libmpfr-dev,
  libntl-dev,
  libpng12-dev,
+ libpolybori-dev (>= 0.8.0),
+ libpolybori-groebner-dev,
  libpynac-dev (>= 0.2.6-1),
  libratpoints-dev,
  libreadline-dev,
@@ -103,9 +105,7 @@ Description: build dependencies of sagelib that are in Debian unstable
  that are currently in Debian unstable, but not in testing.
 Depends:
  ${misc:Depends},
- liblinboxsage-dev (>= 1.3.2),
- libpolybori-dev (>= 0.8.0),
- libpolybori-groebner-dev
+ liblinboxsage-dev (>= 1.3.2)
 
 Package: sagelib-builddeps-experimental
 Architecture: all
