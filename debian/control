@@ -47,6 +47,7 @@ Depends:
  libiml-dev,
  liblapack-dev,
  liblfunction-dev,
+ liblinboxsage-dev (>= 1.3.2),
  liblrcalc-dev,
  libm4ri-dev (>= 20130416),
  libm4rie-dev (>= 20130416),
@@ -54,6 +55,7 @@ Depends:
  libmpfi-dev,
  libmpfr-dev,
  libntl-dev,
+ libpari-dev (>= 2.4),
  libpng12-dev,
  libpolybori-dev (>= 0.8.0),
  libpolybori-groebner-dev,
@@ -105,8 +107,9 @@ Description: build dependencies of sagelib that are in Debian unstable
  This meta-package depends on all build dependencies of sagelib
  that are currently in Debian unstable, but not in testing.
 Depends:
- ${misc:Depends},
- liblinboxsage-dev (>= 1.3.2)
+ libflint-dev (>= 2.3),
+ sagemath-database-combinatorial-designs,
+ ${misc:Depends}
 
 Package: sagelib-builddeps-experimental
 Architecture: all
@@ -126,8 +129,6 @@ Description: build dependencies of sagelib that are not in Debian
 Depends:
  ${misc:Depends},
  libsingular-dev (>= 3-1-6),
- libflint-dev (>= 2.3),
- libpari-dev (>= 2.4),
  python-pexpect-2.0,
  python-sagenb (>= 0.10.4),
  rubiks
