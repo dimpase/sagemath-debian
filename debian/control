@@ -33,6 +33,7 @@ Depends:
  libcliquer-dev,
  libec-dev (>= 0.0.2012.02.01),
  libecm-dev,
+ libflint-dev (>= 2.3),
  libfplll-dev,
  libfreetype6-dev,
  libgc-dev,
@@ -59,7 +60,7 @@ Depends:
  libpng12-dev,
  libpolybori-dev (>= 0.8.0),
  libpolybori-groebner-dev,
- libppl0.12-dev (>= 1:1.1),
+ libppl-dev (>= 1:1.1),
  libpynac-dev (>= 0.2.6-1),
  libratpoints-dev,
  libreadline-dev,
@@ -79,6 +80,7 @@ Depends:
  python-mpmath,
  python-networkx,
  python-numpy,
+ python-pkgconfig,
  python-ply,
  python-pygments,
  python-rpy2,
@@ -107,8 +109,8 @@ Description: build dependencies of sagelib that are in Debian unstable
  This meta-package depends on all build dependencies of sagelib
  that are currently in Debian unstable, but not in testing.
 Depends:
- libflint-dev (>= 2.3),
- sagemath-database-combinatorial-designs,
+ flintqs,
+ sagemath-database-mutually-combinatorial-designs,
  ${misc:Depends}
 
 Package: sagelib-builddeps-experimental

@@ -1,9 +1,5 @@
-sagelib (6.2~1) UNRELEASED; urgency=low
+sagelib (6.3~1) UNRELEASED; urgency=low
 
-  [ Tobias Hansen ]
   * Initial package, builds only metapackages.
 
-  [ Felix Salfelder ]
-  * bump to 6.2
-
- -- Felix Salfelder <felix@salfelder.org>  Sun, 04 May 2014 15:17:15 +0200
+ -- Tobias Hansen <thansen@debian.org>  Sat, 11 Oct 2014 10:02:21 +0200
