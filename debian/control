@@ -96,6 +96,7 @@ Depends:
  sagemath-database-conway-polynomials,
  sagemath-database-elliptic-curves,
  sagemath-database-graphs,
+ sagemath-database-mutually-combinatorial-designs,
  sagemath-database-polytopes,
  scons,
  sqlite3,
@@ -110,7 +111,6 @@ Description: build dependencies of sagelib that are in Debian unstable
  that are currently in Debian unstable, but not in testing.
 Depends:
  flintqs,
- sagemath-database-mutually-combinatorial-designs,
  ${misc:Depends}
 
 Package: sagelib-builddeps-experimental
