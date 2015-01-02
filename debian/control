@@ -42,7 +42,7 @@ Depends:
  libgivaro-dev (= 3.7.2-1),
  libglpk-dev,
  libgmp-dev (>= 2:5.1.2),
- libgnutls-dev,
+ libgnutls28-dev,
  libgpg-error-dev,
  libgsl0-dev,
  libiml-dev,
