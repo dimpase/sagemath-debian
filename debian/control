@@ -98,41 +98,17 @@ Build-Depends:
 
 # some tests will fail with python-matplotlib <=1.2.1
 
-Package: sagelib-builddeps-testing
+Package: sagemath-empty
 Architecture: all
-Description: build dependencies of sagelib that are in Debian testing
- This meta-package depends on all build dependencies of sagelib
+Description: An empty package with the runtime dependencies of sage
+ This meta-package depends on all dependencies of sage
  that are currently in Debian testing.
 Depends:
  ${misc:Depends}
 
-Package: sagelib-builddeps-unstable
-Architecture: all
-Description: build dependencies of sagelib that are in Debian unstable
- This meta-package depends on all build dependencies of sagelib
- that are currently in Debian unstable, but not in testing.
-Depends:
- flintqs,
- ${misc:Depends}
-
-Package: sagelib-builddeps-experimental
-Architecture: all
-Description: build dependencies of sagelib that are in Debian experimental
- This meta-package depends on all build dependencies of sagelib
- that are currently in Debian experimental, but not in unstable or testing.
-Depends:
- ${misc:Depends}
-
-Package: sagelib-builddeps-git
-Architecture: all
-Description: build dependencies of sagelib that are not in Debian
- This meta-package depends on all build dependencies of sagelib
- that are currently not in Debian at all. Most of them should be 
- packaged in the Debian Science git at
- http://anonscm.debian.org/gitweb/?a=project_list&s=debian-science%2Fpackages
-Depends:
- ${misc:Depends},
- libsingular-dev (>= 3-1-6),
- python-pexpect-2.0,
- python-sagenb (>= 0.10.4),
- rubiks
+# Packages not in testing:
+# flintqs,
+# libsingular-dev (>= 3-1-6),
+# python-pexpect-2.0,
+# python-sagenb (>= 0.10.4),
+# rubiks
