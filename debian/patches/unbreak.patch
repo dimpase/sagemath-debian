@@ -1,0 +1,270 @@
+--- a/sage/build/deps
++++ b/sage/build/deps
+@@ -4,7 +4,7 @@
+ ###############################################################################
+ 
+ # Do not put an explicit path for sage-spkg here, it will be found in $PATH.
+-SAGE_SPKG = sage-spkg -f
++SAGE_SPKG = sage-spkg
+ PIPE = $(SAGE_ROOT)/build/pipestatus
+ 
+ # Tell make not to look for files with these names:
+@@ -502,7 +502,7 @@
+ 		 $(INST)/csage
+ 	if [ -z "$$SAGE_INSTALL_FETCH_ONLY" ]; then \
+ 		cd $(SAGE_SRC) && source bin/sage-env && \
+-		$(PIPE) 'time python setup.py install 2>&1' 'tee -a $(SAGE_LOGS)/sage-$(SAGE_VERSION).log' && \
++		$(PIPE) 'time python setup.py install --user 2>&1' 'tee -a $(SAGE_LOGS)/sage-$(SAGE_VERSION).log' && \
+ 		touch $@; \
+ 	fi
+ 
+--- a/sage/build/pkgs/sagenb/spkg-install
++++ b/sage/build/pkgs/sagenb/spkg-install
+@@ -40,9 +40,9 @@
+ 
+ # Install dependencies
+ for PKG in $(cat src/install_order); do
+-    easy_install -H None "src/$PKG" || die "Error installing $PKG !"
++    easy_install --user -H None "src/$PKG" || die "Error installing $PKG !"
+ done
+ PKG=$(ls -1 src | GREP_OPTIONS= grep sagenb-)
+ 
+ # Install sagenb into site-packages
+-easy_install -H None "src/$PKG" || die "Error installing sagenb !"
++easy_install --user -H None "src/$PKG" || die "Error installing sagenb !"
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -286,16 +286,16 @@
+ # Prepare for running Sage, either interactively or non-interactively.
+ sage_setup() {
+     # Check that we're not in a source tarball which hasn't been built yet (#13561).
+-    if [ ! -d "$SAGE_LOCAL/lib/python/site-packages/sage" ]; then
+-        echo >&2 '************************************************************************'
+-        echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
+-        echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
+-        echo >&2 'finished). You should run `make` in the Sage root directory first.'
+-        echo >&2 'If you did not intend to build Sage from source, you should download'
+-        echo >&2 'a binary tarball instead. Read README.txt for more information.'
+-        echo >&2 '************************************************************************'
+-        exit 1
+-    fi
++    # if [ ! -d "$SAGE_LOCAL/lib/python/site-packages/sage" ]; then
++    #     echo >&2 '************************************************************************'
++    #     echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
++    #     echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
++    #     echo >&2 'finished). You should run `make` in the Sage root directory first.'
++    #     echo >&2 'If you did not intend to build Sage from source, you should download'
++    #     echo >&2 'a binary tarball instead. Read README.txt for more information.'
++    #     echo >&2 '************************************************************************'
++    #     exit 1
++    # fi
+ 
+     # Display the startup banner
+     if [ "$SAGE_BANNER" != "no" ]; then
+--- a/sage/src/bin/sage-build
++++ b/sage/src/bin/sage-build
+@@ -27,4 +27,4 @@
+ 
+ # build sage library
+ cd "$SAGE_SRC"
+-python setup.py install
++python setup.py install --user
+--- a/sage/src/bin/sage-env
++++ b/sage/src/bin/sage-env
+@@ -247,8 +247,8 @@
+ # Setting Sage-related location environment variables.
+ export SAGE_LOCAL="$SAGE_ROOT/local"
+ export SAGE_ETC="$SAGE_LOCAL/etc"
+-export SAGE_SHARE="$SAGE_LOCAL/share"
+-export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
++export SAGE_SHARE="/usr/share/sagemath"
++export SAGE_EXTCODE="$SAGE_LOCAL/share/sage/ext"
+ export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+ export SAGE_SRC="$SAGE_ROOT/src"
+@@ -300,14 +300,14 @@
+ fi
+ 
+ # For PARI/GP
+-GP_DATA_DIR="$SAGE_LOCAL/share/pari" && export GP_DATA_DIR
+-GPHELP="$SAGE_LOCAL/bin/gphelp" && export GPHELP
+-GPDOCDIR="$SAGE_LOCAL/share/pari/doc" && export GPDOCDIR
++GP_DATA_DIR="/usr/share/pari" && export GP_DATA_DIR
++GPHELP="/usr/bin/gphelp" && export GPHELP
++GPDOCDIR="/usr/share/pari/doc" && export GPDOCDIR
+ 
+ # Allow git to work without warning messages after relocating Sage.
+ # See trac #15901.
+-GIT_TEMPLATE_DIR="$SAGE_LOCAL"/share/git-core/templates && export GIT_TEMPLATE_DIR
+-GIT_EXEC_PATH="$SAGE_LOCAL"/libexec/git-core && export GIT_EXEC_PATH
++#GIT_TEMPLATE_DIR="$SAGE_LOCAL"/share/git-core/templates && export GIT_TEMPLATE_DIR
++#GIT_EXEC_PATH="$SAGE_LOCAL"/libexec/git-core && export GIT_EXEC_PATH
+ 
+ SINGULARPATH="$SAGE_LOCAL/share/singular" && export SINGULARPATH
+ SINGULAR_EXECUTABLE="$SAGE_LOCAL/bin/Singular" && export SINGULAR_EXECUTABLE
+@@ -429,7 +429,7 @@
+ unset R_HOME
+ unset R_PROFILE
+ 
+-MAXIMA_PREFIX="$SAGE_ROOT/local" && export MAXIMA_PREFIX
++#MAXIMA_PREFIX="$SAGE_ROOT/local" && export MAXIMA_PREFIX
+ 
+ ############ architecture flags
+ 
+@@ -603,7 +603,7 @@
+ fi
+ 
+ # See trac 7186 -- this is needed if ecl is moved
+-ECLDIR="$SAGE_LOCAL/lib/ecl/" && export ECLDIR
++#ECLDIR="$SAGE_LOCAL/lib/ecl/" && export ECLDIR
+ 
+ # Handle parallel building/testing/...
+ # See Trac Ticket #12016
+--- a/sage/src/c_lib/SConstruct
++++ b/sage/src/c_lib/SConstruct
+@@ -126,8 +126,8 @@
+ # The SCons convenience function Split is the only strange thing
+ # to python programmers. It just makes a list by splitting on
+ # whitespace without the syntax clutter of lists of strings.
+-includes = ['$SAGE_LOCAL/include/', '$SAGE_LOCAL/include/python$PYV/',
+-            '$SAGE_LOCAL/include/NTL/', 'include']
++includes = ['/usr/include/', '/usr/include/python$PYV/',
++            '/usr/include/NTL/', '/usr/include/Lfunction', 'include']
+ cFiles = Split( "convert.c  interrupt.c  memory.c  mpn_pylong.c  mpz_pylong.c") + \
+          Split( "mpz_longlong.c stdsage.c" )
+ cppFiles = Split( "ZZ_pylong.cpp  ntl_wrap.cpp" )
+@@ -138,7 +138,7 @@
+ 
+ lib = env.SharedLibrary( "csage", [ "src/" + x for x in srcFiles ],
+                          LIBS=['ntl', 'pari', 'gmp', 'python$PYV'],
+-                         LIBPATH=['$SAGE_LOCAL/lib','$SAGE_LOCAL/lib/python$PYV/config/'],
++                         LIBPATH=['/usr/lib','/usr/lib/python$PYV/config/'],
+                          CPPPATH=includes )
+ env.Install("$SAGE_LOCAL/lib", lib)
+ env.Install("$SAGE_LOCAL/include/csage", [ os.path.join('include',x) for x in incFiles ])
+--- a/sage/src/module_list.py
++++ b/sage/src/module_list.py
+@@ -4,7 +4,7 @@
+ from distutils.extension import Extension
+ from sage.env import SAGE_LOCAL
+ 
+-SAGE_INC = os.path.join(SAGE_LOCAL, 'include')
++SAGE_INC = os.path.join('/usr', 'include')
+ 
+ #########################################################
+ ### BLAS setup
+@@ -746,7 +746,7 @@
+               sources = ['sage/libs/lcalc/lcalc_Lfunction.pyx'],
+               libraries = ['m', 'ntl', 'mpfr', 'gmp', 'gmpxx',
+                            'Lfunction'],
+-              include_dirs = [SAGE_INC + "/libLfunction"],
++              include_dirs = [SAGE_INC + "/Lfunction"],
+               extra_compile_args=["-O3", "-ffast-math"],
+               language = 'c++'),
+ 
+--- a/sage/src/sage/dev/all.py
++++ b/sage/src/sage/dev/all.py
+@@ -1,3 +1,3 @@
+ from sage.misc.lazy_import import lazy_import
+ 
+-lazy_import('sage.dev.sagedev_instance', 'dev')
++#lazy_import('sage.dev.sagedev_instance', 'dev')
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -89,7 +89,7 @@
+ _add_variable_or_fallback('SAGE_ROOT',       None)
+ _add_variable_or_fallback('SAGE_LOCAL',      opj('$SAGE_ROOT', 'local'))
+ _add_variable_or_fallback('SAGE_ETC',        opj('$SAGE_LOCAL', 'etc'))
+-_add_variable_or_fallback('SAGE_SHARE',      opj('$SAGE_LOCAL', 'share'))
++_add_variable_or_fallback('SAGE_SHARE',      opj('/usr/share/sagemath'))
+ 
+ _add_variable_or_fallback('SAGE_SRC',        opj('$SAGE_ROOT', 'src'))
+ _add_variable_or_fallback('SITE_PACKAGES',   site.getsitepackages())
+--- a/sage/src/sage/interfaces/gap.py
++++ b/sage/src/sage/interfaces/gap.py
+@@ -189,7 +189,7 @@
+ 
+ WORKSPACE = os.path.join(GAP_DIR, 'workspace-%s'%abs(hash(SAGE_LOCAL)))
+ 
+-GAP_BINARY = os.path.join(SAGE_LOCAL, 'bin', 'gap')
++GAP_BINARY = os.path.join('/usr', 'bin', 'gap')
+ 
+ first_try = True
+ 
+--- a/sage/src/sage/interfaces/gp.py
++++ b/sage/src/sage/interfaces/gp.py
+@@ -212,6 +212,9 @@
+         self.__var_store_len = 0
+         self.__init_list_length = init_list_length
+ 
++    def _start(self, alt_message=None, block_during_init=True):
++        Expect._start(self, alt_message, block_during_init)
++        self._eval_line('default(breakloop,0);')
+ 
+     def _repr_(self):
+         """
+@@ -486,7 +489,7 @@
+             sage: gp.get_default('log')
+             0
+             sage: gp.get_default('datadir')
+-            '.../local/share/pari'
++            '.../share/pari'
+             sage: gp.get_default('seriesprecision')
+             16
+             sage: gp.get_default('realprecision')
+@@ -1000,9 +1003,6 @@
+ from sage.env import DOT_SAGE, SAGE_ETC
+ import os
+ 
+-# Set GPRC environment variable to $SAGE_ETC/gprc.expect
+-os.environ["GPRC"] = os.path.join(SAGE_ETC, 'gprc.expect')
+-
+ # An instance
+ gp = Gp(logfile=os.path.join(DOT_SAGE,'gp-expect.log')) # useful for debugging!
+ 
+--- a/sage/src/sage/interfaces/maxima.py
++++ b/sage/src/sage/interfaces/maxima.py
+@@ -758,7 +758,7 @@
+         if not wait_for_prompt:
+             return
+         # line_echo sometimes has randomly inserted terminal echo in front #15811
+-        assert line_echo.strip().endswith(line.strip()), 'mismatch:\n' + line_echo + line
++        #assert line_echo.strip().endswith(line.strip()), 'mismatch:\n' + line_echo + line
+ 
+         self._expect_expr(self._display_prompt)
+         out = self._before()        # input echo + output prompt + output
+--- a/sage/src/sage/libs/gap/util.pyx
++++ b/sage/src/sage/libs/gap/util.pyx
+@@ -158,7 +158,7 @@
+         '/home/vbraun/opt/sage-5.3.rc0/local/gap/latest'
+     """
+     import os.path
+-    gapdir = os.path.join(SAGE_LOCAL, 'gap', 'latest')
++    gapdir = '/usr/share/gap'
+     if os.path.exists(gapdir):
+         return gapdir
+     print 'The gap-4.5.5.spkg (or later) seems to be not installed!'
+--- a/sage/src/setup.py
++++ b/sage/src/setup.py
+@@ -146,9 +146,9 @@
+ # (that are likely to change on an upgrade) here:
+ # [At least at the moment. Make sure the headers aren't copied with "-p",
+ # or explicitly touch them in the respective spkg's spkg-install.]
+-lib_headers = { "gmp":     [ os.path.join(SAGE_INC, 'gmp.h') ],   # cf. #8664, #9896
+-                "gmpxx":   [ os.path.join(SAGE_INC, 'gmpxx.h') ],
+-                "ntl":     [ os.path.join(SAGE_INC, 'NTL', 'config.h') ]
++lib_headers = { "gmp":     [ os.path.join('/usr/include', 'gmp.h') ],   # cf. #8664, #9896
++                "gmpxx":   [ os.path.join('/usr/include' 'gmpxx.h') ],
++                "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
+               }
+ 
+ # In the loop below, don't append to any list, since many of these
+@@ -174,7 +174,7 @@
+ 
+     m.extra_compile_args = m.extra_compile_args + extra_compile_args
+     m.extra_link_args = m.extra_link_args + extra_link_args
+-    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
++    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
+     m.include_dirs = m.include_dirs + include_dirs
+ 
+ 
