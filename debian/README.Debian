@@ -1,0 +1,18 @@
+Building Sage against Debian libraries:
+
+Since this repository contains Sage as a submodule it should be cloned with:
+
+$ git clone --recursive git://anonscm.debian.org/debian-science/packages/sagemath.git
+$ cd sagemath
+
+The build dependencies are installed with:
+
+$ sudo mk-build-deps --install debian/control
+
+Create the orig source tarball:
+
+$ debian/rules get-orig-source
+
+Build sage:
+
+$ debuild
