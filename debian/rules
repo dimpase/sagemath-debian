@@ -3,7 +3,7 @@
 VERSION := $(shell dpkg-parsechangelog | grep -x "Version:.*" | sed 's@Version: \(.\+\)-.\+@\1@')
 
 %:
-	dh $@
+	dh $@ --builddirectory=sage
 
 override_dh_auto_build:
 
