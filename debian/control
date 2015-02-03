@@ -2,10 +2,10 @@ Source: sagemath
 Section: math
 Priority: optional
 Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>
-Uploaders: Tobias Hansen <thansen@debian.org>
-           Julien Puydt <julien.puydt@laposte.net>
+Uploaders: Tobias Hansen <thansen@debian.org>,
+           Julien Puydt <julien.puydt@laposte.net>,
            Felix Salfelder <felix@salfelder.org>
-Standards-Version: 3.9.4
+Standards-Version: 3.9.6
 X-Python-Version: 2.7
 Build-Depends:
  cython (>= 0.19),
@@ -53,7 +53,7 @@ Build-Depends:
  libpolybori-dev (>= 0.8.0),
  libpolybori-groebner-dev,
  libppl-dev (>= 1:1.1),
- libpynac-dev (>= 0.2.6-1),
+ libpynac-dev (>= 0.2.6),
  libratpoints-dev,
  libreadline-dev,
  libsqlite3-dev,
@@ -100,7 +100,7 @@ Build-Depends:
 
 Package: sagemath-empty
 Architecture: all
-Description: An empty package with the runtime dependencies of sage
+Description: Empty package with the runtime dependencies of sage
  This meta-package depends on all dependencies of sage
  that are currently in Debian testing.
 Depends:
