@@ -1,4 +1,4 @@
-Source: sagelib
+Source: sagemath
 Section: math
 Priority: optional
 Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>

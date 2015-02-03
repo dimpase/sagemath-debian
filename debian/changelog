@@ -1,5 +1,5 @@
-sagelib (6.3~1) UNRELEASED; urgency=low
+sagemath (6.5.rc0-1) UNRELEASED; urgency=low
 
-  * Initial package, builds only metapackages.
+  * Initial package.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 11 Oct 2014 10:02:21 +0200
