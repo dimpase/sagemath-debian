@@ -1,5 +1,8 @@
 AC_INIT()
 
+m4_include([/usr/share/aclocal/pkg.m4])
+m4_include([m4/python_module.m4])
+
 AC_ARG_WITH([sage-root],
             [  --with-sage-root=<path> path to where sage is unpacked],
 	    [SAGE_ROOT="$withval"],

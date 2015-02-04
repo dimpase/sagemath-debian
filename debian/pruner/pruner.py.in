@@ -117,7 +117,7 @@ dico = {
     'singular': @HAS_SINGULAR@,
     'six': @HAS_SIX@,
     'sphinx': @HAS_SPHINX@,
-    'sqlalchemy': @HAS_SQLALCHEMY@,
+    #'sqlalchemy': @HAS_SQLALCHEMY@,
     'sqlite': @HAS_SQLITE@,
     'symmetrica': @HAS_SYMMETRICA@,
     'sympow': @HAS_SYMPOW@,

@@ -5,6 +5,11 @@ VERSION := $(shell dpkg-parsechangelog | grep -x "Version:.*" | sed 's@Version: 
 %:
 	dh $@ --builddirectory=sage
 
+override_dh_auto_configure:
+	cd debian/pruner && autoconf
+	debian/pruner/configure --with-sage-root="$(shell pwd)/sage"
+	cd sage && python ../pruner.py
+
 override_dh_auto_build:
 
 override_dh_auto_install:
