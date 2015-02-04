@@ -1,0 +1,138 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+import os
+import codecs
+import subprocess
+
+system_installed_packages = 0
+installed_dir = '@SAGE_ROOT@/local/var/lib/sage/installed'
+
+def mkdir_if_needed(dirname):
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
+def declare_system(package):
+    global system_installed_packages
+    version = subprocess.check_output(['/bin/cat', '@SAGE_ROOT@/build/pkgs/{0:s}/package-version.txt'.format(package)]).decode().strip()
+    filename = '{0:s}/{1:s}-{2:s}'.format(installed_dir, package, version)
+    installed = codecs.open(filename, 'w')
+    installed.write ('system')
+    installed.close()
+    system_installed_packages += 1
+
+
+mkdir_if_needed (installed_dir)
+mkdir_if_needed ('@SAGE_ROOT@/local')
+mkdir_if_needed ('@SAGE_ROOT@/local/include')
+
+dico = {
+    'atlas': @HAS_ATLAS@,
+    'boehm_gc': @HAS_BOEHM_GC@,
+    'boost_cropped': @HAS_BOOST@,
+    'bzip2': @HAS_BZIP2@,
+    'cddlib': @HAS_CDDLIB@,
+    'cephes': @HAS_CEPHES@,
+    'cliquer': @HAS_CLIQUER@,
+    'combinatorial_designs': @HAS_COMBINATORIAL_DESIGNS@,
+    'conway_polynomials': @HAS_CONWAY_POLYNOMIALS@,
+    'cvxopt': @HAS_CVXOPT@,
+    'cython': @HAS_CYTHON@,
+    'dateutil': @HAS_DATEUTIL@,
+    'docutils': @HAS_DOCUTILS@,
+    'ecl': @HAS_ECL@,
+    'eclib': @HAS_ECLIB@,
+    'ecm': @HAS_ECM@,
+    'elliptic_curves': @HAS_ELLIPTIC_CURVES@,
+    'fflas_ffpack': @HAS_FFLAS_FFPACK@,
+    'flint': @HAS_FLINT@,
+    'flintqs': @HAS_FLINTQS@,
+    'libfplll': @HAS_FPLLL@,
+    'freetype': @HAS_FREETYPE@,
+    'gap': @HAS_GAP@,
+    'libgd': @HAS_GD@,
+    'gdmodule': @HAS_GDMODULE@,
+    'gf2x': @HAS_GF2X@,
+    'gfan': @HAS_GFAN@,
+    'gcc': @HAS_GFORTRAN@,
+    'git': @HAS_GIT@,
+    'givaro': @HAS_GIVARO@,
+    'glpk': @HAS_GLPK@,
+    'graphs': @HAS_GRAPHS@,
+    'gsl': @HAS_GSL@,
+    'iconv': @HAS_ICONV@,
+    'iml': @HAS_IML@,
+    'ipython': @HAS_IPYTHON@,
+    'jinja2': @HAS_JINJA2@,
+    'jmol': @HAS_JMOL@,
+    'lcalc': @HAS_LCALC@,
+    'libgap': @HAS_LIBGAP@,
+    'libpng': @HAS_LIBPNG@,
+    'linbox': @HAS_LINBOX@,
+    'lrcalc': @HAS_LRCALC@,
+    'm4ri': @HAS_M4RI@,
+    'm4rie': @HAS_M4RIE@,
+    'matplotlib': @HAS_MATPLOTLIB@,
+    'maxima': @HAS_MAXIMA@,
+    'mpc': @HAS_MPC@,
+    'mpfi': @HAS_MPFI@,
+    'mpfr': @HAS_MPFR@,
+    'mpir': @HAS_MPIR@,
+    'mpmath': @HAS_MPMATH@,
+    'ncurses': @HAS_NCURSES@,
+    'networkx': @HAS_NETWORKX@,
+    'ntl': @HAS_NTL@,
+    'numpy': @HAS_NUMPY@,
+    'palp': @HAS_PALP@,
+    'pari': @HAS_PARI@,
+    'pari_galdata': @HAS_PARI_GALDATA@,
+    'pari_seadata_small': @HAS_PARI_SEADATA@,
+    'patch': @HAS_PATCH@,
+    'pexpect': @HAS_PEXPECT@,
+    'pillow': @HAS_PIL@,
+    'pip': @HAS_PIP@,
+    'pkgconf': @HAS_PKGCONF@,
+    'pkgconfig': @HAS_PKGCONFIG@,
+    'polybori': @HAS_POLYBORI@,
+    'polytopes_db': @HAS_POLYTOPES@,
+    'ppl': @HAS_PPL@,
+    'pycrypto': @HAS_PYCRYPTO@,
+    'pygments': @HAS_PYGMENTS@,
+    'pynac': @HAS_PYNAC@,
+    'pyparsing': @HAS_PYPARSING@,
+    'python': @HAS_PYTHON@,
+    'pyzmq': @HAS_PYZMQ@,
+    'r': @HAS_R@,
+    'ratpoints': @HAS_RATPOINTS@,
+    # those two go together afaik:
+    'readline': @HAS_READLINE@,
+    'termcap': @HAS_READLINE@,
+    'rpy2': @HAS_RPY2@,
+    'rubiks': @HAS_RUBIKS@,
+    'sagenb': @HAS_SAGENB@,
+    'sagetex': @HAS_SAGETEX@,
+    'scipy': @HAS_SCIPY@,
+    'scons': @HAS_SCONS@,
+    'setuptools': @HAS_SETUPTOOLS@,
+    'singular': @HAS_SINGULAR@,
+    'six': @HAS_SIX@,
+    'sphinx': @HAS_SPHINX@,
+    'sqlalchemy': @HAS_SQLALCHEMY@,
+    'sqlite': @HAS_SQLITE@,
+    'symmetrica': @HAS_SYMMETRICA@,
+    'sympow': @HAS_SYMPOW@,
+    'sympy': @HAS_SYMPY@,
+    'tachyon': @HAS_TACHYON@,
+    'tornado': @HAS_TORNADO@,
+    'zeromq': @HAS_ZEROMQ@,
+    'zlib': @HAS_ZLIB@,
+    'zn_poly': @HAS_ZNPOLY@
+}
+
+for key, val in dico.items():
+    if val:
+        declare_system(key)
+    else:
+        print ('{0:s} will not come from debian!'.format (key))
+
+print('{0:d} system packages will be used'.format(system_installed_packages))
