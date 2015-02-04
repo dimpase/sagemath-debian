@@ -3,7 +3,12 @@
 VERSION := $(shell dpkg-parsechangelog | grep -x "Version:.*" | sed 's@Version: \(.\+\)-.\+@\1@')
 
 %:
-	dh $@ --builddirectory=sage
+	dh $@
+
+override_dh_auto_clean:
+	rm -f config.log config.status pruner.py
+	rm -f debian/pruner/configure
+	dh_auto_clean
 
 override_dh_auto_configure:
 	cd debian/pruner && autoconf
