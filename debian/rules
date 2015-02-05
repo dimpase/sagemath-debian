@@ -16,6 +16,10 @@ override_dh_auto_configure:
 	cd sage && python ../pruner.py
 
 override_dh_auto_build:
+	make --directory=sage
+
+override_dh_auto_test:
+	make --directory=sage ptestlong
 
 override_dh_auto_install:
 
