@@ -8,12 +8,15 @@ Uploaders: Tobias Hansen <thansen@debian.org>,
 Standards-Version: 3.9.6
 X-Python-Version: 2.7
 Build-Depends:
+ autoconf,
  cython (>= 0.19),
  debhelper (>= 9),
  dpkg-dev (>= 1.15.7~),
  ecl (>= 11),
  eclib-tools,
  f2c,
+ fflas-ffpack,
+ flintqs,
  gap (>= 4r6p4),
  gap-dev (>= 4r6p5-3),
  gfan,
@@ -32,6 +35,7 @@ Build-Depends:
  libgc-dev,
  libgcrypt11-dev,
  libgd2-noxpm-dev | libgd2-xpm-dev,
+ libgf2x-dev,
  libgivaro-dev (= 3.7.2-1),
  libglpk-dev,
  libgmp-dev (>= 2:5.1.2),
@@ -62,6 +66,8 @@ Build-Depends:
  libtachyon-dev,
  libzn-poly-dev,
  maxima,
+ maxima-doc,
+ maxima-share,
  palp (>= 2.1-2),
  pari-galdata,
  pari-seadata,
@@ -113,8 +119,7 @@ Description: Empty package with the runtime dependencies of sage
 Depends:
  ${misc:Depends}
 
-# Packages not in testing:
-# flintqs,
+# Packages not in unstable:
 # libsingular-dev (>= 3-1-6),
 # python-pexpect-2.0,
 # python-sagenb (>= 0.10.4),
