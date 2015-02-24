@@ -10,10 +10,7 @@ override_dh_auto_clean:
 	rm -f debian/pruner/configure
 	dh_auto_clean
 
-override_dh_auto_configure:
-	cd debian/pruner && autoconf
-	debian/pruner/configure --with-sage-root="$(shell pwd)/sage"
-	cd sage && python ../pruner.py
+override_dh_auto_configure: prune
 
 override_dh_auto_build:
 	make --directory=sage
@@ -25,3 +22,8 @@ override_dh_auto_install:
 
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(VERSION)/sage/ --format=tar HEAD | xz -zf > ../../sagemath_$(VERSION).orig.tar.xz
+
+prune:
+	cd debian/pruner && autoconf
+	debian/pruner/configure --with-sage-root="$(shell pwd)/sage"
+	cd sage && python ../pruner.py
