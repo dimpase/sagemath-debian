@@ -25,6 +25,7 @@ Build-Depends:
  lcalc (>= 1.23+dfsg-4),
  libatlas-base-dev,
  libblas-dev,
+ libboost1.55-dev,
  libcdd-dev (>= 094g-4),
  libcliquer-dev,
  libec-dev (>= 0.0.2012.02.01),
