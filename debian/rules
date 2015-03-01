@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 VERSION := $(shell dpkg-parsechangelog | grep -x "Version:.*" | sed 's@Version: \(.\+\)-.\+@\1@')
+export MAKE = make -j4
 
 %:
 	dh $@
@@ -13,10 +14,12 @@ override_dh_auto_clean:
 override_dh_auto_configure: prune
 
 override_dh_auto_build:
-	make --directory=sage
+	$(MAKE) --directory=sage
 
-override_dh_auto_test:
-	make --directory=sage ptestlong
+override_dh_auto_test: test
+
+test:
+	$(MAKE) --directory=sage ptestlong
 
 override_dh_auto_install:
 
