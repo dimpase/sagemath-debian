@@ -7,12 +7,12 @@ export MAKE = make -j4
 	dh $@
 
 override_dh_auto_clean:
-	rm -f prune-stamp
+	rm -f prune
 	rm -f config.log config.status pruner.py
 	rm -f debian/pruner/configure
 	dh_auto_clean
 
-override_dh_auto_build: prune-stamp
+override_dh_auto_build: prune
 	$(MAKE) --directory=sage ptestlong
 
 override_dh_auto_install:
@@ -20,10 +20,8 @@ override_dh_auto_install:
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(VERSION)/sage/ --format=tar HEAD | xz -zf > ../../sagemath_$(VERSION).orig.tar.xz
 
-prune: prune-stamp
-
-prune-stamp:
+prune:
 	cd debian/pruner && autoconf
 	debian/pruner/configure --with-sage-root="$(shell pwd)/sage"
 	cd sage && python ../pruner.py
-	touch prune-stamp
+	touch prune
