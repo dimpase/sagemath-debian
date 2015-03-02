@@ -1,0 +1,11 @@
+--- a/sage/src/sage/interfaces/maxima_lib.py
++++ b/sage/src/sage/interfaces/maxima_lib.py
+@@ -77,7 +77,7 @@
+ ## We begin here by initializing Maxima in library mode
+ ## i.e. loading it into ECL
+ ecl_eval("(setf *load-verbose* NIL)")
+-ecl_eval("(require 'maxima)")
++ecl_eval("(require 'maxima \"/usr/lib/maxima/5.35.1/maxima.fas\")")
+ ecl_eval("(in-package :maxima)")
+ ecl_eval("(setq $nolabels t))")
+ ecl_eval("(defvar *MAXIMA-LANG-SUBDIR* NIL)")
