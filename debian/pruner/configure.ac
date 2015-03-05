@@ -165,7 +165,7 @@ else
 fi
 AC_SUBST(HAS_JINJA2)
 
-# FIXME(jmol): debian is too late, use sage's
+# FIXME(jmol): debian's version is too old, use sage's
 HAS_JMOL="False"
 AC_SUBST(HAS_JMOL)
 
@@ -306,7 +306,6 @@ AC_SUBST(HAS_PIL)
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
 
-# FIXME(polybori): bug #751098 explains how to make that work
 PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
 AC_SUBST(HAS_POLYBORI)
 
