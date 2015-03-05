@@ -13,7 +13,9 @@ override_dh_auto_clean:
 	dh_auto_clean
 
 override_dh_auto_build: prune
-	$(MAKE) --directory=sage ptestlong
+	$(MAKE) --directory=sage
+
+override_dh_auto_test: ptestlong
 
 override_dh_auto_install:
 
@@ -25,3 +27,7 @@ prune:
 	debian/pruner/configure --with-sage-root="$(shell pwd)/sage"
 	cd sage && python ../pruner.py
 	touch prune
+
+ptestlong:
+	cd sage && local/bin/sage-starts
+	cd sage && ./sage -t -p --all --long --logfile=logs/ptestlong.log
