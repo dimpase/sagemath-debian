@@ -2,3 +2,4 @@ unbreak.patch
 trac_17872.patch
 maxima.patch
 trac_17796.patch
+remove_singular_warning.patch

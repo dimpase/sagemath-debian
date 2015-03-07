@@ -1,0 +1,21 @@
+--- /dev/null
++++ b/sage/build/pkgs/singular/patches/remove_warning.patch
+@@ -0,0 +1,18 @@
++diff -uri latest/kernel/mod_raw.cc latest.tmp/kernel/mod_raw.cc
++--- latest/kernel/mod_raw.cc	2014-11-19 14:06:05.000000000 +0100
+++++ latest.tmp/kernel/mod_raw.cc	2015-03-08 00:32:55.489679509 +0100
++@@ -150,10 +150,10 @@
++     handle = dynl_open(path_name);
++     if (handle == NULL && ! warn_handle)
++     {
++-      Warn("Could not open dynamic library: %s", path_name);
++-      Warn("Error message from system: %s", dynl_error());
++-      if (msg != NULL) Warn("%s", msg);
++-      Warn("See the INSTALL section in the Singular manual for details.");
+++      //Warn("Could not open dynamic library: %s", path_name);
+++      //Warn("Error message from system: %s", dynl_error());
+++      //if (msg != NULL) Warn("%s", msg);
+++      //Warn("See the INSTALL section in the Singular manual for details.");
++       warn_handle = TRUE;
++     }
++   }
