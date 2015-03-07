@@ -1,0 +1,180 @@
+From 89e7171b7bf11610ca08a0cdcaf46354a8eafdd9 Mon Sep 17 00:00:00 2001
+From: Julien Puydt <julien.puydt@laposte.net>
+Date: Tue, 17 Feb 2015 17:20:45 +0100
+Subject: [PATCH 1656/1657] Push all configuration in the gp interface code
+
+---
+ build/pkgs/pari/gprc.expect  | 45 --------------------------------------------
+ build/pkgs/pari/spkg-install |  7 -------
+ src/sage/interfaces/gp.py    | 22 +++++++++++++++++-----
+ 3 files changed, 17 insertions(+), 57 deletions(-)
+ delete mode 100644 build/pkgs/pari/gprc.expect
+
+diff --git a/build/pkgs/pari/gprc.expect b/build/pkgs/pari/gprc.expect
+deleted file mode 100644
+index 31f1ec9..0000000
+--- a/sage/build/pkgs/pari/gprc.expect
++++ /dev/null
+@@ -1,45 +0,0 @@
+-/************************************************************************
+-*                                                                       *
+-* gp init file for the Expect interface from Sage                       *
+-*                                                                       *
+-* This file will be read during the startup of the Gp() class from      *
+-* sage/interfaces/gp.py                                                 *
+-* It is *NOT* supposed to be used by users running a gp shell using     *
+-* sage -gp                                                              *
+-*                                                                       *
+-* The defaults in this file have been chosen carefully to work with     *
+-* the Expect interface in sage/interfaces/gp.py                         *
+-*                                                                       *
+-* AUTHORS:                                                              *
+-*                                                                       *
+-*  - Jeroen Demeyer (2010-09-24): initial version for #9959.            *
+-*                                                                       *
+-************************************************************************/
+-
+-
+-compatible = 0
+-
+-/* gp prompt */
+-prompt = "? "
+-
+-/* Disable timer */
+-timer = 0
+-
+-/* Disable the break loop, otherwise gp will seem to hang on errors */
+-breakloop = 0
+-
+-
+-/* List of directories where gp will look for scripts:
+- * only current working directory */
+-path = "."
+-
+-/* Location of elldata, seadata, galdata */
+-datadir = "$SAGE_LOCAL/share/pari"
+-
+-/* Executable for gp ?? help */
+-help = "$SAGE_LOCAL/bin/gphelp -detex"
+-
+-/* Log file (disabled since Expect already logs) */
+-logfile = "$DOT_SAGE/gp.log"
+-log = 0
+-
+diff --git a/build/pkgs/pari/spkg-install b/build/pkgs/pari/spkg-install
+index 67ccc82..bb2c6b1 100755
+--- a/sage/build/pkgs/pari/spkg-install
++++ b/sage/build/pkgs/pari/spkg-install
+@@ -195,13 +195,6 @@ install()
+     fi
+ 
+     cd "$CUR"
+-
+-    # Copy gprc.expect to $SAGE_LOCAL/etc
+-    cp -f "$TOP/gprc.expect" "$SAGE_LOCAL/etc"
+-    if [ $? -ne 0 ]; then
+-        echo >&2 "Error installing gprc.expect"
+-        exit 1
+-    fi
+ }
+ 
+ 
+diff --git a/src/sage/interfaces/gp.py b/src/sage/interfaces/gp.py
+index 79a6f00..7a5cf23 100644
+--- a/sage/src/sage/interfaces/gp.py
++++ b/sage/src/sage/interfaces/gp.py
+@@ -199,7 +199,7 @@ class Gp(Expect):
+         Expect.__init__(self,
+                         name = 'pari',
+                         prompt = '\\? ',
+-                        command = "gp --emacs --quiet --stacksize %s"%stacksize,
++                        command = "gp --fast --emacs --quiet --stacksize %s"%stacksize,
+                         maxread = maxread,
+                         server=server,
+                         server_tmpdir=server_tmpdir,
+@@ -212,6 +212,21 @@ class Gp(Expect):
+         self.__var_store_len = 0
+         self.__init_list_length = init_list_length
+ 
++    def _start(self, alt_message=None, block_during_init=True):
++        Expect._start(self, alt_message, block_during_init)
++        self._eval_line('default(compatible,0);')
++        # disable timer
++        self._eval_line('default(timer,0);')
++        # disable the break loop, otherwise gp will seem to hand on errors
++        self._eval_line('default(breakloop,0);')
++        # list of directories where gp will look for scripts (only current working directory)
++        self._eval_line('default(path,".");')
++        # location of elldata, seadata, galdata
++        self._eval_line('default(datadir, "$SAGE_LOCAL/share/pari");')
++        # executable for gp ?? help
++        self._eval_line('default(help, "$SAGE_LOCAL/bin/gphelp -detex");')
++        # logfile disabled since Expect already logs
++        self._eval_line('default(log,0);')
+ 
+     def _repr_(self):
+         """
+@@ -997,12 +1012,9 @@ def is_GpElement(x):
+     """
+     return isinstance(x, GpElement)
+ 
+-from sage.env import DOT_SAGE, SAGE_ETC
++from sage.env import DOT_SAGE
+ import os
+ 
+-# Set GPRC environment variable to $SAGE_ETC/gprc.expect
+-os.environ["GPRC"] = os.path.join(SAGE_ETC, 'gprc.expect')
+-
+ # An instance
+ gp = Gp(logfile=os.path.join(DOT_SAGE,'gp-expect.log')) # useful for debugging!
+ 
+-- 
+2.1.4
+
+
+From 07e72f19161cdba389626c518218703466fb3d41 Mon Sep 17 00:00:00 2001
+From: Julien Puydt <julien.puydt@laposte.net>
+Date: Thu, 19 Feb 2015 14:30:50 +0100
+Subject: [PATCH 1657/1657] Better patch for gprc removal, following Jeroen's
+ review: 1. document why --fast is used 2. don't set compatible (even though
+ it was in gprc) 3. fix typo 4. bump pari package's version number
+
+---
+ build/pkgs/pari/package-version.txt | 2 +-
+ src/sage/interfaces/gp.py           | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/build/pkgs/pari/package-version.txt b/build/pkgs/pari/package-version.txt
+index f703d46..ef45aab 100644
+--- a/sage/build/pkgs/pari/package-version.txt
++++ b/sage/build/pkgs/pari/package-version.txt
+@@ -1 +1 @@
+-2.7.1.p3
++2.7.1.p4
+diff --git a/src/sage/interfaces/gp.py b/src/sage/interfaces/gp.py
+index 7a5cf23..b8472a9 100644
+--- a/sage/src/sage/interfaces/gp.py
++++ b/sage/src/sage/interfaces/gp.py
+@@ -199,6 +199,7 @@ class Gp(Expect):
+         Expect.__init__(self,
+                         name = 'pari',
+                         prompt = '\\? ',
++                        # --fast so the system gprc isn't read (we configure below)
+                         command = "gp --fast --emacs --quiet --stacksize %s"%stacksize,
+                         maxread = maxread,
+                         server=server,
+@@ -214,10 +215,9 @@ class Gp(Expect):
+ 
+     def _start(self, alt_message=None, block_during_init=True):
+         Expect._start(self, alt_message, block_during_init)
+-        self._eval_line('default(compatible,0);')
+         # disable timer
+         self._eval_line('default(timer,0);')
+-        # disable the break loop, otherwise gp will seem to hand on errors
++        # disable the break loop, otherwise gp will seem to hang on errors
+         self._eval_line('default(breakloop,0);')
+         # list of directories where gp will look for scripts (only current working directory)
+         self._eval_line('default(path,".");')
+-- 
+2.1.4
+
