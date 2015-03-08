@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 VERSION := $(shell dpkg-parsechangelog | grep -x "Version:.*" | sed 's@Version: \(.\+\)-.\+@\1@')
-export MAKE = make -j4
+export MAKE = make -j5
 
 %:
 	dh $@
