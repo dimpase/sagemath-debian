@@ -14,6 +14,14 @@ PKG_PROG_PKG_CONFIG
 AC_CHECK_HEADER(atlas/clapack.h, HAS_ATLAS="True", HAS_ATLAS="False")
 AC_SUBST(HAS_ATLAS)
 
+AC_CHECK_PYTHON_MODULE_NAMESPACE(ssl_match_hostname, backports)
+if test "x${PYTHON_ssl_match_hostname}" = "x1"; then
+  HAS_BACKPORTS_SSL_MATCH_HOSTNAME="True"
+else
+  HAS_BACKPORTS_SSL_MATCH_HOSTNAME="False"
+fi
+AC_SUBST(HAS_BACKPORTS_SSL_MATCH_HOSTNAME)
+
 AC_CHECK_HEADER(gc.h, HAS_BOEHM_GC="True", HAS_BOEHM_GC="False")
 AC_SUBST(HAS_BOEHM_GC)
 
@@ -27,6 +35,10 @@ AC_SUBST(HAS_BZIP2)
 # FIXME(cddlib): sage's is heavily patched, so use their version...
 HAS_CDDLIB="False"
 AC_SUBST(HAS_CDDLIB)
+
+# FIXME(certifi): Let's assume certifi is not used for now.
+HAS_CERTIFI="True"
+AC_SUBST(HAS_CERTIFI)
 
 # FIXME(cephes): we shouldn't need it
 HAS_CEPHES="True"
@@ -169,6 +181,14 @@ AC_SUBST(HAS_JINJA2)
 HAS_JMOL="False"
 AC_SUBST(HAS_JMOL)
 
+AC_CHECK_PYTHON_MODULE(jsonschema)
+if test "x${PYTHON_jsonschema}" = "x1"; then
+  HAS_JSONSCHEMA="True"
+else
+  HAS_JSONSCHEMA="False"
+fi
+AC_SUBST(HAS_JSONSCHEMA)
+
 AC_LANG_PUSH([C++])
 AC_CHECK_HEADER(Lfunction/L.h, HAS_LCALC="True", HAS_LCALC="False")
 AC_LANG_POP([C++])
@@ -205,6 +225,9 @@ AC_LANG_PUSH([C++])
 AC_CHECK_HEADERS(m4rie/m4rie.h, HAS_M4RIE="True", HAS_M4RIE="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_M4RIE)
+
+AC_CHECK_FILE(/usr/share/javascript/mathjax/MathJax.js, HAS_MATHJAX="True", HAS_MATHJAX="False")
+AC_SUBST(HAS_MATHJAX)
 
 AC_CHECK_PYTHON_MODULE(matplotlib)
 if test "x${PYTHON_matplotlib}" = "x1"; then
@@ -432,14 +455,6 @@ else
   HAS_SPHINX="False"
 fi
 AC_SUBST(HAS_SPHINX)
-
-AC_CHECK_PYTHON_MODULE(sqlalchemy)
-if test "x${PYTHON_sqlalchemy}" = "x1"; then
-  HAS_SQLALCHEMY="True"
-else
-  HAS_SQLALCHEMY="False"
-fi
-AC_SUBST(HAS_SQLALCHEMY)
 
 AC_CHECK_HEADERS(sqlite3.h, HAS_SQLITE="True", HAS_SQLITE="False")
 AC_SUBST(HAS_SQLITE)
