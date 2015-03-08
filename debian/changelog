@@ -1,5 +1,5 @@
-sagemath (6.5-1) UNRELEASED; urgency=low
+sagemath (6.6~beta3-1) UNRELEASED; urgency=low
 
   * Initial package.
 
- -- Tobias Hansen <thansen@debian.org>  Tue, 24 Feb 2015 23:32:02 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sun, 08 Mar 2015 14:36:01 +0000
