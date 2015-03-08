@@ -9,7 +9,7 @@
  PIPE = $(SAGE_ROOT)/build/pipestatus
  
  # Tell make not to look for files with these names:
-@@ -502,7 +502,7 @@
+@@ -519,7 +519,7 @@
  		 $(INST)/csage
  	if [ -z "$$SAGE_INSTALL_FETCH_ONLY" ]; then \
  		cd $(SAGE_SRC) && source bin/sage-env && \
@@ -34,7 +34,7 @@
 +easy_install --user -H None "src/$PKG" || die "Error installing sagenb !"
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -286,16 +286,16 @@
+@@ -287,16 +287,16 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
@@ -61,7 +61,7 @@
  
      # Display the startup banner
      if [ "$SAGE_BANNER" != "no" ]; then
-@@ -389,7 +389,7 @@
+@@ -395,7 +395,7 @@
  
  if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
      shift
@@ -133,9 +133,9 @@
 -            '$SAGE_LOCAL/include/NTL/', 'include']
 +includes = ['/usr/include/', '/usr/include/python$PYV/',
 +            '/usr/include/NTL/', '/usr/include/Lfunction', 'include']
- cFiles = Split( "convert.c  interrupt.c  memory.c  mpn_pylong.c  mpz_pylong.c") + \
+ cFiles = Split( "interrupt.c  mpn_pylong.c  mpz_pylong.c") + \
           Split( "mpz_longlong.c stdsage.c" )
- cppFiles = Split( "ZZ_pylong.cpp  ntl_wrap.cpp" )
+ cppFiles = Split( "ntl_wrap.cpp" )
 @@ -138,7 +138,7 @@
  
  lib = env.SharedLibrary( "csage", [ "src/" + x for x in srcFiles ],
@@ -167,7 +167,7 @@
  
  #########################################################
  ### BLAS setup
-@@ -746,7 +746,7 @@
+@@ -715,7 +715,7 @@
                sources = ['sage/libs/lcalc/lcalc_Lfunction.pyx'],
                libraries = ['m', 'ntl', 'mpfr', 'gmp', 'gmpxx',
                             'Lfunction'],
@@ -259,7 +259,7 @@
  
 --- a/sage/src/sage/interfaces/gp.py
 +++ b/sage/src/sage/interfaces/gp.py
-@@ -486,7 +486,7 @@
+@@ -501,7 +501,7 @@
              sage: gp.get_default('log')
              0
              sage: gp.get_default('datadir')
@@ -357,7 +357,7 @@
          return self.solve(facets)
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2149,7 +2149,7 @@
+@@ -2148,7 +2148,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -379,7 +379,7 @@
      print 'The gap-4.5.5.spkg (or later) seems to be not installed!'
 --- a/sage/src/sage/libs/pari/decl.pxi
 +++ b/sage/src/sage/libs/pari/decl.pxi
-@@ -3758,5 +3758,5 @@
+@@ -3958,5 +3958,5 @@
      
      extern gp_data* GP_DATA
  
@@ -389,7 +389,7 @@
 +cdef extern char* closure_func_err()
 --- a/sage/src/sage/libs/singular/singular.pyx
 +++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -694,11 +694,9 @@
+@@ -713,11 +713,9 @@
  
      cdef void *handle = NULL
  
@@ -459,7 +459,7 @@
      ['Accent', 'Accent_r', 'Blues', 'Blues_r', 'BrBG', 'BrBG_r', ...]
  
  These are imported from matplotlib's cm_ module.
-@@ -1375,7 +1375,7 @@
+@@ -1347,7 +1347,7 @@
      object), given its name or a [mixed] list/tuple of RGB list/tuples
      and color names.  For a list of map names, evaluate::
  
@@ -468,7 +468,7 @@
          ['Accent', 'Accent_r', 'Blues', 'Blues_r', ...]
  
      See :func:`rgbcolor` for valid list/tuple element formats.
-@@ -1436,7 +1436,7 @@
+@@ -1408,7 +1408,7 @@
      A dict-like collection of lazily-loaded matplotlib color maps.
      For a list of map names, evaluate::
  
