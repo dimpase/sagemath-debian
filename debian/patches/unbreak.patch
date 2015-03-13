@@ -477,6 +477,15 @@
          ['Accent', 'Accent_r', 'Blues', 'Blues_r', ...]
      """
      def __init__(self):
+@@ -1656,7 +1656,7 @@
+             sage: maps = Colormaps()
+             sage: count = len(maps)
+             sage: maps.popitem()
+-            ('Spectral', <matplotlib.colors.LinearSegmentedColormap object at ...>)
++            (u'Spectral', <matplotlib.colors.LinearSegmentedColormap object at ...>)
+             sage: count - 1 == len(maps)
+             True
+         """
 --- a/sage/src/sage/tests/cmdline.py
 +++ b/sage/src/sage/tests/cmdline.py
 @@ -548,12 +548,6 @@
