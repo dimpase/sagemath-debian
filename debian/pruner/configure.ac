@@ -14,12 +14,8 @@ PKG_PROG_PKG_CONFIG
 AC_CHECK_HEADER(atlas/clapack.h, HAS_ATLAS="True", HAS_ATLAS="False")
 AC_SUBST(HAS_ATLAS)
 
-AC_CHECK_PYTHON_MODULE_NAMESPACE(ssl_match_hostname, backports)
-if test "x${PYTHON_ssl_match_hostname}" = "x1"; then
-  HAS_BACKPORTS_SSL_MATCH_HOSTNAME="True"
-else
-  HAS_BACKPORTS_SSL_MATCH_HOSTNAME="False"
-fi
+# FIXME(backports_ssl_match_hostname): only needed for tornado, hence not needed
+HAS_BACKPORTS_SSL_MATCH_HOSTNAME="True"
 AC_SUBST(HAS_BACKPORTS_SSL_MATCH_HOSTNAME)
 
 AC_CHECK_HEADER(gc.h, HAS_BOEHM_GC="True", HAS_BOEHM_GC="False")
@@ -36,13 +32,13 @@ AC_SUBST(HAS_BZIP2)
 HAS_CDDLIB="False"
 AC_SUBST(HAS_CDDLIB)
 
-# FIXME(certifi): Let's assume certifi is not used for now.
-HAS_CERTIFI="True"
-AC_SUBST(HAS_CERTIFI)
-
 # FIXME(cephes): we shouldn't need it
 HAS_CEPHES="True"
 AC_SUBST(HAS_CEPHES)
+
+# FIXME(certifi): only needed for tornado, hence not needed
+HAS_CERTIFI="True"
+AC_SUBST(HAS_CERTIFI)
 
 AC_CHECK_HEADER(cliquer/cliquer.h, HAS_CLIQUER="True", HAS_CLIQUER="False")
 AC_SUBST(HAS_CLIQUER)
@@ -329,6 +325,7 @@ AC_SUBST(HAS_PIL)
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
 
+# FIXME(polybori): bug #751098 explains how to make that work
 PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
 AC_SUBST(HAS_POLYBORI)
 
