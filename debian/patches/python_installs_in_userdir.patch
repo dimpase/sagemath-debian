@@ -1,0 +1,33 @@
+--- a/sage/build/deps
++++ b/sage/build/deps
+@@ -519,7 +519,7 @@
+ 		 $(INST)/csage
+ 	if [ -z "$$SAGE_INSTALL_FETCH_ONLY" ]; then \
+ 		cd $(SAGE_SRC) && source bin/sage-env && \
+-		$(PIPE) 'time python setup.py install 2>&1' 'tee -a $(SAGE_LOGS)/sage-$(SAGE_VERSION).log' && \
++		$(PIPE) 'time python setup.py install --user 2>&1' 'tee -a $(SAGE_LOGS)/sage-$(SAGE_VERSION).log' && \
+ 		touch $@; \
+ 	fi
+ 
+--- a/sage/src/bin/sage-build
++++ b/sage/src/bin/sage-build
+@@ -27,4 +27,4 @@
+ 
+ # build sage library
+ cd "$SAGE_SRC"
+-python setup.py install
++python setup.py install --user
+--- a/sage/build/pkgs/sagenb/spkg-install
++++ b/sage/build/pkgs/sagenb/spkg-install
+@@ -40,9 +40,9 @@
+ 
+ # Install dependencies
+ for PKG in $(cat src/install_order); do
+-    easy_install -H None "src/$PKG" || die "Error installing $PKG !"
++    easy_install --user -H None "src/$PKG" || die "Error installing $PKG !"
+ done
+ PKG=$(ls -1 src | GREP_OPTIONS= grep sagenb-)
+ 
+ # Install sagenb into site-packages
+-easy_install -H None "src/$PKG" || die "Error installing sagenb !"
++easy_install --user -H None "src/$PKG" || die "Error installing sagenb !"
