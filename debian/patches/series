@@ -10,3 +10,4 @@ sagedoc_avoid_exception.patch
 silence_matplotlib_1_3_changes.patch
 rubiks_executables_renames.patch
 python_installs_in_userdir.patch
+silence_tachyon_version_check.patch
