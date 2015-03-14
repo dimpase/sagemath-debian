@@ -338,35 +338,6 @@
      """
 -    os.system('maxima')
 +    os.system('maxima -l ecl')
---- a/sage/src/sage/interfaces/rubik.py
-+++ b/sage/src/sage/interfaces/rubik.py
-@@ -88,7 +88,7 @@
-     """
-     Interface to Michael Reid's optimal Rubik's Cube solver.
-     """
--    __cmd = "optimal"
-+    __cmd = "rubiks_optimal"
- 
-     def __init__(self, verbose=False, wait=True):
-         self.verbose = verbose
-@@ -176,7 +176,7 @@
- 
- class CubexSolver:
- 
--    __cmd = "cubex"
-+    __cmd = "rubiks_cubex"
- 
-     def __call__(self, facets):
-         return self.solve(facets)
-@@ -230,7 +230,7 @@
- 
- class DikSolver:
- 
--    __cmd = "dikcube"
-+    __cmd = "rubiks_dikcube"
- 
-     def __call__(self, facets):
-         return self.solve(facets)
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
 @@ -2148,7 +2148,7 @@

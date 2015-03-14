@@ -8,3 +8,4 @@ silent_debian_bug_780186.patch
 silence_ecl_opt_interrupt_signal.patch
 sagedoc_avoid_exception.patch
 silence_matplotlib_1_3_changes.patch
+rubiks_executables_renames.patch
