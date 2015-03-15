@@ -326,7 +326,6 @@ AC_SUBST(HAS_PIL)
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
 
-# FIXME(polybori): bug #751098 explains how to make that work
 PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
 AC_SUBST(HAS_POLYBORI)
 
