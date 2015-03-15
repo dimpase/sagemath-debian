@@ -21,8 +21,7 @@ AC_SUBST(HAS_BACKPORTS_SSL_MATCH_HOSTNAME)
 AC_CHECK_HEADER(gc.h, HAS_BOEHM_GC="True", HAS_BOEHM_GC="False")
 AC_SUBST(HAS_BOEHM_GC)
 
-# FIXME(boost): only needed for polybori, hence not needed
-HAS_BOOST="True"
+AC_CHECK_HEADER(boost/regex.h, HAS_BOOST="True", HAS_BOOST="False")
 AC_SUBST(HAS_BOOST)
 
 AC_CHECK_PROG(HAS_BZIP2, bzip2, "True", "False")
