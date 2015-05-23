@@ -124,14 +124,6 @@ AC_SUBST(HAS_GAP)
 AC_CHECK_HEADER(gd.h, HAS_GD="True", HAS_GD="False")
 AC_SUBST(HAS_GD)
 
-AC_CHECK_PYTHON_MODULE(gd)
-if test "x${PYTHON_gd}" = "x1"; then
-  HAS_GDMODULE="True"
-else
-  HAS_GDMODULE="False"
-fi
-AC_SUBST(HAS_GDMODULE)
-
 AC_CHECK_HEADER(gf2x.h, HAS_GF2X="True", HAS_GF2X="False")
 AC_SUBST(HAS_GF2X)
 
