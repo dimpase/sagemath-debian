@@ -1,0 +1,23 @@
+--- a/sage/src/Makefile
++++ b/sage/src/Makefile
+@@ -24,7 +24,7 @@
+ 
+ 
+ # Auto-generated files
+-sage/libs/pari/auto_gen.pxi: $(SAGE_LOCAL)/share/pari/pari.desc \
++sage/libs/pari/auto_gen.pxi: /usr/share/pari/pari.desc \
+         sage/libs/pari/decl.pxi sage_setup/autogen/pari/*.py
+ 	python -c "from sage_setup.autogen.pari import rebuild; rebuild()"
+ 
+--- a/sage/src/sage_setup/autogen/pari/parser.py
++++ b/sage/src/sage_setup/autogen/pari/parser.py
+@@ -43,8 +43,7 @@
+         sage: pari_share()
+         '.../local/share/pari'
+     """
+-    SAGE_LOCAL = os.environ["SAGE_LOCAL"]
+-    return os.path.join(SAGE_LOCAL, "share", "pari")
++    return os.path.join("/usr", "share", "pari")
+ 
+ paren_re = re.compile(r"[(](.*)[)]")
+ argname_re = re.compile(r"[ {]*([A-Za-z0-9_]+)")
