@@ -215,6 +215,10 @@ AC_CHECK_HEADERS(m4rie/m4rie.h, HAS_M4RIE="True", HAS_M4RIE="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_M4RIE)
 
+# FIXME(markupsafe): only needed for jinja2, hence not needed
+HAS_MARKUPSAFE="True"
+AC_SUBST(HAS_MARKUPSAFE)
+
 AC_CHECK_FILE(/usr/share/javascript/mathjax/MathJax.js, HAS_MATHJAX="True", HAS_MATHJAX="False")
 AC_SUBST(HAS_MATHJAX)
 
@@ -232,6 +236,10 @@ AC_CHECK_FILE(/usr/share/doc/maxima-share/copyright, , HAS_MAXIMA="False")
 AC_CHECK_FILE(/usr/share/doc/maxima-doc/copyright, , HAS_MAXIMA="False")
 AC_CHECK_FILE(/usr/share/doc/maxima/copyright, , HAS_MAXIMA="False")
 AC_SUBST(HAS_MAXIMA)
+
+# FIXME(mistune): only needed for ipython 3, hence not needed
+HAS_MISTUNE="True"
+AC_SUBST(HAS_MISTUNE)
 
 AC_CHECK_HEADERS(mpc.h, HAS_MPC="True", HAS_MPC="False")
 AC_SUBST(HAS_MPC)
