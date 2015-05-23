@@ -30,5 +30,5 @@ and not in the user home.
 +        sage: from site import getusersitepackages
 +        sage: site_packages = getusersitepackages()
          sage: files_by_module = installed_files_by_module(site_packages)
-         sage: files_by_module['sage.structure.sage_object']
-         {'sage/structure/sage_object.so'}
+         sage: from sage.misc.sageinspect import loadable_module_extension
+         sage: files_by_module['sage.structure.sage_object'] == \

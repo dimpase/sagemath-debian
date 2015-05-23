@@ -1,6 +1,6 @@
 --- a/sage/src/sage/libs/singular/function.pyx
 +++ b/sage/src/sage/libs/singular/function.pyx
-@@ -1339,7 +1339,8 @@
+@@ -1350,7 +1350,8 @@
  """%(self._name,self._name)
          # Trac ticket #11268: Include the Singular documentation as a block of code
          singular_doc = get_docstring(self._name).split('\n')
