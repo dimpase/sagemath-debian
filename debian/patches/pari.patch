@@ -1,3 +1,51 @@
+--- a/sage/src/bin/sage-env
++++ b/sage/src/bin/sage-env
+@@ -300,9 +300,9 @@
+ fi
+ 
+ # For PARI/GP
+-GP_DATA_DIR="$SAGE_LOCAL/share/pari" && export GP_DATA_DIR
+-GPHELP="$SAGE_LOCAL/bin/gphelp" && export GPHELP
+-GPDOCDIR="$SAGE_LOCAL/share/pari/doc" && export GPDOCDIR
++GP_DATA_DIR="/usr/share/pari" && export GP_DATA_DIR
++GPHELP="/usr/bin/gphelp" && export GPHELP
++GPDOCDIR="/usr/share/pari/doc" && export GPDOCDIR
+ 
+ # Allow git to work without warning messages after relocating Sage.
+ # See trac #15901.
+--- a/sage/src/sage/interfaces/gp.py
++++ b/sage/src/sage/interfaces/gp.py
+@@ -222,9 +222,9 @@
+         # list of directories where gp will look for scripts (only current working directory)
+         self._eval_line('default(path,".");')
+         # location of elldata, seadata, galdata
+-        self._eval_line('default(datadir, "$SAGE_LOCAL/share/pari");')
++        self._eval_line('default(datadir, "/usr/share/pari");')
+         # executable for gp ?? help
+-        self._eval_line('default(help, "$SAGE_LOCAL/bin/gphelp -detex");')
++        self._eval_line('default(help, "/usr/bin/gphelp -detex");')
+         # logfile disabled since Expect already logs
+         self._eval_line('default(log,0);')
+ 
+@@ -501,7 +501,7 @@
+             sage: gp.get_default('log')
+             0
+             sage: gp.get_default('datadir')
+-            '.../local/share/pari'
++            '.../share/pari'
+             sage: gp.get_default('seriesprecision')
+             16
+             sage: gp.get_default('realprecision')
+--- a/sage/src/sage/libs/pari/decl.pxi
++++ b/sage/src/sage/libs/pari/decl.pxi
+@@ -4266,5 +4266,5 @@
+ 
+     extern gp_data* GP_DATA
+ 
+-cdef extern from 'pari/anal.h':
+-    char* closure_func_err()
++#cdef extern from 'pari/anal.h':
++cdef extern char* closure_func_err()
 --- a/sage/src/Makefile
 +++ b/sage/src/Makefile
 @@ -24,7 +24,7 @@

@@ -1,3 +1,14 @@
+--- a/sage/src/doc/en/constructions/plotting.rst
++++ b/sage/src/doc/en/constructions/plotting.rst
+@@ -214,7 +214,7 @@
+ ::
+ 
+     sage: maxima.eval('load("plotdf");')
+-    '".../local/share/maxima/.../share/dynamics/plotdf.lisp"'
++    '".../share/maxima/.../share/dynamics/plotdf.lisp"'
+     sage: maxima.eval('plotdf(x+y,[trajectory_at,2,-0.1]); ') #optional
+ 
+ This plots a direction field (the plotdf Maxima package was also
 --- a/sage/src/sage/interfaces/maxima_lib.py
 +++ b/sage/src/sage/interfaces/maxima_lib.py
 @@ -77,7 +77,7 @@
@@ -9,3 +20,61 @@
  ecl_eval("(in-package :maxima)")
  ecl_eval("(setq $nolabels t))")
  ecl_eval("(defvar *MAXIMA-LANG-SUBDIR* NIL)")
+--- a/sage/src/sage/interfaces/maxima.py
++++ b/sage/src/sage/interfaces/maxima.py
+@@ -551,7 +551,7 @@
+         Expect.__init__(self,
+                         name = 'maxima',
+                         prompt = '\(\%i[0-9]+\) ',
+-                        command = 'maxima --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
++                        command = 'maxima -l ecl --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
+                         maxread = 10000,
+                         script_subdirectory = script_subdirectory,
+                         restart_on_ctrlc = False,
+@@ -765,7 +765,7 @@
+         if not wait_for_prompt:
+             return
+         # line_echo sometimes has randomly inserted terminal echo in front #15811
+-        assert line_echo.strip().endswith(line.strip()), 'mismatch:\n' + line_echo + line
++        #assert line_echo.strip().endswith(line.strip()), 'mismatch:\n' + line_echo + line
+ 
+         self._expect_expr(self._display_prompt)
+         out = self._before()        # input echo + output prompt + output
+--- a/sage/src/sage/interfaces/maxima_abstract.py
++++ b/sage/src/sage/interfaces/maxima_abstract.py
+@@ -157,7 +157,7 @@
+             -- Function: gcd (<p_1>, <p_2>, <x_1>, ...)
+             ...
+         """
+-        cmd = 'maxima --very-quiet -r "%s(%s);" '%(command, s)
++        cmd = 'maxima -l ecl --very-quiet -r "%s(%s);" '%(command, s)
+         if sage.server.support.EMBEDDED_MODE:
+             cmd += '< /dev/null'
+ 
+@@ -165,10 +165,7 @@
+             p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE,
+                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+             res = p.stdout.read()
+-            # We get 4 lines of commented verbosity
+-            # every time Maxima starts, so we need to get rid of them
+-            for _ in range(4):
+-                res = res[res.find('\n')+1:]
++            res = '\n'.join([line for line in res.split('\n') if line != '' and not line.startswith(';;;') and not line.startswith('(%i1)')])
+             return AsciiArtString(res)
+         else:
+             subprocess.Popen(cmd, shell=True)
+@@ -2349,7 +2346,7 @@
+         sage: maxima_version()
+         '5.35.1'
+     """
+-    return os.popen('maxima --version').read().split()[-1]
++    return os.popen('maxima -l ecl --version').read().split()[-1]
+ 
+ def maxima_console():
+     """
+@@ -2362,4 +2359,4 @@
+         Maxima 5.34.1 http://maxima.sourceforge.net
+         ...
+     """
+-    os.system('maxima')
++    os.system('maxima -l ecl')
