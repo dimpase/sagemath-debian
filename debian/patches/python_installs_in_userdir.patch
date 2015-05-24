@@ -18,3 +18,14 @@
  if [ $? -ne 0 ]; then
      echo >&2 "Error: Installing SageNB failed."
      exit 1
+--- a/sage/src/Makefile
++++ b/sage/src/Makefile
+@@ -6,7 +6,7 @@
+ 	$(MAKE) sage
+ 
+ sage: sage/libs/pari/auto_gen.pxi sage/ext/interpreters/__init__.py
+-	python setup.py install
++	python setup.py install --user
+ 
+ csage:
+ 	cd c_lib && scons -Q install
