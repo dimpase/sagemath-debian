@@ -238,7 +238,12 @@ AC_CHECK_FILE(/usr/share/doc/maxima/copyright, , HAS_MAXIMA="False")
 AC_SUBST(HAS_MAXIMA)
 
 # FIXME(mistune): only needed for ipython 3, hence not needed
-HAS_MISTUNE="True"
+AC_CHECK_PYTHON_MODULE(mistune)
+if test "x${PYTHON_mistune}" = "x1"; then
+  HAS_MISTUNE="True"
+else
+  HAS_MISTUNE="False"
+fi
 AC_SUBST(HAS_MISTUNE)
 
 AC_CHECK_HEADERS(mpc.h, HAS_MPC="True", HAS_MPC="False")
