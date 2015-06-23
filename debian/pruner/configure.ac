@@ -311,14 +311,6 @@ else
 fi
 AC_SUBST(HAS_PEXPECT)
 
-# FIXME(pkgconf): probably not needed, since we have pkg-config
-HAS_PKGCONF="True"
-AC_SUBST(HAS_PKGCONF)
-
-# FIXME(pkgconfig): probably not needed, since it's not used!
-HAS_PKGCONFIG="True"
-AC_SUBST(HAS_PKGCONFIG)
-
 AC_CHECK_PYTHON_MODULE(PIL)
 if test "x${PYTHON_PIL}" = "x1"; then
   HAS_PIL="True"
@@ -329,6 +321,14 @@ AC_SUBST(HAS_PIL)
 
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
+
+# FIXME(pkgconf): probably not needed, since we have pkg-config
+HAS_PKGCONF="True"
+AC_SUBST(HAS_PKGCONF)
+
+# FIXME(pkgconfig): probably not needed, since it's not used!
+HAS_PKGCONFIG="True"
+AC_SUBST(HAS_PKGCONFIG)
 
 PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
 AC_SUBST(HAS_POLYBORI)
