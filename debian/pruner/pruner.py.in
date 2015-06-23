@@ -115,6 +115,7 @@ dico = {
     'termcap': @HAS_READLINE@,
     'rpy2': @HAS_RPY2@,
     'rubiks': @HAS_RUBIKS@,
+    'rw': @HAS_RW@,
     'sagenb': @HAS_SAGENB@,
     'sagetex': @HAS_SAGETEX@,
     'scipy': @HAS_SCIPY@,

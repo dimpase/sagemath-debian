@@ -403,6 +403,9 @@ AC_SUBST(HAS_RPY2)
 AC_CHECK_PROG(HAS_RUBIKS, rubiks_cubex, "True", "False")
 AC_SUBST(HAS_RUBIKS)
 
+AC_CHECK_HEADERS(rw.h, HAS_RW="True", HAS_RW="False")
+AC_SUBST(HAS_RW)
+
 # FIXME(sagenb): doesn't work, but low priority
 AC_CHECK_PYTHON_MODULE(sagenb)
 if test "x${PYTHON_sagenb}" = "x1"; then
