@@ -98,6 +98,7 @@ dico = {
     'pip': @HAS_PIP@,
     'pkgconf': @HAS_PKGCONF@,
     'pkgconfig': @HAS_PKGCONFIG@,
+    'planarity': @HAS_PLANARITY@,
     'polybori': @HAS_POLYBORI@,
     'polytopes_db': @HAS_POLYTOPES@,
     'ppl': @HAS_PPL@,

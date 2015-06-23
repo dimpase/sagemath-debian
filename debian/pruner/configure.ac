@@ -330,6 +330,10 @@ AC_SUBST(HAS_PKGCONF)
 HAS_PKGCONFIG="True"
 AC_SUBST(HAS_PKGCONFIG)
 
+# FIXME(planarity): sagemath uses a heavily patched upstream -- work pending
+HAS_PLANARITY="False"
+AC_SUBST(HAS_PLANARITY)
+
 PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
 AC_SUBST(HAS_POLYBORI)
 
