@@ -1,0 +1,58 @@
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -395,7 +395,7 @@
+ 
+ if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
+     shift
+-    exec singular "$@"
++    exec Singular "$@"
+ fi
+ 
+ if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
+--- a/sage/src/sage/interfaces/singular.py
++++ b/sage/src/sage/interfaces/singular.py
+@@ -2148,7 +2148,7 @@
+     nodes.clear()
+     node_names.clear()
+ 
+-    singular_docdir = os.environ["SAGE_LOCAL"]+"/share/singular/"
++    singular_docdir = "/usr/share/singular-3-1-6/info/"
+ 
+     new_node = re.compile("File: singular\.hlp,  Node: ([^,]*),.*")
+     new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
+--- a/sage/src/sage/libs/singular/singular.pyx
++++ b/sage/src/sage/libs/singular/singular.pyx
+@@ -712,15 +712,13 @@
+ 
+     cdef void *handle = NULL
+ 
+-    for extension in ["so", "dylib", "dll"]:
+-        lib = os.environ['SAGE_LOCAL']+"/lib/libsingular."+extension
+-        if os.path.exists(lib):
+-            handle = dlopen(lib, RTLD_GLOBAL|RTLD_LAZY)
+-            if not handle:
+-                err = dlerror()
+-                if err:
+-                    print err
+-            break
++    lib = "/usr/lib/libsingular.so"
++    if os.path.exists(lib):
++        handle = dlopen(lib, RTLD_GLOBAL|RTLD_LAZY)
++        if not handle:
++            err = dlerror()
++            if err:
++                print err
+ 
+     if handle == NULL:
+         raise ImportError, "cannot load libSINGULAR library"
+--- a/sage/src/sage/misc/cython.py
++++ b/sage/src/sage/misc/cython.py
+@@ -336,7 +336,7 @@
+ 
+         sage: code = [
+         ... "#clang C++",
+-        ... "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
++        ... "#cinclude /usr/include/singular /usr/include/factory",
+         ... "#clib m readline singular givaro ntl gmpxx gmp",
+         ... "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
+         ... "from sage.libs.singular.polynomial cimport singular_polynomial_pow",

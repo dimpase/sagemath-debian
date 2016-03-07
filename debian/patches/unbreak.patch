@@ -38,15 +38,6 @@
  
      # Display the startup banner
      if [ "$SAGE_BANNER" != "no" ]; then
-@@ -395,7 +395,7 @@
- 
- if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
-     shift
--    exec singular "$@"
-+    exec Singular "$@"
- fi
- 
- if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -247,8 +247,8 @@
@@ -202,17 +193,6 @@
  
  first_try = True
  
---- a/sage/src/sage/interfaces/singular.py
-+++ b/sage/src/sage/interfaces/singular.py
-@@ -2148,7 +2148,7 @@
-     nodes.clear()
-     node_names.clear()
- 
--    singular_docdir = os.environ["SAGE_LOCAL"]+"/share/singular/"
-+    singular_docdir = "/usr/share/singular-3-1-6/info/"
- 
-     new_node = re.compile("File: singular\.hlp,  Node: ([^,]*),.*")
-     new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/libs/gap/util.pyx
 +++ b/sage/src/sage/libs/gap/util.pyx
 @@ -156,7 +156,7 @@
@@ -224,31 +204,6 @@
      if os.path.exists(gapdir):
          return gapdir
      print 'The gap-4.5.5.spkg (or later) seems to be not installed!'
---- a/sage/src/sage/libs/singular/singular.pyx
-+++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -712,15 +712,13 @@
- 
-     cdef void *handle = NULL
- 
--    for extension in ["so", "dylib", "dll"]:
--        lib = os.environ['SAGE_LOCAL']+"/lib/libsingular."+extension
--        if os.path.exists(lib):
--            handle = dlopen(lib, RTLD_GLOBAL|RTLD_LAZY)
--            if not handle:
--                err = dlerror()
--                if err:
--                    print err
--            break
-+    lib = "/usr/lib/libsingular.so"
-+    if os.path.exists(lib):
-+        handle = dlopen(lib, RTLD_GLOBAL|RTLD_LAZY)
-+        if not handle:
-+            err = dlerror()
-+            if err:
-+                print err
- 
-     if handle == NULL:
-         raise ImportError, "cannot load libSINGULAR library"
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -68,9 +68,9 @@
@@ -264,15 +219,6 @@
                  os.path.join(SAGE_SRC,'sage','ext'), \
                  os.path.join(SAGE_SRC), \
                  os.path.join(SAGE_SRC,'sage','gsl')]
-@@ -336,7 +336,7 @@
- 
-         sage: code = [
-         ... "#clang C++",
--        ... "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
-+        ... "#cinclude /usr/include/singular /usr/include/factory",
-         ... "#clib m readline singular givaro ntl gmpxx gmp",
-         ... "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
-         ... "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
 @@ -435,7 +435,7 @@
      file_list = []
      for fname in additional_source_files:
@@ -359,7 +305,16 @@
      for path in libgap.eval('GAP_ROOT_PATHS').sage():
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -139,9 +139,9 @@
+@@ -38,6 +38,8 @@
+ # search for dependencies and add to gcc -I<path>
+ import numpy
+ include_dirs = [SAGE_INC,
++                os.path.join(SAGE_INC, 'factory'),
++                os.path.join(SAGE_INC, 'singular'),
+                 SAGE_SRC,
+                 os.path.join(SAGE_SRC, 'c_lib', 'include'),
+                 os.path.join(SAGE_SRC, 'sage', 'ext'),
+@@ -139,9 +141,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -372,7 +327,7 @@
                }
  
  # In the loop below, don't append to any list, since many of these
-@@ -167,7 +167,7 @@
+@@ -167,7 +169,7 @@
  
      m.extra_compile_args = m.extra_compile_args + extra_compile_args
      m.extra_link_args = m.extra_link_args + extra_link_args

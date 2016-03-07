@@ -2,6 +2,8 @@ unbreak.patch
 trac_17872.patch
 maxima.patch
 remove_singular_warning.patch
+# TODO: not yet using Debian/system singular; uncomment when we do
+#singular_build.patch
 singular_doc.patch
 python_security.patch
 silent_debian_bug_780186.patch
@@ -12,3 +14,4 @@ rubiks_executables_renames.patch
 python_installs_in_userdir.patch
 pari.patch
 spkg_ipython_fix.patch
+rw-spkg.patch

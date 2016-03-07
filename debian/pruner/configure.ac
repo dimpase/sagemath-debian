@@ -28,9 +28,7 @@ AC_CHECK_PROG(HAS_BZIP2, bzip2, "True", "False")
 AC_SUBST(HAS_BZIP2)
 
 AC_CHECK_PROG(HAS_CDDLIB, cdd_both_reps, "True", "False")
-if test "x${HAS_CDDLIB}" = "xTrue"; then
-  AC_CHECK_HEADER(cdd/setoper.h, HAS_CDDLIB="True", HAS_CDDLIB="False")
-fi
+AC_CHECK_HEADER(cdd/setoper.h, HAS_CDDLIB="True", HAS_CDDLIB="False")
 AC_SUBST(HAS_CDDLIB)
 
 # FIXME(cephes): we shouldn't need it
