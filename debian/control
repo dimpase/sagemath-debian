@@ -90,6 +90,7 @@ Build-Depends:
  python-networkx,
  python-numpy,
  python-pexpect,
+ python-pil,
  python-pip,
  python-pkgconfig,
  python-ply,
