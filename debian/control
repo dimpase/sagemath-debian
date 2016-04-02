@@ -12,8 +12,8 @@ Build-Depends:
  cython (>= 0.19),
  debhelper (>= 9),
  dpkg-dev (>= 1.15.7~),
- ecl (>= 11),
- eclib-tools,
+ ecl (= 13.5.1+dfsg2-4.2+sage1),
+ eclib-tools (>= 20160101-1+sage1),
  f2c,
  fflas-ffpack,
  flintqs,
@@ -22,13 +22,13 @@ Build-Depends:
  gfan,
  gmp-ecm,
  ipython,
- lcalc (>= 1.23+dfsg-4),
+ lcalc (>= 1.23+dfsg-5sage1),
  libatlas-base-dev,
  libblas-dev,
  libboost-dev (>= 1.55),
  libcdd-dev (>= 094h-1),
  libcliquer-dev,
- libec-dev (>= 0.0.2012.02.01),
+ libec-dev (>= 20160101-1+sage1),
  libecm-dev,
  libflint-dev (>= 2.3),
  libfplll-dev,
@@ -68,11 +68,11 @@ Build-Depends:
  libsymmetrica-dev,
  libtachyon-dev,
  libzn-poly-dev,
- maxima,
- maxima-doc,
- maxima-share,
+ maxima (= 5.35.1-5sage2),
+ maxima-doc (= 5.35.1-5sage2),
+ maxima-share (= 5.35.1-5sage2),
  palp (>= 2.1-2),
- pari-doc,
+ pari-doc (>= 2.8-1564-gdeac36e-1),
  pari-galdata,
  pari-seadata,
  python2.7-dev,
@@ -116,7 +116,9 @@ Build-Depends:
  sqlite3,
  sympow,
  tachyon,
- zlib1g-dev
+ zlib1g-dev,
+# Packages not in unstable, but in unstable-sage:
+ python-sagenb (>= 0.11.2),
 
 # some tests will fail with python-matplotlib <=1.2.1
 
@@ -130,4 +132,3 @@ Depends:
 
 # Packages not in unstable:
 # libsingular-dev (>= 3-1-6),
-# python-sagenb (>= 0.10.4),
