@@ -118,6 +118,8 @@ Build-Depends:
  tachyon,
  zlib1g-dev,
 # Packages not in unstable, but in unstable-sage:
+ libsingular-dev (>= 3-1-6+dfsg-1+sage1),
+ libsingular-dev (<< 4),
  python-sagenb (>= 0.11.2),
 
 # some tests will fail with python-matplotlib <=1.2.1
@@ -129,6 +131,3 @@ Description: Empty package with the runtime dependencies of sage
  that are currently in Debian testing.
 Depends:
  ${misc:Depends}
-
-# Packages not in unstable:
-# libsingular-dev (>= 3-1-6),
