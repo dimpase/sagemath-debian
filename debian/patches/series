@@ -1,5 +1,4 @@
 unbreak.patch
-trac_17872.patch
 maxima.patch
 remove_singular_warning.patch
 singular_build.patch
