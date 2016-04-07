@@ -1,6 +1,6 @@
 --- a/sage/build/pkgs/sagenb/spkg-install
 +++ b/sage/build/pkgs/sagenb/spkg-install
-@@ -46,7 +46,7 @@
+@@ -51,7 +51,7 @@
  
  # Install dependencies
  for PKG in $(cat src/install_order); do
@@ -9,7 +9,7 @@
      if [ $? -ne 0 ]; then
          echo >&2 "Error: Installing $PKG failed."
          exit 1
-@@ -56,7 +56,7 @@
+@@ -61,7 +61,7 @@
  
  # Install sagenb into site-packages
  PKG=$(ls -1 src | GREP_OPTIONS= grep sagenb-)
@@ -20,12 +20,12 @@
      exit 1
 --- a/sage/src/Makefile
 +++ b/sage/src/Makefile
-@@ -6,7 +6,7 @@
- 	$(MAKE) sage
+@@ -3,7 +3,7 @@
+ all: sage
  
  sage: sage/libs/pari/auto_gen.pxi sage/ext/interpreters/__init__.py
--	python setup.py install
-+	python setup.py install --user
+-	python -u setup.py install
++	python -u setup.py install --user
  
- csage:
- 	cd c_lib && scons -Q install
+ clean:
+ 	@echo "Deleting Sage library build artifacts..."

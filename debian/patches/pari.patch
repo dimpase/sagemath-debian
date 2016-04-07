@@ -1,6 +1,6 @@
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -300,9 +300,9 @@
+@@ -309,9 +309,9 @@
  fi
  
  # For PARI/GP
@@ -15,7 +15,7 @@
  # See trac #15901.
 --- a/sage/src/sage/interfaces/gp.py
 +++ b/sage/src/sage/interfaces/gp.py
-@@ -222,9 +222,9 @@
+@@ -244,9 +244,9 @@
          # list of directories where gp will look for scripts (only current working directory)
          self._eval_line('default(path,".");')
          # location of elldata, seadata, galdata
@@ -26,8 +26,8 @@
 +        self._eval_line('default(help, "/usr/bin/gphelp -detex");')
          # logfile disabled since Expect already logs
          self._eval_line('default(log,0);')
- 
-@@ -501,7 +501,7 @@
+         # set random seed
+@@ -525,7 +525,7 @@
              sage: gp.get_default('log')
              0
              sage: gp.get_default('datadir')
@@ -36,19 +36,9 @@
              sage: gp.get_default('seriesprecision')
              16
              sage: gp.get_default('realprecision')
---- a/sage/src/sage/libs/pari/decl.pxi
-+++ b/sage/src/sage/libs/pari/decl.pxi
-@@ -4266,5 +4266,5 @@
- 
-     extern gp_data* GP_DATA
- 
--cdef extern from 'pari/anal.h':
--    char* closure_func_err()
-+#cdef extern from 'pari/anal.h':
-+cdef extern char* closure_func_err()
 --- a/sage/src/Makefile
 +++ b/sage/src/Makefile
-@@ -24,7 +24,7 @@
+@@ -14,7 +14,7 @@
  
  
  # Auto-generated files
@@ -68,4 +58,14 @@
 +    return os.path.join("/usr", "share", "pari")
  
  paren_re = re.compile(r"[(](.*)[)]")
- argname_re = re.compile(r"[ {]*([A-Za-z0-9_]+)")
+ argname_re = re.compile(r"[ {]*([A-Za-z_][A-Za-z0-9_]*)")
+--- a/sage/src/sage/libs/pari/paripriv.pxd
++++ b/sage/src/sage/libs/pari/paripriv.pxd
+@@ -26,5 +26,5 @@
+ 
+     extern gp_data* GP_DATA
+ 
+-cdef extern from "pari/anal.h":
+-    char* closure_func_err()
++#cdef extern from 'pari/anal.h':
++cdef extern char* closure_func_err()
