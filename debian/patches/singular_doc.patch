@@ -1,27 +1,10 @@
-(1) I silenced the qepcad doctest
-(2) The second hunk also makes some doctests pass 
+This patch makes some doctests pass 
 but this will have to go when we install system-wide
 and not in the user home.
 
---- a/sage/src/sage/interfaces/qepcad.py
-+++ b/sage/src/sage/interfaces/qepcad.py
-@@ -518,13 +518,6 @@
-     /\
-     x^2 - 3 < 0
- 
--TESTS:
--
--Check the qepcad configuration file::
--
--    sage: open('%s/default.qepcadrc'%SAGE_LOCAL).readlines()[-1]
--    'SINGULAR .../local/bin\n'
--
- AUTHORS:
- 
- - Carl Witty (2008-03): initial version
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -97,8 +97,8 @@
+@@ -150,8 +150,8 @@
  
      EXAMPLES::
  
@@ -31,4 +14,4 @@ and not in the user home.
 +        sage: site_packages = getusersitepackages()
          sage: files_by_module = installed_files_by_module(site_packages)
          sage: from sage.misc.sageinspect import loadable_module_extension
-         sage: files_by_module['sage.structure.sage_object'] == \
+         sage: 'sage/structure/sage_object' + loadable_module_extension() in \

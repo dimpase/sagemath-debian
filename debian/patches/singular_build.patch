@@ -1,6 +1,6 @@
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -395,7 +395,7 @@
+@@ -459,7 +459,7 @@
  
  if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
      shift
@@ -11,7 +11,7 @@
  if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2148,7 +2148,7 @@
+@@ -2248,7 +2248,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -22,7 +22,7 @@
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/libs/singular/singular.pyx
 +++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -712,15 +712,13 @@
+@@ -711,15 +711,13 @@
  
      cdef void *handle = NULL
  
@@ -47,7 +47,7 @@
          raise ImportError, "cannot load libSINGULAR library"
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -336,7 +336,7 @@
+@@ -305,7 +305,7 @@
  
          sage: code = [
          ... "#clang C++",
