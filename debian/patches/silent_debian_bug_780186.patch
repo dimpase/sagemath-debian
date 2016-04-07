@@ -1,6 +1,6 @@
 --- a/sage/src/sage/ext/memory.pyx
 +++ b/sage/src/sage/ext/memory.pyx
-@@ -2,17 +2,6 @@
+@@ -1,17 +1,6 @@
  """
  Low-level memory allocation functions
  

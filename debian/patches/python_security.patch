@@ -1,6 +1,6 @@
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -451,19 +451,20 @@
+@@ -469,19 +469,20 @@
          ``sage/tests/cmdline.py`` for a doctest that this works, see
          also :trac:`13579`.
  
@@ -35,7 +35,7 @@
          with open(os.devnull, 'w') as dev_null:
 --- a/sage/src/sage/tests/cmdline.py
 +++ b/sage/src/sage/tests/cmdline.py
-@@ -373,23 +373,24 @@
+@@ -386,23 +386,24 @@
          sage: ret
          1
  
