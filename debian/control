@@ -56,6 +56,7 @@ Build-Depends:
  libmpfr-dev,
  libntl-dev,
  libpari-dev (>= 2.4),
+ libplanarity-dev,
  libpng-dev,
  libpolybori-dev (>= 0.8.3-4),
  libpolybori-groebner-dev,
