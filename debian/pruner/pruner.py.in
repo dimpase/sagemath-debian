@@ -30,7 +30,7 @@ dico = {
     'atlas': @HAS_ATLAS@,
     'backports_ssl_match_hostname': @HAS_BACKPORTS_SSL_MATCH_HOSTNAME@,
     'boost_cropped': @HAS_BOOST@,
-    'brial': @HAS_POLYBORI@, # TODO: we need to package the new version
+    'brial': @HAS_POLYBORI@,
     'bzip2': @HAS_BZIP2@,
     'cddlib': @HAS_CDDLIB@,
     'cephes': @HAS_CEPHES@,

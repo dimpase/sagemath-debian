@@ -334,7 +334,13 @@ AC_SUBST(HAS_PKGCONFIG)
 AC_CHECK_HEADERS(planarity/planarity.h, HAS_PLANARITY="True", HAS_PLANARITY="False")
 AC_SUBST(HAS_PLANARITY)
 
-PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
+# TODO(brial): brial 0.8.4.3+ has lost its pkg-config file. Hopefully this will
+# come back in the future when upstream finish their renaming efforts, and then
+# we can uncomment the below line again.
+#PKG_CHECK_MODULES(polybori, [polybori-0.8 polybori-groebner-0.8], [HAS_POLYBORI="True"], [HAS_POLYBORI="False"])
+AC_LANG_PUSH([C++])
+AC_CHECK_HEADERS([polybori.h polybori/groebner/groebner.h], HAS_POLYBORI="True", HAS_POLYBORI="False")
+AC_LANG_POP([C++])
 AC_SUBST(HAS_POLYBORI)
 
 AC_CHECK_FILE(/usr/share/sagemath/reflexive_polytopes/reflexive_polytopes_2d, HAS_POLYTOPES="True", HAS_POLYTOPES="False")
