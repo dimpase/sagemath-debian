@@ -12,7 +12,7 @@ Build-Depends:
  cython (>= 0.19),
  debhelper (>= 9),
  dpkg-dev (>= 1.15.7~),
- ecl (= 13.5.1+dfsg2-4.2+sage1),
+ ecl (= 15.3.7+dfsg1-1+sage1),
  eclib-tools (>= 20160101-1+sage1),
  f2c,
  fflas-ffpack,
