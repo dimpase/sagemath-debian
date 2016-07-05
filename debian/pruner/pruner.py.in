@@ -38,6 +38,11 @@ mkdir_if_needed (installed_dir)
 mkdir_if_needed ('@SAGE_ROOT@/local')
 mkdir_if_needed ('@SAGE_ROOT@/local/include')
 
+sage_standard_packages = set(subprocess.check_output([
+    '/bin/sh', '-c',
+    'for p in @SAGE_ROOT@/build/pkgs/*; do test $(cat $p/type) = standard && basename $p; done'
+]).split())
+
 dico = {
     'arb': @HAS_ARB@,
     'atlas': @HAS_ATLAS@,
@@ -164,6 +169,11 @@ dico = {
     'zlib': @HAS_ZLIB@,
     'zn_poly': @HAS_ZNPOLY@
 }
+
+# report missing standard packages too
+for p in sage_standard_packages:
+    if p not in dico:
+        dico[p] = False
 
 for key, val in dico.items():
     if val:
