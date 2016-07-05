@@ -9,7 +9,7 @@ Standards-Version: 3.9.6
 X-Python-Version: 2.7
 Build-Depends:
  autoconf,
- cython (>= 0.19),
+ cython (= 0.23.4+git4-g7eed8d8-1+sage1),
  debhelper (>= 9),
  dpkg-dev (>= 1.15.7~),
  ecl (= 15.3.7+dfsg1-1+sage1),
