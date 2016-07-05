@@ -14,6 +14,14 @@ PKG_PROG_PKG_CONFIG
 AC_CHECK_HEADER(atlas/clapack.h, HAS_ATLAS="True", HAS_ATLAS="False")
 AC_SUBST(HAS_ATLAS)
 
+AC_CHECK_PYTHON_MODULE(backports_abc)
+if test "x${PYTHON_backports_abc}" = "x1"; then
+  HAS_BACKPORTS_ABC="True"
+else
+  HAS_BACKPORTS_ABC="False"
+fi
+AC_SUBST(HAS_BACKPORTS_ABC)
+
 # FIXME(backports_ssl_match_hostname): only needed for tornado, hence not needed
 HAS_BACKPORTS_SSL_MATCH_HOSTNAME="True"
 AC_SUBST(HAS_BACKPORTS_SSL_MATCH_HOSTNAME)
@@ -56,6 +64,14 @@ else
 fi
 AC_SUBST(HAS_CVXOPT)
 
+AC_CHECK_PYTHON_MODULE(cycler)
+if test "x${PYTHON_cycler}" = "x1"; then
+  HAS_CYCLER="True"
+else
+  HAS_CYCLER="False"
+fi
+AC_SUBST(HAS_CYCLER)
+
 AC_CHECK_PROG(HAS_CYTHON, cython, "True", "False")
 AC_SUBST(HAS_CYTHON)
 
@@ -66,6 +82,14 @@ else
   HAS_DATEUTIL="False"
 fi
 AC_SUBST(HAS_DATEUTIL)
+
+AC_CHECK_PYTHON_MODULE(decorator)
+if test "x${PYTHON_decorator}" = "x1"; then
+  HAS_DECORATOR="True"
+else
+  HAS_DECORATOR="False"
+fi
+AC_SUBST(HAS_DECORATOR)
 
 AC_CHECK_PYTHON_MODULE(docutils)
 if test "x${PYTHON_docutils}" = "x1"; then
@@ -105,6 +129,12 @@ AC_SUBST(HAS_FFLAS_FFPACK)
 AC_CHECK_HEADER(flint/config.h, HAS_FLINT="True", HAS_FLINT="False")
 AC_SUBST(HAS_FLINT)
 
+old_CPPFLAGS=$CPPFLAGS
+CPPFLAGS="$old_CPPFLAGS -I/usr/include/flint"
+AC_CHECK_HEADER(arb.h, HAS_ARB="True", HAS_ARB="False")
+CPPFLAGS=$old_CPPFLAGS
+AC_SUBST(HAS_ARB)
+
 AC_CHECK_PROG(HAS_FLINTQS, QuadraticSieve, "True", "False")
 AC_SUBST(HAS_FLINTQS)
 
@@ -115,6 +145,14 @@ AC_SUBST(HAS_FPLLL)
 
 AC_CHECK_PROG(HAS_FREETYPE, freetype-config, "True", "False")
 AC_SUBST(HAS_FREETYPE)
+
+AC_CHECK_PYTHON_MODULE(functools32)
+if test "x${PYTHON_functools32}" = "x1"; then
+  HAS_FUNCTOOLS32="True"
+else
+  HAS_FUNCTOOLS32="False"
+fi
+AC_SUBST(HAS_FUNCTOOLS32)
 
 AC_CHECK_FILE(/usr/include/gap/gap.h, HAS_GAP="True", HAS_GAP="False")
 AC_SUBST(HAS_GAP)
@@ -153,8 +191,24 @@ AC_SUBST(HAS_ICONV)
 AC_CHECK_HEADER(iml.h, HAS_IML="True", HAS_IML="False", [#include "gmp.h"])
 AC_SUBST(HAS_IML)
 
+AC_CHECK_PYTHON_MODULE(ipykernel)
+if test "x${PYTHON_ipykernel}" = "x1"; then
+  HAS_IPYKERNEL="True"
+else
+  HAS_IPYKERNEL="False"
+fi
+AC_SUBST(HAS_IPYKERNEL)
+
 AC_CHECK_PROG(HAS_IPYTHON, ipython, "True", "False")
 AC_SUBST(HAS_IPYTHON)
+
+AC_CHECK_PYTHON_MODULE(ipython_genutils)
+if test "x${PYTHON_ipython_genutils}" = "x1"; then
+  HAS_IPYTHON_GENUTILS="True"
+else
+  HAS_IPYTHON_GENUTILS="False"
+fi
+AC_SUBST(HAS_IPYTHON_GENUTILS)
 
 AC_CHECK_PYTHON_MODULE(jinja2)
 if test "x${PYTHON_jinja2}" = "x1"; then
@@ -175,6 +229,12 @@ else
   HAS_JSONSCHEMA="False"
 fi
 AC_SUBST(HAS_JSONSCHEMA)
+
+AC_CHECK_PROG(HAS_JUPYTER_CLIENT, jupyter-kernelspec, "True", "False")
+AC_SUBST(HAS_JUPYTER_CLIENT)
+
+AC_CHECK_PROG(HAS_JUPYTER_CORE, jupyter, "True", "False")
+AC_SUBST(HAS_JUPYTER_CORE)
 
 AC_LANG_PUSH([C++])
 AC_CHECK_HEADER(Lfunction/L.h, HAS_LCALC="True", HAS_LCALC="False")
@@ -264,6 +324,9 @@ else
 fi
 AC_SUBST(HAS_MPMATH)
 
+AC_CHECK_PROG(HAS_NAUTY, nauty-genbg, "True", "False")
+AC_SUBST(HAS_NAUTY)
+
 AC_CHECK_HEADERS(ncurses.h, HAS_NCURSES="True", HAS_NCURSES="False")
 AC_SUBST(HAS_NCURSES)
 
@@ -301,6 +364,14 @@ AC_SUBST(HAS_PARI_SEADATA)
 AC_CHECK_PROG(HAS_PATCH, patch, "True", "False")
 AC_SUBST(HAS_PATCH)
 
+AC_CHECK_PYTHON_MODULE(path)
+if test "x${PYTHON_path}" = "x1"; then
+  HAS_PATHPY="True"
+else
+  HAS_PATHPY="False"
+fi
+AC_SUBST(HAS_PATHPY)
+
 AC_CHECK_PYTHON_MODULE(pexpect)
 if test "x${PYTHON_pexpect}" = "x1"; then
   HAS_PEXPECT="True"
@@ -308,6 +379,14 @@ else
   HAS_PEXPECT="False"
 fi
 AC_SUBST(HAS_PEXPECT)
+
+AC_CHECK_PYTHON_MODULE(pickleshare)
+if test "x${PYTHON_pickleshare}" = "x1"; then
+  HAS_PICKLESHARE="True"
+else
+  HAS_PICKLESHARE="False"
+fi
+AC_SUBST(HAS_PICKLESHARE)
 
 AC_CHECK_PYTHON_MODULE(PIL)
 if test "x${PYTHON_PIL}" = "x1"; then
@@ -378,6 +457,14 @@ else
 fi
 AC_SUBST(HAS_PYPARSING)
 
+AC_CHECK_PYTHON_MODULE(ptyprocess)
+if test "x${PYTHON_ptyprocess}" = "x1"; then
+  HAS_PTYPROCESS="True"
+else
+  HAS_PTYPROCESS="False"
+fi
+AC_SUBST(HAS_PTYPROCESS)
+
 PKG_CHECK_MODULES(python, python-2.7, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
 AC_SUBST(HAS_PYTHON)
 
@@ -444,6 +531,30 @@ else
 fi
 AC_SUBST(HAS_SETUPTOOLS)
 
+AC_CHECK_PYTHON_MODULE(setuptools_scm)
+if test "x${PYTHON_setuptools_scm}" = "x1"; then
+  HAS_SETUPTOOLS_SCM="True"
+else
+  HAS_SETUPTOOLS_SCM="False"
+fi
+AC_SUBST(HAS_SETUPTOOLS_SCM)
+
+AC_CHECK_PYTHON_MODULE(simplegeneric)
+if test "x${PYTHON_simplegeneric}" = "x1"; then
+  HAS_SIMPLEGENERIC="True"
+else
+  HAS_SIMPLEGENERIC="False"
+fi
+AC_SUBST(HAS_SIMPLEGENERIC)
+
+AC_CHECK_PYTHON_MODULE(singledispatch)
+if test "x${PYTHON_singledispatch}" = "x1"; then
+  HAS_SINGLEDISPATCH="True"
+else
+  HAS_SINGLEDISPATCH="False"
+fi
+AC_SUBST(HAS_SINGLEDISPATCH)
+
 # FIXME(singular): using the debian-science repository
 AC_LANG_PUSH([C++])
 old_CPPFLAGS=$CPPFLAGS
@@ -497,6 +608,22 @@ else
   HAS_TORNADO="False"
 fi
 AC_SUBST(HAS_TORNADO)
+
+AC_CHECK_PYTHON_MODULE(traitlets)
+if test "x${PYTHON_traitlets}" = "x1"; then
+  HAS_TRAITLETS="True"
+else
+  HAS_TRAITLETS="False"
+fi
+AC_SUBST(HAS_TRAITLETS)
+
+AC_CHECK_PYTHON_MODULE(vcversioner)
+if test "x${PYTHON_vcversioner}" = "x1"; then
+  HAS_VCVERSIONER="True"
+else
+  HAS_VCVERSIONER="False"
+fi
+AC_SUBST(HAS_VCVERSIONER)
 
 # FIXME(zeromq): useful only for pyzmq
 HAS_ZEROMQ="True"
