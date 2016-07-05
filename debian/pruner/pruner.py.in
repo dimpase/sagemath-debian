@@ -4,9 +4,11 @@
 import os
 import codecs
 import subprocess
+import time
 
 system_installed_packages = 0
 installed_dir = '@SAGE_ROOT@/local/var/lib/sage/installed'
+now = int(time.time())
 
 def mkdir_if_needed(dirname):
     if not os.path.exists(dirname):
@@ -19,6 +21,16 @@ def declare_system(package):
     installed = codecs.open(filename, 'w')
     installed.write ('system')
     installed.close()
+    # This is ABSOLUTELY NECESSARY: otherwise sage's Makefiles will think that
+    # pkgs whose "package-version.txt" files that we touched later (simply
+    # because we listed them later in "dico" below), obsolete their
+    # reverse-dependencies further back in the list, and sage will try to
+    # download and build these destroying all our hard work here.
+    #
+    # The "cleaner" way to fix this is to re-order dico below to be in reverse
+    # topological order wrt the dependency graph, but I couldn't be bothered
+    # figuring out what that is.
+    os.utime(filename, (now, now))
     system_installed_packages += 1
 
 
