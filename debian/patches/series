@@ -1,6 +1,5 @@
 unbreak.patch
 maxima.patch
-remove_singular_warning.patch
 singular_build.patch
 singular_doc.patch
 python_security.patch
@@ -10,5 +9,4 @@ sagedoc_avoid_exception.patch
 rubiks_executables_renames.patch
 python_installs_in_userdir.patch
 pari.patch
-spkg_ipython_fix.patch
 nauty-bin-rename.patch
