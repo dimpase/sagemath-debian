@@ -1,3 +1,9 @@
+Description: Install Sage spkgs to user's home directory
+ This is a temporary measure to get everything working quickly.
+ Eventually we will get rid of this, and install to debian/tmp via --prefix or --root.
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/Makefile
 +++ b/sage/src/Makefile
 @@ -3,7 +3,7 @@
@@ -86,3 +92,14 @@
  print("Discovered Python/Cython sources, time: %.2f seconds." % (time.time() - t))
  
  
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -14,7 +14,7 @@
+     SAGE_VERSION
+ )
+ from jupyter_core.paths import ENV_JUPYTER_PATH
+-JUPYTER_PATH = ENV_JUPYTER_PATH[0]
++JUPYTER_PATH = os.path.expanduser("~/.local/share/jupyter")
+ 
+ 
+ class SageKernelSpec(object):

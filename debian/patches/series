@@ -7,7 +7,7 @@ silent_debian_bug_780186.patch
 silence_ecl_opt_signals.patch
 sagedoc_avoid_exception.patch
 rubiks_executables_renames.patch
-python_installs_in_userdir.patch
 pari.patch
 nauty-bin-rename.patch
 planarity-update.patch
+python_installs_in_userdir.patch
