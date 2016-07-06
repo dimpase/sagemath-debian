@@ -11,3 +11,4 @@ pari.patch
 nauty-bin-rename.patch
 planarity-update.patch
 python_installs_in_userdir.patch
+use-gsl-cblas.patch
