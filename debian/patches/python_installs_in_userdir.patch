@@ -55,3 +55,17 @@
 + 
 + dist: configure
 + 	chmod go+rX-w -R .
+--- a/sage/src/setup.py
++++ b/sage/src/setup.py
+@@ -595,6 +595,11 @@
+             'embedsignature': True,
+             'profile': profile,
+         })
++    cysignals_user_path = os.path.expanduser("~/.sage/local/lib/python2.7/site-packages/cysignals")
++    for m in ext_modules:
++        for i, p in enumerate(m.include_dirs):
++            if p.endswith("/cysignals"):
++                m.include_dirs[i] = cysignals_user_path
+ 
+     open(version_file, 'w').write(version_stamp)
+ 
