@@ -58,7 +58,7 @@ Build-Depends:
  libmpc-dev (>=1.0),
  libmpfi-dev,
  libmpfr-dev,
- libntl-dev,
+ libntl-dev (>= 9.9.1-2),
  libpari-dev (>= 2.8-2341-g61b65cc-1),
  libplanarity-dev,
  libpng-dev,
