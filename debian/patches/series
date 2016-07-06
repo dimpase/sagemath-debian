@@ -10,3 +10,4 @@ rubiks_executables_renames.patch
 python_installs_in_userdir.patch
 pari.patch
 nauty-bin-rename.patch
+planarity-update.patch
