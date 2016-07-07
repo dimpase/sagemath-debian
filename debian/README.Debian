@@ -12,6 +12,7 @@ schublib.h, symfcn.h need to #include "hashtab.h" (etc) instead of <hashtab.h>
 2. Patch flint-arb:
 
 see https://github.com/fredrik-johansson/arb/pull/55
+see debian/arb-headers.patch for a local workaround
 
 also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp

@@ -1,0 +1,162 @@
+diff -ru -ru arb-headers.orig/acb_mat.h arb-headers/acb_mat.h
+--- arb-headers.orig/acb_mat.h	2016-07-07 15:36:05.889475578 +0200
++++ arb-headers/acb_mat.h	2016-07-07 15:35:09.453928290 +0200
+@@ -34,8 +34,8 @@
+ 
+ #include "arb.h"
+ #include "acb.h"
+-#include "fmpz_mat.h"
+-#include "fmpq_mat.h"
++#include "flint/fmpz_mat.h"
++#include "flint/fmpq_mat.h"
+ #include "arb_mat.h"
+ #include "acb_poly.h"
+ 
+diff -ru -ru arb-headers.orig/arb_mat.h arb-headers/arb_mat.h
+--- arb-headers.orig/arb_mat.h	2016-07-07 15:36:05.885475609 +0200
++++ arb-headers/arb_mat.h	2016-07-07 15:35:09.449928323 +0200
+@@ -33,9 +33,9 @@
+ #endif
+ 
+ #include "arb.h"
+-#include "fmpz_mat.h"
+-#include "fmpq_mat.h"
+-#include "perm.h"
++#include "flint/fmpz_mat.h"
++#include "flint/fmpq_mat.h"
++#include "flint/perm.h"
+ #include "arb_poly.h"
+ 
+ #ifdef __cplusplus
+diff -ru -ru arb-headers.orig/arb_poly.h arb-headers/arb_poly.h
+--- arb-headers.orig/arb_poly.h	2016-07-07 15:36:05.881475642 +0200
++++ arb-headers/arb_poly.h	2016-07-07 15:35:09.445928355 +0200
+@@ -34,8 +34,8 @@
+ 
+ #include "arb.h"
+ #include "acb.h"
+-#include "fmpz_poly.h"
+-#include "fmpq_poly.h"
++#include "flint/fmpz_poly.h"
++#include "flint/fmpq_poly.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ru -ru arb-headers.orig/arf.h arb-headers/arf.h
+--- arb-headers.orig/arf.h	2016-07-07 15:36:05.861475802 +0200
++++ arb-headers/arf.h	2016-07-07 15:35:09.425928516 +0200
+@@ -36,7 +36,7 @@
+ #endif
+ 
+ #include <math.h>
+-#include "flint.h"
++#include "flint/flint.h"
+ #include "fmpr.h"
+ #include "mag.h"
+ 
+diff -ru -ru arb-headers.orig/bernoulli.h arb-headers/bernoulli.h
+--- arb-headers.orig/bernoulli.h	2016-07-07 15:36:05.889475578 +0200
++++ arb-headers/bernoulli.h	2016-07-07 15:35:09.453928290 +0200
+@@ -27,11 +27,11 @@
+ #define BERNOULLI_H
+ 
+ #include <math.h>
+-#include "flint.h"
+-#include "fmpz.h"
+-#include "fmpz_vec.h"
+-#include "fmpq.h"
+-#include "arith.h"
++#include "flint/flint.h"
++#include "flint/fmpz.h"
++#include "flint/fmpz_vec.h"
++#include "flint/fmpq.h"
++#include "flint/arith.h"
+ #include "fmprb.h"
+ #include "arb.h"
+ 
+diff -ru -ru arb-headers.orig/fmprb.h arb-headers/fmprb.h
+--- arb-headers.orig/fmprb.h	2016-07-07 15:36:05.861475802 +0200
++++ arb-headers/fmprb.h	2016-07-07 15:35:09.425928516 +0200
+@@ -27,7 +27,7 @@
+ #define FMPRB_H
+ 
+ #include "fmpr.h"
+-#include "fmpz_poly.h"
++#include "flint/fmpz_poly.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ru -ru arb-headers.orig/fmpr.h arb-headers/fmpr.h
+--- arb-headers.orig/fmpr.h	2016-07-07 15:36:05.865475770 +0200
++++ arb-headers/fmpr.h	2016-07-07 15:35:09.429928484 +0200
+@@ -33,12 +33,12 @@
+ #include <limits.h>
+ #include <gmp.h>
+ #include <mpfr.h>
+-#include "flint.h"
+-#include "fmpz.h"
+-#include "fmpq.h"
++#include "flint/flint.h"
++#include "flint/fmpz.h"
++#include "flint/fmpq.h"
+ #include "fmpz_extras.h"
+ 
+-#include "config.h"
++#include "flint/config.h"
+ #ifdef HAVE_TLS
+ #if HAVE_TLS
+ #define TLS_PREFIX __thread
+diff -ru -ru arb-headers.orig/fmpz_extras.h arb-headers/fmpz_extras.h
+--- arb-headers.orig/fmpz_extras.h	2016-07-07 15:36:05.873475706 +0200
++++ arb-headers/fmpz_extras.h	2016-07-07 15:35:09.441928387 +0200
+@@ -27,8 +27,8 @@
+ #define FMPZ_EXTRAS_H
+ 
+ #include <limits.h>
+-#include "flint.h"
+-#include "fmpz.h"
++#include "flint/flint.h"
++#include "flint/fmpz.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ru -ru arb-headers.orig/hypgeom.h arb-headers/hypgeom.h
+--- arb-headers.orig/hypgeom.h	2016-07-07 15:36:05.873475706 +0200
++++ arb-headers/hypgeom.h	2016-07-07 15:35:09.437928420 +0200
+@@ -29,7 +29,7 @@
+ #include "fmprb.h"
+ #include "arb.h"
+ #include "mag.h"
+-#include "fmpz_poly.h"
++#include "flint/fmpz_poly.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff -ru -ru arb-headers.orig/mag.h arb-headers/mag.h
+--- arb-headers.orig/mag.h	2016-07-07 15:36:05.893475546 +0200
++++ arb-headers/mag.h	2016-07-07 15:35:09.457928259 +0200
+@@ -33,8 +33,8 @@
+ #endif
+ 
+ #include <math.h>
+-#include "flint.h"
+-#include "fmpz.h"
++#include "flint/flint.h"
++#include "flint/fmpz.h"
+ #include "fmpz_extras.h"
+ 
+ #ifdef __cplusplus
+diff -ru -ru arb-headers.orig/partitions.h arb-headers/partitions.h
+--- arb-headers.orig/partitions.h	2016-07-07 15:36:05.893475546 +0200
++++ arb-headers/partitions.h	2016-07-07 15:35:09.457928259 +0200
+@@ -27,8 +27,8 @@
+ #define PARTITIONS_H
+ 
+ #include <math.h>
+-#include "flint.h"
+-#include "arith.h"
++#include "flint/flint.h"
++#include "flint/arith.h"
+ #include "arb.h"
+ 
+ #ifdef __cplusplus
