@@ -9,8 +9,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- /dev/null
 +++ b/sage/build/pkgs/cysignals/patches/multiarch-path.patch
 @@ -0,0 +1,10 @@
-+--- src/scripts/cysignals-CSI	2016-07-07 14:28:52.333831922 +0200
-++++ src/scripts/cysignals-CSI	2016-07-07 14:27:14.542616423 +0200
++--- src/src/scripts/cysignals-CSI	2016-07-07 14:28:52.333831922 +0200
+++++ src/src/scripts/cysignals-CSI	2016-07-07 14:27:14.542616423 +0200
 +@@ -84,6 +84,7 @@
 +     """
 +     # Preload the right Python library

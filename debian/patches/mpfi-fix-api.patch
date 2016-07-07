@@ -48,30 +48,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                  mpfi_get_right(x.value, self.value)
              else:
                  mpfr_set_zero(x.value, 1)                   # interval contains 0
-@@ -3195,13 +3195,13 @@
-         r"""
-         The argument of this interval, if it is well-defined, in the
-         complex sense. Otherwise raises a ``ValueError``.
--        
-+
-         OUTPUT:
--        
-+
-         - an element of the parent of this interval (0 or pi)
--        
-+
-         EXAMPLES::
--        
-+
-             sage: RIF(1).argument()
-             0
-             sage: RIF(-1).argument()
-@@ -3229,7 +3229,7 @@
-             return k.pi()
-         else:
-             raise ValueError("Can't take the argument of interval strictly containing zero")
-- 
-+
-     def unique_floor(self):
-         """
-         Returns the unique floor of this interval, if it is well defined,
