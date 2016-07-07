@@ -103,3 +103,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
  class SageKernelSpec(object):
+--- a/sage/sage
++++ b/sage/sage
+@@ -22,6 +22,7 @@
+ # automatically.
+ #SAGE_ROOT=/path/to/sage-version
+ 
++export PATH="$PATH:$HOME/.sage/local/bin"
+ 
+ 
+ # Resolve all symbolic links in a filename.  This more or less behaves

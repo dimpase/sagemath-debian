@@ -17,48 +17,8 @@ also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-3. Figure out this error:
-
-Sage compiles, but doesn't run (and fails the docbuild part of the overall build):
-
-$ debian/rules clean prune build
-[..]
-cd ../.. && sage-logger './sage --docbuild --no-pdf-links all html ' logs/dochtml.log
-Traceback (most recent call last):
-  File "/usr/lib/python2.7/runpy.py", line 163, in _run_module_as_main
-    mod_name, _Error)
-  File "/usr/lib/python2.7/runpy.py", line 111, in _get_module_details
-    __import__(mod_name)  # Do not catch exceptions initializing package
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage_setup/docbuild/__init__.py", line 22, in <module>
-    import sage.all
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage/all.py", line 79, in <module>
-    from sage.rings.all      import *
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage/rings/all.py", line 50, in <module>
-    from finite_rings.all import *
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage/rings/finite_rings/all.py", line 21, in <module>
-    from finite_field_constructor import FiniteField
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage/rings/finite_rings/finite_field_constructor.py", line 176, in <module>
-    import sage.rings.polynomial.polynomial_element as polynomial_element
-  File "sage/rings/polynomial/polynomial_element.pyx", line 53, in init sage.rings.polynomial.polynomial_element (/home/anonymous/tmp/sage/sagemath/sage/src/build/cythonized/sage/rings/polynomial/polynomial_element.c:78933)
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage/rings/polynomial/polynomial_ring.py", line 148, in <module>
-    import sage.rings.polynomial.polynomial_element_generic as polynomial_element_generic
-  File "/home/anonymous/.sage/local/lib/python2.7/site-packages/sage/rings/polynomial/polynomial_element_generic.py", line 1057, in <module>
-    from sage.rings.polynomial.polynomial_rational_flint import Polynomial_rational_flint
-  File "sage/rings/polynomial/polynomial_integer_dense_flint.pxd", line 7, in init sage.rings.polynomial.polynomial_rational_flint (/home/anonymous/tmp/sage/sagemath/sage/src/build/cythonized/sage/rings/polynomial/polynomial_rational_flint.cpp:21576)
-  File "sage/rings/real_mpfi.pxd", line 11, in init sage.rings.polynomial.polynomial_integer_dense_flint (/home/anonymous/tmp/sage/sagemath/sage/src/build/cythonized/sage/rings/polynomial/polynomial_integer_dense_flint.cpp:19473)
-ImportError: /home/anonymous/.sage/local/lib/python2.7/site-packages/sage/rings/real_mpfi.so: undefined symbol: mpfi_is_strictly_neg_default
-Makefile:818: recipe for target 'doc-html' failed
-make[4]: *** [doc-html] Error 1
-make[4]: Leaving directory '/home/anonymous/tmp/sage/sagemath/sage/build/make'
-Makefile:642: recipe for target 'all' failed
-make[3]: *** [all] Error 2
-make[3]: Leaving directory '/home/anonymous/tmp/sage/sagemath/sage/build/make'
-[..]
-Error building Sage.
-[..]
-
-I checked, this symbol apparently is not in /usr/lib/x86_64-linux-gnu/libmpfi.so
-but Sage aren't patching their mpfi either...
+3. Post-compilation docbuild segfaults due to bad LD paths;
+figure out how to fix this
 
 ## TODO (required to get into Debian archives)
 
