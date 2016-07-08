@@ -176,7 +176,7 @@
          else:
 --- a/sage/src/sage/tests/cmdline.py
 +++ b/sage/src/sage/tests/cmdline.py
-@@ -550,12 +550,6 @@
+@@ -551,12 +551,6 @@
          sage: ret
          0
  
