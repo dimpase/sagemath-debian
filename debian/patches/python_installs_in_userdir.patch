@@ -135,12 +135,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  from .build_options import (LANGUAGES, SPHINXOPTS, PAPER, OMIT,
       PAPEROPTS, ALLSPHINXOPTS, NUM_THREADS, WEBSITESPHINXOPTS,
-@@ -151,6 +151,8 @@
-         """
-         d = os.path.join(SAGE_DOC, type, self.lang, self.name)
-         sage_makedirs(d)
+@@ -327,6 +327,9 @@
+                     and os.path.isdir(os.path.join(SAGE_DOC_SRC, lang, document))):
+                     documents.append(os.path.join(lang, document))
+ 
 +        subprocess.check_call(['sh', '-c',
 +            'for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % SAGE_SHARE])
-         return d
- 
-     def _doctrees_dir(self):
++
+         # Ensure that the reference guide is compiled first so that links from
+         # the other documents to it are correctly resolved.
+         if 'en/reference' in documents:

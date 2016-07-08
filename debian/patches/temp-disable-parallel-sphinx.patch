@@ -1,0 +1,39 @@
+Description: Temporarily disable parallel sphinx build to make the GAP failure more obvious
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -489,19 +489,20 @@
+             if not os.path.exists(refdir):
+                 continue
+             output_dir = self._output_dir(format, lang)
+-            from multiprocessing import Pool
+-            pool = Pool(NUM_THREADS, maxtasksperchild=1)
++            #from multiprocessing import Pool
++            #pool = Pool(NUM_THREADS, maxtasksperchild=1)
+             L = [(doc, lang, format, kwds) + args for doc in self.get_all_documents(refdir)]
+             # (See comment in AllBuilder._wrapper about using map instead of apply.)
+-            x = pool.map_async(build_ref_doc, L, 1)
+-            try:
+-                x.get(99999)
+-                pool.close()
+-                pool.join()
+-            except Exception:
+-                pool.terminate()
+-                if ABORT_ON_ERROR:
+-                    raise
++            #x = pool.map_async(build_ref_doc, L, 1)
++            map(build_ref_doc, L)
++            #try:
++            #    x.get(99999)
++            #    pool.close()
++            #    pool.join()
++            #except Exception:
++            #    pool.terminate()
++            #    if ABORT_ON_ERROR:
++            #        raise
+             # The html refman must be build at the end to ensure correct
+             # merging of indexes and inventories.
+             # Sphinx is run here in the current process (not in a

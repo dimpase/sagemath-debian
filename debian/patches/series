@@ -15,3 +15,4 @@ mpfi-fix-api.patch
 cysignals-multiarch-path.patch
 python_installs_in_userdir.patch
 sphinx-update.patch
+temp-disable-parallel-sphinx.patch
