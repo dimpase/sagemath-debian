@@ -12,13 +12,22 @@ schublib.h, symfcn.h need to #include "hashtab.h" (etc) instead of <hashtab.h>
 2. Patch flint-arb:
 
 see https://github.com/fredrik-johansson/arb/pull/55
-see debian/arb-headers.patch for a local workaround
+see debian/arb-headers.patch for a local workaround; apply it with:
+$ sudo patch -d /usr/include/ -p1 < debian/arb-headers.patch
 
 also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-3. Post-compilation docbuild segfaults whilst building GAP docs.
+3. Docbuild now works; "Testing that Sage starts..." fails
+
+Testing that Sage starts...
+[2016-07-08 13:35:27] Sage version 7.1, released 2016-03-20
+Traceback (most recent call last):
+  File "/home/infinity0/tmp/sage/sagemath/sage/src/bin/sage-eval", line 4, in <module>
+    from sage.all import *
+ImportError: No module named sage.all
+Sage failed to start up.
 
 ## TODO (required to get into Debian archives)
 
