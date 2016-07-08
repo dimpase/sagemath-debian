@@ -18,7 +18,8 @@ also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-3. Post-compilation docbuild fails due to hardcoded paths. Need to patch this
+3. Post-compilation docbuild hangs after successfully building the
+doc/sage/inventory/en/reference/tensor component. Figure out why..
 
 ## TODO (required to get into Debian archives)
 

@@ -113,3 +113,34 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
  # Resolve all symbolic links in a filename.  This more or less behaves
+--- a/sage/src/bin/sage-env
++++ b/sage/src/bin/sage-env
+@@ -247,7 +247,7 @@
+ # Setting Sage-related location environment variables.
+ export SAGE_LOCAL="$SAGE_ROOT/local"
+ export SAGE_ETC="$SAGE_LOCAL/etc"
+-export SAGE_SHARE="/usr/share/sagemath"
++export SAGE_SHARE="$HOME/.local/share/sagemath"
+ export SAGE_EXTCODE="$SAGE_LOCAL/share/sage/ext"
+ export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -22,7 +22,7 @@
+ import sage.all
+ from sage.misc.cachefunc import cached_method
+ from sage.misc.misc import sage_makedirs
+-from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC
++from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_SHARE
+ 
+ from .build_options import (LANGUAGES, SPHINXOPTS, PAPER, OMIT,
+      PAPEROPTS, ALLSPHINXOPTS, NUM_THREADS, WEBSITESPHINXOPTS,
+@@ -151,6 +151,8 @@
+         """
+         d = os.path.join(SAGE_DOC, type, self.lang, self.name)
+         sage_makedirs(d)
++        subprocess.check_call(['sh', '-c',
++            'for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % SAGE_SHARE])
+         return d
+ 
+     def _doctrees_dir(self):

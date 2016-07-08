@@ -75,6 +75,7 @@ Build-Depends:
  libzn-poly-dev,
  maxima (= 5.35.1-5sage2),
  maxima-doc (= 5.35.1-5sage2),
+ maxima-ecl (= 5.35.1-5sage2),
  maxima-share (= 5.35.1-5sage2),
  nauty,
  palp (>= 2.1-2),

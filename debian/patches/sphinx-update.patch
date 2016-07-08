@@ -1,0 +1,57 @@
+Description: Update Sage's use of Sphinx for the version in Debian
+ Sage uses 1.2.2, Debian has 1.4.4.
+ Also disable a convoluted "build log buffering" mechanism which was causing problems.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -769,7 +769,7 @@
+ 
+         env_pickle = os.path.join(self._doctrees_dir(), 'environment.pickle')
+         try:
+-            env = BuildEnvironment.frompickle(config, env_pickle)
++            env = BuildEnvironment.frompickle(SAGE_DOC_SRC, config, env_pickle)
+             logger.debug("Opened Sphinx environment: %s", env_pickle)
+             return env
+         except IOError as err:
+--- a/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
++++ b/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
+@@ -38,7 +38,7 @@
+ from sphinx.util.nodes import nested_parse_with_titles
+ from sphinx.util.compat import Directive
+ from sphinx.util.inspect import getargspec, isdescriptor, safe_getmembers, \
+-     safe_getattr, safe_repr, is_builtin_class_method
++     safe_getattr, object_description as safe_repr, is_builtin_class_method
+ from sphinx.util.pycompat import base_exception, class_types
+ from sphinx.util.docstrings import prepare_docstring
+ 
+--- a/sage/src/doc/common/conf.py
++++ b/sage/src/doc/common/conf.py
+@@ -724,9 +724,9 @@
+ # link to the Python documentation several links where broken because there
+ # where class listed as functions. Expand the list 'base_class_as_func'
+ # above instead of marking the link as broken.
+-nitpick_ignore = (
++nitpick_ignore = [
+     ('py:class', 'twisted.web2.resource.Resource'),
+-    ('py:class', 'twisted.web2.resource.PostableResource'))
++    ('py:class', 'twisted.web2.resource.PostableResource')]
+ 
+ def nitpick_patch_config(app):
+     """
+--- a/sage/src/sage_setup/docbuild/sphinxbuild.py
++++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
+@@ -200,8 +200,9 @@
+     saved_stderr = sys.stderr
+ 
+     try:
+-        sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
+-        sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
++        # Sage is too smart for their own good, this poorly-implemented "file" replacement breaks stuff
++        #sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
++        #sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
+         sphinx.cmdline.main(sys.argv)
+     finally:
+         sys.stdout = saved_stdout
