@@ -145,3 +145,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          # Ensure that the reference guide is compiled first so that links from
          # the other documents to it are correctly resolved.
          if 'en/reference' in documents:
+--- a/sage/src/bin/sage-starts
++++ b/sage/src/bin/sage-starts
+@@ -14,7 +14,7 @@
+ # sysadmin.  We use --nodotsage so we don't force a .sage directory
+ # in the sysadmin's HOME directory.
+ cmd='sage.all._write_started_file(); print "Yes, Sage starts."'
+-build/bin/sage-logger "./sage --nodotsage -c '$cmd'" logs/start.log
++build/bin/sage-logger "./sage -c '$cmd'" logs/start.log
+ 
+ if [ $? -ne 0 ]; then
+     echo >&2 "Sage failed to start up."

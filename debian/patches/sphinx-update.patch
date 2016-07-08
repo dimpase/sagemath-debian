@@ -7,7 +7,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -770,7 +770,7 @@
+@@ -767,7 +767,7 @@
  
          env_pickle = os.path.join(self._doctrees_dir(), 'environment.pickle')
          try:

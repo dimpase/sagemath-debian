@@ -19,15 +19,9 @@ also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-3. Docbuild now works; "Testing that Sage starts..." fails
-
-Testing that Sage starts...
-[2016-07-08 13:35:27] Sage version 7.1, released 2016-03-20
-Traceback (most recent call last):
-  File "/home/infinity0/tmp/sage/sagemath/sage/src/bin/sage-eval", line 4, in <module>
-    from sage.all import *
-ImportError: No module named sage.all
-Sage failed to start up.
+Then the build should work, but the tests will fail. This is partly due to our
+hacky patches, and it's probably not worth trying to fix them before we update
+to Sage 7.2/7.3 "properly".
 
 ## TODO (required to get into Debian archives)
 
