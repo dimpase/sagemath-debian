@@ -35,7 +35,7 @@ Build-Depends:
  libec-dev (>= 20160206-1+sage1),
  libecm-dev,
  libflint-arb-dev,
- libflint-dev (>= 2.3),
+ libflint-dev (>= 2.5.2-5+b2),
  libfplll-dev (>= 4.0.5+git20160107),
  libfreetype6-dev,
  libgc-dev,
@@ -51,7 +51,7 @@ Build-Depends:
  libjs-mathjax,
  liblapack-dev,
  liblfunction-dev,
- liblinboxsage-dev (>= 1.3.2),
+ liblinboxsage-dev (>= 1.3.2-1.1+b3),
  liblrcalc-dev,
  libm4ri-dev (>= 20130416),
  libm4rie-dev (>= 20130416),
@@ -138,7 +138,7 @@ Build-Depends:
  tachyon,
  zlib1g-dev,
 # Packages not in unstable, but in unstable-sage:
- libsingular-dev (>= 3-1-6+dfsg-1+sage1),
+ libsingular-dev (>= 3-1-6+dfsg-1+sage2),
  libsingular-dev (<< 4),
  python-sagenb (>= 0.11.2),
 

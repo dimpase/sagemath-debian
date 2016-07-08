@@ -18,8 +18,7 @@ also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-3. Post-compilation docbuild segfaults, crash log is empty :S
-Need to figure this out. Perhaps due to NTL transition mismatch.
+3. Post-compilation docbuild fails due to hardcoded paths. Need to patch this
 
 ## TODO (required to get into Debian archives)
 
