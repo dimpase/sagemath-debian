@@ -140,7 +140,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                      documents.append(os.path.join(lang, document))
  
 +        subprocess.check_call(['sh', '-c',
-+            'for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % SAGE_SHARE])
++            'mkdir -p %s; for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % (SAGE_SHARE,SAGE_SHARE)])
 +
          # Ensure that the reference guide is compiled first so that links from
          # the other documents to it are correctly resolved.
