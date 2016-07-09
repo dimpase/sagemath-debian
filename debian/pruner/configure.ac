@@ -14,14 +14,6 @@ PKG_PROG_PKG_CONFIG
 AC_CHECK_HEADER(atlas/clapack.h, HAS_ATLAS="True", HAS_ATLAS="False")
 AC_SUBST(HAS_ATLAS)
 
-AC_CHECK_PYTHON_MODULE(backports_abc)
-if test "x${PYTHON_backports_abc}" = "x1"; then
-  HAS_BACKPORTS_ABC="True"
-else
-  HAS_BACKPORTS_ABC="False"
-fi
-AC_SUBST(HAS_BACKPORTS_ABC)
-
 # FIXME(backports_ssl_match_hostname): only needed for tornado, hence not needed
 HAS_BACKPORTS_SSL_MATCH_HOSTNAME="True"
 AC_SUBST(HAS_BACKPORTS_SSL_MATCH_HOSTNAME)
@@ -56,48 +48,8 @@ AC_SUBST(HAS_COMBINATORIAL_DESIGNS)
 AC_CHECK_FILE(/usr/share/sagemath/conway_polynomials/conway_polynomials.sobj, HAS_CONWAY_POLYNOMIALS="True", HAS_CONWAY_POLYNOMIALS="False")
 AC_SUBST(HAS_CONWAY_POLYNOMIALS)
 
-AC_CHECK_PYTHON_MODULE(cvxopt)
-if test "x${PYTHON_cvxopt}" = "x1"; then
-  HAS_CVXOPT="True"
-else
-  HAS_CVXOPT="False"
-fi
-AC_SUBST(HAS_CVXOPT)
-
-AC_CHECK_PYTHON_MODULE(cycler)
-if test "x${PYTHON_cycler}" = "x1"; then
-  HAS_CYCLER="True"
-else
-  HAS_CYCLER="False"
-fi
-AC_SUBST(HAS_CYCLER)
-
 AC_CHECK_PROG(HAS_CYTHON, cython, "True", "False")
 AC_SUBST(HAS_CYTHON)
-
-AC_CHECK_PYTHON_MODULE(dateutil)
-if test "x${PYTHON_dateutil}" = "x1"; then
-  HAS_DATEUTIL="True"
-else
-  HAS_DATEUTIL="False"
-fi
-AC_SUBST(HAS_DATEUTIL)
-
-AC_CHECK_PYTHON_MODULE(decorator)
-if test "x${PYTHON_decorator}" = "x1"; then
-  HAS_DECORATOR="True"
-else
-  HAS_DECORATOR="False"
-fi
-AC_SUBST(HAS_DECORATOR)
-
-AC_CHECK_PYTHON_MODULE(docutils)
-if test "x${PYTHON_docutils}" = "x1"; then
-  HAS_DOCUTILS="True"
-else
-  HAS_DOCUTILS="False"
-fi
-AC_SUBST(HAS_DOCUTILS)
 
 AC_CHECK_PROG(HAS_ECL, ecl, "True", "False")
 AC_SUBST(HAS_ECL)
@@ -146,14 +98,6 @@ AC_SUBST(HAS_FPLLL)
 AC_CHECK_PROG(HAS_FREETYPE, freetype-config, "True", "False")
 AC_SUBST(HAS_FREETYPE)
 
-AC_CHECK_PYTHON_MODULE(functools32)
-if test "x${PYTHON_functools32}" = "x1"; then
-  HAS_FUNCTOOLS32="True"
-else
-  HAS_FUNCTOOLS32="False"
-fi
-AC_SUBST(HAS_FUNCTOOLS32)
-
 AC_CHECK_FILE(/usr/include/gap/gap.h, HAS_GAP="True", HAS_GAP="False")
 AC_SUBST(HAS_GAP)
 
@@ -191,44 +135,12 @@ AC_SUBST(HAS_ICONV)
 AC_CHECK_HEADER(iml.h, HAS_IML="True", HAS_IML="False", [#include "gmp.h"])
 AC_SUBST(HAS_IML)
 
-AC_CHECK_PYTHON_MODULE(ipykernel)
-if test "x${PYTHON_ipykernel}" = "x1"; then
-  HAS_IPYKERNEL="True"
-else
-  HAS_IPYKERNEL="False"
-fi
-AC_SUBST(HAS_IPYKERNEL)
-
 AC_CHECK_PROG(HAS_IPYTHON, ipython, "True", "False")
 AC_SUBST(HAS_IPYTHON)
-
-AC_CHECK_PYTHON_MODULE(ipython_genutils)
-if test "x${PYTHON_ipython_genutils}" = "x1"; then
-  HAS_IPYTHON_GENUTILS="True"
-else
-  HAS_IPYTHON_GENUTILS="False"
-fi
-AC_SUBST(HAS_IPYTHON_GENUTILS)
-
-AC_CHECK_PYTHON_MODULE(jinja2)
-if test "x${PYTHON_jinja2}" = "x1"; then
-  HAS_JINJA2="True"
-else
-  HAS_JINJA2="False"
-fi
-AC_SUBST(HAS_JINJA2)
 
 # FIXME(jmol): debian's version is too old, use sage's
 HAS_JMOL="False"
 AC_SUBST(HAS_JMOL)
-
-AC_CHECK_PYTHON_MODULE(jsonschema)
-if test "x${PYTHON_jsonschema}" = "x1"; then
-  HAS_JSONSCHEMA="True"
-else
-  HAS_JSONSCHEMA="False"
-fi
-AC_SUBST(HAS_JSONSCHEMA)
 
 AC_CHECK_PROG(HAS_JUPYTER_CLIENT, jupyter-kernelspec, "True", "False")
 AC_SUBST(HAS_JUPYTER_CLIENT)
@@ -280,28 +192,12 @@ AC_SUBST(HAS_MARKUPSAFE)
 AC_CHECK_FILE(/usr/share/javascript/mathjax/MathJax.js, HAS_MATHJAX="True", HAS_MATHJAX="False")
 AC_SUBST(HAS_MATHJAX)
 
-AC_CHECK_PYTHON_MODULE(matplotlib)
-if test "x${PYTHON_matplotlib}" = "x1"; then
-  HAS_MATPLOTLIB="True"
-else
-  HAS_MATPLOTLIB="False"
-fi
-AC_SUBST(HAS_MATPLOTLIB)
-
 # FIXME(maxima): needs quite special instructions to get it going
 HAS_MAXIMA="True"
 AC_CHECK_FILE(/usr/share/doc/maxima-share/copyright, , HAS_MAXIMA="False")
 AC_CHECK_FILE(/usr/share/doc/maxima-doc/copyright, , HAS_MAXIMA="False")
 AC_CHECK_FILE(/usr/share/doc/maxima/copyright, , HAS_MAXIMA="False")
 AC_SUBST(HAS_MAXIMA)
-
-AC_CHECK_PYTHON_MODULE(mistune)
-if test "x${PYTHON_mistune}" = "x1"; then
-  HAS_MISTUNE="True"
-else
-  HAS_MISTUNE="False"
-fi
-AC_SUBST(HAS_MISTUNE)
 
 AC_CHECK_HEADERS(mpc.h, HAS_MPC="True", HAS_MPC="False")
 AC_SUBST(HAS_MPC)
@@ -316,38 +212,14 @@ AC_SUBST(HAS_MPFR)
 HAS_MPIR="True"
 AC_SUBST(HAS_MPIR)
 
-AC_CHECK_PYTHON_MODULE(mpmath)
-if test "x${PYTHON_mpmath}" = "x1"; then
-  HAS_MPMATH="True"
-else
-  HAS_MPMATH="False"
-fi
-AC_SUBST(HAS_MPMATH)
-
 AC_CHECK_PROG(HAS_NAUTY, nauty-genbg, "True", "False")
 AC_SUBST(HAS_NAUTY)
 
 AC_CHECK_HEADERS(ncurses.h, HAS_NCURSES="True", HAS_NCURSES="False")
 AC_SUBST(HAS_NCURSES)
 
-AC_CHECK_PYTHON_MODULE(networkx)
-if test "x${PYTHON_networkx}" = "x1"; then
-  HAS_NETWORKX="True"
-else
-  HAS_NETWORKX="False"
-fi
-AC_SUBST(HAS_NETWORKX)
-
 AC_CHECK_HEADERS(NTL/version.h, HAS_NTL="True", HAS_NTL="False")
 AC_SUBST(HAS_NTL)
-
-AC_CHECK_PYTHON_MODULE(numpy)
-if test "x${PYTHON_numpy}" = "x1"; then
-  HAS_NUMPY="True"
-else
-  HAS_NUMPY="False"
-fi
-AC_SUBST(HAS_NUMPY)
 
 AC_CHECK_PROG(HAS_PALP, nef-5d.x, "True", "False")
 AC_SUBST(HAS_PALP)
@@ -363,38 +235,6 @@ AC_SUBST(HAS_PARI_SEADATA)
 
 AC_CHECK_PROG(HAS_PATCH, patch, "True", "False")
 AC_SUBST(HAS_PATCH)
-
-AC_CHECK_PYTHON_MODULE(path)
-if test "x${PYTHON_path}" = "x1"; then
-  HAS_PATHPY="True"
-else
-  HAS_PATHPY="False"
-fi
-AC_SUBST(HAS_PATHPY)
-
-AC_CHECK_PYTHON_MODULE(pexpect)
-if test "x${PYTHON_pexpect}" = "x1"; then
-  HAS_PEXPECT="True"
-else
-  HAS_PEXPECT="False"
-fi
-AC_SUBST(HAS_PEXPECT)
-
-AC_CHECK_PYTHON_MODULE(pickleshare)
-if test "x${PYTHON_pickleshare}" = "x1"; then
-  HAS_PICKLESHARE="True"
-else
-  HAS_PICKLESHARE="False"
-fi
-AC_SUBST(HAS_PICKLESHARE)
-
-AC_CHECK_PYTHON_MODULE(PIL)
-if test "x${PYTHON_PIL}" = "x1"; then
-  HAS_PIL="True"
-else
-  HAS_PIL="False"
-fi
-AC_SUBST(HAS_PIL)
 
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
@@ -428,53 +268,13 @@ AC_SUBST(HAS_POLYTOPES)
 AC_CHECK_HEADERS(ppl_c.h, HAS_PPL="True", HAS_PPL="False")
 AC_SUBST(HAS_PPL)
 
-AC_CHECK_PYTHON_MODULE(Crypto)
-if test "x${PYTHON_Crypto}" = "x1"; then
-  HAS_PYCRYPTO="True"
-else
-  HAS_PYCRYPTO="False"
-fi
-AC_SUBST(HAS_PYCRYPTO)
-
-AC_CHECK_PYTHON_MODULE(pygments)
-if test "x${PYTHON_pygments}" = "x1"; then
-  HAS_PYGMENTS="True"
-else
-  HAS_PYGMENTS="False"
-fi
-AC_SUBST(HAS_PYGMENTS)
-
 AC_LANG_PUSH([C++])
 AC_CHECK_HEADER(pynac/version.h, HAS_PYNAC="True", HAS_PYNAC="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_PYNAC)
 
-AC_CHECK_PYTHON_MODULE(pyparsing)
-if test "x${PYTHON_pyparsing}" = "x1"; then
-  HAS_PYPARSING="True"
-else
-  HAS_PYPARSING="False"
-fi
-AC_SUBST(HAS_PYPARSING)
-
-AC_CHECK_PYTHON_MODULE(ptyprocess)
-if test "x${PYTHON_ptyprocess}" = "x1"; then
-  HAS_PTYPROCESS="True"
-else
-  HAS_PTYPROCESS="False"
-fi
-AC_SUBST(HAS_PTYPROCESS)
-
 PKG_CHECK_MODULES(python, python-2.7, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
 AC_SUBST(HAS_PYTHON)
-
-AC_CHECK_PYTHON_MODULE(zmq)
-if test "x${PYTHON_zmq}" = "x1"; then
-  HAS_PYZMQ="True"
-else
-  HAS_PYZMQ="False"
-fi
-AC_SUBST(HAS_PYZMQ)
 
 AC_CHECK_PROG(HAS_R, R, "True", "False")
 AC_SUBST(HAS_R)
@@ -485,75 +285,18 @@ AC_SUBST(HAS_RATPOINTS)
 AC_CHECK_HEADERS(readline/readline.h, HAS_READLINE="True", HAS_READLINE="False")
 AC_SUBST(HAS_READLINE)
 
-AC_CHECK_PYTHON_MODULE(rpy2)
-if test "x${PYTHON_rpy2}" = "x1"; then
-  HAS_RPY2="True"
-else
-  HAS_RPY2="False"
-fi
-AC_SUBST(HAS_RPY2)
-
 AC_CHECK_PROG(HAS_RUBIKS, rubiks_cubex, "True", "False")
 AC_SUBST(HAS_RUBIKS)
 
 AC_CHECK_HEADERS(rw.h, HAS_RW="True", HAS_RW="False")
 AC_SUBST(HAS_RW)
 
-# FIXME(sagenb): doesn't work, but low priority
-AC_CHECK_PYTHON_MODULE(sagenb)
-if test "x${PYTHON_sagenb}" = "x1"; then
-  HAS_SAGENB="True"
-else
-  HAS_SAGENB="False"
-fi
-AC_SUBST(HAS_SAGENB)
-
 # FIXME(sagetex): doesn't install, but low priority
 HAS_SAGETEX="True"
 AC_SUBST(HAS_SAGETEX)
 
-AC_CHECK_PYTHON_MODULE(scipy)
-if test "x${PYTHON_scipy}" = "x1"; then
-  HAS_SCIPY="True"
-else
-  HAS_SCIPY="False"
-fi
-AC_SUBST(HAS_SCIPY)
-
 AC_CHECK_PROG(HAS_SCONS, scons, "True", "False")
 AC_SUBST(HAS_SCONS)
-
-AC_CHECK_PYTHON_MODULE(setuptools)
-if test "x${PYTHON_setuptools}" = "x1"; then
-  HAS_SETUPTOOLS="True"
-else
-  HAS_SETUPTOOLS="False"
-fi
-AC_SUBST(HAS_SETUPTOOLS)
-
-AC_CHECK_PYTHON_MODULE(setuptools_scm)
-if test "x${PYTHON_setuptools_scm}" = "x1"; then
-  HAS_SETUPTOOLS_SCM="True"
-else
-  HAS_SETUPTOOLS_SCM="False"
-fi
-AC_SUBST(HAS_SETUPTOOLS_SCM)
-
-AC_CHECK_PYTHON_MODULE(simplegeneric)
-if test "x${PYTHON_simplegeneric}" = "x1"; then
-  HAS_SIMPLEGENERIC="True"
-else
-  HAS_SIMPLEGENERIC="False"
-fi
-AC_SUBST(HAS_SIMPLEGENERIC)
-
-AC_CHECK_PYTHON_MODULE(singledispatch)
-if test "x${PYTHON_singledispatch}" = "x1"; then
-  HAS_SINGLEDISPATCH="True"
-else
-  HAS_SINGLEDISPATCH="False"
-fi
-AC_SUBST(HAS_SINGLEDISPATCH)
 
 # FIXME(singular): using the debian-science repository
 AC_LANG_PUSH([C++])
@@ -565,22 +308,6 @@ AC_LANG_POP([C++])
 #HAS_SINGULAR="False"
 AC_SUBST(HAS_SINGULAR)
 
-AC_CHECK_PYTHON_MODULE(six)
-if test "x${PYTHON_six}" = "x1"; then
-  HAS_SIX="True"
-else
-  HAS_SIX="False"
-fi
-AC_SUBST(HAS_SIX)
-
-AC_CHECK_PYTHON_MODULE(sphinx)
-if test "x${PYTHON_sphinx}" = "x1"; then
-  HAS_SPHINX="True"
-else
-  HAS_SPHINX="False"
-fi
-AC_SUBST(HAS_SPHINX)
-
 AC_CHECK_HEADERS(sqlite3.h, HAS_SQLITE="True", HAS_SQLITE="False")
 AC_SUBST(HAS_SQLITE)
 
@@ -590,40 +317,8 @@ AC_SUBST(HAS_SYMMETRICA)
 AC_CHECK_PROG(HAS_SYMPOW, sympow, "True", "False")
 AC_SUBST(HAS_SYMPOW)
 
-AC_CHECK_PYTHON_MODULE(sympy)
-if test "x${PYTHON_sympy}" = "x1"; then
-  HAS_SYMPY="True"
-else
-  HAS_SYMPY="False"
-fi
-AC_SUBST(HAS_SYMPY)
-
 AC_CHECK_PROG(HAS_TACHYON, tachyon, "True", "False")
 AC_SUBST(HAS_TACHYON)
-
-AC_CHECK_PYTHON_MODULE(tornado)
-if test "x${PYTHON_tornado}" = "x1"; then
-  HAS_TORNADO="True"
-else
-  HAS_TORNADO="False"
-fi
-AC_SUBST(HAS_TORNADO)
-
-AC_CHECK_PYTHON_MODULE(traitlets)
-if test "x${PYTHON_traitlets}" = "x1"; then
-  HAS_TRAITLETS="True"
-else
-  HAS_TRAITLETS="False"
-fi
-AC_SUBST(HAS_TRAITLETS)
-
-AC_CHECK_PYTHON_MODULE(vcversioner)
-if test "x${PYTHON_vcversioner}" = "x1"; then
-  HAS_VCVERSIONER="True"
-else
-  HAS_VCVERSIONER="False"
-fi
-AC_SUBST(HAS_VCVERSIONER)
 
 # FIXME(zeromq): useful only for pyzmq
 HAS_ZEROMQ="True"
