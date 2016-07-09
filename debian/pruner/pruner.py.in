@@ -5,6 +5,7 @@ import os
 import codecs
 import subprocess
 import time
+import imp
 
 system_installed_packages = 0
 installed_dir = '@SAGE_ROOT@/local/var/lib/sage/installed'
@@ -169,6 +170,44 @@ dico = {
     'zlib': @HAS_ZLIB@,
     'zn_poly': @HAS_ZNPOLY@
 }
+
+python_modules = [
+    'alabaster',
+    'babel',
+    'flask',
+    'flask_autoindex',
+    'flask_babel',
+    'flask_oldsessions',
+    'flask_openid',
+    'flask_silk',
+    'imagesize',
+    'itsdangerous',
+    'pathlib2',
+    'pytz',
+    'snowballstemmer',
+    'speaklater',
+    'twisted',
+    'werkzeug'
+]
+
+python_packages_to_modules = {
+    'python_openid': 'openid',
+    'zope_interface': 'zope/interface'
+}
+
+for p in python_modules:
+    try:
+        imp.find_module(p)
+        dico[p] = True
+    except ImportError:
+        dico[p] = False
+
+for p, m in python_packages_to_modules.iteritems():
+    try:
+        imp.find_module(m)
+        dico[p] = True
+    except ImportError:
+        dico[p] = False
 
 # report missing standard packages too
 for p in sage_standard_packages:
