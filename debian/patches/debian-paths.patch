@@ -1,6 +1,6 @@
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -351,16 +351,16 @@
+@@ -353,16 +353,16 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
@@ -26,7 +26,7 @@
 +    # fi
  
      # Display the startup banner
-     if [ "$SAGE_BANNER" != "no" ]; then
+     if [ "$SAGE_BANNER" = "bare" ]; then
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -247,8 +247,8 @@
@@ -40,7 +40,7 @@
  export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
-@@ -444,7 +444,6 @@
+@@ -439,7 +439,6 @@
  	fi
      fi
  fi
@@ -48,7 +48,7 @@
  
  ############ architecture flags
  
-@@ -611,9 +610,6 @@
+@@ -606,9 +605,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -69,36 +69,6 @@
  
  #########################################################
  ### pkg-config setup
---- a/sage/src/sage/all.py
-+++ b/sage/src/sage/all.py
-@@ -15,27 +15,6 @@
-     sage: from sage import *
-     sage: frames = [x for x in gc.get_objects() if inspect.isframe(x)]
- 
--We exclude the known files and check to see that there are no others::
--
--    sage: import os
--    sage: allowed = [os.path.join("lib","python","threading.py")]
--    sage: allowed.append(os.path.join("lib","python","multiprocessing"))
--    sage: allowed.append(os.path.join("sage","doctest"))
--    sage: allowed.append(os.path.join("bin","sage-runtests"))
--    sage: allowed.append(os.path.join("site-packages","IPython"))
--    sage: allowed.append(os.path.join("bin","sage-ipython"))
--    sage: allowed.append("<ipython console>")
--    sage: allowed.append("<doctest sage.all[3]>")
--    sage: allowed.append(os.path.join("sage","combinat","species","generating_series.py"))
--    sage: for i in frames:
--    ....:     filename, lineno, funcname, linelist, indx = inspect.getframeinfo(i)
--    ....:     for nm in allowed:
--    ....:         if nm in filename:
--    ....:             break
--    ....:     else:
--    ....:         print filename
--    ....:
--
- Check that the Sage Notebook is not imported at startup (see
- :trac:`15335`)::
- 
 --- a/sage/src/sage/dev/all.py
 +++ b/sage/src/sage/dev/all.py
 @@ -1,3 +1,3 @@
@@ -108,7 +78,7 @@
 +#lazy_import('sage.dev.sagedev_instance', 'dev')
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -170,6 +170,8 @@
+@@ -171,6 +171,8 @@
          True
      """
      base, ext = os.path.splitext(filename)
@@ -143,7 +113,7 @@
              sage: len(r), len(w), len(x), t
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -192,7 +192,7 @@
+@@ -193,7 +193,7 @@
  
  WORKSPACE = os.path.join(GAP_DIR, 'workspace-%s'%abs(hash(SAGE_LOCAL)))
  
@@ -191,7 +161,7 @@
  
 --- a/sage/src/sage/tests/gap_packages.py
 +++ b/sage/src/sage/tests/gap_packages.py
-@@ -104,7 +104,7 @@
+@@ -103,7 +103,7 @@
  
          sage: from sage.tests.gap_packages import all_installed_packages
          sage: all_installed_packages()
@@ -202,7 +172,7 @@
      for path in libgap.eval('GAP_ROOT_PATHS').sage():
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -162,9 +162,9 @@
+@@ -156,9 +156,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -215,7 +185,7 @@
                }
  
  # In the loop below, don't append to any list, since many of these
-@@ -184,7 +184,7 @@
+@@ -178,7 +178,7 @@
  
      m.extra_compile_args = m.extra_compile_args + extra_compile_args
      m.extra_link_args = m.extra_link_args + extra_link_args
@@ -232,3 +202,33 @@
  
  int *new_ints(int l)
  {
+--- a/sage/src/sage/all.py
++++ b/sage/src/sage/all.py
+@@ -15,27 +15,6 @@
+     sage: from sage import *
+     sage: frames = [x for x in gc.get_objects() if inspect.isframe(x)]
+ 
+-We exclude the known files and check to see that there are no others::
+-
+-    sage: import os
+-    sage: allowed = [os.path.join("lib","python","threading.py")]
+-    sage: allowed.append(os.path.join("lib","python","multiprocessing"))
+-    sage: allowed.append(os.path.join("sage","doctest"))
+-    sage: allowed.append(os.path.join("bin","sage-runtests"))
+-    sage: allowed.append(os.path.join("site-packages","IPython"))
+-    sage: allowed.append(os.path.join("bin","sage-ipython"))
+-    sage: allowed.append("<ipython console>")
+-    sage: allowed.append("<doctest sage.all[3]>")
+-    sage: allowed.append(os.path.join("sage","combinat","species","generating_series.py"))
+-    sage: for i in frames:
+-    ....:     filename, lineno, funcname, linelist, indx = inspect.getframeinfo(i)
+-    ....:     for nm in allowed:
+-    ....:         if nm in filename:
+-    ....:             break
+-    ....:     else:
+-    ....:         print(filename)
+-    ....:
+-
+ Check that the Sage Notebook is not imported at startup (see
+ :trac:`15335`)::
+ 

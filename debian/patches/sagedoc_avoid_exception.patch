@@ -1,6 +1,6 @@
 --- a/sage/src/sage/misc/sagedoc.py
 +++ b/sage/src/sage/misc/sagedoc.py
-@@ -1547,7 +1547,8 @@
+@@ -1550,7 +1550,8 @@
          if hasattr(module, '_sage_doc_'):
              from sage.misc.sageinspect import sage_getdef, _sage_getdoc_unformatted
              docstr = 'Help on ' + str(module) + '\n'
