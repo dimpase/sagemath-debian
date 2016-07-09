@@ -71,7 +71,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #########################################################
  ### Configuration
-@@ -595,6 +596,11 @@
+@@ -589,6 +590,11 @@
              'embedsignature': True,
              'profile': profile,
          })
@@ -83,7 +83,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
      open(version_file, 'w').write(version_stamp)
  
-@@ -615,7 +621,7 @@
+@@ -609,7 +615,7 @@
  python_packages, python_modules = find_python_sources(
      SAGE_SRC, ['sage', 'sage_setup'])
  python_data_files = find_extra_files(python_packages,
