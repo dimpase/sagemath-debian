@@ -1,6 +1,5 @@
 Description: Update Sage's use of Sphinx for the version in Debian
  Sage uses 1.2.2, Debian has 1.4.4.
- Also disable a convoluted "build log buffering" mechanism which was causing problems.
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
@@ -41,17 +40,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  def nitpick_patch_config(app):
      """
---- a/sage/src/sage_setup/docbuild/sphinxbuild.py
-+++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
-@@ -200,8 +200,9 @@
-     saved_stderr = sys.stderr
- 
-     try:
--        sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
--        sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
-+        # Sage is too smart for their own good, this poorly-implemented "file" replacement breaks stuff
-+        #sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
-+        #sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
-         sphinx.cmdline.main(sys.argv)
-     finally:
-         sys.stdout = saved_stdout

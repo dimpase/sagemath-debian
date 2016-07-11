@@ -5,6 +5,7 @@ silence_debian_bug_780186.patch
 silence_ecl_opt_signals.patch
 sagedoc_avoid_exception.patch
 fixsage-mpfi.patch
+fixsage-sphinx.patch
 #temp-disable-parallel-sphinx.patch
 
 # due to us using a different version of a dependency than what Sage uses
