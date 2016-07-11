@@ -6,7 +6,6 @@ silence_ecl_opt_signals.patch
 sagedoc_avoid_exception.patch
 fixsage-mpfi.patch
 fixsage-sphinx.patch
-#temp-disable-parallel-sphinx.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
@@ -27,3 +26,4 @@ debian-cysignals.patch
 # they will eventually be gotten rid of
 debian-temp-userdir-singular.patch
 debian-temp-userdir.patch
+temp-disable-parallel-sphinx.patch

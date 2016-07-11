@@ -1,4 +1,4 @@
-Description: Temporarily disable parallel sphinx build to make the GAP failure more obvious
+Description: Temporarily disable parallel sphinx build to make component failures more obvious
  Before we completely remove this patch, we should probably figure out how to
  make the parallel-build fail-fast in case its components fail in the future.
 Author: Ximin Luo <infinity0@debian.org>
