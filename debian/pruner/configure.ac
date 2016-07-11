@@ -247,9 +247,6 @@ AC_SUBST(HAS_PKGCONF)
 HAS_PKGCONFIG="True"
 AC_SUBST(HAS_PKGCONFIG)
 
-# TODO(planarity): check that this is OK
-# sagemath only have 1 (relevant to Debian) patch now that adds "extern" to
-# "char Mode" and "char Line" in planarity.h; ouc build might still work though
 AC_CHECK_HEADERS(planarity/planarity.h, HAS_PLANARITY="True", HAS_PLANARITY="False")
 AC_SUBST(HAS_PLANARITY)
 
@@ -298,14 +295,9 @@ AC_SUBST(HAS_SAGETEX)
 AC_CHECK_PROG(HAS_SCONS, scons, "True", "False")
 AC_SUBST(HAS_SCONS)
 
-# FIXME(singular): using the debian-science repository
 AC_LANG_PUSH([C++])
-old_CPPFLAGS=$CPPFLAGS
-CPPFLAGS="$old_CPPFLAGS -I/usr/include/factory"
 AC_CHECK_HEADERS(libsingular.h, HAS_SINGULAR="True", HAS_SINGULAR="False")
-CPPFLAGS=$old_CPPFLAGS
 AC_LANG_POP([C++])
-#HAS_SINGULAR="False"
 AC_SUBST(HAS_SINGULAR)
 
 AC_CHECK_HEADERS(sqlite3.h, HAS_SQLITE="True", HAS_SQLITE="False")

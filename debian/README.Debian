@@ -19,14 +19,20 @@ also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-Then the build should work, but the tests will fail. This is partly due to our
-hacky patches, and it's probably not worth trying to fix them before we update
-to Sage 7.2/7.3 "properly".
+Then the build (including documentation) should work, but the tests will fail.
+This is probably due to a combination of:
+
+a) the fact we're currently installing to $HOME rather than /usr.
+b) mismatched versions of dependencies; we'll need to upload these.
+c) our hacky patches; we will need to revise these.
+
+Also "? cannot open `standard.lib`" when running `./sage` is slightly
+concerning; we should investigate that.
 
 ## TODO (required to get into Debian archives)
 
-1. package all the stuff not yet available in Debian
+1. Package all the stuff not yet available in Debian
 
 i.e. for which pruner.py says "X will not come from debian!"
 
-2. other stuff on wiki page https://wiki.debian.org/DebianScience/Sage
+2. Other stuff on wiki page https://wiki.debian.org/DebianScience/Sage
