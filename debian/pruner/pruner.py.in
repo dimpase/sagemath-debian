@@ -214,7 +214,7 @@ for p in sage_standard_packages:
     if p not in dico:
         dico[p] = False
 
-for key, val in dico.items():
+for key, val in sorted(dico.items()):
     if val:
         declare_system(key)
     else:
