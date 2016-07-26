@@ -115,7 +115,7 @@ Build-Depends:
  python-openid,
  python-path,
  python-pathlib2,
- python-pexpect,
+ python-pexpect (= 4.0.1-1+sage1),
  python-pickleshare,
  python-pil,
  python-pip,
