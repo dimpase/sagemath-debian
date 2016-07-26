@@ -132,6 +132,7 @@ Build-Depends:
  python-snowballstemmer,
  python-sphinx,
  python-sympy,
+ python-tk,
  python-tornado,
  python-traitlets,
  python-twisted,
