@@ -13,7 +13,7 @@ override_dh_auto_clean:
 	dh_auto_clean
 
 override_dh_auto_build: prune
-	$(MAKE) --directory=sage
+	$(MAKE) --directory=sage build
 
 override_dh_auto_test: ptestlong
 
