@@ -56,3 +56,16 @@
          ... "#clib m readline singular givaro ntl gmpxx gmp",
          ... "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
          ... "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
+--- a/sage/src/bin/sage-env
++++ b/sage/src/bin/sage-env
+@@ -313,8 +313,8 @@
+ GPHELP="$SAGE_LOCAL/bin/gphelp" && export GPHELP
+ GPDOCDIR="$SAGE_LOCAL/share/pari/doc" && export GPDOCDIR
+ 
+-SINGULARPATH="$SAGE_LOCAL/share/singular" && export SINGULARPATH
+-SINGULAR_EXECUTABLE="$SAGE_LOCAL/bin/Singular" && export SINGULAR_EXECUTABLE
++SINGULARPATH="/usr/share/singular" && export SINGULARPATH
++SINGULAR_EXECUTABLE="/usr/bin/Singular" && export SINGULAR_EXECUTABLE
+ 
+ if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
+     SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
