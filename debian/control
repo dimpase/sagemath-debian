@@ -31,6 +31,7 @@ Build-Depends:
  libblas-dev,
  libboost-dev (>= 1.55),
  libcdd-dev (>= 094h-1),
+ libcdd-tools (>= 094h-1),
  libcliquer-dev,
  libec-dev (>= 20160206-1+sage1),
  libecm-dev,
