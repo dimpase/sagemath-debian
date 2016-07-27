@@ -27,3 +27,4 @@ debian-cysignals.patch
 debian-temp-userdir-singular.patch
 debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
+debian-python-2.7.11.patch
