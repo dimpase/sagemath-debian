@@ -61,7 +61,7 @@ Build-Depends:
  libmpfr-dev,
  libntl-dev (>= 9.9.1-2),
  libpari-dev (>= 2.8-2341-g61b65cc-1),
- libplanarity-dev,
+# libplanarity-dev, this is version 3.0, we need 2.2
  libpng-dev,
  libpolybori-dev (= 0.8.4.3-0+sage1),
  libpolybori-groebner-dev (= 0.8.4.3-0+sage1),

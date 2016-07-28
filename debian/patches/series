@@ -9,7 +9,6 @@ fixsage-sphinx.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
-update-planarity.patch
 
 # due to Debian's inherent differences with upstream;
 # we're unlikely to forward these upstream
