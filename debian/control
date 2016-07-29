@@ -111,6 +111,7 @@ Build-Depends:
  python-mistune,
  python-moinmoin,
  python-mpmath,
+ python-nbformat,
  python-networkx,
  python-numpy,
  python-openid,
