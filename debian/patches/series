@@ -9,6 +9,9 @@ fixsage-sphinx.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
+version-python-2.7.11.patch
+version-ecm-7.patch
+version-linbox-1.4.patch
 
 # due to Debian's inherent differences with upstream;
 # we're unlikely to forward these upstream
@@ -26,7 +29,4 @@ debian-cysignals.patch
 debian-temp-userdir-singular.patch
 debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
-debian-python-2.7.11.patch
-debian-ecm-7.patch
 temp-cython-include-source.patch
-version-linbox-1.4.patch
