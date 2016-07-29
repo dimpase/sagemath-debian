@@ -52,7 +52,7 @@ Build-Depends:
  libjs-mathjax,
  liblapack-dev,
  liblfunction-dev,
- liblinboxsage-dev (>= 1.3.2-1.1+b3),
+ liblinboxsage-dev (>= 1.4),
  liblrcalc-dev,
  libm4ri-dev (>= 20130416),
  libm4rie-dev (>= 20130416),
