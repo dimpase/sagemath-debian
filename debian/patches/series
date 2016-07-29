@@ -12,6 +12,7 @@ fixsage-sphinx.patch
 version-python-2.7.11.patch
 version-ecm-7.patch
 version-linbox-1.4.patch
+version-ipython-5.patch
 
 # due to Debian's inherent differences with upstream;
 # we're unlikely to forward these upstream
