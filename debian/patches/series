@@ -29,3 +29,4 @@ temp-disable-parallel-sphinx.patch
 debian-python-2.7.11.patch
 debian-ecm-7.patch
 temp-cython-include-source.patch
+version-linbox-1.4.patch
