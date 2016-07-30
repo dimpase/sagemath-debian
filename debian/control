@@ -87,6 +87,7 @@ Build-Depends:
  python-alabaster,
  python-babel,
  python-backports-abc,
+ python-backports-shutil-get-terminal-size,
  python-backports.ssl-match-hostname,
  python-crypto,
  python-cvxopt,
