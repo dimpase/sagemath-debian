@@ -165,8 +165,6 @@ Build-Depends:
  singular (<< 4),
  python-sagenb (>= 0.11.2),
 
-# some tests will fail with python-matplotlib <=1.2.1
-
 Package: sagemath-empty
 Architecture: all
 Description: Empty package with the runtime dependencies of sage
