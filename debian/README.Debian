@@ -5,11 +5,7 @@ for instructions on using this repository.
 
 ## TODO (required for the build to work)
 
-1. Patch lrcalc:
-
-schublib.h, symfcn.h need to #include "hashtab.h" (etc) instead of <hashtab.h>
-
-2. Patch flint-arb:
+* Patch flint-arb:
 
 see https://github.com/fredrik-johansson/arb/pull/55
 see debian/arb-headers.patch for a local workaround; apply it with:
