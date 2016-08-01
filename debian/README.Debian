@@ -19,15 +19,12 @@ also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
 install it as libarb.so; check upstream to see what they prefer). as a temp
 workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
 
-Then the build (including documentation) should work, but the tests will fail.
+Then the build (including documentation) should work, but some tests will fail.
 This is probably due to a combination of:
 
 a) the fact we're currently installing to $HOME rather than /usr.
 b) mismatched versions of dependencies; we'll need to upload these.
 c) our hacky patches; we will need to revise these.
-
-Also "? cannot open `standard.lib`" when running `./sage` is slightly
-concerning; we should investigate that.
 
 ## TODO (required to get into Debian archives)
 
