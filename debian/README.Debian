@@ -15,10 +15,6 @@ see https://github.com/fredrik-johansson/arb/pull/55
 see debian/arb-headers.patch for a local workaround; apply it with:
 $ sudo patch -d /usr/include/ -p1 < debian/arb-headers.patch
 
-also need sage to -lflint-arb instead of -larb (or perhaps Debian needs to
-install it as libarb.so; check upstream to see what they prefer). as a temp
-workaround you can `ln -s libflint-arb.so /usr/lib/libarb.so`.
-
 Then the build (including documentation) should work, but some tests will fail.
 This is probably due to a combination of:
 

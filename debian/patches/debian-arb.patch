@@ -1,0 +1,82 @@
+Description: Link with -lflint-arb instead of -larb
+ The name of the arb library is libflint-arb in Debian.
+Author: Tobias Hansen <thansen@debian.org>
+Forwarded: not-needed
+
+
+--- a/sage/src/module_list.py
++++ b/sage/src/module_list.py
+@@ -127,7 +127,7 @@
+     "singular", "ec", "ecm",
+ ] + linbox_libs  + gsl_libs + [
+     "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
+-    "arb", "fplll", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
++    "flint-arb", "fplll", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
+     "polybori",
+     "polybori_groebner",
+     "m4rie",
+@@ -884,7 +884,7 @@
+ 
+     Extension("sage.matrix.matrix_complex_ball_dense",
+               ["sage/matrix/matrix_complex_ball_dense.pyx"],
+-              libraries=['arb', 'mpfi', 'mpfr'],
++              libraries=['flint-arb', 'mpfi', 'mpfr'],
+               include_dirs=[SAGE_INC + '/flint'],
+               language = "c++"),
+ 
+--- a/sage/src/sage/libs/arb/acb.pxd
++++ b/sage/src/sage/libs/arb/acb.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.flint.types cimport fmpz_t, fmpq_t
+--- a/sage/src/sage/libs/arb/acb_hypgeom.pxd
++++ b/sage/src/sage/libs/arb/acb_hypgeom.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ 
+--- a/sage/src/sage/libs/arb/acb_modular.pxd
++++ b/sage/src/sage/libs/arb/acb_modular.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.flint.types cimport fmpz_poly_t
+--- a/sage/src/sage/libs/arb/arb.pxd
++++ b/sage/src/sage/libs/arb/arb.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.flint.types cimport fmpz_t, fmpq_t
+--- a/sage/src/sage/libs/arb/arf.pxd
++++ b/sage/src/sage/libs/arb/arf.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.gmp.types cimport mpz_t
+--- a/sage/src/sage/libs/arb/bernoulli.pxd
++++ b/sage/src/sage/libs/arb/bernoulli.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from ..flint.types cimport fmpq_t, ulong
+ 
+--- a/sage/src/sage/libs/arb/mag.pxd
++++ b/sage/src/sage/libs/arb/mag.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.flint.types cimport fmpz_t, fmpq_t
