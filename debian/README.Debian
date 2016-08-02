@@ -5,11 +5,7 @@ for instructions on using this repository.
 
 ## TODO (required for the build to work)
 
-* Patch flint-arb:
-
-see https://github.com/fredrik-johansson/arb/pull/55
-see debian/arb-headers.patch for a local workaround; apply it with:
-$ sudo patch -d /usr/include/ -p1 < debian/arb-headers.patch
+* Currently there are no extra steps required to make the build work.
 
 Then the build (including documentation) should work, but some tests will fail.
 This is probably due to a combination of:
