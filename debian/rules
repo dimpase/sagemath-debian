@@ -2,6 +2,14 @@
 
 VERSION := $(shell dpkg-parsechangelog -S Version| sed 's@\(.\+\)-.\+@\1@')
 
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	MAKEFLAGS += -j$(NUMJOBS)
+else
+	MAKEFLAGS += -j5
+endif
+
+
 %:
 	dh $@ --parallel
 
