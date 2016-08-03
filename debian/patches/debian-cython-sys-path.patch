@@ -1,0 +1,15 @@
+Description: Add sys.path to Cython includes
+ In SageMath this is achieved by patching Cython,
+ in this way we can used an unpatched Cython.
+Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/sagemath
+
+--- a/sage/src/setup.py
++++ b/sage/src/setup.py
+@@ -585,6 +585,7 @@
+         build_dir=SAGE_CYTHONIZED,
+         force=force,
+         aliases=aliases,
++        include_path=sys.path,
+         compiler_directives={
+             'embedsignature': True,
+             'profile': profile,

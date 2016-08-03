@@ -25,6 +25,7 @@ debian-nauty.patch
 debian-gsl-cblas.patch
 debian-cysignals.patch
 debian-arb.patch
+debian-cython-sys-path.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
