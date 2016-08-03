@@ -22,7 +22,7 @@
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/libs/singular/singular.pyx
 +++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -710,15 +710,13 @@
+@@ -711,15 +711,13 @@
  
      cdef void *handle = NULL
  

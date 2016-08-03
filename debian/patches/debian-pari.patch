@@ -11,8 +11,8 @@
 +GPHELP="/usr/bin/gphelp" && export GPHELP
 +GPDOCDIR="/usr/share/pari/doc" && export GPDOCDIR
  
- SINGULARPATH="$SAGE_LOCAL/share/singular" && export SINGULARPATH
- SINGULAR_EXECUTABLE="$SAGE_LOCAL/bin/Singular" && export SINGULAR_EXECUTABLE
+ SINGULARPATH="/usr/share/singular" && export SINGULARPATH
+ SINGULAR_EXECUTABLE="/usr/bin/Singular" && export SINGULAR_EXECUTABLE
 --- a/sage/src/sage/interfaces/gp.py
 +++ b/sage/src/sage/interfaces/gp.py
 @@ -245,9 +245,9 @@
