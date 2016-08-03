@@ -1,10 +1,9 @@
 #!/usr/bin/make -f
 
 VERSION := $(shell dpkg-parsechangelog -S Version| sed 's@\(.\+\)-.\+@\1@')
-export MAKE = make -j5
 
 %:
-	dh $@
+	dh $@ --parallel
 
 override_dh_auto_clean:
 	rm -f prune
