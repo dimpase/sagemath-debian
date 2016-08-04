@@ -127,6 +127,7 @@ Build-Depends:
  python-pip,
  python-pkgconfig,
  python-ply,
+ python-polybori,
  python-ptyprocess,
  python-pygments,
  python-rpy2,
