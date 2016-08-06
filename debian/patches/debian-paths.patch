@@ -27,37 +27,6 @@
  
      # Display the startup banner
      if [ "$SAGE_BANNER" = "bare" ]; then
---- a/sage/src/bin/sage-env
-+++ b/sage/src/bin/sage-env
-@@ -247,8 +247,8 @@
- # Setting Sage-related location environment variables.
- export SAGE_LOCAL="$SAGE_ROOT/local"
- export SAGE_ETC="$SAGE_LOCAL/etc"
--export SAGE_SHARE="$SAGE_LOCAL/share"
--export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
-+export SAGE_SHARE="/usr/share/sagemath"
-+export SAGE_EXTCODE="$SAGE_LOCAL/share/sage/ext"
- export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
- export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
- export SAGE_SRC="$SAGE_ROOT/src"
-@@ -439,7 +439,6 @@
- 	fi
-     fi
- fi
--MAXIMA_PREFIX="$SAGE_ROOT/local" && export MAXIMA_PREFIX
- 
- ############ architecture flags
- 
-@@ -606,9 +605,6 @@
-     LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
- fi
- 
--# See trac 7186 -- this is needed if ecl is moved
--ECLDIR="$SAGE_LOCAL/lib/ecl/" && export ECLDIR
--
- # Handle parallel building/testing/...
- # See Trac Ticket #12016
- # First, figure out the right values for SAGE_NUM_THREADS (default
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
 @@ -3,7 +3,7 @@

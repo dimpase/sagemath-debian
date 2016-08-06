@@ -1,0 +1,49 @@
+--- a/sage/src/bin/sage-env
++++ b/sage/src/bin/sage-env
+@@ -247,8 +247,8 @@
+ # Setting Sage-related location environment variables.
+ export SAGE_LOCAL="$SAGE_ROOT/local"
+ export SAGE_ETC="$SAGE_LOCAL/etc"
+-export SAGE_SHARE="$SAGE_LOCAL/share"
+-export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
++export SAGE_SHARE="/usr/share/sagemath"
++export SAGE_EXTCODE="$SAGE_LOCAL/share/sage/ext"
+ export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+ export SAGE_SRC="$SAGE_ROOT/src"
+@@ -309,12 +309,12 @@
+ fi
+ 
+ # For PARI/GP
+-GP_DATA_DIR="$SAGE_LOCAL/share/pari" && export GP_DATA_DIR
+-GPHELP="$SAGE_LOCAL/bin/gphelp" && export GPHELP
+-GPDOCDIR="$SAGE_LOCAL/share/pari/doc" && export GPDOCDIR
++GP_DATA_DIR="/usr/share/pari" && export GP_DATA_DIR
++GPHELP="/usr/bin/gphelp" && export GPHELP
++GPDOCDIR="/usr/share/pari/doc" && export GPDOCDIR
+ 
+-SINGULARPATH="$SAGE_LOCAL/share/singular" && export SINGULARPATH
+-SINGULAR_EXECUTABLE="$SAGE_LOCAL/bin/Singular" && export SINGULAR_EXECUTABLE
++SINGULARPATH="/usr/share/singular" && export SINGULARPATH
++SINGULAR_EXECUTABLE="/usr/bin/Singular" && export SINGULAR_EXECUTABLE
+ 
+ if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
+     SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
+@@ -439,7 +439,6 @@
+ 	fi
+     fi
+ fi
+-MAXIMA_PREFIX="$SAGE_ROOT/local" && export MAXIMA_PREFIX
+ 
+ ############ architecture flags
+ 
+@@ -606,9 +605,6 @@
+     LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
+ fi
+ 
+-# See trac 7186 -- this is needed if ecl is moved
+-ECLDIR="$SAGE_LOCAL/lib/ecl/" && export ECLDIR
+-
+ # Handle parallel building/testing/...
+ # See Trac Ticket #12016
+ # First, figure out the right values for SAGE_NUM_THREADS (default
