@@ -1,0 +1,27 @@
+--- a/sage/src/sage/libs/gap/test/Makefile
++++ b/sage/src/sage/libs/gap/test/Makefile
+@@ -1,6 +1,8 @@
++LIBGAP_CFLAGS = $(shell pkg-config libgap-sage --cflags)
++LIBGAP_LDFLAGS = $(shell pkg-config libgap-sage --libs-only-L)
++LIBGAP_LDLIBS = $(shell pkg-config libgap-sage --libs-only-l)
+ 
+-
+-GAPDIR="$(SAGE_LOCAL)/gap/latest"
++GAPDIR="/usr/share/gap"
+ 
+ # VALGRIND=valgrind --leak-check=full
+ # VALGRIND=valgrind --db-attach=yes
+@@ -12,11 +14,11 @@
+ 	LD_LIBRARY_PATH=$(SAGE_LOCAL)/lib $(VALGRIND) ./main
+ 
+ main: main.o Makefile
+-	gcc -L$(SAGE_LOCAL)/lib -o main main.o -lgap -lcsage -lntl -lstdc++ -lpari -lpython2.7 -lm -lgmp
++	gcc $(LIBGAP_LDFLAGS) -L$(SAGE_LOCAL)/lib -o main main.o $(LIBGAP_LDLIBS) -lcsage -lntl -lstdc++ -lpari -lpython2.7 -lm -lgmp
+ 
+ main.o: main.c
+ 	echo $(GAPDIR)
+-	gcc -std=gnu99 -DGAPDIR="\"$(GAPDIR)\"" -I$(SAGE_LOCAL)/include -I$(SAGE_LOCAL)/include/python2.6 -c -g $^
++	gcc -std=gnu99 -DGAPDIR="\"$(GAPDIR)\"" $(LIBGAP_CFLAGS) -I$(SAGE_LOCAL)/include -I$(SAGE_LOCAL)/include/python2.6 -c -g $^
+ 
+ clean:
+ 	rm main.o main *~

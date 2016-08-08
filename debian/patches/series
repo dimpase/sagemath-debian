@@ -6,6 +6,7 @@ silence_ecl_opt_signals.patch
 sagedoc_avoid_exception.patch
 fixsage-mpfi.patch
 fixsage-sphinx.patch
+fixsage-libgap-systemwide.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
@@ -19,6 +20,7 @@ version-ipython-5.patch
 debian-paths.patch
 debian-maxima.patch
 debian-singular.patch
+debian-libgap-sage.patch
 debian-rubiks.patch
 debian-pari.patch
 debian-nauty.patch
