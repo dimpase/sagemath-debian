@@ -39,3 +39,8 @@ reset:
 	cd sage; git clean -fdx
 	rm -rf $HOME/.sage/
 	QUILT_PATCHES=debian/patches quilt push -a
+
+build-dep:
+	mk-build-deps
+	sudo dpkg --force-all -i sagemath-build-deps_$(shell dpkg-parsechangelog -S Version)_all.deb || true
+	sudo apt-get install sagemath-build-deps
