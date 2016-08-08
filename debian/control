@@ -86,6 +86,7 @@ Build-Depends:
  pari-doc (>= 2.8-2341-g61b65cc-1),
  pari-galdata,
  pari-seadata,
+ pkg-config,
  python2.7-dev,
  python-alabaster,
  python-babel,
