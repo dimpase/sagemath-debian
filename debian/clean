@@ -1,5 +1,5 @@
 prune
-config.log
-config.status
-pruner.py
+debian/pruner/config.log
+debian/pruner/config.status
+debian/pruner/pruner.py
 debian/pruner/configure
