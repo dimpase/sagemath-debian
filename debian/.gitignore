@@ -1,4 +1,5 @@
 /*.debhelper.log
 /pruner/configure
 /pruner/config.*
-/pruner/pruner
+/pruner/pruner.py
+/pruner/autom4te.cache
