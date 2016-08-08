@@ -25,8 +25,8 @@ get-orig-source:
 
 prune:
 	cd debian/pruner && autoconf
-	debian/pruner/configure --with-sage-root="$(shell pwd)/sage"
-	cd sage && python ../pruner.py
+	cd debian/pruner && ./configure --with-sage-root="$(shell pwd)/sage"
+	cd sage && python ../debian/pruner/pruner.py
 	touch prune
 
 ptestlong:

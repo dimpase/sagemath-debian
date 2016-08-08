@@ -1,0 +1,4 @@
+/*.debhelper.log
+/pruner/configure
+/pruner/config.*
+/pruner/pruner
