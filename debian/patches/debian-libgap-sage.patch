@@ -1,3 +1,10 @@
+Description: Use Debian libGAP paths
+ Debian installs libGAP headers to non-standard paths to avoid conflict with
+ the main GAP headers. Moreover, many Sage modules use libGAP, so just add
+ these paths to all modules instead of doing module-specific patches.
+Author: Jerome BENOIT <calculus@rezozer.net>
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
 --- a/sage/src/sage/libs/gap/test/Makefile
 +++ b/sage/src/sage/libs/gap/test/Makefile
 @@ -1,6 +1,8 @@
@@ -27,20 +34,18 @@
  	rm main.o main *~
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -46,6 +46,12 @@
+@@ -46,6 +46,10 @@
  gsl_library_dirs = list(gsl_pc['library_dirs'])
  gsl_include_dirs = list(gsl_pc['include_dirs'])
  
 +# LibGAP
 +libgap_pc = pkgconfig.parse('libgap-sage')
 +libgap_libs = list(libgap_pc['libraries'])
-+libgap_library_dirs = list(libgap_pc['library_dirs'])
-+libgap_include_dirs = list(libgap_pc['include_dirs'])
 +
  # GD image library
  gd_pc = pkgconfig.parse('gdlib')
  gd_libs = list(gd_pc['libraries'])
-@@ -133,8 +139,8 @@
+@@ -133,8 +137,8 @@
      "polybori_groebner",
      "m4rie",
  ] + m4ri_libs + [
@@ -51,39 +56,48 @@
      "m", "readline", "Lfunction" ,
  ] + cblas_libs + [
      "cryptominisat",
-@@ -236,7 +242,9 @@
- 
-     Extension('sage.coding.codecan.codecan',
-               sources = ['sage/coding/codecan/codecan.pyx'],
--              libraries = ['flint']),
-+              libraries = ['flint'],
-+              library_dirs = libgap_library_dirs,
-+              include_dirs = libgap_include_dirs),
- 
-     Extension('*', ['sage/coding/**/*.pyx']),
- 
-@@ -732,15 +740,21 @@
+@@ -732,15 +736,15 @@
  
      Extension('sage.libs.gap.util',
                sources = ["sage/libs/gap/util.pyx"],
 -              libraries = ['gmp', 'gap', 'm']),
-+              libraries = ['gmp'] + libgap_libs + ['m'],
-+              library_dirs = libgap_library_dirs,
-+              include_dirs = libgap_include_dirs),
++              libraries = ['gmp'] + libgap_libs + ['m']),
  
      Extension('sage.libs.gap.element',
                sources = ["sage/libs/gap/element.pyx"],
 -              libraries = ['gmp', 'gap', 'm']),
-+              libraries = ['gmp'] + libgap_libs + ['m'],
-+              library_dirs = libgap_library_dirs,
-+              include_dirs = libgap_include_dirs),
++              libraries = ['gmp'] + libgap_libs + ['m']),
  
      Extension('sage.libs.gap.libgap',
                sources = ["sage/libs/gap/libgap.pyx"],
 -              libraries = ['gmp', 'gap', 'm']),
-+              libraries = ['gmp'] + libgap_libs + ['m'],
-+              library_dirs = libgap_library_dirs,
-+              include_dirs = libgap_include_dirs),
++              libraries = ['gmp'] + libgap_libs + ['m']),
  
      ###################################
      ##
+--- a/sage/src/setup.py
++++ b/sage/src/setup.py
+@@ -161,6 +161,12 @@
+                 "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
+               }
+ 
++import pkgconfig
++# LibGAP
++libgap_pc = pkgconfig.parse('libgap-sage')
++libgap_library_dirs = list(libgap_pc['library_dirs'])
++libgap_include_dirs = list(libgap_pc['include_dirs'])
++
+ # In the loop below, don't append to any list, since many of these
+ # lists are actually identical Python objects. For every list, we need
+ # to write (at least the first time):
+@@ -178,8 +184,8 @@
+ 
+     m.extra_compile_args = m.extra_compile_args + extra_compile_args
+     m.extra_link_args = m.extra_link_args + extra_link_args
+-    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
+-    m.include_dirs = m.include_dirs + include_dirs
++    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
++    m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
+ 
+ 
+ #############################################

@@ -6,7 +6,7 @@ Forwarded: not-needed
 
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -133,7 +133,7 @@
+@@ -131,7 +131,7 @@
      "singular", "ec", "ecm",
  ] + linbox_libs  + gsl_libs + [
      "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
@@ -15,7 +15,7 @@ Forwarded: not-needed
      "polybori",
      "polybori_groebner",
      "m4rie",
-@@ -898,7 +898,7 @@
+@@ -888,7 +888,7 @@
  
      Extension("sage.matrix.matrix_complex_ball_dense",
                ["sage/matrix/matrix_complex_ball_dense.pyx"],
