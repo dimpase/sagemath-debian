@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-VERSION := $(shell dpkg-parsechangelog -S Version| sed 's@\(.\+\)-.\+@\1@')
+include /usr/share/dpkg/pkg-info.mk
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -21,7 +21,8 @@ override_dh_auto_test: ptestlong
 override_dh_auto_install:
 
 get-orig-source:
-	cd sage && git archive --prefix=sagemath_$(VERSION)/sage/ --format=tar HEAD | xz -zf > ../../sagemath_$(VERSION).orig.tar.xz
+	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
+	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
 
 prune:
 	cd debian/pruner && autoconf
@@ -42,5 +43,7 @@ reset:
 
 build-dep:
 	mk-build-deps
-	sudo dpkg --force-all -i sagemath-build-deps_$(shell dpkg-parsechangelog -S Version)_all.deb
-	sudo apt-get install sagemath-build-deps
+	sudo dpkg --force-all -i sagemath-build-deps_$(DEB_VERSION)_all.deb
+	if which aptitude >/dev/null; then sudo aptitude install -R sagemath-build-deps; \
+	else sudo apt-get install --no-install-recommends sagemath-build-deps; fi
+	rm -f sagemath-build-deps_$(DEB_VERSION)_all.deb
