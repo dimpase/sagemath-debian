@@ -37,7 +37,7 @@ reset:
 	$(MAKE) -f debian/rules clean
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	cd sage; git clean -fdx
-	rm -rf $HOME/.sage/local
+	rm -rf $$HOME/.sage/local
 	QUILT_PATCHES=debian/patches quilt push -a
 
 build-dep:
