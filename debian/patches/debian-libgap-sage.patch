@@ -21,7 +21,69 @@
  main.o: main.c
  	echo $(GAPDIR)
 -	gcc -std=gnu99 -DGAPDIR="\"$(GAPDIR)\"" -I$(SAGE_LOCAL)/include -I$(SAGE_LOCAL)/include/python2.6 -c -g $^
-+	gcc -std=gnu99 -DGAPDIR="\"$(GAPDIR)\"" $(LIBGAP_CFLAGS) -I$(SAGE_LOCAL)/include -I$(SAGE_LOCAL)/include/python2.6 -c -g $^
++	gcc -std=gnu99 -DGAPDIR="\"$(GAPDIR)\"" $(LIBGAP_CFLAGS) -I$(SAGE_LOCAL)/include -I$(SAGE_LOCAL)/include/python2.7 -c -g $^
  
  clean:
  	rm main.o main *~
+--- a/sage/src/module_list.py
++++ b/sage/src/module_list.py
+@@ -46,6 +46,12 @@
+ gsl_library_dirs = list(gsl_pc['library_dirs'])
+ gsl_include_dirs = list(gsl_pc['include_dirs'])
+ 
++# LibGAP
++libgap_pc = pkgconfig.parse('libgap-sage')
++libgap_libs = list(libgap_pc['libraries'])
++libgap_library_dirs = list(libgap_pc['library_dirs'])
++libgap_include_dirs = list(libgap_pc['include_dirs'])
++
+ # GD image library
+ gd_pc = pkgconfig.parse('gdlib')
+ gd_libs = list(gd_pc['libraries'])
+@@ -133,8 +139,8 @@
+     "polybori_groebner",
+     "m4rie",
+ ] + m4ri_libs + [
+-    "zn_poly", "gap",
+-] + gd_libs + png_libs + [
++    "zn_poly",
++] + libgap_libs + gd_libs + png_libs + [
+     "m", "readline", "Lfunction" ,
+ ] + cblas_libs + [
+     "cryptominisat",
+@@ -236,7 +242,9 @@
+ 
+     Extension('sage.coding.codecan.codecan',
+               sources = ['sage/coding/codecan/codecan.pyx'],
+-              libraries = ['flint']),
++              libraries = ['flint'],
++              library_dirs = libgap_library_dirs,
++              include_dirs = libgap_include_dirs),
+ 
+     Extension('*', ['sage/coding/**/*.pyx']),
+ 
+@@ -732,15 +740,21 @@
+ 
+     Extension('sage.libs.gap.util',
+               sources = ["sage/libs/gap/util.pyx"],
+-              libraries = ['gmp', 'gap', 'm']),
++              libraries = ['gmp'] + libgap_libs + ['m'],
++              library_dirs = libgap_library_dirs,
++              include_dirs = libgap_include_dirs),
+ 
+     Extension('sage.libs.gap.element',
+               sources = ["sage/libs/gap/element.pyx"],
+-              libraries = ['gmp', 'gap', 'm']),
++              libraries = ['gmp'] + libgap_libs + ['m'],
++              library_dirs = libgap_library_dirs,
++              include_dirs = libgap_include_dirs),
+ 
+     Extension('sage.libs.gap.libgap',
+               sources = ["sage/libs/gap/libgap.pyx"],
+-              libraries = ['gmp', 'gap', 'm']),
++              libraries = ['gmp'] + libgap_libs + ['m'],
++              library_dirs = libgap_library_dirs,
++              include_dirs = libgap_include_dirs),
+ 
+     ###################################
+     ##
