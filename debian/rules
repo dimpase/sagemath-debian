@@ -42,5 +42,5 @@ reset:
 
 build-dep:
 	mk-build-deps
-	sudo dpkg --force-all -i sagemath-build-deps_$(shell dpkg-parsechangelog -S Version)_all.deb || true
+	sudo dpkg --force-all -i sagemath-build-deps_$(shell dpkg-parsechangelog -S Version)_all.deb
 	sudo apt-get install sagemath-build-deps
