@@ -20,7 +20,7 @@ Build-Depends:
  fflas-ffpack,
  flintqs,
  gap (= 4r8p3-3),
- libgap-sage (>= 4.8.3), libgap-sage (<< 4.8.4),
+ libgap-sage-dev (>= 4.8.3), libgap-sage-dev (<< 4.8.4),
  gdb,
  gfan,
  git,
