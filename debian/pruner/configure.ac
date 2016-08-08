@@ -98,7 +98,7 @@ AC_SUBST(HAS_FPLLL)
 AC_CHECK_PROG(HAS_FREETYPE, freetype-config, "True", "False")
 AC_SUBST(HAS_FREETYPE)
 
-AC_CHECK_FILE(/usr/include/gap/gap.h, HAS_GAP="True", HAS_GAP="False")
+AC_CHECK_FILE(/usr/lib/gap/sysinfo.gap, HAS_GAP="True", HAS_GAP="False")
 AC_SUBST(HAS_GAP)
 
 AC_CHECK_HEADER(gd.h, HAS_GD="True", HAS_GD="False")
