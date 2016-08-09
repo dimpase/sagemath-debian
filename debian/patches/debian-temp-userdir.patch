@@ -163,3 +163,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 -cd src && python setup.py install
 +cd src && python setup.py install --user
+--- a/sage/build/pkgs/sagenb_export/spkg-install
++++ b/sage/build/pkgs/sagenb_export/spkg-install
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ 
+ cd src
+-python setup.py install
++python setup.py install --user
+ if [ $? -ne 0 ]; then
+     echo >&2 "Error installing SageNB Export"
+     exit 1
+--- a/sage/build/pkgs/widgetsnbextension/spkg-install
++++ b/sage/build/pkgs/widgetsnbextension/spkg-install
+@@ -1,3 +1,3 @@
+ #!/usr/bin/env bash
+ 
+-cd src && python setup.py install
++cd src && python setup.py install --user
