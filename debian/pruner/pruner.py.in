@@ -149,6 +149,7 @@ python_modules = [
     'flask_openid',
     'flask_silk',
     'functools32',
+    'future',
     'imagesize',
     'ipykernel',
     'ipython_genutils',
@@ -188,6 +189,7 @@ python_modules = [
 ]
 
 python_packages_to_modules = {
+    'backports_shutil_get_terminal_size': 'backports/shutil_get_terminal_size',
     'pathpy': 'path',
     'pillow': 'PIL',
     'pycrypto': 'Crypto',

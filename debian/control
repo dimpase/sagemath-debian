@@ -105,6 +105,7 @@ Build-Depends:
  python-flask-openid,
  python-flask-silk,
  python-functools32,
+ python-future,
  python-gd,
  python-gnutls,
  python-imagesize,
