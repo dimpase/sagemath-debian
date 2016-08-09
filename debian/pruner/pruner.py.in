@@ -178,7 +178,6 @@ python_modules = [
     'singledispatch',
     'six',
     'snowballstemmer',
-    'speaklater',
     'sphinx',
     'sympy',
     'tornado',
@@ -198,6 +197,10 @@ python_packages_to_modules = {
     'zope_interface': 'zope/interface'
 }
 
+unneeded_packages = {
+    'speaklater'
+}
+
 for p in python_modules:
     try:
         imp.find_module(p)
@@ -211,6 +214,10 @@ for p, m in python_packages_to_modules.iteritems():
         dico[p] = True
     except ImportError:
         dico[p] = False
+
+for p in unneeded_packages:
+    dico[p] = True
+
 
 # report missing standard packages too
 for p in sage_standard_packages:
