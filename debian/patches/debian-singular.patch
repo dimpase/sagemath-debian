@@ -41,7 +41,7 @@
 +        if not handle:
 +            err = dlerror()
 +            if err:
-+                print err
++                print(err)
  
      if handle == NULL:
          raise ImportError("cannot load libSINGULAR library")
