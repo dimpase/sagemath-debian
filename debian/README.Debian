@@ -5,7 +5,11 @@ for instructions on using this repository.
 
 ## TODO (required for the build to work)
 
-* Currently there are no extra steps required to make the build work.
+1. For the docbuild to work, you must first patch your local system:
+
+   $ sudo ln -sf libpari-gmp-tls-2.8.so.0.0.0 /usr/lib/x86_64-linux-gnu/libpari-gmp-tls.so.4
+
+   We probably need to fix libpari-dev, or something.
 
 Then the build (including documentation) should work, but some tests will fail.
 This is probably due to a combination of:
