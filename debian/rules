@@ -9,16 +9,25 @@ else
 	export MAKE = make -j5
 endif
 
+ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+	DEB_BUILD_TARGET = build
+else
+	DEB_BUILD_TARGET = all
+endif
 
 %:
 	dh $@ --parallel
 
 override_dh_auto_build: prune
-	$(MAKE) --directory=sage build
+	$(MAKE) --directory=sage $(DEB_BUILD_TARGET)
 
 override_dh_auto_test: ptestlong
 
 override_dh_auto_install:
+
+# upstream "clean" only cleans the sagelib build and not e.g. spkg builds
+override_dh_auto_clean:
+	$(MAKE) --directory=sage distclean
 
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
@@ -34,8 +43,7 @@ ptestlong:
 	cd sage && local/bin/sage-starts
 	cd sage && ./sage -t -p --all --long --logfile=logs/ptestlong.log
 
-reset:
-	$(MAKE) -f debian/rules clean
+reset: clean
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	cd sage; git clean -fdx
 	rm -rf $$HOME/.sage/local
