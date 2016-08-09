@@ -5,7 +5,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -591,6 +591,7 @@
+@@ -590,6 +590,7 @@
          build_dir=SAGE_CYTHONIZED,
          force=force,
          aliases=aliases,

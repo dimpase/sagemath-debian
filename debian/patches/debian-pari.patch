@@ -1,6 +1,6 @@
 --- a/sage/src/sage/interfaces/gp.py
 +++ b/sage/src/sage/interfaces/gp.py
-@@ -245,9 +245,9 @@
+@@ -246,9 +246,9 @@
          # list of directories where gp will look for scripts (only current working directory)
          self._eval_line('default(path,".");')
          # location of elldata, seadata, galdata
@@ -12,15 +12,6 @@
          # logfile disabled since Expect already logs
          self._eval_line('default(log,0);')
          # set random seed
-@@ -526,7 +526,7 @@
-             sage: gp.get_default('log')
-             0
-             sage: gp.get_default('datadir')
--            '.../local/share/pari'
-+            '.../share/pari'
-             sage: gp.get_default('seriesprecision')
-             16
-             sage: gp.get_default('realprecision')
 --- a/sage/src/Makefile
 +++ b/sage/src/Makefile
 @@ -14,7 +14,7 @@

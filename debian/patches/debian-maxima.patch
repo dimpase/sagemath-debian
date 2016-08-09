@@ -11,7 +11,7 @@
  This plots a direction field (the plotdf Maxima package was also
 --- a/sage/src/sage/interfaces/maxima_lib.py
 +++ b/sage/src/sage/interfaces/maxima_lib.py
-@@ -77,7 +77,7 @@
+@@ -98,7 +98,7 @@
  ## We begin here by initializing Maxima in library mode
  ## i.e. loading it into ECL
  ecl_eval("(setf *load-verbose* NIL)")
@@ -22,7 +22,7 @@
  ecl_eval("(defvar *MAXIMA-LANG-SUBDIR* NIL)")
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
-@@ -555,7 +555,7 @@
+@@ -556,7 +556,7 @@
          Expect.__init__(self,
                          name = 'maxima',
                          prompt = '\(\%i[0-9]+\) ',
@@ -31,7 +31,7 @@
                          script_subdirectory = script_subdirectory,
                          restart_on_ctrlc = False,
                          verbose_start = False,
-@@ -788,7 +788,7 @@
+@@ -789,7 +789,7 @@
          if not wait_for_prompt:
              return
          # line_echo sometimes has randomly inserted terminal echo in front #15811
@@ -42,7 +42,7 @@
          out = self._before()        # input echo + output prompt + output
 --- a/sage/src/sage/interfaces/maxima_abstract.py
 +++ b/sage/src/sage/interfaces/maxima_abstract.py
-@@ -164,7 +164,7 @@
+@@ -165,7 +165,7 @@
              -- Function: gcd (<p_1>, <p_2>, <x_1>, ...)
              ...
          """
@@ -51,7 +51,7 @@
          if sage.server.support.EMBEDDED_MODE:
              cmd += '< /dev/null'
  
-@@ -172,10 +172,7 @@
+@@ -173,10 +173,7 @@
              p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE,
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
              res = p.stdout.read()
@@ -63,7 +63,7 @@
              return AsciiArtString(res)
          else:
              subprocess.Popen(cmd, shell=True)
-@@ -2356,7 +2353,7 @@
+@@ -2357,7 +2354,7 @@
          sage: maxima_version()
          '5.35.1'
      """
@@ -72,7 +72,7 @@
  
  def maxima_console():
      """
-@@ -2372,4 +2369,4 @@
+@@ -2373,4 +2370,4 @@
      from sage.repl.rich_output.display_manager import get_display_manager
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
