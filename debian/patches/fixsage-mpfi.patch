@@ -36,7 +36,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      bint mpfi_nan_p(mpfi_srcptr)
 --- a/sage/src/sage/rings/real_mpfi.pyx
 +++ b/sage/src/sage/rings/real_mpfi.pyx
-@@ -3136,9 +3136,9 @@
+@@ -3137,9 +3137,9 @@
          elif field.rnd == MPFR_RNDU:
              mpfi_get_right(x.value, self.value)
          elif field.rnd == MPFR_RNDZ:

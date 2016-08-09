@@ -87,7 +87,7 @@
      libGAP_Obj libGAP_SUM (libGAP_Obj, libGAP_Obj)
      libGAP_Obj libGAP_DIFF(libGAP_Obj, libGAP_Obj)
      libGAP_Obj libGAP_PROD(libGAP_Obj, libGAP_Obj)
-@@ -278,30 +278,30 @@
+@@ -278,33 +278,33 @@
      bint libGAP_EQ(libGAP_Obj opL, libGAP_Obj opR)
      bint libGAP_LT(libGAP_Obj opL, libGAP_Obj opR)
  
@@ -105,6 +105,9 @@
 -cdef extern from "gap/lists.h":
 +cdef extern from "<gap/lists.h>":
      void libGAP_UNB_LIST(libGAP_Obj list, int pos)
+     bint libGAP_IS_LIST(libGAP_Obj lst)
+     int libGAP_LEN_LIST(libGAP_Obj lst)
+     libGAP_Obj libGAP_ELM_LIST(libGAP_Obj lst, int pos)
  
 -cdef extern from "gap/listfunc.h":
 +cdef extern from "<gap/listfunc.h>":
@@ -124,7 +127,7 @@
      libGAP_Obj libGAP_NEW_PREC(int len)
      int libGAP_LEN_PREC(libGAP_Obj rec)
      int libGAP_GET_RNAM_PREC(libGAP_Obj rec, int i)
-@@ -311,14 +311,14 @@
+@@ -314,14 +314,14 @@
      bint libGAP_IsbPRec(libGAP_Obj rec, libGAP_UInt rnam)
      libGAP_Obj libGAP_ElmPRec(libGAP_Obj rec, libGAP_UInt rnam)
  
