@@ -54,7 +54,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  )
  
  #########################################################
-@@ -85,12 +112,6 @@
+@@ -91,12 +118,6 @@
  singular_libs = ['singular', 'flint', 'ntl', 'gmpxx', 'gmp', 'readline', 'm']
  
  #########################################################
@@ -67,7 +67,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  ### Library order
  #########################################################
  
-@@ -105,8 +126,7 @@
+@@ -111,8 +132,7 @@
  # at the very end of the list.
  library_order_list = [
      "singular", "ec", "ecm",
@@ -76,8 +76,8 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +] + linbox_libs  + gsl_libs + [
      "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
      "arb", "fplll", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
-     "polybori",
-@@ -593,13 +613,10 @@
+     "brial",
+@@ -611,13 +631,10 @@
  
      Extension('sage.libs.linbox.linbox',
                sources = ['sage/libs/linbox/linbox.pyx'],
@@ -93,7 +93,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.libs.lcalc.lcalc_Lfunction',
                sources = ['sage/libs/lcalc/lcalc_Lfunction.pyx'],
-@@ -645,9 +662,8 @@
+@@ -665,9 +682,8 @@
  
      Extension('sage.libs.singular.singular',
                sources = ['sage/libs/singular/singular.pyx'],
@@ -105,7 +105,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.libs.singular.polynomial',
                sources = ['sage/libs/singular/polynomial.pyx'],
-@@ -667,8 +683,7 @@
+@@ -687,8 +703,7 @@
      Extension('sage.libs.singular.function',
                sources = ['sage/libs/singular/function.pyx'],
                libraries = singular_libs,
@@ -115,7 +115,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.libs.singular.option',
                sources = ['sage/libs/singular/option.pyx'],
-@@ -923,19 +938,17 @@
+@@ -944,19 +959,17 @@
      Extension('sage.matrix.matrix_modn_dense_float',
                sources = ['sage/matrix/matrix_modn_dense_float.pyx'],
                language="c++",
@@ -123,7 +123,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +              libraries = linbox_libs + cblas_libs,
                library_dirs = cblas_library_dirs,
 -              include_dirs = cblas_include_dirs,
--              extra_compile_args = ['-DDISABLE_COMMENTATOR'] + givaro_extra_compile_args),
+-              extra_compile_args = nocxx11_args + ['-DDISABLE_COMMENTATOR'] + givaro_extra_compile_args),
 +              include_dirs = cblas_include_dirs),
  
      Extension('sage.matrix.matrix_modn_dense_double',
@@ -133,13 +133,13 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +              libraries = linbox_libs + cblas_libs,
                library_dirs = cblas_library_dirs,
                include_dirs = cblas_include_dirs,
--              extra_compile_args = ["-D_XPG6", "-DDISABLE_COMMENTATOR"]
+-              extra_compile_args = nocxx11_args + ["-D_XPG6", "-DDISABLE_COMMENTATOR"]
 -                    + m4ri_extra_compile_args + givaro_extra_compile_args),
 +              extra_compile_args = ["-D_XPG6"]),
  
      Extension('sage.matrix.matrix_modn_sparse',
                sources = ['sage/matrix/matrix_modn_sparse.pyx']),
-@@ -1374,8 +1387,7 @@
+@@ -1400,8 +1413,7 @@
      Extension('sage.rings.finite_rings.element_givaro',
                sources = ["sage/rings/finite_rings/element_givaro.pyx"],
                libraries = ['givaro', 'ntl', 'gmpxx', 'gmp', 'm'],
@@ -149,7 +149,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.rings.finite_rings.element_ntl_gf2e',
                sources = ['sage/rings/finite_rings/element_ntl_gf2e.pyx'],
-@@ -1395,8 +1407,7 @@
+@@ -1421,8 +1433,7 @@
                sources = ["sage/rings/finite_rings/hom_finite_field_givaro.pyx"],
                # this order is needed to compile under windows.
                libraries = ['givaro', 'ntl', 'gmpxx', 'gmp', 'm'],
@@ -159,7 +159,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      ################################
      ##
-@@ -1548,8 +1559,7 @@
+@@ -1574,8 +1585,7 @@
      Extension('sage.rings.polynomial.plural',
                sources = ['sage/rings/polynomial/plural.pyx'],
                libraries = ['m', 'readline', 'singular', 'givaro', 'gmpxx', 'gmp'],
@@ -211,7 +211,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +# distutils: libraries = FFLASFFPACK_LIBRARIES
 +# distutils: library_dirs = FFLASFFPACK_LIBDIR
 +
- from modular cimport ModDoubleField, ModFloatField, ModDoubleFieldElement, ModFloatFieldElement
+ from .modular cimport ModDoubleField, ModFloatField, ModDoubleFieldElement, ModFloatFieldElement
  
  cdef extern from "fflas-ffpack/fflas-ffpack.h" namespace "std":
 --- a/sage/src/sage/libs/linbox/linbox.pyx
@@ -255,7 +255,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          ModFloatFieldElement init(ModFloatFieldElement res, double v)
 --- a/sage/src/sage/libs/singular/singular.pyx
 +++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -22,6 +22,7 @@
+@@ -23,6 +23,7 @@
  
  import os
  
@@ -263,7 +263,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  from sage.libs.singular.decl cimport intvec
  from sage.libs.singular.decl cimport SR_HDL, SR_INT, SR_TO_INT
  from sage.libs.singular.decl cimport singular_options, singular_verbose_options
-@@ -155,7 +156,7 @@
+@@ -156,7 +157,7 @@
      order = cache.objectptr.cardinality() - 1
  
      while z:
@@ -352,7 +352,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  cdef inline FiniteField_givaroElement make_FiniteField_givaroElement(Cache_givaro cache, int x)
 --- a/sage/src/sage/rings/finite_rings/element_givaro.pyx
 +++ b/sage/src/sage/rings/finite_rings/element_givaro.pyx
-@@ -58,8 +58,9 @@
+@@ -59,8 +59,9 @@
  from sage.rings.finite_rings.finite_field_base cimport FiniteField
  from sage.rings.ring cimport Ring
  from element_ext_pari import FiniteField_ext_pariElement
@@ -363,7 +363,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  import operator
  import sage.arith.all
  import finite_field_constructor as finite_field
-@@ -373,18 +374,16 @@
+@@ -374,18 +375,16 @@
          elif isinstance(e, int) or \
               isinstance(e, Integer) or \
               isinstance(e, long) or is_IntegerMod(e):
@@ -386,8 +386,8 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
          elif isinstance(e, str):
              return self.parent(eval(e.replace("^","**"),self.parent.gens_dict()))
-@@ -394,8 +393,8 @@
-                 raise TypeError, "e.parent must match self.vector_space"
+@@ -395,8 +394,8 @@
+                 raise TypeError("e.parent must match self.vector_space")
              ret = self._zero_element
              for i in range(len(e)):
 -                e_entry = e[i] % self.characteristic()
@@ -397,8 +397,8 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                  to_add = make_FiniteField_givaroElement(self, res)
                  ret = ret + to_add*self.parent.gen()**i
              return ret
-@@ -434,8 +433,8 @@
-                 raise ValueError, "list is too long"
+@@ -435,8 +434,8 @@
+                 raise ValueError("list is too long")
              ret = self._zero_element
              for i in range(len(e)):
 -                e_entry = e[i] % self.characteristic()
@@ -408,7 +408,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                  to_add = make_FiniteField_givaroElement(self, res)
                  ret = ret + to_add*self.parent.gen()**i
              return ret
-@@ -572,19 +571,17 @@
+@@ -573,19 +572,17 @@
          cdef int ret = k.zero
          cdef int a = k.indeterminate()
          cdef int at = k.one
@@ -418,7 +418,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +        cdef int t, i
  
          if n<0 or n>k.cardinality():
-             raise TypeError, "n must be between 0 and self.order()"
+             raise TypeError("n must be between 0 and self.order()")
  
 -        _n = n
 -
@@ -434,7 +434,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
      def _element_repr(self, FiniteField_givaroElement e):
 --- a/sage/src/sage/rings/finite_rings/finite_field_givaro.py
 +++ b/sage/src/sage/rings/finite_rings/finite_field_givaro.py
-@@ -269,7 +269,8 @@
+@@ -270,7 +270,8 @@
              sage: k(2) # indirect doctest
              0
  
@@ -444,7 +444,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              sage: k(float(2.0))
              0
  
-@@ -343,7 +344,7 @@
+@@ -344,7 +345,7 @@
              sage: k(pari('Mod(1,2)'))
              1
              sage: k(pari('Mod(2,3)'))
