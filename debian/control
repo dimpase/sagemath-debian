@@ -82,6 +82,7 @@ Build-Depends:
  maxima-ecl (= 5.35.1-5sage2),
  maxima-share (= 5.35.1-5sage2),
  nauty,
+ octave,
  palp (>= 2.1-2),
  pari-doc (>= 2.8-2771-gb70b447-1),
  pari-galdata,
