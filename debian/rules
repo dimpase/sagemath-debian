@@ -34,7 +34,7 @@ get-orig-source:
 	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
 
 prune:
-	cd debian/pruner && autoconf
+	cd debian/pruner && autoconf -I m4
 	cd debian/pruner && ./configure --with-sage-root="$(shell pwd)/sage"
 	cd sage && python ../debian/pruner/pruner.py
 	touch prune
