@@ -160,6 +160,7 @@ Build-Depends:
  sagemath-database-graphs,
  sagemath-database-mutually-combinatorial-designs,
  sagemath-database-polytopes,
+ sagetex,
  scons,
  sqlite3,
  sympow,

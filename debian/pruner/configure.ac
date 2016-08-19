@@ -2,6 +2,7 @@ AC_INIT()
 
 m4_include([/usr/share/aclocal/pkg.m4])
 m4_include([m4/python_module.m4])
+m4_include([m4/sagetex.m4])
 
 AC_ARG_WITH([sage-root],
             [  --with-sage-root=<path> path to where sage is unpacked],
@@ -288,8 +289,7 @@ AC_SUBST(HAS_RUBIKS)
 AC_CHECK_HEADERS(rw.h, HAS_RW="True", HAS_RW="False")
 AC_SUBST(HAS_RW)
 
-# FIXME(sagetex): doesn't install, but low priority
-HAS_SAGETEX="True"
+AC_LATEX_PACKAGE(sagetex, article, has_sagetex_yesno, HAS_SAGETEX="True", HAS_SAGETEX="False")
 AC_SUBST(HAS_SAGETEX)
 
 AC_CHECK_PROG(HAS_SCONS, scons, "True", "False")
