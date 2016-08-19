@@ -159,6 +159,7 @@ python_modules = [
     'matplotlib',
     'mistune',
     'mpmath',
+    'nbconvert',
     'nbformat',
     'networkx',
     'numpy',

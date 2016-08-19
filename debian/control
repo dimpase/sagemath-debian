@@ -119,6 +119,7 @@ Build-Depends:
  python-mistune,
  python-moinmoin,
  python-mpmath,
+ python-nbconvert,
  python-nbformat,
  python-networkx,
  python-numpy,
