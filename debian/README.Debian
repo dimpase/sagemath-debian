@@ -25,3 +25,24 @@ c) our hacky patches; we will need to revise these.
 i.e. for which pruner.py says "X will not come from debian!"
 
 2. Other stuff on wiki page https://wiki.debian.org/DebianScience/Sage
+
+## Debugging test failures
+
+The tests write logging output to sage/logs/ptestlong.log or some other file if
+you ran a different test. If you let the test run to completion, near the end
+of the logging output, there will be a summary of all the failures.
+
+You can run individual tests like this (from the sage subdirectory):
+
+ $ ./sage -t --long src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
+
+If you get a lot of NameErrors, note that most of these are probably a
+distraction:
+
+https://www.sagemath.org/git-developer-guide/doctesting.html#show-only-first-failure
+
+Try something like this:
+
+ $ ./sage -t --long -i src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
+
+to focus on the real source of the error.
