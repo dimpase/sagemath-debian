@@ -49,7 +49,7 @@ ptestlong:
 	# to detect a previous successful (override_)dh_auto_build, so if we run
 	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
 	# (and then this target) without trying (override_)dh_auto_build again.
-	cd sage && ./sage -t -p --all --long --logfile=logs/ptestlong.log
+	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log
 
 reset: clean
 	QUILT_PATCHES=debian/patches quilt pop -af || true

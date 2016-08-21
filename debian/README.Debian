@@ -46,3 +46,11 @@ Try something like this:
  $ ./sage -t --long -i src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
 
 to focus on the real source of the error.
+
+To run _all_ the tests with the -i flag, do this:
+
+ $ debian/rules EXTRA_SAGE_TEST_FLAGS=-i ptestlong
+
+The -i flag does still have an effect even though sage continues outputting
+fake command lines like `sage -t --long src/sage/xxx.py` that suggests it's
+being ignored.
