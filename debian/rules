@@ -54,7 +54,7 @@ ptestlong:
 reset: clean
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	cd sage; git clean -fdx && git submodule update --force
-	rm -rf $$HOME/.sage/local
+	rm -rf $$HOME/.sage/local $$HOME/.local/share/sagemath
 	QUILT_PATCHES=debian/patches quilt push -a
 
 build-dep:
