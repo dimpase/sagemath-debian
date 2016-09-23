@@ -98,6 +98,7 @@ Build-Depends:
  python-crypto,
  python-cvxopt,
  python-cycler,
+ python-cysignals-pari,
  python-decorator,
  python-docutils,
  python-flask,

@@ -139,6 +139,7 @@ python_modules = [
     'backports_abc',
     'cvxopt',
     'cycler',
+		'cysignals',
     'dateutil',
     'decorator',
     'docutils',
