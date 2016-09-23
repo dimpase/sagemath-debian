@@ -26,7 +26,6 @@ debian-rubiks.patch
 debian-pari.patch
 debian-nauty.patch
 debian-gsl-cblas.patch
-debian-cysignals.patch
 debian-arb.patch
 debian-cython-sys-path.patch
 debian-sage-env.patch
