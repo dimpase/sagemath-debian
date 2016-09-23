@@ -47,20 +47,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Install the Jupyter notebook configuration
  ETC_JUPYTER="$SAGE_ETC"/jupyter
---- /dev/null
-+++ b/sage/build/pkgs/cysignals/patches/install-in-userdir.patch
-@@ -0,0 +1,11 @@
-+--- src/Makefile	2016-07-05 22:05:29.575454638 +0200
-++++ src/Makefile	2016-07-05 22:05:33.495567646 +0200
-+@@ -8,7 +8,7 @@
-+ 	$(PYTHON) setup.py build
-+ 
-+ install: build
-+-	$(PYTHON) setup.py install
-++	$(PYTHON) setup.py install --user
-+ 
-+ dist: configure
-+ 	chmod go+rX-w -R .
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
 @@ -46,6 +46,7 @@
@@ -71,19 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #########################################################
  ### Configuration
-@@ -595,6 +596,11 @@
-             'embedsignature': True,
-             'profile': profile,
-         })
-+    cysignals_user_path = os.path.join(SAGE_USER_LIB, "cysignals")
-+    for m in ext_modules:
-+        for i, p in enumerate(m.include_dirs):
-+            if p.endswith("/cysignals"):
-+                m.include_dirs[i] = cysignals_user_path
- 
-     open(version_file, 'w').write(version_stamp)
- 
-@@ -615,7 +621,7 @@
+@@ -615,7 +616,7 @@
  python_packages, python_modules = find_python_sources(
      SAGE_SRC, ['sage', 'sage_setup'])
  python_data_files = find_extra_files(python_packages,
