@@ -101,6 +101,8 @@ Build-Depends:
  python-cysignals-pari,
  python-decorator,
  python-docutils,
+# needed for spkg sagenb build, we might be able to remove it when using its Debian package
+ python-entrypoints,
  python-flask,
  python-flask-autoindex,
  python-flask-babel,
