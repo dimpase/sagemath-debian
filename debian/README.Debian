@@ -7,9 +7,9 @@ for instructions on using this repository.
 
 1. For the docbuild to work, you must first patch your local system:
 
-   $ sudo ln -sf libpari-gmp-tls-2.8.so.0.0.0 /usr/lib/x86_64-linux-gnu/libpari-gmp-tls.so.4
+   $ sudo ln -sf libpari-gmp-tls.so.2.8.0 /usr/lib/x86_64-linux-gnu/libpari-gmp-tls-2.8.so.0
 
-   We probably need to fix libpari-dev, or something. <- FIXED in pari-sage/2.8-2771-gb70b447-3
+   We'll need to fix one of libpari-dev, cysignals or sagemath itself, or something.
 
 Then the build (including documentation) should work, but some tests will fail.
 This is probably due to a combination of:
