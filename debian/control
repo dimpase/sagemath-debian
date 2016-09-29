@@ -11,6 +11,7 @@ Standards-Version: 3.9.8
 X-Python-Version: 2.7
 Build-Depends:
  autoconf,
+ ccache <pkg.sagemath.ccache>,
  cysignals-tools <!nodoc>,
  cython (>= 0.24.1),
  debhelper (>= 9),

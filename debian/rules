@@ -15,6 +15,14 @@ else
 	DEB_BUILD_TARGET = all
 endif
 
+# Use ccache if pkg.sagemath.ccache build-profile is active.
+# Your rebuilds will be *much quicker*.
+ifneq (,$(filter pkg.sagemath.ccache,$(DEB_BUILD_PROFILES)))
+export PATH := /usr/lib/ccache:$(PATH)
+export CCACHE_DIR := $(PWD)/debian/ccache
+$(shell mkdir -p "$(CCACHE_DIR)")
+endif
+
 %:
 	dh $@ --parallel
 
