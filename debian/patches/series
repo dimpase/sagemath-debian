@@ -9,6 +9,7 @@ fixsage-sphinx.patch
 fixsage-libgap-systemwide.patch
 fixsage-use-lexists-not-exists.patch
 fixsage-proper-scipy-rtol.patch
+fixsage-revert-lazy-import-dependent-on-python-patch.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
