@@ -1,0 +1,38 @@
+Description: Don't try to use singular.hlp
+ We currently don't ship that in our Debian package; we should (TODO).
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/interfaces/singular.py
++++ b/sage/src/sage/interfaces/singular.py
+@@ -1245,9 +1245,9 @@
+         self._start()
+         raise KeyboardInterrupt("Restarting %s (WARNING: all variables defined in previous session are now invalid)" % self)
+ 
+-    
++
+ class SingularElement(ExtraTabCompletion, ExpectElement):
+-    
++
+     def __init__(self, parent, type, value, is_name=False):
+         """
+         EXAMPLES::
+@@ -2256,7 +2256,7 @@
+ 
+     L, in_node, curr_node = [], False, None
+ 
+-    for line in open(singular_docdir + "singular.hlp"):
++    '''for line in open(singular_docdir + "singular.hlp"):
+         m = re.match(new_node,line)
+         if m:
+             # a new node starts
+@@ -2275,7 +2275,7 @@
+         if line == "6 Index\n":
+             in_node = False
+ 
+-    nodes[curr_node] = "".join(L) # last node
++    nodes[curr_node] = "".join(L) # last node'''
+ 
+ def get_docstring(name):
+     """

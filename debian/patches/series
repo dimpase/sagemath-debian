@@ -7,6 +7,7 @@ sagedoc_avoid_exception.patch
 fixsage-mpfi.patch
 fixsage-sphinx.patch
 fixsage-libgap-systemwide.patch
+fixsage-use-lexists-not-exists.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
@@ -30,6 +31,7 @@ debian-arb.patch
 debian-cython-sys-path.patch
 debian-sage-env.patch
 debian-octave.patch
+debian-no-singular-hlp.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
