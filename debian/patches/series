@@ -43,3 +43,4 @@ debian-temp-userdir-singular.patch
 debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch
+fixsage-incremental-docbuild.patch
