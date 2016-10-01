@@ -13,3 +13,13 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          compiler_directives={
              'embedsignature': True,
              'profile': profile,
+--- a/sage/src/sage/misc/cython.py
++++ b/sage/src/sage/misc/cython.py
+@@ -239,6 +239,7 @@
+ 
+     # Add cysignals directory to includes
+     for path in sys.path:
++        inc.append(path)
+         cysignals_path = os.path.join(path, "cysignals")
+         if os.path.isdir(cysignals_path):
+             inc.append(cysignals_path)
