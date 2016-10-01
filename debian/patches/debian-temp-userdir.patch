@@ -66,6 +66,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  print('python_packages = {0}'.format(python_packages))
  print('python_modules = {0}'.format(python_modules))
+@@ -649,6 +650,8 @@
+     def run(self):
+         install.run(self)
+         self.install_kernel_spec()
++        subprocess.check_call(['sh', '-c',
++            'mkdir -p %s; for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % (SAGE_SHARE,SAGE_SHARE)])
+ 
+     def install_kernel_spec(self):
+         from sage.repl.ipython_kernel.install import SageKernelSpec
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
 @@ -14,7 +14,7 @@
@@ -98,27 +107,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_EXTCODE="$SAGE_LOCAL/share/sage/ext"
  export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
---- a/sage/src/sage_setup/docbuild/__init__.py
-+++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -22,7 +22,7 @@
- import sage.all
- from sage.misc.cachefunc import cached_method
- from sage.misc.misc import sage_makedirs
--from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC
-+from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_SHARE
- 
- from .build_options import (LANGUAGES, SPHINXOPTS, PAPER, OMIT,
-      PAPEROPTS, ALLSPHINXOPTS, NUM_THREADS, WEBSITESPHINXOPTS,
-@@ -327,6 +327,9 @@
-                     and os.path.isdir(os.path.join(SAGE_DOC_SRC, lang, document))):
-                     documents.append(os.path.join(lang, document))
- 
-+        subprocess.check_call(['sh', '-c',
-+            'mkdir -p %s; for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % (SAGE_SHARE,SAGE_SHARE)])
-+
-         # Ensure that the reference guide is compiled first so that links from
-         # the other documents to it are correctly resolved.
-         if 'en/reference' in documents:
 --- a/sage/src/bin/sage-starts
 +++ b/sage/src/bin/sage-starts
 @@ -14,7 +14,7 @@
