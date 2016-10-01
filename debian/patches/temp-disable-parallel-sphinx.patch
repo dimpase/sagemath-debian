@@ -7,7 +7,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -489,19 +489,20 @@
+@@ -486,19 +486,20 @@
              if not os.path.exists(refdir):
                  continue
              output_dir = self._output_dir(format, lang)
