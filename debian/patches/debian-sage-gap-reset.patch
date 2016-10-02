@@ -1,0 +1,18 @@
+Description: Reset the sage-local gap workspace before the first test
+ Otherwise it causes test errors, if the workspace contains files from older
+ versions of gap.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed / TBD
+# it's upstream's bug but they are likely to not bother, since they control their "GAP version"
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/interfaces/gap.py
++++ b/sage/src/sage/interfaces/gap.py
+@@ -27,6 +27,7 @@
+ 
+ We factor an integer using GAP::
+ 
++    sage: gap_reset_workspace()
+     sage: n = gap(20062006); n
+     20062006
+     sage: n.parent()

@@ -32,6 +32,7 @@ debian-cython-sys-path.patch
 debian-sage-env.patch
 debian-octave.patch
 debian-no-singular-hlp.patch
+debian-sage-gap-reset.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
