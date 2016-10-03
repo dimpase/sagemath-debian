@@ -67,7 +67,7 @@ Build-Depends:
  libmpfi-dev,
  libmpfr-dev,
  libntl-dev (>= 9.9.1-2),
- libpari-dev (>= 2.8-2771-gb70b447-1),
+ libpari-dev (>= 2.8-2771-gb70b447-3),
 # libplanarity-dev, this is version 3.0, we need 2.2
  libpng-dev,
  libppl-dev (>= 1:1.1),
@@ -86,7 +86,8 @@ Build-Depends:
  nauty,
  octave,
  palp (>= 2.1-2),
- pari-doc (>= 2.8-2771-gb70b447-1),
+ pari-doc (>= 2.8-2771-gb70b447-3),
+ pari-gp (>= 2.8-2771-gb70b447-3),
  pari-galdata,
  pari-seadata,
  pkg-config,
