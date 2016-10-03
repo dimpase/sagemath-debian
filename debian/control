@@ -178,7 +178,7 @@ Build-Depends:
  libsingular-dev (<< 4),
  singular (>= 3.1.7p1+ds-0+sage1),
  singular (<< 4),
- python-sagenb (>= 0.11.2),
+ python-sagenb (>= 0.13),
 
 Package: sagemath-empty
 Architecture: all
