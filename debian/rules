@@ -72,3 +72,6 @@ build-dep:
 	if which aptitude >/dev/null; then sudo aptitude install -R sagemath-build-deps; \
 	else sudo apt-get install --no-install-recommends sagemath-build-deps; fi
 	rm -f sagemath-build-deps_$(DEB_VERSION)_all.deb
+
+failed-tests:
+	grep "Failed example:" sage/logs/ptestlong.log | awk '{s++} END {print s}'
