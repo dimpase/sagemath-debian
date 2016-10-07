@@ -6,7 +6,7 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 	export MAKE = make -j$(NUMJOBS)
 else
-	export MAKE = make -j5
+	export MAKE = make -j4
 endif
 
 ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
