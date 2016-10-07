@@ -1,0 +1,235 @@
+Description: Fix trivial test cases to work
+ Includes cases of:
+ - add more "..." wildcard patterns to the test
+ - changing the value to an exactly-equivalent value. 
+ These should probably be forwarded upstream.
+ .
+ Also includes cases of:
+ - update an expected error message to some conceptually identical message
+   that occurs due to build-dep version differences between us and Sage
+ These may or may not need to be forwarded upstream.
+ .
+ DO NOT INCLUDE:
+ - differences in algebraic expansions that are conceptually identical
+ - any minute concrete non-identical floating point differences
+ since these might indicate deeper bugs and we don't want to hide those.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TBD
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/interfaces/maxima_abstract.py
++++ b/sage/src/sage/interfaces/maxima_abstract.py
+@@ -1516,7 +1516,7 @@
+         EXAMPLES::
+ 
+             sage: maxima('exp(-sqrt(x))').nintegral('x',0,1)
+-            (0.5284822353142306, 0.41633141378838...e-10, 231, 0)
++            (0.5284822353142306, 4.163314137883845e-11, 231, 0)
+ 
+         Note that GP also does numerical integration, and can do so to very
+         high precision very quickly::
+--- a/sage/src/sage/graphs/graph_generators.py
++++ b/sage/src/sage/graphs/graph_generators.py
+@@ -869,7 +869,7 @@
+ 
+             sage: gen = graphs.nauty_geng("4", debug=True)
+             sage: print(next(gen))
+-            >A geng -d0D3 n=4 e=0-6
++            >A nauty-geng -d0D3 n=4 e=0-6
+         """
+         import subprocess
+         sp = subprocess.Popen("nauty-geng {0}".format(options), shell=True,
+--- a/sage/src/sage/calculus/calculus.py
++++ b/sage/src/sage/calculus/calculus.py
+@@ -723,7 +723,7 @@
+     Now numerically integrating, we see why the answer is wrong::
+ 
+         sage: f.nintegrate(x,0,1)
+-        (-480.0000000000001, 5.32907051820075e-12, 21, 0)
++        (-480.0000000000001, 5.32907051820075...e-12, 21, 0)
+ 
+     It is just because every floating point evaluation of return -480.0
+     in floating point.
+--- a/sage/src/sage/modules/free_module_element.pyx
++++ b/sage/src/sage/modules/free_module_element.pyx
+@@ -3857,11 +3857,11 @@
+             sage: type(vec)
+             <type 'sage.modules.vector_real_double_dense.Vector_real_double_dense'>
+             sage: answers
+-            [(0.5, 5.55111512312578e-15, 21, 0), (0.3333333333333..., 3.70074341541719e-15, 21, 0), (0.45969769413186..., 5.10366964392284e-15, 21, 0)]
++            [(0.5, 5.55111512312578...e-15, 21, 0), (0.3333333333333..., 3.70074341541719e-15, 21, 0), (0.45969769413186..., 5.10366964392284...e-15, 21, 0)]
+ 
+             sage: r=vector([t,0,1], sparse=True)
+             sage: r.nintegral(t,0,1)
+-            ((0.5, 0.0, 1.0), {0: (0.5, 5.55111512312578e-15, 21, 0), 2: (1.0, 1.11022302462515...e-14, 21, 0)})
++            ((0.5, 0.0, 1.0), {0: (0.5, 5.55111512312578...e-15, 21, 0), 2: (1.0, 1.11022302462515...e-14, 21, 0)})
+ 
+         """
+         # If Cython supported lambda functions, we would just do
+--- a/sage/src/sage/repl/interpreter.py
++++ b/sage/src/sage/repl/interpreter.py
+@@ -75,8 +75,8 @@
+     sage: from sage.repl.interpreter import get_test_shell
+     sage: shell = get_test_shell()
+     sage: shell.run_cell('1/0')
+-    ---------------------------------------------------------------------------
+-    ZeroDivisionError                         Traceback (most recent call last)
++    ...
++    ZeroDivisionError...Traceback (most recent call last)
+     <ipython-input-...> in <module>()
+     ----> 1 Integer(1)/Integer(0)
+     <BLANKLINE>
+@@ -356,8 +356,8 @@
+             sage: from sage.repl.interpreter import get_test_shell
+             sage: shell = get_test_shell()
+             sage: rc = shell.run_cell('1/0')
+-            ---------------------------------------------------------------------------
+-            ZeroDivisionError                         Traceback (most recent call last)
++            ...
++            ZeroDivisionError...Traceback (most recent call last)
+             ...
+             ZeroDivisionError: rational division by zero
+             sage: rc is None
+--- a/sage/src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst
++++ b/sage/src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst
+@@ -297,8 +297,8 @@
+         sage: type(e)
+         <type 'sage.rings.integer.Integer'>
+         sage: e.__dict__
+-        <dictproxy {'__doc__': ...
+-         '_sage_src_lines_': <staticmethod object at 0x...>}>
++        dict_proxy({'__doc__': ...
++         '_sage_src_lines_': <staticmethod object at 0x...>})
+         sage: e.__dict__.keys()
+         ['__module__', '_reduction', '__doc__', '_sage_src_lines_']
+ 
+@@ -306,8 +306,8 @@
+         sage: type(id4)
+         <type 'sage.groups.perm_gps.permgroup_element.SymmetricGroupElement'>
+         sage: id4.__dict__
+-        <dictproxy {'__doc__': ...
+-        '_sage_src_lines_': <staticmethod object at 0x...>}>
++        dict_proxy({'__doc__': ...
++        '_sage_src_lines_': <staticmethod object at 0x...>})
+ 
+ .. note::
+ 
+--- a/sage/src/sage/interfaces/interface.py
++++ b/sage/src/sage/interfaces/interface.py
+@@ -522,9 +522,9 @@
+         EXAMPLES::
+ 
+             sage: maxima.quad_qags(x, x, 0, 1, epsrel=1e-4)
+-            [0.5,0.55511151231257...e-14,21,0]
++            [0.5,5.5511151231257...e-15,21,0]
+             sage: maxima.function_call('quad_qags', [x, x, 0, 1], {'epsrel':'1e-4'})
+-            [0.5,0.55511151231257...e-14,21,0]
++            [0.5,5.5511151231257...e-15,21,0]
+         """
+         args, kwds = self._convert_args_kwds(args, kwds)
+         self._check_valid_function_name(function)
+--- a/sage/src/sage_setup/autogen/pari/parser.py
++++ b/sage/src/sage_setup/autogen/pari/parser.py
+@@ -41,7 +41,7 @@
+ 
+         sage: from sage_setup.autogen.pari.parser import pari_share
+         sage: pari_share()
+-        '.../local/share/pari'
++        '.../share/pari'
+     """
+     return os.path.join("/usr", "share", "pari")
+ 
+--- a/sage/src/sage/combinat/words/word.py
++++ b/sage/src/sage/combinat/words/word.py
+@@ -511,7 +511,7 @@
+         sage: dumps(w)
+         Traceback (most recent call last):
+         ...
+-        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
++        TypeError: can't pickle generator objects
+     """
+     pass
+ 
+@@ -549,7 +549,7 @@
+         sage: dumps(w)
+         Traceback (most recent call last):
+         ...
+-        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
++        TypeError: can't pickle generator objects
+     """
+     pass
+ 
+@@ -648,7 +648,7 @@
+         sage: dumps(w)
+         Traceback (most recent call last):
+         ...
+-        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
++        TypeError: can't pickle generator objects
+     """
+     pass
+ 
+@@ -684,7 +684,7 @@
+         sage: dumps(w)
+         Traceback (most recent call last):
+         ...
+-        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
++        TypeError: can't pickle generator objects
+     """
+     pass
+ 
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -176,8 +176,8 @@
+         ['.../include',
+         '.../include/python...',
+         '.../python.../numpy/core/include',
+-        '.../python.../site-packages',
+-        '.../python.../site-packages/sage/ext']
++        '.../python.../dist-packages',
++        '.../python.../dist-packages/sage/ext']
+     """
+     import os, numpy
+     import distutils.sysconfig
+--- a/sage/src/sage/misc/cython.py
++++ b/sage/src/sage/misc/cython.py
+@@ -169,14 +169,15 @@
+         'm',
+         'ec',
+         'gsl',
+-        ...,
++        ...
+         'ntl'],
+         ['.../include',
+         '.../include/python...',
+         '.../python.../numpy/core/include',
+-        '...',
++        ...
+         '.../sage/ext',
+-        '.../cysignals'],
++        ...
++        '.../cysignals'...],
+         'c',
+         [], ['-w', '-O2'],...)
+         sage: s, libs, inc, lang, f, args, libdirs = pyx_preparse("# clang c++\n #clib foo\n # cinclude bar\n")
+@@ -191,7 +192,7 @@
+         'm',
+         'ec',
+         'gsl',
+-        ...,
++        ...
+         'ntl']
+         sage: libs[1:] == sage.misc.cython.standard_libs
+         True
+@@ -201,9 +202,10 @@
+         '.../include',
+         '.../include/python...',
+         '.../python.../numpy/core/include',
+-        '...',
++        ...
+         '.../sage/ext',
+-        '.../cysignals']
++        ...
++        '.../cysignals'...]
+ 
+         sage: s, libs, inc, lang, f, args, libdirs = pyx_preparse("# cargs -O3 -ggdb\n")
+         sage: args
