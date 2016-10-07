@@ -1,13 +1,48 @@
 Description: Temporarily disable parallel sphinx build to make component failures more obvious
- Before we completely remove this patch, we should probably figure out how to
- make the parallel-build fail-fast in case its components fail in the future.
+ Before we completely remove this patch, we should (1) figure out how to make
+ the parallel-build fail-fast in case its components fail in the future; and
+ (2) cap the number of threads used - it seems that each thread uses 2-6 GB of
+ RAM (unclear what the exact figure is, it varies between different people)
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -486,19 +486,20 @@
+@@ -288,20 +288,21 @@
+             getattr(get_builder(document), name)(*args, **kwds)
+ 
+         # build the other documents in parallel
+-        from multiprocessing import Pool
+-        pool = Pool(NUM_THREADS, maxtasksperchild=1)
++        #from multiprocessing import Pool
++        #pool = Pool(NUM_THREADS, maxtasksperchild=1)
+         L = [(doc, name, kwds) + args for doc in others]
+         # map_async handles KeyboardInterrupt correctly. Plain map and
+         # apply_async does not, so don't use it.
+-        x = pool.map_async(build_other_doc, L, 1)
+-        try:
+-            x.get(99999)
+-            pool.close()
+-            pool.join()
+-        except Exception:
+-            pool.terminate()
+-            if ABORT_ON_ERROR:
+-                raise
++        #x = pool.map_async(build_other_doc, L, 1)
++        map(build_other_doc, L)
++        #try:
++        #    x.get(99999)
++        #    pool.close()
++        #    pool.join()
++        #except Exception:
++        #    pool.terminate()
++        #    if ABORT_ON_ERROR:
++        #        raise
+         logger.warning("Elapsed time: %.1f seconds."%(time.time()-start))
+         logger.warning("Done building the documentation!")
+ 
+@@ -486,19 +487,20 @@
              if not os.path.exists(refdir):
                  continue
              output_dir = self._output_dir(format, lang)
