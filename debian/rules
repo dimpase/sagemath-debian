@@ -61,7 +61,14 @@ ptestlong:
 	# (and then this target) without trying (override_)dh_auto_build again.
 	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log
 
-reset: clean
+# If the docbuild fails and you want to try again, you should run this first.
+# Otherwise the docbuild gets slower and slower as it re-reads information from
+# its build directory. At least that's my (infinity0) impression; I didn't
+# investigate this in too much detail yet.
+clean-docbuild:
+	rm -rf $$HOME/.local/share/sagemath/doc
+
+reset: clean clean-docbuild
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	cd sage; git clean -fdx && git submodule update --force
 	QUILT_PATCHES=debian/patches quilt push -a
@@ -75,3 +82,5 @@ build-dep:
 
 failed-tests:
 	grep "Failed example:" sage/logs/ptestlong.log | awk '{s++} END {print s}'
+
+.PHONY: clean-doc-build reset build-dep
