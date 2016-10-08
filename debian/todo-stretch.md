@@ -38,7 +38,6 @@ Upload all packages and make sure they migrate to testing
     *   jupyter_core
     *   nbconvert
     *   nbformat
-    *   sagetex
 
 *   Required patches:
     *   ecl (patch)
@@ -55,3 +54,4 @@ Upload all packages and make sure they migrate to testing
 
 *   And finally:
     *   sagemath
+    *   sagetex
