@@ -174,9 +174,9 @@ Build-Depends:
  tachyon,
  zlib1g-dev,
 # Packages not in unstable, but in unstable-sage:
- libsingular-dev (>= 3.1.7p1+ds-0+sage1),
+ libsingular-dev (>= 3.1.7p1+ds-0+sage3),
  libsingular-dev (<< 4),
- singular (>= 3.1.7p1+ds-0+sage1),
+ singular (>= 3.1.7p1+ds-0+sage3),
  singular (<< 4),
  python-sagenb (>= 0.13),
 
