@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -1245,9 +1245,9 @@
+@@ -1253,9 +1253,9 @@
          self._start()
          raise KeyboardInterrupt("Restarting %s (WARNING: all variables defined in previous session are now invalid)" % self)
  
@@ -18,7 +18,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      def __init__(self, parent, type, value, is_name=False):
          """
          EXAMPLES::
-@@ -2256,7 +2256,7 @@
+@@ -2279,7 +2279,7 @@
  
      L, in_node, curr_node = [], False, None
  
@@ -27,7 +27,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          m = re.match(new_node,line)
          if m:
              # a new node starts
-@@ -2275,7 +2275,7 @@
+@@ -2298,7 +2298,7 @@
          if line == "6 Index\n":
              in_node = False
  

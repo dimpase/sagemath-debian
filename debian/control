@@ -75,6 +75,7 @@ Build-Depends:
  libratpoints-dev,
  libreadline-dev,
  librw-dev,
+ libsingular4-dev (>= 4),
  libsqlite3-dev,
  libsymmetrica-dev,
  libtachyon-dev,
@@ -169,15 +170,12 @@ Build-Depends:
  sagemath-database-polytopes,
  sagetex,
  scons,
+ singular (>= 4),
  sqlite3,
  sympow,
  tachyon,
  zlib1g-dev,
 # Packages not in unstable, but in unstable-sage:
- libsingular-dev (>= 3.1.7p1+ds-0+sage3),
- libsingular-dev (<< 4),
- singular (>= 3.1.7p1+ds-0+sage3),
- singular (<< 4),
  python-sagenb (>= 0.13),
 
 Package: sagemath-empty

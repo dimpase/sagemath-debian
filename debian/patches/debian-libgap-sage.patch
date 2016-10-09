@@ -45,7 +45,7 @@ Forwarded: not-needed
  # GD image library
  gd_pc = pkgconfig.parse('gdlib')
  gd_libs = list(gd_pc['libraries'])
-@@ -139,8 +143,8 @@
+@@ -142,8 +146,8 @@
      "brial_groebner",
      "m4rie",
  ] + m4ri_libs + [
@@ -56,7 +56,7 @@ Forwarded: not-needed
      "m", "readline", "Lfunction" ,
  ] + cblas_libs + [
      "cryptominisat",
-@@ -753,15 +757,15 @@
+@@ -715,15 +719,15 @@
  
      Extension('sage.libs.gap.util',
                sources = ["sage/libs/gap/util.pyx"],

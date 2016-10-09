@@ -11,7 +11,7 @@
  if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2249,7 +2249,7 @@
+@@ -2272,7 +2272,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -22,29 +22,15 @@
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/libs/singular/singular.pyx
 +++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -712,15 +712,13 @@
+@@ -771,7 +771,7 @@
+         extension = "so"
  
-     cdef void *handle = NULL
+     # library name changed from libsingular to libSingular btw 3.x and 4.x
+-    lib = os.environ['SAGE_LOCAL']+"/lib/libSingular."+extension
++    lib = "/usr/lib/x86_64-linux-gnu/libsingular-Singular.so"
  
--    for extension in ["so", "dylib", "dll"]:
--        lib = os.environ['SAGE_LOCAL']+"/lib/libsingular."+extension
--        if os.path.exists(lib):
--            handle = dlopen(lib, RTLD_GLOBAL|RTLD_LAZY)
--            if not handle:
--                err = dlerror()
--                if err:
--                    print(err)
--            break
-+    lib = "/usr/lib/libsingular.so"
-+    if os.path.exists(lib):
-+        handle = dlopen(lib, RTLD_GLOBAL|RTLD_LAZY)
-+        if not handle:
-+            err = dlerror()
-+            if err:
-+                print(err)
- 
-     if handle == NULL:
-         raise ImportError("cannot load libSINGULAR library")
+     if not os.path.exists(lib):
+         raise ImportError("cannot locate Singular library ({})".format(lib))
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -306,7 +306,7 @@
@@ -52,7 +38,7 @@
          sage: code = [
          ... "#clang C++",
 -        ... "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
-+        ... "#cinclude /usr/include/singular /usr/include/factory",
-         ... "#clib m readline singular givaro ntl gmpxx gmp",
++        ... "#cinclude /usr/include/singular/singular /usr/include/singular/factory",
+         ... "#clib m readline Singular givaro ntl gmpxx gmp",
          ... "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
          ... "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
