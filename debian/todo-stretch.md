@@ -20,6 +20,7 @@ Upload all packages and make sure they migrate to testing
 *   Updates that may not be needed:
     *   configparser 3.5 (only sage-7.4)
     *   cvxopt 1.1.8
+    *   ecl 16.1.2
     *   ppl 1.2
     *   pytz 2016.4
 
@@ -40,7 +41,6 @@ Upload all packages and make sure they migrate to testing
     *   nbformat
 
 *   Required patches:
-    *   ecl (patch)
     *   numpy (patch)
 
 *   Ugly packages:
