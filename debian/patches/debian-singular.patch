@@ -1,3 +1,7 @@
+Description: Additional changes to work with the Debian package of singular
+ This patch needs some more work, at least the hardcoded multiarch path
+ of libsingular...
+
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
 @@ -467,7 +467,7 @@
