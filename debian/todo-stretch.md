@@ -14,7 +14,6 @@ Complete transitions
 Upload all packages and make sure they migrate to testing
 
 *   Updates:
-    *   linbox 1.4.2
     *   jmol 14.2.11
     *   libgap 4.8.4 (also switch to using gap 4.8.4, trac ticket 20914)
 
@@ -30,6 +29,7 @@ Upload all packages and make sure they migrate to testing
     *   sagenb
     *   sagenb_export
     *   widgetsnbextension
+    *   fpylll (only sage-7.4)
     *   thebe (only sage-7.4)
 
 *   Packages currently in experimental:
