@@ -121,17 +121,6 @@
      Test GP using the ``-f`` option which prevents the reading of a ``.gprc``
      configuration file::
  
---- a/sage/src/sage/tests/gap_packages.py
-+++ b/sage/src/sage/tests/gap_packages.py
-@@ -102,7 +102,7 @@
- 
-         sage: from sage.tests.gap_packages import all_installed_packages
-         sage: all_installed_packages()
--        (...'GAPDoc',...)
-+        (...'gapdoc',...)
-     """
-     packages = []
-     for path in libgap.eval('GAP_ROOT_PATHS').sage():
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
 @@ -155,9 +155,9 @@
