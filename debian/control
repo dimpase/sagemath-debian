@@ -45,6 +45,7 @@ Build-Depends:
  libflint-arb-dev (>= 2.8.1-2),
  libflint-dev (>= 2.5.2-5+b2),
  libfplll-dev (>= 4.0.5+git20160107),
+ libfplll-dev (<< 5),
  libfreetype6-dev,
  libgc-dev,
  libgcrypt11-dev,
