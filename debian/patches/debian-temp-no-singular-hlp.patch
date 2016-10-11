@@ -1,5 +1,6 @@
 Description: Don't try to use singular.hlp
- We currently don't ship that in our Debian package; we should (TODO).
+ That file is currently in .gz form but this is fixed in (Debian's) git.
+ So we can remove this patch after the next Singular (Debian) upload.
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---

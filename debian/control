@@ -172,6 +172,7 @@ Build-Depends:
  sagetex,
  scons,
  singular (>= 4.0.3-p3),
+ singular-doc (>= 4.0.3-p3),
  sqlite3,
  sympow,
  tachyon,

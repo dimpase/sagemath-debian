@@ -35,7 +35,6 @@ debian-arb.patch
 debian-cython-sys-path.patch
 debian-sage-env.patch
 debian-octave.patch
-debian-no-singular-hlp.patch
 debian-sage-gap-reset.patch
 # this next one contains some stuff that should be forwarded upstream
 debian-fix-trivial-test-cases.patch
@@ -47,3 +46,4 @@ debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch
 version-temp-singular-4-extra-fixes.patch
+debian-temp-no-singular-hlp.patch
