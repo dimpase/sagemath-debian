@@ -18,13 +18,6 @@ a) the fact we're currently installing to $HOME rather than /usr.
 b) mismatched versions of dependencies; we'll need to upload these.
 c) our hacky patches; we will need to revise these.
 
-2. If you get "Illegal instruction", you probably need to rebuild linbox (our
-   sage version) locally. Or better: figure out how to disable optimisations in
-   the source package. It's not that obvious, there is no ./configure option
-   and no obvious march/mcpu compiler flag being used... see [1] for details:
-
-   [1] https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20160808/000010.html
-
 ## TODO (required to get into Debian archives)
 
 1. Package all the stuff not yet available in Debian
