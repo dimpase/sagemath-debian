@@ -8,7 +8,6 @@ Complete transitions
     *   libfplll (5.0.2 or 5.0.3)
         and (for sage-7.3) backport trac ticket 21221
     *   ipython (5.1.0)
-        and (for sage-7.3) backport trac ticket 21006 (?)
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
 Upload all packages and make sure they migrate to testing
@@ -46,7 +45,7 @@ Upload all packages and make sure they migrate to testing
 *   Ugly packages:
     *   maxima-sage
     *   if pari 2.9 makes it to stretch, backport sage's (not yet existing) changes for pari 2.9
-        or upload pari-sage (2.8), eclib-pari-sage and lcalc-pari-sage
+        or upload pari-sage (2.8), cysignals-pari-sage, eclib-pari-sage and lcalc-pari-sage
     *   patch sage to work with planarity 3.0
         or upload planarity 2.2
 
