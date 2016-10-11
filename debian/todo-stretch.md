@@ -6,11 +6,14 @@ Complete transitions
 *   Packages:
     *   brial
     *   libfplll (5.0.2 or 5.0.3)
-        and (for sage-7.3) backport trac ticket 21221
     *   ipython (5.1.0)
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
 Upload all packages and make sure they migrate to testing
+
+*   Sage:
+    *   (if 7.3) backport #21221 - depends on fpylll
+                 or patch it ourselves to use fplll 5
 
 *   Updates:
     *   jmol 14.2.11
@@ -29,7 +32,7 @@ Upload all packages and make sure they migrate to testing
     *   sagenb
     *   sagenb_export
     *   widgetsnbextension
-    *   fpylll (only sage-7.4)
+    *   fpylll (only sage-7.4, or if sage-7.3 and backporting #21221)
     *   thebe (only sage-7.4)
 
 *   Packages currently in experimental:
