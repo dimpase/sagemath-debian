@@ -37,12 +37,25 @@ Description: Additional changes to work with the Debian package of singular
          raise ImportError("cannot locate Singular library ({})".format(lib))
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -306,7 +306,7 @@
+@@ -306,8 +306,8 @@
  
          sage: code = [
          ... "#clang C++",
 -        ... "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
-+        ... "#cinclude /usr/include/singular/singular /usr/include/singular/factory",
-         ... "#clib m readline Singular givaro ntl gmpxx gmp",
+-        ... "#clib m readline Singular givaro ntl gmpxx gmp",
++        ... "#cinclude /usr/include/singular /usr/include/singular/singular /usr/include/x86_64-linux-gnu/singular /usr/include/x86_64-linux-gnu/singular/singular",
++        ... "#clib m readline singular-Singular givaro ntl gmpxx gmp",
          ... "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
          ... "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
+         ... "def test(MPolynomial_libsingular p):",
+--- a/sage/src/sage/interfaces/tests.py
++++ b/sage/src/sage/interfaces/tests.py
+@@ -39,7 +39,7 @@
+     0
+     sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
+     True
+-    sage: subprocess.call("echo syntax error | singular", **kwds)
++    sage: subprocess.call("echo syntax error | Singular", **kwds)
+     0
+ """
+ from __future__ import print_function

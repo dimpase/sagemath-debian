@@ -1,0 +1,30 @@
+Description: Use -b when running Singular CLI
+ Works around upstream Singular bug #775.
+ We should also forward this to Sage upstream.
+Author: Ximin Luo <infinity0@debian.org>
+Bug: https://www.singular.uni-kl.de:8005/trac/ticket/775
+Forwarded: TBD, to Sage
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -467,7 +467,7 @@
+ 
+ if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
+     shift
+-    exec Singular "$@"
++    exec Singular -b "$@"
+ fi
+ 
+ if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
+--- a/sage/src/sage/interfaces/tests.py
++++ b/sage/src/sage/interfaces/tests.py
+@@ -39,7 +39,7 @@
+     0
+     sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
+     True
+-    sage: subprocess.call("echo syntax error | Singular", **kwds)
++    sage: subprocess.call("echo syntax error | Singular -b", **kwds)
+     0
+ """
+ from __future__ import print_function
