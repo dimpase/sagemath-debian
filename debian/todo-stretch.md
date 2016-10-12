@@ -50,6 +50,8 @@ Upload all packages and make sure they migrate to testing
     *   if pari 2.9 makes it to stretch, backport sage's (not yet existing) changes for pari 2.9
         or upload pari-sage (2.8), cysignals-pari-sage, eclib-pari-sage and lcalc-pari-sage
     *   patch sage to work with planarity 3.0
+        (preliminary patch already exists, see debian/patches/version-planarity-3.patch
+         it compiles but breaks tests)
         or upload planarity 2.2
 
 *   And finally:
