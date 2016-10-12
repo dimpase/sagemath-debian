@@ -13,7 +13,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
      shift
 -    exec Singular "$@"
-+    exec Singular -b "$@"
++    exec Singular -t "$@"
  fi
  
  if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
@@ -24,7 +24,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
      True
 -    sage: subprocess.call("echo syntax error | Singular", **kwds)
-+    sage: subprocess.call("echo syntax error | Singular -b", **kwds)
++    sage: subprocess.call("echo syntax error | Singular -t", **kwds)
      0
  """
  from __future__ import print_function
