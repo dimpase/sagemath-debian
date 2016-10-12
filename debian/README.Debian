@@ -3,6 +3,9 @@
 See https://wiki.debian.org/DebianScience/Sage
 for instructions on using this repository.
 
+It's recommended that you build with "DEB_BUILD_PROFILES=pkg.sagemath.ccache".
+This uses debian/ccache as a ccache cache, so rebuilds are much quicker.
+
 ## TODO (required for the build to work)
 
 1. For the docbuild to work, you must first patch your local system:
@@ -20,11 +23,7 @@ c) our hacky patches; we will need to revise these.
 
 ## TODO (required to get into Debian archives)
 
-1. Package all the stuff not yet available in Debian
-
-i.e. for which pruner.py says "X will not come from debian!"
-
-2. Other stuff on wiki page https://wiki.debian.org/DebianScience/Sage
+See todo-stretch.md and https://wiki.debian.org/DebianScience/Sage
 
 ## Debugging test failures
 
@@ -36,21 +35,97 @@ You can run individual tests like this (from the sage subdirectory):
 
  $ ./sage -t --long src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
 
-If you get a lot of NameErrors, note that most of these are probably a
-distraction:
+See https://www.sagemath.org/git-developer-guide/doctesting.html for more
+information and helpful tips.
 
-https://www.sagemath.org/git-developer-guide/doctesting.html#show-only-first-failure
+In particular, always focus on the *first failure* in a single test file; in
+many cases, subsequent failures (such as NameErrors) are due to the first
+failure and many of those will go away after fixing the first one.
 
-Try something like this:
+The following might be useful:
 
- $ ./sage -t --long -i src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
+ $ debian/rules EXTRA_SAGE_TEST_FLAGS=-f ptestlong
 
-to focus on the real source of the error.
+It will run all previously-failed tests again, which is useful if you're on a
+mass test-fixing spree and forget to count which ones you've fixed. However
+this assumes that you didn't break any of the previously successful ones :p
 
-To run _all_ the tests with the -i flag, do this:
+## Current test status
 
- $ debian/rules EXTRA_SAGE_TEST_FLAGS=-i ptestlong
+You should get something roughly like the following. If you get different
+results, please add your experience to the below summary.
 
-The -i flag does still have an effect even though sage continues outputting
-fake command lines like `sage -t --long src/sage/xxx.py` that suggests it's
-being ignored.
+First, remove ".frontend" from /usr/bin/ipython, this will fix 1 test. This is
+already fixed in ipython (Debian) git, we're just waiting for an upload.
+
+You can see infinity0's test failures here: https://people.debian.org/~infinity0/res/
+Look for files named "sagemath-*_*.log"
+
+Now for the summary:
+
+### Breakdown
+
+45+5 unreproducible for infinity0
+58 (estimated) for Tobias
+
+### We have some sort of lead for further investigation
+
+The _wip_hacky-test-fixes branch unbreaks some of these, but not sure that
+they're all a good idea.
+
+Also check the mailing list for possible ideas.
+
+10 GPLK
+sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 6 doctests failed
+sage -t --long src/sage/numerical/backends/glpk_graph_backend.pyx  # 3 doctests failed
+sage -t --long src/sage/libs/glpk/error.pyx  # 1 doctest failed
+
+7 CDD
+sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 7 doctests failed
+
+3 Very-minor floating point differences
+sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (1 is not floating-point related)
+
+7 Others
+sage -t --long src/sage/interfaces/tests.py  # 2 doctests failed
+sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (3 accounted for above, 1 reported as #840159)
+sage -t --long src/sage/repl/ipython_kernel/install.py  # 1 doctest failed
+sage -t --long src/sage/rings/integer.pyx  # 1 doctest failed
+sage -t --long src/sage/tests/french_book/recequadiff.py  # 2 doctests failed
+
+### Not yet investigated / no idea
+
+5 Can't reproduce, seems to work when you run them a second time, e.g. with
+`debian/rules EXTRA_SAGE_TEST_FLAGS=-f build` or by running `./sage -t` directly
+sage -t --long src/sage/interfaces/maxima_abstract.py  # 1 doctest failed
+sage -t --long src/sage/libs/gap/all_documented_functions.py  # 1 doctest failed
+sage -t --long src/sage/libs/gap/assigned_names.py  # 1 doctest failed
+# ^ not present for Tobias
+sage -t --long src/sage/structure/sage_object.pyx  # 2 doctests failed
+
+5 Different but equivalent algebraic expression
+sage -t --long src/doc/en/prep/Calculus.rst  # 1 doctest failed
+sage -t --long src/sage/schemes/elliptic_curves/ell_generic.py  # 1 doctest failed
+sage -t --long src/sage/tensor/differential_form_element.py  # 2 doctests failed
+sage -t --long src/sage/symbolic/expression.pyx  # 1 doctest failed
+# ^ plus one extra for Tobias
+
+12 Others
+sage -t --long src/sage/coding/code_bounds.py  # 1 doctest failed
+sage -t --long src/sage/crypto/block_cipher/miniaes.py  # 1 doctest failed
+sage -t --long src/sage/functions/exp_integral.py  # 1 doctest failed
+sage -t --long src/sage/functions/log.py  # 2 doctests failed
+sage -t --long src/sage/interfaces/qepcad.py  # 1 doctest failed
+sage -t --long src/sage/interfaces/singular.py  # 3 doctests failed
+sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see #17254#comment:252)
+sage -t --long src/sage/numerical/mip.pyx  # 1 doctest failed
+
+1 Other extra for infinity0:
+sage -t --long src/sage/repl/interpreter.py  # 1 doctest failed
+
+9 Other extra for Tobias:
+sage -t --long src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst  # 2 doctests failed
+sage -t --long src/sage/doctest/forker.py  # 1 doctest failed
+sage -t --long src/sage/functions/trig.py  # 1 doctest failed
+sage -t --long src/sage/libs/readline.pyx  # 4 doctests failed
+sage -t --long src/sage/misc/trace.py  # 1 doctest failed
