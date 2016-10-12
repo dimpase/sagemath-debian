@@ -54,6 +54,11 @@ Upload all packages and make sure they migrate to testing
          it compiles but breaks tests)
         or upload planarity 2.2
 
+*   Packages that have issues preventing testing migration:
+    * cython 0.24.1
+    * fflas-ffpack 1.6.0
+    * linbox 1.4.2
+
 *   And finally:
     *   sagemath
     *   sagetex
