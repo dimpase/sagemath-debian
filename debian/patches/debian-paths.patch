@@ -183,3 +183,14 @@
  Check that the Sage Notebook is not imported at startup (see
  :trac:`15335`)::
  
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -109,7 +109,7 @@
+             sage: os.path.isdir(mathjax)
+             True
+         """
+-        src = os.path.join(SAGE_LOCAL, 'share', 'mathjax')
++        src = "/usr/share/javascript/mathjax"
+         dst = os.path.join(self.nbextensions_dir, 'mathjax')
+         self.symlink(src, dst)
+ 
