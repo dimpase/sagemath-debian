@@ -63,6 +63,10 @@ AppliedUndef" and remove the whole of "def _sage_" from it, this will fix
 another 2 tests. This is also already fixed in sympy (Debian) git, we're just
 waiting for an upload.
 
+Next, run `zcat /usr/share/doc/singular-doc/singular.hlp.gz | sudo tee /usr/share/doc/singular-doc/singular.hlp >/dev/null`
+which will fix another 3 tests. This is also already fixed in singular (Debian)
+git, we're just waiting for an upload.
+
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/res/
 Look for files named "sagemath-*_*.log"
 
@@ -70,8 +74,8 @@ Now for the summary:
 
 ### Breakdown
 
-36+5 unreproducible for infinity0
-49 (estimated) for Tobias
+33+5 unreproducible for infinity0
+46 (estimated) for Tobias
 
 ### We have some sort of lead for further investigation
 
@@ -112,12 +116,11 @@ sage -t --long src/sage/tensor/differential_form_element.py  # 2 doctests failed
 sage -t --long src/sage/symbolic/expression.pyx  # 1 doctest failed
 # ^ plus one extra for Tobias
 
-11 Others
+8 Others
 sage -t --long src/sage/coding/code_bounds.py  # 1 doctest failed
 sage -t --long src/sage/crypto/block_cipher/miniaes.py  # 1 doctest failed
 sage -t --long src/sage/functions/exp_integral.py  # 1 doctest failed
 sage -t --long src/sage/functions/log.py  # 2 doctests failed
-sage -t --long src/sage/interfaces/singular.py  # 3 doctests failed
 sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see #17254#comment:252)
 sage -t --long src/sage/numerical/mip.pyx  # 1 doctest failed
 

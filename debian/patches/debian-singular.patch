@@ -22,7 +22,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      node_names.clear()
  
 -    singular_docdir = os.environ["SAGE_LOCAL"]+"/share/singular/"
-+    singular_docdir = "/usr/share/singular/"
++    singular_docdir = "/usr/share/doc/singular-doc/"
  
      new_node = re.compile("File: singular\.hlp,  Node: ([^,]*),.*")
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")

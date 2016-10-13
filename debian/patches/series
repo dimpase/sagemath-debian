@@ -46,4 +46,3 @@ debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch
 version-temp-singular-4-extra-fixes.patch
-debian-temp-no-singular-hlp.patch
