@@ -70,8 +70,8 @@ Now for the summary:
 
 ### Breakdown
 
-37+5 unreproducible for infinity0
-50 (estimated) for Tobias
+36+5 unreproducible for infinity0
+49 (estimated) for Tobias
 
 ### We have some sort of lead for further investigation
 
@@ -112,12 +112,11 @@ sage -t --long src/sage/tensor/differential_form_element.py  # 2 doctests failed
 sage -t --long src/sage/symbolic/expression.pyx  # 1 doctest failed
 # ^ plus one extra for Tobias
 
-12 Others
+11 Others
 sage -t --long src/sage/coding/code_bounds.py  # 1 doctest failed
 sage -t --long src/sage/crypto/block_cipher/miniaes.py  # 1 doctest failed
 sage -t --long src/sage/functions/exp_integral.py  # 1 doctest failed
 sage -t --long src/sage/functions/log.py  # 2 doctests failed
-sage -t --long src/sage/interfaces/qepcad.py  # 1 doctest failed
 sage -t --long src/sage/interfaces/singular.py  # 3 doctests failed
 sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see #17254#comment:252)
 sage -t --long src/sage/numerical/mip.pyx  # 1 doctest failed

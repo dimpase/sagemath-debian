@@ -42,7 +42,6 @@ debian-fix-trivial-test-cases.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
-debian-temp-userdir-singular.patch
 debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch
