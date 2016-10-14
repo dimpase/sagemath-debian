@@ -1,0 +1,38 @@
+Description: Fix coercion bug: raise a TypeError exception whenever an ArithmeticError is caught, while trying to reduce an element mod the characteristic.
+ This fixes a test in src/sage/crypto/block_cipher/miniaes.py
+Author: Clement Pernet <clement.pernet@imag.fr>
+Applied-Upstream: commit:b7233c9cb64829f3c8a64b04aa744bdbb007ed27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/rings/finite_rings/element_givaro.pyx
++++ b/sage/src/sage/rings/finite_rings/element_givaro.pyx
+@@ -351,6 +351,14 @@
+             sage: k(-2^100)
+             2
+ 
++        Check coercion of incompatible fields::
++
++            sage: x=GF(7).random_element()
++            sage: k(x)
++            Traceback (most recent call last):
++            ...
++            TypeError: unable to coerce from a finite field other than the prime subfield
++
+         For more examples, see
+         ``finite_field_givaro.FiniteField_givaro._element_constructor_``
+         """
+@@ -375,9 +383,11 @@
+         elif isinstance(e, int) or \
+              isinstance(e, Integer) or \
+              isinstance(e, long) or is_IntegerMod(e):
+-            e_int = e % self.characteristic()
+-            res = self.objectptr.initi(res, e_int)
+-
++            try:
++                e_int = e % self.characteristic()
++                res = self.objectptr.initi(res, e_int)
++            except ArithmeticError:
++                raise TypeError("unable to coerce from a finite field other than the prime subfield")
+         elif e is None:
+             e_int = 0
+             res = self.objectptr.initi(res, e_int)

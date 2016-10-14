@@ -20,6 +20,7 @@ version-linbox-1.4.patch
 version-ipython-5.patch
 version-singular-4.patch
 version-cddlib-094h.patch
+version-givaro-4.patch
 #version-planarity-3.patch #breaks tests
 
 # due to Debian's inherent differences with upstream;
@@ -46,3 +47,4 @@ debian-temp-userdir.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch
 version-temp-singular-4-extra-fixes.patch
+temp-fix-more-tests.patch

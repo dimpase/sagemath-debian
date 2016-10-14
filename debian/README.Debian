@@ -74,8 +74,8 @@ Now for the summary:
 
 ### Breakdown
 
-31+5 unreproducible for infinity0
-45 (estimated) for Tobias
+29+5 unreproducible for infinity0
+43 (estimated) for Tobias
 
 ### We have some sort of lead for further investigation
 
@@ -104,8 +104,8 @@ sage -t --long src/sage/rings/integer.pyx  # 1 doctest failed
 # ^ due to us using GMP and not MPIR as upstream does
 
 3 Others
-sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see #17254#comment:252)
-sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (3 accounted for above, 1 reported as #840159)
+sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see upstream #17254#comment:252)
+sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (3 accounted for above, 1 reported as Debian #840159)
 
 ### Not yet investigated / no idea
 
@@ -123,10 +123,6 @@ sage -t --long src/sage/schemes/elliptic_curves/ell_generic.py  # 1 doctest fail
 sage -t --long src/sage/tensor/differential_form_element.py  # 2 doctests failed
 sage -t --long src/sage/symbolic/expression.pyx  # 1 doctest failed
 # ^ plus one extra for Tobias
-
-2 Others
-sage -t --long src/sage/crypto/block_cipher/miniaes.py  # 1 doctest failed
-sage -t --long src/sage/functions/log.py  # 2 doctests failed (1 accounted for above)
 
 9 Other extra for Tobias:
 sage -t --long src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst  # 2 doctests failed
