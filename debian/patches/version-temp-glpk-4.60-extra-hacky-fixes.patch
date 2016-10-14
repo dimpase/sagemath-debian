@@ -1,0 +1,35 @@
+Description: Work around Sage/GLPK differences to fix remaining GLPK doctests
+ Sage upstream patch GLPK. Most of this was accepted by upstream, however they
+ rejected one minor part of it:
+ https://git.sagemath.org/sage.git/tree/build/pkgs/glpk/patches/error_recovery.patch?id=3e8450b13d5c5353cd45d5881acf59994cf28b6b
+ This is described in some more detail here:
+ https://trac.sagemath.org/ticket/20710#comment:18
+ It turns out this is quite important for Sage:
+ .
+ Since we don't patch GLPK the same way in Debian, this means that if GLPK in
+ Sage causes one error, and this is caught by Sage and recovered from, then
+ later (because upstream GLPK is not clear the "error" flag) Sage will append
+ all subsequent terminal output of GLPK into the error_message string but not
+ actually forward it to the user's terminal. This breaks some doctests.
+ .
+ The patch below disables the terminal supression, so that doctests work again.
+ In this sense, it is not *this patch* that is hacky; this patch can remain -
+ all it does is print some extra messages to the terminal. However, this
+ inherent incompatibility between what upstream GLPK does and what Sage
+ expects, may cause other problems for us later, so I am just documenting this
+ in detail for future maintainers.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/libs/glpk/error.pyx
++++ b/sage/src/sage/libs/glpk/error.pyx
+@@ -44,7 +44,7 @@
+     if glp_at_error():
+         # Save error message and skip normal printing
+         error_message += s
+-        return 1
++        return 0
+     else:
+         # Normal non-error output: the return value 0 means that GLPK
+         # will write the output as usual.

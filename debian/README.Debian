@@ -74,8 +74,8 @@ Now for the summary:
 
 ### Breakdown
 
-29+5 unreproducible for infinity0
-43 (estimated) for Tobias
+18+5 unreproducible for infinity0
+32 (estimated) for Tobias
 
 ### We have some sort of lead for further investigation
 
@@ -83,12 +83,6 @@ The _wip_hacky-test-fixes branch unbreaks some of these, but not sure that
 they're all a good idea.
 
 Also check the mailing list for possible ideas.
-
-11 GPLK version difference
-sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 6 doctests failed
-sage -t --long src/sage/numerical/backends/glpk_graph_backend.pyx  # 3 doctests failed
-sage -t --long src/sage/libs/glpk/error.pyx  # 1 doctest failed
-sage -t --long src/sage/numerical/mip.pyx  # 1 doctest failed
 
 6 Minor floating point differences, can maybe ignore, ask upstream first
 sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (1 is not floating-point related)
