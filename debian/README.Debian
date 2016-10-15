@@ -17,9 +17,8 @@ This uses debian/ccache as a ccache cache, so rebuilds are much quicker.
 Then the build (including documentation) should work, but some tests will fail.
 This is probably due to a combination of:
 
-a) the fact we're currently installing to $HOME rather than /usr.
-b) mismatched versions of dependencies; we'll need to upload these.
-c) our hacky patches; we will need to revise these.
+a) mismatched versions of dependencies; we'll need to upload these.
+b) our hacky patches; we will need to revise these.
 
 ## TODO (required to get into Debian archives)
 
@@ -31,9 +30,13 @@ The tests write logging output to sage/logs/ptestlong.log or some other file if
 you ran a different test. If you let the test run to completion, near the end
 of the logging output, there will be a summary of all the failures.
 
-You can run individual tests like this (from the sage subdirectory):
-
- $ ./sage -t --long src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
+After a successful build, you can run individual tests as follows. First, make
+sure you're in the top-level package directory, where debian/ is. Then:
+ 
+ $ export SAGE_LOCAL=$PWD/debian/tmp/usr
+ $ export PYTHONPATH=$SAGE_LOCAL/lib/python2.7/dist-packages
+ $ cd sage
+ sage$ ./sage -t --long src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
 
 See https://www.sagemath.org/git-developer-guide/doctesting.html for more
 information and helpful tips.
@@ -55,17 +58,19 @@ this assumes that you didn't break any of the previously successful ones :p
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
 
-First, remove ".frontend" from /usr/bin/ipython, this will fix 1 test. This is
-already fixed in ipython (Debian) git, we're just waiting for an upload.
+First, patch your local system:
 
-Next, in /usr/lib/python2.7/dist-packages/sympy/core/function.py, find "class
-AppliedUndef" and remove the whole of "def _sage_" from it, this will fix
-another 2 tests. This is also already fixed in sympy (Debian) git, we're just
-waiting for an upload.
+# fix 1 test
+sudo sed -e 's/\.frontend//g' -i /usr/bin/ipython
+# fix 2 tests
+sudo sed -e '/^class AppliedUndef/,${/def _sage_/,/^\s*$/d}' \
+  -i /usr/lib/python2.7/dist-packages/sympy/core/function.py
+# fix 3 tests
+zcat /usr/share/doc/singular-doc/singular.hlp.gz \
+  | sudo tee /usr/share/doc/singular-doc/singular.hlp >/dev/null
 
-Next, run `zcat /usr/share/doc/singular-doc/singular.hlp.gz | sudo tee /usr/share/doc/singular-doc/singular.hlp >/dev/null`
-which will fix another 3 tests. This is also already fixed in singular (Debian)
-git, we're just waiting for an upload.
+These are already fixed in Debian's git repos for (respectively) ipython,
+sympy, singular; we're just waiting for an upload.
 
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/res/
 Look for files named "sagemath-*_*.log"

@@ -1,0 +1,144 @@
+Description: Install to Debian paths
+Author: Tobias Hansen <thansen@debian.org>
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/Makefile
++++ b/sage/src/Makefile
+@@ -3,7 +3,7 @@
+ all: sage
+ 
+ sage: sage/libs/pari/auto_gen.pxi sage/ext/interpreters/__init__.py
+-	python -u setup.py install
++	python -u setup.py install --root ../../debian/tmp --install-layout deb -O2
+ 
+ clean:
+ 	@echo "Deleting Sage library build artifacts..."
+--- a/sage/src/setup.py
++++ b/sage/src/setup.py
+@@ -155,9 +155,9 @@
+ # (that are likely to change on an upgrade) here:
+ # [At least at the moment. Make sure the headers aren't copied with "-p",
+ # or explicitly touch them in the respective spkg's spkg-install.]
+-lib_headers = { "gmp":     [ os.path.join(SAGE_INC, 'gmp.h') ],   # cf. #8664, #9896
+-                "gmpxx":   [ os.path.join(SAGE_INC, 'gmpxx.h') ],
+-                "ntl":     [ os.path.join(SAGE_INC, 'NTL', 'config.h') ]
++lib_headers = { "gmp":     [ os.path.join('/usr/include', 'gmp.h') ],   # cf. #8664, #9896
++                "gmpxx":   [ os.path.join('/usr/include' 'gmpxx.h') ],
++                "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
+               }
+ 
+ import pkgconfig
+@@ -183,7 +183,7 @@
+ 
+     m.extra_compile_args = m.extra_compile_args + extra_compile_args
+     m.extra_link_args = m.extra_link_args + extra_link_args
+-    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
++    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
+     m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
+ 
+ 
+@@ -649,6 +649,8 @@
+     def run(self):
+         install.run(self)
+         self.install_kernel_spec()
++        subprocess.check_call(['sh', '-c',
++            'mkdir -p %s; for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % (SAGE_SHARE,SAGE_SHARE)])
+ 
+     def install_kernel_spec(self):
+         from sage.repl.ipython_kernel.install import SageKernelSpec
+--- a/sage/sage
++++ b/sage/sage
+@@ -22,6 +22,7 @@
+ # automatically.
+ #SAGE_ROOT=/path/to/sage-version
+ 
++if test -n "$SAGE_LOCAL"; then export PATH="$SAGE_LOCAL/bin:$PATH"; fi
+ 
+ 
+ # Resolve all symbolic links in a filename.  This more or less behaves
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -102,9 +102,9 @@
+ except AttributeError:  # in case of use inside virtualenv
+     sitepackages_dirs = [os.path.join(os.path.dirname(site.__file__),
+                                      'site-packages')]
+-_add_variable_or_fallback('SITE_PACKAGES',   sitepackages_dirs)
++_add_variable_or_fallback('SITE_PACKAGES',   [d for d in sitepackages_dirs if "local" not in d])
+ 
+-_add_variable_or_fallback('SAGE_LIB',        SITE_PACKAGES[0])
++_add_variable_or_fallback('SAGE_LIB',        opj('$SAGE_LOCAL', SITE_PACKAGES[0]))
+ 
+ _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_SRC', 'build', 'cythonized'))
+ 
+--- a/sage/configure.ac
++++ b/sage/configure.ac
+@@ -1006,8 +1006,7 @@
+                 AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
+             fi
+         else
+-            AC_MSG_NOTICE([[creating symbolic link lib64 -> lib]])
+-            ln -s lib "$SAGE_LOCAL/lib64"
++            true
+         fi
+     ])
+ 
+--- a/sage/src/module_list.py
++++ b/sage/src/module_list.py
+@@ -3,7 +3,7 @@
+ from distutils.extension import Extension
+ from sage.env import SAGE_LOCAL
+ 
+-SAGE_INC = os.path.join(SAGE_LOCAL, 'include')
++SAGE_INC = '/usr/include'
+ 
+ #########################################################
+ ### pkg-config setup
+--- a/sage/src/sage/doctest/control.py
++++ b/sage/src/sage/doctest/control.py
+@@ -174,6 +174,8 @@
+         True
+     """
+     base, ext = os.path.splitext(filename)
++    if filename.find('sagedev') != -1 or filename.find('sage/dev') != -1:
++        return True
+     if ext not in ('.py', '.pyx', '.pxd', '.pxi', '.sage', '.spyx', '.rst', '.tex'):
+         return True
+     with open(filename) as F:
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -10,11 +10,11 @@
+ import errno
+ 
+ from sage.env import (
+-    SAGE_ROOT, SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE,
++    SAGE_ROOT, SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE,
+     SAGE_VERSION
+ )
+ from jupyter_core.paths import ENV_JUPYTER_PATH
+-JUPYTER_PATH = ENV_JUPYTER_PATH[0]
++JUPYTER_PATH = os.path.join(SAGE_SHARE, "..", "jupyter")
+ 
+ 
+ class SageKernelSpec(object):
+@@ -109,7 +109,7 @@
+             sage: os.path.isdir(mathjax)
+             True
+         """
+-        src = os.path.join(SAGE_LOCAL, 'share', 'mathjax')
++        src = "/usr/share/javascript/mathjax"
+         dst = os.path.join(self.nbextensions_dir, 'mathjax')
+         self.symlink(src, dst)
+ 
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -353,7 +353,7 @@
+ # Prepare for running Sage, either interactively or non-interactively.
+ sage_setup() {
+     # Check that we're not in a source tarball which hasn't been built yet (#13561).
+-    if [ ! -d "$SAGE_LOCAL/lib/python/site-packages/sage" ]; then
++    if [ ! -d "$SAGE_LOCAL/lib/python2.7/dist-packages/sage" ]; then
+         echo >&2 '************************************************************************'
+         echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
+         echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'

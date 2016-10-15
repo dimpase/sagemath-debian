@@ -1,109 +1,9 @@
 Description: Install Sage spkgs to user's home directory
  This is a temporary measure to get everything working quickly.
- Eventually we will get rid of this, and install to debian/tmp via --prefix or --root.
+ Eventually we will get rid of this, and add them to the pruner.
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/Makefile
-+++ b/sage/src/Makefile
-@@ -3,7 +3,7 @@
- all: sage
- 
- sage: sage/libs/pari/auto_gen.pxi sage/ext/interpreters/__init__.py
--	python -u setup.py install
-+	python -u setup.py install --user
- 
- clean:
- 	@echo "Deleting Sage library build artifacts..."
---- a/sage/build/pkgs/ipywidgets/spkg-install
-+++ b/sage/build/pkgs/ipywidgets/spkg-install
-@@ -1,3 +1,3 @@
- #!/usr/bin/env bash
- 
--cd src && python setup.py install
-+cd src && python setup.py install --user
---- a/sage/build/pkgs/notebook/spkg-install
-+++ b/sage/build/pkgs/notebook/spkg-install
-@@ -12,7 +12,7 @@
- done
- 
- 
--python setup.py install
-+python setup.py install --user
- 
- # Install the Jupyter notebook configuration
- ETC_JUPYTER="$SAGE_ETC"/jupyter
---- a/sage/src/setup.py
-+++ b/sage/src/setup.py
-@@ -46,6 +46,7 @@
- 
- from module_list import ext_modules, library_order, aliases
- from sage.env import *
-+SAGE_USER_LIB = os.path.expanduser("~/.sage/local/lib/python2.7/site-packages")
- 
- #########################################################
- ### Configuration
-@@ -615,7 +616,7 @@
- python_packages, python_modules = find_python_sources(
-     SAGE_SRC, ['sage', 'sage_setup'])
- python_data_files = find_extra_files(python_packages,
--    ".", SAGE_CYTHONIZED, SAGE_LIB, ["ntlwrap.cpp"])
-+    ".", SAGE_CYTHONIZED, SAGE_USER_LIB, ["ntlwrap.cpp"])
- 
- print('python_packages = {0}'.format(python_packages))
- print('python_modules = {0}'.format(python_modules))
-@@ -649,6 +650,8 @@
-     def run(self):
-         install.run(self)
-         self.install_kernel_spec()
-+        subprocess.check_call(['sh', '-c',
-+            'mkdir -p %s; for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % (SAGE_SHARE,SAGE_SHARE)])
- 
-     def install_kernel_spec(self):
-         from sage.repl.ipython_kernel.install import SageKernelSpec
---- a/sage/src/sage/repl/ipython_kernel/install.py
-+++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -14,7 +14,7 @@
-     SAGE_VERSION
- )
- from jupyter_core.paths import ENV_JUPYTER_PATH
--JUPYTER_PATH = ENV_JUPYTER_PATH[0]
-+JUPYTER_PATH = os.path.expanduser("~/.local/share/jupyter")
- 
- 
- class SageKernelSpec(object):
---- a/sage/sage
-+++ b/sage/sage
-@@ -22,6 +22,7 @@
- # automatically.
- #SAGE_ROOT=/path/to/sage-version
- 
-+export PATH="$PATH:$HOME/.sage/local/bin"
- 
- 
- # Resolve all symbolic links in a filename.  This more or less behaves
---- a/sage/src/bin/sage-env
-+++ b/sage/src/bin/sage-env
-@@ -247,7 +247,7 @@
- # Setting Sage-related location environment variables.
- export SAGE_LOCAL="$SAGE_ROOT/local"
- export SAGE_ETC="$SAGE_LOCAL/etc"
--export SAGE_SHARE="/usr/share/sagemath"
-+export SAGE_SHARE="$HOME/.local/share/sagemath"
- export SAGE_EXTCODE="$SAGE_LOCAL/share/sage/ext"
- export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
- export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
---- a/sage/src/bin/sage-starts
-+++ b/sage/src/bin/sage-starts
-@@ -14,7 +14,7 @@
- # sysadmin.  We use --nodotsage so we don't force a .sage directory
- # in the sysadmin's HOME directory.
- cmd='sage.all._write_started_file(); print "Yes, Sage starts."'
--build/bin/sage-logger "./sage --nodotsage -c '$cmd'" logs/start.log
-+build/bin/sage-logger "./sage -c '$cmd'" logs/start.log
- 
- if [ $? -ne 0 ]; then
-     echo >&2 "Sage failed to start up."
 --- a/sage/build/pkgs/sagenb_export/spkg-install
 +++ b/sage/build/pkgs/sagenb_export/spkg-install
 @@ -1,7 +1,7 @@
@@ -122,30 +22,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 -cd src && python setup.py install
 +cd src && python setup.py install --user
---- a/sage/src/sage_setup/find.py
-+++ b/sage/src/sage_setup/find.py
-@@ -150,8 +150,8 @@
+--- a/sage/build/pkgs/ipywidgets/spkg-install
++++ b/sage/build/pkgs/ipywidgets/spkg-install
+@@ -1,3 +1,3 @@
+ #!/usr/bin/env bash
  
-     EXAMPLES::
+-cd src && python setup.py install
++cd src && python setup.py install --user
+--- a/sage/build/pkgs/notebook/spkg-install
++++ b/sage/build/pkgs/notebook/spkg-install
+@@ -12,7 +12,7 @@
+ done
  
--        sage: from site import getsitepackages
--        sage: site_packages = getsitepackages()[0]
-+        sage: from site import getusersitepackages
-+        sage: site_packages = getusersitepackages()
-         sage: files_by_module = installed_files_by_module(site_packages)
-         sage: from sage.misc.sageinspect import loadable_module_extension
-         sage: 'sage/structure/sage_object' + loadable_module_extension() in \
---- a/sage/src/sage/interfaces/qepcad.py
-+++ b/sage/src/sage/interfaces/qepcad.py
-@@ -528,11 +528,6 @@
  
- TESTS:
+-python setup.py install
++python setup.py install --user
  
--Check the qepcad configuration file::
--
--    sage: open('%s/default.qepcadrc'%SAGE_LOCAL).readlines()[-1]
--    'SINGULAR .../bin\n'
--
- Tests related to the not tested examples (nondeterministic order of atoms)::
- 
-     sage: from sage.interfaces.qepcad import _qepcad_atoms
+ # Install the Jupyter notebook configuration
+ ETC_JUPYTER="$SAGE_ETC"/jupyter

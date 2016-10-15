@@ -23,6 +23,9 @@ export CCACHE_DIR := $(PWD)/debian/ccache
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
+export SAGE_LOCAL = $(shell pwd)/debian/tmp/usr
+export PYTHONPATH = $(shell pwd)/debian/tmp/usr/lib/python2.7/dist-packages
+
 %:
 	dh $@ --parallel
 
@@ -36,8 +39,6 @@ override_dh_auto_install:
 # upstream "clean" only cleans the sagelib build and not e.g. spkg builds
 override_dh_auto_clean:
 	$(MAKE) --directory=sage distclean
-# TODO: rm the below when we get rid of our "userdir" patches
-	rm -rf $$HOME/.sage/local $$HOME/.local/share/sagemath
 
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
@@ -50,7 +51,7 @@ prune:
 	touch prune
 
 ptestlong:
-	cd sage && local/bin/sage-starts
+	cd sage && $(SAGE_LOCAL)/bin/sage-starts
 	# We do the below instead of `$(MAKE) --directory=sage ptestlong` because
 	# it has a bug where it can't detect a previous successful build. So it
 	# will try to rebuild some sagelib files, then the docbuild, then those
@@ -66,7 +67,7 @@ ptestlong:
 # its build directory. At least that's my (infinity0) impression; I didn't
 # investigate this in too much detail yet.
 clean-docbuild:
-	rm -rf $$HOME/.local/share/sagemath/doc
+	rm -rf debian/tmp/usr/share/doc/sage
 
 reset: clean clean-docbuild
 	QUILT_PATCHES=debian/patches quilt pop -af || true

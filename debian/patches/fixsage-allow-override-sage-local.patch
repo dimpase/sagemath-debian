@@ -1,0 +1,86 @@
+Description: Allow SAGE_LOCAL to be overridden from outside the Makefiles
+ This makes it easier for package managers to create binary distributions.
+ However, keep SAGE_SPKG_INST relative to SAGE_ROOT rather than SAGE_LOCAL
+ since that would be a more intrusive change.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TBD
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/bin/sage-env
++++ b/sage/src/bin/sage-env
+@@ -245,11 +245,11 @@
+ fi
+ 
+ # Setting Sage-related location environment variables.
+-export SAGE_LOCAL="$SAGE_ROOT/local"
++export SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
+ export SAGE_ETC="$SAGE_LOCAL/etc"
+ export SAGE_SHARE="$SAGE_LOCAL/share"
+ export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
+-export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
++export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+ export SAGE_SRC="$SAGE_ROOT/src"
+ export SAGE_DOC_SRC="$SAGE_SRC/doc"
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -110,7 +110,7 @@
+ 
+ _add_variable_or_fallback('SAGE_EXTCODE',    opj('$SAGE_SHARE', 'sage', 'ext'))
+ _add_variable_or_fallback('SAGE_LOGS',       opj('$SAGE_ROOT', 'logs', 'pkgs'))
+-_add_variable_or_fallback('SAGE_SPKG_INST',  opj('$SAGE_LOCAL', 'var', 'lib', 'sage', 'installed'))
++_add_variable_or_fallback('SAGE_SPKG_INST',  opj('$SAGE_ROOT', 'local', 'var', 'lib', 'sage', 'installed'))
+ _add_variable_or_fallback('SAGE_DOC_SRC',    opj('$SAGE_SRC', 'doc'))
+ _add_variable_or_fallback('SAGE_DOC',        opj('$SAGE_SHARE', 'doc', 'sage'))
+ _add_variable_or_fallback('DOT_SAGE',        opj(os.environ.get('HOME','$SAGE_ROOT'), '.sage'))
+--- a/sage/build/make/install
++++ b/sage/build/make/install
+@@ -7,11 +7,11 @@
+ # Assume current directory is SAGE_ROOT/build/make
+ export SAGE_ROOT=`cd ../.. && pwd -P`
+ export SAGE_SRC="$SAGE_ROOT/src"
+-export SAGE_LOCAL="$SAGE_ROOT/local"
++export SAGE_LOCAL="${SAGE_LOCAL:-SAGE_ROOT/local}"
+ export SAGE_SHARE="$SAGE_LOCAL/share"
+ export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+-export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
++export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ export SAGE_VERSION=`cat $SAGE_ROOT/VERSION.txt | sed 's+.*\ \(.*\),.*+\1+'`
+ 
+ if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
+@@ -20,7 +20,7 @@
+ fi
+ export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
+ 
+-export PYTHONPATH="$SAGE_LOCAL"
++export PYTHONPATH="${PYTHONPATH:-SAGE_LOCAL}"
+ 
+ # Storing the start time of the build process. The time is stored in
+ # seconds since 1970-01-01 in a hidden file called
+--- a/sage/configure.ac
++++ b/sage/configure.ac
+@@ -81,10 +81,10 @@
+ # Assume current directory is SAGE_ROOT
+ SAGE_ROOT=`pwd -P`
+ SAGE_SRC="$SAGE_ROOT/src"
+-SAGE_LOCAL="$SAGE_ROOT/local"
++SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
+ SAGE_SHARE="$SAGE_LOCAL/share"
+ SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
+-SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
++SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ 
+ #---------------------------------------------------------
+ AX_CHECK_ROOT([AC_MSG_ERROR([You cannot build Sage as root, switch to an unpriviledged user])], [])
+@@ -989,8 +989,8 @@
+ AC_CONFIG_COMMANDS(mkdirs,
+     [
+         SAGE_LOGS=${ac_abs_top_builddir}/logs/pkgs
+-        SAGE_LOCAL=${ac_abs_top_builddir}/local
+-        SAGE_SHARE=${ac_abs_top_builddir}/local/share
++        SAGE_LOCAL=${SAGE_LOCAL:-${ac_abs_top_builddir}/local}
++        SAGE_SHARE=${SAGE_LOCAL}/share
+         SAGE_INST=${ac_abs_top_builddir}/local/var/lib/sage/installed
+         for d in "$SAGE_LOGS" "$SAGE_LOCAL" \
+             "$SAGE_LOCAL/bin" "$SAGE_LOCAL/etc" \

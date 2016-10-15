@@ -1,67 +1,9 @@
---- a/sage/src/bin/sage
-+++ b/sage/src/bin/sage
-@@ -353,16 +353,16 @@
- # Prepare for running Sage, either interactively or non-interactively.
- sage_setup() {
-     # Check that we're not in a source tarball which hasn't been built yet (#13561).
--    if [ ! -d "$SAGE_LOCAL/lib/python/site-packages/sage" ]; then
--        echo >&2 '************************************************************************'
--        echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
--        echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
--        echo >&2 'finished). You should run `make` in the Sage root directory first.'
--        echo >&2 'If you did not intend to build Sage from source, you should download'
--        echo >&2 'a binary tarball instead. Read README.txt for more information.'
--        echo >&2 '************************************************************************'
--        exit 1
--    fi
-+    # if [ ! -d "$SAGE_LOCAL/lib/python/site-packages/sage" ]; then
-+    #     echo >&2 '************************************************************************'
-+    #     echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
-+    #     echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
-+    #     echo >&2 'finished). You should run `make` in the Sage root directory first.'
-+    #     echo >&2 'If you did not intend to build Sage from source, you should download'
-+    #     echo >&2 'a binary tarball instead. Read README.txt for more information.'
-+    #     echo >&2 '************************************************************************'
-+    #     exit 1
-+    # fi
- 
-     # Display the startup banner (unless SAGE_BANNER is explictly "no")
-     if [ "$SAGE_BANNER" != "no" ]; then
---- a/sage/src/module_list.py
-+++ b/sage/src/module_list.py
-@@ -3,7 +3,7 @@
- from distutils.extension import Extension
- from sage.env import SAGE_LOCAL
- 
--SAGE_INC = os.path.join(SAGE_LOCAL, 'include')
-+SAGE_INC = '/usr/include'
- 
- #########################################################
- ### pkg-config setup
---- a/sage/src/sage/doctest/control.py
-+++ b/sage/src/sage/doctest/control.py
-@@ -174,6 +174,8 @@
-         True
-     """
-     base, ext = os.path.splitext(filename)
-+    if filename.find('sagedev') != -1 or filename.find('sage/dev') != -1:
-+        return True
-     if ext not in ('.py', '.pyx', '.pxd', '.pxi', '.sage', '.spyx', '.rst', '.tex'):
-         return True
-     with open(filename) as F:
---- a/sage/src/sage/env.py
-+++ b/sage/src/sage/env.py
-@@ -92,8 +92,8 @@
- _add_variable_or_fallback('SAGE_ROOT',       None)
- _add_variable_or_fallback('SAGE_LOCAL',      opj('$SAGE_ROOT', 'local'))
- _add_variable_or_fallback('SAGE_ETC',        opj('$SAGE_LOCAL', 'etc'))
--_add_variable_or_fallback('SAGE_INC',        opj('$SAGE_LOCAL', 'include'))
--_add_variable_or_fallback('SAGE_SHARE',      opj('$SAGE_LOCAL', 'share'))
-+_add_variable_or_fallback('SAGE_INC',        opj('/usr/include'))
-+_add_variable_or_fallback('SAGE_SHARE',      opj('/usr/share/sagemath'))
- 
- _add_variable_or_fallback('SAGE_SRC',        opj('$SAGE_ROOT', 'src'))
- 
+Description: Find system run-time dependencies
+Author: Tobias Hansen <thansen@debian.org>
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/ext/pselect.pyx
 +++ b/sage/src/sage/ext/pselect.pyx
 @@ -290,7 +290,7 @@
@@ -121,30 +63,20 @@
      Test GP using the ``-f`` option which prevents the reading of a ``.gprc``
      configuration file::
  
---- a/sage/src/setup.py
-+++ b/sage/src/setup.py
-@@ -155,9 +155,9 @@
- # (that are likely to change on an upgrade) here:
- # [At least at the moment. Make sure the headers aren't copied with "-p",
- # or explicitly touch them in the respective spkg's spkg-install.]
--lib_headers = { "gmp":     [ os.path.join(SAGE_INC, 'gmp.h') ],   # cf. #8664, #9896
--                "gmpxx":   [ os.path.join(SAGE_INC, 'gmpxx.h') ],
--                "ntl":     [ os.path.join(SAGE_INC, 'NTL', 'config.h') ]
-+lib_headers = { "gmp":     [ os.path.join('/usr/include', 'gmp.h') ],   # cf. #8664, #9896
-+                "gmpxx":   [ os.path.join('/usr/include' 'gmpxx.h') ],
-+                "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
-               }
+--- a/sage/src/sage/interfaces/qepcad.py
++++ b/sage/src/sage/interfaces/qepcad.py
+@@ -528,11 +528,6 @@
  
- # In the loop below, don't append to any list, since many of these
-@@ -177,7 +177,7 @@
+ TESTS:
  
-     m.extra_compile_args = m.extra_compile_args + extra_compile_args
-     m.extra_link_args = m.extra_link_args + extra_link_args
--    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
-+    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
-     m.include_dirs = m.include_dirs + include_dirs
+-Check the qepcad configuration file::
+-
+-    sage: open('%s/default.qepcadrc'%SAGE_LOCAL).readlines()[-1]
+-    'SINGULAR .../bin\n'
+-
+ Tests related to the not tested examples (nondeterministic order of atoms)::
  
- 
+     sage: from sage.interfaces.qepcad import _qepcad_atoms
 --- a/sage/src/sage/libs/lcalc/lcalc_sage.h
 +++ b/sage/src/sage/libs/lcalc/lcalc_sage.h
 @@ -1,4 +1,4 @@
@@ -182,15 +114,4 @@
 -
  Check that the Sage Notebook is not imported at startup (see
  :trac:`15335`)::
- 
---- a/sage/src/sage/repl/ipython_kernel/install.py
-+++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -109,7 +109,7 @@
-             sage: os.path.isdir(mathjax)
-             True
-         """
--        src = os.path.join(SAGE_LOCAL, 'share', 'mathjax')
-+        src = "/usr/share/javascript/mathjax"
-         dst = os.path.join(self.nbextensions_dir, 'mathjax')
-         self.symlink(src, dst)
  

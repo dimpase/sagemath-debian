@@ -78,7 +78,7 @@ Forwarded: not-needed
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
 @@ -160,6 +160,12 @@
-                 "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
+                 "ntl":     [ os.path.join(SAGE_INC, 'NTL', 'config.h') ]
                }
  
 +import pkgconfig
@@ -94,9 +94,9 @@ Forwarded: not-needed
  
      m.extra_compile_args = m.extra_compile_args + extra_compile_args
      m.extra_link_args = m.extra_link_args + extra_link_args
--    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
+-    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
 -    m.include_dirs = m.include_dirs + include_dirs
-+    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
++    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
 +    m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
  
  
