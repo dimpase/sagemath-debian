@@ -78,3 +78,14 @@
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
 -    os.system('maxima')
 +    os.system('maxima -l ecl')
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -507,7 +507,7 @@
+ 
+ if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
+     shift
+-    exec maxima "$@"
++    exec maxima -l ecl "$@"
+ fi
+ 
+ if [ "$1" = '-mwrank' -o "$1" = '--mwrank' ]; then
