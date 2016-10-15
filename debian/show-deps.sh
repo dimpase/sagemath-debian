@@ -1,8 +1,12 @@
 #!/bin/sh
 # Show sagemath's build dependencies. (You should run `mk-build-deps` first.)
-# Usage: ./$0 [by-size|by-date] [extra aptitude filter]
+#
+# Usage: [pkg=$pkg] ./$0 [by-size|by-date] [extra aptitude filter]
+#
 # e.g. give ~i to only list packages installed on your system.
-pkg=sagemath-build-deps
+# Set pkg=XXX to show other packages, e.g. `pkg=r-base-core ./$0 by-date`
+#
+pkg="${pkg:-~Rsagemath-build-deps}"
 d=~R
 r=~Rrecommends:
 
@@ -10,8 +14,8 @@ case "$1" in
 by-size|by-date) subcmd="$1"; shift;;
 *) subcmd="";;
 esac
-# 3 levels of dependencies should be enough; we also include recommends just in case
-pattern="($d$pkg|$d$d$pkg|$r$d$pkg|$d$d$d$pkg|$d$r$d$pkg|$r$d$d$pkg|$r$r$d$pkg) $1"
+# 2 more levels of depends/recommends should be enough
+pattern="($pkg|$d$pkg|$r$pkg|$d$d$pkg|$d$r$pkg|$r$d$pkg|$r$r$pkg) $1"
 
 last_updated() {
 	local pkg="$1"
