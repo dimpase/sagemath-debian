@@ -39,15 +39,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
  
  
-@@ -649,6 +649,8 @@
-     def run(self):
-         install.run(self)
-         self.install_kernel_spec()
-+        subprocess.check_call(['sh', '-c',
-+            'mkdir -p %s; for i in /usr/share/sagemath/*; do ln -Tsf "$i" %s/"$(basename $i)"; done' % (SAGE_SHARE,SAGE_SHARE)])
- 
-     def install_kernel_spec(self):
-         from sage.repl.ipython_kernel.install import SageKernelSpec
 --- a/sage/sage
 +++ b/sage/sage
 @@ -22,6 +22,7 @@

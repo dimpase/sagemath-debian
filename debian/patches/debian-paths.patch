@@ -1,4 +1,4 @@
-Description: Find system run-time dependencies
+Description: Hard-code paths to external system run-time dependencies
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -115,3 +115,132 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  Check that the Sage Notebook is not imported at startup (see
  :trac:`15335`)::
  
+--- a/sage/src/sage/combinat/designs/latin_squares.py
++++ b/sage/src/sage/combinat/designs/latin_squares.py
+@@ -544,8 +544,7 @@
+         return
+ 
+     if compare:
+-        from sage.env import SAGE_SHARE
+-        handbook_file = open(SAGE_SHARE+"/combinatorial_designs/MOLS_table.txt",'r')
++        handbook_file = open("/usr/share/sagemath/combinatorial_designs/MOLS_table.txt",'r')
+         hb = [int(_) for _ in handbook_file.readlines()[9].split(',')]
+         handbook_file.close()
+ 
+--- a/sage/src/sage/databases/conway.py
++++ b/sage/src/sage/databases/conway.py
+@@ -20,9 +20,8 @@
+ #*****************************************************************************
+ 
+ import collections, os
+-from sage.env import SAGE_SHARE
+ 
+-_CONWAYDATA = os.path.join(SAGE_SHARE, 'conway_polynomials',
++_CONWAYDATA = os.path.join('/usr/share/sagemath/conway_polynomials',
+         'conway_polynomials.sobj')
+ _conwaydict = None
+ 
+--- a/sage/src/sage/databases/cremona.py
++++ b/sage/src/sage/databases/cremona.py
+@@ -54,12 +54,13 @@
+ import sage.schemes.elliptic_curves.constructor as elliptic
+ from .sql_db import SQLDatabase, verify_column
+ from sage.misc.package import is_package_installed
+-from sage.env import SAGE_SHARE
+ from sage.misc.all import walltime
+ 
+ import re
+ import string
+ 
++SAGE_SHARE = '/usr/share/sagemath/'
++
+ _cremonaSkeleton = {
+     't_class': {
+         'conductor': {'sql':'INTEGER', 'index':True},
+@@ -1667,8 +1668,7 @@
+         Traceback (most recent call last):
+         ...
+         ValueError: Desired database (='should not exist') does not exist
+-        sage: from sage.env import SAGE_SHARE
+-        sage: os.path.isfile(os.path.join(SAGE_SHARE,'cremona','should_not_exist.db'))
++        sage: os.path.isfile(os.path.join('/usr/share/sagemath/cremona','should_not_exist.db'))
+         False
+     """
+     global _db
+--- a/sage/src/sage/schemes/elliptic_curves/ec_database.py
++++ b/sage/src/sage/schemes/elliptic_curves/ec_database.py
+@@ -117,8 +117,7 @@
+             ((1, -1, 0, -106384, 13075804), 249649566346838)
+ 
+         """
+-        from sage.env import SAGE_SHARE
+-        db = os.path.join(SAGE_SHARE,'ellcurves')
++        db = '/usr/share/sagemath/ellcurves'
+         data = os.path.join(db,'rank%s'%rank)
+         if not os.path.exists(data):
+             return []
+--- a/sage/src/sage/graphs/isgci.py
++++ b/sage/src/sage/graphs/isgci.py
+@@ -374,7 +374,8 @@
+ from sage.structure.sage_object import SageObject
+ from sage.structure.unique_representation import CachedRepresentation, UniqueRepresentation
+ from sage.misc.unknown import Unknown
+-from sage.env import SAGE_SHARE
++
++SAGE_SHARE = '/usr/share/sagemath/'
+ 
+ #*****************************************************************************
+ #      Copyright (C) 2011 Nathann Cohen <nathann.cohen@gmail.com>
+@@ -833,8 +834,7 @@
+ 
+         EXAMPLE::
+ 
+-            sage: from sage.env import SAGE_SHARE
+-            sage: graph_classes._parse_db(os.path.join(SAGE_SHARE,'graphs'))
++            sage: graph_classes._parse_db('/usr/share/sagemath/graphs')
+         """
+         import xml.etree.cElementTree as ET
+         import os.path
+--- a/sage/src/sage/graphs/strongly_regular_db.pyx
++++ b/sage/src/sage/graphs/strongly_regular_db.pyx
+@@ -3118,8 +3118,7 @@
+         return
+     import json
+ 
+-    from sage.env import SAGE_SHARE
+-    with open(SAGE_SHARE+"/graphs/brouwer_srg_database.json",'r') as datafile:
++    with open("/usr/share/sagemath/graphs/brouwer_srg_database.json",'r') as datafile:
+         _brouwer_database = {(v,k,l,mu):{'status':status,'comments':comments}
+                              for (v,k,l,mu,status,comments) in json.load(datafile)}
+ 
+--- a/sage/src/sage/geometry/lattice_polytope.py
++++ b/sage/src/sage/geometry/lattice_polytope.py
+@@ -112,7 +112,6 @@
+ from sage.matrix.constructor import matrix
+ from sage.matrix.matrix import is_Matrix
+ from sage.misc.all import cached_method, tmp_filename
+-from sage.env import SAGE_SHARE
+ from sage.modules.all import vector, span
+ from sage.misc.superseded import deprecated_function_alias, deprecation
+ from sage.plot.plot3d.index_face_set import IndexFaceSet
+@@ -136,7 +135,7 @@
+ from functools import reduce
+ 
+ 
+-data_location = os.path.join(SAGE_SHARE,'reflexive_polytopes')
++data_location = '/usr/share/sagemath/reflexive_polytopes'
+ 
+ 
+ class SetOfAllLatticePolytopesClass(Set_generic):
+--- a/sage/src/sage/geometry/polyhedron/palp_database.py
++++ b/sage/src/sage/geometry/polyhedron/palp_database.py
+@@ -107,8 +107,7 @@
+             self._data_basename = data_basename
+         else:
+             import os
+-            from sage.env import SAGE_SHARE
+-            self._data_basename = os.path.join(SAGE_SHARE, 'reflexive_polytopes',
++            self._data_basename = os.path.join('/usr/share/sagemath/reflexive_polytopes',
+                                                'Full'+str(dim)+'d', 'zzdb')
+             info = self._data_basename + '.info'
+             if not os.path.exists(info):
