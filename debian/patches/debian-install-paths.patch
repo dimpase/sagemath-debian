@@ -98,7 +98,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  )
  from jupyter_core.paths import ENV_JUPYTER_PATH
 -JUPYTER_PATH = ENV_JUPYTER_PATH[0]
-+JUPYTER_PATH = os.path.join(SAGE_SHARE, "..", "jupyter")
++JUPYTER_PATH = os.path.join(SAGE_SHARE, "jupyter")
  
  
  class SageKernelSpec(object):
