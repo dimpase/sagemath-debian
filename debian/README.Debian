@@ -96,6 +96,7 @@ sage -t --long src/sage/interfaces/interface.py  # Timed out
 sage -t --long src/doc/en/prep/Quickstarts/Statistics-and-Distributions.rst  # Timed out
 sage -t --long /usr/lib/python2.7/dist-packages/sagenb/misc/support.py  # Timed out
 sage -t --long src/sage/stats/r.py  # Timed out
+sage -t --long src/sage/rings/integer.pyx  # Timed out (and interrupt failed)
 
 ### We have some sort of lead for further investigation
 
