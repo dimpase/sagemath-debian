@@ -93,23 +93,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          SAGE_INST=${ac_abs_top_builddir}/local/var/lib/sage/installed
          for d in "$SAGE_LOGS" "$SAGE_LOCAL" \
              "$SAGE_LOCAL/bin" "$SAGE_LOCAL/etc" \
---- a/sage/src/sage/doctest/sources.py
-+++ b/sage/src/sage/doctest/sources.py
-@@ -32,7 +32,7 @@
- from .parsing import SageDocTestParser
- from .util import NestedName
- from sage.structure.dynamic_class import dynamic_class
--from sage.env import SAGE_SRC, SAGE_LOCAL
-+from sage.env import SAGE_SRC, SAGE_LOCAL, SAGE_LIB
- 
- # Python file parsing
- triple_quotes = re.compile("\s*[rRuU]*((''')|(\"\"\"))")
-@@ -85,7 +85,7 @@
-     # If the file is in the sage library, we can use our knowledge of
-     # the directory structure
-     dev = SAGE_SRC
--    sp = os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages')
-+    sp = SAGE_LIB
-     if path.startswith(dev):
-         # there will be a branch name
-         i = path.find(os.path.sep, len(dev))

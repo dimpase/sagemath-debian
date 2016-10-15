@@ -37,7 +37,6 @@ debian-nauty.patch
 debian-gsl-cblas.patch
 debian-arb.patch
 debian-cython-sys-path.patch
-debian-sage-env.patch
 debian-octave.patch
 debian-sage-gap-reset.patch
 # this next one contains some stuff that should be forwarded upstream
