@@ -59,7 +59,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +_add_variable_or_fallback('SITE_PACKAGES',   [d for d in sitepackages_dirs if "local" not in d])
  
 -_add_variable_or_fallback('SAGE_LIB',        SITE_PACKAGES[0])
-+_add_variable_or_fallback('SAGE_LIB',        opj('$SAGE_LOCAL', SITE_PACKAGES[0]))
++_add_variable_or_fallback('SAGE_LIB',        opj('$SAGE_LOCAL', 'lib', 'python2.7', 'dist-packages'))
  
  _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_SRC', 'build', 'cythonized'))
  
@@ -122,3 +122,43 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          echo >&2 '************************************************************************'
          echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
          echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
+--- a/sage/src/sage_setup/find.py
++++ b/sage/src/sage_setup/find.py
+@@ -150,19 +150,18 @@ def installed_files_by_module(site_packages, modules=('sage',)):
+ 
+     EXAMPLES::
+ 
+-        sage: from site import getsitepackages
+-        sage: site_packages = getsitepackages()[0]
+-        sage: files_by_module = installed_files_by_module(site_packages)
++        sage: from sage.env import SAGE_LIB
++        sage: files_by_module = installed_files_by_module(SAGE_LIB)
+         sage: from sage.misc.sageinspect import loadable_module_extension
+         sage: 'sage/structure/sage_object' + loadable_module_extension() in \
+         ....:     files_by_module['sage.structure.sage_object']
+         True
+         sage: sorted(files_by_module['sage.structure'])
+-        ['sage/structure/__init__.py', 'sage/structure/__init__.pyc']
++        ['sage/structure/__init__.py', 'sage/structure/__init__.pyc'...]
+ 
+     This takes about 30ms with warm cache:
+ 
+-        sage: timeit('installed_files_by_module(site_packages)',       # random output
++        sage: timeit('installed_files_by_module(SAGE_LIB)',       # random output
+         ....:        number=1, repeat=1)
+         1 loops, best of 1: 29.6 ms per loop
+     """
+--- a/sage/src/sage/interacts/debugger.py
++++ b/sage/src/sage/interacts/debugger.py
+@@ -194,9 +194,9 @@
+         code = code.replace(TRACEBACK, TRACEBACK[:-1])
+ 
+         # Create a hyperlink to the file, if possible.
+-        i = filename.rfind('site-packages/sage')
++        i = filename.rfind('dist-packages/sage')
+         if i != -1:
+-            fname = filename[i+len('site-packages/sage')+1:].rstrip('/')
++            fname = filename[i+len('dist-packages/sage')+1:].rstrip('/')
+             file = '<a href="/src/%s" target="_new">src/sage/%s</a>'%(fname,fname)
+         else:
+             file = filename

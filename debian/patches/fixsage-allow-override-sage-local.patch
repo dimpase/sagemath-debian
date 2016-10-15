@@ -24,6 +24,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
+@@ -77,7 +77,7 @@ def _add_variable_or_fallback(key, fallback, force=False):
+     if force:
+         value = fallback
+     if isinstance(value, six.string_types):
+-        for k,v in SAGE_ENV.items():
++        for k,v in sorted(SAGE_ENV.items(), reverse=True):
+             if isinstance(v, six.string_types):
+                 value = value.replace('$'+k, v)
+     SAGE_ENV[key] = value
 @@ -110,7 +110,7 @@
  
  _add_variable_or_fallback('SAGE_EXTCODE',    opj('$SAGE_SHARE', 'sage', 'ext'))
@@ -84,3 +93,23 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          SAGE_INST=${ac_abs_top_builddir}/local/var/lib/sage/installed
          for d in "$SAGE_LOGS" "$SAGE_LOCAL" \
              "$SAGE_LOCAL/bin" "$SAGE_LOCAL/etc" \
+--- a/sage/src/sage/doctest/sources.py
++++ b/sage/src/sage/doctest/sources.py
+@@ -32,7 +32,7 @@
+ from .parsing import SageDocTestParser
+ from .util import NestedName
+ from sage.structure.dynamic_class import dynamic_class
+-from sage.env import SAGE_SRC, SAGE_LOCAL
++from sage.env import SAGE_SRC, SAGE_LOCAL, SAGE_LIB
+ 
+ # Python file parsing
+ triple_quotes = re.compile("\s*[rRuU]*((''')|(\"\"\"))")
+@@ -85,7 +85,7 @@
+     # If the file is in the sage library, we can use our knowledge of
+     # the directory structure
+     dev = SAGE_SRC
+-    sp = os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages')
++    sp = SAGE_LIB
+     if path.startswith(dev):
+         # there will be a branch name
+         i = path.find(os.path.sep, len(dev))
