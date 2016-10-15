@@ -82,6 +82,21 @@ Now for the summary:
 18+5 unreproducible for infinity0
 32 (estimated) for Tobias
 
+plus "timed out waiting for R"
+
+### Timed out waiting for R
+
+Give --verbose to see which test case it's hanging on. Running R manually works.
+Run the example manually inside ./sage and press Ctrl-C to get a backtrace.
+
+sage -t --long src/sage/misc/sageinspect.py  # Timed out
+sage -t --long src/sage/interfaces/expect.py  # Timed out
+sage -t --long src/sage/interfaces/r.py  # Timed out
+sage -t --long src/sage/interfaces/interface.py  # Timed out
+sage -t --long src/doc/en/prep/Quickstarts/Statistics-and-Distributions.rst  # Timed out
+sage -t --long /usr/lib/python2.7/dist-packages/sagenb/misc/support.py  # Timed out
+sage -t --long src/sage/stats/r.py  # Timed out
+
 ### We have some sort of lead for further investigation
 
 The _wip_hacky-test-fixes branch unbreaks some of these, but not sure that
