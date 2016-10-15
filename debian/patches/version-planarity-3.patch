@@ -2,8 +2,8 @@ Description: Update Sage's planarity module to use API v3
  Sage uses 2.2.0 but the API difference from planarity 3 is not too bad.
  So let's try this instead of backporting planarity 2.2.0 to Debian.
 Author: Ximin Luo <infinity0@debian.org>
-Bug: TBD
-Forwarded: TBD
+Bug: TODO
+Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/graphs/planarity.pyx

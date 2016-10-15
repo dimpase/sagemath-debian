@@ -14,7 +14,7 @@ Description: Fix trivial test cases to work
  - any minute concrete non-identical floating point differences
  since these might indicate deeper bugs and we don't want to hide those.
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TBD
+Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/maxima_abstract.py

@@ -1,4 +1,7 @@
 Description: Hard-code paths to external system run-time dependencies
+ TODO: some of this could be made generic and forwarded upstream. For example,
+ add another SAGE_SHARE_DATA directory, which for upstream would be the same
+ as SAGE_SHARE and for us would be /usr/share/sagemeth.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed

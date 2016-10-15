@@ -3,7 +3,7 @@ Description: Use -b when running Singular CLI
  We should also forward this to Sage upstream.
 Author: Ximin Luo <infinity0@debian.org>
 Bug: https://www.singular.uni-kl.de:8005/trac/ticket/775
-Forwarded: TBD, to Sage
+Forwarded: TODO, to Sage
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/bin/sage

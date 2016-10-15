@@ -2,7 +2,7 @@ Description: Reset the sage-local gap workspace before the first test
  Otherwise it causes test errors, if the workspace contains files from older
  versions of gap.
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: not-needed / TBD
+Forwarded: not-needed / TODO
 # it's upstream's bug but they are likely to not bother, since they control their "GAP version"
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/

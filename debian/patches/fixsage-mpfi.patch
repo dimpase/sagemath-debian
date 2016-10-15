@@ -3,8 +3,8 @@ Description: Remove private MPFI functions
  mark these as private in src/mpfi-impl.h, and Sage should not be attempting
  to link to or use them in its Cython modules.
 Author: Ximin Luo <infinity0@debian.org>
-Bug: TBD
-Forwarded: TBD
+Bug: TODO
+Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/libs/mpfi.pxd

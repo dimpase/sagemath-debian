@@ -1,4 +1,7 @@
 Description: Install to Debian paths
+ TODO: upstream hard-codes "site-packages" in a bunch of places; these should
+ be fixed to use SAGE_LIB instead and forwarded upstream. Then this patch could
+ be a lot smaller.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed

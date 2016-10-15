@@ -3,7 +3,7 @@ Description: Allow SAGE_LOCAL to be overridden from outside the Makefiles
  However, keep SAGE_SPKG_INST relative to SAGE_ROOT rather than SAGE_LOCAL
  since that would be a more intrusive change.
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TBD
+Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/bin/sage-env
