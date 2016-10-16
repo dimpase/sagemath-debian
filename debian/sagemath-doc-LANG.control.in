@@ -1,0 +1,5 @@
+
+Package: sagemath-doc-LANG
+Architecture: all
+Description: Documentation for SageMath (LANG)
+Depends: ${misc:Depends}

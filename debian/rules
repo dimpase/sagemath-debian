@@ -26,8 +26,23 @@ endif
 export SAGE_LOCAL = $(shell pwd)/debian/tmp/usr
 export PYTHONPATH = $(shell pwd)/debian/tmp/usr/lib/python2.7/dist-packages
 
+LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3-)
+DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
+DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
+
 %:
 	dh $@ --parallel
+
+gencontrol: $(DOCS_INSTALL) debian/control
+
+debian/control: debian/control.in $(DOCS_CONTROL)
+	cat $^ > "$@"
+
+debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in debian/rules
+	sed -e 's/LANG/$*/g' < "$<" > "$@"
+
+debian/sagemath-doc-%.install: debian/sagemath-doc-LANG.install.in debian/rules
+	sed -e 's/LANG/$*/g' < "$<" > "$@"
 
 override_dh_auto_build: prune
 	$(MAKE) --directory=sage $(DEB_BUILD_TARGET)
@@ -71,7 +86,7 @@ endif
 clean-docbuild:
 	rm -rf debian/tmp/usr/share/doc/sage
 
-reset: clean clean-docbuild
+reset: gencontrol clean clean-docbuild
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	cd sage; git clean -fdx && git submodule update --force
 	QUILT_PATCHES=debian/patches quilt push -a
@@ -87,4 +102,4 @@ build-dep:
 failed-tests:
 	grep "Failed example:" sage/logs/ptestlong.log | awk '{s++} END {print s}'
 
-.PHONY: clean-doc-build reset build-dep
+.PHONY: gencontrol ptestlong clean-doc-build reset build-dep gencontrol

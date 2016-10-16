@@ -3,3 +3,7 @@
 /pruner/config.*
 /pruner/pruner.py
 /pruner/autom4te.cache
+/sagemath-doc-*.install
+/sagemath-doc-*.control
+/control
+!/*.in
