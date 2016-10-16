@@ -51,3 +51,4 @@ version-temp-singular-4-extra-fixes.patch
 version-temp-glpk-4.60-extra-hacky-fixes.patch
 temp-fix-more-tests.patch
 debian-temp-userdir.patch
+debian-temp-r-no-readline.patch
