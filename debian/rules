@@ -52,6 +52,7 @@ prune:
 
 ptestlong:
 	cd sage && $(SAGE_LOCAL)/bin/sage-starts
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# We do the below instead of `$(MAKE) --directory=sage ptestlong` because
 	# it has a bug where it can't detect a previous successful build. So it
 	# will try to rebuild some sagelib files, then the docbuild, then those
@@ -61,6 +62,7 @@ ptestlong:
 	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
 	# (and then this target) without trying (override_)dh_auto_build again.
 	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log
+endif
 
 # If the docbuild fails and you want to try again, you should run this first.
 # Otherwise the docbuild gets slower and slower as it re-reads information from
@@ -81,6 +83,7 @@ build-dep:
 	else sudo apt-get install --no-install-recommends sagemath-build-deps; fi
 	rm -f sagemath-build-deps_$(DEB_VERSION)_all.deb
 
+# TODO: does not count "special" failures like segfault/abort/timed-out etc.
 failed-tests:
 	grep "Failed example:" sage/logs/ptestlong.log | awk '{s++} END {print s}'
 

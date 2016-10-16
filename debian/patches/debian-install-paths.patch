@@ -18,6 +18,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  clean:
  	@echo "Deleting Sage library build artifacts..."
+--- a/sage/src/sage_setup/clean.py
++++ b/sage/src/sage_setup/clean.py
+@@ -85,7 +85,7 @@
+         sage: from sage.misc.sageinspect import loadable_module_extension
+         sage: skip_extensions = (loadable_module_extension(),)
+         sage: for f in stale_iter:
+-        ....:     if f.endswith(skip_extensions): continue
++        ....:     if f.endswith(skip_extensions) or f.endswith(".pyo"): continue
+         ....:     print('Found stale file: ' + f)
+     """
+     from sage.misc.sageinspect import loadable_module_extension
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
 @@ -155,9 +155,9 @@
