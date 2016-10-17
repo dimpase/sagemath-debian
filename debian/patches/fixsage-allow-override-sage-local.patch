@@ -6,6 +6,17 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage
++++ b/sage
+@@ -134,6 +134,8 @@
+     exec "$SAGE_ROOT/src/bin/sage" "$@"
+ elif [ -x "$SAGE_ROOT/local/bin/sage" ]; then # if in a stripped binary
+     exec "$SAGE_ROOT/local/bin/sage" "$@"
++elif [ -x "$SAGE_LOCAL/bin/sage" ]; then # if in a stripped binary
++    exec "$SAGE_LOCAL/bin/sage" "$@"
+ else
+     echo >&2 "$0: no Sage installation found in \$SAGE_ROOT=$SAGE_ROOT"
+     exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -245,11 +245,11 @@
