@@ -20,11 +20,12 @@ endif
 ifneq (,$(filter pkg.sagemath.ccache,$(DEB_BUILD_PROFILES)))
 export PATH := /usr/lib/ccache:$(PATH)
 export CCACHE_DIR := $(PWD)/debian/ccache
+export CCACHE_BASEDIR := $(PWD)/debian/build
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
-export SAGE_LOCAL = $(shell pwd)/debian/tmp/usr
-export PYTHONPATH = $(shell pwd)/debian/tmp/usr/lib/python2.7/dist-packages
+export SAGE_LOCAL = $(shell pwd)/debian/build/usr
+export PYTHONPATH = $(shell pwd)/debian/build/usr/lib/python2.7/dist-packages
 
 LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3-)
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
@@ -32,6 +33,8 @@ DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
 
 %:
 	dh $@ --parallel
+
+build: gencontrol
 
 gencontrol: $(DOCS_INSTALL) debian/control
 
@@ -50,10 +53,42 @@ override_dh_auto_build: prune
 override_dh_auto_test: ptestlong
 
 override_dh_auto_install:
+	rm -rf debian/build/usr/var/tmp/sage/build
+# We built .pyo to make the docbuild/tests go faster, but as per Debian policy
+# we don't distribute them.
+	find debian/build '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
+	mkdir -p debian/tmp
+	mv debian/build/* debian/tmp
+	rmdir debian/build
 
-# upstream "clean" only cleans the sagelib build and not e.g. spkg builds
+# If we see "nodoc", don't clean the docs. This allows us to rebuild just the
+# non-docs without wiping away the docs we previously built, to save time.
 override_dh_auto_clean:
+ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+	$(MAKE) --directory=sage -k clean sagelib-clean misc-clean || true
+else
 	$(MAKE) --directory=sage distclean
+endif
+
+override_dh_install:
+	dh_install --list-missing
+
+override_dh_shlibdeps:
+	dh_shlibdeps -l debian/tmp/usr/lib
+
+# If we see "nodoc", don't clean the docs. This allows us to rebuild just the
+# non-docs without wiping away the docs we previously built, to save time.
+override_dh_clean:
+ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+# Don't delete my precious docs debhelper! They took a whole fucking hour to build!
+	if [ -d debian/tmp/usr/share/doc ]; then \
+		mkdir -p debian/build/usr/share; \
+		mv -t debian/build/usr/share/ debian/tmp/usr/share/doc; \
+	fi
+	dh_clean
+else
+	dh_clean
+endif
 
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
@@ -84,7 +119,7 @@ endif
 # its build directory. At least that's my (infinity0) impression; I didn't
 # investigate this in too much detail yet.
 clean-docbuild:
-	rm -rf debian/tmp/usr/share/doc/sage
+	rm -rf debian/build/usr/share/doc/sage
 
 reset: gencontrol clean clean-docbuild
 	QUILT_PATCHES=debian/patches quilt pop -af || true

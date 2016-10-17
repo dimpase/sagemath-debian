@@ -1,0 +1,3 @@
+usr/bin/sage*
+usr/lib/python2.7/dist-packages/sage*
+# TODO: a lot of this could be moved to sagemath-common

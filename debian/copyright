@@ -1,7 +1,13 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: SageMath
+Source: https://www.sagemath.org/
 
 Files: *
 Copyright: Copyright (C) 2013 Felix Salfelder, Tobias Hansen
+License: GPL-2+
+
+Files: *
+Copyright: 2013-2016 Debian SageMath Maintainers <debian-science-sagemath@lists.alioth.debian.org>
 License: GPL-2+
 
 License: GPL-2+

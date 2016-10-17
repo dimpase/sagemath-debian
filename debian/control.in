@@ -1,3 +1,4 @@
+## DO NOT EDIT debian/control directly, edit debian/control.in instead
 Source: sagemath
 Section: math
 Priority: optional
@@ -178,10 +179,67 @@ Build-Depends:
  tachyon,
  zlib1g-dev,
 
-Package: sagemath-empty
+Package: sagemath
+Architecture: any
+Description: Sage: Open Source Mathematical Software
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains the main Sage installation.
+Depends: ${misc:Depends}, ${shlibs:Depends}, sagemath-common, sagemath-deps
+# TODO: missing a *lot* of python and other dependencies here
+
+Package: sagemath-common
 Architecture: all
-Description: Empty package with the runtime dependencies of sage
- This meta-package depends on all dependencies of sage
- that are currently in Debian testing.
-Depends:
- ${misc:Depends}
+Description: Sage: Open Source Mathematical Software
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains the architecture-independent files of Sage.
+Depends: ${misc:Depends}, ${shlibs:Depends}
+
+Package: sagemath-deps
+Architecture: any
+Description: Sage: Open Source Mathematical Software
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains the external dependencies of Sage and will eventually
+ be deleted when we upload it to Debian officially, being replaced with
+ dependencies to other Debian packages.
+Depends: ${misc:Depends}, ${shlibs:Depends}, sagemath-deps-common
+
+Package: sagemath-deps-common
+Architecture: all
+Description: Sage: Open Source Mathematical Software
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains the architecture-independent external dependencies of
+ Sage and will eventually be deleted when we upload it to Debian officially,
+ being replaced with dependencies to other Debian packages.
+Depends: ${misc:Depends}, ${shlibs:Depends}
