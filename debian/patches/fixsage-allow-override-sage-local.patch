@@ -24,7 +24,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -77,7 +77,7 @@ def _add_variable_or_fallback(key, fallback, force=False):
+@@ -77,7 +77,7 @@
      if force:
          value = fallback
      if isinstance(value, six.string_types):
@@ -95,7 +95,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              "$SAGE_LOCAL/bin" "$SAGE_LOCAL/etc" \
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -615,7 +615,7 @@
+@@ -608,7 +608,7 @@
  python_packages, python_modules = find_python_sources(
      SAGE_SRC, ['sage', 'sage_setup'])
  python_data_files = find_extra_files(python_packages,
