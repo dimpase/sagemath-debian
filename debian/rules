@@ -76,6 +76,11 @@ override_dh_install:
 override_dh_shlibdeps:
 	dh_shlibdeps -l debian/tmp/usr/lib
 
+override_dh_compress:
+# We probably don't need to install the pickle/doctree files but let's exempt
+# them from compression anyway for now, so the build goes quicker.
+	dh_compress -X.pdf -X.pickle -X.doctree
+
 # If we see "nodoc", don't clean the docs. This allows us to rebuild just the
 # non-docs without wiping away the docs we previously built, to save time.
 override_dh_clean:
