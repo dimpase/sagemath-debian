@@ -14,6 +14,6 @@ Description: Sage: Open Source Mathematical Software - documentation (LANGUAGE)
  This package contains documentation in LANGUAGE.
  .
  Note that the package for English documentation (sagemath-doc-en) contains far
- more documentation that any of the other languages, so if you're finding this
+ more documentation than any of the other languages. So if you're finding this
  package lacking in content, then you could try that one as well.
 Depends: ${misc:Depends}, ${sphinxdoc:Depends}
