@@ -5,6 +5,8 @@ Description: Install to Debian paths
  .
  The multidocs.py patch looks like a Sage upstream bug, that probably needs to
  be forwarded.
+ .
+ The LD_LIBRARY_PATH can probably be forwarded upstream, either way is fine.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -60,6 +62,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  if [ -n "$IPYTHONDIR" ]; then
      export IPYTHONDIR="$DOT_SAGE/${IPYTHONDIR##*/}"
  fi
+@@ -397,8 +389,10 @@
+     export PYTHONHOME
+ fi
+ 
+-LDFLAGS="-L$SAGE_LOCAL/lib -Wl,-rpath,$SAGE_LOCAL/lib $LDFLAGS"
++LDFLAGS="-L$SAGE_LOCAL/lib $LDFLAGS"
+ export LDFLAGS
++LD_LIBRARY_PATH="$SAGE_LOCAL/lib:$LD_LIBRARY_PATH"
++export LD_LIBRARY_PATH
+ 
+ # Use a matplotlib config directory specific to Sage and specific to
+ # the version number of matplotlib, by setting the environment
 --- a/sage/src/sage_setup/clean.py
 +++ b/sage/src/sage_setup/clean.py
 @@ -85,7 +85,7 @@
