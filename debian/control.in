@@ -17,6 +17,7 @@ Build-Depends:
  cysignals-tools <!nodoc>,
  cython (>= 0.24.1),
  debhelper (>= 9),
+ dh-python,
  dpkg-dev (>= 1.15.7~),
  ecl (>= 15.3.7+dfsg1-2),
  eclib-tools (>= 20160720-1+sage1),
@@ -193,7 +194,7 @@ Description: Sage: Open Source Mathematical Software
  Mathematica and Matlab.
  .
  This package contains the main Sage installation.
-Depends: ${misc:Depends}, ${shlibs:Depends}, sagemath-common, sagemath-deps
+Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}, sagemath-common, sagemath-deps
 # TODO: missing a *lot* of python and other dependencies here
 Suggests: sagemath-doc-en
 
@@ -210,7 +211,7 @@ Description: Sage: Open Source Mathematical Software
  Mathematica and Matlab.
  .
  This package contains the architecture-independent files of Sage.
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}
 
 Package: sagemath-deps
 Architecture: any
