@@ -5,11 +5,9 @@ Bug: https://trac.sagemath.org/ticket/20710
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
-diff --git a/src/sage/numerical/backends/glpk_backend.pyx b/src/sage/numerical/backends/glpk_backend.pyx
-index 7a7ae0a..b0f9f2a 100644
 --- a/sage/src/sage/numerical/backends/glpk_backend.pyx
 +++ b/sage/src/sage/numerical/backends/glpk_backend.pyx
-@@ -1004,8 +1006,8 @@ cdef class GLPKBackend(GenericBackend):
+@@ -1004,8 +1004,8 @@
          Same, now with a time limit::
  
              sage: p.solver_parameter("mip_gap_tolerance",1)
@@ -20,11 +18,9 @@ index 7a7ae0a..b0f9f2a 100644
              1
          """
  
-diff --git a/src/sage/numerical/backends/glpk_graph_backend.pyx b/src/sage/numerical/backends/glpk_graph_backend.pyx
-index a099788..498e8e1 100644
 --- a/sage/src/sage/numerical/backends/glpk_graph_backend.pyx
 +++ b/sage/src/sage/numerical/backends/glpk_graph_backend.pyx
-@@ -162,12 +162,12 @@ cdef class GLPKGraphBackend(object):
+@@ -162,12 +162,12 @@
          sage: a = gbe.add_edge('0', '1')
          sage: gbe.write_graph(SAGE_TMP+"/graph.txt")
          Writing graph to ...
@@ -40,7 +36,7 @@ index a099788..498e8e1 100644
  
      The following example imports a Sage ``Graph`` and then uses it to solve a
      maxflow problem::
-@@ -1060,7 +1060,7 @@ cdef class GLPKGraphBackend(object):
+@@ -1060,7 +1060,7 @@
              sage: a = gbe.add_edge("0", "1")
              sage: gbe.write_graph(SAGE_TMP+"/graph.txt")
              Writing graph to ...
@@ -49,11 +45,9 @@ index a099788..498e8e1 100644
              0
          """
  
-diff --git a/src/sage/numerical/mip.pyx b/src/sage/numerical/mip.pyx
-index 8c17d87..b45c82f 100644
 --- a/sage/src/sage/numerical/mip.pyx
 +++ b/sage/src/sage/numerical/mip.pyx
-@@ -2519,10 +2519,10 @@ cdef class MixedIntegerLinearProgram(SageObject):
+@@ -2519,10 +2519,10 @@
              sage: b.solver_parameter("simplex_or_intopt", "simplex_only")
              sage: b.solver_parameter("verbosity_simplex", "GLP_MSG_ALL")
              sage: p.solve()  # rel tol 1e-5

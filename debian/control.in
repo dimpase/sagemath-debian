@@ -13,6 +13,7 @@ X-Python-Version: 2.7
 Build-Depends:
  autoconf,
  ccache <pkg.sagemath.ccache>,
+ iso-codes,
  cysignals-tools <!nodoc>,
  cython (>= 0.24.1),
  debhelper (>= 9),
@@ -194,6 +195,7 @@ Description: Sage: Open Source Mathematical Software
  This package contains the main Sage installation.
 Depends: ${misc:Depends}, ${shlibs:Depends}, sagemath-common, sagemath-deps
 # TODO: missing a *lot* of python and other dependencies here
+Suggests: sagemath-doc-en
 
 Package: sagemath-common
 Architecture: all

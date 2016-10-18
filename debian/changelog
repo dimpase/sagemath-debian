@@ -1,5 +1,5 @@
 sagemath (7.3-1) UNRELEASED; urgency=low
 
-  * Initial package.
+  * Initial package. (Closes: #841136)
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 09 Aug 2016 12:47:33 +0000

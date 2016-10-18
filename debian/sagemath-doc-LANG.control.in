@@ -1,5 +1,19 @@
 
 Package: sagemath-doc-LANG
 Architecture: all
-Description: Documentation for SageMath (LANG)
-Depends: ${misc:Depends}
+Description: Sage: Open Source Mathematical Software - documentation (LANGUAGE)
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains documentation in LANGUAGE.
+ .
+ Note that the package for English documentation (sagemath-doc-en) contains far
+ more documentation that any of the other languages, so if you're finding this
+ package lacking in content, then you could try that one as well.
+Depends: ${misc:Depends}, ${sphinxdoc:Depends}

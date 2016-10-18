@@ -2,6 +2,9 @@ Description: Install to Debian paths
  TODO: upstream hard-codes "site-packages" in a bunch of places; these should
  be fixed to use SAGE_LIB instead and forwarded upstream. Then this patch could
  be a lot smaller.
+ .
+ The multidocs.py patch looks like a Sage upstream bug, that probably needs to
+ be forwarded.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -20,7 +23,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	@echo "Deleting Sage library build artifacts..."
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -118,6 +117,9 @@ elif [ -f sage -a -d build ]; then
+@@ -118,6 +118,9 @@
      NEW_SAGE_ROOT="."
  elif [ -f ../../sage -a -d ../../build ]; then
      NEW_SAGE_ROOT="../.."
@@ -30,7 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  else
      # No idea what SAGE_ROOT should be...
      echo >&2 "Error: You must set the SAGE_ROOT environment variable or run this"
-@@ -128,17 +132,6 @@
+@@ -128,17 +131,6 @@
  # Make NEW_SAGE_ROOT absolute
  NEW_SAGE_ROOT=`cd "$NEW_SAGE_ROOT" && pwd -P`
  
@@ -48,7 +51,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Warn if NEW_SAGE_ROOT does not equal the old SAGE_ROOT
  if [ "$SAGE_ROOT" != "$NEW_SAGE_ROOT" -a -n "$SAGE_ROOT" ]; then
      echo >&2 "Warning: overwriting SAGE_ROOT environment variable:"
-@@ -364,7 +357,7 @@
+@@ -364,7 +356,7 @@
      export SAGE_STARTUP_FILE
  fi
  
@@ -92,7 +95,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
  
  
-@@ -624,7 +631,7 @@
+@@ -631,7 +631,7 @@
  print('Cleaning up stale installed files....')
  t = time.time()
  from sage_setup.clean import clean_install_dir
@@ -244,3 +247,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = '<a href="/src/%s" target="_new">src/sage/%s</a>'%(fname,fname)
          else:
              file = filename
+--- a/sage/src/sage_setup/docbuild/ext/multidocs.py
++++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
+@@ -277,7 +277,7 @@ def init_subdoc(app):
+             """
+             app.builder.info(bold('linking _static directory.'))
+             static_dir = os.path.join(app.builder.outdir, '_static')
+-            master_static_dir = os.path.join('..', '_static')
++            master_static_dir = os.path.join('..', '..', '_static')
+             if os.path.lexists(static_dir):
+                 if os.path.isdir(static_dir) and not os.path.islink(static_dir):
+                     shutil.rmtree(static_dir)

@@ -6,8 +6,8 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage
-+++ b/sage
+--- a/sage/sage
++++ b/sage/sage
 @@ -134,6 +134,8 @@
      exec "$SAGE_ROOT/src/bin/sage" "$@"
  elif [ -x "$SAGE_ROOT/local/bin/sage" ]; then # if in a stripped binary
@@ -115,3 +115,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  print('python_packages = {0}'.format(python_packages))
  print('python_modules = {0}'.format(python_modules))
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -94,7 +94,7 @@
+         except OSError as err:
+             if err.errno == errno.EEXIST:
+                 return
+-        os.symlink(src, dst)
++        os.symlink(os.path.relpath(src, os.path.dirname(dst)), dst)
+ 
+     def use_local_mathjax(self):
+         """
