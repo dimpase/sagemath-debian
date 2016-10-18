@@ -1,2 +1,4 @@
+usr/bin/sage*
 usr/share/sage/ext
 usr/share/jupyter/*
+usr/lib/python2.7/dist-packages/sage*
