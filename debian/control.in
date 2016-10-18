@@ -197,7 +197,6 @@ Description: Sage: Open Source Mathematical Software
  This package contains the main Sage installation.
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}, sagemath-common, sagemath-deps
 # TODO: missing a *lot* of python and other dependencies here
-Suggests: sagemath-doc-en
 
 Package: sagemath-common
 Architecture: all
@@ -213,6 +212,7 @@ Description: Sage: Open Source Mathematical Software
  .
  This package contains the architecture-independent files of Sage.
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}
+Recommends: sagemath-doc-en
 
 Package: sagemath-deps
 Architecture: any

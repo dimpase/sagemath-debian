@@ -25,17 +25,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	@echo "Deleting Sage library build artifacts..."
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -118,6 +118,9 @@
+@@ -118,6 +118,10 @@
      NEW_SAGE_ROOT="."
  elif [ -f ../../sage -a -d ../../build ]; then
      NEW_SAGE_ROOT="../.."
 +elif [ "$(which "$(basename "$0")")" = "$0" ]; then
 +    SAGE_LOCAL="${SAGE_LOCAL:-$(dirname $(dirname "$0"))}"
 +    SAGE_ROOT="$SAGE_LOCAL"
++    NEW_SAGE_ROOT="$SAGE_ROOT"
  else
      # No idea what SAGE_ROOT should be...
      echo >&2 "Error: You must set the SAGE_ROOT environment variable or run this"
-@@ -128,17 +131,6 @@
+@@ -128,17 +132,6 @@
  # Make NEW_SAGE_ROOT absolute
  NEW_SAGE_ROOT=`cd "$NEW_SAGE_ROOT" && pwd -P`
  
@@ -53,7 +54,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Warn if NEW_SAGE_ROOT does not equal the old SAGE_ROOT
  if [ "$SAGE_ROOT" != "$NEW_SAGE_ROOT" -a -n "$SAGE_ROOT" ]; then
      echo >&2 "Warning: overwriting SAGE_ROOT environment variable:"
-@@ -364,7 +356,7 @@
+@@ -364,7 +357,7 @@
      export SAGE_STARTUP_FILE
  fi
  
@@ -62,7 +63,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  if [ -n "$IPYTHONDIR" ]; then
      export IPYTHONDIR="$DOT_SAGE/${IPYTHONDIR##*/}"
  fi
-@@ -397,8 +389,10 @@
+@@ -397,8 +390,10 @@
      export PYTHONHOME
  fi
  
@@ -263,7 +264,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = filename
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -277,7 +277,7 @@ def init_subdoc(app):
+@@ -277,7 +277,7 @@
              """
              app.builder.info(bold('linking _static directory.'))
              static_dir = os.path.join(app.builder.outdir, '_static')
