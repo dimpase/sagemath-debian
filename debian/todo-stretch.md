@@ -5,7 +5,8 @@ Complete transitions
 
 *   Packages:
     *   brial
-    *   libfplll (5.0.2 or 5.0.3)
+    *   gap (2.9)
+    *   libfplll (5.0.3)
     *   ipython (5.1.0)
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
@@ -56,6 +57,7 @@ Upload all packages and make sure they migrate to testing
 
 *   Packages that have issues preventing testing migration:
     * cython 0.24.1
+    * ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
     * fflas-ffpack 1.6.0
     * linbox 1.4.2
 
