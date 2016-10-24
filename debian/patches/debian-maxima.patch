@@ -1,14 +1,3 @@
---- a/sage/src/doc/en/constructions/plotting.rst
-+++ b/sage/src/doc/en/constructions/plotting.rst
-@@ -214,7 +214,7 @@
- ::
- 
-     sage: maxima.eval('load("plotdf");')
--    '".../local/share/maxima/.../share/dynamics/plotdf.lisp"'
-+    '".../share/maxima/.../share/dynamics/plotdf.lisp"'
-     sage: maxima.eval('plotdf(x+y,[trajectory_at,2,-0.1]); ')  # not tested
- 
- This plots a direction field (the plotdf Maxima package was also
 --- a/sage/src/sage/interfaces/maxima_lib.py
 +++ b/sage/src/sage/interfaces/maxima_lib.py
 @@ -98,7 +98,7 @@
@@ -63,7 +52,7 @@
              return AsciiArtString(res)
          else:
              subprocess.Popen(cmd, shell=True)
-@@ -2357,7 +2354,7 @@
+@@ -2215,7 +2212,7 @@
          sage: maxima_version()
          '5.35.1'
      """
@@ -72,7 +61,7 @@
  
  def maxima_console():
      """
-@@ -2373,4 +2370,4 @@
+@@ -2231,4 +2228,4 @@
      from sage.repl.rich_output.display_manager import get_display_manager
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
@@ -80,7 +69,7 @@
 +    os.system('maxima -l ecl')
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -507,7 +507,7 @@
+@@ -512,7 +512,7 @@
  
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift

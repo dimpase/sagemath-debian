@@ -10,12 +10,12 @@ Forwarded: not-needed
      "ec", "ecm",
  ] + linbox_libs  + gsl_libs + [
      "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
--    "arb", "fplll", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
-+    "flint-arb", "fplll", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
+-    "arb", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
++    "flint-arb", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
      "brial",
      "brial_groebner",
      "m4rie",
-@@ -871,7 +871,7 @@
+@@ -866,7 +866,7 @@
  
      Extension("sage.matrix.matrix_complex_ball_dense",
                ["sage/matrix/matrix_complex_ball_dense.pyx"],

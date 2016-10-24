@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              sage: len(r), len(w), len(x), t
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -315,12 +315,12 @@
+@@ -325,12 +325,12 @@
  fi
  
  # For PARI/GP
@@ -38,15 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -445,7 +445,6 @@
- 	fi
-     fi
- fi
--MAXIMA_PREFIX="$SAGE_ROOT/local" && export MAXIMA_PREFIX
- 
- PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
- 
-@@ -614,9 +613,6 @@
+@@ -642,9 +642,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -80,7 +72,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      print('The gap-4.5.5.spkg (or later) seems to be not installed!')
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -410,7 +410,7 @@
+@@ -413,7 +413,7 @@
      file_list = []
      for fname in additional_source_files:
          fname = fname.replace("$SAGE_SRC", SAGE_SRC)
@@ -170,8 +162,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/sage/databases/conway.py
 +++ b/sage/src/sage/databases/conway.py
-@@ -20,9 +20,8 @@
- #*****************************************************************************
+@@ -22,9 +22,8 @@
+ from six import itervalues
  
  import collections, os
 -from sage.env import SAGE_SHARE
@@ -198,7 +190,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  _cremonaSkeleton = {
      't_class': {
          'conductor': {'sql':'INTEGER', 'index':True},
-@@ -1667,8 +1668,7 @@
+@@ -1663,8 +1664,7 @@
          Traceback (most recent call last):
          ...
          ValueError: Desired database (='should not exist') does not exist
@@ -222,7 +214,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              return []
 --- a/sage/src/sage/graphs/isgci.py
 +++ b/sage/src/sage/graphs/isgci.py
-@@ -374,7 +374,8 @@
+@@ -376,7 +376,8 @@
  from sage.structure.sage_object import SageObject
  from sage.structure.unique_representation import CachedRepresentation, UniqueRepresentation
  from sage.misc.unknown import Unknown
@@ -232,7 +224,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #*****************************************************************************
  #      Copyright (C) 2011 Nathann Cohen <nathann.cohen@gmail.com>
-@@ -833,8 +834,7 @@
+@@ -835,8 +836,7 @@
  
          EXAMPLE::
  
@@ -244,7 +236,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          import os.path
 --- a/sage/src/sage/graphs/strongly_regular_db.pyx
 +++ b/sage/src/sage/graphs/strongly_regular_db.pyx
-@@ -3118,8 +3118,7 @@
+@@ -3120,8 +3120,7 @@
          return
      import json
  
