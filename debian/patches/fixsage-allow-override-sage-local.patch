@@ -19,12 +19,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -245,11 +245,11 @@
+@@ -187,7 +187,7 @@
+ 
+ # SAGE_LOCAL is the installation prefix and can be customized
+ if [ -z "$SAGE_LOCAL" ]; then
+-    export SAGE_LOCAL="$SAGE_ROOT/local"
++    export SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
  fi
  
- # Setting Sage-related location environment variables.
--export SAGE_LOCAL="$SAGE_ROOT/local"
-+export SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
+ # sage-env must know where the Sage's script files are
+@@ -265,7 +265,7 @@
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
@@ -44,7 +48,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              if isinstance(v, six.string_types):
                  value = value.replace('$'+k, v)
      SAGE_ENV[key] = value
-@@ -110,7 +110,7 @@
+@@ -114,7 +114,7 @@
  
  _add_variable_or_fallback('SAGE_EXTCODE',    opj('$SAGE_SHARE', 'sage', 'ext'))
  _add_variable_or_fallback('SAGE_LOGS',       opj('$SAGE_ROOT', 'logs', 'pkgs'))
@@ -55,12 +59,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  _add_variable_or_fallback('DOT_SAGE',        opj(os.environ.get('HOME','$SAGE_ROOT'), '.sage'))
 --- a/sage/build/make/install
 +++ b/sage/build/make/install
-@@ -7,11 +7,11 @@
+@@ -7,13 +7,13 @@
  # Assume current directory is SAGE_ROOT/build/make
  export SAGE_ROOT=`cd ../.. && pwd -P`
+ if [ -z "$SAGE_LOCAL" ]; then
+-    export SAGE_LOCAL="$SAGE_ROOT/local"
++    export SAGE_LOCAL="${SAGE_LOCAL:-SAGE_ROOT/local}"
+ fi
  export SAGE_SRC="$SAGE_ROOT/src"
--export SAGE_LOCAL="$SAGE_ROOT/local"
-+export SAGE_LOCAL="${SAGE_LOCAL:-SAGE_ROOT/local}"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
@@ -69,7 +75,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_VERSION=`cat $SAGE_ROOT/VERSION.txt | sed 's+.*\ \(.*\),.*+\1+'`
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
-@@ -20,7 +20,7 @@
+@@ -22,7 +22,7 @@
  fi
  export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
  
@@ -80,12 +86,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # seconds since 1970-01-01 in a hidden file called
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -81,10 +81,10 @@
+@@ -81,12 +81,12 @@
  # Assume current directory is SAGE_ROOT
  SAGE_ROOT=`pwd -P`
+ if test -z "$SAGE_LOCAL"; then
+-    SAGE_LOCAL="$SAGE_ROOT/local"
++    SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
+ fi
  SAGE_SRC="$SAGE_ROOT/src"
--SAGE_LOCAL="$SAGE_ROOT/local"
-+SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
  SAGE_SHARE="$SAGE_LOCAL/share"
  SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
 -SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
@@ -93,28 +101,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #---------------------------------------------------------
  AX_CHECK_ROOT([AC_MSG_ERROR([You cannot build Sage as root, switch to an unpriviledged user])], [])
-@@ -989,8 +989,8 @@
- AC_CONFIG_COMMANDS(mkdirs,
-     [
-         SAGE_LOGS=${ac_abs_top_builddir}/logs/pkgs
--        SAGE_LOCAL=${ac_abs_top_builddir}/local
--        SAGE_SHARE=${ac_abs_top_builddir}/local/share
-+        SAGE_LOCAL=${SAGE_LOCAL:-${ac_abs_top_builddir}/local}
-+        SAGE_SHARE=${SAGE_LOCAL}/share
-         SAGE_INST=${ac_abs_top_builddir}/local/var/lib/sage/installed
-         for d in "$SAGE_LOGS" "$SAGE_LOCAL" \
-             "$SAGE_LOCAL/bin" "$SAGE_LOCAL/etc" \
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -608,7 +608,7 @@
+@@ -631,7 +631,7 @@
  python_packages, python_modules = find_python_sources(
      SAGE_SRC, ['sage', 'sage_setup'])
  python_data_files = find_extra_files(python_packages,
 -    ".", SAGE_CYTHONIZED, SAGE_LIB, ["ntlwrap.cpp"])
 +    ".", SAGE_CYTHONIZED, os.path.relpath(SAGE_LIB, SAGE_LOCAL), ["ntlwrap.cpp"])
  
- print('python_packages = {0}'.format(python_packages))
- print('python_modules = {0}'.format(python_modules))
+ log.info('python_packages = {0}'.format(python_packages))
+ log.info('python_modules = {0}'.format(python_modules))
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
 @@ -94,7 +94,7 @@
