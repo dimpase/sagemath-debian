@@ -17,11 +17,8 @@ fixsage-allow-override-sage-local.patch
 # we'll probably drop these when importing the next version of Sage
 version-python-2.7.11.patch
 version-ecm-7.patch
-version-linbox-1.4.patch
-version-ipython-5.patch
 version-singular-4.patch
 version-cddlib-094h.patch
-version-givaro-4.patch
 version-glpk-4.60.patch
 #version-planarity-3.patch #breaks tests
 
