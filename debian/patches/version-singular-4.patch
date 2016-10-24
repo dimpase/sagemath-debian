@@ -1,6 +1,17 @@
 Description: Necessary changes to work with singular 4.
 Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/sagemath
 
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -472,7 +472,7 @@
+ 
+ if [ "$1" = '-singular' -o "$1" = '--singular' ]; then
+     shift
+-    exec singular "$@"
++    exec Singular "$@"
+ fi
+ 
+ if [ "$1" = '-sqlite3' -o "$1" = '--sqlite3' ]; then
 --- a/sage/src/doc/de/tutorial/interfaces.rst
 +++ b/sage/src/doc/de/tutorial/interfaces.rst
 @@ -197,6 +197,7 @@
@@ -129,7 +140,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +    "ec", "ecm",
  ] + linbox_libs  + gsl_libs + [
      "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
-     "arb", "fplll", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
+     "arb", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
 @@ -190,20 +193,7 @@
                 language='c++',
                 libraries = ["flint", "gmp", "gmpxx", "m", "ntl"]),
@@ -152,7 +163,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.algebras.quatalg.quaternion_algebra_cython',
                 sources = ['sage/algebras/quatalg/quaternion_algebra_cython.pyx'],
-@@ -680,35 +670,7 @@
+@@ -675,35 +665,7 @@
                sources = ['sage/libs/readline.pyx'],
                libraries = ['readline']),
  
@@ -189,7 +200,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.libs.symmetrica.symmetrica',
                sources = ["sage/libs/symmetrica/symmetrica.pyx"],
-@@ -975,9 +937,7 @@
+@@ -970,9 +932,7 @@
                sources = ['sage/matrix/matrix_modn_sparse.pyx']),
  
      Extension('sage.matrix.matrix_mpolynomial_dense',
@@ -200,7 +211,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      Extension('sage.matrix.matrix_rational_dense',
                sources = ['sage/matrix/matrix_rational_dense.pyx'],
-@@ -1578,19 +1538,13 @@
+@@ -1569,19 +1529,13 @@
                sources = ['sage/rings/polynomial/multi_polynomial.pyx']),
  
      Extension('sage.rings.polynomial.multi_polynomial_ideal_libsingular',
@@ -225,7 +236,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                sources = ['sage/rings/polynomial/multi_polynomial_ring_generic.pyx']),
 --- a/sage/src/sage/arith/misc.py
 +++ b/sage/src/sage/arith/misc.py
-@@ -3245,7 +3245,7 @@
+@@ -3246,7 +3246,7 @@
  
          sage: K.<x,y> = Integers(7)[]
          sage: binomial(y,3)
@@ -236,7 +247,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
 --- a/sage/src/sage/categories/pushout.py
 +++ b/sage/src/sage/categories/pushout.py
-@@ -3200,6 +3200,7 @@
+@@ -3201,6 +3201,7 @@
          sage: FG(ZZ).parent()
          Gap
          sage: FS(QQ['t'])
@@ -246,7 +257,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          //        block   1 : ordering lp
 --- a/sage/src/sage/interfaces/expect.py
 +++ b/sage/src/sage/interfaces/expect.py
-@@ -1210,6 +1210,7 @@
+@@ -1212,6 +1212,7 @@
  
              sage: R.<x> = QQ[]; f = x^3 + x + 1;  g = x^3 - x - 1; r = f.resultant(g); gap(ZZ); singular(R)
              Integers
@@ -256,7 +267,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              //        block   1 : ordering lp
 --- a/sage/src/sage/interfaces/interface.py
 +++ b/sage/src/sage/interfaces/interface.py
-@@ -732,6 +732,7 @@
+@@ -733,6 +733,7 @@
              PolynomialRing( Rationals, ["x"] )
              sage: S = singular.ring(0, ('x'))
              sage: loads(dumps(S))
@@ -346,7 +357,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              //   characteristic : 0
              //   number of vars : 2
              //        block   1 : ordering dp
-@@ -1591,7 +1600,10 @@
+@@ -1600,7 +1609,10 @@
          # using Singular's term order
          from sage.rings.polynomial.term_order import termorder_from_singular
          from sage.all import PolynomialRing
@@ -358,7 +369,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              return PolynomialRing(BR, names=singular.eval('varstr(basering)'), order=termorder_from_singular(singular))
          P = PolynomialRing(BR, names=singular.eval('varstr(basering)'), order=termorder_from_singular(singular))
          return P.quotient(singular('ringlist(basering)[4]')._sage_(P), names=singular.eval('varstr(basering)'))
-@@ -1713,11 +1725,18 @@
+@@ -1722,11 +1734,18 @@
              singular_poly_list = self.parent().eval("string(coef(%s,%s))"%(\
                      self.name(),variable_str)).split(",")
  
@@ -379,7 +390,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          if isinstance(R,(MPolynomialRing_polydict,QuotientRing_generic)) and (ring_is_fine or can_convert_to_singular(R)):
              # we need to lookup the index of a given variable represented
              # through a string
-@@ -1769,7 +1788,7 @@
+@@ -1778,7 +1797,7 @@
                          exp = int(1)
  
                  if kcache is None:
@@ -388,7 +399,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                  else:
                      elem = singular_poly_list[coeff_start+i]
                      if elem not in kcache:
-@@ -1852,7 +1871,7 @@
+@@ -1861,7 +1880,7 @@
          ::
  
              sage: singular.eval('ring R = integer, (x,y,z),lp')
@@ -397,7 +408,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              sage: I = singular.ideal(['x^2','y*z','z+x'])
              sage: I.sage()
              Ideal (x^2, y*z, x + z) of Multivariate Polynomial Ring in x, y, z over Integer Ring
-@@ -1874,7 +1893,8 @@
+@@ -1883,7 +1902,8 @@
          Note that the current base ring has not been changed by asking for another ring::
  
              sage: singular('basering')
@@ -407,7 +418,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              //   number of vars : 3
              //        block   1 : ordering lp
              //                  : names    x y z
-@@ -1958,6 +1978,7 @@
+@@ -1967,6 +1987,7 @@
              sage: R = singular.ring(7, '(a,b)', 'ds')
              sage: S = singular.ring('real', '(a,b)', 'lp')
              sage: singular.current_ring()
@@ -415,7 +426,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              //   characteristic : 0 (real)
              //   number of vars : 2
              //        block   1 : ordering lp
-@@ -1965,6 +1986,7 @@
+@@ -1974,6 +1995,7 @@
              //        block   2 : ordering C
              sage: R.set_ring()
              sage: singular.current_ring()
@@ -423,7 +434,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              //   characteristic : 7
              //   number of vars : 2
              //        block   1 : ordering ds
-@@ -2220,6 +2242,7 @@
+@@ -2229,6 +2251,7 @@
      By :trac:`18848`, pickling actually often works::
  
          sage: loads(dumps(singular.ring()))
@@ -431,6 +442,34 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          //   characteristic : 0
          //   number of vars : 1
          //        block   1 : ordering lp
+@@ -2252,13 +2275,15 @@
+         sage: from sage.interfaces.singular import generate_docstring_dictionary
+         sage: generate_docstring_dictionary()
+     """
++    from sage.env import SAGE_LOCAL
++
+     global nodes
+     global node_names
+ 
+     nodes.clear()
+     node_names.clear()
+ 
+-    singular_docdir = os.environ["SAGE_LOCAL"]+"/share/singular/"
++    singular_docdir = SAGE_LOCAL+"/share/singular/"
+ 
+     new_node = re.compile("File: singular\.hlp,  Node: ([^,]*),.*")
+     new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
+--- a/sage/src/sage/interfaces/tests.py
++++ b/sage/src/sage/interfaces/tests.py
+@@ -39,7 +39,7 @@
+     0
+     sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
+     True
+-    sage: subprocess.call("echo syntax error | singular", **kwds)
++    sage: subprocess.call("echo syntax error | Singular", **kwds)
+     0
+ """
+ from __future__ import print_function
 --- a/sage/src/sage/libs/singular/decl.pxd
 +++ b/sage/src/sage/libs/singular/decl.pxd
 @@ -1,3 +1,8 @@
@@ -2451,7 +2490,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
  cdef init_libsingular():
      """
-@@ -712,18 +761,25 @@
+@@ -712,18 +761,26 @@
  
      cdef void *handle = NULL
  
@@ -2465,6 +2504,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 -                    print(err)
 -            break
 +    import os
++    from sage.env import SAGE_LOCAL 
 +    UNAME = os.uname()[0]
 +    if UNAME[:6] == "CYGWIN":
 +        extension = "dll"
@@ -2474,7 +2514,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 +        extension = "so"
 +
 +    # library name changed from libsingular to libSingular btw 3.x and 4.x
-+    lib = os.environ['SAGE_LOCAL']+"/lib/libSingular."+extension
++    lib = SAGE_LOCAL+"/lib/libSingular."+extension
 +
 +    if not os.path.exists(lib):
 +        raise ImportError("cannot locate Singular library ({})".format(lib))
@@ -2488,7 +2528,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      # load SINGULAR
      siInit(lib)
-@@ -737,9 +793,7 @@
+@@ -737,9 +794,7 @@
      _saved_options = (int(singular_options), 0, 0)
      _saved_verbose_options = int(singular_verbose_options)
  
@@ -2501,18 +2541,18 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -307,7 +307,7 @@
+@@ -310,7 +310,7 @@
          sage: code = [
-         ... "#clang C++",
-         ... "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
--        ... "#clib m readline singular givaro ntl gmpxx gmp",
-+        ... "#clib m readline Singular givaro ntl gmpxx gmp",
-         ... "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
-         ... "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
-         ... "def test(MPolynomial_libsingular p):",
+         ....: "#clang C++",
+         ....: "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
+-        ....: "#clib m readline singular givaro ntl gmpxx gmp",
++        ....: "#clib m readline Singular givaro ntl gmpxx gmp",
+         ....: "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
+         ....: "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
+         ....: "def test(MPolynomial_libsingular p):",
 --- a/sage/src/sage/rings/multi_power_series_ring_element.py
 +++ b/sage/src/sage/rings/multi_power_series_ring_element.py
-@@ -1694,9 +1694,9 @@
+@@ -1690,9 +1690,9 @@
              sage: aa.is_gen()
              False
              sage: aa.integral(aa)
@@ -2937,7 +2977,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                  p_SetCoeff0(res, n, r)
              else:
                  raise ArithmeticError("Cannot divide these coefficients.")
-@@ -2287,10 +2304,10 @@
+@@ -2277,10 +2294,10 @@
              9/4*x^2 - 1/4*y^2 - y - 1
  
              sage: P.<x,y> = PolynomialRing(QQ,order='lex')
@@ -2950,7 +2990,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          """
          # all currently implemented rings are commutative
          cdef poly *_p
-@@ -2401,10 +2418,10 @@
+@@ -2391,10 +2408,10 @@
              TypeError: non-integral exponents not supported
  
              sage: P.<x,y> = PolynomialRing(QQ,order='lex')
@@ -2963,7 +3003,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          """
          if type(exp) is not Integer:
              try:
-@@ -2551,7 +2568,7 @@
+@@ -2541,7 +2558,7 @@
          argument ``std_grading=True``.
  
              sage: tord = TermOrder(matrix([3,0,1,1,1,0,1,0,0]))
@@ -2972,7 +3012,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              sage: (x^3*y+x*z^4).degree()
              9
              sage: (x^3*y+x*z^4).degree(std_grading=True)
-@@ -2660,10 +2677,10 @@
+@@ -2650,10 +2667,10 @@
  
          With a matrix term ordering, the grading changes.
          To evaluate the total degree using the standard grading,
@@ -2985,7 +3025,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              sage: (x^2*y).total_degree()
              6
              sage: (x^2*y).total_degree(std_grading=True)
-@@ -3124,7 +3141,7 @@
+@@ -3114,7 +3131,7 @@
          """
          cdef ring *_ring = self._parent_ring
          if(_ring != currRing): rChangeCurrRing(_ring)
@@ -2994,7 +3034,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      cpdef _homogenize(self, int var):
          """
-@@ -3194,7 +3211,7 @@
+@@ -3184,7 +3201,7 @@
          _p = p_Head(self._poly, _ring)
          _n = p_GetCoeff(_p, _ring)
  
@@ -3003,7 +3043,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
          p_Delete(&_p, _ring)
          return ret
-@@ -3284,17 +3301,16 @@
+@@ -3274,17 +3291,16 @@
          We are catching overflows::
  
              sage: R.<x,y> = QQ[]
@@ -3026,7 +3066,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              sage: try:
              ....:   f = x^n
              ....:   f.subs(x = x^n)
-@@ -3370,7 +3386,7 @@
+@@ -3360,7 +3376,7 @@
                      if  degree > _ring.bitmask:
                          id_Delete(&to_id, _ring)
                          p_Delete(&_p, _ring)
@@ -3035,7 +3075,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                      to_id.m[mi-1] = p_Copy(_f, _ring)
  
                  if _p == NULL:
-@@ -3408,7 +3424,7 @@
+@@ -3398,7 +3414,7 @@
                      if degree > _ring.bitmask:
                          id_Delete(&to_id, _ring)
                          p_Delete(&_p, _ring)
@@ -3044,7 +3084,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                      need_map = 1
  
                  if _p == NULL:
-@@ -3427,7 +3443,7 @@
+@@ -3417,7 +3433,7 @@
                  from_id.m[0] = _p
  
                  rChangeCurrRing(_ring)
@@ -3053,7 +3093,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                  _p = res_id.m[0]
  
                  from_id.m[0] = NULL
-@@ -3605,7 +3621,10 @@
+@@ -3595,7 +3611,10 @@
              Univariate Polynomial Ring in x over Rational Field
          """
          cdef poly *p = self._poly
@@ -3064,7 +3104,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          k = self.base_ring()
  
          if not self.is_univariate():
-@@ -3619,12 +3638,20 @@
+@@ -3609,12 +3628,20 @@
                  R = self.base_ring()[str(self.variables()[0])]
  
          zero = k(0)
@@ -3087,7 +3127,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              p = pNext(p)
  
          return R(coefficients)
-@@ -3941,8 +3968,8 @@
+@@ -3931,8 +3958,8 @@
          _self = <MPolynomial_libsingular>self
          _right = <MPolynomial_libsingular>right
  
@@ -3098,7 +3138,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
                  P = parent.change_ring(RationalField())
                  f = P(self)//P(right)
                  CM = list(f)
-@@ -3958,13 +3985,14 @@
+@@ -3948,13 +3975,14 @@
                          quo = p_Add_q(quo, temp, r)
                      p = pNext(p)
                  return new_MP(parent, quo)
@@ -3115,7 +3155,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          if count >= 15:
              sig_off()
          f = new_MP(parent, quo)
-@@ -4240,7 +4268,7 @@
+@@ -4230,7 +4258,7 @@
          iv = NULL
          sig_on()
          if _ring!=currRing: rChangeCurrRing(_ring)   # singclap_factorize
@@ -3124,7 +3164,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          sig_off()
  
          ivv = iv.ivGetVec()
-@@ -4300,10 +4328,10 @@
+@@ -4290,10 +4318,10 @@
              ValueError: polynomial is not in the ideal
              sage: foo = I.complete_primary_decomposition() # indirect doctest
              sage: foo[0][0]
@@ -3137,7 +3177,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          if not self._parent._base.is_field():
              raise NotImplementedError("Lifting of multivariate polynomials over non-fields is not implemented.")
  
-@@ -4337,10 +4365,9 @@
+@@ -4327,10 +4355,9 @@
  
          if r!=currRing: rChangeCurrRing(r)  # idLift
          res = idLift(_I, fI, NULL, 0, 0, 0)
@@ -3149,7 +3189,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              if errorcode == 1:
                  raise ValueError("polynomial is not in the ideal")
              raise RuntimeError
-@@ -4571,14 +4598,17 @@
+@@ -4561,14 +4588,17 @@
          else:
              raise TypeError("algorithm %s not supported" % algorithm)
  
@@ -3170,7 +3210,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
          if self._parent._base.is_finite() and self._parent._base.characteristic() > 1<<29:
              raise NotImplementedError("GCD of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
-@@ -4596,7 +4626,7 @@
+@@ -4586,7 +4616,7 @@
          if count >= 20:
              sig_on()
          if _ring!=currRing: rChangeCurrRing(_ring)  # singclap_gcd
@@ -3179,7 +3219,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          if count >= 20:
              sig_off()
  
-@@ -4642,14 +4672,15 @@
+@@ -4632,14 +4662,15 @@
          cdef MPolynomial_libsingular _g
          if _ring!=currRing: rChangeCurrRing(_ring)
  
@@ -3198,7 +3238,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
          if self._parent is not g._parent:
              _g = self._parent._coerce_c(g)
-@@ -4664,9 +4695,9 @@
+@@ -4654,9 +4685,9 @@
          if count >= 20:
              sig_on()
          if _ring!=currRing: rChangeCurrRing(_ring)  # singclap_gcd
@@ -3210,7 +3250,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          p_Delete(&prod, _ring)
          p_Delete(&gcd, _ring)
          if count >= 20:
-@@ -4687,13 +4718,8 @@
+@@ -4677,13 +4708,8 @@
              sage: h.is_squarefree()
              False
          """
@@ -3226,7 +3266,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
      @coerce_binop
      def quo_rem(self, MPolynomial_libsingular right):
-@@ -4750,7 +4776,7 @@
+@@ -4740,7 +4766,7 @@
          if count >= 15:  # note that _right._poly must be of shorter length than self._poly for us to care about this call
              sig_on()
          if r!=currRing: rChangeCurrRing(r)   # singclap_pdivide
@@ -3235,7 +3275,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          rem = p_Add_q(p_Copy(self._poly, r), p_Neg(pp_Mult_qq(right._poly, quo, r), r), r)
          if count >= 15:
              sig_off()
-@@ -5191,7 +5217,7 @@
+@@ -5181,7 +5207,7 @@
          if count >= 20:
              sig_on()
          if _ring != currRing: rChangeCurrRing(_ring)   # singclap_resultant
@@ -3246,7 +3286,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          return new_MP(self._parent, rt)
 --- a/sage/src/sage/rings/polynomial/multi_polynomial_ring_generic.pyx
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial_ring_generic.pyx
-@@ -781,7 +781,7 @@
+@@ -850,7 +850,7 @@
  
              sage: R.<x> = PolynomialRing(Integers(3), 1)
              sage: R.random_element()
@@ -3257,7 +3297,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
 --- a/sage/src/sage/rings/polynomial/pbori.pyx
 +++ b/sage/src/sage/rings/polynomial/pbori.pyx
-@@ -1372,6 +1372,7 @@
+@@ -1370,6 +1370,7 @@
  
              sage: B.<x,y> = BooleanPolynomialRing(2)
              sage: B._singular_() # indirect doctest
@@ -3338,7 +3378,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
      def __reduce__(self):
          """
          TEST::
-@@ -1556,10 +1556,10 @@
+@@ -1550,10 +1550,10 @@
              sage: P = A.g_algebra(relations={y*x:-x*y + z},  order='lex')
              sage: P.inject_variables()
              Defining x, z, y
@@ -3351,7 +3391,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          """
          # all currently implemented rings are commutative
          cdef poly *_p
-@@ -1626,10 +1626,10 @@
+@@ -1620,10 +1620,10 @@
              sage: P = A.g_algebra(relations={y*x:-x*y + z},  order='lex')
              sage: P.inject_variables()
              Defining x, z, y
@@ -3364,7 +3404,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          """
          if type(exp) is not Integer:
              try:
-@@ -2333,7 +2333,7 @@
+@@ -2327,7 +2327,7 @@
          """
          cdef ring *_ring = (<NCPolynomialRing_plural>self._parent)._ring
          if(_ring != currRing): rChangeCurrRing(_ring)
@@ -3373,7 +3413,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
  
      def is_monomial(self):
-@@ -2371,7 +2371,7 @@
+@@ -2365,7 +2365,7 @@
          _p = p_Head(self._poly, _ring)
          _n = p_GetCoeff(_p, _ring)
  
@@ -3542,9 +3582,43 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              //   characteristic : 2
              //   number of vars : 2
              //        block   1 : ordering dp
+--- a/sage/src/sage/schemes/curves/affine_curve.py
++++ b/sage/src/sage/schemes/curves/affine_curve.py
+@@ -729,9 +729,9 @@
+             (Affine Plane Curve over Number Field in a0 with defining polynomial y^4 - 4*y^2 + 16 defined by
+             24*x^2*ss1^3 + 24*ss1^3 + (a0^3 - 8*a0),
+              Affine Plane Curve over Number Field in a0 with defining polynomial y^4 - 4*y^2 + 16 defined by
+-             24*s1^2*ss0 + (a0^3 - 8*a0)*ss0^2 + (6*a0^3)*s1,
++             24*s1^2*ss0 + (a0^3 - 8*a0)*ss0^2 + (-6*a0^3)*s1,
+              Affine Plane Curve over Number Field in a0 with defining polynomial y^4 - 4*y^2 + 16 defined by
+-             8*y^2*s0^4 + (-4*a0^3)*y*s0^3 - 32*s0^2 + (a0^3 - 8*a0)*y)
++             8*y^2*s0^4 + (4*a0^3)*y*s0^3 - 32*s0^2 + (a0^3 - 8*a0)*y)
+ 
+         ::
+ 
+@@ -1471,7 +1471,7 @@
+               To:   Affine Plane Curve over Number Field in a with defining
+             polynomial a^2 + 7 defined by x^2 + y^2 + 7
+               Defn: Defined on coordinates by sending (t) to
+-                    (((7*a)*t^2 + (a))/(-7*t^2 + 1), (-14*t)/(-7*t^2 + 1))
++                    ((-7*t^2 + 7)/((-a)*t^2 + (-a)), 14*t/((-a)*t^2 + (-a)))
+         """
+         para = self.projective_closure(i=0).rational_parameterization().defining_polynomials()
+         # these polynomials are homogeneous in two indeterminants, so dehomogenize wrt one of the variables
+--- a/sage/src/sage/schemes/curves/projective_curve.py
++++ b/sage/src/sage/schemes/curves/projective_curve.py
+@@ -1537,7 +1537,7 @@
+               To:   Projective Plane Curve over Number Field in a with defining
+               polynomial a^2 + 1 defined by x^2 + y^2 + z^2
+               Defn: Defined on coordinates by sending (s : t) to
+-                    (s^2 - t^2 : (a)*s^2 + (a)*t^2 : -2*s*t)
++                    ((-a)*s^2 + (-a)*t^2 : s^2 - t^2 : 2*s*t)
+         """
+         if self.genus() != 0:
+             raise TypeError("this curve must have geometric genus zero")
 --- a/sage/src/sage/structure/element.pyx
 +++ b/sage/src/sage/structure/element.pyx
-@@ -1790,15 +1790,14 @@
+@@ -2391,15 +2391,14 @@
              ...
              OverflowError: Exponent overflow (2147483648).
  
