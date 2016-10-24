@@ -12,17 +12,6 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/Makefile
-+++ b/sage/src/Makefile
-@@ -3,7 +3,7 @@
- all: sage
- 
- sage: sage/libs/pari/auto_gen.pxi sage/ext/interpreters/__init__.py
--	python -u setup.py install
-+	python -u setup.py install --root ../../debian/build --install-layout deb -O2
- 
- clean:
- 	@echo "Deleting Sage library build artifacts..."
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -118,6 +118,10 @@
@@ -54,16 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Warn if NEW_SAGE_ROOT does not equal the old SAGE_ROOT
  if [ "$SAGE_ROOT" != "$NEW_SAGE_ROOT" -a -n "$SAGE_ROOT" ]; then
      echo >&2 "Warning: overwriting SAGE_ROOT environment variable:"
-@@ -364,7 +357,7 @@
-     export SAGE_STARTUP_FILE
- fi
- 
--IPYTHONDIR=`find "$SAGE_SPKG_INST" -name "ipython*"`
-+IPYTHONDIR=`find "$SAGE_SPKG_INST" -name "ipython*" 2>/dev/null`
- if [ -n "$IPYTHONDIR" ]; then
-     export IPYTHONDIR="$DOT_SAGE/${IPYTHONDIR##*/}"
- fi
-@@ -397,8 +390,10 @@
+@@ -420,8 +413,10 @@
      export PYTHONHOME
  fi
  
@@ -88,7 +68,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      from sage.misc.sageinspect import loadable_module_extension
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -155,9 +155,9 @@
+@@ -178,9 +178,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -101,7 +81,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                }
  
  import pkgconfig
-@@ -183,7 +183,7 @@
+@@ -206,7 +206,7 @@
  
      m.extra_compile_args = m.extra_compile_args + extra_compile_args
      m.extra_link_args = m.extra_link_args + extra_link_args
@@ -110,12 +90,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
  
  
-@@ -631,7 +631,7 @@
+@@ -654,7 +654,7 @@
  print('Cleaning up stale installed files....')
  t = time.time()
  from sage_setup.clean import clean_install_dir
--output_dirs = SITE_PACKAGES + glob.glob(os.path.join(SAGE_SRC, 'build', 'lib*'))
-+output_dirs = [SAGE_LIB] + glob.glob(os.path.join(SAGE_SRC, 'build', 'lib*'))
+-output_dirs = SITE_PACKAGES + glob.glob(os.path.join(build_base, 'lib*'))
++output_dirs = [SAGE_LIB] + glob.glob(os.path.join(build_base, 'lib*'))
  for output_dir in output_dirs:
      print('- cleaning {0}'.format(output_dir))
      clean_install_dir(output_dir, python_packages, python_modules,
@@ -141,11 +121,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -_add_variable_or_fallback('SAGE_LIB',        SITE_PACKAGES[0])
 +_add_variable_or_fallback('SAGE_LIB',        opj('$SAGE_LOCAL', 'lib', 'python2.7', 'dist-packages'))
  
- _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_SRC', 'build', 'cythonized'))
+ _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1006,8 +1006,7 @@
+@@ -1004,8 +1004,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -153,8 +133,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -            ln -s lib "$SAGE_LOCAL/lib64"
 +            true
          fi
-     ])
- 
+     ],
+     [
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
 @@ -3,7 +3,7 @@
@@ -172,8 +152,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  import errno
  
  from sage.env import (
--    SAGE_ROOT, SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE,
-+    SAGE_ROOT, SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE,
+-    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE,
++    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE,
      SAGE_VERSION
  )
  from jupyter_core.paths import ENV_JUPYTER_PATH
@@ -193,7 +173,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -353,7 +353,7 @@
+@@ -356,7 +356,7 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
@@ -250,7 +230,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          i = path.find(os.path.sep, len(dev))
 --- a/sage/src/sage/interacts/debugger.py
 +++ b/sage/src/sage/interacts/debugger.py
-@@ -194,9 +194,9 @@
+@@ -198,9 +198,9 @@
          code = code.replace(TRACEBACK, TRACEBACK[:-1])
  
          # Create a hyperlink to the file, if possible.
@@ -264,7 +244,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = filename
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -277,7 +277,7 @@
+@@ -282,7 +282,7 @@
              """
              app.builder.info(bold('linking _static directory.'))
              static_dir = os.path.join(app.builder.outdir, '_static')
