@@ -4,7 +4,6 @@ python_security.patch
 silence_debian_bug_780186.patch
 silence_ecl_opt_signals.patch
 sagedoc_avoid_exception.patch
-fixsage-mpfi.patch
 fixsage-sphinx.patch
 fixsage-libgap-systemwide.patch
 fixsage-use-lexists-not-exists.patch

@@ -6,7 +6,7 @@ Bug: TODO, file to sage
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -278,7 +278,7 @@
+@@ -283,7 +283,7 @@
              app.builder.info(bold('linking _static directory.'))
              static_dir = os.path.join(app.builder.outdir, '_static')
              master_static_dir = os.path.join('..', '_static')
