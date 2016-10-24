@@ -52,7 +52,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      in floating point.
 --- a/sage/src/sage/modules/free_module_element.pyx
 +++ b/sage/src/sage/modules/free_module_element.pyx
-@@ -3857,11 +3857,11 @@
+@@ -3886,11 +3886,11 @@
              sage: type(vec)
              <type 'sage.modules.vector_real_double_dense.Vector_real_double_dense'>
              sage: answers
@@ -102,30 +102,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
      cfg = sage_ipython_config.copy()
      ipshell = InteractiveShellEmbed(config=cfg,
---- a/sage/src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst
-+++ b/sage/src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst
-@@ -297,8 +297,8 @@
-         sage: type(e)
-         <type 'sage.rings.integer.Integer'>
-         sage: e.__dict__
--        <dictproxy {'__doc__': ...
--         '_sage_src_lines_': <staticmethod object at 0x...>}>
-+        dict_proxy({'__doc__': ...
-+         '_sage_src_lines_': <staticmethod object at 0x...>})
-         sage: e.__dict__.keys()
-         ['__module__', '_reduction', '__doc__', '_sage_src_lines_']
- 
-@@ -306,8 +306,8 @@
-         sage: type(id4)
-         <type 'sage.groups.perm_gps.permgroup_element.SymmetricGroupElement'>
-         sage: id4.__dict__
--        <dictproxy {'__doc__': ...
--        '_sage_src_lines_': <staticmethod object at 0x...>}>
-+        dict_proxy({'__doc__': ...
-+        '_sage_src_lines_': <staticmethod object at 0x...>})
- 
- .. note::
- 
 --- a/sage/src/sage/interfaces/interface.py
 +++ b/sage/src/sage/interfaces/interface.py
 @@ -522,9 +522,9 @@
@@ -140,17 +116,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          """
          args, kwds = self._convert_args_kwds(args, kwds)
          self._check_valid_function_name(function)
---- a/sage/src/sage_setup/autogen/pari/parser.py
-+++ b/sage/src/sage_setup/autogen/pari/parser.py
-@@ -41,7 +41,7 @@
- 
-         sage: from sage_setup.autogen.pari.parser import pari_share
-         sage: pari_share()
--        '.../local/share/pari'
-+        '.../share/pari'
-     """
-     return os.path.join("/usr", "share", "pari")
- 
 --- a/sage/src/sage/combinat/words/word.py
 +++ b/sage/src/sage/combinat/words/word.py
 @@ -511,7 +511,7 @@
@@ -191,7 +156,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -176,8 +176,8 @@
+@@ -193,8 +193,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -204,7 +169,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -169,14 +169,15 @@
+@@ -172,14 +172,15 @@
          'm',
          'ec',
          'gsl',
@@ -223,7 +188,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'c',
          [], ['-w', '-O2'],...)
          sage: s, libs, inc, lang, f, args, libdirs = pyx_preparse("# clang c++\n #clib foo\n # cinclude bar\n")
-@@ -191,7 +192,7 @@
+@@ -194,7 +195,7 @@
          'm',
          'ec',
          'gsl',
@@ -232,7 +197,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'ntl']
          sage: libs[1:] == sage.misc.cython.standard_libs
          True
-@@ -201,9 +202,10 @@
+@@ -204,9 +205,10 @@
          '.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
