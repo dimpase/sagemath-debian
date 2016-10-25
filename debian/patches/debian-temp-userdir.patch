@@ -1,0 +1,54 @@
+Description: Install Sage spkgs to user's home directory
+ This is a temporary measure to get everything working quickly.
+ Eventually we will get rid of this, and add them to the pruner.
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/build/pkgs/sagenb_export/spkg-install
++++ b/sage/build/pkgs/sagenb_export/spkg-install
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ 
+ cd src
+-$PIP_INSTALL .
++python setup.py install --user
+ if [ $? -ne 0 ]; then
+     echo >&2 "Error installing SageNB Export"
+     exit 1
+--- a/sage/build/pkgs/widgetsnbextension/spkg-install
++++ b/sage/build/pkgs/widgetsnbextension/spkg-install
+@@ -4,6 +4,6 @@
+ 
+ cd src
+ 
+-$PIP_INSTALL .
++python setup.py install --user
+ 
+ jupyter nbextension enable --sys-prefix --py widgetsnbextension
+--- a/sage/build/pkgs/ipywidgets/spkg-install
++++ b/sage/build/pkgs/ipywidgets/spkg-install
+@@ -11,4 +11,4 @@
+     fi
+ done
+ 
+-$PIP_INSTALL .
++python setup.py install --user
+--- a/sage/build/pkgs/notebook/spkg-install
++++ b/sage/build/pkgs/notebook/spkg-install
+@@ -13,7 +13,7 @@
+ 
+ set -e
+ 
+-$PIP_INSTALL .
++python setup.py install --user
+ 
+ # Install the Jupyter notebook configuration
+ ETC_JUPYTER="$SAGE_ETC"/jupyter
+--- a/sage/build/pkgs/fpylll/spkg-install
++++ b/sage/build/pkgs/fpylll/spkg-install
+@@ -6,4 +6,4 @@
+     exit 1
+ fi
+ 
+-cd src && python setup.py install
++cd src && python setup.py install --user

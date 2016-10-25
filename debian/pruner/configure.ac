@@ -319,6 +319,10 @@ AC_SUBST(HAS_SYMPOW)
 AC_CHECK_PROG(HAS_TACHYON, tachyon, "True", "False")
 AC_SUBST(HAS_TACHYON)
 
+# FIXME(widgetsnbextension): we don't have a package yet, but don't want to install from sage
+HAS_WIDGETSNBEXTENSION="True"
+AC_SUBST(HAS_WIDGETSNBEXTENSION)
+
 # FIXME(zeromq): useful only for pyzmq
 HAS_ZEROMQ="True"
 AC_SUBST(HAS_ZEROMQ)
