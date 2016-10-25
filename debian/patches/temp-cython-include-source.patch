@@ -4,7 +4,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -232,7 +232,7 @@
+@@ -235,7 +235,7 @@
      additional_source_files, s = parse_keywords('cfile', s)
  
      v, s = parse_keywords('cinclude', s)
