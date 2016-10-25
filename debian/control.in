@@ -70,6 +70,7 @@ Build-Depends:
  libmpfi-dev,
  libmpfr-dev,
  libntl-dev (>= 9.9.1-2),
+ libopenblas-dev (>= 0.2.19),
  libpari-dev (>= 2.8-2771-gb70b447-3),
 # libplanarity-dev, this is version 3.0, we need 2.2
  libpng-dev,

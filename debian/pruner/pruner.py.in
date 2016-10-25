@@ -102,6 +102,7 @@ dico = {
     'nauty': @HAS_NAUTY@,
     'ncurses': @HAS_NCURSES@,
     'ntl': @HAS_NTL@,
+    'openblas': @HAS_OPENBLAS@,
     'palp': @HAS_PALP@,
     'pari': @HAS_PARI@,
     'pari_galdata': @HAS_PARI_GALDATA@,
