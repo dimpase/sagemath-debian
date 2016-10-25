@@ -45,6 +45,7 @@ sage_standard_packages = set(subprocess.check_output([
 ]).split())
 
 dico = {
+    'appnope': @HAS_APPNOPE@,
     'arb': @HAS_ARB@,
     'atlas': @HAS_ATLAS@,
     'backports_ssl_match_hostname': @HAS_BACKPORTS_SSL_MATCH_HOSTNAME@,
