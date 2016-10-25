@@ -253,3 +253,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              if os.path.lexists(static_dir):
                  if os.path.isdir(static_dir) and not os.path.islink(static_dir):
                      shutil.rmtree(static_dir)
+--- a/sage/src/Makefile.in
++++ b/sage/src/Makefile.in
+@@ -40,7 +40,7 @@
+ 		   SAGE_BUILD_DIR=/doesnotexist							\
+ 		   SAGE_PKGS=$(abs_top_srcdir)/build/pkgs					\
+ 		   SAGE_CYTHONIZED=$(abs_builddir)/build/cythonized				\
+-	 && python -u setup.py build install)
++	 && python -u setup.py build install --root ../../debian/build --install-layout deb -O2)
+ 
+ clean:
+ 	@echo "Deleting Sage library build artifacts..."
