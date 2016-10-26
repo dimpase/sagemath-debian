@@ -4,16 +4,16 @@
 Complete transitions
 
 *   Packages:
-    *   brial
-    *   pari (2.9)
-    *   libfplll (5.0.3)
     *   ipython (5.1.0)
+    *   jmol (14.6.1)
+    *   libfplll (5.0.3)
+    *   pari (2.9)
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
 Upload all packages and make sure they migrate to testing
 
 *   Updates:
-    *   jmol 14.2.11
+    *   brial
     *   libgap 4.8.4 (also switch to using gap 4.8.4, trac ticket 20914)
 
 *   Updates that may not be needed:
@@ -34,13 +34,15 @@ Upload all packages and make sure they migrate to testing
 
 *   Packages currently in experimental:
     *   ipykernel
+    *   ipython
     *   jupyter_client
     *   jupyter_core
     *   nbconvert
     *   nbformat
 
-*   Required patches:
-    *   numpy (patch)
+*   Require patches:
+    *   cython
+    *   numpy
 
 *   Ugly packages:
     *   maxima-sage
