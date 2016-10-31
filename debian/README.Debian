@@ -32,7 +32,7 @@ of the logging output, there will be a summary of all the failures.
 
 After a successful build, you can run individual tests as follows. First, make
 sure you're in the top-level package directory, where debian/ is. Then:
- 
+
  $ export SAGE_LOCAL=$PWD/debian/build/usr
  $ export PYTHONPATH=$SAGE_LOCAL/lib/python2.7/dist-packages
  $ cd sage
@@ -60,14 +60,12 @@ results, please add your experience to the below summary.
 
 First, patch your local system:
 
-# fix 1 test
-sudo sed -e 's/\.frontend//g' -i /usr/bin/ipython
 # fix 2 tests
 sudo sed -e '/^class AppliedUndef/,${/def _sage_/,/^\s*$/d}' \
   -i /usr/lib/python2.7/dist-packages/sympy/core/function.py
 
-These are already fixed in Debian's git repos for (respectively) ipython,
-sympy; we're just waiting for an upload.
+These are already fixed in Debian's git repo for sympy; we're just waiting for
+an upload.
 
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/res/
 Look for files named "sagemath-*_*.log"
