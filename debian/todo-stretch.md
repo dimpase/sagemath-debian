@@ -6,7 +6,6 @@ Complete transitions
 *   Packages:
     *   ipython (5.1.0)
     *   jmol (14.6.1)
-    *   libfplll (5.0.3)
     *   pari (2.9)
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
@@ -29,12 +28,10 @@ Upload all packages and make sure they migrate to testing
     *   sagenb
     *   sagenb_export
     *   widgetsnbextension
-    *   fpylll
     *   thebe
 
 *   Packages currently in experimental:
     *   ipykernel
-    *   ipython
     *   jupyter_client
     *   jupyter_core
     *   nbconvert
@@ -42,7 +39,10 @@ Upload all packages and make sure they migrate to testing
 
 *   Require patches:
     *   cython
-    *   numpy
+    *   numpy (only test fixes)
+    *   sympy (only test fixes)
+        -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
+        -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
 
 *   Ugly packages:
     *   maxima-sage
