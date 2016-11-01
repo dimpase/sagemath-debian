@@ -140,7 +140,11 @@ And various other "time out" / "segfault" that appear and vanish...
 
 ## Manual testing
 
-First, edit /usr/bin/dh_sphinxdoc as described in bug #841141. Then:
+First, edit /usr/bin/dh_sphinxdoc as shown here:
+
+https://anonscm.debian.org/cgit/python-modules/packages/sphinx.git/commit/?id=7b1c7a8aacf50e7b5aaa23203de8481d6123d459
+
+Then:
 
 If you override the failed tests with DEB_BUILD_OPTIONS=nocheck you can build
 some .debs, install them, and test the CLI or the notebooks manually. At the
