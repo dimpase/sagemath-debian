@@ -8,17 +8,8 @@ This uses debian/ccache as a ccache cache, so rebuilds are much quicker.
 
 ## TODO (required for the build to work)
 
-1. For the docbuild to work, you must first patch your local system:
-
-   $ sudo ln -sf libpari-gmp-tls.so.2.8.0 /usr/lib/x86_64-linux-gnu/libpari-gmp-tls-2.8.so.0
-
-   We'll need to fix one of libpari-dev, cysignals or sagemath itself, or something.
-
-Then the build (including documentation) should work, but some tests will fail.
-This is probably due to a combination of:
-
-a) mismatched versions of dependencies; we'll need to upload these.
-b) our hacky patches; we will need to revise these.
+No local system changes should be needed at this time for the main and dochtml
+builds to work automatically from a clean check-out.
 
 ## TODO (required to get into Debian archives)
 
@@ -54,6 +45,12 @@ mass test-fixing spree and forget to count which ones you've fixed. However
 this assumes that you didn't break any of the previously successful ones :p
 
 ## Current test status
+
+The below is invalid at the moment; we have ~4000 failing tests after migrating
+to Sage 7.4 and PARI 2.9 etc. Hopefully we can reduce this back to the more
+reasonable failures leves below, soon.
+
+---- old status; not currently valid ----
 
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
