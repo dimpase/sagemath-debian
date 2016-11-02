@@ -20,6 +20,7 @@ version-ecm-7.patch
 version-singular-4.patch
 version-cddlib-094h.patch
 version-glpk-4.60.patch
+version-pari-2.9-trac-21765.patch
 #version-planarity-3.patch #breaks tests
 
 # due to Debian's inherent differences with upstream;
