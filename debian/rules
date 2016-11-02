@@ -152,8 +152,23 @@ build-dep:
 	else sudo apt-get install --no-install-recommends sagemath-build-deps; fi
 	rm -f sagemath-build-deps_$(DEB_VERSION)_all.deb
 
-# TODO: does not count "special" failures like segfault/abort/timed-out etc.
 failed-tests:
+	grep '^sage -t .*  #' sage/logs/ptestlong.log
+
+FAILED_TESTS = debian/rules -s --no-print-directory failed-tests
+
+failed-tests-total:
 	grep "Failed example:" sage/logs/ptestlong.log | awk '{s++} END {print s}'
+	$(FAILED_TESTS) | grep '# [^0-9]'
+
+failed-tests-by-name:
+	$(FAILED_TESTS) | sort '-t#' -k1
+
+failed-tests-by-count:
+# Sort "special" failures last, e.g. segfault/abort/timed-out etc
+	$(FAILED_TESTS) \
+	  | sed -e 's,#\(\s\s*[^0-9]\),#9999999\1,g' \
+	  | sort '-t#' -k2n,2n \
+	  | sed -e 's,9999999,,g'
 
 .PHONY: gencontrol ptestlong clean-doc-build reset build-dep gencontrol
