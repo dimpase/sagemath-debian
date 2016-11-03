@@ -4,7 +4,6 @@
 Complete transitions
 
 *   Packages:
-    *   ipython (5.1.0)
     *   jmol (14.6.1)
     *   pari (2.9)
 
@@ -29,13 +28,6 @@ Upload all packages and make sure they migrate to testing
     *   sagenb_export
     *   widgetsnbextension
     *   thebe
-
-*   Packages currently in experimental:
-    *   ipykernel
-    *   jupyter_client
-    *   jupyter_core
-    *   nbconvert
-    *   nbformat
 
 *   Require patches:
     *   cython
