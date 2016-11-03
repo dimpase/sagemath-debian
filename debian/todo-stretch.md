@@ -5,13 +5,11 @@ Complete transitions
 
 *   Packages:
     *   jmol (14.6.1)
-    *   pari (2.9)
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
 Upload all packages and make sure they migrate to testing
 
 *   Updates:
-    *   brial
     *   libgap 4.8.4 (also switch to using gap 4.8.4, trac ticket 20914)
 
 *   Updates that may not be needed:
