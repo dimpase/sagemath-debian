@@ -44,6 +44,14 @@ It will run all previously-failed tests again, which is useful if you're on a
 mass test-fixing spree and forget to count which ones you've fixed. However
 this assumes that you didn't break any of the previously successful ones :p
 
+ $ debian/rules failed-tests-by-count
+ $ debian/rules failed-tests-by-error
+ $ debian/rules failed-tests-by-cause
+
+These, and other related rules, will print you some nice stats about the test
+failures. This is useful if you have say, hundreds or thousands of failures to
+deal with and don't know where to begin.
+
 ## Current test status
 
 The below is invalid at the moment; we have ~4000 failing tests after migrating

@@ -171,4 +171,20 @@ failed-tests-by-count:
 	  | sort '-t#' -k2n,2n \
 	  | sed -e 's,9999999,,g'
 
+failed-tests-by-error:
+# Filter out NameError; most of these are caused by earlier errors
+	grep 'Error:' sage/logs/ptestlong.log \
+	  | grep -v NameError \
+	  | sort | uniq -c | sort -k1n,1n
+
+FT_CAUSE_ERRORTYPE = Error
+FT_CAUSE_BACKTRACE = 2
+failed-tests-by-cause:
+	grep -B$$((2 * $(FT_CAUSE_BACKTRACE))) -Z '$(FT_CAUSE_ERRORTYPE):' sage/logs/ptestlong.log \
+	  | sed -e 's/^--$$/\x00/g' \
+	  | sed -z -e 's/^\s*//g' \
+	  | tr '\0\n' '\n\t' \
+	  | sort | uniq -c | sort -k1n,1n \
+	  | less -S +G
+
 .PHONY: gencontrol ptestlong clean-doc-build reset build-dep gencontrol
