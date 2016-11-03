@@ -14,7 +14,7 @@ Build-Depends:
  autoconf,
  ccache <pkg.sagemath.ccache>,
  iso-codes,
- cysignals-tools (>= 1.2.0+ds-2+sage2) <!nodoc>,
+ cysignals-tools (>= 1.2.0+ds-2) <!nodoc>,
  cython (= 0.24.1-2+sage1),
  debhelper (>= 9),
  dh-python,
@@ -107,7 +107,7 @@ Build-Depends:
  python-crypto,
  python-cvxopt,
  python-cycler,
- python-cysignals-pari (>= 1.2.0+ds-2+sage2),
+ python-cysignals-pari (>= 1.2.0+ds-2),
  python-decorator,
  python-docutils,
 # needed for spkg sagenb-export build, we might be able to remove it when using its Debian package
