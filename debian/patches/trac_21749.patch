@@ -1,0 +1,207 @@
+From 36ae1a5410eeba06c02b184ea38419129c2568aa Mon Sep 17 00:00:00 2001
+From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Sun, 23 Oct 2016 21:35:35 +0200
+Subject: Clean up some # distutils directives
+
+---
+ src/module_list.py                                 | 18 ++++--------------
+ src/sage/arith/multi_modular.pxd                   |  2 --
+ src/sage/graphs/base/boost_graph.pxd               |  2 ++
+ src/sage/graphs/graph_decompositions/cutwidth.pyx  |  1 -
+ src/sage/libs/gmpxx.pxd                            |  1 +
+ src/sage/libs/linbox/linbox.pxd                    |  5 -----
+ src/sage/libs/linbox/linbox.pyx                    |  5 +++++
+ src/sage/libs/ntl/convert.pxd                      |  2 --
+ src/sage/libs/polybori/decl.pxd                    |  2 ++
+ src/sage/matrix/matrix_modn_sparse.pxd             |  2 --
+ src/sage/modular/arithgroup/farey.pxd              |  6 ++++--
+ src/sage/modular/arithgroup/farey_symbol.pyx       |  1 -
+ src/sage/numerical/backends/glpk_backend.pyx       |  1 -
+ src/sage/numerical/backends/glpk_graph_backend.pyx |  1 -
+ 14 files changed, 18 insertions(+), 31 deletions(-)
+
+--- a/sage/src/module_list.py
++++ b/sage/src/module_list.py
+@@ -103,12 +103,6 @@
+ )
+ 
+ #########################################################
+-### C++11 workaround https://trac.sagemath.org/ticket/20926
+-#########################################################
+-
+-nocxx11_args = ['-std=c++98']
+-
+-#########################################################
+ ### M4RI flags
+ #########################################################
+ 
+@@ -451,8 +445,7 @@
+               sources = ['sage/graphs/base/dense_graph.pyx']),
+ 
+     Extension('sage.graphs.base.boost_graph',
+-              sources = ['sage/graphs/base/boost_graph.pyx'],
+-              language = 'c++'),
++              sources = ['sage/graphs/base/boost_graph.pyx']),
+ 
+     ################################
+     ##
+@@ -892,7 +885,7 @@
+ 
+     Extension('sage.matrix.matrix_integer_dense',
+               sources = ['sage/matrix/matrix_integer_dense.pyx'],
+-              extra_compile_args = ['-std=c99'] + m4ri_extra_compile_args,
++              extra_compile_args = m4ri_extra_compile_args,
+               libraries = ['iml', 'ntl', 'gmp', 'm', 'flint'] + cblas_libs,
+               library_dirs = cblas_library_dirs,
+               include_dirs = cblas_include_dirs),
+@@ -1012,9 +1005,7 @@
+               sources = ['sage/modular/arithgroup/congroup.pyx']),
+ 
+     Extension('sage.modular.arithgroup.farey_symbol',
+-              sources = ['sage/modular/arithgroup/farey_symbol.pyx',
+-                         'sage/modular/arithgroup/farey.cpp',
+-                         'sage/modular/arithgroup/sl2z.cpp']),
++              sources = ['sage/modular/arithgroup/farey_symbol.pyx']),
+ 
+     Extension('sage.modular.arithgroup.arithgroup_element',
+               sources = ['sage/modular/arithgroup/arithgroup_element.pyx']),
+@@ -1601,8 +1592,7 @@
+               include_dirs = m4ri_include_dirs + png_include_dirs,
+               depends = [SAGE_INC + "/polybori/" + hd + ".h" for hd in ["polybori", "config"] ] +
+                         [SAGE_INC + '/m4ri/m4ri.h'],
+-              extra_compile_args = m4ri_extra_compile_args,
+-              language = 'c++'),
++              extra_compile_args = m4ri_extra_compile_args),
+ 
+     Extension('sage.rings.polynomial.polynomial_real_mpfr_dense',
+               sources = ['sage/rings/polynomial/polynomial_real_mpfr_dense.pyx'],
+--- a/sage/src/sage/arith/multi_modular.pxd
++++ b/sage/src/sage/arith/multi_modular.pxd
+@@ -1,5 +1,3 @@
+-# distutils: extra_compile_args = -std=c99
+-
+ from sage.ext.mod_int cimport *
+ from sage.libs.gmp.types cimport mpz_t
+ 
+--- a/sage/src/sage/graphs/base/boost_graph.pxd
++++ b/sage/src/sage/graphs/base/boost_graph.pxd
+@@ -1,3 +1,5 @@
++# distutils: language = c++
++
+ #*****************************************************************************
+ #       Copyright (C) 2015 Michele Borassi michele.borassi@imtlucca.it
+ #
+--- a/sage/src/sage/graphs/graph_decompositions/cutwidth.pyx
++++ b/sage/src/sage/graphs/graph_decompositions/cutwidth.pyx
+@@ -1,4 +1,3 @@
+-# distutils: libraries = gmp
+ r"""
+ Cutwidth
+ 
+--- a/sage/src/sage/libs/gmpxx.pxd
++++ b/sage/src/sage/libs/gmpxx.pxd
+@@ -1,3 +1,4 @@
++# distutils: language = c++
+ # distutils: libraries = gmpxx gmp
+ 
+ from sage.libs.gmp.types cimport mpz_t, mpq_t
+--- a/sage/src/sage/libs/linbox/linbox.pxd
++++ b/sage/src/sage/libs/linbox/linbox.pxd
+@@ -1,8 +1,3 @@
+-# distutils: extra_compile_args = LINBOX_CFLAGS
+-# distutils: libraries = LINBOX_LIBRARIES
+-# distutils: library_dirs = LINBOX_LIBDIR
+-# distutils: language = c++ 
+-
+ from sage.libs.gmp.types cimport mpz_t
+ from sage.modules.vector_modn_sparse cimport *
+ 
+--- a/sage/src/sage/libs/linbox/linbox.pyx
++++ b/sage/src/sage/libs/linbox/linbox.pyx
+@@ -1,3 +1,8 @@
++# distutils: extra_compile_args = LINBOX_CFLAGS
++# distutils: libraries = LINBOX_LIBRARIES
++# distutils: library_dirs = LINBOX_LIBDIR
++# distutils: language = c++
++
+ r"""
+ Linbox interface
+ """
+--- a/sage/src/sage/libs/ntl/convert.pxd
++++ b/sage/src/sage/libs/ntl/convert.pxd
+@@ -1,5 +1,3 @@
+-# distutils: depends = NTL/ZZ.h
+-
+ from .types cimport ZZ_c
+ from sage.libs.gmp.types cimport mpz_t, mpz_srcptr
+ 
+--- a/sage/src/sage/libs/polybori/decl.pxd
++++ b/sage/src/sage/libs/polybori/decl.pxd
+@@ -1,3 +1,5 @@
++# distutils: language = c++
++
+ cdef extern from "sage/libs/polybori/pb_wrap.h":
+     ctypedef struct std_string "std::string":
+         char *(* c_str)()
+--- a/sage/src/sage/matrix/matrix_modn_sparse.pxd
++++ b/sage/src/sage/matrix/matrix_modn_sparse.pxd
+@@ -1,5 +1,3 @@
+-# distutils: language = c 
+-
+ from .matrix_sparse cimport Matrix_sparse
+ from sage.modules.vector_modn_sparse cimport *
+ 
+--- a/sage/src/sage/modular/arithgroup/farey.pxd
++++ b/sage/src/sage/modular/arithgroup/farey.pxd
+@@ -1,3 +1,5 @@
++# distutils: language = c++
++
+ #*****************************************************************************
+ #       Copyright (C) 2011 Hartmut Monien <monien@th.physik.uni-bonn.de>
+ #
+@@ -10,7 +12,7 @@
+ 
+ from sage.libs.gmpxx cimport *
+ 
+-cdef extern from "sage/modular/arithgroup/sl2z.hpp":
++cdef extern from "sage/modular/arithgroup/sl2z.cpp":
+     cppclass cpp_SL2Z "SL2Z":
+         mpz_class a, b, c, d
+         cpp_SL2Z(int, int, int, int)
+@@ -20,7 +22,7 @@
+         mpz_class c()
+         mpz_class d()
+ 
+-cdef extern from "sage/modular/arithgroup/farey.hpp":
++cdef extern from "sage/modular/arithgroup/farey.cpp":
+     cppclass is_element_Gamma0:
+         is_element_Gamma0(int)
+     cppclass is_element_Gamma1:
+--- a/sage/src/sage/modular/arithgroup/farey_symbol.pyx
++++ b/sage/src/sage/modular/arithgroup/farey_symbol.pyx
+@@ -1,4 +1,3 @@
+-# distutils: language = c++
+ r"""
+ Farey Symbol for arithmetic subgroups of `{\rm PSL}_2(\ZZ)`
+ 
+--- a/sage/src/sage/numerical/backends/glpk_backend.pyx
++++ b/sage/src/sage/numerical/backends/glpk_backend.pyx
+@@ -1,4 +1,3 @@
+-# distutils: language = c++
+ """
+ GLPK Backend
+ 
+--- a/sage/src/sage/numerical/backends/glpk_graph_backend.pyx
++++ b/sage/src/sage/numerical/backends/glpk_graph_backend.pyx
+@@ -1,4 +1,3 @@
+-# distutils: language = c++
+ """
+ GLPK Backend for access to GLPK graph functions
+ 
+--- a/sage/src/sage/libs/m4ri.pxd
++++ b/sage/src/sage/libs/m4ri.pxd
+@@ -1,3 +1,4 @@
++# distutils: extra_compile_args = -std=c99
+ 
+ cdef extern from "m4ri/m4ri.h":
+     ctypedef int rci_t

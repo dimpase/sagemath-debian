@@ -48,3 +48,4 @@ temp-cython-include-source.patch
 version-temp-singular-4-extra-fixes.patch
 version-temp-glpk-4.60-extra-hacky-fixes.patch
 debian-temp-r-no-readline.patch
+trac_21749.patch
