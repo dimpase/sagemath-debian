@@ -1,10 +1,23 @@
 # Todo for getting Sage 7.4 into Debian stretch
 
-## Before 2016-11-05 (transition freeze):
-Complete transitions
+## Before 2016-12-05 (soft deadline for us, to make the soft-freeze):
+Upload packages to NEW
 
-*   Packages:
-    *   jmol (14.6.1)
+*   New packages:
+    *   ipywidgets
+    *   jupyter-notebook
+    *   sagenb
+        * lots of JS deps, need to evaluate ASAP
+    *   sagenb_export
+        * Done in git, waiting on jupyter-notebook
+    *   widgetsnbextension and dependencies:
+        * d3-format
+        * scriptjs
+        * webpack (probably can avoid this and redo the widgetsnbextension build rules)
+          Julien: "if you look at webpack.config.js, the tool is named 'source-map' [in Debian as node-source-map]
+        * + devDependencies, might be nasty. should evaluate ASAP
+    *   thebe
+        * lots of JS deps, need to evaluate ASAP
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
 Upload all packages and make sure they migrate to testing
@@ -12,20 +25,11 @@ Upload all packages and make sure they migrate to testing
 *   Updates:
     *   libgap 4.8.4 (also switch to using gap 4.8.4, trac ticket 20914)
 
-*   Updates that may not be needed:
-    *   configparser 3.5
-    *   cvxopt 1.1.8
-    *   ecl 16.1.2
-    *   ppl 1.2
-    *   pytz 2016.4
-
-*   New packages:
-    *   ipywidgets (and dependencies)
-    *   jupyter-notebook
-    *   sagenb
-    *   sagenb_export
-    *   widgetsnbextension
-    *   thebe
+*   Packages that have issues preventing testing migration:
+    * cython 0.24.1
+    * ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
+    * fflas-ffpack 1.6.0
+    * linbox 1.4.2
 
 *   Require patches:
     *   cython
@@ -40,12 +44,14 @@ Upload all packages and make sure they migrate to testing
         (preliminary patch already exists, see debian/patches/version-planarity-3.patch
          it compiles but breaks tests)
         or upload planarity 2.2
+    *   jmol (14.6.1)
 
-*   Packages that have issues preventing testing migration:
-    * cython 0.24.1
-    * ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
-    * fflas-ffpack 1.6.0
-    * linbox 1.4.2
+*   Updates that may not be needed:
+    *   configparser 3.5
+    *   cvxopt 1.1.8
+    *   ecl 16.1.2
+    *   ppl 1.2
+    *   pytz 2016.4
 
 *   And finally:
     *   sagemath
