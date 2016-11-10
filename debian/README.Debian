@@ -144,8 +144,6 @@ sage -t --long src/sage/structure/sage_object.pyx  # 2 doctests failed
 1 Sometimes fails first time
 sage -t --long src/sage/interfaces/maxima_abstract.py  # 1 doctest failed
 
-And various other "time out" / "segfault" that appear and vanish...
-
 ## Manual testing
 
 First, edit /usr/bin/dh_sphinxdoc as shown here:
