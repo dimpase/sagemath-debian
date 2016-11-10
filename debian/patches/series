@@ -11,6 +11,7 @@ fixsage-use-lexists-not-exists.patch
 fixsage-proper-scipy-rtol.patch
 fixsage-revert-lazy-import-dependent-on-python-patch.patch
 fixsage-revert-minor-feature-dependent-on-python-patch.patch
+fixsage-dont-require-DISPLAY.patch
 fixsage-allow-override-sage-local.patch
 
 # due to us using a different version of a dependency than what Sage uses

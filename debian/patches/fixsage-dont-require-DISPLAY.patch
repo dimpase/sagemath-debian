@@ -1,0 +1,16 @@
+Description: Don't fail plot.py doctest if DISPLAY is unset
+ https://stackoverflow.com/questions/37604289/tkinter-tclerror-no-display-name-and-no-display-environment-variable
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TODO
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/plot/plot.py
++++ b/sage/src/sage/plot/plot.py
+@@ -89,6 +89,7 @@
+ 
+ We draw a curve::
+ 
++    sage: import matplotlib; matplotlib.use('Agg')
+     sage: plot(x^2, (x,0,5))
+     Graphics object consisting of 1 graphics primitive
+ 
