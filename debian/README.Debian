@@ -54,12 +54,6 @@ deal with and don't know where to begin.
 
 ## Current test status
 
-The below is invalid at the moment; we have ~4000 failing tests after migrating
-to Sage 7.4 and PARI 2.9 etc. Hopefully we can reduce this back to the more
-reasonable failures leves below, soon.
-
----- old status; not currently valid ----
-
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
 
@@ -79,70 +73,35 @@ Now for the summary:
 
 ### Breakdown
 
-22 for infinity0
-30 (estimated) for Tobias
+25 for infinity0
+?? for Tobias
 
-plus ~4 unreproducible
+### Needs further investigation
 
-### We have some sort of lead for further investigation
+10 Unknown
+sage -t --long src/sage/interfaces/r.py  # 2 doctests failed
+sage -t --long src/sage/rings/number_field/number_field.py  # 3 doctests failed
+sage -t --long src/sage/rings/polynomial/pbori.pyx  # 3 doctests failed
+sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed
 
-The _wip_hacky-test-fixes branch unbreaks some of these, but not sure that
-they're all a good idea.
+3 arctan2(0,0) gives NaN instead of Error
+sage -t --long src/sage/functions/trig.py  # 1 doctest failed
+sage -t --long src/sage/symbolic/expression.pyx  # 1 doctest failed
+sage -t --long src/sage/symbolic/expression_conversions.py  # 1 doctest failed
 
-Also check the mailing list for possible ideas.
+#### Have a good idea on how to proceed
 
 6 Minor floating point differences, can maybe ignore, ask upstream first
-sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (1 is not floating-point related)
 sage -t --long src/sage/coding/code_bounds.py  # 1 doctest failed
+sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed
 sage -t --long src/sage/functions/exp_integral.py  # 1 doctest failed
-sage -t --long src/sage/functions/log.py  # 1 doctest failed
 
-4 Can probably ignore
-sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctests failed
-# ^ upstream also used to see this then it magically got fixed in 269c1e1551285566b8ba7a2b890989e5590e9f11
+6 Can probably ignore / fix trivially
 sage -t --long src/sage/interfaces/tests.py  # 2 doctests failed
+sage -t --long src/sage/graphs/strongly_regular_db.pyx  # 1 doctest failed
 sage -t --long src/sage/rings/integer.pyx  # 1 doctest failed
-# ^ due to us using GMP and not MPIR as upstream does
-
-3 arctan2(0,0) gives NaN instead of RuntimeError
-sage -t --long src/sage/functions/trig.py  # 1 doctest failed
-sage -t --long src/sage/symbolic/expression_conversions.py  # 1 doctest failed
-sage -t --long src/sage/symbolic/expression.pyx  # 2 doctest failed (1 not arctan)
-
-3 Others, known
-sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see upstream #17254#comment:252)
-sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (3 accounted for above, 1 reported as Debian #840159)
-
-### Not yet investigated / no idea
-
-5 Different but equivalent algebraic expression
-sage -t --long src/doc/en/prep/Calculus.rst  # 1 doctest failed
-sage -t --long src/sage/schemes/elliptic_curves/ell_generic.py  # 1 doctest failed
-sage -t --long src/sage/symbolic/expression.pyx  # 2 doctest failed (1 not algebraic)
-sage -t --long src/sage/tensor/differential_form_element.py  # 2 doctests failed
-
-1 Others, unknown
-sage -t --long src/sage/libs/libecm.pyx  # 1 doctest failed
-
-8 Other extra for Tobias:
-sage -t --long src/doc/en/thematic_tutorials/tutorial-objects-and-classes.rst  # 2 doctests failed
-sage -t --long src/sage/doctest/forker.py  # 1 doctest failed
-sage -t --long src/sage/libs/readline.pyx  # 4 doctests failed
-sage -t --long src/sage/misc/trace.py  # 1 doctest failed
-
-### Can't reproduce
-
-Fails first time, but seems to work when you run them a second time, e.g. with
-`debian/rules EXTRA_SAGE_TEST_FLAGS=-f build` or by running `./sage -t` directly
-
-4 Always fails first time
-sage -t --long src/sage/libs/gap/all_documented_functions.py  # 1 doctest failed
-sage -t --long src/sage/libs/gap/assigned_names.py  # 1 doctest failed
-# ^ not present for Tobias
-sage -t --long src/sage/structure/sage_object.pyx  # 2 doctests failed
-
-1 Sometimes fails first time
-sage -t --long src/sage/interfaces/maxima_abstract.py  # 1 doctest failed
+sage -t --long src/sage/homology/simplicial_complex.py  # 1 doctest failed
+sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
 
 ## Manual testing
 
