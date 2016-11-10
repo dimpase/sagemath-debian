@@ -4,20 +4,23 @@
 Upload packages to NEW
 
 *   New packages:
-    *   ipywidgets
+    *   ipywidgets (including jupyter-js-widgets, widgetsnbextension)
+        plus dependencies:
+        * d3-format
+        * scriptjs
+        * html2canvas
+        * webpack, or use node-source-map directly without webpack
+        * + devDependencies, might be nasty. should evaluate ASAP
     *   jupyter-notebook
     *   sagenb
         * lots of JS deps, need to evaluate ASAP
     *   sagenb_export
         * Done in git, waiting on jupyter-notebook
-    *   widgetsnbextension and dependencies:
-        * d3-format
-        * scriptjs
-        * webpack (probably can avoid this and redo the widgetsnbextension build rules)
-          Julien: "if you look at webpack.config.js, the tool is named 'source-map' [in Debian as node-source-map]
-        * + devDependencies, might be nasty. should evaluate ASAP
     *   thebe
         * lots of JS deps, need to evaluate ASAP
+        * not *too* essential - SPKG.txt says
+          "used by Sage's Sphinx-based documentation build system to produce
+           html documentation that can be turned live"
 
 ## Before 2017-01-05 (soft freeze, no new packages enter testing):
 Upload all packages and make sure they migrate to testing
