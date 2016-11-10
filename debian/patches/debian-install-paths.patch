@@ -101,7 +101,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      clean_install_dir(output_dir, python_packages, python_modules,
 --- a/sage/sage
 +++ b/sage/sage
-@@ -22,6 +22,7 @@
+@@ -23,6 +23,7 @@
  # automatically.
  #SAGE_ROOT=/path/to/sage-version
  

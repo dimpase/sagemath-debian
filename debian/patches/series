@@ -38,6 +38,7 @@ debian-gsl-cblas.patch
 debian-arb.patch
 debian-cython-sys-path.patch
 debian-sage-gap-reset.patch
+debian-pip-nowarn.patch
 # this next one contains some stuff that should be forwarded upstream
 debian-fix-trivial-test-cases.patch
 debian-install-paths.patch
