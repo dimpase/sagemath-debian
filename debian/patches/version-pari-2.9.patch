@@ -1,7 +1,8 @@
-From 313b785064eb21e16d55855c4c2216fa26ca8df0 Mon Sep 17 00:00:00 2001
-From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
-Date: Fri, 14 Oct 2016 13:30:20 +0200
-Subject: Interface PARI precision in bits
+Description: Upgrade to PARI 2.9.0
+Author: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Fri, 04 Nov 2016 12:43:13 +0100
+Bug: https://trac.sagemath.org/ticket/21756
+Applied-Upstream: 7.5, commit:920252a6c8fe46490410c84ca508381e7f08393a
 
 ---
  src/sage/libs/pari/pari_instance.pxd |   1 -
