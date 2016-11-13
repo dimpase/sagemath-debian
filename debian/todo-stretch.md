@@ -1,7 +1,7 @@
 # Todo for getting Sage 7.4 into Debian stretch
 
-## Before 2016-12-05 (soft deadline for us, to make the soft-freeze):
-Upload packages to NEW
+## Before 2016-12-05 (to make the soft-freeze deadline of 2017-01-05):
+Upload packages to NEW, ASAP
 
 *   New packages:
     *   ipywidgets (including jupyter-js-widgets, widgetsnbextension)
@@ -14,15 +14,16 @@ Upload packages to NEW
     *   sagenb
         * lots of JS deps, need to evaluate ASAP
     *   sagenb_export
-        * Done in git, waiting on jupyter-notebook
-    *   thebe
-        * not *too* essential - SPKG.txt says
-          "used by Sage's Sphinx-based documentation build system to produce
-           html documentation that can be turned live"
-        * lots of JS deps, need to evaluate
+        * Done in git; needs testing with jupyter-notebook, then can upload
+    *   sagemath
+        * apply planarity patch, ignore failing doctests
+          debian/patches/version-planarity-3.patch
+        * ignore other known failing doctests
+        * disable jmol and jsmol
+        * disable thebe
 
-## Before 2017-01-05 (soft freeze, no new packages enter testing):
-Upload all packages and make sure they migrate to testing
+## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
+Upload all packages and make sure they migrate to testing after 10 days
 
 *   Packages that have issues preventing testing migration:
     *   cython 0.24.1
@@ -42,6 +43,33 @@ Upload all packages and make sure they migrate to testing
         https://anonscm.debian.org/cgit/debian-science/packages/maxima-sage.git/
         https://trac.sagemath.org/ticket/18920
         https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=779804
+        needs ecl > 16.1.2 (unreleased)
+
+*   Sage updates:
+    *   Fix ~40 doctests related to gap/libgap 4.8.5
+        https://trac.sagemath.org/ticket/20914
+    *   Fix XXX doctests related to planarity 3.0
+        https://trac.sagemath.org/ticket/21774
+        or disable it, if this is too hard
+
+*   Other updates:
+    *   sagetex
+
+## Later
+
+*   Updates that may not be needed:
+    *   configparser 3.5
+    *   cvxopt 1.1.8
+    *   pytz 2016.4
+
+*   New packages
+    *   thebe
+        * not *too* essential - SPKG.txt says
+          "used by Sage's Sphinx-based documentation build system to produce
+           html documentation that can be turned live"
+        * lots of JS deps, need to evaluate
+
+*   Ugly packages:
     *   jmol and jsmol (14.6.1)
         probably just disable it for stretch
         "almost" done here:
@@ -53,23 +81,3 @@ Upload all packages and make sure they migrate to testing
           https://sourceforge.net/p/jmol/bugs/587/?page=1
           https://sourceforge.net/p/jmol/bugs/589/
           https://github.com/zhourenjian/java2script/issues/8
-
-*   Sage updates:
-    *   gap/libgap 4.8.5 https://trac.sagemath.org/ticket/20914
-        ~40 tests currently broken due to this
-    *   planarity 3.0 https://trac.sagemath.org/ticket/21774
-        (preliminary patch already exists, see debian/patches/version-planarity-3.patch
-         it compiles but breaks tests)
-        or upload planarity 2.2
-        or disable it for stretch
-
-*   Updates that may not be needed:
-    *   configparser 3.5
-    *   cvxopt 1.1.8
-    *   ecl 16.1.2
-    *   ppl 1.2
-    *   pytz 2016.4
-
-*   And finally:
-    *   sagemath
-    *   sagetex
