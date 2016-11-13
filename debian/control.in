@@ -5,7 +5,6 @@ Priority: optional
 Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.org>
 Uploaders: Tobias Hansen <thansen@debian.org>,
            Julien Puydt <julien.puydt@laposte.net>,
-           Felix Salfelder <felix@salfelder.org>,
            Jerome Benoit <calculus@rezozer.net>,
            Ximin Luo <infinity0@debian.org>
 Standards-Version: 3.9.8
