@@ -16,7 +16,7 @@
                          name = 'maxima',
                          prompt = '\(\%i[0-9]+\) ',
 -                        command = 'maxima --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
-+                        command = 'maxima -l ecl --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
++                        command = 'maxima-sage --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
                          script_subdirectory = script_subdirectory,
                          restart_on_ctrlc = False,
                          verbose_start = False,
@@ -36,7 +36,7 @@
              ...
          """
 -        cmd = 'maxima --very-quiet -r "%s(%s);" '%(command, s)
-+        cmd = 'maxima -l ecl --very-quiet -r "%s(%s);" '%(command, s)
++        cmd = 'maxima-sage --very-quiet -r "%s(%s);" '%(command, s)
          if sage.server.support.EMBEDDED_MODE:
              cmd += '< /dev/null'
  
@@ -57,7 +57,7 @@
          '5.35.1'
      """
 -    return os.popen('maxima --version').read().split()[-1]
-+    return os.popen('maxima -l ecl --version').read().split()[-1]
++    return os.popen('maxima-sage --version').read().split()[-1]
  
  def maxima_console():
      """
@@ -66,7 +66,7 @@
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
 -    os.system('maxima')
-+    os.system('maxima -l ecl')
++    os.system('maxima-sage')
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
 @@ -512,7 +512,7 @@
@@ -74,7 +74,18 @@
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
 -    exec maxima "$@"
-+    exec maxima -l ecl "$@"
++    exec maxima-sage "$@"
  fi
  
  if [ "$1" = '-mwrank' -o "$1" = '--mwrank' ]; then
+--- a/sage/src/sage/interfaces/expect.py
++++ b/sage/src/sage/interfaces/expect.py
+@@ -563,7 +563,7 @@
+ 
+             sage: a = maxima('y')
+             sage: maxima.quit(verbose=True)
+-            Exiting Maxima with PID ... running .../bin/maxima ...
++            Exiting Maxima with PID ... running .../bin/maxima-sage ...
+             sage: a._check_valid()
+             Traceback (most recent call last):
+             ...

@@ -199,9 +199,9 @@ AC_SUBST(HAS_MATHJAX)
 
 # FIXME(maxima): needs quite special instructions to get it going
 HAS_MAXIMA="True"
-AC_CHECK_FILE(/usr/share/doc/maxima-share/copyright, , HAS_MAXIMA="False")
-AC_CHECK_FILE(/usr/share/doc/maxima-doc/copyright, , HAS_MAXIMA="False")
-AC_CHECK_FILE(/usr/share/doc/maxima/copyright, , HAS_MAXIMA="False")
+AC_CHECK_FILE(/usr/share/doc/maxima-sage-share/copyright, , HAS_MAXIMA="False")
+AC_CHECK_FILE(/usr/share/doc/maxima-sage-doc/copyright, , HAS_MAXIMA="False")
+AC_CHECK_FILE(/usr/share/doc/maxima-sage/copyright, , HAS_MAXIMA="False")
 AC_SUBST(HAS_MAXIMA)
 
 AC_CHECK_HEADERS(mpc.h, HAS_MPC="True", HAS_MPC="False")
