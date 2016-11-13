@@ -15,6 +15,11 @@ Upload packages to NEW, ASAP
         * lots of JS deps, need to evaluate ASAP
     *   sagenb_export
         * Done in git; needs testing with jupyter-notebook, then can upload
+    *   maxima-sage
+        https://anonscm.debian.org/cgit/debian-science/packages/maxima-sage.git/
+        https://trac.sagemath.org/ticket/18920
+        https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=779804
+        needs ecl > 16.1.2 (unreleased)
     *   sagemath
         * apply planarity patch, ignore failing doctests
           debian/patches/version-planarity-3.patch
@@ -22,14 +27,14 @@ Upload packages to NEW, ASAP
         * disable jmol and jsmol
         * disable thebe
 
-## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
-Upload all packages and make sure they migrate to testing after 10 days
-
 *   Packages that have issues preventing testing migration:
     *   cython 0.24.1
     *   ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
     *   fflas-ffpack 1.6.0
     *   linbox 1.4.2
+
+## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
+Upload all packages and make sure they migrate to testing after 10 days
 
 *   Require patches:
     *   cython
@@ -37,13 +42,6 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
         -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
-
-*   Ugly packages:
-    *   maxima-sage
-        https://anonscm.debian.org/cgit/debian-science/packages/maxima-sage.git/
-        https://trac.sagemath.org/ticket/18920
-        https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=779804
-        needs ecl > 16.1.2 (unreleased)
 
 *   Sage updates:
     *   Fix ~40 doctests related to gap/libgap 4.8.5
