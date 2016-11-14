@@ -169,6 +169,7 @@ python_modules = [
     'nbconvert',
     'nbformat',
     'networkx',
+    'notebook',
     'numpy',
     'pathlib2',
     'pexpect',
