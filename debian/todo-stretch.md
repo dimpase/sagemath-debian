@@ -29,12 +29,15 @@ Upload packages to NEW, ASAP
             we would remove JSmol, then graft the rest onto the existing debian jmol packaging
         * If we do not have thebe, it should be enough to undo the changes of
           https://trac.sagemath.org/ticket/20690 to avoid breakage.
+    *   sagetex
 
 *   Packages that have issues preventing testing migration:
     *   cython 0.24.1
     *   ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
     *   fflas-ffpack 1.6.0
+    *   flint (FTBFS on mips and mipsel)
     *   linbox 1.4.2
+    *   pyzmq
 
 ## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
 Upload all packages and make sure they migrate to testing after 10 days
@@ -52,9 +55,6 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   Fix XXX doctests related to planarity 3.0
         https://trac.sagemath.org/ticket/21774
         or disable it, if this is too hard
-
-*   Other updates:
-    *   sagetex
 
 ## Later
 
