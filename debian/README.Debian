@@ -80,10 +80,9 @@ plus ~2 unreproducible
 
 ### Needs further investigation
 
-8 Unknown
+5 Unknown
 sage -t --long src/sage/interfaces/r.py  # 2 doctests failed
 sage -t --long src/sage/rings/number_field/number_field.py  # 3 doctests failed
-sage -t --long src/sage/rings/polynomial/pbori.pyx  # 3 doctests failed
 
 3 arctan2(0,0) gives NaN instead of Error
 sage -t --long src/sage/functions/trig.py  # 1 doctest failed
