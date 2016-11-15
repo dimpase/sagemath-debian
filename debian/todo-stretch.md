@@ -24,7 +24,8 @@ Upload packages to NEW, ASAP
         * apply planarity patch, ignore failing doctests
           debian/patches/version-planarity-3.patch
         * ignore other known failing doctests
-        * disable jmol and jsmol
+        * test with missing jmol (maybe set canvas3d as default in
+          src/sage/plot/plot3d/base.pyx / src/sage/graphs/generic_graph.py ?)
         * disable thebe
 
 *   Packages that have issues preventing testing migration:
