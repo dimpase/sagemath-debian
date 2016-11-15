@@ -7,10 +7,8 @@ Upload packages to NEW, ASAP
     *   ipywidgets (including jupyter-js-widgets, widgetsnbextension)
         plus dependencies:
         * d3-format
-        * scriptjs
         * html2canvas
-        * webpack, or use node-source-map directly without webpack
-        * + devDependencies, might be nasty. should evaluate ASAP
+        * more info starting from https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161114/thread.html#429
     *   sagenb
         * lots of JS deps, need to evaluate ASAP
     *   sagenb_export
