@@ -16,6 +16,7 @@ fixsage-allow-override-sage-local.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
+fixsage-pbori-boost1.62-hashes.patch
 version-python-2.7.11.patch
 version-ecm-7.patch
 version-singular-4.patch
