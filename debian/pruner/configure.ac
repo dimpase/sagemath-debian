@@ -319,6 +319,10 @@ AC_SUBST(HAS_SYMPOW)
 AC_CHECK_PROG(HAS_TACHYON, tachyon, "True", "False")
 AC_SUBST(HAS_TACHYON)
 
+# FIXME(thebe): we're trying if we can get along without it
+HAS_THEBE="True"
+AC_SUBST(HAS_THEBE)
+
 # FIXME(widgetsnbextension): we don't have a package yet, but don't want to install from sage
 HAS_WIDGETSNBEXTENSION="True"
 AC_SUBST(HAS_WIDGETSNBEXTENSION)

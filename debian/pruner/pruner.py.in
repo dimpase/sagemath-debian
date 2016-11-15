@@ -130,6 +130,7 @@ dico = {
     'symmetrica': @HAS_SYMMETRICA@,
     'sympow': @HAS_SYMPOW@,
     'tachyon': @HAS_TACHYON@,
+    'thebe': @HAS_THEBE@,
     'widgetsnbextension': @HAS_WIDGETSNBEXTENSION@,
     'zeromq': @HAS_ZEROMQ@,
     'zlib': @HAS_ZLIB@,
