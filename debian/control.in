@@ -133,6 +133,7 @@ Build-Depends:
  python-nbconvert,
  python-nbformat,
  python-networkx,
+ python-notebook,
  python-numpy (= 1:1.11.1~rc1-1+sage1),
  python-openid,
  python-path,
