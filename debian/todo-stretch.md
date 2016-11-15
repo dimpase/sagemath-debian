@@ -27,7 +27,8 @@ Upload packages to NEW, ASAP
           * might be possible to package jmol and disable only jsmol, if that's easier
             see https://github.com/infinity0/jmol/ and its Makefile
             we would remove JSmol, then graft the rest onto the existing debian jmol packaging
-        * disable thebe
+        * If we do not have thebe, it should be enough to undo the changes of
+          https://trac.sagemath.org/ticket/20690 to avoid breakage.
 
 *   Packages that have issues preventing testing migration:
     *   cython 0.24.1
