@@ -26,6 +26,9 @@ Upload packages to NEW, ASAP
         * ignore other known failing doctests
         * test with missing jmol (maybe set canvas3d as default in
           src/sage/plot/plot3d/base.pyx / src/sage/graphs/generic_graph.py ?)
+          * might be possible to package jmol and disable only jsmol, if that's easier
+            see https://github.com/infinity0/jmol/ and its Makefile
+            we would remove JSmol, then graft the rest onto the existing debian jmol packaging
         * disable thebe
 
 *   Packages that have issues preventing testing migration:
