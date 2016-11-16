@@ -108,6 +108,17 @@ ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 else
 	dh_clean
 endif
+ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+# Don't delete my precious docs debhelper! They took a whole fucking hour to build!
+	if [ -d debian/build/usr/share/doc ]; then \
+		mkdir -p debian/build-tmp/usr/share; \
+		mv -t debian/build-tmp/usr/share/ debian/build/usr/share/doc; \
+	fi
+	rm -rf debian/build/*
+	mv -t debian/build/usr/share/ debian/build-tmp/usr/share/doc
+else
+	rm -rf debian/build/*
+endif
 
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
