@@ -97,28 +97,26 @@ override_dh_sphinxdoc:
 
 # If we see "nodoc", don't clean the docs. This allows us to rebuild just the
 # non-docs without wiping away the docs we previously built, to save time.
+ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+# Don't delete my precious docs debhelper! They took a whole fucking hour to build!
+preserve_docs = \
+	set -e; \
+	if [ -d $(2)/usr/share/doc ]; then \
+		mkdir -p debian/clean-tmp/usr/share; \
+		mv -t debian/clean-tmp/usr/share/ $(2)/usr/share/doc; \
+	fi; \
+	$(1); \
+	if [ -d debian/clean-tmp/usr/share/doc ]; then \
+		mkdir -p $(2)/usr/share; \
+		mv -t $(2)/usr/share/ debian/clean-tmp/usr/share/doc; \
+		rm -rf debian/clean-tmp; \
+	fi
+else
+preserve_docs = $(1)
+endif
 override_dh_clean:
-ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-# Don't delete my precious docs debhelper! They took a whole fucking hour to build!
-	if [ -d debian/tmp/usr/share/doc ]; then \
-		mkdir -p debian/build/usr/share; \
-		mv -t debian/build/usr/share/ debian/tmp/usr/share/doc; \
-	fi
-	dh_clean
-else
-	dh_clean
-endif
-ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-# Don't delete my precious docs debhelper! They took a whole fucking hour to build!
-	if [ -d debian/build/usr/share/doc ]; then \
-		mkdir -p debian/build-tmp/usr/share; \
-		mv -t debian/build-tmp/usr/share/ debian/build/usr/share/doc; \
-	fi
-	rm -rf debian/build/*
-	mv -t debian/build/usr/share/ debian/build-tmp/usr/share/doc
-else
-	rm -rf debian/build/*
-endif
+	$(call preserve_docs,dh_clean,debian/tmp)
+	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
 get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
