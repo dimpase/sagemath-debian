@@ -255,9 +255,7 @@ AC_SUBST(HAS_PKGCONF)
 HAS_PKGCONFIG="True"
 AC_SUBST(HAS_PKGCONFIG)
 
-# FIXME
-#AC_CHECK_HEADERS(planarity/planarity.h, HAS_PLANARITY="True", HAS_PLANARITY="False")
-HAS_PLANARITY="False"
+AC_CHECK_HEADERS(planarity/planarity.h, HAS_PLANARITY="True", HAS_PLANARITY="False")
 AC_SUBST(HAS_PLANARITY)
 
 # TODO(brial): brial 0.8.4.3+ has lost its pkg-config file. Hopefully this will

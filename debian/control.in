@@ -71,7 +71,7 @@ Build-Depends:
  libntl-dev (>= 9.9.1-2),
  libopenblas-dev (>= 0.2.19),
  libpari-dev (>= 2.9.0-1+sage1),
-# libplanarity-dev, this is version 3.0, we need 2.2
+ libplanarity-dev,
  libpng-dev,
  libppl-dev (>= 1:1.1),
  libpynac-dev (>= 0.2.6),
