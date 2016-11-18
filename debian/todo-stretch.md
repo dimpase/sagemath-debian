@@ -13,15 +13,8 @@ Upload packages to NEW, ASAP
         * lots of JS deps, need to evaluate ASAP
     *   sagenb_export
         * Done in git; needs testing with jupyter-notebook, then can upload
-    *   maxima-sage
-        https://anonscm.debian.org/cgit/debian-science/packages/maxima-sage.git/
-        https://trac.sagemath.org/ticket/18920
-        https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=779804
-        needs ecl > 16.1.2 (unreleased)
     *   sagemath
-        * apply planarity patch, ignore failing doctests
-          debian/patches/version-planarity-3.patch
-        * ignore other known failing doctests
+        * ignore known failing doctests
         * test with missing jmol (maybe set canvas3d as default in
           src/sage/plot/plot3d/base.pyx / src/sage/graphs/generic_graph.py ?)
           * might be possible to package jmol and disable only jsmol, if that's easier
@@ -35,7 +28,6 @@ Upload packages to NEW, ASAP
     *   cython 0.24.1
     *   ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
     *   fflas-ffpack 1.6.0
-    *   flint (FTBFS on mips and mipsel)
     *   linbox 1.4.2
     *   pyzmq
 
