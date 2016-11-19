@@ -32,7 +32,7 @@ DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
 DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
 
 %:
-	dh $@ --parallel --with=python2,sphinxdoc
+	dh $@ --with=python2,sphinxdoc
 
 build: gencontrol
 
