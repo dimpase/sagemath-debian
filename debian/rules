@@ -67,7 +67,7 @@ override_dh_auto_clean:
 ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 	$(MAKE) --directory=sage -k clean sagelib-clean misc-clean || true
 else
-	$(MAKE) --directory=sage distclean
+	dh_auto_clean -- --directory=sage
 endif
 
 override_dh_install:
