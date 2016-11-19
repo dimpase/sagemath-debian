@@ -40,10 +40,10 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
         -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
+    *   gap
+        -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=844789
 
 *   Sage updates:
-    *   Fix ~40 doctests related to gap/libgap 4.8.5
-        https://trac.sagemath.org/ticket/20914
     *   Fix XXX doctests related to planarity 3.0
         https://trac.sagemath.org/ticket/21774
         or disable it, if this is too hard
