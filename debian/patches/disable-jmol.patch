@@ -1,0 +1,47 @@
+--- a/sage/src/sage/graphs/generic_graph.py
++++ b/sage/src/sage/graphs/generic_graph.py
+@@ -18475,7 +18475,7 @@
+                      vertex_colors=None, vertex_size=0.06, vertex_labels=False,
+                      edge_colors=None, edge_size=0.02, edge_size2=0.0325,
+                      pos3d=None, color_by_label=False,
+-                     engine='jmol', **kwds):
++                     engine='tachyon', **kwds):
+         r"""
+         Plot a graph in three dimensions.
+ 
+@@ -18706,7 +18706,7 @@
+     def show3d(self, bgcolor=(1,1,1), vertex_colors=None, vertex_size=0.06,
+                      edge_colors=None, edge_size=0.02, edge_size2=0.0325,
+                      pos3d=None, color_by_label=False,
+-                     engine='jmol', **kwds):
++                     engine='tachyon', **kwds):
+         """
+         Plots the graph using Tachyon, and shows the resulting plot.
+ 
+--- a/sage/src/sage/plot/plot3d/base.pyx
++++ b/sage/src/sage/plot/plot3d/base.pyx
+@@ -136,11 +136,11 @@
+             viewer = None
+         # select suitable default
+         if viewer is None:
+-            viewer = 'jmol'
++            viewer = 'canvas3d'
+         # fall back to 2d image if necessary
+-        if viewer == 'canvas3d' and not can_view_canvas3d:   viewer = 'jmol'
+-        if viewer == 'wavefront' and not can_view_wavefront: viewer = 'jmol'
+-        if viewer == 'jmol' and not can_view_jmol:           viewer = 'tachyon'
++        if viewer == 'jmol' and not can_view_jmol:           viewer = 'canvas3d'
++        if viewer == 'wavefront' and not can_view_wavefront: viewer = 'canvas3d'
++        if viewer == 'canvas3d' and not can_view_canvas3d:   viewer = 'tachyon'
+         ### Second, return the corresponding graphics file
+         if viewer == 'jmol':
+             return self._rich_repr_jmol(**opts)
+@@ -1747,7 +1747,7 @@
+         return self
+ 
+ # if you add any default parameters you must update some code below
+-SHOW_DEFAULTS = {'viewer': 'jmol',
++SHOW_DEFAULTS = {'viewer': 'canvas3d',
+                  'verbosity': 0,
+                  'figsize': 5,
+                  'aspect_ratio': "automatic",

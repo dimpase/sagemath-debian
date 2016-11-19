@@ -13,10 +13,10 @@ fixsage-revert-lazy-import-dependent-on-python-patch.patch
 fixsage-revert-minor-feature-dependent-on-python-patch.patch
 fixsage-dont-require-DISPLAY.patch
 fixsage-allow-override-sage-local.patch
+fixsage-pbori-boost1.62-hashes.patch
 
 # due to us using a different version of a dependency than what Sage uses
 # we'll probably drop these when importing the next version of Sage
-fixsage-pbori-boost1.62-hashes.patch
 version-python-2.7.11.patch
 version-ecm-7.patch
 version-singular-4.patch
@@ -28,6 +28,7 @@ version-planarity-3.patch
 
 # due to Debian's inherent differences with upstream;
 # we're unlikely to forward these upstream
+disable-jmol.patch
 debian-fakeroot.patch
 debian-paths.patch
 debian-maxima.patch
