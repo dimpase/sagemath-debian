@@ -28,6 +28,7 @@ version-planarity-3.patch
 
 # due to Debian's inherent differences with upstream;
 # we're unlikely to forward these upstream
+debian-fakeroot.patch
 debian-paths.patch
 debian-maxima.patch
 debian-singular.patch

@@ -1,0 +1,13 @@
+Description: We are building with fakeroot which makes this check fail.
+Author: Tobias Hansen <thansen@debian.org>
+
+--- a/sage/configure.ac
++++ b/sage/configure.ac
+@@ -89,7 +89,6 @@
+ SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ 
+ #---------------------------------------------------------
+-AX_CHECK_ROOT([AC_MSG_ERROR([You cannot build Sage as root, switch to an unpriviledged user])], [])
+ 
+ # Check whether we are on a supported platform
+ AC_CANONICAL_BUILD()
