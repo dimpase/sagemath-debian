@@ -139,8 +139,8 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# to detect a previous successful (override_)dh_auto_build, so if we run
 	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
 	# (and then this target) without trying (override_)dh_auto_build again.
-	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log; sleep 0
-	# sleep 0 in order not to abort the package build upon failing tests
+	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log || true
+	debian/rules had-few-failures
 endif
 
 # If the docbuild fails and you want to try again, you should run this first.
@@ -162,14 +162,18 @@ build-dep:
 	else sudo apt-get install --no-install-recommends sagemath-build-deps; fi
 	rm -f sagemath-build-deps_$(DEB_VERSION)_all.deb
 
+had-few-failures:
+	# Allow < 80 tests to fail, but no "special" failures like Killed etc
+	test "$$(debian/rules -s --no-print-directory failed-tests-total)" -lt 80
+
 failed-tests:
 	grep '^sage -t .*  #' sage/logs/ptestlong.log
 
 FAILED_TESTS = debian/rules -s --no-print-directory failed-tests
 
 failed-tests-total:
-	grep "Failed example:" sage/logs/ptestlong.log | awk '{s++} END {print s}'
-	$(FAILED_TESTS) | grep '# [^0-9]'
+	grep "Failed example:" sage/logs/ptestlong.log | wc -l
+	$(FAILED_TESTS) | { ! grep '# [^0-9]'; }
 
 failed-tests-by-name:
 	$(FAILED_TESTS) | sort '-t#' -k1
