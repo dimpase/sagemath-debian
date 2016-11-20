@@ -1,0 +1,18 @@
+Description: Set the default size of the PARI stack to 16*10^6 bytes
+ This gets rid of some of the warnings of pari increasing the stack size
+ which cause tests to fail.
+ TODO: Modify the tests which need a larger stack size to ignore the
+ warning.
+Author: Tobias Hansen <thansen@debian.org>
+
+--- a/sage/src/sage/libs/pari/pari_instance.pyx
++++ b/sage/src/sage/libs/pari/pari_instance.pyx
+@@ -464,7 +464,7 @@
+ 
+ @cython.final
+ cdef class PariInstance(PariInstance_auto):
+-    def __init__(self, long size=1000000, unsigned long maxprime=500000):
++    def __init__(self, long size=16000000, unsigned long maxprime=500000):
+         """
+         Initialize the PARI system.
+ 

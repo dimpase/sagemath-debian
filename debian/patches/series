@@ -37,6 +37,7 @@ debian-singular.patch
 debian-libgap-sage.patch
 debian-rubiks.patch
 debian-pari.patch
+debian-pari-stackwarn.patch
 debian-nauty.patch
 debian-gsl-cblas.patch
 debian-arb.patch
