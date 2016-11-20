@@ -90,7 +90,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
  
  
-@@ -654,7 +654,7 @@
+@@ -647,7 +647,7 @@
  print('Cleaning up stale installed files....')
  t = time.time()
  from sage_setup.clean import clean_install_dir
@@ -125,7 +125,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1004,8 +1004,7 @@
+@@ -1003,8 +1003,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else

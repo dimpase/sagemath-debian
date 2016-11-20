@@ -21,6 +21,7 @@ version-python-2.7.11.patch
 version-ecm-7.patch
 version-singular-4.patch
 version-cddlib-094h.patch
+version-cython-0.25.patch
 version-glpk-4.60.patch
 version-pari-2.9-trac-21765.patch
 version-pari-2.9.patch
