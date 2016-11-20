@@ -22,7 +22,7 @@ Upload packages to NEW, ASAP
             we would remove JSmol, then graft the rest onto the existing debian jmol packaging
         * If we do not have thebe, it should be enough to undo the changes of
           https://trac.sagemath.org/ticket/20690 to avoid breakage.
-    *   sagetex
+    *   sagetex (already in experimental, does not need to pass NEW)
 
 *   Packages that have issues preventing testing migration:
     *   cython 0.24.1
@@ -42,11 +42,6 @@ Upload all packages and make sure they migrate to testing after 10 days
         -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
     *   gap
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=844789
-
-*   Sage updates:
-    *   Fix XXX doctests related to planarity 3.0
-        https://trac.sagemath.org/ticket/21774
-        or disable it, if this is too hard
 
 ## Later
 
