@@ -45,6 +45,7 @@ debian-cython-sys-path.patch
 debian-sage-gap-reset.patch
 debian-pip-nowarn.patch
 # this next one contains some stuff that should be forwarded upstream
+debian-test-optional.patch
 debian-fix-trivial-test-cases.patch
 debian-install-paths.patch
 
