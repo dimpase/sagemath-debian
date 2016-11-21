@@ -1,3 +1,7 @@
+Description: Change to work with Debians maxima-sage packages
+ Most changes are to find the differently named binary.
+Author: Tobias Hansen <thansen@debian.org>
+
 --- a/sage/src/sage/interfaces/maxima_lib.py
 +++ b/sage/src/sage/interfaces/maxima_lib.py
 @@ -98,7 +98,7 @@

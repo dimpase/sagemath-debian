@@ -1,3 +1,7 @@
+Description: Find rubiks binaries
+ They have different names in Debian.
+Author: Tobias Hansen <thansen@debian.org>
+
 --- a/sage/src/sage/interfaces/rubik.py
 +++ b/sage/src/sage/interfaces/rubik.py
 @@ -90,7 +90,7 @@

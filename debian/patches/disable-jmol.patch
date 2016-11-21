@@ -1,3 +1,7 @@
+Description: Set canvas3d and tachyon as default 3D viewers
+ Since we don't have a recent  version of jmol in Debian.
+Author: Tobias Hansen <thansen@debian.org>
+
 --- a/sage/src/sage/graphs/generic_graph.py
 +++ b/sage/src/sage/graphs/generic_graph.py
 @@ -18475,7 +18475,7 @@
