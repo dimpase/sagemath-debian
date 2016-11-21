@@ -183,6 +183,7 @@ python_modules = [
     'pytz',
     'rpy2',
     'sagenb',
+    'sagenb_export',
     'scipy',
     'setuptools',
     'setuptools_scm',

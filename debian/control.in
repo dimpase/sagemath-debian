@@ -154,6 +154,7 @@ Build-Depends:
  python-pygments,
  python-rpy2,
  python-sagenb (>= 0.13),
+ python-sagenb-export,
  python-scipy,
  python-setuptools,
  python-setuptools-scm,
