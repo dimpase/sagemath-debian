@@ -9,19 +9,22 @@ Uploaders: Tobias Hansen <thansen@debian.org>,
            Ximin Luo <infinity0@debian.org>
 Standards-Version: 3.9.8
 X-Python-Version: 2.7
+Homepage: http://www.sagemath.org/
+Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/sagemath.git
+Vcs-Git: https://anonscm.debian.org/git/debian-science/packages/sagemath.git
 Build-Depends:
  autoconf,
  ccache <pkg.sagemath.ccache>,
  iso-codes,
  cysignals-tools (>= 1.2.0+ds-2) <!nodoc>,
  cython (>= 0.25),
- debhelper (>= 9),
+ debhelper (>= 10),
  dh-python,
- dpkg-dev (>= 1.15.7~),
+ dpkg-dev (>= 1.17.14),
  ecl (>= 15.3.7+dfsg1-2),
  eclib-tools (>= 20160720-1+b1),
  f2c,
- fflas-ffpack (>= 2.2.2-1),
+ fflas-ffpack (>= 2.2.2),
  flintqs,
  gap-core (>= 4r8p6),
  libgap-sage-dev (>= 4.8.6),
@@ -39,8 +42,8 @@ Build-Depends:
  libboost-dev (>= 1.55),
  libbrial-dev (>= 0.8.5-0+sage4),
  libbrial-groebner-dev (>= 0.8.5-0+sage4),
- libcdd-dev (>= 094h-1),
- libcdd-tools (>= 094h-1),
+ libcdd-dev (>= 094h),
+ libcdd-tools (>= 094h),
  libcliquer-dev,
  libec-dev (>= 20160720-1+b1),
  libecm-dev,
@@ -94,6 +97,7 @@ Build-Depends:
  pari-galdata,
  pari-seadata,
  pkg-config,
+ python,
  python2.7-dev,
  python-alabaster,
  python-babel,
@@ -190,7 +194,7 @@ Build-Depends:
 Package: sagemath
 Architecture: any
 Multi-Arch: same
-Description: Sage: Open Source Mathematical Software
+Description: SageMath: Open Source Mathematical Software
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
  matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
@@ -206,7 +210,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}, sagemath-common
 
 Package: sagemath-common
 Architecture: all
-Description: Sage: Open Source Mathematical Software
+Description: SageMath: Open Source Mathematical Software - architecture-independent files
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
  matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined

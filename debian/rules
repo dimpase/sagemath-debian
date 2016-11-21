@@ -19,8 +19,8 @@ endif
 # Your rebuilds will be *much quicker*.
 ifneq (,$(filter pkg.sagemath.ccache,$(DEB_BUILD_PROFILES)))
 export PATH := /usr/lib/ccache:$(PATH)
-export CCACHE_DIR := $(PWD)/debian/ccache
-export CCACHE_BASEDIR := $(PWD)/debian/build
+export CCACHE_DIR := $(CURDIR)/debian/ccache
+export CCACHE_BASEDIR := $(CURDIR)/debian/build
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 

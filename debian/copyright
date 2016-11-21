@@ -3,11 +3,11 @@ Upstream-Name: SageMath
 Source: https://www.sagemath.org/
 
 Files: *
-Copyright: Copyright (C) 2013 Felix Salfelder, Tobias Hansen
+Copyright: 2013-2016 Debian SageMath Maintainers <debian-science-sagemath@lists.alioth.debian.org>
 License: GPL-2+
 
-Files: *
-Copyright: 2013-2016 Debian SageMath Maintainers <debian-science-sagemath@lists.alioth.debian.org>
+Files: debian/*
+Copyright: Copyright (C) 2013-2016 Felix Salfelder, Tobias Hansen, Julien Puydt, Jerome Benoit, Ximin Luo
 License: GPL-2+
 
 License: GPL-2+
