@@ -33,4 +33,5 @@ usr/bin/sage-valgrind
 usr/bin/sage-version.sh
 usr/share/sage/ext
 usr/share/jupyter/*
-usr/lib/python2.7/dist-packages/sage*
+usr/lib/python2.7/dist-packages/sage/*
+usr/lib/python2.7/dist-packages/sage*.egg-info
