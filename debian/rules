@@ -30,13 +30,14 @@ export PYTHONPATH = $(shell pwd)/debian/build/usr/lib/python2.7/dist-packages
 LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3-)
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
 DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
+DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
 
 %:
 	dh $@ --with=python2,sphinxdoc
 
 build: gencontrol
 
-gencontrol: $(DOCS_INSTALL) debian/control
+gencontrol: $(DOCS_INSTALL) $(DOCS_DOC_BASE) debian/control
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
@@ -45,6 +46,9 @@ debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in debian/rules
 	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
 
 debian/sagemath-doc-%.install: debian/sagemath-doc-LANG.install.in debian/rules
+	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
+
+debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
 	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
 
 override_dh_auto_build: prune
