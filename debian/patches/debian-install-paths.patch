@@ -19,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  elif [ -f ../../sage -a -d ../../build ]; then
      NEW_SAGE_ROOT="../.."
 +elif [ "$(which "$(basename "$0")")" = "$0" ]; then
-+    SAGE_LOCAL="${SAGE_LOCAL:-$(dirname $(dirname "$0"))}"
++    export SAGE_LOCAL="${SAGE_LOCAL:-$(dirname $(dirname "$0"))}"
 +    SAGE_ROOT="$SAGE_LOCAL"
 +    NEW_SAGE_ROOT="$SAGE_ROOT"
  else
