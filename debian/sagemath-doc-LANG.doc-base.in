@@ -2,16 +2,7 @@ Document: sagemath-doc-LANG
 Title: SageMath Manual (LANGUAGE)
 Author: The Sage Development Team
 Abstract: This is the manual for SageMath in LANGUAGE.
- SageMath is a free open-source mathematics software system licensed under the
- GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
- matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
- power through a common, Python-based language or directly via interfaces or
- wrappers.
- .
- Note that the English documentation (sagemath-doc-en) contains far
- more documentation than any of the other languages. So if you're finding this
- package lacking in content, then you could try that one as well.
 Section: Science/Mathematics
 Format: HTML
-Index: /usr/share/doc/sage/html/LANG/index.html
+Index: /usr/share/doc/sage/html/LANG/SUBDIRindex.html
 Files: /usr/share/doc/sage/html/LANG/*

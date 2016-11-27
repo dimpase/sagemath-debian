@@ -48,8 +48,18 @@ debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in debian/rules
 debian/sagemath-doc-%.install: debian/sagemath-doc-LANG.install.in debian/rules
 	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
 
+debian/sagemath-doc-en.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
+	sed -e "s/LANGUAGE/$$(debian/lang.py en)/g" -e 's/LANG/en/g' -e 's/SUBDIR//g' < "$<" > "$@"
+
+debian/sagemath-doc-ca.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
+	sed -e "s/LANGUAGE/$$(debian/lang.py ca)/g" -e 's/LANG/ca/g' -e 's/SUBDIR/intro\//g' < "$<" > "$@"
+
 debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
-	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
+	if [ "$*" = "hu" -o "$*" = "it" -o "$*" = "tr" ]; then \
+		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/a_tour_of_sage\//g' < "$<" > "$@"; \
+	else \
+		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/tutorial\//g' < "$<" > "$@"; \
+	fi
 
 override_dh_auto_build: prune
 	$(MAKE) --directory=sage $(DEB_BUILD_TARGET)
