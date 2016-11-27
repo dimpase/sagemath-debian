@@ -195,7 +195,7 @@ Build-Depends:
 Package: sagemath
 Architecture: any
 Multi-Arch: same
-Description: SageMath: Open Source Mathematical Software
+Description: Open Source Mathematical Software
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
  matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
@@ -211,7 +211,8 @@ Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}, sagemath-common
 
 Package: sagemath-common
 Architecture: all
-Description: SageMath: Open Source Mathematical Software - architecture-independent files
+Multi-Arch: foreign
+Description: Open Source Mathematical Software - architecture-independent files
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
  matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
