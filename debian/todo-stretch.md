@@ -5,37 +5,35 @@ Upload packages to NEW, ASAP
 
 *   New packages:
     *   ipywidgets (including jupyter-js-widgets, widgetsnbextension)
-        plus dependencies:
-        * d3-format
-        * html2canvas
         * more info starting from https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161114/thread.html#429
     *   sagenb
         * lots of JS deps, need to evaluate ASAP
-    *   sagenb_export
-        * Done in git; needs testing with jupyter-notebook, then can upload
+        * Fix "Error typesetting mathematics" with every output, seems to be mathjax related.
     *   sagemath
         * ignore known failing doctests
+        * figure out Depends: of sagemath package
+        * We have plenty lintian warnings about files in /usr/bin
+          (binary-without-manpage, script-with-language-extension, executable-not-elf-or-script)
+          Maybe we should install most of that to /usr/share/sage/bin.
+        * Make test suite work with installed sage.
         * test with missing jmol (maybe set canvas3d as default in
           src/sage/plot/plot3d/base.pyx / src/sage/graphs/generic_graph.py ?)
           * might be possible to package jmol and disable only jsmol, if that's easier
             see https://github.com/infinity0/jmol/ and its Makefile
             we would remove JSmol, then graft the rest onto the existing debian jmol packaging
-        * If we do not have thebe, it should be enough to undo the changes of
-          https://trac.sagemath.org/ticket/20690 to avoid breakage.
     *   sagetex (already in experimental, does not need to pass NEW)
 
 *   Packages that have issues preventing testing migration:
-    *   cython 0.24.1
     *   ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
     *   fflas-ffpack 1.6.0
     *   linbox 1.4.2
     *   pyzmq
+    *   zeromq3
 
 ## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
 Upload all packages and make sure they migrate to testing after 10 days
 
 *   Require patches:
-    *   cython
     *   numpy (only test fixes)
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
