@@ -169,12 +169,9 @@ reset: gencontrol clean clean-docbuild
 	cd sage; git clean -fdx && git submodule update --force
 	QUILT_PATCHES=debian/patches quilt push -a
 
-build-dep:
-	mk-build-deps
-	sudo dpkg --force-all -i sagemath-build-deps_$(DEB_VERSION)_all.deb
-	if which aptitude >/dev/null; then sudo aptitude install -R sagemath-build-deps; \
-	else sudo apt-get install --no-install-recommends sagemath-build-deps; fi
-	rm -f sagemath-build-deps_$(DEB_VERSION)_all.deb
+build-dep: debian/control
+	if which aptitude >/dev/null; then sudo mk-build-deps -ir -t 'aptitude -R'; \
+	else sudo mk-build-deps -ir; fi
 
 had-few-failures:
 	# Allow < 80 tests to fail, but no "special" failures like Killed etc
@@ -182,10 +179,9 @@ had-few-failures:
 	# Never fail, as long as we are in test mode. Change before uploading.
 	sleep 0
 
+FAILED_TESTS = grep '^sage -t .*  \#' sage/logs/ptestlong.log
 failed-tests:
-	grep '^sage -t .*  #' sage/logs/ptestlong.log
-
-FAILED_TESTS = debian/rules -s --no-print-directory failed-tests
+	$(FAILED_TESTS)
 
 failed-tests-total:
 	grep "Failed example:" sage/logs/ptestlong.log | wc -l
