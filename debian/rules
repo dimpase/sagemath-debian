@@ -147,7 +147,7 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
 	# (and then this target) without trying (override_)dh_auto_build again.
 	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log || true
-	debian/rules had-few-failures
+	test $$(dpkg-parsechangelog -SDistribution) = UNRELEASED || debian/rules had-few-failures
 endif
 
 # If the docbuild fails and you want to try again, you should run this first.
@@ -168,15 +168,14 @@ build-dep: debian/control
 
 had-few-failures:
 	# Allow < 80 tests to fail, but no "special" failures like Killed etc
-	# test "$$(debian/rules -s --no-print-directory failed-tests-total)" -lt 80
-	# Never fail, as long as we are in test mode. Change before uploading.
-	sleep 0
+	test "$$(debian/rules -s --no-print-directory failed-tests-total)" -lt 80
 
 FAILED_TESTS = grep '^sage -t .*  \#' sage/logs/ptestlong.log
 failed-tests:
 	$(FAILED_TESTS)
 
 failed-tests-total:
+	test -f sage/logs/ptestlong.log
 	grep "Failed example:" sage/logs/ptestlong.log | wc -l
 	$(FAILED_TESTS) | { ! grep '# [^0-9]'; }
 
