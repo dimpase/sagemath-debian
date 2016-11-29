@@ -2,18 +2,7 @@
 
 include /usr/share/dpkg/pkg-info.mk
 
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	export MAKE = make -j$(NUMJOBS)
-else
-	export MAKE = make -j4
-endif
-
-ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-	DEB_BUILD_TARGET = build
-else
-	DEB_BUILD_TARGET = all
-endif
+#export DH_VERBOSE=1
 
 # Use ccache if pkg.sagemath.ccache build-profile is active.
 # Your rebuilds will be *much quicker*.
@@ -35,9 +24,7 @@ DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
 %:
 	dh $@ --with=python2,sphinxdoc
 
-build: gencontrol
-
-gencontrol: $(DOCS_INSTALL) $(DOCS_DOC_BASE) debian/control
+binary binary-arch binary-indep build build-arch build-indep clean install install-arch install-indep: debian/control
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
@@ -61,8 +48,13 @@ debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rule
 		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/tutorial\//g' < "$<" > "$@"; \
 	fi
 
+ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+	DEB_BUILD_TARGET = build
+else
+	DEB_BUILD_TARGET = all
+endif
 override_dh_auto_build: prune
-	$(MAKE) --directory=sage $(DEB_BUILD_TARGET)
+	dh_auto_build -Dsage -- $(DEB_BUILD_TARGET)
 
 override_dh_auto_test: ptestlong
 
@@ -79,12 +71,12 @@ override_dh_auto_install:
 # non-docs without wiping away the docs we previously built, to save time.
 override_dh_auto_clean:
 ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-	$(MAKE) --directory=sage -k clean sagelib-clean misc-clean || true
+	dh_auto_clean -Dsage -- -k clean sagelib-clean misc-clean || true
 else
-	dh_auto_clean -- --directory=sage
+	dh_auto_clean -Dsage -- distclean
 endif
 
-override_dh_install:
+override_dh_install: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 	dh_install --package sagemath-common -X.so
 	dh_install --remaining-packages --list-missing
 
@@ -129,6 +121,7 @@ else
 preserve_docs = $(1)
 endif
 override_dh_clean:
+	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
@@ -136,7 +129,7 @@ get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
 	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
 
-prune:
+prune: debian/control
 	cd debian/pruner && autoconf -I m4
 	cd debian/pruner && ./configure --with-sage-root="$(shell pwd)/sage"
 	cd sage && python ../debian/pruner/pruner.py
@@ -164,7 +157,7 @@ endif
 clean-docbuild:
 	rm -rf debian/build/usr/share/doc/sage
 
-reset: gencontrol clean clean-docbuild
+reset: clean clean-docbuild
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	cd sage; git clean -fdx && git submodule update --force
 	QUILT_PATCHES=debian/patches quilt push -a
@@ -213,4 +206,4 @@ failed-tests-by-cause:
 	  | sort | uniq -c | sort -k1n,1n \
 	  | less -S +G
 
-.PHONY: gencontrol ptestlong clean-doc-build reset build-dep gencontrol
+.PHONY: ptestlong clean-doc-build reset build-dep
