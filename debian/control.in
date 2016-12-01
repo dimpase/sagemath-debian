@@ -85,7 +85,6 @@ Build-Depends:
  libsingular4-dev (>= 4.0.3-p3+ds-2),
  libsqlite3-dev,
  libsymmetrica-dev,
- libtachyon-dev,
  libzn-poly-dev,
  maxima-sage,
  maxima-sage-doc,
