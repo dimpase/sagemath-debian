@@ -14,10 +14,14 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -118,6 +118,10 @@
-     NEW_SAGE_ROOT="."
- elif [ -f ../../sage -a -d ../../build ]; then
-     NEW_SAGE_ROOT="../.."
+@@ -114,10 +114,10 @@
+ # or a guessed value based on pwd.
+ if [ -n "$SAGE_ROOT" ]; then
+     NEW_SAGE_ROOT="$SAGE_ROOT"
+-elif [ -f sage -a -d build ]; then
+-    NEW_SAGE_ROOT="."
+-elif [ -f ../../sage -a -d ../../build ]; then
+-    NEW_SAGE_ROOT="../.."
 +elif [ "$(which "$(basename "$0")")" = "$0" ]; then
 +    export SAGE_LOCAL="${SAGE_LOCAL:-$(dirname $(dirname "$0"))}"
 +    SAGE_ROOT="$SAGE_LOCAL"
@@ -25,7 +29,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  else
      # No idea what SAGE_ROOT should be...
      echo >&2 "Error: You must set the SAGE_ROOT environment variable or run this"
-@@ -128,17 +132,6 @@
+@@ -128,17 +128,6 @@
  # Make NEW_SAGE_ROOT absolute
  NEW_SAGE_ROOT=`cd "$NEW_SAGE_ROOT" && pwd -P`
  
@@ -43,7 +47,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Warn if NEW_SAGE_ROOT does not equal the old SAGE_ROOT
  if [ "$SAGE_ROOT" != "$NEW_SAGE_ROOT" -a -n "$SAGE_ROOT" ]; then
      echo >&2 "Warning: overwriting SAGE_ROOT environment variable:"
-@@ -420,8 +413,10 @@
+@@ -420,8 +409,10 @@
      export PYTHONHOME
  fi
  

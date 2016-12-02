@@ -13,6 +13,7 @@ export CCACHE_BASEDIR := $(CURDIR)/debian/build
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
+export SAGE_ROOT = $(shell pwd)/sage
 export SAGE_LOCAL = $(shell pwd)/debian/build/usr
 export PYTHONPATH = $(shell pwd)/debian/build/usr/lib/python2.7/dist-packages
 
