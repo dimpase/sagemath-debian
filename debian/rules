@@ -49,9 +49,9 @@ debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rule
 	fi
 
 ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-	DEB_BUILD_TARGET = build
+DEB_BUILD_TARGET = build
 else
-	DEB_BUILD_TARGET = all
+DEB_BUILD_TARGET = all
 endif
 override_dh_auto_build: prune
 	dh_auto_build -Dsage -- $(DEB_BUILD_TARGET)
