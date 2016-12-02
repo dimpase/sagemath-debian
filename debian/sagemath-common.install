@@ -35,3 +35,4 @@ usr/share/sage/ext
 usr/share/jupyter/*
 usr/lib/python2.7/dist-packages/sage/*
 usr/lib/python2.7/dist-packages/sage*.egg-info
+sage/local/var/lib/sage/installed usr/share/sage

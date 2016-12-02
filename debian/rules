@@ -14,6 +14,7 @@ $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
 export SAGE_ROOT = $(shell pwd)/sage
+export SAGE_SPKG_INST = $(shell pwd)/sage/local/var/lib/sage/installed
 export SAGE_LOCAL = $(shell pwd)/debian/build/usr
 export PYTHONPATH = $(shell pwd)/debian/build/usr/lib/python2.7/dist-packages
 
