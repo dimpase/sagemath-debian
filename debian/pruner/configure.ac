@@ -321,8 +321,7 @@ AC_SUBST(HAS_TACHYON)
 HAS_THEBE="True"
 AC_SUBST(HAS_THEBE)
 
-# FIXME(widgetsnbextension): we don't have a package yet, but don't want to install from sage
-HAS_WIDGETSNBEXTENSION="True"
+AC_CHECK_FILE(/usr/share/jupyter/nbextensions/jupyter-js-widgets/extension.js, HAS_WIDGETSNBEXTENSION="True", HAS_WIDGETSNBEXTENSION="False")
 AC_SUBST(HAS_WIDGETSNBEXTENSION)
 
 # FIXME(zeromq): useful only for pyzmq

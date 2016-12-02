@@ -161,6 +161,7 @@ python_modules = [
     'imagesize',
     'ipykernel',
     'ipython_genutils',
+    'ipywidgets',
     'itsdangerous',
     'jinja2',
     'jsonschema',

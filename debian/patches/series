@@ -1,6 +1,5 @@
 # fixes to Sage's code, an inherent problem on their side
 # we should probably forward these upstream
-debian-temp-userdir.patch
 python_security.patch
 silence_debian_bug_780186.patch
 silence_ecl_opt_signals.patch

@@ -5,9 +5,9 @@ Upload packages to NEW, ASAP
 
 *   New packages:
     *   ipywidgets (including jupyter-js-widgets, widgetsnbextension)
-        * more info starting from https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161114/thread.html#429
+        * only a few things left, see d/TODO in https://anonscm.debian.org/git/python-modules/packages/ipywidgets.git
     *   sagenb
-        * lots of JS deps, need to evaluate ASAP
+        * lots of JS deps, will have to bundle quite a lot and hope ftp-masters are cool
         * Fix "Error typesetting mathematics" with every output, seems to be mathjax related.
     *   sagemath
         * ignore known failing doctests
