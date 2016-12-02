@@ -47,7 +47,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Warn if NEW_SAGE_ROOT does not equal the old SAGE_ROOT
  if [ "$SAGE_ROOT" != "$NEW_SAGE_ROOT" -a -n "$SAGE_ROOT" ]; then
      echo >&2 "Warning: overwriting SAGE_ROOT environment variable:"
-@@ -420,8 +409,10 @@
+@@ -267,7 +256,9 @@
+ export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
+ export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+-export SAGE_SRC="$SAGE_ROOT/src"
++if [ -z "$SAGE_SRC" ]; then
++    export SAGE_SRC="$SAGE_ROOT/src"
++fi
+ export SAGE_DOC_SRC="$SAGE_SRC/doc"
+ export SAGE_DOC="$SAGE_SHARE/doc/sage"
+ 
+@@ -420,8 +411,10 @@
      export PYTHONHOME
  fi
  
