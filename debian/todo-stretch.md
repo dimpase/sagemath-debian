@@ -9,6 +9,7 @@ Upload packages to NEW, ASAP
     *   sagenb
         * lots of JS deps, will have to bundle quite a lot and hope ftp-masters are cool
         * Fix "Error typesetting mathematics" with every output, seems to be mathjax related.
+        * needs debian/copyright
     *   sagemath
         * ignore known failing doctests
         * figure out Depends: of sagemath package
@@ -24,9 +25,6 @@ Upload packages to NEW, ASAP
     *   sagetex (already in experimental, does not need to pass NEW)
 
 *   Packages that have issues preventing testing migration:
-    *   ecl 15.3.7+dfsg1-2 (because of libatomic-ops)
-    *   fflas-ffpack 1.6.0
-    *   linbox 1.4.2
     *   pyzmq
     *   zeromq3
 
@@ -41,12 +39,14 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   gap
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=844789
 
+*   Try to fix some FTBFS:
+    *   fflas-ffpack (no package on armel, mips, s390x)
+
 ## Later
 
 *   Updates that may not be needed:
     *   configparser 3.5
     *   cvxopt 1.1.8
-    *   pytz 2016.4
 
 *   New packages
     *   thebe
