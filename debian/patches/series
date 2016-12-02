@@ -26,9 +26,11 @@ version-pari-2.9-trac-21765.patch
 version-pari-2.9.patch
 version-planarity-3.patch
 
+#This one is disabled as long as we keep sage's jmol.
+#disable-jmol.patch
+
 # due to Debian's inherent differences with upstream;
 # we're unlikely to forward these upstream
-disable-jmol.patch
 debian-fakeroot.patch
 debian-paths.patch
 debian-maxima.patch
