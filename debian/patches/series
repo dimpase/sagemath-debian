@@ -50,6 +50,7 @@ debian-install-paths.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
+debian-skip-check.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch
 version-temp-singular-4-extra-fixes.patch
