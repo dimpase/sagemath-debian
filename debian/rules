@@ -30,7 +30,7 @@ binary build clean install: debian/control
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
-	sed -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' < "$<" > "$@"
+	sed -i -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' "$@"
 
 debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in debian/rules
 	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
