@@ -66,6 +66,7 @@ override_dh_auto_install:
 # We built .pyo to make the docbuild/tests go faster, but as per Debian policy
 # we don't distribute them.
 	find debian/build '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
+	rm -f debian/build/usr/bin/*.bat
 	mkdir -p debian/tmp
 	mv debian/build/* debian/tmp
 # Don't try to rmdir debian/build if it's a mountpoint, useful for doing builds in /run/shm
