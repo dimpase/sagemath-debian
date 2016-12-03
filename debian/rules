@@ -68,7 +68,8 @@ override_dh_auto_install:
 	find debian/build '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
 	mkdir -p debian/tmp
 	mv debian/build/* debian/tmp
-	rmdir debian/build
+# Don't try to rmdir debian/build if it's a mountpoint, useful for doing builds in /run/shm
+	mountpoint debian/build || rmdir debian/build
 
 # If we see "nodoc", don't clean the docs. This allows us to rebuild just the
 # non-docs without wiping away the docs we previously built, to save time.
