@@ -143,8 +143,7 @@ AC_SUBST(HAS_IML)
 AC_CHECK_PROG(HAS_IPYTHON, ipython, "True", "False")
 AC_SUBST(HAS_IPYTHON)
 
-# FIXME(jmol): debian's version is too old, use sage's for now to avoid failing tests
-HAS_JMOL="False"
+AC_CHECK_FILE(/usr/bin/jmol, HAS_JMOL="True", HAS_JMOL="False")
 AC_SUBST(HAS_JMOL)
 
 AC_CHECK_PROG(HAS_JUPYTER_CLIENT, jupyter-kernelspec, "True", "False")
