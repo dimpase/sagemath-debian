@@ -24,12 +24,15 @@ of the logging output, there will be a summary of all the failures.
 After a successful build, you can run individual tests as follows. First, make
 sure you're in the top-level package directory, where debian/ is. Then:
 
- $ export SAGE_ROOT = $PWD/sage
- $ export SAGE_SPKG_INST = $PWD/sage/local/var/lib/sage/installed
+ $ export SAGE_ROOT=$PWD/sage
+ $ export SAGE_SPKG_INST=$PWD/sage/local/var/lib/sage/installed
  $ export SAGE_LOCAL=$PWD/debian/build/usr
  $ export PYTHONPATH=$SAGE_LOCAL/lib/python2.7/dist-packages
  $ cd sage
  sage$ ./sage -t --long src/sage/geometry/riemannian_manifolds/parametrized_surface3d.py
+
+If doing this after `dh_auto_install` has succeeded, then you'll want to change
+debian/build to debian/tmp in the above commands.
 
 One can also run the tests using the installed sage packages. To this end
 run in a sage source directory (with Debian patches applied)
