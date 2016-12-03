@@ -16,7 +16,8 @@ Upload packages to NEW, ASAP
         * We have plenty lintian warnings about files in /usr/bin
           (binary-without-manpage, script-with-language-extension, executable-not-elf-or-script)
           Maybe we should install most of that to /usr/share/sage/bin.
-        * Make test suite work with installed sage.
+        * We could create a package containing the (patched) sage sources to make
+          it easier to run the testsuite.
         * test with missing jmol (maybe set canvas3d as default in
           src/sage/plot/plot3d/base.pyx / src/sage/graphs/generic_graph.py ?)
           * might be possible to package jmol and disable only jsmol, if that's easier
