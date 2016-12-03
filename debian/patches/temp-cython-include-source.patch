@@ -1,5 +1,5 @@
-Description: Include the Cython headers from the source directory
- So they are found when running the tests without installing Sage.
+Description: Include the Cython headers from the source directory...
+ ...if the tests are run from a non-installed sage.
 Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/misc/cython.py
@@ -9,7 +9,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
      v, s = parse_keywords('cinclude', s)
 -    inc = [environ_parse(x.replace('"','').replace("'","")) for x in v] + sage_include_directories()
-+    inc = [environ_parse(x.replace('"','').replace("'","")) for x in v] + sage_include_directories(use_sources=True)
++    inc = [environ_parse(x.replace('"','').replace("'","")) for x in v] + sage_include_directories(use_sources=(SAGE_LOCAL != "/usr"))
      s = """\ninclude "cdefs.pxi"\n""" + s
      s = """\ninclude "cysignals/signals.pxi"  # ctrl-c interrupt block support\ninclude "stdsage.pxi"\n""" + s
      args, s = parse_keywords('cargs', s)
