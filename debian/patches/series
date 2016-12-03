@@ -52,6 +52,7 @@ debian-install-paths.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
+debian-scripts-dir.patch
 debian-skip-check.patch
 temp-disable-parallel-sphinx.patch
 temp-cython-include-source.patch

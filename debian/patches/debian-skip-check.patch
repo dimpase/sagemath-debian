@@ -5,7 +5,7 @@ Forwarded: not-needed
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -355,18 +355,6 @@
+@@ -360,18 +360,6 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
