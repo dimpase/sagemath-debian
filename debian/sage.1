@@ -1,0 +1,76 @@
+.TH SAGE "1" "December 2016" "sage" "User Commands"
+.SH NAME
+sage \- manual page for SageMath
+.SH DESCRIPTION
+SageMath is a free open-source mathematics software system licensed under the
+GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+power through a common, Python-based language or directly via interfaces or
+wrappers.
+.SS "Optional arguments:"
+.HP
+file.[sage|py|spyx] \fB\-\-\fR run given .sage, .py or .spyx file
+.HP
+\fB\-advanced\fR           \fB\-\-\fR list all command line options
+.HP
+\fB\-c\fR <cmd>            \fB\-\-\fR Evaluates cmd as sage code
+.HP
+\fB\-experimental\fR       \fB\-\-\fR list all experimental packages that can be installed
+.HP
+\fB\-gap\fR [...]          \fB\-\-\fR run Sage's Gap with given arguments
+.HP
+\fB\-gap3\fR [...]         \fB\-\-\fR run Sage's Gap3 with given arguments
+.HP
+\fB\-gp\fR [...]           \fB\-\-\fR run Sage's PARI/GP calculator with given arguments
+.HP
+\fB\-h\fR, \-?              \fB\-\-\fR print this help message
+.HP
+\fB\-i\fR [packages]       \fB\-\-\fR install the given Sage packages
+.HP
+\fB\-pip\fR [...]          \fB\-\-\fR invoke pip, the Python package manager
+.HP
+\fB\-inotebook\fR [...]    \fB\-\-\fR start the *insecure* Sage notebook (deprecated)
+.HP
+\fB\-maxima\fR [...]       \fB\-\-\fR run Sage's Maxima with given arguments
+.HP
+\fB\-mwrank\fR [...]       \fB\-\-\fR run Sage's mwrank with given arguments
+.HP
+\fB\-\-notebook\fR=\fI\,[\/\fR...]    \fB\-\-\fR start the Sage notebook (valid options are
+\&'default', 'sagenb', 'jupyter', and 'export')
+.HP
+\fB\-n\fR, \fB\-\-notebook\fR      \fB\-\-\fR shortcut for \fB\-\-notebook\fR=\fI\,default\/\fR
+.HP
+\fB\-optional\fR           \fB\-\-\fR list all optional packages that can be installed
+.HP
+\fB\-python\fR [...]       \fB\-\-\fR run the Python interpreter
+.HP
+\fB\-R\fR [...]            \fB\-\-\fR run Sage's R with given arguments
+.HP
+\fB\-singular\fR [...]     \fB\-\-\fR run Sage's singular with given arguments
+.HP
+\fB\-sqlite3\fR [...]      \fB\-\-\fR run Sage's sqlite3 with given arguments
+.HP
+\fB\-root\fR               \fB\-\-\fR print the Sage root directory
+.TP
+\fB\-\-nodotsage\fR         \fB\-\-\fR run Sage without using the user's .sage directory:
+create and use a temporary .sage directory instead
+.TP
+\fB\-t\fR [options] <\-\-all|files|dir>
+\fB\-\-\fR test examples in .py, .pyx, .sage, .tex or .rst files
+.TP
+selected options:
+\fB\-\-long\fR \- include lines with the phrase 'long time'
+\fB\-\-verbose\fR \- print debugging output during the test
+\fB\-\-optional\fR \- controls which optional tests are run
+\fB\-\-sagenb\fR \- test all sagenb files
+\fB\-\-help\fR \- show all testing options
+.TP
+\fB\-v\fR, \fB\-version\fR        \fB\-\-\fR display Sage version information
+.PP
+usage: sage [options]
+Try 'sage \fB\-h\fR' for more information.
+.SH "SEE ALSO"
+The full documentation for
+.B sage
+is available in the sagemath-doc-en package (and less extensive in other languages in the corresponding packages).
+It is best accessed via the sage notebook.
