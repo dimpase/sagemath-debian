@@ -65,7 +65,6 @@ Build-Depends:
  libratpoints-dev,
  libreadline-dev,
  librw-dev,
- libsingular4-dev (>= 4.0.3-p3+ds-2),
  libsqlite3-dev,
  libsymmetrica-dev,
  libzn-poly-dev,

@@ -16,6 +16,7 @@
  lcalc (>= 1.23+dfsg-6+b1),
  libcdd-tools (>= 094h),
  libjs-mathjax,
+ libsingular4-dev (>= 4.0.3-p3+ds-2),
  maxima-sage,
  maxima-sage-doc,
  maxima-sage-share,
