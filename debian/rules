@@ -26,7 +26,7 @@ DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
 %:
 	dh $@ --with=python2,sphinxdoc
 
-binary binary-arch binary-indep build build-arch build-indep clean install install-arch install-indep: debian/control
+binary build clean install: debian/control
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
