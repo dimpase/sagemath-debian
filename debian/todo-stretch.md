@@ -12,10 +12,11 @@ Upload packages to NEW, ASAP
         * needs debian/copyright
     *   sagemath
         * ignore known failing doctests
-        * figure out Depends: of sagemath package
-        * We have plenty lintian warnings about files in /usr/bin
-          (binary-without-manpage, script-with-language-extension, executable-not-elf-or-script)
-          Maybe we should install most of that to /usr/share/sage/bin.
+        * ignore pari stack warnings (why does d/patches/deban-pari-stackwarn-2.patch not work?)
+        * When running the tests with the installed sage, there are many failing tests with:
+          ImportError: No module named common.conf
+        * create a separate package for the jupyter kernel
+        * make installation of sagenb optional
         * We could create a package containing the (patched) sage sources to make
           it easier to run the testsuite.
         * test with missing jmol (maybe set canvas3d as default in
