@@ -317,3 +317,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  def degseq_to_data(degree_sequence):
      """
+--- a/sage/src/sage/interfaces/jmoldata.py
++++ b/sage/src/sage/interfaces/jmoldata.py
+@@ -148,7 +148,7 @@
+             True
+         """
+         # Set up paths, file names and scripts
+-        jmolpath = os.path.join(SAGE_LOCAL, "share", "jmol", "JmolData.jar")
++        jmolpath = os.path.join("/usr", "share", "jmol", "JmolData.jar")
+         target_native = targetfile
+         import sys
+         if sys.platform == 'cygwin':
