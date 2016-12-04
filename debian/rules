@@ -142,7 +142,7 @@ get-orig-source:
 prune: debian/control
 	cd debian/pruner && autoconf -I m4
 	cd debian/pruner && ./configure --with-sage-root="$(shell pwd)/sage"
-	cd sage && python ../debian/pruner/pruner.py
+	cd sage && python ../debian/pruner/pruner.py ||	test $$(dpkg-parsechangelog -l../debian/changelog -SDistribution) = unstable-sage
 	touch prune
 
 ptestlong:
