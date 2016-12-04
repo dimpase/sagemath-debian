@@ -44,6 +44,9 @@ If doing this after `dh_auto_install` has succeeded (this is the case if you
 got some resulting .debs), then either change debian/build to debian/tmp in the
 above commands, or symlink the latter to the former.
 
+See https://www.sagemath.org/git-developer-guide/doctesting.html for more
+information and helpful tips.
+
 Debugging test failures
 =======================
 
@@ -98,11 +101,11 @@ There are three cases:
   $ DEB_BUILD_OPTIONS=nodoc debian/rules build
   
   This *should* only build the changed files. However we explicitly avoid
-  rebuilding the documentation, because incremental docbuild is broken
-  currently in upstream (#21612).
+  rebuilding the documentation, because incremental docbuild is currently
+  broken in upstream (#21612).
   
   If you are impatient, you can even cancel the build early using Ctrl-C -
-  after it copies .so files into debian/build - then running your test again.
+  after it copies .so files into debian/build - then run your test again.
 
 You may also find this useful:
 
@@ -126,7 +129,7 @@ results, please add your experience to the below summary.
 
 First, patch your local system:
 
-# fix 2 tests
+# fix 2 tests, see #840621
 sudo sed -e '/^class AppliedUndef/,${/def _sage_/,/^\s*$/d}' \
   -i /usr/lib/python2.7/dist-packages/sympy/core/function.py
 

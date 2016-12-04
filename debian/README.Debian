@@ -14,28 +14,6 @@ the package documentation for details. Help is needed!
 
 python-sagenb: SageNB HTTPS unsupported, because certtool is not yet in Debian.
 
-Running doctests
-================
-
-One can run the tests using the installed sage packages. First, get the source
-code for this package (`apt-get source sagemath`), and make sure the Debian
-patches are applied. Then, from any directory:
-
- *$ export -n SAGE_LOCAL SAGE_ROOT
- *$ SAGE_SRC=/path/to/sage/src sage -tp --long --logfile=ptestlong.log --all
-
-See https://www.sagemath.org/git-developer-guide/doctesting.html for more
-information and helpful tips.
-
-Feel free to upload your test logs somewhere and send links to them to our
-mailing list <debian-science-sagemath@lists.alioth.debian.org>. Please do not
-send your test logs directly, unless they are small (<400KB). Compressing them
-would be a good idea, if that helps to bring the size down.
-
-If you wish to help debug and fix test failures, see debian/README.source in
-the source package for more guidance on how to do that. In particular, you will
-need to build the source from scratch first.
-
 Known issues
 ============
 
@@ -59,5 +37,25 @@ ImportError                               Traceback (most recent call last)
 ImportError: No module named conf
 
 - SageNB doesn't load some stuff - see browser console
+  ^ should be fixed since our latest updates. Needs more testing though.
 
 - Jupyter doesn't load some stuff - see browser console
+
+Running doctests
+================
+
+One can run the tests using the installed sage packages. First, get the source
+code for this package (`apt-get source sagemath`), and make sure the Debian
+patches are applied. Then, from any directory:
+
+ *$ export -n SAGE_LOCAL SAGE_ROOT
+ *$ SAGE_SRC=/path/to/sage/src sage -tp --long --logfile=ptestlong.log --all
+
+Feel free to upload your test logs somewhere and send links to them to our
+mailing list <debian-science-sagemath@lists.alioth.debian.org>. Please do not
+send your test logs directly, unless they are small (<400KB). Compressing them
+would be a good idea, if that helps to bring the size down.
+
+If you wish to help debug and fix test failures, see debian/README.source in
+the source package for more guidance on how to do that. In particular, you will
+need to build the source from scratch first.
