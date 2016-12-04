@@ -1,0 +1,41 @@
+Description: Disable installation of JSmol nbextension
+ Since we are having difficulty packaging that
+ .
+ The other things (e.g. notebook iframes) don't cause doctest failures and
+ we already documented it in README.Debian
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -113,23 +113,6 @@
+         dst = os.path.join(self.nbextensions_dir, 'mathjax')
+         self.symlink(src, dst)
+ 
+-    def use_local_jsmol(self):
+-        """
+-        Symlink jsmol to the Jupyter notebook.
+-
+-        EXAMPLES::
+-
+-            sage: from sage.repl.ipython_kernel.install import SageKernelSpec
+-            sage: spec = SageKernelSpec()
+-            sage: spec.use_local_jsmol()
+-            sage: jsmol = os.path.join(spec.nbextensions_dir, 'jsmol')
+-            sage: os.path.isdir(jsmol)
+-            True
+-        """
+-        src = os.path.join(SAGE_LOCAL, 'share', 'jsmol')
+-        dst = os.path.join(self.nbextensions_dir, 'jsmol')
+-        self.symlink(src, dst)
+-
+     def _kernel_cmd(self):
+         """
+         Helper to construct the SageMath kernel command.
+@@ -235,7 +218,6 @@
+         """
+         instance = cls()
+         instance.use_local_mathjax()
+-        instance.use_local_jsmol()
+         instance._install_spec()
+         instance._symlink_resources()
+ 

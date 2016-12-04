@@ -18,11 +18,6 @@ Upload packages to NEW, ASAP
         * make installation of sagenb optional
         * We could create a package containing the (patched) sage sources to make
           it easier to run the testsuite.
-        * test with missing jmol (maybe set canvas3d as default in
-          src/sage/plot/plot3d/base.pyx / src/sage/graphs/generic_graph.py ?)
-          * might be possible to package jmol and disable only jsmol, if that's easier
-            see https://github.com/infinity0/jmol/ and its Makefile
-            we would remove JSmol, then graft the rest onto the existing debian jmol packaging
     *   sagetex (already in experimental, does not need to pass NEW)
 
 *   Packages that have issues preventing testing migration:
@@ -58,7 +53,6 @@ Upload all packages and make sure they migrate to testing after 10 days
 
 *   Ugly packages:
     *   jmol and jsmol (14.6.1)
-        probably just disable it for stretch
         "almost" done here:
           https://github.com/infinity0/jmol/
           https://github.com/infinity0/java2script/

@@ -143,7 +143,7 @@ AC_SUBST(HAS_IML)
 AC_CHECK_PROG(HAS_IPYTHON, ipython, "True", "False")
 AC_SUBST(HAS_IPYTHON)
 
-AC_CHECK_FILE(/usr/bin/jmol, HAS_JMOL="True", HAS_JMOL="False")
+AC_CHECK_FILE(/usr/share/jmol/Jmol.jar, HAS_JMOL="True", HAS_JMOL="False")
 AC_SUBST(HAS_JMOL)
 
 AC_CHECK_PROG(HAS_JUPYTER_CLIENT, jupyter-kernelspec, "True", "False")
