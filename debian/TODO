@@ -14,7 +14,6 @@ Upload packages to NEW, ASAP
         * ignore known failing doctests
         * When running the tests with the installed sage, there are many failing tests with:
           ImportError: No module named common.conf
-        * create a separate package for the jupyter kernel
         * make installation of sagenb optional
         * We could create a package containing the (patched) sage sources to make
           it easier to run the testsuite.

@@ -1,0 +1,8 @@
+ jupyter-client,
+ jupyter-core,
+ jupyter-nbextension-jupyter-js-widgets,
+ python-ipykernel,
+ python-ipywidgets,
+ python-nbconvert,
+ python-nbformat,
+ python-notebook,

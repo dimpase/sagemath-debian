@@ -14,6 +14,7 @@ Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/sagemath.gi
 Vcs-Git: https://anonscm.debian.org/git/debian-science/packages/sagemath.git
 Build-Depends:
  RUNTIME_DEPENDS
+ JUPYTER_DEPENDS
  autoconf,
  ccache <pkg.sagemath.ccache>,
  debhelper (>= 10),
@@ -86,10 +87,11 @@ Description: Open Source Mathematical Software
  Mission: Creating a viable free open source alternative to Magma, Maple,
  Mathematica and Matlab.
  .
- This package contains the main Sage installation.
+ This package contains the main SageMath installation.
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
  RUNTIME_DEPENDS
- sagemath-common
+ sagemath-common (= ${binary:Version})
+Recommends: sagemath-doc-en, sagemath-jupyter
 
 Package: sagemath-common
 Architecture: all
@@ -104,6 +106,23 @@ Description: Open Source Mathematical Software - architecture-independent files
  Mission: Creating a viable free open source alternative to Magma, Maple,
  Mathematica and Matlab.
  .
- This package contains the architecture-independent files of Sage.
+ This package contains the architecture-independent files of SageMath.
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}
-Recommends: sagemath-doc-en
+
+Package: sagemath-jupyter
+Architecture: all
+Multi-Arch: foreign
+Description: Open Source Mathematical Software - Jupyter kernel
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains the Jupyter kernel of SageMath.
+Depends:
+ JUPYTER_DEPENDS
+ sagemath (= ${binary:Version})

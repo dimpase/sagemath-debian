@@ -1,6 +1,5 @@
 usr/bin/sage
 debian/tmp/usr/bin/sage-* usr/share/sage/bin
 usr/share/sage/ext
-usr/share/jupyter/*
 usr/lib/python2.7/dist-packages/sage*
 sage/local/var/lib/sage/installed usr/share/sage
