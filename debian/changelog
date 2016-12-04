@@ -1,4 +1,4 @@
-sagemath (7.4-0sage1) unstable-sage; urgency=low
+sagemath (7.4-0sage2) unstable-sage; urgency=low
 
   * Initial package. (Closes: #841136)
 
