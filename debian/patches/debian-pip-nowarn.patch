@@ -1,15 +1,22 @@
 Description: Don't output pip warnings, otherwise some doctests fail
-Author: Ximin Luo <infinity0@debian.org>
+ This removes two types of warnings. "--no-index" suppresses messages from
+ pip advertising a new pip version. This was applied to sage in
+ https://trac.sagemath.org/ticket/21812
+ "--format=legacy" suppresses a warning that the default format will
+ change from legacy to columns. This is being discussed in
+ https://trac.sagemath.org/ticket/21835
+Author: Tobias Hansen <thansen@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/sage
-+++ b/sage/sage
-@@ -16,6 +16,7 @@
- # along with this program; if not, write to the Free Software
- # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+--- a/sage/src/sage/misc/package.py
++++ b/sage/src/sage/misc/package.py
+@@ -144,7 +144,7 @@
+         sage: d['beautifulsoup']   # optional - beautifulsoup
+         '...'
+     """
+-    proc = subprocess.Popen(["pip", "list"], stdout=subprocess.PIPE)
++    proc = subprocess.Popen(["pip", "list", "--no-index", "--format=legacy"], stdout=subprocess.PIPE)
+     stdout = str(proc.communicate()[0])
+     return dict((name.lower(), version) for name,version in PIP_VERSION.findall(stdout))
  
-+export PIP_DISABLE_PIP_VERSION_CHECK=1
- 
- # Set SAGE_ROOT to the location of the sage install, i.e. the directory
- # containing this shell script.  If unset, we will try to figure it out
