@@ -80,6 +80,10 @@ ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 else
 	dh_auto_clean -Dsage -- distclean
 endif
+	rm -rf sage/config
+	rm -f sage/build/make/Makefile-auto.in
+	rm -f sage/configure
+	rm -f sage/src/Makefile
 
 override_dh_install: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 	dh_install --package sagemath-common -X.so
