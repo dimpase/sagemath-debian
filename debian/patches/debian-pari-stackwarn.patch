@@ -18,7 +18,7 @@ Author: Tobias Hansen <thansen@debian.org>
          stack size::
  
              sage: a = pari('2^100000000')
-+              ***   Warning: increasing stack size to...
++              *** _^s: Warning: increasing stack size to...
  
          ``a`` is now a Python variable on the Python heap and does not
          take up any space on the PARI stack.  The PARI stack is still
@@ -245,7 +245,27 @@ Author: Tobias Hansen <thansen@debian.org>
          sage: pari.allocatemem(2^12, 2^26)
          PARI stack size set to 4096 bytes, maximum size set to 67108864
          sage: x = pari('2^(2^26)')
-+          ***   Warning: increasing stack size to...
++          *** _^_: Warning: increasing stack size to...
          sage: x == 2^(2^26)
          True
+ 
+--- a/sage/src/doc/en/thematic_tutorials/explicit_methods_in_number_theory/elliptic_curves.rst
++++ b/sage/src/doc/en/thematic_tutorials/explicit_methods_in_number_theory/elliptic_curves.rst
+@@ -372,6 +372,15 @@
+ ::
+ 
+     sage: L.zeros(10)
+-    [0.000000000, 0.000000000, 2.87609907, 4.41689608, 5.79340263,
+-     6.98596665, 7.47490750, 8.63320525, 9.63307880, 10.3514333]
++      ***   Warning: increasing stack size to...
++    [0.000000000,
++     0.000000000,
++     2.87609907,
++     4.41689608,
++     5.79340263,
++     6.98596665,
++     7.47490750,
++     8.63320525,
++     9.63307880,
++     10.3514333]
  
