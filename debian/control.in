@@ -90,7 +90,7 @@ Description: Open Source Mathematical Software
  This package contains the main SageMath installation.
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
  RUNTIME_DEPENDS
- sagemath-common (= ${binary:Version})
+ sagemath-common (= ${source:Version})
 Recommends: sagemath-doc-en, sagemath-jupyter
 
 Package: sagemath-common
@@ -123,6 +123,6 @@ Description: Open Source Mathematical Software - Jupyter kernel
  Mathematica and Matlab.
  .
  This package contains the Jupyter kernel of SageMath.
-Depends:
+Depends: ${misc:Depends},
  JUPYTER_DEPENDS
- sagemath (= ${binary:Version})
+ sagemath (>= ${source:Version}), sagemath (<< ${source:Version}.1~)
