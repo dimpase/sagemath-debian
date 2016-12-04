@@ -12,7 +12,6 @@ Upload packages to NEW, ASAP
         * needs debian/copyright
     *   sagemath
         * ignore known failing doctests
-        * ignore pari stack warnings (why does d/patches/deban-pari-stackwarn-2.patch not work?)
         * When running the tests with the installed sage, there are many failing tests with:
           ImportError: No module named common.conf
         * create a separate package for the jupyter kernel
