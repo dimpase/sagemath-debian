@@ -191,6 +191,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'mathjax')
          self.symlink(src, dst)
  
+@@ -134,7 +134,7 @@
+              '{connection_file}']
+         """
+         return [
+-            os.path.join(SAGE_LOCAL, 'bin', 'sage'),
++            '/usr/bin/sage',
+             '--python',
+             '-m', 'sage.repl.ipython_kernel',
+             '-f', '{connection_file}',
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
 @@ -356,7 +356,7 @@
