@@ -4,19 +4,11 @@
 Upload packages to NEW, ASAP
 
 *   New packages:
-    *   ipywidgets (including jupyter-js-widgets, widgetsnbextension)
-        * only a few things left, see d/TODO in https://anonscm.debian.org/git/python-modules/packages/ipywidgets.git
-    *   sagenb
-        * lots of JS deps, will have to bundle quite a lot and hope ftp-masters are cool
-        * Fix "Error typesetting mathematics" with every output, seems to be mathjax related.
-        * needs debian/copyright
     *   sagemath
         * ignore known failing doctests
         * When running the tests with the installed sage, there are many failing tests with:
           ImportError: No module named common.conf
-        * make installation of sagenb optional
-        * We could create a package containing the (patched) sage sources to make
-          it easier to run the testsuite.
+        * make installation of sagenb optional (?)
     *   sagetex (already in experimental, does not need to pass NEW)
 
 *   Packages that have issues preventing testing migration:
