@@ -1,16 +1,11 @@
-Description: Do not check if we are in a sage source directory
- This is useful for example to run the test suite with the installed sage.
-Author: Tobias Hansen <thansen@debian.org>
-Forwarded: not-needed
-
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -360,18 +360,6 @@
+@@ -355,18 +355,6 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
 -    # Check that we're not in a source tarball which hasn't been built yet (#13561).
--    if [ ! -d "$SAGE_LOCAL/lib/python2.7/dist-packages/sage" ]; then
+-    if [ ! -d "$SAGE_LOCAL/lib/python/site-packages/sage" ]; then
 -        echo >&2 '************************************************************************'
 -        echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
 -        echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
@@ -24,3 +19,12 @@ Forwarded: not-needed
      # Display the startup banner (unless SAGE_BANNER is explictly "no")
      sage_banner
  
+@@ -512,7 +500,7 @@
+ 
+ if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
+     shift
+-    exec maxima "$@"
++    exec maxima-sage "$@"
+ fi
+ 
+ if [ "$1" = '-mwrank' -o "$1" = '--mwrank' ]; then

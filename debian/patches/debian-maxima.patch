@@ -71,17 +71,6 @@ Author: Tobias Hansen <thansen@debian.org>
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
 -    os.system('maxima')
 +    os.system('maxima-sage')
---- a/sage/src/bin/sage
-+++ b/sage/src/bin/sage
-@@ -512,7 +512,7 @@
- 
- if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
-     shift
--    exec maxima "$@"
-+    exec maxima-sage "$@"
- fi
- 
- if [ "$1" = '-mwrank' -o "$1" = '--mwrank' ]; then
 --- a/sage/src/sage/interfaces/expect.py
 +++ b/sage/src/sage/interfaces/expect.py
 @@ -563,7 +563,7 @@

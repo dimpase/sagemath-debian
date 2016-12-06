@@ -31,6 +31,8 @@ version-planarity-3.patch
 debian-fakeroot.patch
 debian-paths.patch
 debian-disable-jsmol.patch
+debian-sage-env.patch
+debian-exec.patch
 debian-maxima.patch
 debian-singular.patch
 debian-libgap-sage.patch
@@ -47,7 +49,6 @@ debian-test-optional.patch
 debian-fix-trivial-test-cases.patch
 debian-install-paths.patch
 debian-scripts-dir.patch
-debian-skip-check.patch
 
 # temporary patches for whatever reason
 # they will eventually be gotten rid of
