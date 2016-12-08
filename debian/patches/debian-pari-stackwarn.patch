@@ -14,6 +14,15 @@ Author: Tobias Hansen <thansen@debian.org>
          """
          Initialize the PARI system.
  
+@@ -1242,7 +1242,7 @@
+         EXAMPLES::
+ 
+             sage: pari.stacksize()
+-            1000000
++            16000000
+             sage: pari.allocatemem(2^18, silent=True)
+             sage: pari.stacksize()
+             262144
 @@ -1316,6 +1316,7 @@
          stack size::
  
