@@ -13,8 +13,6 @@ export CCACHE_BASEDIR := $(CURDIR)/debian/build
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
-export SAGE_ROOT = $(shell pwd)/sage
-export SAGE_SPKG_INST = $(shell pwd)/sage/local/var/lib/sage/installed
 export SAGE_LOCAL = $(shell pwd)/debian/build/usr
 export PYTHONPATH = $(shell pwd)/debian/build/usr/lib/python2.7/dist-packages
 
@@ -68,6 +66,7 @@ override_dh_auto_install:
 # we don't distribute them.
 	find debian/build '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
 	rm -f debian/build/usr/bin/*.bat
+	cp -f debian/adhoc/sage-env debian/build/usr/bin/
 	mkdir -p debian/tmp
 	mv debian/build/* debian/tmp
 # Don't try to rmdir debian/build if it's a mountpoint, useful for doing builds in /run/shm

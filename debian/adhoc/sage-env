@@ -1,0 +1,82 @@
+#!/bin/bash
+
+if [[ -z ${SAGE_ROOT} ]]; then
+	export SAGE_ROOT="/usr/share/sage"
+fi
+
+if [[ -z ${SAGE_LOCAL} ]]; then
+	export SAGE_LOCAL="/usr/"
+fi
+
+if [[ -z ${SAGE_DATA} ]]; then
+	export SAGE_DATA="/usr/share/sage"
+fi
+
+if [[ -z ${SAGE_SHARE} ]]; then
+	export SAGE_SHARE="/usr/share/sage"
+fi
+
+if [[ -z ${SAGE_DOC} ]]; then
+	export SAGE_DOC="/usr/share/doc/sage"
+fi
+
+if [[ -z ${SAGE_DOC_SRC} ]]; then
+ if [[ -n ${SAGE_SRC} ]]; then
+	 export SAGE_DOC_SRC="$SAGE_SRC/doc"
+ fi
+fi
+
+if [[ -z ${SAGE_EXTCODE} ]]; then
+	export SAGE_EXTCODE="/usr/share/sage/ext"
+fi
+
+if [[ -z ${SAGE_SPKG_INST} ]]; then
+ export SAGE_SPKG_INST="/usr/share/sage/installed"
+fi
+
+if [[ -z ${SAGE_SCRIPTS_DIR} ]]; then
+ export SAGE_SCRIPTS_DIR="/usr/share/sage/bin"
+fi
+
+if [[ -z ${DOT_SAGE} ]]; then
+	export DOT_SAGE="${HOME}/.sage"
+fi
+
+if [ "$SAGE_STARTUP_FILE" = "" ]; then
+	export SAGE_STARTUP_FILE="${DOT_SAGE}/init.sage"
+fi
+
+if [[ -z ${SAGE_TESTDIR} ]]; then
+	export SAGE_TESTDIR="${DOT_SAGE}/tmp"
+fi
+if [[ -z ${SAGE_SERVER} ]]; then
+	export SAGE_SERVER="http://www.sagemath.org/"
+fi
+
+if [ -z "$SAGE_RC_FILE" ]; then
+	SAGE_RC_FILE="$DOT_SAGE/sagerc"
+fi
+
+if [ -r "$SAGE_RC_FILE" ]; then
+	source "$SAGE_RC_FILE"
+	if [ $? -ne 0 ]; then
+		echo >&2 "Error sourcing $SAGE_RC_FILE"
+		exit 1
+	fi
+fi
+
+export EPYTHON=python2.7
+export MPMATH_NOGMPY=1
+export PATH="$PATH:$SAGE_SCRIPTS_DIR"
+GP_DATA_DIR="/usr/share/pari" && export GP_DATA_DIR
+GPHELP="/usr/bin/gphelp" && export GPHELP
+GPDOCDIR="/usr/share/pari/doc" && export GPDOCDIR
+SINGULARPATH="/usr/share/singular" && export SINGULARPATH
+SINGULAR_EXECUTABLE="/usr/bin/Singular" && export SINGULAR_EXECUTABLE
+
+# Display the Sage startup banner, used in src/bin/sage
+sage_banner() {
+    if [ "$SAGE_BANNER" != "no" ]; then
+        cat "$SAGE_SCRIPTS_DIR/sage-banner" 2>/dev/null
+    fi
+}
