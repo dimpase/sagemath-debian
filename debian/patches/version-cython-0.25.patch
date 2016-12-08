@@ -117,12 +117,12 @@ diff --git a/src/setup.py b/src/setup.py
 index c26639d..f094700 100755
 --- a/sage/src/setup.py	2016-11-05 19:34:44.701025334 +0000
 +++ b/sage/src/setup.py	2016-11-05 19:46:00.706210289 +0000
-@@ -562,16 +562,6 @@
+@@ -562,16 +562,7 @@
      import Cython.Compiler.Options
      import Cython.Compiler.Main
  
 -    # Sage uses these directives (mostly for historical reasons).
--    Cython.Compiler.Options.embed_pos_in_docstring = True
+     Cython.Compiler.Options.embed_pos_in_docstring = True
 -    Cython.Compiler.Options.directive_defaults['autotestdict'] = False
 -    Cython.Compiler.Options.directive_defaults['cdivision'] = True
 -    Cython.Compiler.Options.directive_defaults['fast_getattr'] = True
