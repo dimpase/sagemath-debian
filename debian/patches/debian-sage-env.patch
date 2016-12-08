@@ -1,3 +1,8 @@
+Description: Patch sage-env
+ Note that this file is only used during the package build and not installed.
+ Instead the file debian/adhoc/sage-env is installed.
+Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
+
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -325,12 +325,12 @@
