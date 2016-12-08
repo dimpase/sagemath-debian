@@ -49,7 +49,7 @@ code for this package (`apt-get source sagemath`), and make sure the Debian
 patches are applied. Then, from any directory:
 
  *$ export -n SAGE_LOCAL SAGE_ROOT
- *$ SAGE_SRC=/path/to/sage/src sage -tp --long --logfile=ptestlong.log --all
+ *$ SAGE_SRC=/path/to/sage/src sage -t -p --long --logfile=ptestlong.log --all
 
 Feel free to upload your test logs somewhere and send links to them to our
 mailing list <debian-science-sagemath@lists.alioth.debian.org>. Please do not

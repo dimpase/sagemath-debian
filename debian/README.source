@@ -38,7 +38,7 @@ sure you're in the top-level package directory, where debian/ is. Then:
  $ export SAGE_LOCAL=$PWD/debian/build/usr
  $ export PYTHONPATH=$SAGE_LOCAL/lib/python2.7/dist-packages
  $ cd sage
- sage$ ./sage -tp --long src/sage/file/you/want/to/test
+ sage$ ./sage -t -p --long src/sage/file/you/want/to/test
 
 If doing this after `dh_auto_install` has succeeded (this is the case if you
 got some resulting .debs), then either change debian/build to debian/tmp in the
