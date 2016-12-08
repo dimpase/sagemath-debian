@@ -39,3 +39,15 @@ Forwarded: not-needed
          instance._install_spec()
          instance._symlink_resources()
  
+--- a/sage/src/sage/repl/display/jsmol_iframe.py
++++ b/sage/src/sage/repl/display/jsmol_iframe.py
+@@ -84,6 +84,9 @@
+ </head>
+ </body>
+   {iframe}
++<div>Interactive 3D plots do not work in the notebook because JSmol cannot currently be packaged for Debian. See the README.source of the jmol package for more details on this situation.</div>
++<div>&nbsp;</div>
++<div>Try the option viewer='tachyon'. Also, 3D plots with Jmol do work from the SageMath command-line interface.</div>
+ </body>
+ </html>
+ """.format(iframe=IFRAME_TEMPLATE)
