@@ -13,8 +13,9 @@ export CCACHE_BASEDIR := $(CURDIR)/debian/build
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
-export SAGE_LOCAL = $(shell pwd)/debian/build/usr
-export PYTHONPATH = $(shell pwd)/debian/build/usr/lib/python2.7/dist-packages
+export SAGE_LOCAL = $(CURDIR)/debian/build/usr
+export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python2.7/dist-packages
+export DOT_SAGE = $(CURDIR)/debian/test
 
 LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3-)
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
@@ -25,6 +26,11 @@ DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
 	dh $@ --with=python2,sphinxdoc
 
 binary build clean install: debian/control
+
+export-build-env:
+	@echo export SAGE_LOCAL=$(SAGE_LOCAL)
+	@echo export PYTHONPATH=$(PYTHONPATH)
+	@echo export DOT_SAGE=$(DOT_SAGE)
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
@@ -130,7 +136,7 @@ else
 preserve_docs = $(1)
 endif
 override_dh_clean:
-	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE)
+	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOT_SAGE)
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
@@ -140,7 +146,7 @@ get-orig-source:
 
 prune: debian/control
 	cd debian/pruner && autoconf -I m4
-	cd debian/pruner && ./configure --with-sage-root="$(shell pwd)/sage"
+	cd debian/pruner && ./configure --with-sage-root="$(CURDIR)/sage"
 	cd sage && python ../debian/pruner/pruner.py ||	test $$(dpkg-parsechangelog -l../debian/changelog -SDistribution) = unstable-sage
 	touch prune
 
@@ -200,11 +206,11 @@ failed-tests-by-count:
 
 failed-tests-by-error:
 # Filter out NameError; most of these are caused by earlier errors
-	grep 'Error:' sage/logs/ptestlong.log \
+	grep '\(Error\|Warning\):' sage/logs/ptestlong.log \
 	  | grep -v NameError \
 	  | sort | uniq -c | sort -k1n,1n
 
-FT_CAUSE_ERRORTYPE = Error
+FT_CAUSE_ERRORTYPE = \(Error\|Warning\)
 FT_CAUSE_BACKTRACE = 2
 failed-tests-by-cause:
 	grep -B$$((2 * $(FT_CAUSE_BACKTRACE))) -Z '$(FT_CAUSE_ERRORTYPE):' sage/logs/ptestlong.log \

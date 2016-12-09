@@ -35,9 +35,7 @@ end of the logging output, there will be a summary of all the failures.
 After a successful build, you can run individual tests as follows. First, make
 sure you're in the top-level package directory, where debian/ is. Then:
 
- $ export SAGE_LOCAL=$PWD/debian/build/usr
- $ export PYTHONPATH=$SAGE_LOCAL/lib/python2.7/dist-packages
- $ cd sage
+ $ . <(debian/rules export-build-env)  # assumes you're in bash or zsh
  sage$ ./sage -t -p --long src/sage/file/you/want/to/test
 
 If doing this after `dh_auto_install` has succeeded (this is the case if you
@@ -99,11 +97,11 @@ There are three cases:
   First, if debian/tmp/usr exists then move it to debian/build/usr. Then:
 
   $ DEB_BUILD_OPTIONS=nodoc debian/rules build
-  
+
   This *should* only build the changed files. However we explicitly avoid
   rebuilding the documentation, because incremental docbuild is currently
   broken in upstream (#21612).
-  
+
   If you are impatient, you can even cancel the build early using Ctrl-C -
   after it copies .so files into debian/build - then run your test again.
 
