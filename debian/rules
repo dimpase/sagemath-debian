@@ -136,7 +136,8 @@ else
 preserve_docs = $(1)
 endif
 override_dh_clean:
-	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOT_SAGE)
+	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE)
+	rm -rf $(DOT_SAGE)
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
