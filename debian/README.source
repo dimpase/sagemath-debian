@@ -38,12 +38,20 @@ sure you're in the top-level package directory, where debian/ is. Then:
  $ . <(debian/rules export-build-env)  # assumes you're in bash or zsh
  sage$ ./sage -t -p --long src/sage/file/you/want/to/test
 
-If doing this after `dh_auto_install` has succeeded (this is the case if you
-got some resulting .debs), then either change debian/build to debian/tmp in the
-above commands, or symlink the latter to the former.
-
 See https://www.sagemath.org/git-developer-guide/doctesting.html for more
 information and helpful tips.
+
+Rewinding the build
+-------------------
+
+For various technical reasons, you might need to do some extra manual steps for
+the above and below commands to work.
+
+- To run them after `dh_auto_install` has succeeded, first move or symlink
+  debian/tmp to debian/build.
+
+- To run them after `dpkg-buildpackage` has succeeded, you'll need to apply all
+  the debian patches again, then also do the previous point.
 
 Debugging test failures
 =======================
@@ -92,9 +100,8 @@ There are three cases:
 
 - Fixing cython code. That is, code in a .pyx file that is not a doctest.
 
-  You'll need to re-run the build again.
-
-  First, if debian/tmp/usr exists then move it to debian/build/usr. Then:
+  You'll need to re-run the build again. First, make sure you've followed any
+  applicable commands from the "Rewinding the build" section above. Then:
 
   $ DEB_BUILD_OPTIONS=nodoc debian/rules build
 
