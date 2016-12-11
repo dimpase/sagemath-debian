@@ -22,6 +22,12 @@ DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
 DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
 DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
 
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+else
+NUMJOBS = 1
+endif
+
 %:
 	dh $@ --with=python2,sphinxdoc
 
@@ -62,7 +68,7 @@ else
 DEB_BUILD_TARGET = all
 endif
 override_dh_auto_build: prune
-	dh_auto_build -Dsage -- $(DEB_BUILD_TARGET)
+	MAKE='make -j$(NUMJOBS)' make --directory=sage $(DEB_BUILD_TARGET)
 
 override_dh_auto_test: ptestlong
 
@@ -162,7 +168,7 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# to detect a previous successful (override_)dh_auto_build, so if we run
 	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
 	# (and then this target) without trying (override_)dh_auto_build again.
-	cd sage && ./sage -t -p --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log || true
+	cd sage && ./sage -t -p $(NUMJOBS) --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log || true
 	test $$(dpkg-parsechangelog -SDistribution) = unstable-sage || debian/rules had-few-failures
 endif
 
