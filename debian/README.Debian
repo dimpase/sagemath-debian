@@ -2,44 +2,49 @@
 SageMath in Debian
 ==================
 
-Disabled features
-=================
+Unavailable features
+====================
 
-Some features of SageMath in Debian are currently disabled for various reasons.
-These are summarised below; see the respective packages for more details.
+Some features of SageMath in Debian are unavailable for various reasons. These
+are summarised below; see the respective packages for more details.
 
-jmol, jmol-applet: JSmol is completely unavailable, because it does not satisfy
-the Debian Free Software Guidelines. It may be possible to resolve this, see
-the package documentation for details. Help is needed!
+3D plots
+--------
 
-python-sagenb: SageNB HTTPS unsupported, because certtool is not yet in Debian.
+From web-based notebooks, the default viewer for 3D plots (JSmol) is currently
+unavailable in Debian, because it does not satisfy the Debian Free Software
+Guidelines. It may be possible to resolve this, but it would take a lot of work
+- see the jmol package documentation for details. As a work-around, you may
+explicitly specify a different viewer; either "canvas3d" or "tachyon".
+
+In the standard Sage command-line interface, the default viewer is Jmol (the
+Java counterpart to JSmol) and this should work fine.
+
+SageNB
+------
+
+HTTPS is unsupported, because certtool is not yet in Debian - see the sagenb
+package documentation for details.
+
+Optional packages
+-----------------
+
+Sage's "optional" packages are unsupported in Debian at the current time. Some
+of them might "accidentally" half-work, but the Debian Sage Team cannot handle
+support requests relating to this and will close bugs as "wontfix".
+
 
 Known issues
 ============
 
-At the moment, quite a lot of stuff is not working:
+At the moment, some things are not working:
 
-- Sage #21732: '?' doesn't work, e.g.:
-
-sage: plot?
----------------------------------------------------------------------------
-ImportError                               Traceback (most recent call last)
-
-[..]
-
-/usr/lib/python2.7/dist-packages/sage/misc/sagedoc.py in process_extlinks(s, embedded)
-    466     oldpath = sys.path
-    467     sys.path = [os.path.join(SAGE_DOC_SRC, 'common')] + oldpath
---> 468     from conf import extlinks
-    469     sys.path = oldpath
-    470     for key in extlinks:
-
-ImportError: No module named conf
-
-- SageNB doesn't load some stuff - see browser console
-  ^ should be fixed since our latest updates. Needs more testing though.
+- '?' and some other documentation features don't work, relating to Sage
+  upstream bug #21732. TODO: we should fix this before Debian stable.
 
 - Jupyter doesn't load some stuff - see browser console
+  ^ TODO: test this more
+
 
 Running doctests
 ================
