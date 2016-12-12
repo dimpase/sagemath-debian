@@ -74,6 +74,17 @@ GPDOCDIR="/usr/share/pari/doc" && export GPDOCDIR
 SINGULARPATH="/usr/share/singular" && export SINGULARPATH
 SINGULAR_EXECUTABLE="/usr/bin/Singular" && export SINGULAR_EXECUTABLE
 
+# Handle parallel building/testing/...
+# See Trac Ticket #12016
+# First, figure out the right values for SAGE_NUM_THREADS (default
+# number of threads) and SAGE_NUM_THREADS_PARALLEL (default number of
+# threads when parallel execution is asked explicitly).
+sage_num_threads_array=(`sage-num-threads.py 2>/dev/null || echo 1 2 1`)
+SAGE_NUM_THREADS=${sage_num_threads_array[0]}
+SAGE_NUM_THREADS_PARALLEL=${sage_num_threads_array[1]}
+export SAGE_NUM_THREADS
+export SAGE_NUM_THREADS_PARALLEL
+
 # Display the Sage startup banner, used in src/bin/sage
 sage_banner() {
     if [ "$SAGE_BANNER" != "no" ]; then
