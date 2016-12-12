@@ -15,6 +15,7 @@ u1-version-planarity-3.patch
 u1-version-pbori-boost1.62-hashes.patch
 u1-version-ecm-7.patch
 u1-version-cddlib-094h.patch
+u1-version-pkgconfig.patch
 u1-fix-libgap-systemwide.patch
 u1-fix-use-lexists-not-exists.patch
 u1-fix-proper-scipy-rtol.patch
