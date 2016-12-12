@@ -147,10 +147,6 @@ override_dh_clean:
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
-get-orig-source:
-	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
-	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
-
 prune: debian/control
 	cd debian/pruner && autoconf -I m4
 	cd debian/pruner && ./configure --with-sage-root="$(CURDIR)/sage"
@@ -179,9 +175,16 @@ endif
 clean-docbuild:
 	rm -rf debian/build/usr/share/doc/sage
 
+distclean:
+	# don't git reset --hard on purpose, so it's easier to test
+	git clean -fdx
+
+distclean-sage:
+	cd sage; git clean -fdx && git reset --hard HEAD && git submodule update --force
+
 reset: clean clean-docbuild
 	QUILT_PATCHES=debian/patches quilt pop -af || true
-	cd sage; git clean -fdx && git submodule update --force
+	debian/rules distclean-sage
 	QUILT_PATCHES=debian/patches quilt push -a
 
 build-dep: debian/control
@@ -226,5 +229,28 @@ failed-tests-by-cause:
 	  | tr '\0\n' '\n\t' \
 	  | sort | uniq -c | sort -k1n,1n \
 	  | less -S +G
+
+get-orig-source:
+	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
+
+../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz: .git/modules/sage/HEAD
+	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
+	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
+
+../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean debian/control
+	dpkg-buildpackage -d -uc -us -S
+
+# The extra python-related stuff is a temporary work-around for #847791
+release: ../sagemath_$(DEB_VERSION).dsc
+	sbuild \
+	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
+	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
+	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
+	  --chroot-setup-commands='echo deb http://httpredir.debian.org/debian testing main >> /etc/apt/sources.list' \
+	  --chroot-setup-commands='apt-get update && apt-get -t testing install -y python2.7=2.7.12-7 libpython2.7=2.7.12-7 python2.7-dev=2.7.12-7' \
+	  --chroot-setup-commands='{ for i in python2.7 python2.7-minimal libpython2.7-stdlib libpython2.7 python2.7-dev; do echo $$i hold; done; } | dpkg --set-selections' \
+	  --chroot-setup-commands='sed -i -e /testing/d /etc/apt/sources.list && apt-get update' \
+	  --build-dep-resolver=aspcud \
+	  "$<"
 
 .PHONY: ptestlong clean-doc-build reset build-dep
