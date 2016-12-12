@@ -59,3 +59,5 @@ version-temp-glpk-4.60-extra-hacky-fixes.patch
 debian-temp-r-no-readline.patch
 trac_21749.patch
 fixsage-preexec-fn.patch
+debian-fix-less-trivial-test-cases.patch
+temp-fix-test-cases.patch

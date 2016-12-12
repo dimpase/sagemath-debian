@@ -127,66 +127,36 @@ temporary intermediate build products, e.g. due to our short-cuts above.
 Current test status
 ===================
 
-(TODO: the below is a bit out of date since November 2016).
-
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
 
-First, patch your local system:
+If you get roughly ~30 more failures than the below, try installing our patched
+packages from https://wiki.debian.org/DebianScience/Sage
 
-# fix 2 tests, see #840621
-sudo sed -e '/^class AppliedUndef/,${/def _sage_/,/^\s*$/d}' \
-  -i /usr/lib/python2.7/dist-packages/sympy/core/function.py
-
-These are already fixed in Debian's git repo for sympy; we're just waiting for
-an upload.
-
-You can see infinity0's test failures here: https://people.debian.org/~infinity0/res/
+You can see infinity0's test failures here: https://people.debian.org/~infinity0/sage/
 Look for files named "sagemath-*_*.log"
 
-Now for the summary:
+Known causes
+------------
 
-### Breakdown
-
-25 for infinity0
-?? for Tobias
-
-plus ~2 unreproducible
-
-### Needs further investigation
-
-5 Unknown
-sage -t --long src/sage/interfaces/r.py  # 2 doctests failed
-sage -t --long src/sage/rings/number_field/number_field.py  # 3 doctests failed
-
-3 arctan2(0,0) gives NaN instead of Error
-sage -t --long src/sage/functions/trig.py  # 1 doctest failed
-sage -t --long src/sage/symbolic/expression.pyx  # 1 doctest failed
-sage -t --long src/sage/symbolic/expression_conversions.py  # 1 doctest failed
-
-### Have a good idea on how to proceed
-
-5 Minor floating point differences, can maybe ignore, ask upstream first
-sage -t --long src/sage/coding/code_bounds.py  # 1 doctest failed
-sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (1 not floating-point related, see below)
-sage -t --long src/sage/functions/exp_integral.py  # 1 doctest failed
-
-6 Can probably ignore / fix trivially
-sage -t --long src/sage/interfaces/tests.py  # 2 doctests failed
-sage -t --long src/sage/graphs/strongly_regular_db.pyx  # 1 doctest failed
-sage -t --long src/sage/rings/integer.pyx  # 1 doctest failed
 sage -t --long src/sage/homology/simplicial_complex.py  # 1 doctest failed (see upstream #15585)
-sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
-
-3 Others, known
 sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see upstream #17254#comment:252)
-sage -t --long src/sage/numerical/optimize.py  # 4 doctests failed (1 reported as Debian #840159, 3 accounted for above as floating-point related)
+sage -t --long src/sage/numerical/optimize.py  # 1 doctest failed (1 reported as Debian #840159)
 
-### Can't reproduce
+Needs more investigation
+------------------------
 
-Fails first time, but seems to work when you run them a second time, e.g. with
-`debian/rules EXTRA_SAGE_TEST_FLAGS=-f build` or by running `./sage -t` directly
+We're not sure why these occur, or if they indicate a major problem. Some of
+them involve knowing advanced mathematics, which we're not too familiar with.
 
-2 Sometimes fails first time
-sage -t --long src/sage/libs/gap/all_documented_functions.py  # 1 doctest failed
-sage -t --long src/sage/libs/gap/assigned_names.py  # 1 doctest failed
+Files with "many" failures:
+sage -t --long src/sage/coding/linear_code.py  # 3 doctests failed
+sage -t --long src/sage/misc/randstate.pyx  # 13 doctests failed
+
+Files with "few" failures:
+sage -t --long src/sage/algebras/group_algebra.py  # 2 doctests failed
+sage -t --long src/sage/coding/codecan/autgroup_can_label.pyx  # 1 doctest failed
+sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
+sage -t --long src/sage/groups/matrix_gps/matrix_group.py  # 1 doctest failed
+sage -t --long src/sage/interfaces/r.py  # 2 doctests failed
+sage -t --long src/sage/rings/number_field/number_field.py  # 1 doctest failed

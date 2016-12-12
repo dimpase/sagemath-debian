@@ -8,6 +8,22 @@ Forwarded: TODO, to Sage
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
+@@ -418,13 +418,13 @@
+ #####################################################################
+ 
+ if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
+-	. "$SAGE_SCRIPTS_DIR/sage-version.sh
++	. "$SAGE_SCRIPTS_DIR"/sage-version.sh
+ 	echo ${SAGE_VERSION}
+ 	exit 0
+ fi
+ 
+ if [ "$1" = '-v' -o "$1" = '-version' -o "$1" = '--version' ]; then
+-	. "$SAGE_SCRIPTS_DIR/sage-version.sh
++	. "$SAGE_SCRIPTS_DIR"/sage-version.sh
+ 	echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
+ 	exit 0
+ fi
 @@ -465,7 +465,7 @@
  
  if [ "$1" = '-singular' -o "$1" = '--singular' ]; then

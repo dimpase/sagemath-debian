@@ -26,3 +26,20 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
  
          self.options = options
          self.files = args
+--- a/sage/src/sage/doctest/test.py
++++ b/sage/src/sage/doctest/test.py
+@@ -444,14 +444,6 @@
+     ...
+     0
+ 
+-Test an invalid value for ``--optional``::
+-
+-    sage: subprocess.call(["sage", "-t", "--warn-long", "0", "--optional=bad-option", "show_skipped.rst"], **kwds)
+-    Traceback (most recent call last):
+-    ...
+-    ValueError: invalid optional tag 'bad-option'
+-    1
+-
+ Test ``atexit`` support in the doctesting framework::
+ 
+     sage: F = tmp_filename()
