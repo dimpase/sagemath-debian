@@ -237,7 +237,7 @@ get-orig-source:
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
 	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
 
-../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean debian/control
+../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz debian/control
 	dpkg-buildpackage -d -uc -us -S
 
 # The extra python-related stuff is a temporary work-around for #847791

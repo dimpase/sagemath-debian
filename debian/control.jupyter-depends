@@ -5,4 +5,4 @@
  python-ipywidgets,
  python-nbconvert,
  python-nbformat,
- python-notebook,
+ python-notebook (>= 4.2.3-3),
