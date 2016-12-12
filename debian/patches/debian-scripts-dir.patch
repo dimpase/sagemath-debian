@@ -5,7 +5,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -336,7 +336,12 @@
+@@ -196,7 +196,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################
@@ -19,7 +19,7 @@ Author: Tobias Hansen <thansen@debian.org>
  if [ $? -ne 0 ]; then
      echo >&2 "Error setting environment variables by sourcing '$0-env';"
      echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
-@@ -413,13 +418,13 @@
+@@ -251,13 +256,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
@@ -35,7 +35,7 @@ Author: Tobias Hansen <thansen@debian.org>
  	echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
  	exit 0
  fi
-@@ -924,12 +929,12 @@
+@@ -564,12 +569,12 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
