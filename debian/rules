@@ -247,7 +247,7 @@ release: ../sagemath_$(DEB_VERSION).dsc
 	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
 	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
 	  --chroot-setup-commands='echo deb http://httpredir.debian.org/debian testing main >> /etc/apt/sources.list' \
-	  --chroot-setup-commands='apt-get update && apt-get -t testing install -y python2.7=2.7.12-7 libpython2.7=2.7.12-7 python2.7-dev=2.7.12-7' \
+	  --chroot-setup-commands='apt-get update && apt-get -t testing install -y python2.7=2.7.13~rc1-1.1 libpython2.7=2.7.13~rc1-1.1 python2.7-dev=2.7.13~rc1-1.1' \
 	  --chroot-setup-commands='{ for i in python2.7 python2.7-minimal libpython2.7-stdlib libpython2.7 python2.7-dev; do echo $$i hold; done; } | dpkg --set-selections' \
 	  --chroot-setup-commands='sed -i -e /testing/d /etc/apt/sources.list && apt-get update' \
 	  --build-dep-resolver=aspcud \
