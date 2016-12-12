@@ -54,7 +54,7 @@ the above and below commands to work.
   the debian patches again, then also do the previous point.
 
 Debugging test failures
-=======================
+-----------------------
 
 Always focus on the *first failure* in a given test file. In many cases,
 subsequent failures (such as NameErrors) are due to the first failure, and many
@@ -71,7 +71,7 @@ Look in debian/rules for more. These are useful if you have hundreds or
 thousands of failures to deal with and don't know where to begin.
 
 Fixing test failures
-====================
+--------------------
 
 You should get to know the build process (in debian/rules), so that you can
 make fixes to particular test files without having to rebuild everything again,
@@ -125,7 +125,7 @@ clean build to verify these fixes - to make sure that they weren't affected by
 temporary intermediate build products, e.g. due to our short-cuts above.
 
 Current test status
-===================
+-------------------
 
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
@@ -136,27 +136,57 @@ packages from https://wiki.debian.org/DebianScience/Sage
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/sage/
 Look for files named "sagemath-*_*.log"
 
-Known causes
-------------
+Known causes::
 
 sage -t --long src/sage/homology/simplicial_complex.py  # 1 doctest failed (see upstream #15585)
 sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see upstream #17254#comment:252)
 sage -t --long src/sage/numerical/optimize.py  # 1 doctest failed (1 reported as Debian #840159)
 
-Needs more investigation
-------------------------
+We're not sure why the below occur, or if they indicate a major problem. Some
+of them involve advanced mathematics, which we're not too familiar with.
 
-We're not sure why these occur, or if they indicate a major problem. Some of
-them involve knowing advanced mathematics, which we're not too familiar with.
-
-Files with "many" failures:
+Files with "many" failures::
 sage -t --long src/sage/coding/linear_code.py  # 3 doctests failed
 sage -t --long src/sage/misc/randstate.pyx  # 13 doctests failed
 
-Files with "few" failures:
+Files with "few" failures::
 sage -t --long src/sage/algebras/group_algebra.py  # 2 doctests failed
 sage -t --long src/sage/coding/codecan/autgroup_can_label.pyx  # 1 doctest failed
 sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
 sage -t --long src/sage/groups/matrix_gps/matrix_group.py  # 1 doctest failed
 sage -t --long src/sage/interfaces/r.py  # 2 doctests failed
 sage -t --long src/sage/rings/number_field/number_field.py  # 1 doctest failed
+
+Manual testing
+==============
+
+Pre-install jupyter notebook tests
+----------------------------------
+
+To test the jupyter notebook without installing anything, first see "rewinding
+the build" above". Then:
+
+1. Copy debian/build/usr/share/jupyter/kernels/sagemath to /usr/share/jupyter/kernels/
+2. Fix up the .svg symlinks there.
+3. Edit /usr/share/jupyter/kernels/sagemath/kernel.json to say "./sage" instead of /usr/bin/sage.
+4. `./sage -n jupyter`
+
+Examples
+--------
+
+These can be tested from the Sage CLI, SageNB, and the Jupyter Notebook.
+
+Typesetting::
+
+    show(integrate(1/(1+x^4), x))
+
+    You should get a long expression with arctans, logs, and square roots.
+
+3D plots::
+
+    def f(x,y):
+        return math.sin(y*y+x*x)/math.sqrt(x*x+y*y+.0001)
+    P = plot3d(f,(-3,3),(-3,3), adaptive=True, color=rainbow(60, 'rgbtuple'), max_bend=.1, max_depth=15)
+    P.show()
+
+    You should get a 3D plot, or a notice about JSmol being unavailable.

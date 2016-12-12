@@ -42,8 +42,8 @@ At the moment, some things are not working:
 - '?' and some other documentation features don't work, relating to Sage
   upstream bug #21732. TODO: we should fix this before Debian stable.
 
-- Jupyter doesn't load some stuff - see browser console
-  ^ TODO: test this more
+- Jupyter notebook: there are errors in the browser console relating to loading
+  MathJax fonts but this doesn't seem to interfere with the functionality.
 
 
 Running doctests
