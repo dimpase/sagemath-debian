@@ -133,18 +133,17 @@ Forwarded: not-needed
      echo "                           --initial - only show the first failure per block"
      echo "                           --debug - drop into PDB after an unexpected error"
      echo "                           --failed - only test files that failed last test"
-@@ -190,10 +132,6 @@
+@@ -190,9 +132,6 @@
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
      echo "Documentation:"
 -    echo "  -coverage <files>   -- give info about doctest coverage of files"
 -    echo "  -coverageall        -- give summary info about doctest coverage of all"
 -    echo "                         files in the Sage library"
--    echo "  -docbuild [lang/]<document> <html|pdf|...> -- Build the Sage documentation"
+     echo "  -docbuild [lang/]<document> <html|pdf|...> -- Build the Sage documentation"
      echo "  -search_src <string> -- search through all the Sage library code for string"
      echo "  -search_doc <string> -- search through the Sage documentation for string"
-     echo "  -grep <string>      -- same as -search_src"
-@@ -213,16 +151,6 @@
+@@ -213,16 +152,6 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -161,7 +160,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -263,74 +191,6 @@
+@@ -263,74 +192,6 @@
      exit $status
  fi
  
@@ -236,7 +235,7 @@ Forwarded: not-needed
  #####################################################################
  # Source sage-env ($0 is the name of this "sage" script, so we can just
  # append -env to that). We redirect stdout to stderr, which is safer
-@@ -355,47 +215,13 @@
+@@ -355,47 +216,13 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
@@ -286,7 +285,7 @@ Forwarded: not-needed
  # Start an interactive Sage session, this function never returns.
  interactive_sage() {
      sage_setup
-@@ -455,11 +281,6 @@
+@@ -455,11 +282,6 @@
      exec gap "$@"
  fi
  
@@ -298,7 +297,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -505,11 +326,6 @@
+@@ -505,11 +327,6 @@
      exec kash "$@"
  fi
  
@@ -310,7 +309,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -525,21 +341,6 @@
+@@ -525,21 +342,6 @@
      exec M2 "$@"
  fi
  
@@ -332,7 +331,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      exec python "$@"
-@@ -560,11 +361,6 @@
+@@ -560,11 +362,6 @@
      exec git "$@"
  fi
  
@@ -344,7 +343,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -684,20 +480,6 @@
+@@ -684,20 +481,6 @@
  fi
  
  #####################################################################
@@ -365,7 +364,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -715,11 +497,6 @@
+@@ -715,11 +498,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -377,7 +376,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -730,13 +507,6 @@
+@@ -730,13 +508,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -391,7 +390,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -755,38 +525,19 @@
+@@ -755,38 +526,19 @@
     exit 0
  fi
  
@@ -432,7 +431,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -795,16 +546,6 @@
+@@ -795,16 +547,6 @@
      fi
  fi
  
@@ -449,7 +448,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      SAGE_BANNER=no sage_setup
-@@ -819,119 +560,6 @@
+@@ -819,114 +561,6 @@
      exec sage-eval "$@"
  fi
  
@@ -561,15 +560,10 @@ Forwarded: not-needed
 -    exec sage-rsyncdist $2
 -fi
 -
--if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
--    shift
--    exec python -m "sage_setup.docbuild" "$@"
--fi
--
- if [ "$1" = '-gdb' -o "$1" = "--gdb" ]; then
+ if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      shift
-     sage_setup
-@@ -996,10 +624,6 @@
+     exec python -m "sage_setup.docbuild" "$@"
+@@ -996,10 +630,6 @@
  fi
  
  if [ $# -ge 1 ]; then
