@@ -1,0 +1,128 @@
+Description: Hard-code paths to external system run-time dependencies
+Author: Tobias Hansen <thansen@debian.org>
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/ext/pselect.pyx
++++ b/sage/src/sage/ext/pselect.pyx
+@@ -290,7 +290,7 @@
+         writing, but not reading (since nothing has been written)::
+ 
+             sage: f = open(os.devnull, "r")
+-            sage: g = open(os.path.join(SAGE_LOCAL, 'bin', 'python'), "r")
++            sage: g = open('/usr/bin/python2.7', "r")
+             sage: (pr, pw) = os.pipe()
+             sage: r, w, x, t = PSelecter().pselect([f,g,pr,pw], [pw], [pr,pw])
+             sage: len(r), len(w), len(x), t
+--- a/sage/src/sage/interfaces/gap.py
++++ b/sage/src/sage/interfaces/gap.py
+@@ -194,7 +194,7 @@
+ 
+ WORKSPACE = os.path.join(GAP_DIR, 'workspace-%s'%abs(hash(SAGE_LOCAL)))
+ 
+-GAP_BINARY = os.path.join(SAGE_LOCAL, 'bin', 'gap')
++GAP_BINARY = '/usr/bin/gap'
+ 
+ first_try = True
+ 
+--- a/sage/src/sage/libs/gap/util.pyx
++++ b/sage/src/sage/libs/gap/util.pyx
+@@ -157,7 +157,7 @@
+         '/home/vbraun/opt/sage-5.3.rc0/local/gap/latest'
+     """
+     import os.path
+-    gapdir = os.path.join(SAGE_LOCAL, 'gap', 'latest')
++    gapdir = '/usr/share/gap'
+     if os.path.exists(gapdir):
+         return gapdir
+     print('The gap-4.5.5.spkg (or later) seems to be not installed!')
+--- a/sage/src/sage/misc/cython.py
++++ b/sage/src/sage/misc/cython.py
+@@ -415,7 +415,7 @@
+     file_list = []
+     for fname in additional_source_files:
+         fname = fname.replace("$SAGE_SRC", SAGE_SRC)
+-        fname = fname.replace("$SAGE_LOCAL", SAGE_LOCAL)
++        fname = fname.replace("$SAGE_LOCAL", '/usr/include')
+         if fname.startswith(os.path.sep):
+             file_list.append("'"+fname+"'")
+         else:
+--- a/sage/src/sage/libs/lcalc/lcalc_sage.h
++++ b/sage/src/sage/libs/lcalc/lcalc_sage.h
+@@ -1,4 +1,4 @@
+-#include "libLfunction/L.h"
++#include "Lfunction/L.h"
+ 
+ int *new_ints(int l)
+ {
+--- a/sage/src/sage/interfaces/qepcad.py
++++ b/sage/src/sage/interfaces/qepcad.py
+@@ -528,11 +528,6 @@
+ 
+ TESTS:
+ 
+-Check the qepcad configuration file::
+-
+-    sage: open('%s/default.qepcadrc'%SAGE_LOCAL).readlines()[-1]
+-    'SINGULAR .../bin\n'
+-
+ Tests related to the not tested examples (nondeterministic order of atoms)::
+ 
+     sage: from sage.interfaces.qepcad import _qepcad_atoms
+--- a/sage/src/sage/tests/cmdline.py
++++ b/sage/src/sage/tests/cmdline.py
+@@ -560,12 +560,6 @@
+         sage: ret
+         0
+ 
+-    Check that ``sage-location`` did its job in making Python scripts
+-    relative.  We test it on the ``ipython`` script::
+-
+-        sage: open(os.path.join(SAGE_LOCAL, "bin", "ipython")).readline()
+-        '#!/usr/bin/env python\n'
+-
+     Test GP using the ``-f`` option which prevents the reading of a ``.gprc``
+     configuration file::
+ 
+--- a/sage/src/sage/all.py
++++ b/sage/src/sage/all.py
+@@ -15,27 +15,6 @@
+     sage: from sage import *
+     sage: frames = [x for x in gc.get_objects() if inspect.isframe(x)]
+ 
+-We exclude the known files and check to see that there are no others::
+-
+-    sage: import os
+-    sage: allowed = [os.path.join("lib","python","threading.py")]
+-    sage: allowed.append(os.path.join("lib","python","multiprocessing"))
+-    sage: allowed.append(os.path.join("sage","doctest"))
+-    sage: allowed.append(os.path.join("bin","sage-runtests"))
+-    sage: allowed.append(os.path.join("site-packages","IPython"))
+-    sage: allowed.append(os.path.join("bin","sage-ipython"))
+-    sage: allowed.append("<ipython console>")
+-    sage: allowed.append("<doctest sage.all[3]>")
+-    sage: allowed.append(os.path.join("sage","combinat","species","generating_series.py"))
+-    sage: for i in frames:
+-    ....:     filename, lineno, funcname, linelist, indx = inspect.getframeinfo(i)
+-    ....:     for nm in allowed:
+-    ....:         if nm in filename:
+-    ....:             break
+-    ....:     else:
+-    ....:         print(filename)
+-    ....:
+-
+ Check that the Sage Notebook is not imported at startup (see
+ :trac:`15335`)::
+ 
+--- a/sage/src/sage/interfaces/jmoldata.py
++++ b/sage/src/sage/interfaces/jmoldata.py
+@@ -148,7 +148,7 @@
+             True
+         """
+         # Set up paths, file names and scripts
+-        jmolpath = os.path.join(SAGE_LOCAL, "share", "jmol", "JmolData.jar")
++        jmolpath = os.path.join("/usr", "share", "jmol", "JmolData.jar")
+         target_native = targetfile
+         import sys
+         if sys.platform == 'cygwin':

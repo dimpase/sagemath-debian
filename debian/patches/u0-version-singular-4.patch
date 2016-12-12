@@ -1,5 +1,6 @@
 Description: Necessary changes to work with singular 4.
 Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/sagemath
+Bug: https://trac.sagemath.org/ticket/17254
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage

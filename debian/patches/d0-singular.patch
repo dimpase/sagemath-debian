@@ -36,7 +36,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          raise ImportError("cannot locate Singular library ({})".format(lib))
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -307,10 +307,10 @@
+@@ -309,10 +309,10 @@
      Before :trac:`12975`, it would have been needed to write ``#clang c++``,
      but upper case ``C++`` has resulted in an error::
  

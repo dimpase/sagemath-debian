@@ -1,63 +1,73 @@
-# fixes to Sage's code, an inherent problem on their side
-# we should probably forward these upstream
-python_security.patch
-silence_debian_bug_780186.patch
-silence_ecl_opt_signals.patch
-sagedoc_avoid_exception.patch
-fixsage-sphinx.patch
-fixsage-libgap-systemwide.patch
-fixsage-use-lexists-not-exists.patch
-fixsage-proper-scipy-rtol.patch
-fixsage-revert-lazy-import-dependent-on-python-patch.patch
-fixsage-revert-minor-feature-dependent-on-python-patch.patch
-fixsage-dont-require-DISPLAY.patch
-fixsage-allow-override-sage-local.patch
-fixsage-pbori-boost1.62-hashes.patch
+# Patches already applied upstream or committed in a side branch
+# Or nearly-finished patches that they'll very probably merge.
+u0-version-cython-0.25.patch
+u0-version-glpk-4.60.patch
+u0-version-pari-2.9-trac-21765.patch
+u0-version-pari-2.9.patch
+u0-version-singular-4.patch
+u0-distutils-fixes.patch
+u0-pip-nowarn.patch
+u0-timeit-python-2.7.11.patch
 
-# due to us using a different version of a dependency than what Sage uses
-# we'll probably drop these when importing the next version of Sage
-version-python-2.7.11.patch
-version-ecm-7.patch
-version-singular-4.patch
-version-cddlib-094h.patch
-version-cython-0.25.patch
-version-glpk-4.60.patch
-version-pari-2.9-trac-21765.patch
-version-pari-2.9.patch
-version-planarity-3.patch
+# Uncontroversial fixes to Sage's code
+# We should forward these upstream, and they would probably accept
+u1-version-planarity-3.patch
+u1-version-pbori-boost1.62-hashes.patch
+u1-version-ecm-7.patch
+u1-version-cddlib-094h.patch
+u1-fix-libgap-systemwide.patch
+u1-fix-use-lexists-not-exists.patch
+u1-fix-proper-scipy-rtol.patch
+u1-fix-preexec-fn.patch
+u1-fix-dont-require-DISPLAY.patch
 
-# due to Debian's inherent differences with upstream;
-# we're unlikely to forward these upstream
-debian-fakeroot.patch
-debian-paths.patch
-debian-disable-jsmol.patch
-debian-sage-env.patch
-debian-exec.patch
-debian-maxima.patch
-debian-singular.patch
-debian-libgap-sage.patch
-debian-rubiks.patch
-debian-pari.patch
-debian-pari-stackwarn.patch
-debian-nauty.patch
-debian-gsl-cblas.patch
-debian-arb.patch
-debian-cython-sys-path.patch
-debian-sage-gap-reset.patch
-debian-test-optional.patch
-# this next one contains some stuff that should be forwarded upstream
-debian-fix-trivial-test-cases.patch
-debian-install-paths.patch
-debian-scripts-dir.patch
+# Patches that should be upstreamed, but need a bit more work first
+u2-allow-override-sage-local.patch
+u2-fix-trivial-test-cases.patch
+u2-fix-less-trivial-test-cases.patch
 
-# temporary patches for whatever reason
-# they will eventually be gotten rid of
-temp-pip-nowarn.patch
-temp-disable-parallel-sphinx.patch
-version-temp-singular-4-extra-fixes.patch
-version-temp-glpk-4.60-extra-hacky-fixes.patch
-debian-temp-r-no-readline.patch
-trac_21749.patch
-fixsage-preexec-fn.patch
-debian-fix-less-trivial-test-cases.patch
-temp-fix-test-cases.patch
+# Patch Sage to work with dependency Debian packages
+# These won't change even if Debian and Sage use the same version
+# Not suitable for upstreaming
+d0-arb.patch
+d0-cython-sys-path.patch
+d0-gsl-cblas.patch
+d0-libgap-sage.patch
+d0-maxima.patch
+d0-nauty.patch
+d0-pari.patch
+d0-pari-stackwarn.patch
+d0-rubiks.patch
+d0-singular.patch
+d0-disable-jsmol.patch
+d0-paths-sharedata.patch
+d0-paths.patch
+
+# Patch Sage to behave as a Debian package
+# Not suitable for upstreaming
+d1-install-paths.patch # many things in here could be split into an upstreamable patch
+d1-sage-cli.patch
+d1-sage-env.patch
+d1-scripts-dir.patch
+d1-fakeroot.patch
+d1-test-optional.patch
+
+# Potentially controversial fixes
+# We had to do these to make things work, at some time in the past
+# It may be possible to drop these now or in the future; test that first.
+df-revert-lazy-import-dependent-on-python-patch.patch
+df-revert-minor-feature-dependent-on-python-patch.patch
+df-disable-custom-sphinx-logger.patch
+df-python_security.patch
+df-sagedoc_avoid_exception.patch
+df-sage-gap-reset-doctest.patch
+df-silence_debian_bug_780186.patch
+df-silence_ecl_opt_signals.patch
+
+# Temporary patches for whatever reason
+# They will eventually be gotten rid of
+dt-disable-parallel-sphinx.patch
+dt-version-singular-4-extra-fixes.patch
+dt-version-glpk-4.60-extra-hacky-fixes.patch
+dt-r-no-readline.patch
+dt-more-fix-test-cases.patch

@@ -5,8 +5,6 @@ Description: Install to Debian paths
  .
  The multidocs.py patch looks like a Sage upstream bug, that probably needs to
  be forwarded.
- .
- The LD_LIBRARY_PATH can probably be forwarded upstream, either way is fine.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -80,9 +78,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
  
+@@ -193,8 +193,8 @@
+         ['.../include',
+         '.../include/python...',
+         '.../python.../numpy/core/include',
+-        '.../python.../site-packages',
+-        '.../python.../site-packages/sage/ext']
++        '.../python.../dist-packages',
++        '.../python.../dist-packages/sage/ext']
+     """
+     import os, numpy
+     import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1003,8 +1003,7 @@
+@@ -1004,8 +1004,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else

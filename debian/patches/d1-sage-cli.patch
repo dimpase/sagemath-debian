@@ -309,7 +309,7 @@ Forwarded: not-needed
 -
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
-     exec maxima "$@"
+     exec maxima-sage "$@"
 @@ -525,21 +341,6 @@
      exec M2 "$@"
  fi

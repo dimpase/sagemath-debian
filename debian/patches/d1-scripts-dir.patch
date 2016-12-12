@@ -24,14 +24,14 @@ Author: Tobias Hansen <thansen@debian.org>
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
 -	. "$SAGE_LOCAL"/bin/sage-version.sh
-+	. "$SAGE_SCRIPTS_DIR/sage-version.sh
++	. "$SAGE_SCRIPTS_DIR"/sage-version.sh
  	echo ${SAGE_VERSION}
  	exit 0
  fi
  
  if [ "$1" = '-v' -o "$1" = '-version' -o "$1" = '--version' ]; then
 -	. "$SAGE_LOCAL"/bin/sage-version.sh
-+	. "$SAGE_SCRIPTS_DIR/sage-version.sh
++	. "$SAGE_SCRIPTS_DIR"/sage-version.sh
  	echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
  	exit 0
  fi
@@ -163,7 +163,7 @@ Author: Tobias Hansen <thansen@debian.org>
                       or a DocTestDefaults object (possibly with some entries modified)
          - args -- a list of filenames to doctest
  
-@@ -935,9 +935,9 @@
+@@ -950,9 +950,9 @@
              sage: from sage.doctest.control import DocTestDefaults, DocTestController
              sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
              sage: print(DC._assemble_cmd())
@@ -175,7 +175,7 @@ Author: Tobias Hansen <thansen@debian.org>
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -971,14 +971,14 @@
+@@ -986,14 +986,14 @@
              sage: DD = DocTestDefaults(gdb=True)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)

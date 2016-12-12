@@ -1,6 +1,8 @@
 Description: Patch sage-env
  Note that this file is only used during the package build and not installed.
  Instead the file debian/adhoc/sage-env is installed.
+ .
+ The LD_LIBRARY_PATH can probably be forwarded upstream, either way is fine.
 Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage-env

@@ -39,7 +39,7 @@ to reduce the noise in our test results.
      numerical integration::
 --- a/sage/src/sage/graphs/strongly_regular_db.pyx
 +++ b/sage/src/sage/graphs/strongly_regular_db.pyx
-@@ -3134,12 +3134,12 @@
+@@ -3135,12 +3135,12 @@
  
          sage: from sage.graphs.strongly_regular_db import _check_database
          sage: _check_database() # long time
@@ -58,7 +58,7 @@ to reduce the noise in our test results.
      global _brouwer_database
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -6062,8 +6062,7 @@
+@@ -6072,8 +6072,7 @@
              sage: 1 << (2^60)
              Traceback (most recent call last):
              ...

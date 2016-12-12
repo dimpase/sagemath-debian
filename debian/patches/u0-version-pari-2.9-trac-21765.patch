@@ -7,11 +7,9 @@ Subject: Simplify relative_discriminant()
  src/sage/rings/number_field/number_field_rel.py | 6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/src/sage/rings/number_field/number_field_rel.py b/src/sage/rings/number_field/number_field_rel.py
-index ca2b20e..cb9f346 100644
 --- a/sage/src/sage/rings/number_field/number_field_rel.py
 +++ b/sage/src/sage/rings/number_field/number_field_rel.py
-@@ -2282,12 +2282,10 @@ class NumberField_relative(NumberField_generic):
+@@ -2282,12 +2282,10 @@
              sage: L.relative_discriminant()
              Fractional ideal (2)
          """
@@ -26,6 +24,3 @@ index ca2b20e..cb9f346 100644
  
      def discriminant(self):
          """
--- 
-cgit v1.0-1-gd88e
-

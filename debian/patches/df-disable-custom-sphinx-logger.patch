@@ -1,6 +1,6 @@
 Description: Disable a convoluted "build log buffering" mechanism which was causing problems.
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TODO
+Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/sphinxbuild.py

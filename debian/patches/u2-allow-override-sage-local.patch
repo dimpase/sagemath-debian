@@ -103,7 +103,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AX_CHECK_ROOT([AC_MSG_ERROR([You cannot build Sage as root, switch to an unpriviledged user])], [])
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -631,7 +631,7 @@
+@@ -625,7 +625,7 @@
  python_packages, python_modules = find_python_sources(
      SAGE_SRC, ['sage', 'sage_setup'])
  python_data_files = find_extra_files(python_packages,

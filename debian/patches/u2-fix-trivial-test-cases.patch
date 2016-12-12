@@ -19,7 +19,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/maxima_abstract.py
 +++ b/sage/src/sage/interfaces/maxima_abstract.py
-@@ -1516,7 +1516,7 @@
+@@ -1519,7 +1519,7 @@
          EXAMPLES::
  
              sage: maxima('exp(-sqrt(x))').nintegral('x',0,1)
@@ -28,17 +28,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
          Note that GP also does numerical integration, and can do so to very
          high precision very quickly::
---- a/sage/src/sage/graphs/graph_generators.py
-+++ b/sage/src/sage/graphs/graph_generators.py
-@@ -869,7 +869,7 @@
- 
-             sage: gen = graphs.nauty_geng("4", debug=True)
-             sage: print(next(gen))
--            >A geng -d0D3 n=4 e=0-6
-+            >A nauty-geng -d0D3 n=4 e=0-6
-         """
-         import subprocess
-         sp = subprocess.Popen("nauty-geng {0}".format(options), shell=True,
 --- a/sage/src/sage/calculus/calculus.py
 +++ b/sage/src/sage/calculus/calculus.py
 @@ -723,7 +723,7 @@
@@ -154,22 +143,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
      pass
  
---- a/sage/src/sage/env.py
-+++ b/sage/src/sage/env.py
-@@ -193,8 +193,8 @@
-         ['.../include',
-         '.../include/python...',
-         '.../python.../numpy/core/include',
--        '.../python.../site-packages',
--        '.../python.../site-packages/sage/ext']
-+        '.../python.../dist-packages',
-+        '.../python.../dist-packages/sage/ext']
-     """
-     import os, numpy
-     import distutils.sysconfig
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -172,14 +172,15 @@
+@@ -173,14 +173,15 @@
          'm',
          'ec',
          'gsl',
@@ -188,7 +164,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'c',
          [], ['-w', '-O2'],...)
          sage: s, libs, inc, lang, f, args, libdirs = pyx_preparse("# clang c++\n #clib foo\n # cinclude bar\n")
-@@ -194,7 +195,7 @@
+@@ -195,7 +196,7 @@
          'm',
          'ec',
          'gsl',
@@ -197,7 +173,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'ntl']
          sage: libs[1:] == sage.misc.cython.standard_libs
          True
-@@ -204,9 +205,10 @@
+@@ -205,9 +206,10 @@
          '.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',

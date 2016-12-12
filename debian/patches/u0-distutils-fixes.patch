@@ -22,7 +22,7 @@ Subject: Clean up some # distutils directives
 
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -103,12 +103,6 @@
+@@ -100,12 +100,6 @@
  )
  
  #########################################################
@@ -35,7 +35,7 @@ Subject: Clean up some # distutils directives
  ### M4RI flags
  #########################################################
  
-@@ -451,8 +445,7 @@
+@@ -448,8 +442,7 @@
                sources = ['sage/graphs/base/dense_graph.pyx']),
  
      Extension('sage.graphs.base.boost_graph',
@@ -45,7 +45,7 @@ Subject: Clean up some # distutils directives
  
      ################################
      ##
-@@ -892,7 +885,7 @@
+@@ -889,7 +882,7 @@
  
      Extension('sage.matrix.matrix_integer_dense',
                sources = ['sage/matrix/matrix_integer_dense.pyx'],
@@ -54,7 +54,7 @@ Subject: Clean up some # distutils directives
                libraries = ['iml', 'ntl', 'gmp', 'm', 'flint'] + cblas_libs,
                library_dirs = cblas_library_dirs,
                include_dirs = cblas_include_dirs),
-@@ -1012,9 +1005,7 @@
+@@ -1009,9 +1002,7 @@
                sources = ['sage/modular/arithgroup/congroup.pyx']),
  
      Extension('sage.modular.arithgroup.farey_symbol',
@@ -65,7 +65,7 @@ Subject: Clean up some # distutils directives
  
      Extension('sage.modular.arithgroup.arithgroup_element',
                sources = ['sage/modular/arithgroup/arithgroup_element.pyx']),
-@@ -1601,8 +1592,7 @@
+@@ -1598,8 +1589,7 @@
                include_dirs = m4ri_include_dirs + png_include_dirs,
                depends = [SAGE_INC + "/polybori/" + hd + ".h" for hd in ["polybori", "config"] ] +
                          [SAGE_INC + '/m4ri/m4ri.h'],

@@ -12,7 +12,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/rings/polynomial/pbori.pyx
 +++ b/sage/src/sage/rings/polynomial/pbori.pyx
-@@ -2340,7 +2340,7 @@
+@@ -2341,7 +2341,7 @@
              sage: m = x.lm()
              sage: m.stable_hash()
              -845955105                 # 32-bit
@@ -21,7 +21,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
          .. note::
  
-@@ -4648,7 +4648,7 @@
+@@ -4649,7 +4649,7 @@
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: x.stable_hash()
              -845955105                 # 32-bit
@@ -30,7 +30,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
          .. note::
  
-@@ -5732,7 +5732,7 @@
+@@ -5733,7 +5733,7 @@
              sage: s = x.set()
              sage: s.stable_hash()
              -845955105                 # 32-bit

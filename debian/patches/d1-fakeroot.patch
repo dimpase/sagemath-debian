@@ -1,4 +1,5 @@
 Description: We are building with fakeroot which makes this check fail.
+ dpkg-buildpackage uses `fakeroot debian/rules clean` so this is needed
 Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/configure.ac

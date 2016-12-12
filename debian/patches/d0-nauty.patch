@@ -1,3 +1,18 @@
+--- a/sage/src/sage/graphs/graph_generators.py
++++ b/sage/src/sage/graphs/graph_generators.py
+@@ -869,10 +869,10 @@
+ 
+             sage: gen = graphs.nauty_geng("4", debug=True)
+             sage: print(next(gen))
+-            >A geng -d0D3 n=4 e=0-6
++            >A nauty-geng -d0D3 n=4 e=0-6
+         """
+         import subprocess
+-        sp = subprocess.Popen("geng {0}".format(options), shell=True,
++        sp = subprocess.Popen("nauty-geng {0}".format(options), shell=True,
+                               stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, close_fds=True)
+         if debug:
 --- a/sage/src/sage/graphs/digraph_generators.py
 +++ b/sage/src/sage/graphs/digraph_generators.py
 @@ -484,7 +484,7 @@
@@ -9,17 +24,6 @@
                                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE, close_fds=True)
  
---- a/sage/src/sage/graphs/graph_generators.py
-+++ b/sage/src/sage/graphs/graph_generators.py
-@@ -872,7 +872,7 @@
-             >A geng -d0D3 n=4 e=0-6
-         """
-         import subprocess
--        sp = subprocess.Popen("geng {0}".format(options), shell=True,
-+        sp = subprocess.Popen("nauty-geng {0}".format(options), shell=True,
-                               stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE, close_fds=True)
-         if debug:
 --- a/sage/src/sage/graphs/hypergraph_generators.py
 +++ b/sage/src/sage/graphs/hypergraph_generators.py
 @@ -137,7 +137,7 @@
