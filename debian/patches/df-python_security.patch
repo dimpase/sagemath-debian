@@ -35,7 +35,7 @@
          with open(os.devnull, 'w') as dev_null:
 --- a/sage/src/sage/tests/cmdline.py
 +++ b/sage/src/sage/tests/cmdline.py
-@@ -396,23 +396,24 @@
+@@ -380,23 +380,24 @@
          sage: ret
          1
  
@@ -74,5 +74,5 @@
 +    #    ...
 +    #    RuntimeError: refusing to run doctests...
  
-     Now run a test for the fixdoctests script and, in particular, check that the
-     issues raised in :trac:`10589` are fixed. We have to go to slightly silly
+     Test external programs being called by Sage::
+ 
