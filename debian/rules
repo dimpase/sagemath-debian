@@ -246,6 +246,12 @@ get-orig-source:
 #   This helps to avoid http errors due to the mirror network being shitty and apt not doing retries
 # - The first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
 #   Sage needs it due to its pexpect etc stuff
+# - Currently you need to login to the schroot during the build and run
+#   script /dev/null (to avoid https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#62)
+#   and then inside this
+#   - su -c 'mkdir /sbuild-nonexistent' # it might already exist
+#   - su -c 'chown $USERNAME_OF_THE_SBUILD_PROCESS: /sbuild-nonexistent'
+#   TODO: work around this automatically for the next upload to unstable.
 release: ../sagemath_$(DEB_VERSION).dsc
 	sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
