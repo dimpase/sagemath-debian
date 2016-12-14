@@ -107,7 +107,7 @@ Description: Open Source Mathematical Software - architecture-independent files
  Mathematica and Matlab.
  .
  This package contains the architecture-independent files of SageMath.
-Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}
+Depends: ${misc:Depends}, ${python:Depends}
 
 Package: sagemath-jupyter
 Architecture: all

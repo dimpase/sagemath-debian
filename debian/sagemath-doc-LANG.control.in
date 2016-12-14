@@ -17,3 +17,4 @@ Description: Open Source Mathematical Software - documentation (LANGUAGE)
  more documentation than any of the other languages. So if you're finding this
  package lacking in content, then you could try that one as well.
 Depends: ${misc:Depends}, ${sphinxdoc:Depends}
+Built-Using: ${sphinxdoc:Built-Using}
