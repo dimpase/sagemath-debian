@@ -241,11 +241,17 @@ get-orig-source:
 	dpkg-buildpackage -d -uc -us -S
 
 # The extra python-related stuff is a temporary work-around for #847791
+# You may also have to apply some local work-arounds for sbuild/debootstrap bugs etc
+# - echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
+#   This helps to avoid http errors due to the mirror network being shitty and apt not doing retries
+# - The first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
+#   Sage needs it due to its pexpect etc stuff
 release: ../sagemath_$(DEB_VERSION).dsc
 	sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
 	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
 	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
+	  --extra-repository-key=debian/deb-sci-sage.asc \
 	  --chroot-setup-commands='echo deb https://debian-science.alioth.debian.org/apt sid-sage/ >> /etc/apt/sources.list' \
 	  --chroot-setup-commands='apt-get update && apt-get -t sid-sage install -y python2.7=2.7.13~rc1-1.1 libpython2.7=2.7.13~rc1-1.1 python2.7-dev=2.7.13~rc1-1.1' \
 	  --chroot-setup-commands='{ for i in python2.7 python2.7-minimal libpython2.7-stdlib libpython2.7 python2.7-dev; do echo $$i hold; done; } | dpkg --set-selections' \
