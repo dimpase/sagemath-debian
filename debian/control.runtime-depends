@@ -12,6 +12,7 @@
  iso-codes,
  jmol (>= 14.6.4),
  lcalc (>= 1.23+dfsg-6+b1),
+ less,
  libcdd-tools (>= 094h),
  libjs-mathjax,
  libsingular4-dev (>= 1:4.0.3-p3+ds-2),
