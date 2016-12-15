@@ -1,24 +1,28 @@
 # Todo for getting Sage 7.4 into Debian stretch
 
-## Before 2016-12-05 (to make the soft-freeze deadline of 2017-01-05):
-Upload packages to NEW, ASAP
+## Before 2016-12-25 (to make the soft-freeze deadline of 2017-01-05):
+Upload experimental packages to unstable
 
-*   New packages:
-    *   sagemath
-        * ignore known failing doctests
-        * When running the tests with the installed sage, there are many failing tests with:
-          ImportError: No module named common.conf
-        * make installation of sagenb optional (?)
-    *   sagetex (already in experimental, does not need to pass NEW)
-
-*   Packages that have issues preventing testing migration:
-    *   pyzmq
-    *   zeromq3
+*   sagemath
+    * figure out a way for sympow to not try writing to /sbuild-nonexistent
+    * When running the tests with the installed sage, there are many failing
+      tests with: ImportError: No module named common.conf, this is upstream
+      #21732 and only affects documentation
+    * make installation of sagenb optional (?)
+*   sagetex (already in experimental, does not need to pass NEW)
+*   jmol (already in experimental, does not need to pass NEW)
 
 ## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
 Upload all packages and make sure they migrate to testing after 10 days
 
+*   Fix issues preventing testing migration:
+    *   tachyon (#848131: just add the right Depends:)
+    *   pyzmq
+    *   zeromq3
+
 *   Require patches:
+    *   python2.7 (#847791: sagemath can't run or build with 2.7.13rc1)
+        -- already fixed upstream, just waiting for a new release
     *   numpy (only test fixes)
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
@@ -41,6 +45,9 @@ Upload all packages and make sure they migrate to testing after 10 days
           "used by Sage's Sphinx-based documentation build system to produce
            html documentation that can be turned live"
         * lots of JS deps, need to evaluate
+
+## Much later / probably never
+Low-priority things; we'll probably always have higher-priority things to do:
 
 *   Ugly packages:
     *   jmol and jsmol (14.6.1)

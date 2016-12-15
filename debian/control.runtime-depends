@@ -15,8 +15,6 @@
  less,
  libcdd-tools (>= 094h),
  libjs-mathjax,
-# temporary work-around for a tachyon bug
- libmpich12,
  libsingular4-dev (>= 1:4.0.3-p3+ds-2),
  libsingular4-dev (<< 1:4.1),
  maxima-sage,
@@ -43,8 +41,6 @@
  python-cysignals-pari (>= 1.2.0+ds-2),
  python-decorator,
  python-docutils,
-# needed for spkg sagenb-export build, we might be able to remove it when using its Debian package
- python-entrypoints,
  python-flask,
  python-flask-autoindex,
  python-flask-babel,
