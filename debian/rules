@@ -273,7 +273,7 @@ get-orig-source:
 #   /sbuild-nonexistent by sbuild. One viable solution would be to set HOME to
 #   DOT_SAGE for all sympow child processes of sage.
 release: ../sagemath_$(DEB_VERSION).dsc
-	sbuild \
+	cd .. && sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
 	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
 	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
@@ -284,6 +284,6 @@ release: ../sagemath_$(DEB_VERSION).dsc
 	  --chroot-setup-commands='sed -i -e /sid-sage/d /etc/apt/sources.list && apt-get update' \
 	  --build-dep-resolver=aspcud \
 	  --build-failed-commands '%SBUILD_SHELL' \
-	  "$<"
+	  "sagemath_$(DEB_VERSION).dsc"
 
 .PHONY: ptestlong clean-doc-build reset build-dep
