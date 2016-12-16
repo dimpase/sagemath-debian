@@ -26,6 +26,7 @@ u1-fix-dont-require-DISPLAY.patch
 u2-allow-override-sage-local.patch
 u2-fix-trivial-test-cases.patch
 u2-fix-less-trivial-test-cases.patch
+u2-fix-sympow-cachedir.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version

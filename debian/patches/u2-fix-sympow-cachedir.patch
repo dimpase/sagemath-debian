@@ -1,0 +1,26 @@
+Description: Have sympow store cache in DOT_SAGE
+ If HOME doesn't exist then sympow fails because it can't create HOME/.sympow
+ Ideally this should be fixed in sympow, by supporting a --cache-dir flag
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TODO
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/lfunctions/sympow.py
++++ b/sage/src/sage/lfunctions/sympow.py
+@@ -50,6 +50,7 @@
+ 
+ import os
+ 
++from sage.env import DOT_SAGE
+ from sage.structure.sage_object import SageObject
+ from sage.misc.all import pager, verbose
+ import sage.rings.all
+@@ -76,7 +77,7 @@
+         """
+         Used to call sympow with given args
+         """
+-        cmd = 'sympow %s'%args
++        cmd = 'env HOME="%s" sympow %s' % (DOT_SAGE, args)
+         v = os.popen(cmd).read().strip()
+         verbose(v, level=2)
+         return v
