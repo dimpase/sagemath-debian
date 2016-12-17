@@ -4,7 +4,6 @@
 Upload experimental packages to unstable
 
 *   sagemath
-    * figure out a way for sympow to not try writing to /sbuild-nonexistent
     * When running the tests with the installed sage, there are many failing
       tests with: ImportError: No module named common.conf, this is upstream
       #21732 and only affects documentation
@@ -16,7 +15,6 @@ Upload experimental packages to unstable
 Upload all packages and make sure they migrate to testing after 10 days
 
 *   Fix issues preventing testing migration:
-    *   tachyon (#848131: just add the right Depends:)
     *   pyzmq
     *   zeromq3
 
@@ -27,7 +25,7 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
         -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
-    *   gap
+    *   gap (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=844789
 
 *   Try to fix some FTBFS:

@@ -263,15 +263,6 @@ get-orig-source:
 #
 # 3 Do the first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
 #   Sage needs it due to its pexpect etc stuff
-#
-# 4 Currently you need to login to the schroot during the build and run
-#   script /dev/null (to avoid https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#62)
-#   and then inside this
-#   - su -c 'mkdir /sbuild-nonexistent' # it might already exist
-#   - su -c 'chown $USERNAME_OF_THE_SBUILD_PROCESS: /sbuild-nonexistent'
-#   This is due to sympow trying to write to $HOME which is set to
-#   /sbuild-nonexistent by sbuild. One viable solution would be to set HOME to
-#   DOT_SAGE for all sympow child processes of sage.
 release: ../sagemath_$(DEB_VERSION).dsc
 	cd .. && sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
