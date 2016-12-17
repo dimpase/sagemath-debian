@@ -73,3 +73,4 @@ dt-version-singular-4-extra-fixes.patch
 dt-version-glpk-4.60-extra-hacky-fixes.patch
 dt-r-no-readline.patch
 dt-more-fix-test-cases.patch
+dt-work-around-doc-common-conf.patch

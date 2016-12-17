@@ -37,10 +37,7 @@ support requests relating to this and will close bugs as "wontfix".
 Known issues
 ============
 
-At the moment, some things are not working:
-
-- '?' and some other documentation features don't work, relating to Sage
-  upstream bug #21732. TODO: we should fix this before Debian stable.
+At the moment, some things are not working, or working a bit roughly:
 
 - Jupyter notebook: there are errors in the browser console relating to loading
   MathJax fonts but this doesn't seem to interfere with the functionality.
@@ -55,6 +52,10 @@ patches are applied. Then, from any directory:
 
  *$ export -n SAGE_LOCAL SAGE_ROOT
  *$ SAGE_SRC=/path/to/sage/src sage -t -p --long --logfile=ptestlong.log --all
+
+(Note: some doctests under SAGE_SRC/src/doc are known not to work with these
+instructions, due to upstream #21732. They do work when testing from a built
+source tree; see below.)
 
 Feel free to upload your test logs somewhere and send links to them to our
 mailing list <debian-science-sagemath@lists.alioth.debian.org>. Please do not

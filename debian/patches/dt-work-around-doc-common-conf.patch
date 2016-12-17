@@ -1,0 +1,66 @@
+Description: Move runtime documentation python modules into src/sage
+ This is a temporary workaround; upstream is working on a proper fix.
+ When you remove this patch, also be sure to remove the hacky entries in
+ sagemath-common.install
+Author: Ximin Luo <infinity0@debian.org>
+Bug: https://trac.sagemath.org/ticket/21732
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/misc/sagedoc.py
++++ b/sage/src/sage/misc/sagedoc.py
+@@ -463,10 +463,15 @@
+     """
+     if embedded:
+         return s
+-    oldpath = sys.path
+-    sys.path = [os.path.join(SAGE_DOC_SRC, 'common')] + oldpath
+-    from conf import extlinks
+-    sys.path = oldpath
++    extlinks = {
++        'python': ('https://docs.python.org/release/'+sys.version.split(' ')[0]+'/%s', ''),
++        'trac': ('https://trac.sagemath.org/%s', 'trac ticket #'),
++        'wikipedia': ('https://en.wikipedia.org/wiki/%s', 'Wikipedia article '),
++        'arxiv': ('http://arxiv.org/abs/%s', 'Arxiv '),
++        'oeis': ('https://oeis.org/%s', 'OEIS sequence '),
++        'doi': ('https://dx.doi.org/%s', 'doi:'),
++        'mathscinet': ('http://www.ams.org/mathscinet-getitem?mr=%s', 'MathSciNet ')
++        }
+     for key in extlinks:
+         while True:
+             m = re.search(':%s:`([^`]*)`' % key, s)
+--- a/sage/src/sage/misc/sphinxify.py
++++ b/sage/src/sage/misc/sphinxify.py
+@@ -22,7 +22,7 @@
+ import re
+ import shutil
+ from tempfile import mkdtemp
+-from sage.env import SAGE_DOC_SRC
++from sage.env import SAGE_LIB
+ from sphinx.application import Sphinx
+ 
+ 
+@@ -78,7 +78,7 @@
+ 
+     # Sphinx constructor: Sphinx(srcdir, confdir, outdir, doctreedir,
+     # buildername, confoverrides, status, warning, freshenv).
+-    confdir = os.path.join(SAGE_DOC_SRC, 'en', 'introspect')
++    confdir = os.path.join(SAGE_LIB, 'sage', 'misc', 'docs', 'introspect')
+ 
+     doctreedir = os.path.join(srcdir, 'doctrees')
+     confoverrides = {'html_context': {}, 'master_doc': 'docstring'}
+--- a/sage/src/doc/en/introspect/conf.py
++++ b/sage/src/doc/en/introspect/conf.py
+@@ -3,8 +3,11 @@
+ # See sagenb.notebook.cell.Cell.set_introspect_html() for details.
+ 
+ import sys, os
+-sys.path.append(os.environ['SAGE_DOC_SRC'])
+-from common.conf import *
++if 'SAGE_DOC_SRC' in os.environ: sys.path.append(os.environ['SAGE_DOC_SRC'])
++try:
++    from common.conf import *
++except ImportError:
++    from sage.misc.docs.common.conf import *
+ 
+ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.mathjax', 'sphinx.ext.todo',
+               'sphinx.ext.extlinks']
