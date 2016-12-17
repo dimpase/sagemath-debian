@@ -64,3 +64,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  extensions = ['sphinx.ext.autodoc', 'sphinx.ext.mathjax', 'sphinx.ext.todo',
                'sphinx.ext.extlinks']
+--- a/sage/src/doc/common/conf.py
++++ b/sage/src/doc/common/conf.py
+@@ -1,10 +1,14 @@
+ import sys, os, sphinx
+-from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC
++from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB
+ from datetime import date
+ 
+ # If your extensions are in another directory, add it here.
+ sys.path.append(os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
+ 
++# If we can't find the doc sources, try in SAGE_LIB
++if not os.path.exists(SAGE_DOC_SRC):
++    SAGE_DOC_SRC = os.path.join(SAGE_LIB, 'sage', 'misc', 'docs')
++
+ # General configuration
+ # ---------------------
+ 

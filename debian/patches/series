@@ -53,6 +53,7 @@ d1-sage-env.patch
 d1-scripts-dir.patch
 d1-fakeroot.patch
 d1-test-optional.patch
+d1-doc-docs.patch
 
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
