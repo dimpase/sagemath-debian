@@ -251,6 +251,17 @@ get-orig-source:
 ../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz debian/control
 	dpkg-buildpackage -d -uc -us -S
 
+APT_PIN_PRIORITY = 100
+install-apt-sources:
+	sudo apt-get install -y apt-transport-https
+	for d in deb deb-src; do \
+	  echo "$$d https://debian-science.alioth.debian.org/apt sid-sage/"; done \
+	  | sudo tee /etc/apt/sources.list.d/deb-sci-sage.list
+	sudo apt-key add $(CURDIR)/debian/deb-sci-sage.asc
+	printf "Package: *\nPin: release n=sid-sage\nPin-Priority: $(APT_PIN_PRIORITY)\n" \
+	  | sudo tee /etc/apt/preferences.d/deb-sci-sage
+	sudo apt-get update
+
 # Temporary workarounds that will be removed eventually:
 #
 # 1 The extra python-related stuff is a temporary work-around for #847791
