@@ -4,14 +4,311 @@ Source: https://www.sagemath.org/
 
 Files: *
 Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright 1984-2006 The MathWorks, Inc.
+           Copyright 2004 by Peter Dobcsanyi peter@designtheory.org, and copyright
+           Copyright by Jonathan Hanke 2007 <jonhanke@gmail.com>
+           Copyright (c) 1989-2007 (ENPC)
+           Copyright (c) 1989-2008 (INRIA)
+           Copyright (c) 2003-2005  Gustavo Niemeyer <gustavo@niemeyer.net>
+           Copyright (C) 2004, 2005, 2006, 2007 William Stein <wstein@gmail.com>
+           Copyright (C) 2004,2005,2006 William Stein <wstein@gmail.com>
+           Copyright (C) 2004-2009 William Stein <wstein@gmail.com>
+           Copyright (C) 2004-2012 William Stein <wstein@gmail.com>
+           Copyright (C) 2005,2006,2007 William Stein <wstein@gmail.com>
+           Copyright (C) 2005, 2006 William Stein <wstein@gmail.com>
+           Copyright (C) 2005,2006 William Stein <wstein@gmail.com>
+           Copyright (C) 2005,2007 William Stein <wstein@gmail.com>
+           Copyright (c) 2005-2008, Vitalii Vanovschi
+           Copyright (C) 2005-2009 William Stein <wstein@gmail.com>
+           Copyright (C) 2005, 2009 William Stein <wstein@gmail.com>
+           Copyright (C) 2005 David Joyner and William Stein
+           Copyright (C) 2005      David Kohel <kohel@maths.usyd.edu> and
+           Copyright (C) 2005 David Kohel <kohel@maths.usyd.edu> and
+           Copyright (C) 2005 David Kohel <kohel@maths.usyd.edu>, William Stein <wstein@gmail.com>
+           Copyright (C) 2006 - 2007 Robert L. Miller <rlmillster@gmail.com>
+           Copyright (c) 2006,2008 Antti Ajanki <antti.ajanki@iki.fi>
+           Copyright (C) 2006-2009 William Stein and Jon Hanke
+           Copyright (C) 2006 David Joyner<wdjoyner@gmail.com>
+           Copyright (C) 2006 David Joyner <wdjoyner@gmail.com>,
+           Copyright (C) 2006 David Joyner <wdjoyner@gmail.com>, Marshall Hampton,
+           Copyright (C) 2006 Iftikhar Burhanuddin <burhanud@usc.edu>
+           Copyright (C) 2006 Jaap Spies <j.spies@hccnet.nl>
+           Copyright (C) 2006 John E. Stone
+           Copyright (C) 2006 Kiran S. Kedlaya <kedlaya@mit.edu>
+           Copyright (C) 2006, Robert Bradshaw <robertwb@math.washington.edu>
+           Copyright (C) 2006 Timothy Brock
+           Copyright (C) 2006 William Stein <wstein.gmail.com>
+           Copyright (C) 2006, William Stein <wstein@gmail.com>
+           Copyright (C) 2007, 2008 David Kohel <kohel@iml.univ-mrs.fr>
+           Copyright (C) 2007-2012 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2007-2013 Andrey Novoseltsev <novoselt@gmail.com>
+           Copyright (C) 2007-2013 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2007-2013 William Stein <wstein@gmail.com>
+           Copyright (C) 2007 Carl Witty
+           Copyright (C) 2007 chris wuthrich
+           Copyright (C) 2007 Craig Citro
+           Copyright (C) 2007 David Joyner <wdj@usna.edu>
+           Copyright (C) 2007 David Roe <roed.math@gmail.com>
+           Copyright (C) 2007 David Roe       <roed@math.harvard.edu>
+           Copyright (C) 2007 Florent Hivert <Florent.Hivert@univ-rouen.fr>,
+           Copyright (C) 2007 Gonzalo Tornaria
+           Copyright (C) 2007 Mike Hansen       <mhansen@gmail.com>
+           Copyright (C) 2007 Nils Bruin <nbruin@sfu.ca> and
+           Copyright (C) 2007 Peter Dobcsanyi <peter@designtheory.org>
+           Copyright (C) 2007 Robert L. Miller <rlmillster@gmail.com>
+           Copyright (C) 2007 Tom Boothby <boothby@u.washington.edu>
+           Copyright (C) 2007 William Stein
+           Copyright (C) 2007 William Stein <wstein@math.ucsd.edu>
+           Copyright (C) 2008-2009 Anne Schilling <anne at math.ucdavis.edu>
+           Copyright (C) 2008,2009 Martin Albrecht <malb@informatik.uni-bremen.de>
+           Copyright (C) 2008-2009 Martin Albrecht <martinralbrecht@googlemail.com>
+           Copyright (C) 2008-2010 Burcin Erocal <burcin@erocal.org>
+           Copyright (C) 2008-2010 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2008-2010 Sebastien Labbe <slabqc@gmail.com>,
+           Copyright (C) 2008-2013 Nicolas M. Thiery <nthiery at users.sf.net>,
+           Copyright (C) 2008-2015 Franco Saliola <saliola@gmail.com>
+           Copyright (C) 2008 Alexander Raichev <tortoise.said@gmail.com>
+           Copyright (C) 2008 Arnaud bergeron <abergeron@gmail.coms>,
+           Copyright (C) 2008 Burcin Erocal <burcin@erocal.org>
+           Copyright (C) 2008 Dan Drake <ddrake@member.ams.org>
+           Copyright (C) 2008 Daniel M. Gordon <dmgordo@gmail.com>
+           Copyright (C) 2008 David Kohel <kohel@iml.univ-mrs.fr>
+           Copyright (C) 2008 David Roe <roed@math.harvard.edu>,
+           Copyright (C) 2008 Florent Hivert <Florent.Hivert@univ-rouen,fr>,
+           Copyright (C) 2008 Franco Saliola <saliola@gmail.com>,
+           Copyright (C) 2008 Jens Rasch <jyr2000@gmail.com>
+           Copyright (C) 2008 Jonathan Bober and Emily Kirkman
+           Copyright (C) 2008 Kiran Kedlaya <kedlaya@mit.edu>
+           Copyright (C) 2008 Martin Albrecht <malb@informatik.uni-bremen.de>
+           Copyright (C) 2008 Nick Alexander
+           Copyright (C) 2008 Robert L. Miller <rlmillster@gmail.com>
+           Copyright (C) 2008 Ronan Paixao <ronanpaixao@yahoo.com.br>
+           Copyright (C) 2008 Sebastien Labbe <slabqc@gmail.com>
+           Copyright (C) 2008 Sebastien Labbe <slabqc@gmail.com>,
+           Copyright (C) 2008      Teresa  Gomez-Diaz (CNRS) <Teresa.Gomez-Diaz@univ-mlv.fr>
+           Copyright (C) 2008 Tom Boothby <boothby@u.washington.edu>
+           Copyright (c) 2009, 2010 David Joyner <wdjoyner@gmail.com>
+           Copyright (C) 2009-2010 Florent Hivert <Florent.Hivert@univ-rouen.fr>
+           Copyright (c) 2009, 2010 Mike Hogan
+           Copyright (C) 2009-2010 Steven Pon <spon at math.ucdavis.edu>
+           Copyright (C) 2009-2013 Mike Hansen <mhansen@gmail.com>
+           Copyright (C) 2009, Andrew Hou <amhou@uw.edu>
+           Copyright (C) 2009 Bjarke Hammersholt Roune <www.broune.com>
+           Copyright (C) 2009 Burcin Erocal <burcin@erocal.org>
+           Copyright (C) 2009 Daniel Shumow <shumow@gmail.com>
+           Copyright (C) 2009 David Ackerman <davidnackerman@gmail.com>
+           Copyright (C) 2009 David Roe <roed@math.harvard.edu>
+           Copyright (C) 2009   Emily Kirkman
+           Copyright (C) 2009 Fidel Barrera Cruz <fidel.barrera@gmail.com>
+           Copyright (C) 2009 Jason Grout <jason-sage@creativetrax.com>
+           Copyright (C) 2009 John Cremona <john.cremona@gmail.com>
+           Copyright (C) 2009 John H. Palmieri <palmieri@math.washington.edu>
+           Copyright (C) 2009 Jonathan Bober <jwbober@gmail.com>
+           Copyright (C) 2009 Karl-Dieter Crisman <kcrisman@gmail.com>
+           Copyright (C) 2009 Michael Brickenstein <brickenstein@mfo.de>
+           Copyright (C) 2009 Minh Van Nguyen <nguyenminh2@gmail.com>
+           Copyright (C) 2009    Nicolas Borie <nicolas dot borie at math.u-psud.fr>
+           Copyright (C) 2009 Nicolas Borie <nicolas dot borie at math.u-psud.fr>
+           Copyright (C) 2009 Nicolas M. Thiery <nthiery at users.sf.net>,
+           Copyright (C) 2009   Radoslav Kirov
+           Copyright (C) 2009, Robert A. Beezer <beezer@ups.edu>
+           Copyright (C) 2009 Robert Beezer <beezer@ups.edu>
+           Copyright (C) 2009 Robert Bradshaw <robertwb@math.washington.edu>
+           Copyright (C) 2009 Sebastien Labbe <slabqc@gmail.com>,
+           Copyright (C) 2009 Simon King <simon.king@nuigalway.ie> and
+           Copyright (C) 2009 Tim Dumol
+           Copyright (C) 2009 Tim Dumol <tim@timdumol.com>
+           Copyright (C) 2009 Vincent Delecroix <20100.delecroix@gmail.com>
+           Copyright (C) 2009 William Stein, John Cremona
+           Copyright (C) 2009 William Stein <wstein@gmail.com>,
+           Copyright (C) 2009, William Stein <wstein@gmail.com>
+           Copyright (C) 2010-12 Nicolas Borie <nicolas.borie at math dot u-psud.fr>
+           Copyright (C) 2010, 2011, 2012 Travis Scrimshaw <tscrim@ucdavis.edu>
+           Copyright (C) 2010-2011 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2010-2012 David Roe
+           Copyright (C) 2010-2013 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2010-2014 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (c) 2010-2015 Benjamin Peterson
+           Copyright (C) 2010-2015 Florent Hivert <Florent.Hivert@lri.fr>,
+           Copyright (C) 2010-2015 Florent Hivert <Florent.Hivert@univ-mlv.fr>
+           Copyright (C) 2010-2015 Nicolas M. Thiéry
+           Copyright (C) 2010 Alasdair McAndrew <amca01@gmail.com>,
+           Copyright (C) 2010 Alyson Deines <aly.deines@gmail.com>, Marina Gresham
+           Copyright (C) 2010 Christian Stump christian.stump@univie.ac.at
+           Copyright (C) 2010 David Roe <roed@math.harvard.edu>
+           Copyright (C) 2010 Eric Webster
+           Copyright (C) 2010 Fredrik Johansson <fredrik.johansson@gmail.com>
+           Copyright (C) 2010 Jason Grout <jason-sage@creativetrax.com>
+           Copyright (C) 2010 Jeroen Demeyer <jdemeyer@cage.ugent.be>
+           Copyright (C) 2010 Joris Vankerschaver (joris.vankerschaver@gmail.com)
+           Copyright (C) 2010 Josh Whitney <josh.r.whitney@gmail.com>
+           Copyright (C) 2010 Kwankyu Lee <ekwankyu@gmail.com>
+           Copyright (C) 2010 Marco Streng <marco.streng@gmail.com>
+           Copyright (C) 2010 Marshall Hampton <hamptonio@gmail.com>
+           Copyright (C) 2010 Martin Albrecht <M.R.Albrecht@rhul.ac.uk>
+           Copyright (C) 2010 Mate Soos
+           Copyright (C) 2010  Mikhail Malakhaltsev <mikarm@gmail.com>
+           Copyright (c) 2010 Nathann Cohen <nathann.cohen@gmail.com>
+           Copyright (C) 2010  Nicolas Borie <nicolas.borie at math.u-psud.fr>
+           Copyright (C) 2010   Nicolas M. Thiery <nicolas.thiery at u-psud.fr>
+           Copyright (C) 2010     Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2010 Nicolas Thiery <nthiery at users.sf.net>
+           Copyright (C) 2010 Oscar Gerardo Lazo Arjona <algebraicamente@gmail.com>
+           Copyright (C) 2010 Oscar Gerardo Lazo Arjona algebraicamente@gmail.com
+           Copyright (C) 2010 Paul Zimmermann
+           Copyright (C) 2010 Rob Beezer <beezer at ups.edu>
+           Copyright (C) 2010 Valentin Feray <feray@labri.fr>
+           Copyright (C) 2010 Vincent Delecroix <20100.delecroix@gmail.com>
+           Copyright (C) 2010 Vincent Delecroix <20100.delecroix@gmail.com>,
+           Copyright (C) 2010 Volker Braun  <vbraun.name@gmail.com>
+           Copyright (C) 2011, 2012, 2013
+           Copyright (C) 2011-2012 Christian Stump <christian.stump@gmail.com>
+           Copyright (C) 2011-2014 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2011-2014 Travis Scrimshaw <tscrim@ucdavis.edu>
+           Copyright (C) 2011-2015 Sebastien Labbe <slabqc@gmail.com>
+           Copyright (C) 2011 Alan Lauder <lauder@maths.ox.ac.uk>
+           Copyright (C) 2011 Anne Schilling <anne at math.ucdavis.edu>
+           Copyright (C) 2011 Benjamin Jones <benjaminfjones@gmail.com>
+           Copyright (C) 2011 Chris Berg <cberg at fields.utoronto.ca>
+           Copyright (C) 2011 Christian Stump <christian.stump at gmail.com>
+           Copyright (C) 2011      Christian Stump <christian.stump@gmail.com>
+           Copyright (C) 2011 Daniel Bump <bump at match.stanford.edu>
+           Copyright (C) 2011 Daniel Krenn
+           Copyright (C) 2011 David Perkinson <davidp@reed.edu>
+           Copyright (C) 2011 David Roe
+           Copyright (C) 2011 Gregg Musiker <gmusiker@gmail.com>
+           Copyright (C) 2011 Hugh Thomas <hugh.ross.thomas@gmail.com>
+           Copyright (C) 2011 Jason Bandlow <jbandlow@gmail.com>,
+           Copyright (C) 2011 Javier López Peña <jlopez@ende.cc>
+           Copyright (C) 2011 Joris Vankerschaver (jv@caltech.edu)
+           Copyright (C) 2011 Martin Albrecht <martinralbrecht@googlemail.com>
+           Copyright (C) 2011 Martin Raum
+           Copyright (C) 2011      Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2011 Sebastien Labbe <slabqc@gmail.com>
+           Copyright (C) 2011 Simon King <simon.king@uni-jena.de>
+           Copyright (C) 2012-2013 John Cremona, Jenny Cooley, Kimi Tsukazaki
+           Copyright (C) 2012,2013 Travis Scrimshaw <tscrim at ucdavis.edu>,
+           Copyright (C) 2012-2014 David Roe <roed.math@gmail.com>
+           Copyright (C) 2012-2014 John Cremona <john.cremona@gmail.com>
+           Copyright (C) 2012--2015 Clemens Heuberger <clemens.heuberger@aau.at>
+           Copyright (C) 2012 Alexander Molnar
+           Copyright (C) 2012 Andrew Mathas <andrew.mathas@sydney.edu.au>
+           Copyright (C) 2012 Anne Schilling <anne at math.ucdavis.edu>
+           Copyright (C) 2012 Chris Berg <chrisjamesberg@gmail.com>
+           Copyright (C) 2012 Daniel Bump <bump at match.stanford.edu>,
+           Copyright (C) 2012 David Coudert <david.coudert@inria.fr>
+           Copyright (C) 2012 Dima Pasechnik <dimpase@gmail.com>
+           Copyright (C) 2012 Dorota Mazur <dorota@yorku.ca>
+           Copyright (C) 2012 Douglas McNeil <dsm054@gmail.com>
+           Copyright (C) 2012 Eric Larson <elarson3@gmail.com>
+           Copyright (C) 2012 Franco Saliola <saliola@gmail.com>
+           Copyright (C) 2012 Frederic Chapoton <chapoton@math.univ-lyon1.fr>
+           Copyright (C) 2012 Gustavo Rama
+           Copyright (C) 2012 Jeroen Demeyer <jdemeyer@cage.ugent.be>
+           Copyright (C) 2012 Jonathan Gutow (gutow@uwosh.edu)
+           Copyright (C) 2012 Mark Shimozono
+           Copyright (C) 2012 Nathann Cohen <nathann.cohen@gail.com>               #
+           Copyright (C) 2012 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2012 Stepan Starosta <stepan.starosta@gmail.com>
+           Copyright (C) 2012 Thierry Monteil <sage!lma.metelu.net>
+           Copyright (C) 2012 Vincent Delecroix <vincent.delecroix@gmail.com>
+           Copyright (C) 2012 Volker Braun<vbraun.name@gmail.com>
+           Copyright (C) 2012 Volker Braun <vbraun@stp.dias.ie>
+           Copyright (C) 2012 William Stein <wstein@gmail.com>
+           Copyright (C) 2013-2014 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2013-2015 Jeroen Demeyer <jdemeyer@cage.ugent.be>
+           Copyright (C) 2013,2016 Andrew Mathas <andrew dot mathas at sydney dot edu dot au>
+           Copyright (C) 2013 Andrew Gainer-Dewar <andrew.gainer.dewar@gmail.com>
+           Copyright (C) 2013 Andrey Novoseltsev <novoselt@gmail.com>
+           Copyright (C) 2013    Anne Schilling <anne at math.ucdavis.edu>
+           Copyright (C) 2013 Anne Schilling <anne at math.ucdavis.edu>
+           Copyright (C) 2013 Arthur Lubovsky
+           Copyright (C) 2013 Arthur Lubovsky <alubovsky at albany.edu>
+           Copyright (C) 2013 Benjamin Jones <benjaminfjones@gmail.com>
+           Copyright (C) 2013 Ben Salisbury <benjamin_salisbury at brown dot edu>
+           Copyright (C) 2013 Ben Salisbury <bsalisbury1 at gmail.com>
+           Copyright (C) 2013 Brant Jones <brant at math.jmu.edu>
+           Copyright (C) 2013 Christian Stump,
+           Copyright (C) 2013 Davis Shurbert <davis.sprout@gmail.com>
+           Copyright (C) 2013 Franco Saliola <saliola@gmail.com>,
+           Copyright (C) 2013 Frédéric Chapoton <chapoton-math-univ-lyon1-fr>
+           Copyright (C) 2013 Frederic Han <frederic.han@imj-prg.fr>
+           Copyright (C) 2013 Isabel Vogt <ivogt161@gmail.com>                  #
+           Copyright (C) 2013 Jayant Apte <jayant91089@gmail.com>
+           Copyright (C) 2013 Jean-Pierre Flori <jean-pierre.flori@ssi.gouv.fr>,
+           Copyright (C) 2013 Jeroen Demeyer
+           Copyright (C) 2013 John Doyle and David Krumm
+           Copyright (C) 2013 Julian Rueth <julian.rueth@fsfe.org>
+           Copyright (C) 2013 Michael Welsh <michael@welsh.co.nz >
+           Copyright (C) 2013 <mshimo at math.vt.edu>
+           Copyright (C) 2013 Nathann Cohen <nathann.cohen@gmail.com>
+           Copyright (C) 2013 Nicolas M. Thiery <nthiery at users.sf.net>,
+           Copyright (C) 2013 Peter Bruin <peter.bruin@math.uzh.ch>
+           Copyright (C) 2013 Simon A. King <simon.king at uni-jena.de>
+           Copyright (C) 2013 Simon King <simon.king@uni-jena.de>
+           Copyright (C) 2013 Stefan van Zwam <stefanvanzwam@gmail.com >
+           Copyright (C) 2013 Tom Denton <sdenton4@gmail.com>
+           Copyright (C) 2013      Travis Scrimshaw <tscrim at ucdavis.edu>,
+           Copyright (C) 2013 Travis Scrimshaw <tscrim at ucdavis.edu>,
+           Copyright (C) 2013 Viviane Pons <viviane.pons@univie.ac.at>,
+           Copyright (C) 2013, Volker Braun <vbraun.name@gmail.com>
+           Copyright (C) 2014--2015 Clemens Heuberger <clemens.heuberger@aau.at>
+           Copyright (C) 2014, 2016 Daniel Krenn <dev@danielkrenn.at>
+           Copyright (C) 2014, 2105 Daniel Bump <bump at match.stanford.edu>
+           Copyright (C) 2014 Anne Schilling <anne at math.ucdavis.edu>
+           Copyright (C) 2014 Daniel Bump <bump at match.stanford.edu>
+           Copyright (C) 2014 Jean-Baptiste Priez <jbp@kerios.fr>
+           Copyright (C) 2014 John Cremona <john.cremona@gmail.com>
+           Copyright (C) 2014 Martin Albrecht <martinralbecht@googlemail.com>
+           Copyright (C) 2014 Martin von Gagern <Martin.vGagern@gmx.net>
+           Copyright (C) 2014  Miguel Angel Marco Buzunariz
+           Copyright (C) 2014 Miguel Marco <mmarco@unizar.es>
+           Copyright (C) 2014 Miguel Marco <mmarco@unizar.es>, Marcos Rodriguez
+           Copyright (C) 2014 Nathann Cohen <nathann.cohen@gmail.com>
+           Copyright (C) 2014 Peter Bruin <P.J.Bruin@math.leidenuniv.nl>
+           Copyright (C) 2014 Ralf Stephan <gtrwst9@gmail.com>
+           Copyright (C) 2014 Salvatore Stella <sstella@ncsu.edu>
+           Copyright (C) 2014   Travis Scrimshaw <tscrim at ucdavis.edu>
+           Copyright (C) 2014 Travis Scrimshaw <tscrim at ucdavis.edu>,
+           Copyright (C) 2014 Travis Scrimshaw <tscrim@ucdavis.edu>
+           Copyright (C) 2014 Vincent Delecroix <20100.delecroix@gmail.com>
+           Copyright (C) 2015-2016 Vincent Delecroix <20100.delecroix@gmail.com>
+           Copyright (C) 2015 Benjamin Hackl <benjamin.hackl@aau.at>
+           Copyright (C) 2015 Bryan Gillespie <Brg008@gmail.com>
+           Copyright (C) 2015      Christian Stump <christian.stump@gmail.com>
+           Copyright (C) 2015 Ivan Andrus <darthandrus@gmail.com>
+           Copyright (C) 2015 Jean-Baptiste Priez <jbp@kerios.fr>
+           Copyright (C) 2015 Martin Rubey <martin.rubey@tuwien.ac.at>,
+           Copyright (C) 2015 Mike Zabrocki <zabrocki@mathstat.yorku.ca
+           Copyright (C) 2015 Nicolas M. Thiery <nthiery at users.sf.net>
+           Copyright (C) 2015 Nicolas M. Thiéry <nthiery at users.sf.net>
+           Copyright (C) 2015 Sagemath project
+           Copyright (C) 2015 Thomas Gagne <thomasgagne100@gmail.com>
+           Copyright (C) 2015 Travis Scrimshaw <tscrim at ucdavis.edu>,
+           Copyright (C) 2015 Travis Scrimshaw <tscrim@ucdavis.edu>
+           Copyright (C) 2015 William Slofstra
+           Copyright (C) 2016 Andrew Mathas <Andrew dot Mathas at Sydney dot edu dot au>
+           Copyright (C) 2016 Ben Salisbury <ben DOT salisbury AT cmich DOT edu>
+           Copyright (C) 2016 Clemens Heuberger <clemens.heuberger@aau.at>
+           Copyright (C) 2016 David Lucas, Inria  <david.lucas@inria.fr>
+           Copyright (C) 2016 Javier Honrubia Gonzalez <jhonrubia6@alumno.uned.es>
+           Copyright (C) 2016 Jeroen Demeyer <jdemeyer@cage.ugent.be>
+           Copyright (C) 2016 Kiran Kedlaya <kedlaya@ucsd.edu>
+           Copyright (C) 2016 KWANKYU LEE <ekwankyu@gmail.com>
+           Copyright (C) 2016 Lennart Ackermans
+           Copyright (C) 2016 Matthias Koeppe <mkoeppe@math.ucdavis.edu>
+           Copyright (C) 2016 Parthasarathi Panda <parthasarathipanda314@gmail.com>
+           Copyright (C) 2016 Travis Scrimshaw <tscrimsh at umn.edu>
+           Copyright (C) 2016, Volker Braun <vbraun.name@gmail.com>
 License: GPL-2+
 
 Files: debian/*
-Copyright: Copyright (C) 2013-2016 Felix Salfelder, Tobias Hansen, Julien Puydt, Jerome Benoit, Ximin Luo
+Copyright: Copyright (C) 2013-2016 Jerome Benoit, Tobias Hansen, Ximin Luo, Julien Puydt, Felix Salfelder
 License: GPL-2+
 
 Files: sage/src/sage/game_theory/*
-Copyright: Copyright (C) 2014 James Campbell james.campbell@tanti.org.uk
+Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright (C) 2014 James Campbell james.campbell@tanti.org.uk
 License: GPL-3+
 
 Files: sage/build/pkgs/cddlib/patches/random.*
@@ -21,25 +318,40 @@ License: LGPL-2.1+
 Files: sage/src/doc/*
 Copyright: Copyright (C) 2005-2016 The Sage Development Team
 License: CC-BY-SA-3.0
+Comment:
+ The file sage/src/doc/en/reference/history_and_license/index.rst contains the incorrect
+ statement "All documentation is released under the GNU Free Documentation License."
+ This is in contradiction to several statements placing documentation under CC-BY-SA-3.0,
+ e.g. in sage/src/doc/en/reference/index.rst.
+ This oversight was fixed in the upstream git repo, the reference to the GFDL was removed.
+ See
+ https://trac.sagemath.org/ticket/22041
+ https://git.sagemath.org/sage.git/diff?id=20bd83fbed668c9f7beaad9c1d8c21c95808a785
+ https://groups.google.com/forum/#!topic/sage-devel/78zfWLa1ohE
 
 Files: sage/src/sage/rings/bernmm/*
-Copyright: Copyright (C) 2008, 2009, David Harvey
+Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright (C) 2008, 2009, David Harvey
 License: BSD-2-clause
 
 Files: sage/src/sage/stats/distributions/*
-Copyright: Copyright (c) 2014, Martin Albrecht  <martinralbrecht+dgs@googlemail.com>
+Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright (c) 2014, Martin Albrecht  <martinralbrecht+dgs@googlemail.com>
 License: BSD-2-clause
 
 Files: sage/src/sage/misc/function_mangling.pyx
-Copyright: Copyright (c) 2009, Tom Boothby <boothby@math.washington.edu>
+Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright (c) 2009, Tom Boothby <boothby@math.washington.edu>
 License: BSD-3-clause
 
 Files: sage/src/sage/misc/lazy_string.pyx
-Copyright: Copyright (c) 2009 by Armin Ronacher
+Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright (c) 2009 by Armin Ronacher
 License: BSD-3-clause
 
 Files: sage/src/sage/parallel/ncpus.py
-Copyright: Copyright (c) 2005-2008, Vitalii Vanovschi
+Copyright: Copyright (C) 2005-2016 The Sage Development Team
+           Copyright (c) 2005-2008, Vitalii Vanovschi
 License: BSD-3-clause
 
 Files: sage/src/mac-app/tools/createDSStore/six.py
