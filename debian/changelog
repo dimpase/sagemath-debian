@@ -1,6 +1,5 @@
-sagemath (7.4-1) UNRELEASED; urgency=low
+sagemath (7.4-1) experimental; urgency=medium
 
-  [ Tobias Hansen ]
   * Initial package. (Closes: #841136)
 
- -- Ximin Luo <infinity0@debian.org>  Mon, 12 Dec 2016 12:55:33 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sun, 18 Dec 2016 13:25:32 +0000
