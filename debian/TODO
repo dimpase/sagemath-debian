@@ -24,6 +24,8 @@ Upload all packages and make sure they migrate to testing after 10 days
 *   Try to fix some FTBFS:
     *   fflas-ffpack (no package on armel, mips, s390x)
     *   linbox (mipsel and maybe some architectures where fflas-ffpack is missing)
+    *   note however that the release architectures where fflas-ffpack / linbox are missing
+        are architectures where openblas does not exist anyway (it has an explicit list of architectures)
 
 ## Later
 
