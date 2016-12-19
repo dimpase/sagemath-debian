@@ -4,11 +4,7 @@
 Upload experimental packages to unstable
 
 *   sagemath
-    * When running the tests with the installed sage, there are many failing
-      tests with: ImportError: No module named common.conf, this is upstream
-      #21732 and only affects documentation
     * make installation of sagenb optional (?)
-*   sagetex (already in experimental, does not need to pass NEW)
 *   jmol (already in experimental, does not need to pass NEW)
 
 ## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
@@ -19,17 +15,15 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   zeromq3
 
 *   Require patches:
-    *   python2.7 (#847791: sagemath can't run or build with 2.7.13rc1)
-        -- already fixed upstream, just waiting for a new release
     *   numpy (only test fixes)
+        -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=842348
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
         -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
-    *   gap (only test fixes)
-        -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=844789
 
 *   Try to fix some FTBFS:
     *   fflas-ffpack (no package on armel, mips, s390x)
+    *   linbox (mipsel and maybe some architectures where fflas-ffpack is missing)
 
 ## Later
 
