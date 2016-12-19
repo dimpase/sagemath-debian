@@ -264,29 +264,13 @@ install-apt-sources:
 
 # Temporary workarounds that will be removed eventually:
 #
-# 1 The extra python-related stuff is a temporary work-around for #847791
-#   Before running it, you must do:
-#     echo /etc/apt/trusted.gpg >> /etc/schroot/sbuild/copyfiles
-#   this will not be necessary after we remove this work-around.
-#   The dpkg version from testing is used to work around #848422 in dpkg 1.18.16.
-#
-# 2 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
+# 1 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
 #   This helps to avoid http errors due to the mirror network being shitty and apt not doing retries
 #
-# 3 Do the first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
+# 2 Do the first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
 #   Sage needs it due to its pexpect etc stuff
 release: ../sagemath_$(DEB_VERSION).dsc
 	cd .. && sbuild \
-	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
-	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
-	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
-	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
-	  --chroot-setup-commands='echo deb https://debian-science.alioth.debian.org/apt sid-sage/ >> /etc/apt/sources.list' \
-	  --chroot-setup-commands='echo deb http://httpredir.debian.org/debian testing main >> /etc/apt/sources.list' \
-	  --chroot-setup-commands='apt-get update && apt-get -t sid-sage install -y python2.7=2.7.13~rc1-1.1 libpython2.7=2.7.13~rc1-1.1 python2.7-dev=2.7.13~rc1-1.1' \
-	  --chroot-setup-commands='apt-get -t testing install --allow-downgrades -y dpkg=1.18.15' \
-	  --chroot-setup-commands='{ for i in python2.7 python2.7-minimal libpython2.7-stdlib libpython2.7 python2.7-dev dpkg; do echo $$i hold; done; } | dpkg --set-selections' \
-	  --chroot-setup-commands='sed -i -e /sid-sage/d /etc/apt/sources.list && sed -i -e /testing/d /etc/apt/sources.list && apt-get update' \
 	  --build-dep-resolver=aspcud \
 	  --build-failed-commands '%SBUILD_SHELL' \
 	  "sagemath_$(DEB_VERSION).dsc"
