@@ -1,8 +1,8 @@
 usr/bin/sage
-debian/tmp/usr/bin/sage-* usr/share/sage/bin
-usr/share/sage/ext
+debian/tmp/usr/bin/sage-* usr/share/sagemath/bin
+usr/share/sagemath/ext
 usr/lib/python2.7/dist-packages/sage*
-sage/local/var/lib/sage/installed usr/share/sage
+sage/local/var/lib/sage/installed usr/share/sagemath
 # next 3 entries are part of a temporary hack around upstream #21732
 # the other part of the hack is debian/patches/dt-work-around-doc-common-conf.patch
 sage/src/sage/misc/__init__.py usr/lib/python2.7/dist-packages/sage/misc/docs

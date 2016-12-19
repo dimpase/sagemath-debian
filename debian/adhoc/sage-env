@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -z ${SAGE_ROOT} ]]; then
-	export SAGE_ROOT="/usr/share/sage"
+	export SAGE_ROOT="/usr/share/sagemath"
 fi
 
 if [[ -z ${SAGE_LOCAL} ]]; then
@@ -9,11 +9,11 @@ if [[ -z ${SAGE_LOCAL} ]]; then
 fi
 
 if [[ -z ${SAGE_DATA} ]]; then
-	export SAGE_DATA="/usr/share/sage"
+	export SAGE_DATA="/usr/share/sagemath"
 fi
 
 if [[ -z ${SAGE_SHARE} ]]; then
-	export SAGE_SHARE="/usr/share/sage"
+	export SAGE_SHARE="/usr/share/sagemath"
 fi
 
 if [[ -z ${SAGE_DOC} ]]; then
@@ -27,15 +27,15 @@ if [[ -z ${SAGE_DOC_SRC} ]]; then
 fi
 
 if [[ -z ${SAGE_EXTCODE} ]]; then
-	export SAGE_EXTCODE="/usr/share/sage/ext"
+	export SAGE_EXTCODE="/usr/share/sagemath/ext"
 fi
 
 if [[ -z ${SAGE_SPKG_INST} ]]; then
- export SAGE_SPKG_INST="/usr/share/sage/installed"
+ export SAGE_SPKG_INST="/usr/share/sagemath/installed"
 fi
 
 if [[ -z ${SAGE_SCRIPTS_DIR} ]]; then
- export SAGE_SCRIPTS_DIR="/usr/share/sage/bin"
+ export SAGE_SCRIPTS_DIR="/usr/share/sagemath/bin"
 fi
 
 if [[ -z ${DOT_SAGE} ]]; then

@@ -1,4 +1,4 @@
-Description: Find scripts when installed to /usr/share/sage/bin.
+Description: Find scripts when installed to /usr/share/sagemath/bin.
  Most of these scripts are intended to be used via the sage script,
  so we install only sage to /usr/bin.
 Author: Tobias Hansen <thansen@debian.org>
@@ -11,7 +11,7 @@ Author: Tobias Hansen <thansen@debian.org>
  #####################################################################
 -. "$0-env" >&2
 +if [ "\"$0\"" = "\"/usr/bin/sage\"" ]; then
-+    . "/usr/share/sage/bin/sage-env" >&2
++    . "/usr/share/sagemath/bin/sage-env" >&2
 +else
 +    . "$0-env" >&2
 +fi
@@ -67,8 +67,8 @@ Author: Tobias Hansen <thansen@debian.org>
          SAGE_SCRIPTS_DIR="$SAGE_LOCAL/bin"
      elif [ -f "$SAGE_ROOT/src/bin/sage-env" ]; then
          SAGE_SCRIPTS_DIR="$SAGE_ROOT/src/bin"
-+    elif [ -f "/usr/share/sage/bin/sage-env" ]; then
-+        SAGE_SCRIPTS_DIR="/usr/share/sage/bin"
++    elif [ -f "/usr/share/sagemath/bin/sage-env" ]; then
++        SAGE_SCRIPTS_DIR="/usr/share/sagemath/bin"
      else
          echo >&2 "Error: You must set the SAGE_SCRIPTS_DIR environment variable to run this"
          return 1
@@ -137,7 +137,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
          if not os.path.exists(STARTUP):
 -            raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
-+            STARTUP = '/usr/share/sage/bin/sage-maxima.lisp'
++            STARTUP = '/usr/share/sagemath/bin/sage-maxima.lisp'
 +            if not os.path.exists(STARTUP):
 +                raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
  

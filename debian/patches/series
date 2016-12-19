@@ -42,7 +42,6 @@ d0-pari-stackwarn.patch
 d0-rubiks.patch
 d0-singular.patch
 d0-disable-jsmol.patch
-d0-paths-sharedata.patch
 d0-paths.patch
 
 # Patch Sage to behave as a Debian package

@@ -250,7 +250,7 @@ Forwarded: not-needed
 -        echo >&2 '************************************************************************'
 -        exit 1
 +    if [ "$SAGE_BANNER" != "no" ]; then
-+        cat "/usr/share/sage/bin/sage-banner"
++        cat "/usr/share/sagemath/bin/sage-banner"
      fi
  
 -    # Display the startup banner (unless SAGE_BANNER is explictly "no")

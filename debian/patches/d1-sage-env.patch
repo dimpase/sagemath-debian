@@ -7,6 +7,15 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
+@@ -264,7 +264,7 @@
+ # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
+ export SAGE_ETC="$SAGE_LOCAL/etc"
+ export SAGE_SHARE="$SAGE_LOCAL/share"
+-export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
++export SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
+ export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+ export SAGE_SRC="$SAGE_ROOT/src"
 @@ -325,12 +325,12 @@
  fi
  
@@ -55,3 +64,25 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # Handle parallel building/testing/...
  # See Trac Ticket #12016
  # First, figure out the right values for SAGE_NUM_THREADS (default
+--- a/sage/build/make/install
++++ b/sage/build/make/install
+@@ -11,7 +11,7 @@
+ fi
+ export SAGE_SRC="$SAGE_ROOT/src"
+ export SAGE_SHARE="$SAGE_LOCAL/share"
+-export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
++export SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
+ export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
+ export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ export SAGE_VERSION=`cat $SAGE_ROOT/VERSION.txt | sed 's+.*\ \(.*\),.*+\1+'`
+--- a/sage/configure.ac
++++ b/sage/configure.ac
+@@ -85,7 +85,7 @@
+ fi
+ SAGE_SRC="$SAGE_ROOT/src"
+ SAGE_SHARE="$SAGE_LOCAL/share"
+-SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
++SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
+ SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ 
+ #---------------------------------------------------------
