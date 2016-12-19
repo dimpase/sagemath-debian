@@ -180,7 +180,7 @@ endif
 # its build directory. At least that's my (infinity0) impression; I didn't
 # investigate this in too much detail yet.
 clean-docbuild:
-	rm -rf debian/build/usr/share/doc/sage
+	rm -rf debian/build/usr/share/doc/sagemath
 
 distclean:
 	# don't git reset --hard on purpose, so it's easier to test

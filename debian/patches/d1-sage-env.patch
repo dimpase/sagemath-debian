@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -264,7 +264,7 @@
+@@ -264,12 +264,12 @@
  # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
@@ -16,6 +16,12 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
+ export SAGE_DOC_SRC="$SAGE_SRC/doc"
+-export SAGE_DOC="$SAGE_SHARE/doc/sage"
++export SAGE_DOC="$SAGE_SHARE/doc/sagemath"
+ 
+ if [ -z "${SAGE_ORIG_PATH_SET}" ]; then 
+     SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH 
 @@ -325,12 +325,12 @@
  fi
  

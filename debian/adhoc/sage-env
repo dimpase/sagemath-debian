@@ -17,7 +17,7 @@ if [[ -z ${SAGE_SHARE} ]]; then
 fi
 
 if [[ -z ${SAGE_DOC} ]]; then
-	export SAGE_DOC="/usr/share/doc/sage"
+	export SAGE_DOC="/usr/share/doc/sagemath"
 fi
 
 if [[ -z ${SAGE_DOC_SRC} ]]; then
