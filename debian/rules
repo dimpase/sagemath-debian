@@ -271,6 +271,7 @@ install-apt-sources:
 #   Sage needs it due to its pexpect etc stuff
 release: ../sagemath_$(DEB_VERSION).dsc
 	cd .. && sbuild \
+	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
 	  --build-dep-resolver=aspcud \
 	  --build-failed-commands '%SBUILD_SHELL' \
 	  "sagemath_$(DEB_VERSION).dsc"
