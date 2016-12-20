@@ -66,7 +66,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Resolve all symbolic links in a filename.  This more or less behaves
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -102,9 +102,9 @@
+@@ -103,9 +103,9 @@
  except AttributeError:  # in case of use inside virtualenv
      sitepackages_dirs = [os.path.join(os.path.dirname(site.__file__),
                                       'site-packages')]
@@ -78,7 +78,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
  
-@@ -193,8 +193,8 @@
+@@ -194,8 +194,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',

@@ -5,6 +5,22 @@ Description: Patch sage-env
  The LD_LIBRARY_PATH can probably be forwarded upstream, either way is fine.
 Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -197,7 +197,12 @@
+ # append -env to that). We redirect stdout to stderr, which is safer
+ # for scripts.
+ #####################################################################
+-. "$0-env" >&2
++if [ "\"$0\"" = "\"/usr/bin/sage\"" ]; then
++    . "/usr/share/sagemath/bin/sage-env" >&2
++else
++    . "$0-env" >&2
++fi
++
+ if [ $? -ne 0 ]; then
+     echo >&2 "Error setting environment variables by sourcing '$0-env';"
+     echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -264,12 +264,12 @@
@@ -92,3 +108,100 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
  
  #---------------------------------------------------------
+--- a/sage/README.md
++++ b/sage/README.md
+@@ -212,7 +212,7 @@
+ __7.__ The HTML version of the documentation is built during the compilation  
+    process of Sage and resides in the directory:
+ 
+-         $SAGE_ROOT/local/share/doc/sage/html/
++         $SAGE_LOCAL/share/doc/sagemath/html/
+ 
+    >* __Optional__: If you want to build the PDF version (requires LaTeX)  
+    of the documentation, run:  
+--- a/sage/build/make/deps
++++ b/sage/build/make/deps
+@@ -221,7 +221,7 @@
+ 	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
+ 
+ doc-output-clean:
+-	rm -rf "$(SAGE_SHARE)/doc/sage"
++	rm -rf "$(SAGE_SHARE)/doc/sagemath"
+ 
+ 
+ ###############################################################################
+--- a/sage/src/doc/en/developer/sage_manuals.rst
++++ b/sage/src/doc/en/developer/sage_manuals.rst
+@@ -52,7 +52,7 @@
+ 
+     sage --docbuild tutorial html
+ 
+-You can now open ``SAGE_ROOT/local/share/doc/sage/html/en/tutorial/index.html`` in
++You can now open ``SAGE_LOCAL/share/doc/sagemath/html/en/tutorial/index.html`` in
+ your web browser.
+ 
+ - Do you want to **add a new file** to the documentation? :ref:`Click here
+--- a/sage/src/doc/en/faq/faq-general.rst
++++ b/sage/src/doc/en/faq/faq-general.rst
+@@ -312,7 +312,7 @@
+ documentation that makes up the Sage standard documentation. If you
+ have downloaded a binary Sage release, the HTML version of the
+ corresponding documentation comes pre-built and can be found under the
+-directory ``SAGE_ROOT/local/share/doc/sage/html/``.
++directory ``SAGE_LOCAL/share/doc/sagemath/html/``.
+ During the compilation of Sage from source, the HTML version of the
+ documentation is also built in the process. To build the HTML version
+ of the documentation, issue the following command from ``SAGE_ROOT``::
+--- a/sage/src/doc/en/installation/source.rst
++++ b/sage/src/doc/en/installation/source.rst
+@@ -801,7 +801,7 @@
+   primarily intended for use when producing certain binary
+   distributions of Sage, to lower the size of the distribution. As of
+   this writing (December 2014, Sage 6.5), there are only a few such
+-  plots, adding about 4M to the :file:`local/share/doc/sage/` directory.
++  plots, adding about 4M to the :file:`/usr/share/doc/sagemath/` directory.
+   In the future, this may grow, of course. Note: after using this, if you
+   want to build the documentation and include the pictures, you should
+   run ``make doc-clean``, because the presence, or lack, of pictures
+--- a/sage/src/sage/misc/cython.py
++++ b/sage/src/sage/misc/cython.py
+@@ -178,7 +178,7 @@
+         '.../include/python...',
+         '.../python.../numpy/core/include',
+         ...
+-        '.../sage/ext',
++        '.../sagemath/ext',
+         ...
+         '.../cysignals'...],
+         'c',
+@@ -206,7 +206,7 @@
+         '.../include/python...',
+         '.../python.../numpy/core/include',
+         ...
+-        '.../sage/ext',
++        '.../sagemath/ext',
+         ...
+         '.../cysignals'...]
+ 
+--- a/sage/src/sage/structure/sage_object.pyx
++++ b/sage/src/sage/structure/sage_object.pyx
+@@ -1478,7 +1478,7 @@
+ 
+     When run with no arguments :meth:`unpickle_all` tests that all of the
+     "standard" pickles stored in the pickle_jar at
+-    ``SAGE_SHARE/sage/ext/pickle_jar/pickle_jar.tar.bz2`` can be unpickled.
++    ``SAGE_EXTCODE/pickle_jar/pickle_jar.tar.bz2`` can be unpickled.
+ 
+     ::
+ 
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -383,7 +383,7 @@
+             document_name = document.split('/')[1]
+ 
+             # the sage directory within a subdocument, for example
+-            # local/share/doc/sage/html/en/reference/algebras/sage
++            # $SAGE_LOCAL/share/doc/sagemath/html/en/reference/algebras/sage
+             sage_directory = os.path.join(path, document, 'sage')
+ 
+             # Walk through all of the files in the sage_directory

@@ -1,25 +1,21 @@
-Description: Find scripts when installed to /usr/share/sagemath/bin.
- Most of these scripts are intended to be used via the sage script,
- so we install only sage to /usr/bin.
+Description: Define and use SAGE_SCRIPTS_DIR in more places
+ So distros can install them somewhere other than /usr/bin
 Author: Tobias Hansen <thansen@debian.org>
+Forwarded: TODO
 
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -92,6 +92,7 @@
+ _add_variable_or_fallback('SAGE_ROOT',       None)
+ _add_variable_or_fallback('SAGE_LOCAL',      None)
+ _add_variable_or_fallback('SAGE_ETC',        opj('$SAGE_LOCAL', 'etc'))
++_add_variable_or_fallback('SAGE_SCRIPTS_DIR',opj('$SAGE_LOCAL', 'bin'))
+ _add_variable_or_fallback('SAGE_INC',        opj('$SAGE_LOCAL', 'include'))
+ _add_variable_or_fallback('SAGE_SHARE',      opj('$SAGE_LOCAL', 'share'))
+ 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -197,7 +197,12 @@
- # append -env to that). We redirect stdout to stderr, which is safer
- # for scripts.
- #####################################################################
--. "$0-env" >&2
-+if [ "\"$0\"" = "\"/usr/bin/sage\"" ]; then
-+    . "/usr/share/sagemath/bin/sage-env" >&2
-+else
-+    . "$0-env" >&2
-+fi
-+
- if [ $? -ne 0 ]; then
-     echo >&2 "Error setting environment variables by sourcing '$0-env';"
-     echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
-@@ -252,13 +257,13 @@
+@@ -425,13 +425,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
@@ -35,7 +31,7 @@ Author: Tobias Hansen <thansen@debian.org>
  	echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
  	exit 0
  fi
-@@ -570,12 +575,12 @@
+@@ -936,12 +936,12 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -63,16 +59,7 @@ Author: Tobias Hansen <thansen@debian.org>
      fi
  }
  
-@@ -198,6 +198,8 @@
-         SAGE_SCRIPTS_DIR="$SAGE_LOCAL/bin"
-     elif [ -f "$SAGE_ROOT/src/bin/sage-env" ]; then
-         SAGE_SCRIPTS_DIR="$SAGE_ROOT/src/bin"
-+    elif [ -f "/usr/share/sagemath/bin/sage-env" ]; then
-+        SAGE_SCRIPTS_DIR="/usr/share/sagemath/bin"
-     else
-         echo >&2 "Error: You must set the SAGE_SCRIPTS_DIR environment variable to run this"
-         return 1
-@@ -275,7 +277,7 @@
+@@ -275,7 +275,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH 
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET 
  fi 
@@ -132,17 +119,24 @@ Author: Tobias Hansen <thansen@debian.org>
  if [ ! -d "$DOT_SAGE/valgrind" ]; then
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
-@@ -536,7 +536,9 @@
-         SAGE_MAXIMA_DIR = os.path.join(DOT_SAGE,"maxima")
+@@ -473,7 +473,7 @@
  
-         if not os.path.exists(STARTUP):
--            raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
-+            STARTUP = '/usr/share/sagemath/bin/sage-maxima.lisp'
-+            if not os.path.exists(STARTUP):
-+                raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
+ from random import randrange
  
-         #self.__init_code = init_code
-         if init_code is None:
+-from sage.env import DOT_SAGE, SAGE_LOCAL
++from sage.env import DOT_SAGE, SAGE_SCRIPTS_DIR
+ 
+ ##import sage.rings.all
+ 
+@@ -524,7 +524,7 @@
+         # setting inchar and outchar..
+         eval_using_file_cutoff = 256
+         self.__eval_using_file_cutoff = eval_using_file_cutoff
+-        STARTUP = os.path.join(SAGE_LOCAL,'bin','sage-maxima.lisp')
++        STARTUP = os.path.join(SAGE_SCRIPTS_DIR,'sage-maxima.lisp')
+ 
+         # We set maxima's configuration directory to $DOT_SAGE/maxima
+         # This avoids that sage's maxima inadvertently loads
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
 @@ -44,7 +44,7 @@

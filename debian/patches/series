@@ -27,6 +27,7 @@ u2-allow-override-sage-local.patch
 u2-fix-trivial-test-cases.patch
 u2-fix-less-trivial-test-cases.patch
 u2-fix-sympow-cachedir.patch
+u2-scripts-dir.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
@@ -50,7 +51,6 @@ d0-paths.patch
 d1-install-paths.patch # many things in here could be split into an upstreamable patch
 d1-sage-cli.patch
 d1-sage-env.patch
-d1-scripts-dir.patch
 d1-fakeroot.patch
 d1-test-optional.patch
 d1-doc-docs.patch
