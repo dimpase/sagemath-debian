@@ -56,7 +56,24 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -420,8 +420,10 @@
+@@ -345,16 +345,6 @@
+     export SAGE_DISTFILES
+ fi
+ 
+-# Check that $HOME exists
+-if [ "$HOME" = "" ]; then
+-    echo >&2 'Error: environment variable $HOME is not set.'
+-    return 1
+-fi
+-if ! [ -d "$HOME" ]; then
+-    echo >&2 "Error: HOME directory '$HOME' does not exist."
+-    return 1
+-fi
+-
+ if [ "$DOT_SAGE" = "" ]; then
+     # It is *not* an error if this directory does not exist, it will
+     # be created in src/bin/sage or src/sage/misc/misc.py.
+@@ -420,8 +410,10 @@
      export PYTHONHOME
  fi
  
@@ -68,7 +85,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  # Use a matplotlib config directory specific to Sage and specific to
  # the version number of matplotlib, by setting the environment
-@@ -468,7 +470,6 @@
+@@ -468,7 +460,6 @@
  	fi
      fi
  fi
@@ -76,7 +93,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
  
-@@ -642,9 +643,6 @@
+@@ -642,9 +633,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
