@@ -1,9 +1,10 @@
-sagemath (7.4-2) UNRELEASED; urgency=medium
+sagemath (7.4-2) unstable; urgency=medium
 
+  [ Tobias Hansen ]
   * Upload to unstable.
   * Move install paths to */sagemath/* instead of */sage/*.
 
- -- Tobias Hansen <thansen@debian.org>  Mon, 19 Dec 2016 19:54:20 +0000
+ -- Ximin Luo <infinity0@debian.org>  Wed, 21 Dec 2016 02:53:07 +0100
 
 sagemath (7.4-1) experimental; urgency=medium
 
