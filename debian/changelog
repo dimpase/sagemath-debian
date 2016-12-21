@@ -1,3 +1,9 @@
+sagemath (7.4-3) UNRELEASED; urgency=medium
+
+  * Fix separate arch-all vs arch-any builds.
+
+ -- Ximin Luo <infinity0@debian.org>  Wed, 21 Dec 2016 23:18:30 +0100
+
 sagemath (7.4-2) unstable; urgency=medium
 
   [ Tobias Hansen ]

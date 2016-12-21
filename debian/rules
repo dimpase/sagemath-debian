@@ -103,7 +103,7 @@ override_dh_install: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 	dh_install --package sagemath-common -X.so
 	dh_install --remaining-packages --list-missing
 
-override_dh_python2:
+override_dh_python2-arch:
 	dh_python2
 # Work around a stupid bug in dh_python2; #841148
 	mv debian/sagemath/usr/lib/python2.7/dist-packages/sage/modules/.$$(dpkg-architecture -qDEB_HOST_MULTIARCH).so \
