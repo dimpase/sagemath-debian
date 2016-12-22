@@ -4,7 +4,14 @@ include /usr/share/dpkg/pkg-info.mk
 
 #export DH_VERBOSE=1
 
-is_prerelease = test $(DEB_DISTRIBUTION) = UNRELEASED -o $(DEB_DISTRIBUTION) = unstable-sage
+# If we're doing a pre-release, then be less strict about test failures, etc
+ifneq (,$(filter $(DEB_DISTRIBUTION),UNRELEASED unstable-sage))
+is_prerelease = true
+else
+is_prerelease = false
+# some buildds are a bit slow
+export SAGE_TIMEOUT_LONG = 7200
+endif
 
 # Use ccache if pkg.sagemath.ccache build-profile is active.
 # Your rebuilds will be *much quicker*.
@@ -173,7 +180,7 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	elif debian/rules -s had-few-failures; then :; else \
 	  debian/rules -s had-not-too-many-failures && \
 	  mv sage/logs/ptestlong.log sage/logs/ptestlong.log.1 && \
-	  { $(run_tests) -f; debian/rules -s had-few-failures; }; \
+	  { $(run_tests) -f; cd "$(CURDIR)" && debian/rules -s had-few-failures; }; \
 	fi
 endif
 
