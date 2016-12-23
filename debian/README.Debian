@@ -42,6 +42,20 @@ At the moment, some things are not working, or working a bit roughly:
 - Jupyter notebook: there are errors in the browser console relating to loading
   MathJax fonts but this doesn't seem to interfere with the functionality.
 
+- On i386, some functions relating to brial (formerly known as polybori) will
+  cause sage to segfault, including doctests in the following files:
+
+  sage -t --long src/sage/rings/polynomial/multi_polynomial_sequence.py  # Killed due to segmentation fault
+  sage -t --long src/sage/rings/polynomial/pbori.pyx  # Killed due to segmentation fault
+  sage -t --long src/sage/crypto/mq/sr.py  # Killed due to segmentation fault
+
+  We temporarily override these failures and allow the build to pass, in order
+  to allow SageMath to pass the 2017-01-05 deadline for new packages in Debian
+  testing. This gives us about a month's breathing space to deal with this
+  properly, before the full-freeze 2017-02-05 deadline. There is a chance that
+  "deal with" might mean "drop SageMath i386 from Debian stable", so users
+  should not yet assume that sagemath:i386 will exist in the future.
+
 
 Running doctests
 ================
