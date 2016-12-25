@@ -32,6 +32,7 @@ u2-scripts-dir.patch
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
+u2-reproducible-docs.patch
 d0-arb.patch
 d0-cython-sys-path.patch
 d0-gsl-cblas.patch

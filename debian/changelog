@@ -1,3 +1,9 @@
+sagemath (7.4-5) UNRELEASED; urgency=medium
+
+  * Generate documentation reproducibly.
+
+ -- Ximin Luo <infinity0@debian.org>  Sun, 25 Dec 2016 14:27:26 +0100
+
 sagemath (7.4-4) unstable; urgency=medium
 
   * Add a temporary exception to the i386 testsuite to allow the build to pass.

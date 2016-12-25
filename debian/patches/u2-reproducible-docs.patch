@@ -1,0 +1,18 @@
+Description: Generate documentation reproducibly
+ TODO: make this use SOURCE_DATE_EPOCH instead which is set automatically by debhelper
+ https://wiki.debian.org/ReproducibleBuilds/TimestampsProposal#Python
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TODO
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/doc/common/conf.py
++++ b/sage/src/doc/common/conf.py
+@@ -54,7 +54,7 @@
+ 
+ # General information about the project.
+ project = u""
+-copyright = u"2005--{}, The Sage Development Team".format(date.today().year)
++copyright = u"2005--2016, The Sage Development Team"
+ 
+ # The version info for the project you're documenting, acts as replacement for
+ # |version| and |release|, also used in various other places throughout the
