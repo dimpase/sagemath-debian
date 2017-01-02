@@ -106,7 +106,6 @@
  sagemath-database-graphs,
  sagemath-database-mutually-combinatorial-designs,
  sagemath-database-polytopes,
- sagetex,
  singular (>= 1:4.0.3-p3+ds-2),
  singular (<< 1:4.1),
  singular-doc (>= 1:4.0.3-p3+ds-2),

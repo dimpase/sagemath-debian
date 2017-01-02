@@ -1,6 +1,11 @@
 sagemath (7.4-5) UNRELEASED; urgency=medium
 
+  [ Ximin Luo ]
   * Generate documentation reproducibly.
+
+  [ Tobias Hansen ]
+  * Remove sagetex from Build-Depends and sagemath:Depends,
+    add to sagemath:Recommends.
 
  -- Ximin Luo <infinity0@debian.org>  Sun, 25 Dec 2016 14:27:26 +0100
 
