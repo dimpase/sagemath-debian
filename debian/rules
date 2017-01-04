@@ -13,12 +13,6 @@ is_prerelease = false
 export SAGE_TIMEOUT_LONG = 7200
 endif
 
-ifeq (i386,$(shell dpkg-architecture -q DEB_HOST_ARCH))
-is_temporary_exception = true
-else
-is_temporary_exception = false
-endif
-
 # Use ccache if pkg.sagemath.ccache build-profile is active.
 # Your rebuilds will be *much quicker*.
 ifneq (,$(filter pkg.sagemath.ccache,$(DEB_BUILD_PROFILES)))
@@ -183,7 +177,6 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	$(run_tests) || true
 	# If tests fail but not by too many more, then retry them once
 	if $(is_prerelease); then :; \
-	elif $(is_temporary_exception); then :; \
 	elif debian/rules -s had-few-failures; then :; else \
 	  debian/rules -s had-not-too-many-failures && \
 	  mv sage/logs/ptestlong.log sage/logs/ptestlong.log.1 && \
