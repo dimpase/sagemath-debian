@@ -1,6 +1,5 @@
-Description: Have sympow store cache in DOT_SAGE
- If HOME doesn't exist then sympow fails because it can't create HOME/.sympow
- Ideally this should be fixed in sympow, by supporting a --cache-dir flag
+Description: Set SYMPOW_CACHEDIR to be inside DOT_SAGE
+ Otherwise tests fail in sbuild because sympow can't create HOME/.sympow
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: TODO
 ---
@@ -20,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          Used to call sympow with given args
          """
 -        cmd = 'sympow %s'%args
-+        cmd = 'env HOME="%s" sympow %s' % (DOT_SAGE, args)
++        cmd = 'env SYMPOW_CACHEDIR="%s/sympow///" sympow %s' % (DOT_SAGE, args)
          v = os.popen(cmd).read().strip()
          verbose(v, level=2)
          return v
