@@ -8,8 +8,6 @@ Upload all packages and make sure they migrate to testing after 10 days
     *   zeromq3
 
 *   Require patches:
-    *   numpy (only test fixes)
-        -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=842348
     *   sympy (only test fixes)
         -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
         -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
