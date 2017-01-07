@@ -125,7 +125,7 @@ dico = {
     'termcap': @HAS_READLINE@,
     'rubiks': @HAS_RUBIKS@,
     'rw': @HAS_RW@,
-    'sagetex': @HAS_SAGETEX@,
+    'sagetex': True, # to break a circular build-dependency, and it's not actually needed by the build
     'scons': @HAS_SCONS@,
     'singular': @HAS_SINGULAR@,
     'sqlite': @HAS_SQLITE@,
