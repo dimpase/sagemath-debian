@@ -72,6 +72,7 @@ Build-Depends:
  pkg-config,
  python2.7-dev,
  scons,
+ texlive-latex-base,
  zlib1g-dev,
 
 Package: sagemath
@@ -91,7 +92,7 @@ Description: Open Source Mathematical Software
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
  RUNTIME_DEPENDS
  sagemath-common (= ${source:Version})
-Recommends: sagemath-doc-en, sagemath-jupyter, sagetex
+Recommends: sagemath-doc-en, sagemath-jupyter, sagetex, texlive-latex-base
 
 Package: sagemath-common
 Architecture: all
