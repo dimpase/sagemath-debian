@@ -2,12 +2,15 @@ sagemath (7.4-5) UNRELEASED; urgency=medium
 
   [ Ximin Luo ]
   * Generate documentation reproducibly.
+  * Set SYMPOW_CACHEDIR instead of HOME.
+  * Depend on python-numpy (>= 1:1.12.0~rc2-1).
 
   [ Tobias Hansen ]
+  * Rebuild against brial 0.8.5-4.
   * Remove sagetex from Build-Depends and sagemath:Depends,
     add to sagemath:Recommends.
 
- -- Ximin Luo <infinity0@debian.org>  Sun, 25 Dec 2016 14:27:26 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sat, 07 Jan 2017 10:33:01 +0100
 
 sagemath (7.4-4) unstable; urgency=medium
 
