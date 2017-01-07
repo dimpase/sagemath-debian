@@ -6,35 +6,39 @@ Description: Change expected brial hashes for change in hash_combine in boost 1.
  .
  Therefore the hashes changed. For the same reason brial in Debian has the patch
  testsuite-boost-1.62.patch.
- .
- TODO: Also change the expected values for 32-bit.
 Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/rings/polynomial/pbori.pyx
 +++ b/sage/src/sage/rings/polynomial/pbori.pyx
-@@ -2341,7 +2341,7 @@
+@@ -2340,8 +2340,8 @@
+             sage: B.<x,y> = BooleanPolynomialRing()
              sage: m = x.lm()
              sage: m.stable_hash()
-             -845955105                 # 32-bit
+-            -845955105                 # 32-bit
 -            173100285919               # 64-bit
++            -813410365                 # 32-bit
 +            -3935177168673893893       # 64-bit
  
          .. note::
  
-@@ -4649,7 +4649,7 @@
+@@ -4648,8 +4648,8 @@
+ 
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: x.stable_hash()
-             -845955105                 # 32-bit
+-            -845955105                 # 32-bit
 -            173100285919               # 64-bit
++            -813410365                 # 32-bit
 +            -3935177168673893893       # 64-bit
  
          .. note::
  
-@@ -5733,7 +5733,7 @@
+@@ -5732,8 +5732,8 @@
+             sage: B.<x,y> = BooleanPolynomialRing()
              sage: s = x.set()
              sage: s.stable_hash()
-             -845955105                 # 32-bit
+-            -845955105                 # 32-bit
 -            173100285919               # 64-bit
++            -813410365                 # 32-bit
 +            -3935177168673893893       # 64-bit
  
          .. note::

@@ -9,6 +9,8 @@ sagemath (7.4-5) UNRELEASED; urgency=medium
   * Rebuild against brial 0.8.5-4.
   * Remove sagetex from Build-Depends and sagemath:Depends,
     add to sagemath:Recommends.
+  * Change u1-version-pbori-boost1.62-hashes.patch:
+    Also update hashes for 32 bit.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 07 Jan 2017 10:33:01 +0100
 
