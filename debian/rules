@@ -286,6 +286,7 @@ release: ../sagemath_$(DEB_VERSION).dsc
 	cd .. && sbuild \
 	  --build-dep-resolver=aspcud \
 	  --build-failed-commands '%SBUILD_SHELL' \
+	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-experimental: ../sagemath_$(DEB_VERSION).dsc
@@ -297,4 +298,5 @@ release-experimental: ../sagemath_$(DEB_VERSION).dsc
 	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
 	  --build-dep-resolver=aspcud \
 	  --build-failed-commands '%SBUILD_SHELL' \
+	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
