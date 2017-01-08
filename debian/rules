@@ -80,7 +80,27 @@ override_dh_auto_build: prune
 	MAKE='make -j$(NUMJOBS)' make --directory=sage $(DEB_BUILD_TARGET)
 	! grep Error sage/logs/dochtml.log
 
-override_dh_auto_test: ptestlong
+run_tests = cd sage && ./sage -t -p $(NUMJOBS) --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log
+override_dh_auto_test:
+	cd sage && $(SAGE_LOCAL)/bin/sage-starts
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# We do the below instead of `$(MAKE) --directory=sage ptestlong` because
+	# it has a bug where it can't detect a previous successful build. So it
+	# will try to rebuild some sagelib files, then the docbuild, then those
+	# files again, even after a "make all" that was previously successful. This
+	# is not incorrect, but is a massive waste of time. OTOH debhelper is able
+	# to detect a previous successful (override_)dh_auto_build, so if we run
+	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
+	# (and then this target) without trying (override_)dh_auto_build again.
+	$(run_tests) || true
+	# If tests fail but not by too many more, then retry them once
+	if $(is_prerelease); then :; \
+	elif debian/rules -s had-few-failures; then :; else \
+	  debian/rules -s had-not-too-many-failures && \
+	  mv sage/logs/ptestlong.log sage/logs/ptestlong.log.1 && \
+	  { $(run_tests) -f; cd "$(CURDIR)" && debian/rules -s had-few-failures; }; \
+	fi
+endif
 
 override_dh_auto_install:
 	rm -rf debian/build/usr/var/tmp/sage/build
@@ -162,28 +182,6 @@ prune: debian/control
 	cd debian/pruner && ./configure --with-sage-root="$(CURDIR)/sage"
 	cd sage && python ../debian/pruner/pruner.py || $(is_prerelease)
 	touch prune
-
-run_tests = cd sage && ./sage -t -p $(NUMJOBS) --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log
-ptestlong:
-	cd sage && $(SAGE_LOCAL)/bin/sage-starts
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	# We do the below instead of `$(MAKE) --directory=sage ptestlong` because
-	# it has a bug where it can't detect a previous successful build. So it
-	# will try to rebuild some sagelib files, then the docbuild, then those
-	# files again, even after a "make all" that was previously successful. This
-	# is not incorrect, but is a massive waste of time. OTOH debhelper is able
-	# to detect a previous successful (override_)dh_auto_build, so if we run
-	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
-	# (and then this target) without trying (override_)dh_auto_build again.
-	$(run_tests) || true
-	# If tests fail but not by too many more, then retry them once
-	if $(is_prerelease); then :; \
-	elif debian/rules -s had-few-failures; then :; else \
-	  debian/rules -s had-not-too-many-failures && \
-	  mv sage/logs/ptestlong.log sage/logs/ptestlong.log.1 && \
-	  { $(run_tests) -f; cd "$(CURDIR)" && debian/rules -s had-few-failures; }; \
-	fi
-endif
 
 # If the docbuild fails and you want to try again, you should run this first.
 # Otherwise the docbuild gets slower and slower as it re-reads information from
