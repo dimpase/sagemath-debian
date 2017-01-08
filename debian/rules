@@ -78,6 +78,7 @@ DEB_BUILD_TARGET = all
 endif
 override_dh_auto_build: prune
 	MAKE='make -j$(NUMJOBS)' make --directory=sage $(DEB_BUILD_TARGET)
+	! grep Error sage/logs/dochtml.log
 
 override_dh_auto_test: ptestlong
 
