@@ -1,4 +1,4 @@
-sagemath (7.4-5) UNRELEASED; urgency=medium
+sagemath (7.4-5) unstable; urgency=medium
 
   [ Ximin Luo ]
   * Generate documentation reproducibly.
@@ -6,13 +6,13 @@ sagemath (7.4-5) UNRELEASED; urgency=medium
   * Depend on python-numpy (>= 1:1.12.0~rc2-1).
 
   [ Tobias Hansen ]
-  * Rebuild against brial 0.8.5-4.
+  * Rebuild against brial 0.8.5-4. (Closes: #849152)
   * Remove sagetex from Build-Depends and sagemath:Depends,
     add to sagemath:Recommends.
   * Change u1-version-pbori-boost1.62-hashes.patch:
     Also update hashes for 32 bit.
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 07 Jan 2017 10:33:01 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sun, 08 Jan 2017 09:57:27 +0100
 
 sagemath (7.4-4) unstable; urgency=medium
 
