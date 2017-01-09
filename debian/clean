@@ -1,3 +1,4 @@
+dh_auto_build-stamp
 prune
 debian/pruner/config.log
 debian/pruner/config.status
