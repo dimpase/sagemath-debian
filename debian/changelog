@@ -1,4 +1,4 @@
-sagemath (7.4-6) UNRELEASED; urgency=medium
+sagemath (7.4-6) unstable; urgency=medium
 
   * Only check dochtml.log for errors if we will actually build the doc
     packages. This helps to avoid FTBFS on low-memory arch-any buildds.
