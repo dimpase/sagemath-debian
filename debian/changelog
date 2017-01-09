@@ -1,3 +1,10 @@
+sagemath (7.4-6) UNRELEASED; urgency=medium
+
+  * Only check dochtml.log for errors if we will actually build the doc
+    packages. This helps to avoid FTBFS on low-memory arch-any buildds.
+
+ -- Ximin Luo <infinity0@debian.org>  Mon, 09 Jan 2017 12:53:34 +0100
+
 sagemath (7.4-5) unstable; urgency=medium
 
   [ Ximin Luo ]
