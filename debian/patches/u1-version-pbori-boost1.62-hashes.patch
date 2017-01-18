@@ -19,7 +19,7 @@ Author: Tobias Hansen <thansen@debian.org>
 +            -813410365                 # 32-bit
 +            -3935177168673893893       # 64-bit
  
-         .. note::
+         .. NOTE::
  
 @@ -4648,8 +4648,8 @@
  
@@ -30,7 +30,7 @@ Author: Tobias Hansen <thansen@debian.org>
 +            -813410365                 # 32-bit
 +            -3935177168673893893       # 64-bit
  
-         .. note::
+         .. NOTE::
  
 @@ -5732,8 +5732,8 @@
              sage: B.<x,y> = BooleanPolynomialRing()
@@ -41,5 +41,5 @@ Author: Tobias Hansen <thansen@debian.org>
 +            -813410365                 # 32-bit
 +            -3935177168673893893       # 64-bit
  
-         .. note::
+         .. NOTE::
  

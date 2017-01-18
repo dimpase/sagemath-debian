@@ -1,7 +1,4 @@
 Description: Don't output pip warnings, otherwise some doctests fail
- This removes two types of warnings. "--no-index" suppresses messages from
- pip advertising a new pip version. This was applied to sage in
- https://trac.sagemath.org/ticket/21812
  "--format=legacy" suppresses a warning that the default format will
  change from legacy to columns. This is being discussed in
  https://trac.sagemath.org/ticket/21835
@@ -15,7 +12,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          sage: d['beautifulsoup']   # optional - beautifulsoup
          '...'
      """
--    proc = subprocess.Popen(["pip", "list"], stdout=subprocess.PIPE)
+-    proc = subprocess.Popen(["pip", "list", "--no-index"], stdout=subprocess.PIPE)
 +    proc = subprocess.Popen(["pip", "list", "--no-index", "--format=legacy"], stdout=subprocess.PIPE)
      stdout = str(proc.communicate()[0])
      return dict((name.lower(), version) for name,version in PIP_VERSION.findall(stdout))
