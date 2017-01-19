@@ -1,6 +1,6 @@
 --- a/sage/src/sage/interfaces/gp.py
 +++ b/sage/src/sage/interfaces/gp.py
-@@ -246,9 +246,9 @@
+@@ -249,9 +249,9 @@
          # list of directories where gp will look for scripts (only current working directory)
          self._eval_line('default(path,".");')
          # location of elldata, seadata, galdata
@@ -12,20 +12,8 @@
          # logfile disabled since Expect already logs
          self._eval_line('default(log,0);')
          # set random seed
---- a/sage/src/sage_setup/autogen/pari/parser.py
-+++ b/sage/src/sage_setup/autogen/pari/parser.py
-@@ -43,8 +43,7 @@
-         sage: pari_share()
-         '.../share/pari'
-     """
--    SAGE_LOCAL = os.environ["SAGE_LOCAL"]
--    return os.path.join(SAGE_LOCAL, "share", "pari")
-+    return os.path.join("/usr", "share", "pari")
- 
- paren_re = re.compile(r"[(](.*)[)]")
- argname_re = re.compile(r"[ {]*([A-Za-z_][A-Za-z0-9_]*)")
---- a/sage/src/sage/libs/pari/paripriv.pxd
-+++ b/sage/src/sage/libs/pari/paripriv.pxd
+--- a/sage/src/sage/libs/cypari2/paripriv.pxd
++++ b/sage/src/sage/libs/cypari2/paripriv.pxd
 @@ -26,5 +26,5 @@
  
      extern gp_data* GP_DATA
@@ -34,14 +22,3 @@
 -    char* closure_func_err()
 +#cdef extern from 'pari/anal.h':
 +cdef extern char* closure_func_err()
---- a/sage/src/generate_py_source.mk
-+++ b/sage/src/generate_py_source.mk
-@@ -5,7 +5,7 @@
- 
- # Auto-generated files
- # TODO: Adjustments for VPATH builds will be necessary.
--sage/libs/pari/auto_gen.pxi: $(SAGE_LOCAL)/share/pari/pari.desc \
-+sage/libs/pari/auto_gen.pxi: /usr/share/pari/pari.desc \
-         sage/libs/pari/decl.pxi sage_setup/autogen/pari/*.py
- 	python -c "from sage_setup.autogen.pari import rebuild; rebuild()"
- 

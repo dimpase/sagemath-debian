@@ -3,9 +3,9 @@ Description: Set the default size of the PARI stack to 16*10^6 bytes
  of pari increasing the stack size which caused tests to fail.
 Author: Tobias Hansen <thansen@debian.org>
 
---- a/sage/src/sage/libs/pari/pari_instance.pyx
-+++ b/sage/src/sage/libs/pari/pari_instance.pyx
-@@ -464,7 +464,7 @@
+--- a/sage/src/sage/libs/cypari2/pari_instance.pyx
++++ b/sage/src/sage/libs/cypari2/pari_instance.pyx
+@@ -455,7 +455,7 @@
  
  @cython.final
  cdef class PariInstance(PariInstance_auto):
@@ -14,7 +14,7 @@ Author: Tobias Hansen <thansen@debian.org>
          """
          Initialize the PARI system.
  
-@@ -1242,7 +1242,7 @@
+@@ -857,7 +857,7 @@
          EXAMPLES::
  
              sage: pari.stacksize()
@@ -23,7 +23,7 @@ Author: Tobias Hansen <thansen@debian.org>
              sage: pari.allocatemem(2^18, silent=True)
              sage: pari.stacksize()
              262144
-@@ -1316,6 +1316,7 @@
+@@ -931,6 +931,7 @@
          stack size::
  
              sage: a = pari('2^100000000')
@@ -31,7 +31,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
          ``a`` is now a Python variable on the Python heap and does not
          take up any space on the PARI stack.  The PARI stack is still
-@@ -1342,6 +1343,7 @@
+@@ -957,6 +958,7 @@
              sage: pari.allocatemem(1, 2^26)
              PARI stack size set to 1024 bytes, maximum size set to 67108864
              sage: a = pari(2)^100000000
@@ -69,7 +69,7 @@ Author: Tobias Hansen <thansen@debian.org>
          Curves defined over a non-prime field are supported as well::
 --- a/sage/src/sage/rings/number_field/number_field_element.pyx
 +++ b/sage/src/sage/rings/number_field/number_field_element.pyx
-@@ -2399,6 +2399,7 @@
+@@ -2394,6 +2394,7 @@
              sage: f = x^9 + (zeta22^9 - zeta22^6 + zeta22^4 + 1)*x^8 + (2*zeta22^8 + 4*zeta22^7 - 6*zeta22^5 - 205*zeta22^4 - 6*zeta22^3 + 4*zeta22 + 2)*x^7 + (181*zeta22^9 - 354*zeta22^8 + 145*zeta22^7 - 253*zeta22^6 + 145*zeta22^5 - 354*zeta22^4 + 181*zeta22^3 + 189*zeta22 - 189)*x^6 + (902*zeta22^9 + 13116*zeta22^8 + 902*zeta22^7 - 500*zeta22^5 - 322*zeta22^4 - 176*zeta22^3 + 176*zeta22^2 + 322*zeta22 + 500)*x^5 + (13196*zeta22^9 + 548*zeta22^8 + 9176*zeta22^7 - 17964*zeta22^6 + 8512*zeta22^5 - 8512*zeta22^4 + 17964*zeta22^3 - 9176*zeta22^2 - 548*zeta22 - 13196)*x^4 + (17104*zeta22^9 + 23456*zeta22^8 + 8496*zeta22^7 - 8496*zeta22^6 - 23456*zeta22^5 - 17104*zeta22^4 + 39680*zeta22^2 + 283184*zeta22 + 39680)*x^3 + (118736*zeta22^9 - 118736*zeta22^8 - 93520*zeta22^6 + 225600*zeta22^5 + 66496*zeta22^4 + 373744*zeta22^3 + 66496*zeta22^2 + 225600*zeta22 - 93520)*x^2 + (342176*zeta22^9 + 388928*zeta22^8 + 4800*zeta22^7 - 234464*zeta22^6 - 1601152*zeta22^5 - 234464*zeta22^4 + 4800*zeta22^3 + 388928*zeta22^2 + 342176*zeta22)*x + 431552*zeta22^9 - 1830400*zeta22^8 - 1196800*zeta22^7 - 1830400*zeta22^6 + 431552*zeta22^5 + 1196096*zeta22^3 - 12672*zeta22^2 + 12672*zeta22 - 1196096
              sage: L.<a> = K.extension(f)
              sage: alpha = (a^8 + (zeta22^9 - zeta22^6 + 2*zeta22^4 + 33)*a^7)/(10**2555) #long time
@@ -119,7 +119,7 @@ Author: Tobias Hansen <thansen@debian.org>
          Graphics object consisting of 1 graphics primitive
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -6520,6 +6520,7 @@
+@@ -6518,6 +6518,7 @@
              ....:         (2^100).binomial(2^22, algorithm='pari')
              ....:     except AlarmInterrupt:
              ....:         pass
@@ -202,9 +202,9 @@ Author: Tobias Hansen <thansen@debian.org>
          """
          from sage.lfunctions.lcalc import lcalc
          return lcalc.twist_zeros(n, dmin, dmax, L=self.__E)
---- a/sage/src/sage/libs/pari/gen.pyx
-+++ b/sage/src/sage/libs/pari/gen.pyx
-@@ -44,6 +44,7 @@
+--- a/sage/src/sage/libs/cypari2/gen.pyx
++++ b/sage/src/sage/libs/cypari2/gen.pyx
+@@ -47,6 +47,7 @@
      sage: x = polygen(ZpFM(3,10))
      sage: pol = ((x-1)^50 + x)
      sage: pari(pol).poldisc()
@@ -248,9 +248,9 @@ Author: Tobias Hansen <thansen@debian.org>
          [[(0, 0)],
           [(0, 1), (0, -1), (1, 0), (-1, 0)],
           [(1, 1), (-1, -1), (1, -1), (-1, 1)],
---- a/sage/src/sage/libs/pari/handle_error.pyx
-+++ b/sage/src/sage/libs/pari/handle_error.pyx
-@@ -197,6 +197,7 @@
+--- a/sage/src/sage/libs/cypari2/handle_error.pyx
++++ b/sage/src/sage/libs/cypari2/handle_error.pyx
+@@ -199,6 +199,7 @@
          sage: pari.allocatemem(2^12, 2^26)
          PARI stack size set to 4096 bytes, maximum size set to 67108864
          sage: x = pari('2^(2^26)')
