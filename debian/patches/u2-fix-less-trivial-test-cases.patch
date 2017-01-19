@@ -28,7 +28,7 @@ According to Wolfram both answers are slightly wrong so just override with ours
 to reduce the noise in our test results.
 --- a/sage/src/sage/functions/exp_integral.py
 +++ b/sage/src/sage/functions/exp_integral.py
-@@ -1169,7 +1169,7 @@
+@@ -1170,7 +1170,7 @@
  
          sage: f(x) = cosh_integral(x)
          sage: find_root(f, 0.1, 1.0)
@@ -37,28 +37,9 @@ to reduce the noise in our test results.
  
      Compare ``cosh_integral(3.0)`` to the definition of the value using
      numerical integration::
---- a/sage/src/sage/graphs/strongly_regular_db.pyx
-+++ b/sage/src/sage/graphs/strongly_regular_db.pyx
-@@ -3135,12 +3135,12 @@
- 
-         sage: from sage.graphs.strongly_regular_db import _check_database
-         sage: _check_database() # long time
--        Sage cannot build a (196  60   14   20  ) that exists. Comment from Brouwer's database: pg(6,9,2)?
-+        Sage cannot build a (196  60   14   20  ) that exists. Comment from Brouwer's database:... pg(6,9,2)?
-         ...
-         In Andries Brouwer's database:
--        - 452 impossible entries
--        - 2936 undecided entries
--        - 1150 realizable entries (Sage misses ... of them)
-+        - 4... impossible entries
-+        - 29... undecided entries
-+        - 11... realizable entries (Sage misses ... of them)
- 
-     """
-     global _brouwer_database
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -6072,8 +6072,7 @@
+@@ -6070,8 +6070,7 @@
              sage: 1 << (2^60)
              Traceback (most recent call last):
              ...
@@ -88,7 +69,7 @@ to reduce the noise in our test results.
      """
      from sage.symbolic.expression import Expression
      from sage.ext.fast_eval import fast_callable
-@@ -527,7 +527,7 @@
+@@ -519,7 +519,7 @@
          GLPK Simplex Optimizer...
          OPTIMAL LP SOLUTION FOUND
          sage: sol['x']

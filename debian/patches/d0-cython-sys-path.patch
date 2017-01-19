@@ -5,14 +5,14 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -598,6 +598,7 @@
-         build_dir=SAGE_CYTHONIZED,
-         force=force,
-         aliases=aliases,
-+        include_path=sys.path,
-         compiler_directives={
-             'autotestdict': False,
-             'cdivision': True,
+@@ -402,6 +402,7 @@
+             build_dir=SAGE_CYTHONIZED,
+             force=force,
+             aliases=aliases,
++            include_path=sys.path,
+             compiler_directives={
+                 'autotestdict': False,
+                 'cdivision': True,
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -245,6 +245,7 @@

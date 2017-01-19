@@ -15,23 +15,23 @@ Forwarded: TODO
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -425,13 +425,13 @@
+@@ -432,13 +432,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
--	. "$SAGE_LOCAL"/bin/sage-version.sh
-+	. "$SAGE_SCRIPTS_DIR"/sage-version.sh
- 	echo ${SAGE_VERSION}
- 	exit 0
+-        . "$SAGE_LOCAL"/bin/sage-version.sh
++        . "$SAGE_SCRIPTS_DIR"/sage-version.sh
+         echo ${SAGE_VERSION}
+         exit 0
  fi
  
  if [ "$1" = '-v' -o "$1" = '-version' -o "$1" = '--version' ]; then
--	. "$SAGE_LOCAL"/bin/sage-version.sh
-+	. "$SAGE_SCRIPTS_DIR"/sage-version.sh
- 	echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
- 	exit 0
+-        . "$SAGE_LOCAL"/bin/sage-version.sh
++        . "$SAGE_SCRIPTS_DIR"/sage-version.sh
+         echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
+         exit 0
  fi
-@@ -936,12 +936,12 @@
+@@ -943,14 +943,14 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -40,7 +40,9 @@ Forwarded: TODO
 +        gdb -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
 +            -args python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
      else
-         cygdb "$SAGE_SRC/build" "$SAGE_SRC/sage" \
+         # Location of cython_debug directory
+         cygdb_dir="$SAGE_SRC/build/cythonized"
+         cygdb "$cygdb_dir" "$SAGE_SRC/sage" \
 -            -- -x "$SAGE_LOCAL/bin/sage-gdb-commands" \
 -            -args python "$SAGE_LOCAL/bin/sage-ipython" "$@" -i
 +            -- -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
@@ -60,9 +62,9 @@ Forwarded: TODO
  }
  
 @@ -275,7 +275,7 @@
-     SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH 
-     SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET 
- fi 
+     SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
+     SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
+ fi
 -export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
 +export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$SAGE_SCRIPTS_DIR:$PATH"
  

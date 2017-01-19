@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          high precision very quickly::
 --- a/sage/src/sage/calculus/calculus.py
 +++ b/sage/src/sage/calculus/calculus.py
-@@ -723,7 +723,7 @@
+@@ -770,7 +770,7 @@
      Now numerically integrating, we see why the answer is wrong::
  
          sage: f.nintegrate(x,0,1)
@@ -41,7 +41,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      in floating point.
 --- a/sage/src/sage/modules/free_module_element.pyx
 +++ b/sage/src/sage/modules/free_module_element.pyx
-@@ -3886,11 +3886,11 @@
+@@ -3882,11 +3882,11 @@
              sage: type(vec)
              <type 'sage.modules.vector_real_double_dense.Vector_real_double_dense'>
              sage: answers
@@ -79,18 +79,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              ...
              ZeroDivisionError: rational division by zero
              sage: rc is None
-@@ -587,10 +587,7 @@
-         sage: shell = interface_shell_embed(gap)
-         sage: shell.run_cell('List( [1..10], IsPrime )')
-         [ false, true, true, false, true, false, true, false, false, false ]
--        <repr(<IPython.core.interactiveshell.ExecutionResult at 0x...>) failed: 
--        AttributeError: type object 'ExecutionResult' has no attribute '__qualname__'>
--
--    Note that the repr error is https://github.com/ipython/ipython/issues/9756
-+        <ExecutionResult object at ... result=[ false, true, true, false, true, false, true, false, false, false ]>
-     """
-     cfg = sage_ipython_config.copy()
-     ipshell = InteractiveShellEmbed(config=cfg,
 --- a/sage/src/sage/interfaces/interface.py
 +++ b/sage/src/sage/interfaces/interface.py
 @@ -522,9 +522,9 @@
@@ -105,44 +93,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          """
          args, kwds = self._convert_args_kwds(args, kwds)
          self._check_valid_function_name(function)
---- a/sage/src/sage/combinat/words/word.py
-+++ b/sage/src/sage/combinat/words/word.py
-@@ -511,7 +511,7 @@
-         sage: dumps(w)
-         Traceback (most recent call last):
-         ...
--        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
-+        TypeError: can't pickle generator objects
-     """
-     pass
- 
-@@ -549,7 +549,7 @@
-         sage: dumps(w)
-         Traceback (most recent call last):
-         ...
--        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
-+        TypeError: can't pickle generator objects
-     """
-     pass
- 
-@@ -648,7 +648,7 @@
-         sage: dumps(w)
-         Traceback (most recent call last):
-         ...
--        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
-+        TypeError: can't pickle generator objects
-     """
-     pass
- 
-@@ -684,7 +684,7 @@
-         sage: dumps(w)
-         Traceback (most recent call last):
-         ...
--        PicklingError: Can't pickle <type 'generator'>: attribute lookup __builtin__.generator failed
-+        TypeError: can't pickle generator objects
-     """
-     pass
- 
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -173,14 +173,15 @@

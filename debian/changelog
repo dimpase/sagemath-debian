@@ -13,6 +13,8 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
     - u0-pip-nowarn.patch
     - u0-version-pari-2.9.patch
     - u2-allow-override-sage-local.patch
+    - u2-fix-trivial-test-cases.patch
+    - u2-fix-less-trivial-test-cases.patch
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 18 Jan 2017 22:58:31 +0000
 
