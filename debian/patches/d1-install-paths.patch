@@ -23,7 +23,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      from sage.misc.sageinspect import loadable_module_extension
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -178,9 +178,9 @@
+@@ -174,9 +174,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -36,7 +36,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                }
  
  import pkgconfig
-@@ -206,7 +206,7 @@
+@@ -202,7 +202,7 @@
  
      m.extra_compile_args = m.extra_compile_args + extra_compile_args
      m.extra_link_args = m.extra_link_args + extra_link_args
@@ -45,15 +45,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
  
  
-@@ -648,7 +648,7 @@
- print('Cleaning up stale installed files....')
- t = time.time()
- from sage_setup.clean import clean_install_dir
--output_dirs = SITE_PACKAGES + glob.glob(os.path.join(build_base, 'lib*'))
-+output_dirs = [SAGE_LIB] + glob.glob(os.path.join(build_base, 'lib*'))
- for output_dir in output_dirs:
-     print('- cleaning {0}'.format(output_dir))
-     clean_install_dir(output_dir, python_packages, python_modules,
 --- a/sage/sage
 +++ b/sage/sage
 @@ -22,6 +22,7 @@
@@ -78,7 +69,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
  
-@@ -194,8 +194,8 @@
+@@ -212,8 +212,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -91,7 +82,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1004,8 +1004,7 @@
+@@ -1006,8 +1006,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -148,7 +139,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              '-f', '{connection_file}',
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -150,19 +150,18 @@
+@@ -147,19 +147,18 @@
  
      EXAMPLES::
  

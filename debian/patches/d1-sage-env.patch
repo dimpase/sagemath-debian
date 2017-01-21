@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -197,7 +197,12 @@
+@@ -198,7 +198,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################
@@ -36,8 +36,8 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 -export SAGE_DOC="$SAGE_SHARE/doc/sage"
 +export SAGE_DOC="$SAGE_SHARE/doc/sagemath"
  
- if [ -z "${SAGE_ORIG_PATH_SET}" ]; then 
-     SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH 
+ if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
+     SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
 @@ -325,12 +325,12 @@
  fi
  
@@ -86,7 +86,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # Use a matplotlib config directory specific to Sage and specific to
  # the version number of matplotlib, by setting the environment
 @@ -468,7 +460,6 @@
- 	fi
+         fi
      fi
  fi
 -export MAXIMA_PREFIX="$SAGE_LOCAL"
@@ -138,7 +138,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
     of the documentation, run:  
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -221,7 +221,7 @@
+@@ -229,7 +229,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:
@@ -202,7 +202,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
 --- a/sage/src/sage/structure/sage_object.pyx
 +++ b/sage/src/sage/structure/sage_object.pyx
-@@ -1478,7 +1478,7 @@
+@@ -1519,7 +1519,7 @@
  
      When run with no arguments :meth:`unpickle_all` tests that all of the
      "standard" pickles stored in the pickle_jar at
@@ -213,7 +213,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -383,7 +383,7 @@
+@@ -403,7 +403,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example

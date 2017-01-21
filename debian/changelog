@@ -16,6 +16,12 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
     - u2-fix-trivial-test-cases.patch
     - u2-fix-less-trivial-test-cases.patch
     - d0-pari.patch
+    - d0-paths-sharedata.patch
+    - d0-paths.patch
+    - d0-singular.patch
+    - d1-install-paths.patch
+    - dt-disable-parallel-sphinx.patch
+    - dt-more-fix-test-cases.patch (parts were applied upstream)
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 18 Jan 2017 22:58:31 +0000
 

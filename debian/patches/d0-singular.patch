@@ -6,46 +6,22 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2283,7 +2283,7 @@
+@@ -2291,7 +2291,7 @@
      nodes.clear()
      node_names.clear()
  
--    singular_docdir = SAGE_LOCAL+"/share/singular/"
+-    singular_docdir = SAGE_LOCAL+"/share/info/"
 +    singular_docdir = "/usr/share/doc/singular-doc/"
  
      new_node = re.compile("File: singular\.hlp,  Node: ([^,]*),.*")
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
---- a/sage/src/sage/libs/singular/singular.pyx
-+++ b/sage/src/sage/libs/singular/singular.pyx
-@@ -24,6 +24,7 @@
-     long INT_MIN
- 
- import os
-+import sysconfig
- 
- from libc.stdint cimport int64_t
- from sage.libs.singular.decl cimport *
-@@ -772,7 +773,7 @@
-         extension = "so"
- 
-     # library name changed from libsingular to libSingular btw 3.x and 4.x
--    lib = SAGE_LOCAL+"/lib/libSingular."+extension
-+    lib = "/usr/lib/%s/libsingular-Singular.so" % sysconfig.get_config_var('MULTIARCH')
- 
-     if not os.path.exists(lib):
-         raise ImportError("cannot locate Singular library ({})".format(lib))
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -309,10 +309,10 @@
-     Before :trac:`12975`, it would have been needed to write ``#clang c++``,
-     but upper case ``C++`` has resulted in an error::
+@@ -311,7 +311,7 @@
  
--        sage: code = [
-+        sage: import sysconfig; code = [
+         sage: code = [
          ....: "#clang C++",
--        ....: "#cinclude %s/include/singular %s/include/factory"%(SAGE_LOCAL, SAGE_LOCAL),
 -        ....: "#clib m readline Singular givaro ntl gmpxx gmp",
-+        ....: "#cinclude /usr/include/singular /usr/include/singular/singular /usr/include/{0}/singular /usr/include/{0}/singular/singular".format(sysconfig.get_config_var('MULTIARCH')),
 +        ....: "#clib m readline singular-Singular givaro ntl gmpxx gmp",
          ....: "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
          ....: "from sage.libs.singular.polynomial cimport singular_polynomial_pow",

@@ -4,17 +4,6 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/sage/ext/pselect.pyx
-+++ b/sage/src/sage/ext/pselect.pyx
-@@ -290,7 +290,7 @@
-         writing, but not reading (since nothing has been written)::
- 
-             sage: f = open(os.devnull, "r")
--            sage: g = open(os.path.join(SAGE_LOCAL, 'bin', 'python'), "r")
-+            sage: g = open('/usr/bin/python2.7', "r")
-             sage: (pr, pw) = os.pipe()
-             sage: r, w, x, t = PSelecter().pselect([f,g,pr,pw], [pw], [pr,pw])
-             sage: len(r), len(w), len(x), t
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
 @@ -194,7 +194,7 @@
@@ -26,20 +15,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  first_try = True
  
---- a/sage/src/sage/libs/gap/util.pyx
-+++ b/sage/src/sage/libs/gap/util.pyx
-@@ -157,7 +157,7 @@
-         '/home/vbraun/opt/sage-5.3.rc0/local/gap/latest'
-     """
-     import os.path
--    gapdir = os.path.join(SAGE_LOCAL, 'gap', 'latest')
-+    gapdir = '/usr/share/gap'
-     if os.path.exists(gapdir):
-         return gapdir
-     print('The gap-4.5.5.spkg (or later) seems to be not installed!')
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -415,7 +415,7 @@
+@@ -414,7 +414,7 @@
      file_list = []
      for fname in additional_source_files:
          fname = fname.replace("$SAGE_SRC", SAGE_SRC)

@@ -20,19 +20,6 @@ Forwarded: TODO
          hb = [int(_) for _ in handbook_file.readlines()[9].split(',')]
          handbook_file.close()
  
---- a/sage/src/sage/databases/conway.py
-+++ b/sage/src/sage/databases/conway.py
-@@ -22,9 +22,8 @@
- from six import itervalues
- 
- import collections, os
--from sage.env import SAGE_SHARE
- 
--_CONWAYDATA = os.path.join(SAGE_SHARE, 'conway_polynomials',
-+_CONWAYDATA = os.path.join('/usr/share/sagemath/conway_polynomials',
-         'conway_polynomials.sobj')
- _conwaydict = None
- 
 --- a/sage/src/sage/databases/cremona.py
 +++ b/sage/src/sage/databases/cremona.py
 @@ -54,12 +54,13 @@
@@ -60,43 +47,9 @@ Forwarded: TODO
          False
      """
      global _db
---- a/sage/src/sage/schemes/elliptic_curves/ec_database.py
-+++ b/sage/src/sage/schemes/elliptic_curves/ec_database.py
-@@ -117,8 +117,7 @@
-             ((1, -1, 0, -106384, 13075804), 249649566346838)
- 
-         """
--        from sage.env import SAGE_SHARE
--        db = os.path.join(SAGE_SHARE,'ellcurves')
-+        db = '/usr/share/sagemath/ellcurves'
-         data = os.path.join(db,'rank%s'%rank)
-         if not os.path.exists(data):
-             return []
---- a/sage/src/sage/graphs/isgci.py
-+++ b/sage/src/sage/graphs/isgci.py
-@@ -376,7 +376,8 @@
- from sage.structure.sage_object import SageObject
- from sage.structure.unique_representation import CachedRepresentation, UniqueRepresentation
- from sage.misc.unknown import Unknown
--from sage.env import SAGE_SHARE
-+
-+SAGE_SHARE = '/usr/share/sagemath/'
- 
- #*****************************************************************************
- #      Copyright (C) 2011 Nathann Cohen <nathann.cohen@gmail.com>
-@@ -835,8 +836,7 @@
- 
-         EXAMPLE::
- 
--            sage: from sage.env import SAGE_SHARE
--            sage: graph_classes._parse_db(os.path.join(SAGE_SHARE,'graphs'))
-+            sage: graph_classes._parse_db('/usr/share/sagemath/graphs')
-         """
-         import xml.etree.cElementTree as ET
-         import os.path
 --- a/sage/src/sage/graphs/strongly_regular_db.pyx
 +++ b/sage/src/sage/graphs/strongly_regular_db.pyx
-@@ -3120,8 +3120,7 @@
+@@ -3163,8 +3163,7 @@
          return
      import json
  
@@ -106,66 +59,3 @@ Forwarded: TODO
          _brouwer_database = {(v,k,l,mu):{'status':status,'comments':comments}
                               for (v,k,l,mu,status,comments) in json.load(datafile)}
  
---- a/sage/src/sage/geometry/lattice_polytope.py
-+++ b/sage/src/sage/geometry/lattice_polytope.py
-@@ -112,7 +112,6 @@
- from sage.matrix.constructor import matrix
- from sage.matrix.matrix import is_Matrix
- from sage.misc.all import cached_method, tmp_filename
--from sage.env import SAGE_SHARE
- from sage.modules.all import vector, span
- from sage.misc.superseded import deprecated_function_alias, deprecation
- from sage.plot.plot3d.index_face_set import IndexFaceSet
-@@ -136,7 +135,7 @@
- from functools import reduce
- 
- 
--data_location = os.path.join(SAGE_SHARE,'reflexive_polytopes')
-+data_location = '/usr/share/sagemath/reflexive_polytopes'
- 
- 
- class SetOfAllLatticePolytopesClass(Set_generic):
---- a/sage/src/sage/geometry/polyhedron/palp_database.py
-+++ b/sage/src/sage/geometry/polyhedron/palp_database.py
-@@ -107,8 +107,7 @@
-             self._data_basename = data_basename
-         else:
-             import os
--            from sage.env import SAGE_SHARE
--            self._data_basename = os.path.join(SAGE_SHARE, 'reflexive_polytopes',
-+            self._data_basename = os.path.join('/usr/share/sagemath/reflexive_polytopes',
-                                                'Full'+str(dim)+'d', 'zzdb')
-             info = self._data_basename + '.info'
-             if not os.path.exists(info):
---- a/sage/src/sage/databases/sql_db.py
-+++ b/sage/src/sage/databases/sql_db.py
-@@ -242,7 +242,6 @@
-     skeleton = {}
-     cur = database.__connection__.cursor()
-     exe = cur.execute("SELECT name FROM sqlite_master WHERE TYPE='table'")
--    from sage.env import SAGE_SHARE
-     for table in exe.fetchall():
-         skeleton[table[0]] = {}
-         exe1 = cur.execute("PRAGMA table_info(%s)"%table[0])
-@@ -257,7 +256,7 @@
-         for col in exe2.fetchall():
-             if col[1].find('sqlite') == -1:
-                 if database.__dblocation__ == \
--                        os.path.join(SAGE_SHARE,'graphs','graphs.db'):
-+                        os.path.join('/usr/share/sagemath/graphs','graphs.db'):
-                     name = col[1]
-                 else:
-                     name = col[1][len(table[0])+3:]
---- a/sage/src/sage/graphs/graph_database.py
-+++ b/sage/src/sage/graphs/graph_database.py
-@@ -54,9 +54,8 @@
- from sage.rings.integer import Integer
- from sqlite3 import dbapi2 as sqlite # if anyone would like to explain why dbapi2...
- from sage.databases.sql_db import SQLDatabase, SQLQuery
--from sage.env import SAGE_SHARE
- from sage.graphs.graph import Graph
--dblocation = os.path.join(SAGE_SHARE,'graphs','graphs.db')
-+dblocation = os.path.join('/usr/share/sagemath/graphs','graphs.db')
- 
- def degseq_to_data(degree_sequence):
-     """

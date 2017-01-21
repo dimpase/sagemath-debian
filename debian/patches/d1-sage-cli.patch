@@ -47,16 +47,16 @@ Forwarded: not-needed
  
      echo
      ####  1.......................26..................................................78
-@@ -78,8 +68,6 @@
-     echo "                         'default', 'sagenb', and 'jupyter'). See the output"
-     echo "                         of sage --notebook --help for more details and"
-     echo "                         examples of how to pass optional arguments"
+@@ -79,8 +69,6 @@
+     echo "                         See the output of sage --notebook --help"
+     echo "                         for more details and examples of how to pass"
+     echo "                         optional arguments"
 -    echo "  -bn, -build-and-notebook [...] -- build the Sage library then start"
 -    echo "                         the Sage notebook"
      echo "  -inotebook [...]    -- start the *insecure* Sage notebook (deprecated)"
      echo "  -n, -notebook [...] -- start the default Sage notebook (options are the"
      echo "                         same as for the notebook command in Sage).  See the"
-@@ -93,7 +81,6 @@
+@@ -94,7 +82,6 @@
      echo "  -cython [...]       -- run Cython with given arguments"
      echo "  -ecl [...]          -- run Common Lisp"
      echo "  -gap [...]          -- run Sage's Gap with given arguments"
@@ -64,7 +64,7 @@ Forwarded: not-needed
      echo "  -gdb                -- run Sage under the control of gdb"
      echo "  -gp [...]           -- run Sage's PARI/GP calculator with given arguments"
      echo "  -ipython [...]      -- run Sage's IPython using the default environment (not"
-@@ -112,7 +99,6 @@
+@@ -113,7 +100,6 @@
      echo "                         (not installed currently, run sage -i polymake)"
      echo "  -python [...]       -- run the Python interpreter"
      echo "  -R [...]            -- run Sage's R with given arguments"
@@ -72,7 +72,7 @@ Forwarded: not-needed
      echo "  -sh [...]           -- run \$SHELL ($SHELL) with Sage environment variables"
      echo "  -singular [...]     -- run Sage's singular with given arguments"
      echo "  -sqlite3 [...]      -- run Sage's sqlite3 with given arguments"
-@@ -121,49 +107,7 @@
+@@ -122,55 +108,7 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -89,6 +89,12 @@ Forwarded: not-needed
 -    echo "                                 if they are already installed"
 -    echo "                           -s -- do not delete the temporary build directories"
 -    echo "                                 after a successful build"
+-    echo "                           -y -- reply yes to prompts about experimental"
+-    echo "                                 and old-style packages; warning: there"
+-    echo "                                 is no guarantee that these packages will"
+-    echo "                                 build correctly; use at your own risk"
+-    echo "                           -n -- reply no to prompts about experimental"
+-    echo "                                 and old-style packages"
 -    echo "  -p [opts] [packages]-- install the given Sage packages, without dependency"
 -    echo "                         checking and with support for old-style spkgs."
 -    echo "                         Options are -c, -d and -s with the same meaning as"
@@ -123,7 +129,7 @@ Forwarded: not-needed
      echo "  -startuptime [module] -- display how long each component of Sage takes to"
      echo "                         start up; optionally specify a module to get more"
      echo "                         details about that particular module"
-@@ -172,9 +116,7 @@
+@@ -179,9 +117,7 @@
      echo "                         selected options:"
      echo "                           --long - include lines with the phrase 'long time'"
      echo "                           --verbose - print debugging output during the test"
@@ -133,7 +139,7 @@ Forwarded: not-needed
      echo "                           --initial - only show the first failure per block"
      echo "                           --debug - drop into PDB after an unexpected error"
      echo "                           --failed - only test files that failed last test"
-@@ -190,9 +132,6 @@
+@@ -197,9 +133,6 @@
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
      echo "Documentation:"
@@ -143,7 +149,7 @@ Forwarded: not-needed
      echo "  -docbuild [lang/]<document> <html|pdf|...> -- Build the Sage documentation"
      echo "  -search_src <string> -- search through all the Sage library code for string"
      echo "  -search_doc <string> -- search through the Sage documentation for string"
-@@ -213,16 +152,6 @@
+@@ -220,16 +153,6 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -160,7 +166,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -263,74 +192,6 @@
+@@ -270,74 +193,6 @@
      exit $status
  fi
  
@@ -235,7 +241,7 @@ Forwarded: not-needed
  #####################################################################
  # Source sage-env ($0 is the name of this "sage" script, so we can just
  # append -env to that). We redirect stdout to stderr, which is safer
-@@ -355,47 +216,13 @@
+@@ -362,47 +217,13 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
@@ -285,7 +291,7 @@ Forwarded: not-needed
  # Start an interactive Sage session, this function never returns.
  interactive_sage() {
      sage_setup
-@@ -455,11 +282,6 @@
+@@ -462,11 +283,6 @@
      exec gap "$@"
  fi
  
@@ -297,7 +303,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -505,11 +327,6 @@
+@@ -512,11 +328,6 @@
      exec kash "$@"
  fi
  
@@ -309,7 +315,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -525,21 +342,6 @@
+@@ -532,21 +343,6 @@
      exec M2 "$@"
  fi
  
@@ -331,7 +337,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      exec python "$@"
-@@ -560,11 +362,6 @@
+@@ -567,11 +363,6 @@
      exec git "$@"
  fi
  
@@ -343,7 +349,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -684,20 +481,6 @@
+@@ -691,20 +482,6 @@
  fi
  
  #####################################################################
@@ -364,7 +370,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -715,11 +498,6 @@
+@@ -722,11 +499,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -376,7 +382,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -730,13 +508,6 @@
+@@ -737,13 +509,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -390,7 +396,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -755,38 +526,19 @@
+@@ -762,38 +527,19 @@
     exit 0
  fi
  
@@ -431,7 +437,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -795,16 +547,6 @@
+@@ -802,16 +548,6 @@
      fi
  fi
  
@@ -448,7 +454,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      SAGE_BANNER=no sage_setup
-@@ -819,114 +561,6 @@
+@@ -826,114 +562,6 @@
      exec sage-eval "$@"
  fi
  
@@ -563,7 +569,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      shift
      exec python -m "sage_setup.docbuild" "$@"
-@@ -996,10 +630,6 @@
+@@ -1005,10 +633,6 @@
  fi
  
  if [ $# -ge 1 ]; then
