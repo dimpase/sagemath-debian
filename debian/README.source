@@ -130,9 +130,6 @@ Current test status
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
 
-If you get roughly ~30 more failures than the below, try installing our patched
-packages from https://wiki.debian.org/DebianScience/Sage
-
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/sage/
 Look for files named "sagemath-*_*.log"
 
