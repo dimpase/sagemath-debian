@@ -20,6 +20,7 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
     - d0-paths.patch
     - d0-singular.patch
     - d1-install-paths.patch
+    - d1-sage-env.patch (also patch env.py from here)
     - dt-disable-parallel-sphinx.patch
     - dt-more-fix-test-cases.patch (parts were applied upstream)
 
