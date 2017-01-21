@@ -114,7 +114,7 @@ There are three cases:
 
 You may also find this useful:
 
- $ debian/rules EXTRA_SAGE_TEST_FLAGS=-f override_dh_auto_test
+ $ debian/rules check-failed
 
 It will run all previously-failed tests again, which is useful if you're on a
 mass test-fixing spree and forget to count which ones you've fixed. However

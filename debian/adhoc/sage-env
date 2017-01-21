@@ -5,7 +5,7 @@ if [[ -z ${SAGE_ROOT} ]]; then
 fi
 
 if [[ -z ${SAGE_LOCAL} ]]; then
-	export SAGE_LOCAL="/usr/"
+	export SAGE_LOCAL="/usr"
 fi
 
 if [[ -z ${SAGE_DATA} ]]; then

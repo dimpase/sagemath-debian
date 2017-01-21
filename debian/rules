@@ -99,7 +99,8 @@ override_dh_auto_build-arch: dh_auto_build-stamp
 # Otherwise we get spurious failures on some low-memory arch-any buildds.
 override_dh_auto_build-indep: dh_auto_build-stamp check-dochtml-log
 
-run_tests = cd sage && ./sage -t -p $(NUMJOBS) --all --long $(EXTRA_SAGE_TEST_FLAGS) --logfile=logs/ptestlong.log
+LOGFILE = sage/logs/ptestlong.log
+run_tests = cd sage && ./sage -t -p $(NUMJOBS) --all --long --logfile=logs/ptestlong.log
 override_dh_auto_test:
 	cd sage && $(SAGE_LOCAL)/bin/sage-starts
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
@@ -116,10 +117,26 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	if $(is_prerelease); then :; \
 	elif debian/rules -s had-few-failures; then :; else \
 	  debian/rules -s had-not-too-many-failures && \
-	  mv sage/logs/ptestlong.log sage/logs/ptestlong.log.1 && \
+	  mv $(LOGFILE) $(LOGFILE).1 && \
 	  { $(run_tests) -f; cd "$(CURDIR)" && debian/rules -s had-few-failures; }; \
 	fi
 endif
+
+TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
+failed-tests%:
+	@$(TESTS_MK) "$@"
+
+had-few-failures:
+	test -f $(LOGFILE)
+	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 80
+	test -z "$$($(TESTS_MK) failed-tests-special)"
+
+had-not-too-many-failures:
+	test -f $(LOGFILE)
+	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 120
+
+check-failed:
+	$(run_tests) -f
 
 override_dh_auto_install:
 	rm -rf debian/build/usr/var/tmp/sage/build
@@ -221,49 +238,6 @@ build-dep-maint:
 build-dep: debian/control
 	if which aptitude >/dev/null; then sudo mk-build-deps -ir -t 'aptitude -R'; \
 	else sudo mk-build-deps -ir; fi
-
-had-few-failures:
-	# Allow < 80 tests to fail, but no "special" failures like Killed etc
-	test -f sage/logs/ptestlong.log
-	test "$$(debian/rules -s --no-print-directory failed-tests-total)" -lt 80
-
-had-not-too-many-failures:
-	test -f sage/logs/ptestlong.log
-	test "$$(grep "Failed example:" sage/logs/ptestlong.log | wc -l)" -lt 120
-
-FAILED_TESTS = grep '^sage -t .*  \#' sage/logs/ptestlong.log
-failed-tests:
-	$(FAILED_TESTS)
-
-failed-tests-total:
-	grep "Failed example:" sage/logs/ptestlong.log | wc -l
-	$(FAILED_TESTS) | { ! grep '# [^0-9]'; }
-
-failed-tests-by-name:
-	$(FAILED_TESTS) | sort '-t#' -k1
-
-failed-tests-by-count:
-# Sort "special" failures last, e.g. segfault/abort/timed-out etc
-	$(FAILED_TESTS) \
-	  | sed -e 's,#\(\s\s*[^0-9]\),#9999999\1,g' \
-	  | sort '-t#' -k2n,2n \
-	  | sed -e 's,9999999,,g'
-
-failed-tests-by-error:
-# Filter out NameError; most of these are caused by earlier errors
-	grep '\(Error\|Warning\):' sage/logs/ptestlong.log \
-	  | grep -v NameError \
-	  | sort | uniq -c | sort -k1n,1n
-
-FT_CAUSE_ERRORTYPE = \(Error\|Warning\)
-FT_CAUSE_BACKTRACE = 2
-failed-tests-by-cause:
-	grep -B$$((2 * $(FT_CAUSE_BACKTRACE))) -Z '$(FT_CAUSE_ERRORTYPE):' sage/logs/ptestlong.log \
-	  | sed -e 's/^--$$/\x00/g' \
-	  | sed -z -e 's/^\s*//g' \
-	  | tr '\0\n' '\n\t' \
-	  | sort | uniq -c | sort -k1n,1n \
-	  | less -S +G
 
 get-orig-source:
 	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz

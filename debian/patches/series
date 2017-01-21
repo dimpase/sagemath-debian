@@ -23,13 +23,14 @@ u1-fix-preexec-fn.patch
 u1-fix-dont-require-DISPLAY.patch
 
 # Patches that should be upstreamed, but need a bit more work first
-u2-allow-override-sage-local.patch
+u2-reproducible-docs.patch
+u2-looser-doctest-basename.patch
+u2-fix-atrocious-symlink-logic.patch
 u2-fix-trivial-test-cases.patch
 u2-fix-less-trivial-test-cases.patch
 u2-fix-sympow-cachedir.patch
+u2-allow-override-sage-local.patch
 u2-scripts-dir.patch
-u2-reproducible-docs.patch
-u2-looser-doctest-basename.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
@@ -55,7 +56,9 @@ d1-sage-cli.patch
 d1-sage-env.patch
 d1-fakeroot.patch
 d1-test-optional.patch
+d1-multiarch-python-paths.patch
 d1-doc-docs.patch
+d1-disable-post-install-tests.patch
 
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
