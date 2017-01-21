@@ -186,9 +186,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 @@ -85,7 +85,7 @@
      # If the file is in the sage library, we can use our knowledge of
      # the directory structure
-     dev = SAGE_SRC
--    sp = os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages')
-+    sp = SAGE_LIB
+     dev = os.path.normpath(SAGE_SRC)
+-    sp = os.path.normpath(os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages'))
++    sp = os.path.normpath(SAGE_LIB)
      if path.startswith(dev):
          # there will be a branch name
          i = path.find(os.path.sep, len(dev))
