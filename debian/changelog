@@ -15,6 +15,7 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
     - u2-allow-override-sage-local.patch
     - u2-fix-trivial-test-cases.patch
     - u2-fix-less-trivial-test-cases.patch
+    - d0-arb.patch (patch acb_poly.pxd)
     - d0-pari.patch
     - d0-paths-sharedata.patch
     - d0-paths.patch

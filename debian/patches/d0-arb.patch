@@ -80,3 +80,11 @@ Forwarded: not-needed
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_t, fmpq_t
+--- a/sage/src/sage/libs/arb/acb_poly.pxd
++++ b/sage/src/sage/libs/arb/acb_poly.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = arb
++# distutils: libraries = flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.flint.types cimport fmpz_poly_t, fmpq_poly_t
