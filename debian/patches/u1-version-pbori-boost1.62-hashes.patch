@@ -7,6 +7,7 @@ Description: Change expected brial hashes for change in hash_combine in boost 1.
  Therefore the hashes changed. For the same reason brial in Debian has the patch
  testsuite-boost-1.62.patch.
 Author: Tobias Hansen <thansen@debian.org>
+Forwarded: https://trac.sagemath.org/ticket/22243
 
 --- a/sage/src/sage/rings/polynomial/pbori.pyx
 +++ b/sage/src/sage/rings/polynomial/pbori.pyx

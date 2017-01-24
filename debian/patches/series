@@ -1,10 +1,10 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
 u0-version-pari-2.9.patch
-u0-pip-nowarn.patch
 
 # Uncontroversial fixes to Sage's code
 # We should forward these upstream, and they would probably accept
+u1-pip-nowarn.patch
 u1-version-planarity-3.patch
 u1-version-pbori-boost1.62-hashes.patch
 u1-version-ecm-7.patch

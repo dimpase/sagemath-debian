@@ -3,7 +3,7 @@ Description: Update Sage's planarity module to use API v3
  indexing to 1-based array indexing for the lulz. So funny, I really enjoyed
  wasting several hours of my time.
 Author: Ximin Luo <infinity0@debian.org>
-Bug: https://trac.sagemath.org/ticket/21774
+Forwarded: https://trac.sagemath.org/ticket/21774
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/graphs/planarity.pyx
