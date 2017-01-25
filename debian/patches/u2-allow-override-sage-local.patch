@@ -103,10 +103,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  AX_CHECK_ROOT([AC_MSG_ERROR([You cannot build Sage as root, switch to an unpriviledged user])], [])
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -94,7 +94,7 @@
-         except OSError as err:
-             if err.errno == errno.EEXIST:
-                 return
+@@ -102,7 +102,7 @@
+                 pass
+             else:
+                 raise
 -        os.symlink(src, dst)
 +        os.symlink(os.path.relpath(src, os.path.dirname(dst)), dst)
  

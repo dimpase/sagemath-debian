@@ -1,0 +1,32 @@
+Description: Fix atrocious logic in symlink()
+ If the desired result is already in effect, do nothing. Otherwise, proceed
+ with the previous behaviour, but handle permissions errors correctly.
+ We don't actually need any part of this file in Debian, but fixing this (so
+ that post-install tests don't fail) was easier than trying to figure out if
+ removing the file would have other consequences elsewhere.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TODO
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -89,11 +89,19 @@
+             sage: os.listdir(path)
+             ['b']
+         """
++        if os.path.islink(dst):
++            origsrc = os.path.join(os.path.dirname(dst), os.readlink(dst))
++            if os.path.abspath(origsrc) == os.path.abspath(src):
++                return
+         try:
+             os.remove(dst)
+         except OSError as err:
+             if err.errno == errno.EEXIST:
+                 return
++            elif err.errno == errno.ENOENT:
++                pass
++            else:
++                raise
+         os.symlink(src, dst)
+ 
+     def use_local_mathjax(self):

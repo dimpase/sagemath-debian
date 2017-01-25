@@ -1,0 +1,31 @@
+Description: Correctly handle Debian's python multiarch extension module names
+ We need to strip that part in order to return the correct ".pyx" filename.
+ Otherwise a few post-install tests break.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/misc/sageinspect.py
++++ b/sage/src/sage/misc/sageinspect.py
+@@ -122,6 +122,7 @@
+ import tokenize
+ import types
+ import re
++import sysconfig
+ EMBEDDED_MODE = False
+ from sage.env import SAGE_SRC
+ 
+@@ -1247,7 +1248,12 @@
+     except TypeError: # this happens for Python builtins
+         return ''
+     if sourcefile.endswith(loadable_module_extension()):
+-        return sourcefile[:-len(loadable_module_extension())]+os.path.extsep+'pyx'
++        sourcefile = sourcefile[:-len(loadable_module_extension())]
++        # remove Debian's python multiarch extension module naming conventions
++        multiarchsuffix = "." + sysconfig.get_config_vars("MULTIARCH")[0]
++        if sourcefile.endswith(multiarchsuffix):
++            sourcefile = sourcefile[:-len(multiarchsuffix)]
++        return sourcefile+os.path.extsep+'pyx'
+     return sourcefile
+ 
+ def sage_getargspec(obj):

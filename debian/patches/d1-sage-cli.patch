@@ -599,10 +599,27 @@ Forwarded: not-needed
  --preparse
  --python
  -q
-@@ -215,19 +212,6 @@
+@@ -198,36 +195,6 @@
          sage: ret
          0
  
+-    Test ``sage --info [packages]`` and the equivalent
+-    ``sage -p --info --info [packages]`` (the doubling of ``--info``
+-    is intentional, that option should be idempotent)::
+-
+-        sage: out, err, ret = test_executable(["sage", "--info", "sqlite"])
+-        sage: print(out)
+-        Found local metadata for sqlite-...
+-        = SQLite =
+-        ...
+-        SQLite is a software library that implements a self-contained,
+-        serverless, zero-configuration, transactional SQL database engine.
+-        ...
+-        sage: err
+-        ''
+-        sage: ret
+-        0
+-
 -        sage: out, err, ret = test_executable(["sage", "-p", "--info", "--info", "sqlite"])
 -        sage: print(out)
 -        Found local metadata for sqlite-...
@@ -619,7 +636,7 @@ Forwarded: not-needed
      Test ``sage-run`` on a Python file, both with an absolute and with a relative path::
  
          sage: dir = tmp_dir(); name = 'python_test_file.py'
-@@ -414,50 +398,6 @@
+@@ -414,50 +381,6 @@
          ...
          RuntimeError: refusing to run doctests...
  
@@ -670,7 +687,7 @@ Forwarded: not-needed
      Test external programs being called by Sage::
  
          sage: (out, err, ret) = test_executable(["sage", "--sh"], "echo Hello World\nexit 42\n")
-@@ -599,32 +539,6 @@
+@@ -599,32 +522,6 @@
          sage: ret
          0
  

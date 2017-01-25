@@ -114,7 +114,7 @@ There are three cases:
 
 You may also find this useful:
 
- $ debian/rules EXTRA_SAGE_TEST_FLAGS=-f override_dh_auto_test
+ $ debian/rules check-failed
 
 It will run all previously-failed tests again, which is useful if you're on a
 mass test-fixing spree and forget to count which ones you've fixed. However
@@ -129,9 +129,6 @@ Current test status
 
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
-
-If you get roughly ~30 more failures than the below, try installing our patched
-packages from https://wiki.debian.org/DebianScience/Sage
 
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/sage/
 Look for files named "sagemath-*_*.log"

@@ -1,0 +1,35 @@
+Description: Disable some post-install tests
+ We don't need to test these pre-install either because they're already
+ implicitly tested by other parts of the build process.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/misc/sage_ostools.py
++++ b/sage/src/sage/misc/sage_ostools.py
+@@ -24,8 +24,6 @@
+         True
+         sage: have_program('there_is_not_a_program_with_this_name')
+         False
+-        sage: have_program('sage', path=SAGE_ROOT)
+-        True
+         sage: have_program('ls', path=SAGE_ROOT)
+         False
+     """
+--- a/sage/src/sage/all.py
++++ b/sage/src/sage/all.py
+@@ -279,14 +279,6 @@
+ 
+     The non-existence of this file will be used as a trigger to run
+     ``sage-starts`` during the Sage build.
+-
+-    TESTS:
+-
+-    Check that the file exists when Sage is running::
+-
+-        sage: started_file = os.path.join(SAGE_LOCAL, 'etc', 'sage-started.txt')
+-        sage: os.path.isfile(started_file)
+-        True
+     """
+     started_file = os.path.join(SAGE_LOCAL, 'etc', 'sage-started.txt')
+ 

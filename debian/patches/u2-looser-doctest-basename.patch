@@ -1,0 +1,20 @@
+Description: Make sage.doctest.sources.get_basename work in more situations
+ This lets you specify SAGE_SRC like /path/to/test/dir/../../src/dir, which
+ avoids post-install test failures in sage/doctest/test.py
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TODO
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/doctest/sources.py
++++ b/sage/src/sage/doctest/sources.py
+@@ -84,8 +84,8 @@
+     root = os.path.dirname(path)
+     # If the file is in the sage library, we can use our knowledge of
+     # the directory structure
+-    dev = SAGE_SRC
+-    sp = os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages')
++    dev = os.path.normpath(SAGE_SRC)
++    sp = os.path.normpath(os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages'))
+     if path.startswith(dev):
+         # there will be a branch name
+         i = path.find(os.path.sep, len(dev))

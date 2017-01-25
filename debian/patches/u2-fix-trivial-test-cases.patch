@@ -148,3 +148,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          """
          r = os.popen('tachyon').read()
          if use_pager == True:
+--- a/sage/src/sage/tests/gap_packages.py
++++ b/sage/src/sage/tests/gap_packages.py
+@@ -102,7 +102,7 @@
+ 
+         sage: from sage.tests.gap_packages import all_installed_packages
+         sage: all_installed_packages()
+-        (...'GAPDoc',...)
++        (...'GAPDoc'...)
+     """
+     packages = []
+     for path in libgap.eval('GAP_ROOT_PATHS').sage():

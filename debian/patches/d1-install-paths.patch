@@ -105,7 +105,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ### pkg-config setup
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -10,11 +10,11 @@
+@@ -10,11 +10,12 @@
  import errno
  
  from sage.env import (
@@ -115,11 +115,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  )
  from jupyter_core.paths import ENV_JUPYTER_PATH
 -JUPYTER_PATH = ENV_JUPYTER_PATH[0]
-+JUPYTER_PATH = os.path.join(SAGE_SHARE, "jupyter")
++# if SAGE_SHARE is writeable, assume we're building the Debian package and the path is a dummy path that doesn't get installed
++JUPYTER_PATH = ENV_JUPYTER_PATH[0] if not os.access(SAGE_SHARE, os.W_OK) else os.path.join(SAGE_SHARE, "jupyter")
  
  
  class SageKernelSpec(object):
-@@ -109,7 +109,7 @@
+@@ -117,7 +118,7 @@
              sage: os.path.isdir(mathjax)
              True
          """
@@ -128,7 +129,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'mathjax')
          self.symlink(src, dst)
  
-@@ -134,7 +134,7 @@
+@@ -142,7 +143,7 @@
               '{connection_file}']
          """
          return [
@@ -177,9 +178,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 @@ -85,7 +85,7 @@
      # If the file is in the sage library, we can use our knowledge of
      # the directory structure
-     dev = SAGE_SRC
--    sp = os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages')
-+    sp = SAGE_LIB
+     dev = os.path.normpath(SAGE_SRC)
+-    sp = os.path.normpath(os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages'))
++    sp = os.path.normpath(SAGE_LIB)
      if path.startswith(dev):
          # there will be a branch name
          i = path.find(os.path.sep, len(dev))
