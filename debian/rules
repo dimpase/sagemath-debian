@@ -175,9 +175,6 @@ override_dh_install: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 
 override_dh_python2-arch:
 	dh_python2
-# Work around a stupid bug in dh_python2; #841148
-	mv debian/sagemath/usr/lib/python2.7/dist-packages/sage/modules/.$$(dpkg-architecture -qDEB_HOST_MULTIARCH).so \
-	   debian/sagemath/usr/lib/python2.7/dist-packages/sage/modules/module.$$(dpkg-architecture -qDEB_HOST_MULTIARCH).so
 	dh_numpy --package sagemath # stop lintian complaining at us
 
 override_dh_shlibdeps:
