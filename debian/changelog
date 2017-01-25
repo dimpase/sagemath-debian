@@ -1,3 +1,9 @@
+sagemath (7.4-8) UNRELEASED; urgency=medium
+
+  * Work around some testing issues on i386.
+
+ -- Ximin Luo <infinity0@debian.org>  Wed, 25 Jan 2017 15:03:05 +0100
+
 sagemath (7.4-7) unstable; urgency=medium
 
   * Improve the state of post-install tests.

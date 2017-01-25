@@ -19,7 +19,7 @@ failed-tests:
 	$(FAILED_TESTS)
 
 failed-tests-total-normal:
-	grep "Failed example:" $(LOGFILE) | wc -l
+	grep "^Failed example:" $(LOGFILE) | wc -l
 
 failed-tests-special:
 	$(FAILED_TESTS) | grep '# [^0-9]' || true
