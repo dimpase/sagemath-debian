@@ -1,6 +1,6 @@
 sagemath (7.4-8) UNRELEASED; urgency=medium
 
-  * Work around some testing issues on i386.
+  * Work around some testing issues on i386. (Closes: #852374)
 
  -- Ximin Luo <infinity0@debian.org>  Wed, 25 Jan 2017 15:03:05 +0100
 
