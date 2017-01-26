@@ -28,6 +28,12 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 18 Jan 2017 22:58:31 +0000
 
+sagemath (7.4-9) unstable; urgency=medium
+
+  * Update for dh-python 2.20170125.
+
+ -- Ximin Luo <infinity0@debian.org>  Thu, 26 Jan 2017 01:16:15 +0100
+
 sagemath (7.4-8) unstable; urgency=medium
 
   * Work around some testing issues on i386. (Closes: #852374)
