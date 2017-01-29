@@ -25,6 +25,8 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
     - d1-sage-env.patch (also patch env.py from here)
     - dt-disable-parallel-sphinx.patch
     - dt-more-fix-test-cases.patch (parts were applied upstream)
+  * New patches:
+    - u1-singular-include-path-for-pynac.patch
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 18 Jan 2017 22:58:31 +0000
 

@@ -14,6 +14,7 @@ u1-fix-use-lexists-not-exists.patch
 u1-fix-proper-scipy-rtol.patch
 u1-fix-preexec-fn.patch
 u1-fix-dont-require-DISPLAY.patch
+u1-singular-include-path-for-pynac.patch
 
 # Patches that should be upstreamed, but need a bit more work first
 u2-reproducible-docs.patch
