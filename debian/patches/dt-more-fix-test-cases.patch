@@ -4,11 +4,6 @@ Description: Temporary fixes to some more test cases
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
-RuntimeError: arctan2_eval(): arctan2(0,0) encountered
-Upstream are in the process of converting these all into NaN, e.g. see
-https://git.sagemath.org/sage.git/commit/?id=04f79cdf8ed0c887b7f7d1797ce5023f782d0a50
-Hopefully we'll pick these up by the next Sage release.
----
 src/sage/interfaces/tests.py
 They are bugs in the dependency tools that Sage upstream patches out on their
 side. Hopefully they have forwarded these on, so at some point they will be
