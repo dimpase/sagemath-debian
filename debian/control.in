@@ -41,6 +41,7 @@ Build-Depends:
  libgcrypt11-dev,
  libgd2-noxpm-dev | libgd2-xpm-dev,
  libgf2x-dev,
+ libgiac-dev,
  libgivaro-dev (>= 4.0.1-3),
  libglpk-dev,
  libgmp-dev (>= 2:5.1.2),

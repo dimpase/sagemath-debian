@@ -76,6 +76,7 @@ dico = {
     'gf2x': @HAS_GF2X@,
     'gfan': @HAS_GFAN@,
     'gcc': @HAS_GFORTRAN@,
+    'giac': @HAS_GIAC@,
     'git': @HAS_GIT@,
     'givaro': @HAS_GIVARO@,
     'glpk': @HAS_GLPK@,
