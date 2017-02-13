@@ -1,6 +1,7 @@
 sagemath (7.5.1-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * Remove useless dependency on python-zodb. (Closes: #854926)
   * Remove patches (applied upstream):
     - u0-version-cython-0.25.patch
     - u0-version-glpk-4.60.patch

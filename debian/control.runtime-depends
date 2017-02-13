@@ -95,7 +95,6 @@
  python-wcwidth,
  python-werkzeug,
  python-zmq,
- python-zodb,
  python-zope.interface,
  r-cran-lattice,
  r-base-dev,
