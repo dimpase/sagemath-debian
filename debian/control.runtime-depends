@@ -109,3 +109,4 @@
  sqlite3,
  sympow (>= 1.023-8),
  tachyon,
+ xcas,
