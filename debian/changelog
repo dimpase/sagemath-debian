@@ -29,6 +29,7 @@ sagemath (7.5.1-1) UNRELEASED; urgency=medium
     - dt-more-fix-test-cases.patch (parts were applied upstream)
   * New patches:
     - u0-version-singular-4.1.0p2.patch
+    - u0-version-pynac-0.7.4.patch
     - u1-singular-include-path-for-pynac.patch
     - u1-dont-test-glpk-version.patch
 
