@@ -1,6 +1,7 @@
 Description: Compile pynac interface with SINGULAR_CFLAGS to find its headers
  pynac/basic.h includes factory/factory.h so this is needed to find it.
 Author: Tobias Hansen <thansen@debian.org>
+Forwarded: https://trac.sagemath.org/ticket/22442
 
 --- a/sage/src/sage/libs/pynac/pynac.pxd
 +++ b/sage/src/sage/libs/pynac/pynac.pxd

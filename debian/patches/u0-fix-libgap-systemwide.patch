@@ -1,3 +1,5 @@
+Bug: https://trac.sagemath.org/ticket/22437
+
 --- a/sage/src/sage/libs/gap/gap_includes.pxd
 +++ b/sage/src/sage/libs/gap/gap_includes.pxd
 @@ -9,12 +9,12 @@

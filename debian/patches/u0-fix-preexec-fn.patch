@@ -3,6 +3,7 @@ Description: Work around python bug #1652
  However it is NOT related to Debian bug #844789
 Author: Ximin Luo <infinity0@debian.org>
 Bug: https://bugs.python.org/issue1652
+Forwarded: https://trac.sagemath.org/ticket/22440
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/expect.py

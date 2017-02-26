@@ -1,7 +1,7 @@
 Description: Use lexists instead of exists
  os.path.exists returns False for a broken symlink; we want lexists here
 Author: Ximin Luo <infinity0@debian.org>
-Bug: TODO, file to sage
+Bug: https://trac.sagemath.org/ticket/22438
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py

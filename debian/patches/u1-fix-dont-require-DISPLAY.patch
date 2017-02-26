@@ -1,7 +1,7 @@
 Description: Don't fail plot.py doctest if DISPLAY is unset
  https://stackoverflow.com/questions/37604289/tkinter-tclerror-no-display-name-and-no-display-environment-variable
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TODO
+Forwarded: https://trac.sagemath.org/ticket/22441
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/plot/plot.py

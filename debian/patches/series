@@ -3,26 +3,25 @@
 u0-version-pari-2.9.patch
 u0-version-singular-4.1.0p2.patch
 u0-version-pynac-0.7.4.patch
+u0-fix-libgap-systemwide.patch
+u0-singular-include-path-for-pynac.patch
+u0-dont-test-glpk-version.patch
+u0-fix-preexec-fn.patch
 
-# Uncontroversial fixes to Sage's code
-# We should forward these upstream, and they would probably accept
-u1-pip-nowarn.patch
+# Patches that have open upstream tickets
 u1-version-planarity-3.patch
 u1-version-pbori-boost1.62-hashes.patch
 u1-version-ecm-7.patch
-u1-version-cddlib-094h.patch
-u1-fix-libgap-systemwide.patch
 u1-fix-use-lexists-not-exists.patch
 u1-fix-proper-scipy-rtol.patch
-u1-fix-preexec-fn.patch
 u1-fix-dont-require-DISPLAY.patch
-u1-singular-include-path-for-pynac.patch
-u1-dont-test-glpk-version.patch
+u1-pip-nowarn.patch
+u1-fix-atrocious-symlink-logic.patch
+u1-looser-doctest-basename.patch
 
-# Patches that should be upstreamed, but need a bit more work first
+# Patches that should be upstreamed (may need some work first)
+u2-version-cddlib-094h.patch
 u2-reproducible-docs.patch
-u2-looser-doctest-basename.patch
-u2-fix-atrocious-symlink-logic.patch
 u2-fix-trivial-test-cases.patch
 u2-fix-less-trivial-test-cases.patch
 u2-fix-sympow-cachedir.patch

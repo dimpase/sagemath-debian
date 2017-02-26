@@ -2,7 +2,7 @@ Description: Make sage.doctest.sources.get_basename work in more situations
  This lets you specify SAGE_SRC like /path/to/test/dir/../../src/dir, which
  avoids post-install test failures in sage/doctest/test.py
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TODO
+Forwarded: https://trac.sagemath.org/ticket/22445
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/doctest/sources.py

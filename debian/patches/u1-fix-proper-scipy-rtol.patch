@@ -3,7 +3,7 @@ Description: Fix Sage's use of scipy rtol parameter
  "The parameter cannot be smaller than its default value of
  ``4*np.finfo(float).eps``" so use that instead of a hard-coded value.
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TODO
+Forwarded: Bug: https://trac.sagemath.org/ticket/22439
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/numerical/optimize.py

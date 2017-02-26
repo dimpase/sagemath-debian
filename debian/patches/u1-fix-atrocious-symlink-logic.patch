@@ -5,7 +5,7 @@ Description: Fix atrocious logic in symlink()
  that post-install tests don't fail) was easier than trying to figure out if
  removing the file would have other consequences elsewhere.
 Author: Ximin Luo <infinity0@debian.org>
-Forwarded: TODO
+Forwarded: https://trac.sagemath.org/ticket/22444
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/repl/ipython_kernel/install.py
