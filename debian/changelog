@@ -1,3 +1,9 @@
+sagemath (7.4-9~bpo8+1) jessie-backports; urgency=medium
+
+  * Rebuild for jessie-backports.
+
+ -- Andreas Tille <tille@debian.org>  Sun, 05 Mar 2017 19:46:57 +0100
+
 sagemath (7.4-9) unstable; urgency=medium
 
   * Update for dh-python 2.20170125.
