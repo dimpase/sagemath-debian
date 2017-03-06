@@ -1,6 +1,7 @@
-sagemath (7.4-9~bpo8+1) jessie-backports; urgency=medium
+sagemath (7.4-9~bpo8+1) UNRELEASED; urgency=medium
 
   * Rebuild for jessie-backports.
+  * Adapt debian/control.runtime-depends to versions in Jessie backports
 
  -- Andreas Tille <tille@debian.org>  Sun, 05 Mar 2017 19:46:57 +0100
 
