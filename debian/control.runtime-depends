@@ -109,4 +109,5 @@
  sqlite3,
  sympow (>= 1.023-8),
  tachyon,
+# TODO: should be removeable after #856949 is fixed
  xcas,
