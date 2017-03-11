@@ -1,18 +1,16 @@
-# Todo for getting Sage 7.4 into Debian stretch
+## Maintain 7.4
 
-## Before 2017-01-25 (to make the hard-freeze deadline of 2017-02-05):
-Upload all packages and make sure they migrate to testing after 10 days
+*   Deal with any AUTORM issues mentioned in https://qa.debian.org/developer.php?package=sagemath
 
-*   Require patches:
-    *   sympy (only test fixes)
-        -- see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=840621
-        -- and https://lists.alioth.debian.org/pipermail/debian-science-sagemath/Week-of-Mon-20161010/000254.html
+## Current
+
+*   Package red stuff in https://people.debian.org/~thansen/debian-sage-status.html
+    *   ecl, ntl, configparser (not strictly needed, tests seem to work OK)
+
+*   Package red stuff in https://people.debian.org/~thansen/debian-sage-dev-status.html
+    *   ipywidgets, maxima, jupyter-notebook, threejs
 
 ## Later
-
-*   Updates that may not be needed:
-    *   configparser 3.5
-    *   cvxopt 1.1.8
 
 *   New packages
     *   thebe
