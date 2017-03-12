@@ -15,6 +15,7 @@
  less,
  libcdd-tools (>= 094h),
  libjs-mathjax,
+ libjs-three (>= 80),
  libsingular4-dev (>= 1:4.1.0-p2),
  maxima-sage,
  maxima-sage-doc,
