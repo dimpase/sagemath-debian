@@ -41,13 +41,27 @@ Forwarded: not-needed
          instance._symlink_resources()
 --- a/sage/src/sage/repl/display/jsmol_iframe.py
 +++ b/sage/src/sage/repl/display/jsmol_iframe.py
-@@ -46,6 +46,9 @@
+@@ -42,10 +42,23 @@
+       height: 100%;
+       width: 100%;
+     }}
++    ul.debian-jsmol {{
++      list-style-type: disc;
++      list-style-position: inside;
++    }}
++    ul.debian-jsmol li {{
++      margin: 1em 0;
++    }}
+   </style>
    <script type="text/javascript" src="{path_to_jsmol}/JSmol.min.js"></script>
  </head>
  <body>
-+  <div>Interactive 3D plots do not work in the notebook because JSmol cannot currently be packaged for Debian. See the README.source of the jmol package for more details on this situation.</div>
-+  <div>&nbsp;</div>
-+  <div>You may view a non-interactive plot by giving the option <code>viewer='tachyon'</code>. Also, interactive plots with Jmol do work from the SageMath command-line interface.</div>
++  <p>Interactive 3D plots with the default viewer do not work in the notebook, because JSmol cannot currently be packaged for Debian. See the README.source of the jmol package for more details on this situation. You have the following alternative options:</p>
++  <ul class="debian-jsmol">
++  <li>View an interactive WebGL-based plot by giving the option <code>viewer='threejs'</code>. This should work out-of-the box on Firefox, but may require you to adjust some settings in Chromium - see <code>chrome://flags</code> for options and <code>chrome://gpu</code> for status. In both cases, the functionality also depends on your graphics hardware and drivers, but support should exist in most cases.</li>
++  <li>View a non-interactive plot by giving the option <code>viewer='tachyon'</code>.</li>
++  <li>Use the default viewer (Jmol) from the SageMath command-line interface, instead of the notebook.</li>
++  </ul>
    <script type="text/javascript">
      var script = {script};
      var Info = {{
