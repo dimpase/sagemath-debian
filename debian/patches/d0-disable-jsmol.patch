@@ -28,17 +28,17 @@ Forwarded: not-needed
 -        dst = os.path.join(self.nbextensions_dir, 'jsmol')
 -        self.symlink(src, dst)
 -
-     def _kernel_cmd(self):
+     def use_local_threejs(self):
          """
-         Helper to construct the SageMath kernel command.
-@@ -243,7 +226,6 @@
+         Symlink threejs to the Jupyter notebook.
+@@ -260,7 +243,6 @@
          """
          instance = cls()
          instance.use_local_mathjax()
 -        instance.use_local_jsmol()
+         instance.use_local_threejs()
          instance._install_spec()
          instance._symlink_resources()
- 
 --- a/sage/src/sage/repl/display/jsmol_iframe.py
 +++ b/sage/src/sage/repl/display/jsmol_iframe.py
 @@ -46,6 +46,9 @@

@@ -129,7 +129,16 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'mathjax')
          self.symlink(src, dst)
  
-@@ -142,7 +143,7 @@
+@@ -134,7 +135,7 @@
+             sage: os.path.isdir(threejs)
+             True
+         """
+-        src = os.path.join(SAGE_LOCAL, 'share', 'threejs')
++        src = "/usr/share/javascript/three"
+         dst = os.path.join(self.nbextensions_dir, 'threejs')
+         self.symlink(src, dst)
+ 
+@@ -159,7 +160,7 @@
               '{connection_file}']
          """
          return [
@@ -220,3 +229,29 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  clean:
  	@echo "Deleting Sage library build artifacts..."
+--- a/sage/src/sage/plot/plot3d/base.pyx
++++ b/sage/src/sage/plot/plot3d/base.pyx
+@@ -388,19 +388,13 @@
+             if isinstance(backend, BackendIPythonNotebook):
+                 scripts = ( """
+ <script src="/nbextensions/threejs/three.min.js"></script>
+-<script src="/nbextensions/threejs/OrbitControls.js"></script>
+-<script>
+-  if ( !window.THREE ) document.write('\
+-<script src="https://cdn.rawgit.com/mrdoob/three.js/r80/build/three.min.js"><\/script>\
+-<script src="https://cdn.rawgit.com/mrdoob/three.js/r80/examples/js/controls/OrbitControls.js"><\/script>');
+-</script>
++<script src="/nbextensions/threejs/examples/js/controls/OrbitControls.js"></script>
+                 """ )
+             else:
+-                from sage.env import SAGE_SHARE
+                 scripts = ( """
+-<script src="{0}/threejs/three.min.js"></script>
+-<script src="{0}/threejs/OrbitControls.js"></script>
+-                """.format( SAGE_SHARE ) )
++<script src="{0}/three.min.js"></script>
++<script src="{0}/examples/js/controls/OrbitControls.js"></script>
++                """.format( "file:///usr/share/javascript/three" ) )
+ 
+         lights = "[{x:0, y:0, z:10}, {x:0, y:0, z:-10}]"
+ 

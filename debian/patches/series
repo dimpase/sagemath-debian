@@ -7,6 +7,7 @@ u0-fix-libgap-systemwide.patch
 u0-singular-include-path-for-pynac.patch
 u0-dont-test-glpk-version.patch
 u0-fix-preexec-fn.patch
+u0-use-local-threejs.patch
 
 # Patches that have open upstream tickets
 u1-version-planarity-3.patch
