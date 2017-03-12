@@ -2,7 +2,6 @@ Description: Use threejs as the default 3D viewer
 Author: paulmasson <paulmasson@analyticphysics.com>
 Applied-Upstream:
  commit:5ddb9f154c1618039e60253e4e102a198d955af5
- commit:93b0b0e293645b46f409c3514df70d337b16a88e
  commit:efbd87751b8fd5b384c563026e3470bdb42429c2
  commit:7c0c9cf8e7ccb3d9b09020ddf11615fcfac61780
  commit:63f725d65fcd99c3a8669534efdd3114e31bf1ff
@@ -108,15 +107,6 @@ Applied-Upstream:
          html = html.replace('SAGE_OPTIONS', json.dumps(options))
          html = html.replace('SAGE_LIGHTS', lights)
          html = html.replace('SAGE_BOUNDS', bounds)
-@@ -1837,7 +1869,7 @@
-         return self
- 
- # if you add any default parameters you must update some code below
--SHOW_DEFAULTS = {'viewer': 'jmol',
-+SHOW_DEFAULTS = {'viewer': 'threejs',
-                  'verbosity': 0,
-                  'figsize': 5,
-                  'aspect_ratio': "automatic",
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
 @@ -1,5 +1,5 @@
