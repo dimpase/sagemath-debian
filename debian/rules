@@ -279,6 +279,15 @@ release: ../sagemath_$(DEB_VERSION).dsc
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-experimental: ../sagemath_$(DEB_VERSION).dsc
+	! $(is_prerelease)
+	cd .. && sbuild \
+	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
+	  --build-dep-resolver=aspcud \
+	  --build-failed-commands '%SBUILD_SHELL' \
+	  $(EXTRA_SBUILD_FLAGS) \
+	  "sagemath_$(DEB_VERSION).dsc"
+
+release-deb-sci-sage: ../sagemath_$(DEB_VERSION).dsc
 	$(is_prerelease)
 	cd .. && sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
