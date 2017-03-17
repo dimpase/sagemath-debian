@@ -111,5 +111,5 @@
  singular-doc (>= 1:4.0.3-p3+ds-2),
  singular-doc (<< 1:4.1),
  sqlite3,
- sympow (>= 1.023-8),
+ sympow (>= 1.023-8~bpo8+1),
  tachyon,
