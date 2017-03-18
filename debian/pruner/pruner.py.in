@@ -119,6 +119,7 @@ dico = {
     'ppl': @HAS_PPL@,
     'pynac': @HAS_PYNAC@,
     'python2': @HAS_PYTHON@,
+    'python3': @HAS_PYTHON3@,
     'r': @HAS_R@,
     'ratpoints': @HAS_RATPOINTS@,
     # those two go together afaik:
@@ -134,7 +135,9 @@ dico = {
     'sympow': @HAS_SYMPOW@,
     'tachyon': @HAS_TACHYON@,
     'thebe': @HAS_THEBE@,
+    'threejs': @HAS_THREEJS@,
     'widgetsnbextension': @HAS_WIDGETSNBEXTENSION@,
+    'xz': @HAS_XZ@,
     'zeromq': @HAS_ZEROMQ@,
     'zlib': @HAS_ZLIB@,
     'zn_poly': @HAS_ZNPOLY@
@@ -208,6 +211,7 @@ python_modules = [
 
 python_packages_to_modules = {
     'backports_shutil_get_terminal_size': 'backports/shutil_get_terminal_size',
+    'enum34': 'enum',
     'pathpy': 'path',
     'pillow': 'PIL',
     'pycrypto': 'Crypto',

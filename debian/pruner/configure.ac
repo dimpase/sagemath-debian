@@ -285,6 +285,9 @@ AC_SUBST(HAS_PYNAC)
 PKG_CHECK_MODULES(python, python-2.7, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
 AC_SUBST(HAS_PYTHON)
 
+PKG_CHECK_MODULES(python3, python-3.5, [HAS_PYTHON3='True'], [HAS_PYTHON3='False'])
+AC_SUBST(HAS_PYTHON3)
+
 AC_CHECK_PROG(HAS_R, R, "True", "False")
 AC_SUBST(HAS_R)
 
@@ -325,8 +328,15 @@ AC_SUBST(HAS_TACHYON)
 HAS_THEBE="True"
 AC_SUBST(HAS_THEBE)
 
+AC_CHECK_FILE(/usr/share/javascript/three/build/three.js, HAS_THREEJS="True", HAS_THREEJS="False")
+AC_SUBST(HAS_THREEJS)
+
 AC_CHECK_FILE(/usr/share/jupyter/nbextensions/jupyter-js-widgets/extension.js, HAS_WIDGETSNBEXTENSION="True", HAS_WIDGETSNBEXTENSION="False")
 AC_SUBST(HAS_WIDGETSNBEXTENSION)
+
+# xz is always installed
+HAS_XZ="True"
+AC_SUBST(HAS_XZ)
 
 # FIXME(zeromq): useful only for pyzmq
 HAS_ZEROMQ="True"
