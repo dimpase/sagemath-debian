@@ -4,7 +4,7 @@ Bug: https://trac.sagemath.org/ticket/20385
 
 --- a/sage/src/sage/interfaces/ecm.py
 +++ b/sage/src/sage/interfaces/ecm.py
-@@ -140,9 +140,6 @@
+@@ -141,9 +141,6 @@
          - ``ve`` -- integer `n`. Verbosely show short (`< n`
            character) expressions on each loop
  
@@ -14,7 +14,7 @@ Bug: https://trac.sagemath.org/ticket/20385
          - ``B2scale`` -- integer. Multiplies the default B2 value
  
          - ``go`` -- integer. Preload with group order val, which can
-@@ -395,15 +392,15 @@
+@@ -396,15 +393,15 @@
              if m is not None:
                  factor = m.group('factor')
                  primality = m.group('primality')
@@ -34,7 +34,7 @@ Bug: https://trac.sagemath.org/ticket/20385
                  # assert len(result) == 2
                  return result
          raise ValueError('failed to parse ECM output')
-@@ -500,7 +497,6 @@
+@@ -501,7 +498,6 @@
          if factor_digits is not None:
              B1 = self.recommended_B1(factor_digits)
          kwds['one'] = True
@@ -42,7 +42,7 @@ Bug: https://trac.sagemath.org/ticket/20385
          cmd = self._make_cmd(B1, None, kwds)
          out = self._run_ecm(cmd, n)
          return self._parse_output(n, out)
-@@ -832,8 +828,8 @@
+@@ -833,8 +829,8 @@
  Step 1 took 12ms
  Step 2 took 17ms
  ********** Factor found in step 2: 79792266297612017
@@ -53,7 +53,7 @@ Bug: https://trac.sagemath.org/ticket/20385
  """
  
  TEST_ECM_OUTPUT_2 = """
-@@ -843,8 +839,8 @@
+@@ -844,8 +840,8 @@
  Step 1 took 2ms
  Step 2 took 3ms
  ********** Factor found in step 2: 179424673
@@ -64,7 +64,7 @@ Bug: https://trac.sagemath.org/ticket/20385
  """
  
  TEST_ECM_OUTPUT_3 = """
-@@ -862,7 +858,7 @@
+@@ -863,7 +859,7 @@
  Step 1 took 5ms
  Step 2 took 4ms
  ********** Factor found in step 2: 197002597249
@@ -73,7 +73,7 @@ Bug: https://trac.sagemath.org/ticket/20385
  Composite cofactor 339872432034468861533158743041639097889948066859 has 48 digits
  """
  
-@@ -874,5 +870,5 @@
+@@ -875,5 +871,5 @@
  Step 2 took 2ms
  ********** Factor found in step 2: 265748496095531068869578877937
  Found composite factor of 30 digits: 265748496095531068869578877937

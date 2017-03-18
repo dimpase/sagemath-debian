@@ -1,6 +1,14 @@
 sagemath (7.6~rc1-2) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * Remove patches (applied upstream):
+    - u0-dont-test-glpk-version.patch
+    - u0-fix-libgap-systemwide.patch
+    - u0-fix-preexec-fn.patch
+    - u0-singular-include-path-for-pynac.patch
+    - u0-use-local-threejs.patch
+    - u0-version-pari-2.9.patch
+    - u0-version-pynac-0.7.4.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 18 Mar 2017 12:00:06 +0000
 
