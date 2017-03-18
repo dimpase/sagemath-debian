@@ -81,7 +81,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              sage: rc is None
 --- a/sage/src/sage/interfaces/interface.py
 +++ b/sage/src/sage/interfaces/interface.py
-@@ -522,9 +522,9 @@
+@@ -523,9 +523,9 @@
          EXAMPLES::
  
              sage: maxima.quad_qags(x, x, 0, 1, epsrel=1e-4)

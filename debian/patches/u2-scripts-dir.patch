@@ -15,7 +15,7 @@ Forwarded: TODO
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -432,13 +432,13 @@
+@@ -452,13 +452,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
@@ -31,7 +31,7 @@ Forwarded: TODO
          echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
          exit 0
  fi
-@@ -943,14 +943,14 @@
+@@ -968,14 +968,14 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -159,7 +159,7 @@ Forwarded: TODO
                       or a DocTestDefaults object (possibly with some entries modified)
          - args -- a list of filenames to doctest
  
-@@ -950,9 +950,9 @@
+@@ -954,9 +954,9 @@
              sage: from sage.doctest.control import DocTestDefaults, DocTestController
              sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
              sage: print(DC._assemble_cmd())
@@ -171,7 +171,7 @@ Forwarded: TODO
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -986,14 +986,14 @@
+@@ -990,14 +990,14 @@
              sage: DD = DocTestDefaults(gdb=True)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)

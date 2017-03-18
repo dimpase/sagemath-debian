@@ -34,7 +34,7 @@ Forwarded: not-needed
  	rm main.o main *~
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -47,6 +47,10 @@
+@@ -46,6 +46,10 @@
  gsl_library_dirs = gsl_pc['library_dirs']
  gsl_include_dirs = gsl_pc['include_dirs']
  
@@ -45,7 +45,7 @@ Forwarded: not-needed
  # GD image library
  gd_pc = pkgconfig.parse('gdlib')
  gd_libs = gd_pc['libraries']
-@@ -137,8 +141,8 @@
+@@ -136,8 +140,8 @@
      "brial_groebner",
      "m4rie",
  ] + m4ri_libs + [
@@ -56,7 +56,7 @@ Forwarded: not-needed
      "m", "readline", "Lfunction" ,
  ] + cblas_libs + [
      "cryptominisat",
-@@ -670,15 +674,15 @@
+@@ -637,15 +641,15 @@
  
      Extension('sage.libs.gap.util',
                sources = ["sage/libs/gap/util.pyx"],

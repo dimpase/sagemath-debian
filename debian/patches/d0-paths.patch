@@ -6,9 +6,9 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -194,7 +194,7 @@
+@@ -193,7 +193,7 @@
  
- WORKSPACE = os.path.join(GAP_DIR, 'workspace-%s'%abs(hash(SAGE_LOCAL)))
+ WORKSPACE = gap_workspace_file()
  
 -GAP_BINARY = os.path.join(SAGE_LOCAL, 'bin', 'gap')
 +GAP_BINARY = '/usr/bin/gap'
@@ -50,7 +50,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      sage: from sage.interfaces.qepcad import _qepcad_atoms
 --- a/sage/src/sage/tests/cmdline.py
 +++ b/sage/src/sage/tests/cmdline.py
-@@ -560,12 +560,6 @@
+@@ -561,12 +561,6 @@
          sage: ret
          0
  

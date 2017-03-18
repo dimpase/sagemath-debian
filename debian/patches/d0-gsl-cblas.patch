@@ -26,17 +26,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # TODO: Remove Cygwin hack by installing a suitable cblas.pc
  if os.path.exists('/usr/lib/libblas.dll.a'):
-@@ -42,9 +41,9 @@
- # GNU Scientific Library
- # Note we remove the built-in gslcblas
- # The above cblas should already be in the list thanks to #20646
-+# On Debian linking to libgsl currently requires also -lgslcblas so we do not remove it.
- gsl_pc = pkgconfig.parse('gsl')
- gsl_libs = gsl_pc['libraries']
--gsl_libs.remove('gslcblas')
- gsl_library_dirs = gsl_pc['library_dirs']
- gsl_include_dirs = gsl_pc['include_dirs']
- 
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -30,17 +30,16 @@

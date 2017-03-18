@@ -6,7 +6,7 @@ Forwarded: not-needed
 
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -133,7 +133,7 @@
+@@ -132,7 +132,7 @@
      "ec", "ecm",
  ] + linbox_libs + fflas_ffpack_libs + gsl_libs + [
      "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
@@ -15,7 +15,7 @@ Forwarded: not-needed
      "brial",
      "brial_groebner",
      "m4rie",
-@@ -824,7 +824,7 @@
+@@ -799,7 +799,7 @@
  
      Extension("sage.matrix.matrix_complex_ball_dense",
                ["sage/matrix/matrix_complex_ball_dense.pyx"],
@@ -27,64 +27,64 @@ Forwarded: not-needed
 --- a/sage/src/sage/libs/arb/acb.pxd
 +++ b/sage/src/sage/libs/arb/acb.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_t, fmpq_t
 --- a/sage/src/sage/libs/arb/acb_hypgeom.pxd
 +++ b/sage/src/sage/libs/arb/acb_hypgeom.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  
 --- a/sage/src/sage/libs/arb/acb_modular.pxd
 +++ b/sage/src/sage/libs/arb/acb_modular.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_poly_t
 --- a/sage/src/sage/libs/arb/arb.pxd
 +++ b/sage/src/sage/libs/arb/arb.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_t, fmpq_t
 --- a/sage/src/sage/libs/arb/arf.pxd
 +++ b/sage/src/sage/libs/arb/arf.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  from sage.libs.gmp.types cimport mpz_t
 --- a/sage/src/sage/libs/arb/bernoulli.pxd
 +++ b/sage/src/sage/libs/arb/bernoulli.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from ..flint.types cimport fmpq_t, ulong
  
 --- a/sage/src/sage/libs/arb/mag.pxd
 +++ b/sage/src/sage/libs/arb/mag.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_t, fmpq_t
 --- a/sage/src/sage/libs/arb/acb_poly.pxd
 +++ b/sage/src/sage/libs/arb/acb_poly.pxd
 @@ -1,4 +1,4 @@
--# distutils: libraries = arb
-+# distutils: libraries = flint-arb
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_poly_t, fmpq_poly_t

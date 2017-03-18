@@ -5,7 +5,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/geometry/polyhedron/backend_cdd.py
 +++ b/sage/src/sage/geometry/polyhedron/backend_cdd.py
-@@ -288,7 +288,9 @@
+@@ -286,7 +286,9 @@
              else:
                  n_cdd=n;
              self._V_adjacency_matrix = matrix(ZZ, n, n, 0)
@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              l = cddout.pop(0).split()
              assert int(l[0]) == n_cdd, "Not enough V-adjacencies in cdd output?"
              for i in range(n_cdd):
-@@ -311,7 +313,9 @@
+@@ -309,7 +311,9 @@
          if find_in_cddout('Facet graph'):
              n = len(self._Hrepresentation);
              self._H_adjacency_matrix = matrix(ZZ, n, n, 0)

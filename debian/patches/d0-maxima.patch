@@ -58,7 +58,7 @@ Author: Tobias Hansen <thansen@debian.org>
              subprocess.Popen(cmd, shell=True)
 @@ -2215,7 +2212,7 @@
          sage: maxima_version()
-         '5.35.1'
+         '5.39.0'
      """
 -    return os.popen('maxima --version').read().split()[-1]
 +    return os.popen('maxima-sage --version').read().split()[-1]
@@ -73,7 +73,7 @@ Author: Tobias Hansen <thansen@debian.org>
 +    os.system('maxima-sage')
 --- a/sage/src/sage/interfaces/expect.py
 +++ b/sage/src/sage/interfaces/expect.py
-@@ -565,7 +565,7 @@
+@@ -566,7 +566,7 @@
  
              sage: a = maxima('y')
              sage: maxima.quit(verbose=True)
@@ -84,7 +84,7 @@ Author: Tobias Hansen <thansen@debian.org>
              ...
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -519,7 +519,7 @@
+@@ -539,7 +539,7 @@
  
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
