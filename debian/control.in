@@ -31,7 +31,7 @@ Build-Depends:
  libbrial-groebner-dev (>= 0.8.5-4),
  libcdd-dev (>= 094h),
  libcliquer-dev,
- libec-dev (>= 20160720-1+b1),
+ libec-dev (>= 20170122),
  libecm-dev,
  libflint-arb-dev (>= 2.8.1-2),
  libflint-dev (>= 2.5.2-5+b2),
