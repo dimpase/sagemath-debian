@@ -35,7 +35,7 @@
          with open(os.devnull, 'w') as dev_null:
 --- a/sage/src/sage/tests/cmdline.py
 +++ b/sage/src/sage/tests/cmdline.py
-@@ -363,23 +363,24 @@
+@@ -364,23 +364,24 @@
          sage: ret
          1
  

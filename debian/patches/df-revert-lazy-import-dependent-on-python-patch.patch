@@ -40,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 @@ -234,41 +235,39 @@
                 sage: type(Foo.__dict__['plot'])
-                <type 'function'>
+                <... 'function'>
          """
 -        if self._object is not None:
 -            return self._object

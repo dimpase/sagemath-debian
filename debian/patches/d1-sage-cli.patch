@@ -149,7 +149,7 @@ Forwarded: not-needed
      echo "  -docbuild [lang/]<document> <html|pdf|...> -- Build the Sage documentation"
      echo "  -search_src <string> -- search through all the Sage library code for string"
      echo "  -search_doc <string> -- search through the Sage documentation for string"
-@@ -220,16 +153,6 @@
+@@ -222,16 +155,6 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -166,7 +166,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -270,74 +193,6 @@
+@@ -272,91 +195,6 @@
      exit $status
  fi
  
@@ -174,8 +174,26 @@ Forwarded: not-needed
 -# an unclobbered environment before testing unsafe tickets.
 -if [ "$1" = '-patchbot' -o "$1" = "--patchbot" ]; then
 -    shift
--    cd "$SAGE_ROOT"
--    exec local/bin/patchbot/patchbot.py "$@"
+-    # We ask the Python from Sage where the patchbot is installed.
+-    # We set PYTHONPATH to that directory such that the system Python
+-    # should also find the sage_patchbot package.
+-    cmd='import sage_patchbot as p; import os; print(os.path.dirname(p.__path__[0]))'
+-    export PYTHONPATH=`"$SAGE_ROOT/sage" --python -c "$cmd"`
+-    if [ -z "$PYTHONPATH" ]; then
+-        # Something went wrong, assume that the patchbot is not installed
+-        echo >&2 "Error: cannot find installation path for sage_patchbot"
+-        echo >&2 "See https://wiki.sagemath.org/buildbot for instructions"
+-        exit 1
+-    fi
+-
+-    # Try "python2.7", then "python2", then "python"
+-    shopt -s execfail  # Do not exit if "exec" fails
+-    exec python2.7 -m sage_patchbot.patchbot "$@"
+-    exec python2 -m sage_patchbot.patchbot "$@"
+-    exec python -m sage_patchbot.patchbot "$@"
+-    echo >&2 "Error: cannot find a suitable Python program."
+-    echo >&2 "The SageMath patchbot requires a system Python installation."
+-    exit 127
 -fi
 -
 -# Check for '--upgrade' before sourcing sage-env: the top-level "make"
@@ -237,11 +255,10 @@ Forwarded: not-needed
 -    exit 0
 -fi
 -
--
+ 
  #####################################################################
  # Source sage-env ($0 is the name of this "sage" script, so we can just
- # append -env to that). We redirect stdout to stderr, which is safer
-@@ -362,47 +217,13 @@
+@@ -382,47 +220,13 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
@@ -291,7 +308,7 @@ Forwarded: not-needed
  # Start an interactive Sage session, this function never returns.
  interactive_sage() {
      sage_setup
-@@ -462,11 +283,6 @@
+@@ -482,11 +286,6 @@
      exec gap "$@"
  fi
  
@@ -303,7 +320,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -512,11 +328,6 @@
+@@ -532,11 +331,6 @@
      exec kash "$@"
  fi
  
@@ -315,7 +332,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -532,21 +343,6 @@
+@@ -552,21 +346,6 @@
      exec M2 "$@"
  fi
  
@@ -326,7 +343,7 @@ Forwarded: not-needed
 -
 -if [ "$1" = '-pip' -o "$1" = '--pip' ]; then
 -    shift
--    exec pip-lock "$@"
+-    exec pip "$@"
 -fi
 -
 -if [ "$1" = '-fix-pkg-checksums' -o "$1" = '--fix-pkg-checksums' ]; then
@@ -337,7 +354,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      exec python "$@"
-@@ -567,11 +363,6 @@
+@@ -587,11 +366,6 @@
      exec git "$@"
  fi
  
@@ -349,7 +366,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -691,20 +482,6 @@
+@@ -711,20 +485,6 @@
  fi
  
  #####################################################################
@@ -370,7 +387,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -722,11 +499,6 @@
+@@ -747,11 +507,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -382,7 +399,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -737,13 +509,6 @@
+@@ -762,13 +517,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -396,7 +413,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -762,38 +527,19 @@
+@@ -787,38 +535,19 @@
     exit 0
  fi
  
@@ -437,7 +454,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -802,16 +548,6 @@
+@@ -827,16 +556,6 @@
      fi
  fi
  
@@ -454,7 +471,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      SAGE_BANNER=no sage_setup
-@@ -826,114 +562,6 @@
+@@ -851,114 +570,6 @@
      exec sage-eval "$@"
  fi
  
@@ -569,7 +586,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      shift
      exec python -m "sage_setup.docbuild" "$@"
-@@ -1005,10 +633,6 @@
+@@ -1030,10 +641,6 @@
  fi
  
  if [ $# -ge 1 ]; then
@@ -599,7 +616,7 @@ Forwarded: not-needed
  --preparse
  --python
  -q
-@@ -198,36 +195,6 @@
+@@ -199,36 +196,6 @@
          sage: ret
          0
  
@@ -636,7 +653,7 @@ Forwarded: not-needed
      Test ``sage-run`` on a Python file, both with an absolute and with a relative path::
  
          sage: dir = tmp_dir(); name = 'python_test_file.py'
-@@ -414,50 +381,6 @@
+@@ -415,50 +382,6 @@
          ...
          RuntimeError: refusing to run doctests...
  
@@ -687,7 +704,7 @@ Forwarded: not-needed
      Test external programs being called by Sage::
  
          sage: (out, err, ret) = test_executable(["sage", "--sh"], "echo Hello World\nexit 42\n")
-@@ -599,32 +522,6 @@
+@@ -600,32 +523,6 @@
          sage: ret
          0
  

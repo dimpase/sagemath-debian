@@ -12,7 +12,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/clean.py
 +++ b/sage/src/sage_setup/clean.py
-@@ -85,7 +85,7 @@
+@@ -86,7 +86,7 @@
          sage: from sage.misc.sageinspect import loadable_module_extension
          sage: skip_extensions = (loadable_module_extension(),)
          sage: for f in stale_iter:
@@ -69,7 +69,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
  
-@@ -212,8 +212,8 @@
+@@ -213,8 +213,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -149,12 +149,13 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              '-f', '{connection_file}',
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -147,19 +147,18 @@
+@@ -148,20 +148,19 @@
  
      EXAMPLES::
  
 -        sage: from site import getsitepackages
 -        sage: site_packages = getsitepackages()[0]
+         sage: from sage_setup.find import installed_files_by_module
 -        sage: files_by_module = installed_files_by_module(site_packages)
 +        sage: from sage.env import SAGE_LIB
 +        sage: files_by_module = installed_files_by_module(SAGE_LIB)
@@ -175,7 +176,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/doctest/sources.py
 +++ b/sage/src/sage/doctest/sources.py
-@@ -32,7 +32,7 @@
+@@ -33,7 +33,7 @@
  from .parsing import SageDocTestParser
  from .util import NestedName
  from sage.structure.dynamic_class import dynamic_class
@@ -184,7 +185,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Python file parsing
  triple_quotes = re.compile("\s*[rRuU]*((''')|(\"\"\"))")
-@@ -85,7 +85,7 @@
+@@ -86,7 +86,7 @@
      # If the file is in the sage library, we can use our knowledge of
      # the directory structure
      dev = os.path.normpath(SAGE_SRC)
@@ -209,7 +210,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = filename
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -282,7 +282,7 @@
+@@ -283,7 +283,7 @@
              """
              app.builder.info(bold('linking _static directory.'))
              static_dir = os.path.join(app.builder.outdir, '_static')
@@ -224,14 +225,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  		   SAGE_BUILD_DIR=/doesnotexist							\
  		   SAGE_PKGS=$(abs_top_srcdir)/build/pkgs					\
  		   SAGE_CYTHONIZED=$(abs_builddir)/build/cythonized				\
--	 && python -u setup.py build install)
-+	 && python -u setup.py build install --root ../../debian/build --install-layout deb -O2)
+-	 && python -u setup.py --no-user-cfg build install)
++	 && python -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2)
  
  clean:
  	@echo "Deleting Sage library build artifacts..."
 --- a/sage/src/sage/plot/plot3d/base.pyx
 +++ b/sage/src/sage/plot/plot3d/base.pyx
-@@ -388,19 +388,13 @@
+@@ -386,19 +386,13 @@
              if isinstance(backend, BackendIPythonNotebook):
                  scripts = ( """
  <script src="/nbextensions/threejs/three.min.js"></script>
@@ -253,5 +254,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +<script src="{0}/examples/js/controls/OrbitControls.js"></script>
 +                """.format( "file:///usr/share/javascript/three" ) )
  
-         lights = "[{x:0, y:0, z:10}, {x:0, y:0, z:-10}]"
- 
+         b = self.bounding_box()
+         bounds = '[{{"x":{}, "y":{}, "z":{}}}, {{"x":{}, "y":{}, "z":{}}}]'.format(

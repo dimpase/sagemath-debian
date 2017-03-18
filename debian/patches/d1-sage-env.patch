@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -198,7 +198,12 @@
+@@ -201,7 +201,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################
@@ -93,7 +93,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
  
-@@ -642,9 +633,6 @@
+@@ -647,9 +638,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -127,7 +127,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  #---------------------------------------------------------
 --- a/sage/README.md
 +++ b/sage/README.md
-@@ -212,7 +212,7 @@
+@@ -223,7 +223,7 @@
  __7.__ The HTML version of the documentation is built during the compilation  
     process of Sage and resides in the directory:
  
@@ -138,7 +138,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
     of the documentation, run:  
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -229,7 +229,7 @@
+@@ -230,7 +230,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:
@@ -171,7 +171,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  of the documentation, issue the following command from ``SAGE_ROOT``::
 --- a/sage/src/doc/en/installation/source.rst
 +++ b/sage/src/doc/en/installation/source.rst
-@@ -801,7 +801,7 @@
+@@ -830,7 +830,7 @@
    primarily intended for use when producing certain binary
    distributions of Sage, to lower the size of the distribution. As of
    this writing (December 2014, Sage 6.5), there are only a few such
@@ -232,7 +232,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  from . import version
  
  opj = os.path.join
-@@ -134,11 +135,11 @@
+@@ -134,12 +135,12 @@
  _add_variable_or_fallback('SAGE_IMPORTALL',          'yes')
  
  # additional packages locations
@@ -241,15 +241,17 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 -_add_variable_or_fallback('ELLCURVE_DATA_DIR',opj('$SAGE_SHARE','ellcurves'))
 -_add_variable_or_fallback('POLYTOPE_DATA_DIR',opj('$SAGE_SHARE','reflexive_polytopes'))
 -_add_variable_or_fallback('GAP_ROOT_DIR',     opj('$SAGE_LOCAL','gap','latest'))
+-_add_variable_or_fallback('THEBE_DIR',        opj('$SAGE_SHARE','thebe'))
 +_add_variable_or_fallback('CONWAY_POLYNOMIALS_DATA_DIR', '/usr/share/sagemath/conway_polynomials')
 +_add_variable_or_fallback('GRAPHS_DATA_DIR',             '/usr/share/sagemath/graphs')
 +_add_variable_or_fallback('ELLCURVE_DATA_DIR',           '/usr/share/sagemath/ellcurves')
 +_add_variable_or_fallback('POLYTOPE_DATA_DIR',           '/usr/share/sagemath/reflexive_polytopes')
 +_add_variable_or_fallback('GAP_ROOT_DIR',                '/usr/share/gap')
++_add_variable_or_fallback('THEBE_DIR',                    '/usr/share/thebe')
  
  # locate singular shared object
  if UNAME[:6] == "CYGWIN":
-@@ -148,7 +149,7 @@
+@@ -149,7 +150,7 @@
  else:
      extension = "so"
  # library name changed from libsingular to libSingular btw 3.x and 4.x

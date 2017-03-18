@@ -8,7 +8,7 @@ Bug: https://trac.sagemath.org/ticket/21732
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/misc/sagedoc.py
 +++ b/sage/src/sage/misc/sagedoc.py
-@@ -463,10 +463,15 @@
+@@ -491,10 +491,15 @@
      """
      if embedded:
          return s
@@ -66,11 +66,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                'sphinx.ext.extlinks']
 --- a/sage/src/doc/common/conf.py
 +++ b/sage/src/doc/common/conf.py
-@@ -1,10 +1,14 @@
+@@ -1,11 +1,15 @@
  import sys, os, sphinx
--from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC
-+from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB
+-from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, THEBE_DIR
++from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB, THEBE_DIR
  from datetime import date
+ from six import iteritems
  
  # If your extensions are in another directory, add it here.
  sys.path.append(os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
