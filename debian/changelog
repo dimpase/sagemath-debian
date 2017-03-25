@@ -1,4 +1,4 @@
-sagemath (7.6~rc1-2) UNRELEASED; urgency=medium
+sagemath (7.6~rc2-1) UNRELEASED; urgency=medium
 
   * New upstream version.
   * Broken symlinks to thebe.js were removed upstream. (Closes: #856866)

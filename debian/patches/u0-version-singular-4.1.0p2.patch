@@ -402,7 +402,7 @@ Subject: Further doctest changes.
  
      Modulo any other prime the Groebner basis is trivial so there are
      no other solutions. For example::
-@@ -3645,11 +3645,13 @@
+@@ -3646,11 +3646,13 @@
              sage: P.<a,b,c> = PolynomialRing(Zmod(1000),3)
              sage: I = P * (a + 2*b + 2*c - 1, a^2 - a + 2*b^2 + 2*c^2, 2*a*b + 2*b*c - b)
              sage: I.groebner_basis()
