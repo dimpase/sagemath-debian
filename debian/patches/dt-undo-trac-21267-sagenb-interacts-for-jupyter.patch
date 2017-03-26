@@ -1,9 +1,11 @@
-From 30955d2ec72338cc7b13c17922389bb58c8f278c Mon Sep 17 00:00:00 2001
-From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
-Date: Mon, 19 Sep 2016 14:27:28 +0200
-Subject: Port SageNB interacts to Jupyter
-
----
+Description: Undo trac #21267 because we are lacking ipywidgets 6.0
+ This patch is a temporary reversion of this commit:
+ .
+ From 30955d2ec72338cc7b13c17922389bb58c8f278c Mon Sep 17 00:00:00 2001
+ From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+ Date: Mon, 19 Sep 2016 14:27:28 +0200
+ Subject: Port SageNB interacts to Jupyter
+ ---
  build/make/deps                                |   2 +-
  src/doc/en/reference/repl/index.rst            |   3 +
  src/sage/repl/ipython_extension.py             |  36 +-
@@ -17,6 +19,7 @@ Subject: Port SageNB interacts to Jupyter
  create mode 100644 src/sage/repl/ipython_kernel/interact.py
  create mode 100644 src/sage/repl/ipython_kernel/widgets.py
  create mode 100644 src/sage/repl/ipython_kernel/widgets_sagenb.py
+Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
