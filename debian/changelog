@@ -16,6 +16,8 @@ sagemath (7.6-1) UNRELEASED; urgency=medium
     - u0-use-local-threejs.patch
     - u0-version-pari-2.9.patch
     - u0-version-pynac-0.7.4.patch
+  * New patches:
+    - dt-undo-trac-21267-sagenb-interacts-for-jupyter.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 18 Mar 2017 12:00:06 +0000
 
