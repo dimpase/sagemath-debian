@@ -66,7 +66,6 @@ df-silence_ecl_opt_signals.patch
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
 dt-disable-parallel-sphinx.patch
-dt-version-singular-4-extra-fixes.patch
 dt-version-glpk-4.60-extra-hacky-fixes.patch
 dt-r-no-readline.patch
 dt-more-fix-test-cases.patch
