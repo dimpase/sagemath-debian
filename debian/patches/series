@@ -1,5 +1,6 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
+u0-version-r-3.3.3.patch
 u0-version-singular-4.1.0p2.patch
 
 # Patches that have open upstream tickets
