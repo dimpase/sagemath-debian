@@ -17,17 +17,6 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: TODO
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/sage/interfaces/maxima_abstract.py
-+++ b/sage/src/sage/interfaces/maxima_abstract.py
-@@ -1519,7 +1519,7 @@
-         EXAMPLES::
- 
-             sage: maxima('exp(-sqrt(x))').nintegral('x',0,1)
--            (0.5284822353142306, 0.41633141378838...e-10, 231, 0)
-+            (0.5284822353142306, 4.163314137883845e-11, 231, 0)
- 
-         Note that GP also does numerical integration, and can do so to very
-         high precision very quickly::
 --- a/sage/src/sage/calculus/calculus.py
 +++ b/sage/src/sage/calculus/calculus.py
 @@ -770,7 +770,7 @@
@@ -79,20 +68,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              ...
              ZeroDivisionError: rational division by zero
              sage: rc is None
---- a/sage/src/sage/interfaces/interface.py
-+++ b/sage/src/sage/interfaces/interface.py
-@@ -523,9 +523,9 @@
-         EXAMPLES::
- 
-             sage: maxima.quad_qags(x, x, 0, 1, epsrel=1e-4)
--            [0.5,0.55511151231257...e-14,21,0]
-+            [0.5,5.5511151231257...e-15,21,0]
-             sage: maxima.function_call('quad_qags', [x, x, 0, 1], {'epsrel':'1e-4'})
--            [0.5,0.55511151231257...e-14,21,0]
-+            [0.5,5.5511151231257...e-15,21,0]
-         """
-         args, kwds = self._convert_args_kwds(args, kwds)
-         self._check_valid_function_name(function)
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -173,14 +173,15 @@
