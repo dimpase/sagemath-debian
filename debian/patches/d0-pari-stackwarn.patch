@@ -14,6 +14,24 @@ Author: Tobias Hansen <thansen@debian.org>
  
          # Disable PARI's stack overflow checking which is incompatible
          # with multi-threading.
+@@ -533,7 +533,7 @@
+             True
+             sage: pari2 = Pari(10**6)
+             sage: pari.stacksize(), pari2.stacksize()
+-            (10000000, 10000000)
++            (16000000, 16000000)
+ 
+         For more information about how precision works in the PARI
+         interface, see :mod:`sage.libs.cypari2.pari_instance`.
+@@ -593,7 +593,7 @@
+             sage: pari2._close()
+             sage: pari2 = Pari(10**6)
+             sage: pari.stacksize()
+-            1000000
++            16000000
+ 
+         .. WARNING::
+ 
 @@ -875,7 +875,7 @@
          EXAMPLES::
  
@@ -287,3 +305,13 @@ Author: Tobias Hansen <thansen@debian.org>
              0
              sage: var('t,x')
              (t, x)
+--- a/sage/src/sage/libs/pari/tests.py
++++ b/sage/src/sage/libs/pari/tests.py
+@@ -31,6 +31,7 @@
+     sage: x = polygen(ZpFM(3,10))
+     sage: pol = ((x-1)^50 + x)
+     sage: pari(pol).poldisc()
++      ***   Warning: increasing stack size to...
+     2*3 + 3^4 + 2*3^6 + 3^7 + 2*3^8 + 2*3^9 + O(3^10)
+ 
+ Getting the coefficients of a Laurent series behaves differently
