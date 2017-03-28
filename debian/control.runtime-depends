@@ -1,6 +1,7 @@
  cysignals-tools (>= 1.2.0+ds-2) <!nodoc>,
  cython (>= 0.25),
  ecl (>= 16.1.2),
+ ecl (<< 16.1.3),
  eclib-tools (>= 20170122),
  f2c,
  fflas-ffpack (>= 2.2.2),
