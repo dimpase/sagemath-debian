@@ -93,3 +93,14 @@ Author: Tobias Hansen <thansen@debian.org>
  fi
  
  if [ "$1" = '-mwrank' -o "$1" = '--mwrank' ]; then
+--- a/sage/src/doc/en/constructions/plotting.rst
++++ b/sage/src/doc/en/constructions/plotting.rst
+@@ -214,7 +214,7 @@
+ ::
+ 
+     sage: maxima.eval('load("plotdf");')
+-    '".../share/maxima/.../share/dynamics/plotdf.lisp"'
++    '".../share/maxima.../share/dynamics/plotdf.lisp"'
+     sage: maxima.eval('plotdf(x+y,[trajectory_at,2,-0.1]); ')  # not tested
+ 
+ This plots a direction field (the plotdf Maxima package was also
