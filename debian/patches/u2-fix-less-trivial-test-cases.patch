@@ -8,10 +8,6 @@ src/sage/functions/exp_integral.py
 https://www.wolframalpha.com/input/?i=root+of+Chi(z)+between+0.1+and+1.0
 The overridden value is actually more correct, at least according to Wolfram
 ---
-src/sage/graphs/strongly_regular_db.pyx
-Probably because we use a slightly different version of the graph database.
-The differences are just display differences and not mathematical.
----
 src/sage/rings/integer.pyx
 Sage upstream expects MPIR's error output but we use GMP.
 They know about this difference and advise us to just override it.
