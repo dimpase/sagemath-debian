@@ -1,4 +1,4 @@
-sagemath (7.6-1) UNRELEASED; urgency=medium
+sagemath (7.6-0sage1) unstable-sage; urgency=medium
 
   * New upstream version.
   * Broken symlinks to thebe.js were removed upstream. (Closes: #856866)
@@ -20,7 +20,7 @@ sagemath (7.6-1) UNRELEASED; urgency=medium
   * New patches:
     - dt-undo-trac-21267-sagenb-interacts-for-jupyter.patch
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 18 Mar 2017 12:00:06 +0000
+ -- Tobias Hansen <thansen@debian.org>  Tue, 28 Mar 2017 22:15:32 +0100
 
 sagemath (7.5.1-1) experimental; urgency=medium
 
