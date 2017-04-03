@@ -1,12 +1,13 @@
-sagemath (7.6-0sage1) unstable-sage; urgency=medium
+sagemath (7.6-1) experimental; urgency=medium
 
   * New upstream version.
   * Broken symlinks to thebe.js were removed upstream. (Closes: #856866)
+  * Reduce number of allowed test failures during build from 80 to 40.
   * New (Build-)Depends:
     - eclib (>= 20170122)
-    - ecl (>= 16.1.2)
+    - ecl (= 16.1.2)
     - maxima-sage (>= 5.39.0)
-    - python3
+    - python3-dev
     - python-enum34
   * Remove patches (applied upstream):
     - u0-dont-test-glpk-version.patch
@@ -20,7 +21,7 @@ sagemath (7.6-0sage1) unstable-sage; urgency=medium
   * New patches:
     - dt-undo-trac-21267-sagenb-interacts-for-jupyter.patch
 
- -- Tobias Hansen <thansen@debian.org>  Tue, 28 Mar 2017 22:15:32 +0100
+ -- Tobias Hansen <thansen@debian.org>  Mon, 03 Apr 2017 20:04:43 +0100
 
 sagemath (7.5.1-1) experimental; urgency=medium
 
