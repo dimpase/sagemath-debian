@@ -3,6 +3,7 @@ sagemath (7.4-9~bpo8+1) UNRELEASED; urgency=medium
   * Rebuild for jessie-backports.
   * Adapt debian/control.runtime-depends and debian/control.in to versions
     in Jessie backports
+  * d/rules: DEB_CXXFLAGS_MAINT_APPEND=-std=c++11
 
  -- Andreas Tille <tille@debian.org>  Sun, 05 Mar 2017 19:46:57 +0100
 
