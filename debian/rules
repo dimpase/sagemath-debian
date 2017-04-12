@@ -1,9 +1,5 @@
 #!/usr/bin/make -f
 
-DEB_CXXFLAGS_MAINT_APPEND=-std=c++11
-include /usr/share/dpkg/buildflags.mk
-export CXXFLAGS
-
 include /usr/share/dpkg/pkg-info.mk
 
 #export DH_VERBOSE=1
