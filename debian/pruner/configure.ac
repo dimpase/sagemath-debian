@@ -95,9 +95,11 @@ AC_SUBST(HAS_ARB)
 AC_CHECK_PROG(HAS_FLINTQS, QuadraticSieve, "True", "False")
 AC_SUBST(HAS_FLINTQS)
 
-AC_LANG_PUSH([C++])
-AC_CHECK_HEADER(fplll/fplll.h, HAS_FPLLL="True", HAS_FPLLL="False")
-AC_LANG_POP([C++])
+#AC_LANG_PUSH([C++])
+#AC_CHECK_HEADER(fplll/fplll.h, HAS_FPLLL="True", HAS_FPLLL="False")
+#AC_LANG_POP([C++])
+# FIXME(fplll): Disable check for jessie-backports because it fails with gcc 4.9
+HAS_FPLLL="True"
 AC_SUBST(HAS_FPLLL)
 
 AC_CHECK_PROG(HAS_FREETYPE, freetype-config, "True", "False")
