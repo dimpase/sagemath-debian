@@ -45,7 +45,7 @@ Build-Depends:
  libglpk-dev,
  libgmp-dev (>= 2:5.1.2),
  libgpg-error-dev,
- libgsl-dev,
+ libgsl-dev (>= 2.3+dfsg-1~bpo8+3),
  libiml-dev,
  liblapack-dev,
  liblfunction-dev,

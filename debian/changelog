@@ -4,6 +4,8 @@ sagemath (7.4-9~bpo8+1) UNRELEASED; urgency=medium
   * Adapt debian/control.runtime-depends and debian/control.in to versions
     in Jessie backports
   * Force fplll check to be always true
+  * Versioned Build-Depends: libgsl-dev (>= 2.3+dfsg-1~bpo8+3) to make sure
+    libgslcblas.so will be found
 
  -- Andreas Tille <tille@debian.org>  Sun, 05 Mar 2017 19:46:57 +0100
 
