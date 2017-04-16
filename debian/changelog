@@ -8,6 +8,8 @@ sagemath (7.4-9~bpo8+1) UNRELEASED; urgency=medium
     libgslcblas.so will be found
   * Versioned Build-Depends: libpynac-dev (>= 0.6.91-1~)
   * Versioned Build-Depends: libglpk-dev (>= 4.61-1~)
+  * Versioned Build-Depends: *singular* (>= 1:4.0.3-p3+ds-5~bpo8+2)
+  * Versioned Build-Depends: python-sphinx (>= 1.4.9-2~)
 
  -- Andreas Tille <tille@debian.org>  Sun, 05 Mar 2017 19:46:57 +0100
 
