@@ -42,7 +42,7 @@ Build-Depends:
  libgd2-noxpm-dev | libgd2-xpm-dev,
  libgf2x-dev,
  libgivaro-dev (>= 4.0.1-3),
- libglpk-dev,
+ libglpk-dev (>= 4.61-1~),
  libgmp-dev (>= 2:5.1.2),
  libgpg-error-dev,
  libgsl-dev (>= 2.3+dfsg-1~bpo8+3),
