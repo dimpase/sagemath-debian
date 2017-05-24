@@ -4,11 +4,7 @@
 
 ## Current
 
-*   Package red stuff in https://people.debian.org/~thansen/debian-sage-status.html
-    *   ecl, ntl, configparser (not strictly needed, tests seem to work OK)
-
-*   Package red stuff in https://people.debian.org/~thansen/debian-sage-dev-status.html
-    *   ipywidgets, maxima, jupyter-notebook, threejs
+*   See https://wiki.debian.org/DebianScience/Sage#Open_tasks
 
 ## Later
 
