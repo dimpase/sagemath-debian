@@ -1,0 +1,17 @@
+Description: Update to IPython 5.4
+ I updated IPython 5.4's simple-prompt to use the application's configured
+ prompt rather than a hard-coded "In [xxx]" but Sage still expects the latter.
+Author: Ximin Luo <infinity0@debian.org>
+Bug: https://trac.sagemath.org/ticket/23125
+
+--- a/src/sage/interfaces/sage0.py
++++ b/src/sage/interfaces/sage0.py
+@@ -160,7 +160,7 @@ class Sage(ExtraTabCompletion, Expect):
+                 '--no-term-title',
+                 '--simple-prompt',
+             ])
+-            prompt = re.compile('In \[\d+\]: ')
++            prompt = re.compile('sage: ') # needs to match SagePrompts
+             if init_code is None:
+                 init_code = ['from six.moves import cPickle']
+ 
