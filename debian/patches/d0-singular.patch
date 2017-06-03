@@ -6,7 +6,17 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2291,7 +2291,7 @@
+@@ -650,7 +650,8 @@
+ 
+         s = Expect.eval(self, x, **kwds)
+ 
+-        if s.find("error") != -1 or s.find("Segment fault") != -1:
++        # Debian puts "-Werror=" in C*FLAGS which ends up in Singular's "system version" output
++        if s.replace("-Werror=", "").find("error") != -1 or s.find("Segment fault") != -1:
+             raise SingularError('Singular error:\n%s'%s)
+ 
+         if get_verbose() > 0:
+@@ -2291,7 +2292,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -17,7 +27,19 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -311,7 +311,7 @@
+@@ -242,6 +242,11 @@
+     args = ['-w','-O2'] + args
+     libdirs = cblas_library_dirs
+ 
++    # Add Singular directories to includes
++    if "singular" in s or "pynac" in s:
++        import pkgconfig
++        inc.extend(sorted(set(pkgconfig.parse("Singular")["include_dirs"])))
++
+     # Add cysignals directory to includes
+     for path in sys.path:
+         inc.append(path)
+@@ -311,7 +316,7 @@
  
          sage: code = [
          ....: "#clang C++",
