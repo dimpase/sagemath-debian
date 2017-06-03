@@ -180,26 +180,6 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    In the future, this may grow, of course. Note: after using this, if you
    want to build the documentation and include the pictures, you should
    run ``make doc-clean``, because the presence, or lack, of pictures
---- a/sage/src/sage/misc/cython.py
-+++ b/sage/src/sage/misc/cython.py
-@@ -178,7 +178,7 @@
-         '.../include/python...',
-         '.../python.../numpy/core/include',
-         ...
--        '.../sage/ext',
-+        '.../sagemath/ext',
-         ...
-         '.../cysignals'...],
-         'c',
-@@ -206,7 +206,7 @@
-         '.../include/python...',
-         '.../python.../numpy/core/include',
-         ...
--        '.../sage/ext',
-+        '.../sagemath/ext',
-         ...
-         '.../cysignals'...]
- 
 --- a/sage/src/sage/structure/sage_object.pyx
 +++ b/sage/src/sage/structure/sage_object.pyx
 @@ -1519,7 +1519,7 @@
