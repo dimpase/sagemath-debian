@@ -9,10 +9,10 @@ Bug: https://github.com/jupyter-widgets/ipywidgets/pull/1031
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/repl/ipython_kernel/widgets.py
 +++ b/sage/src/sage/repl/ipython_kernel/widgets.py
-@@ -24,13 +24,43 @@
+@@ -26,13 +26,42 @@
  
  from ipywidgets.widgets import (IntSlider, IntRangeSlider, FloatSlider,
-         FloatRangeSlider, Text, Textarea, ColorPicker,
+         FloatRangeSlider, Text, Textarea, ColorPicker, HTML,
 -        Label, HBox, VBox, ValueWidget)
 +        Label, HBox, VBox, ValueWidget, Widget)
  from traitlets import List, Unicode, link
@@ -50,7 +50,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    return "%s(%s)" % (type(self).__name__, r)
 +Widget.__repr__ = __widgets__repr__
 +del __widgets__repr__
-+
  
- class TransformWidget(object):
+ class HTMLText(HTML):
      """
