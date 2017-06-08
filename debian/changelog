@@ -1,6 +1,13 @@
 sagemath (8.0~beta9-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * Remove patches (applied upstream):
+    - u0-fix-proper-scipy-rtol.patch
+    - u0-version-r-3.3.3.patch
+    - u0-version-singular-4.1.0p2.patch
+    - u0-version-singular-4.1.0p3.patch
+    - u1-version-ecm-7.patch
+    - u1-version-planarity-3.patch
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 08 Jun 2017 21:19:49 +0000
 

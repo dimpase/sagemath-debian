@@ -1,14 +1,8 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
-u0-version-r-3.3.3.patch                   #20523
-u0-version-singular-4.1.0p2.patch          #22425
-u0-version-singular-4.1.0p3.patch          #22868
-u0-fix-proper-scipy-rtol.patch             #22439
 
 # Patches that have open upstream tickets
-u1-version-planarity-3.patch               #21774
 u1-version-pbori-boost1.62-hashes.patch    #22243
-u1-version-ecm-7.patch                     #20385
 u1-fix-use-lexists-not-exists.patch        #22438
 u1-fix-dont-require-DISPLAY.patch          #22441
 u1-pip-nowarn.patch                        #21835

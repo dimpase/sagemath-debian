@@ -6,7 +6,7 @@ Bug: https://trac.sagemath.org/ticket/22438
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -284,7 +284,7 @@
+@@ -286,7 +286,7 @@
              app.builder.info(bold('linking _static directory.'))
              static_dir = os.path.join(app.builder.outdir, '_static')
              master_static_dir = os.path.join('..', '_static')
