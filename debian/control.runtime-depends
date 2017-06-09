@@ -1,3 +1,4 @@
+ curl,
  cysignals-tools (>= 1.2.0+ds-2) <!nodoc>,
  cython (>= 0.25),
  ecl (>= 16.1.2),
@@ -78,6 +79,7 @@
  python-psutil,
  python-ptyprocess,
  python-pygments,
+ python-requests,
  python-rpy2,
  python-sagenb (>= 0.13),
  python-sagenb-export,
@@ -114,3 +116,4 @@
  sympow (>= 1.023-8),
  tachyon,
  xcas,
+ yasm,

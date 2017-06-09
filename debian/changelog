@@ -1,6 +1,11 @@
 sagemath (8.0~beta9-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * New (Build-)Depends:
+    - curl
+    - pcre3
+    - requests
+    - yasm
   * Remove patches (applied upstream):
     - u0-fix-proper-scipy-rtol.patch
     - u0-version-r-3.3.3.patch

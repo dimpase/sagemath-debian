@@ -53,6 +53,9 @@ AC_SUBST(HAS_COMBINATORIAL_DESIGNS)
 AC_CHECK_FILE(/usr/share/sagemath/conway_polynomials/conway_polynomials.sobj, HAS_CONWAY_POLYNOMIALS="True", HAS_CONWAY_POLYNOMIALS="False")
 AC_SUBST(HAS_CONWAY_POLYNOMIALS)
 
+AC_CHECK_PROG(HAS_CURL, curl, "True", "False")
+AC_SUBST(HAS_CURL)
+
 AC_CHECK_PROG(HAS_CYTHON, cython, "True", "False")
 AC_SUBST(HAS_CYTHON)
 
@@ -248,6 +251,9 @@ AC_SUBST(HAS_PARI_SEADATA)
 AC_CHECK_PROG(HAS_PATCH, patch, "True", "False")
 AC_SUBST(HAS_PATCH)
 
+AC_CHECK_HEADER(pcre.h, HAS_PCRE="True", HAS_PCRE="False")
+AC_SUBST(HAS_PCRE)
+
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
 
@@ -337,6 +343,9 @@ AC_SUBST(HAS_WIDGETSNBEXTENSION)
 # xz is always installed
 HAS_XZ="True"
 AC_SUBST(HAS_XZ)
+
+AC_CHECK_PROG(HAS_YASM, yasm, "True", "False")
+AC_SUBST(HAS_YASM)
 
 # FIXME(zeromq): useful only for pyzmq
 HAS_ZEROMQ="True"
