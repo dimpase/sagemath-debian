@@ -11,6 +11,8 @@ sagemath (8.0~beta9-1) UNRELEASED; urgency=medium
   * Patches with non-trivial modifications:
     - u2-allow-override-sage-local.patch:
       May need further modifications after https://trac.sagemath.org/ticket/21479
+    - d0-libgap-sage.patch
+    - d0-pari-stackwarn.patch
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 08 Jun 2017 21:19:49 +0000
 

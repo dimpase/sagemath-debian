@@ -1,6 +1,6 @@
 --- a/sage/src/sage/interfaces/gp.py
 +++ b/sage/src/sage/interfaces/gp.py
-@@ -249,9 +249,9 @@
+@@ -250,9 +250,9 @@
          # list of directories where gp will look for scripts (only current working directory)
          self._eval_line('default(path,".");')
          # location of elldata, seadata, galdata
