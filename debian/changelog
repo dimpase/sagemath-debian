@@ -13,6 +13,9 @@ sagemath (8.0~beta9-1) UNRELEASED; urgency=medium
       May need further modifications after https://trac.sagemath.org/ticket/21479
     - d0-libgap-sage.patch
     - d0-pari-stackwarn.patch
+    - d0-paths.patch
+    - d0-singular.patch
+    - d1-install-paths.patch
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 08 Jun 2017 21:19:49 +0000
 
