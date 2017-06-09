@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -201,7 +201,12 @@
+@@ -202,7 +202,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################
@@ -23,7 +23,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
      echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -264,12 +264,12 @@
+@@ -266,12 +266,12 @@
  # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
@@ -38,7 +38,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -325,12 +325,12 @@
+@@ -327,12 +327,12 @@
  fi
  
  # For PARI/GP
@@ -56,7 +56,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -345,16 +345,6 @@
+@@ -347,16 +347,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -73,8 +73,8 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -420,8 +410,10 @@
-     export PYTHONHOME
+@@ -417,8 +407,10 @@
+     unset PYTHONHOME
  fi
  
 -LDFLAGS="-L$SAGE_LOCAL/lib -Wl,-rpath,$SAGE_LOCAL/lib $LDFLAGS"
@@ -85,7 +85,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  # Use a matplotlib config directory specific to Sage and specific to
  # the version number of matplotlib, by setting the environment
-@@ -468,7 +460,6 @@
+@@ -465,7 +457,6 @@
          fi
      fi
  fi
@@ -93,7 +93,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
  
-@@ -647,9 +638,6 @@
+@@ -644,9 +635,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -105,26 +105,15 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # First, figure out the right values for SAGE_NUM_THREADS (default
 --- a/sage/build/make/install
 +++ b/sage/build/make/install
-@@ -11,7 +11,7 @@
+@@ -16,7 +16,7 @@
  fi
- export SAGE_SRC="$SAGE_ROOT/src"
+ 
  export SAGE_SHARE="$SAGE_LOCAL/share"
 -export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
 +export SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
  export SAGE_VERSION=`cat $SAGE_ROOT/VERSION.txt | sed 's+.*\ \(.*\),.*+\1+'`
---- a/sage/configure.ac
-+++ b/sage/configure.ac
-@@ -85,7 +85,7 @@
- fi
- SAGE_SRC="$SAGE_ROOT/src"
- SAGE_SHARE="$SAGE_LOCAL/share"
--SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
-+SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
- SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
- 
- #---------------------------------------------------------
 --- a/sage/README.md
 +++ b/sage/README.md
 @@ -223,7 +223,7 @@
@@ -138,7 +127,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
     of the documentation, run:  
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -230,7 +230,7 @@
+@@ -235,7 +235,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:
@@ -171,7 +160,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  of the documentation, issue the following command from ``SAGE_ROOT``::
 --- a/sage/src/doc/en/installation/source.rst
 +++ b/sage/src/doc/en/installation/source.rst
-@@ -830,7 +830,7 @@
+@@ -840,7 +840,7 @@
    primarily intended for use when producing certain binary
    distributions of Sage, to lower the size of the distribution. As of
    this writing (December 2014, Sage 6.5), there are only a few such
@@ -182,7 +171,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage/structure/sage_object.pyx
 +++ b/sage/src/sage/structure/sage_object.pyx
-@@ -1519,7 +1519,7 @@
+@@ -1548,7 +1548,7 @@
  
      When run with no arguments :meth:`unpickle_all` tests that all of the
      "standard" pickles stored in the pickle_jar at

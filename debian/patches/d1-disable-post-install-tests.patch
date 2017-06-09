@@ -18,7 +18,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/all.py
 +++ b/sage/src/sage/all.py
-@@ -272,14 +272,6 @@
+@@ -290,14 +290,6 @@
  
      The non-existence of this file will be used as a trigger to run
      ``sage-starts`` during the Sage build.
