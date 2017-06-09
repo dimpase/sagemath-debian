@@ -24,7 +24,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/libs/glpk/error.pyx
 +++ b/sage/src/sage/libs/glpk/error.pyx
-@@ -44,7 +44,7 @@
+@@ -45,7 +45,7 @@
      if glp_at_error():
          # Save error message and skip normal printing
          error_message += s

@@ -56,7 +56,6 @@ df-revert-lazy-import-dependent-on-python-patch.patch
 df-revert-minor-feature-dependent-on-python-patch.patch
 df-disable-custom-sphinx-logger.patch
 df-python_security.patch
-df-sagedoc_avoid_exception.patch
 df-sage-gap-reset-doctest.patch
 df-silence_debian_bug_780186.patch
 df-silence_ecl_opt_signals.patch

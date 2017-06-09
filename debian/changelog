@@ -8,6 +8,7 @@ sagemath (8.0~beta9-1) UNRELEASED; urgency=medium
     - u0-version-singular-4.1.0p3.patch
     - u1-version-ecm-7.patch
     - u1-version-planarity-3.patch
+    - df-sagedoc_avoid_exception.patch
   * Patches with non-trivial modifications:
     - u2-allow-override-sage-local.patch:
       May need further modifications after https://trac.sagemath.org/ticket/21479
