@@ -191,7 +191,6 @@ python_modules = [
     'pygments',
     'pyparsing',
     'pytz',
-    'requests',
     'rpy2',
     'sagenb',
     'sagenb_export',
@@ -225,6 +224,7 @@ python_packages_to_modules = {
 }
 
 unneeded_packages = {
+    'requests', # FIXME(requests): only used to build sphinx, not needed in Debian
     'speaklater'
 }
 

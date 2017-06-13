@@ -60,7 +60,6 @@ Build-Depends:
  libntl-dev (>= 9.9.1-2),
  libopenblas-dev (>= 0.2.19),
  libpari-dev (>= 2.9.0),
- libpcre3-dev,
  libplanarity-dev,
  libpng-dev,
  libppl-dev (>= 1:1.1),
