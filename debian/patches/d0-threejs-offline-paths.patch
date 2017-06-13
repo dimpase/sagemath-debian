@@ -6,10 +6,11 @@
          """
 -        from sage.env import SAGE_SHARE
          return """
- <script src="{0}/threejs/three.min.js"></script>
+-<script src="{0}/threejs/three.min.js"></script>
 -<script src="{0}/threejs/OrbitControls.js"></script>
 -        """.format(SAGE_SHARE)
-+<script src="{0}/threejs/examples/js/controls/OrbitControls.js"></script>
++<script src="{0}/three/three.min.js"></script>
++<script src="{0}/three/examples/js/controls/OrbitControls.js"></script>
 +        """.format("file:///usr/share/javascript")
  
  
