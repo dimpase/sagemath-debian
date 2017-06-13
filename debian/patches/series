@@ -37,6 +37,7 @@ d0-singular.patch
 d0-disable-jsmol.patch
 d0-paths-sharedata.patch
 d0-paths.patch
+d0-threejs-offline-paths.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming

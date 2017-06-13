@@ -1,0 +1,43 @@
+--- a/sage/src/sage/repl/rich_output/backend_ipython.py
++++ b/sage/src/sage/repl/rich_output/backend_ipython.py
+@@ -411,11 +411,10 @@
+             sage: backend.threejs_offline_scripts()
+             '...<script ...</script>...'
+         """
+-        from sage.env import SAGE_SHARE
+         return """
+ <script src="{0}/threejs/three.min.js"></script>
+-<script src="{0}/threejs/OrbitControls.js"></script>
+-        """.format(SAGE_SHARE)
++<script src="{0}/threejs/examples/js/controls/OrbitControls.js"></script>
++        """.format("file:///usr/share/javascript")
+ 
+ 
+ IFRAME_TEMPLATE = \
+@@ -590,12 +589,7 @@
+             sage: backend.threejs_offline_scripts()
+             '...<script src="/nbextensions/threejs/three.min...<\\/script>...'
+         """
+-        from sage.repl.rich_output import get_display_manager
+-        CDN_scripts = get_display_manager().threejs_scripts(online=True)
+         return """
+ <script src="/nbextensions/threejs/three.min.js"></script>
+-<script src="/nbextensions/threejs/OrbitControls.js"></script>
+-<script>
+-  if ( !window.THREE ) document.write('{}');
+-</script>
+-        """.format(CDN_scripts.replace('</script>', r'<\/script>'))
++<script src="/nbextensions/threejs/examples/js/controls/OrbitControls.js"></script>
++        """
+--- a/sage/src/sage/repl/rich_output/backend_sagenb.py
++++ b/sage/src/sage/repl/rich_output/backend_sagenb.py
+@@ -468,5 +468,7 @@
+             sage: backend.threejs_offline_scripts()
+             '...<script ...</script>...'
+         """
+-        from sage.repl.rich_output import get_display_manager
+-        return get_display_manager().threejs_scripts(online=True)
++        return """
++<script src="/threejs/three.min.js"></script>
++<script src="/threejs/examples/js/controls/OrbitControls.js"></script>
++        """
