@@ -171,7 +171,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage/structure/sage_object.pyx
 +++ b/sage/src/sage/structure/sage_object.pyx
-@@ -1548,7 +1548,7 @@
+@@ -1593,7 +1593,7 @@
  
      When run with no arguments :meth:`unpickle_all` tests that all of the
      "standard" pickles stored in the pickle_jar at
@@ -193,7 +193,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
              # Walk through all of the files in the sage_directory
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -20,6 +20,7 @@
+@@ -21,6 +21,7 @@
  import os
  import socket
  import site
@@ -201,7 +201,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  from . import version
  
  opj = os.path.join
-@@ -134,12 +135,12 @@
+@@ -135,12 +136,12 @@
  _add_variable_or_fallback('SAGE_IMPORTALL',          'yes')
  
  # additional packages locations
@@ -220,12 +220,12 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  # locate singular shared object
  if UNAME[:6] == "CYGWIN":
-@@ -149,7 +150,7 @@
- else:
-     extension = "so"
- # library name changed from libsingular to libSingular btw 3.x and 4.x
--SINGULAR_SO = SAGE_LOCAL+"/lib/libSingular."+extension
-+SINGULAR_SO = "/usr/lib/%s/libsingular-Singular.so" % sysconfig.get_config_var('MULTIARCH')
+@@ -152,7 +153,7 @@
+     else:
+         extension = "so"
+     # library name changed from libsingular to libSingular btw 3.x and 4.x
+-    SINGULAR_SO = SAGE_LOCAL+"/lib/libSingular."+extension
++    SINGULAR_SO = "/usr/lib/%s/libsingular-Singular.so" % sysconfig.get_config_var('MULTIARCH')
+ 
  _add_variable_or_fallback('SINGULAR_SO', SINGULAR_SO)
  
- # post process

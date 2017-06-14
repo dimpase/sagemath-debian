@@ -5,7 +5,7 @@ Forwarded: TODO
 
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -92,6 +92,7 @@
+@@ -93,6 +93,7 @@
  _add_variable_or_fallback('SAGE_ROOT',       None)
  _add_variable_or_fallback('SAGE_LOCAL',      None)
  _add_variable_or_fallback('SAGE_ETC',        opj('$SAGE_LOCAL', 'etc'))

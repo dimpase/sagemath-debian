@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -77,7 +77,7 @@
+@@ -78,7 +78,7 @@
      if force:
          value = fallback
      if isinstance(value, six.string_types):
@@ -39,7 +39,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              if isinstance(v, six.string_types):
                  value = value.replace('$'+k, v)
      SAGE_ENV[key] = value
-@@ -115,7 +115,7 @@
+@@ -116,7 +116,7 @@
  
  _add_variable_or_fallback('SAGE_EXTCODE',    opj('$SAGE_SHARE', 'sage', 'ext'))
  _add_variable_or_fallback('SAGE_LOGS',       opj('$SAGE_ROOT', 'logs', 'pkgs'))

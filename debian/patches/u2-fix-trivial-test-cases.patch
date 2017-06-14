@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              sage: rc is None
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -211,14 +211,15 @@
+@@ -207,14 +207,15 @@
          'm',
          'ec',
          'gsl',
@@ -89,7 +89,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'c',
          [], ['-w', '-O2'],...)
          sage: s, libs, inc, lang, f, args, libdirs = pyx_preparse("# clang c++\n #clib foo\n # cinclude bar\n")
-@@ -233,7 +234,7 @@
+@@ -229,7 +230,7 @@
          'm',
          'ec',
          'gsl',
@@ -98,7 +98,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'ntl']
          sage: libs[1:] == sage.misc.cython.standard_libs
          True
-@@ -243,9 +244,10 @@
+@@ -239,9 +240,10 @@
          '.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',

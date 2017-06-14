@@ -1,6 +1,6 @@
 --- a/sage/src/sage/misc/sagedoc.py
 +++ b/sage/src/sage/misc/sagedoc.py
-@@ -1499,8 +1499,8 @@
+@@ -1501,8 +1501,8 @@
          url = self._base_url + os.path.join(name, "index.html")
          path = os.path.join(self._base_path, name, "index.html")
          if not os.path.exists(path):

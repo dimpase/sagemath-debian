@@ -83,7 +83,7 @@ Author: Tobias Hansen <thansen@debian.org>
          Graphics object consisting of 1 graphics primitive
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -6536,6 +6536,7 @@
+@@ -6537,6 +6537,7 @@
              ....:         (2^100).binomial(2^22, algorithm='pari')
              ....:     except AlarmInterrupt:
              ....:         pass
@@ -224,7 +224,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
 --- a/sage/src/sage/functions/orthogonal_polys.py
 +++ b/sage/src/sage/functions/orthogonal_polys.py
-@@ -1227,6 +1227,7 @@
+@@ -1231,6 +1231,7 @@
              sage: legendre_P(4,x)
              35/8*x^4 - 15/4*x^2 + 3/8
              sage: legendre_P(10000,x).coefficient(x,1)

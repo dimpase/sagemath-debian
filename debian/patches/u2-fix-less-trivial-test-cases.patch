@@ -35,7 +35,7 @@ to reduce the noise in our test results.
      numerical integration::
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -6088,8 +6088,7 @@
+@@ -6089,8 +6089,7 @@
              sage: 1 << (2^60)
              Traceback (most recent call last):
              ...

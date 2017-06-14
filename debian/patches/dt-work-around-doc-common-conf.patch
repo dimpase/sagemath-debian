@@ -8,7 +8,7 @@ Bug: https://trac.sagemath.org/ticket/21732
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/misc/sagedoc.py
 +++ b/sage/src/sage/misc/sagedoc.py
-@@ -491,10 +491,15 @@
+@@ -493,10 +493,15 @@
      """
      if embedded:
          return s

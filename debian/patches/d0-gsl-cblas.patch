@@ -28,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  if os.path.exists('/usr/lib/libblas.dll.a'):
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -30,17 +30,16 @@
+@@ -30,10 +30,9 @@
  
  
  # CBLAS can be one of multiple implementations
@@ -40,13 +40,5 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +cblas_library_dirs = []
 +cblas_include_dirs = []
  
- # TODO: Remove Cygwin hack by installing a suitable cblas.pc
- if os.path.exists('/usr/lib/libblas.dll.a'):
-     cblas_libs = 'gslcblas'
- 
  standard_libs = [
--    'mpfr', 'gmp', 'gmpxx', 'stdc++', 'pari', 'm', 
-+    'mpfr', 'gmp', 'gmpxx', 'stdc++', 'pari', 'm',
-     'ec', 'gsl',
- ] + cblas_libs + [
-     'ntl']
+     'mpfr', 'gmp', 'gmpxx', 'stdc++', 'pari', 'm',

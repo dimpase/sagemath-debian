@@ -15,7 +15,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
              create_extension=sage_create_extension,
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -281,6 +281,7 @@
+@@ -277,6 +277,7 @@
  
      # Add cysignals directory to includes
      for path in sys.path:
