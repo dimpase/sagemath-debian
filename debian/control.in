@@ -93,7 +93,11 @@ Description: Open Source Mathematical Software
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
  RUNTIME_DEPENDS
  sagemath-common (= ${source:Version})
-Recommends: sagemath-doc-en, sagemath-jupyter, sagetex, texlive-latex-base
+Recommends:
+ sagemath-doc-en (= ${source:Version}),
+ sagemath-jupyter (= ${source:Version}),
+ sagetex,
+ texlive-latex-base
 
 Package: sagemath-common
 Architecture: all
