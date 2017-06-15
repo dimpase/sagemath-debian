@@ -104,7 +104,7 @@
  r-cran-lattice,
  r-base-dev,
  rubiks,
- sagemath-database-conway-polynomials,
+ sagemath-database-conway-polynomials (>= 0.5-2),
  sagemath-database-elliptic-curves,
  sagemath-database-graphs,
  sagemath-database-mutually-combinatorial-designs,
