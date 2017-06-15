@@ -74,3 +74,17 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          target_native = targetfile
          import sys
          if sys.platform == 'cygwin':
+--- a/sage/build/bin/sage-python23
++++ b/sage/build/bin/sage-python23
+@@ -12,9 +12,9 @@
+ 
+ 
+ if [ "$SAGE_PYTHON3" = yes ]; then
+-   PYTHON="$SAGE_LOCAL/bin/python3"
++   PYTHON="/usr/bin/python3"
+ else
+-   PYTHON="$SAGE_LOCAL/bin/python2"
++   PYTHON="/usr/bin/python2"
+ fi
+ 
+ 
