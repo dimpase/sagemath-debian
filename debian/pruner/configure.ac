@@ -50,7 +50,7 @@ AC_SUBST(HAS_CLIQUER)
 AC_CHECK_FILE(/usr/share/sagemath/combinatorial_designs/MOLS_table.txt, HAS_COMBINATORIAL_DESIGNS="True", HAS_COMBINATORIAL_DESIGNS="False")
 AC_SUBST(HAS_COMBINATORIAL_DESIGNS)
 
-AC_CHECK_FILE(/usr/share/sagemath/conway_polynomials/conway_polynomials.sobj, HAS_CONWAY_POLYNOMIALS="True", HAS_CONWAY_POLYNOMIALS="False")
+AC_CHECK_FILE(/usr/share/sagemath/conway_polynomials/conway_polynomials.p, HAS_CONWAY_POLYNOMIALS="True", HAS_CONWAY_POLYNOMIALS="False")
 AC_SUBST(HAS_CONWAY_POLYNOMIALS)
 
 # FIXME(curl): only needed by the spkg build system to download stuff, not needed in Debian
