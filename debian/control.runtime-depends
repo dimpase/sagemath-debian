@@ -41,7 +41,7 @@
  python-cvxopt,
  python-cycler,
  python-cypari2,
- python-cysignals-pari (>= 1.2.0+ds-2),
+ python-cysignals-pari (>= 1.6.4),
  python-decorator,
  python-docutils,
  python-enum34,
