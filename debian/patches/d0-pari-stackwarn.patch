@@ -23,7 +23,7 @@ Author: Tobias Hansen <thansen@debian.org>
          With the optional parameter leading_coefficient set to ``True``, a
 --- a/sage/src/sage/schemes/hyperelliptic_curves/hyperelliptic_finite_field.py
 +++ b/sage/src/sage/schemes/hyperelliptic_curves/hyperelliptic_finite_field.py
-@@ -445,6 +445,7 @@
+@@ -447,6 +447,7 @@
              sage: R.<t> = PolynomialRing(K)
              sage: H = HyperellipticCurve(t^7 + 487*t^5 + 9*t + 1)
              sage: H.frobenius_polynomial_pari()

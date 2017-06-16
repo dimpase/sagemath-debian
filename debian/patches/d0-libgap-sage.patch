@@ -54,9 +54,9 @@ Forwarded: not-needed
 +    "zn_poly",
 +] + libgap_libs + gd_libs + png_libs + [
      "m", "readline", "Lfunction" ,
- ] + cblas_libs + [
-     "cryptominisat",
-@@ -645,15 +649,15 @@
+ ] + cblas_libs + zlib_libs
+ 
+@@ -643,15 +647,15 @@
  
      Extension('sage.libs.gap.util',
                sources = ["sage/libs/gap/util.pyx"],
