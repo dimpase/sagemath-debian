@@ -32,7 +32,7 @@ d0-libgap-sage.patch
 d0-maxima.patch
 d0-nauty.patch
 d0-pari.patch
-d0-pari-stackwarn.patch
+d0-pari-stackwarn.patch                    #23263
 d0-rubiks.patch
 d0-singular.patch
 d0-disable-jsmol.patch
