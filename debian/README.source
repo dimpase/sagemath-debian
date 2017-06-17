@@ -38,6 +38,10 @@ sure you're in the top-level package directory, where debian/ is. Then:
  $ . <(debian/rules export-build-env)  # assumes you're in bash or zsh
  sage$ ./sage -t -p --long src/sage/file/you/want/to/test
 
+To run all the tests:
+
+ sage$ ./sage -t -p --all --long --logfile=logs/ptestlong.log
+
 See https://www.sagemath.org/git-developer-guide/doctesting.html for more
 information and helpful tips.
 
