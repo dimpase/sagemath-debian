@@ -15,6 +15,7 @@ u1-scripts-dir.patch                       #22731
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
 
 # Patches that should be upstreamed (may need some work first)
+u2-pari-stackwarn.patch                    #23263
 u2-version-cddlib-094h.patch
 u2-reproducible-docs.patch
 u2-fix-trivial-test-cases.patch
@@ -32,7 +33,6 @@ d0-libgap-sage.patch
 d0-maxima.patch
 d0-nauty.patch
 d0-pari.patch
-d0-pari-stackwarn.patch                    #23263
 d0-rubiks.patch
 d0-singular.patch
 d0-disable-jsmol.patch
