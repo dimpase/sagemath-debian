@@ -89,7 +89,8 @@ dh_auto_build-stamp: prune
 check-dochtml-log:
 	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
 	# Sage doesn't detect this. Here we detect it and fail the build if so.
-	! grep Error sage/logs/dochtml.log
+	# Also filter out some false positives that are not hard errors.
+	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
 
 # We build everything in both -arch and -indep because the tests need the docs.
 # TODO: as described in #849150, we can make this more efficient if we figure
