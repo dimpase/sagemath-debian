@@ -81,7 +81,7 @@
  python-pygments,
  python-rpy2,
  python-sagenb (>= 1.0.1),
- python-sagenb-export,
+ python-sagenb-export (>= 3.2),
  python-scipy,
  python-setuptools,
  python-setuptools-scm,

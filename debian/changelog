@@ -3,6 +3,16 @@ sagemath (8.0~beta11-1) UNRELEASED; urgency=medium
   * New upstream version.
   * New (Build-)Depends:
     - cypari2
+    - brial (>= 0.8.7)
+    - cysignals (>= 1.6.4)
+    - fplll (>= 5.1.0)
+    - fpylll (>= 0.2.4)
+    - ipywidgets (>= 6.0.0)
+    - pynac (>= 0.7.8)
+    - sagemath-database-conway-polynomials (>= 0.5-2)
+    - sagenb (>= 1.0.1)
+    - sagenb-export (>= 3.2)
+    - sphinx (>= 1.5.3)
   * Remove patches (applied upstream):
     - u0-fix-proper-scipy-rtol.patch
     - u0-version-r-3.3.3.patch
