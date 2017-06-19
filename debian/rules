@@ -37,6 +37,12 @@ else
 NUMJOBS = 1
 endif
 
+ifeq (1,$(TRY_AVOID_REBUILD))
+REBUILD_RULES = debian/rules
+else
+REBUILD_RULES =
+endif
+
 %:
 	dh $@ --with=python2,sphinxdoc
 
@@ -52,19 +58,19 @@ debian/control: debian/control.in $(DOCS_CONTROL)
 	sed -i -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' "$@"
 	sed -i -e '/JUPYTER_DEPENDS/ {' -e 'r debian/control.jupyter-depends' -e 'd' -e '}' "$@"
 
-debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in debian/rules
+debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in $(REBUILD_RULES)
 	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
 
-debian/sagemath-doc-%.install: debian/sagemath-doc-LANG.install.in debian/rules
+debian/sagemath-doc-%.install: debian/sagemath-doc-LANG.install.in $(REBUILD_RULES)
 	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
 
-debian/sagemath-doc-en.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
+debian/sagemath-doc-en.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_RULES)
 	sed -e "s/LANGUAGE/$$(debian/lang.py en)/g" -e 's/LANG/en/g' -e 's/SUBDIR//g' < "$<" > "$@"
 
-debian/sagemath-doc-ca.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
+debian/sagemath-doc-ca.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_RULES)
 	sed -e "s/LANGUAGE/$$(debian/lang.py ca)/g" -e 's/LANG/ca/g' -e 's/SUBDIR/intro\//g' < "$<" > "$@"
 
-debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in debian/rules
+debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_RULES)
 	if [ "$*" = "hu" -o "$*" = "it" -o "$*" = "tr" ]; then \
 		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/a_tour_of_sage\//g' < "$<" > "$@"; \
 	else \
@@ -103,7 +109,7 @@ override_dh_auto_build-indep: dh_auto_build-stamp check-dochtml-log
 LOGFILE = sage/logs/ptestlong.log
 run_tests = cd sage && ./sage -t -p $(NUMJOBS) --all --long --logfile=logs/ptestlong.log
 override_dh_auto_test:
-	cd sage && $(SAGE_LOCAL)/bin/sage-starts
+	cd sage && src/bin/sage-starts
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# We do the below instead of `$(MAKE) --directory=sage ptestlong` because
 	# it has a bug where it can't detect a previous successful build. So it
@@ -161,14 +167,11 @@ override_dh_auto_install:
 # non-docs without wiping away the docs we previously built, to save time.
 override_dh_auto_clean:
 ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-	dh_auto_clean -Dsage -- -k clean sagelib-clean misc-clean || true
+	dh_auto_clean -Dsage -- -k clean sagelib-clean misc-clean bootstrap-clean || true
+	rm -rf sage/local sage/upstream
 else
-	dh_auto_clean -Dsage -- distclean
+	dh_auto_clean -Dsage -- maintainer-clean
 endif
-	rm -rf sage/config
-	rm -f sage/build/make/Makefile-auto.in
-	rm -f sage/configure
-	rm -f sage/src/Makefile
 
 override_dh_install: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 	dh_install --package sagemath-common -X.so
