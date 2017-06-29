@@ -31,7 +31,7 @@ Forwarded: TODO
          echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
          exit 0
  fi
-@@ -979,14 +979,14 @@
+@@ -975,14 +975,14 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then

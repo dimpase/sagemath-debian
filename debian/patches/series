@@ -2,9 +2,7 @@
 # Or nearly-finished patches that they'll very probably merge.
 
 # Patches that have open upstream tickets
-u0-version-pynac-0.7.8.patch
 u1-version-pbori-boost1.62-hashes.patch    #22243
-u1-fix-use-lexists-not-exists.patch        #22438
 u1-fix-dont-require-DISPLAY.patch          #22441
 u1-pip-nowarn.patch                        #21835
 u1-fix-atrocious-symlink-logic.patch       #22444

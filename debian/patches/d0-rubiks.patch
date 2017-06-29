@@ -4,7 +4,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/interfaces/rubik.py
 +++ b/sage/src/sage/interfaces/rubik.py
-@@ -90,7 +90,7 @@
+@@ -91,7 +91,7 @@
      """
      Interface to Michael Reid's optimal Rubik's Cube solver.
      """
@@ -13,7 +13,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
      def __init__(self, verbose=False, wait=True):
          self.verbose = verbose
-@@ -178,7 +178,7 @@
+@@ -180,7 +180,7 @@
  
  class CubexSolver:
  
@@ -22,7 +22,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
      def __call__(self, facets):
          return self.solve(facets)
-@@ -232,7 +232,7 @@
+@@ -235,7 +235,7 @@
  
  class DikSolver:
  

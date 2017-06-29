@@ -258,7 +258,7 @@ Forwarded: not-needed
  
  #####################################################################
  # Source sage-env ($0 is the name of this "sage" script, so we can just
-@@ -383,47 +221,14 @@
+@@ -383,29 +221,10 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
@@ -276,7 +276,7 @@ Forwarded: not-needed
 +        cat "/usr/share/sagemath/bin/sage-banner"
      fi
  
--    # Display the startup banner (unless SAGE_BANNER is explictly "no")
+-    # Display the startup banner (unless SAGE_BANNER is explicitly "no")
 -    sage_banner
 -
 -    maybe_sage_location
@@ -290,25 +290,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
- 
--# Check to see if the whole Sage install tree has moved.  If so,
--# change various hardcoded paths.  Skip this if we don't have write
--# access to $SAGE_LOCAL (e.g. when running as a different user) or
--# if Python and sage-location haven't been installed yet.
--maybe_sage_location()
--{
--    if [ -w "$SAGE_LOCAL" ]; then
--        if [ -x "$SAGE_LOCAL/bin/python" ] && [ -x "$SAGE_LOCAL/bin/sage-location" ]; then
--            sage-location || exit $?
--        fi
--    fi
--}
--
--
- # Start an interactive Sage session, this function never returns.
- interactive_sage() {
-     sage_setup
-@@ -483,11 +288,6 @@
+@@ -483,11 +302,6 @@
      exec gap "$@"
  fi
  
@@ -320,7 +302,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -533,11 +333,6 @@
+@@ -533,11 +347,6 @@
      exec kash "$@"
  fi
  
@@ -332,7 +314,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -553,21 +348,6 @@
+@@ -553,21 +362,6 @@
      exec M2 "$@"
  fi
  
@@ -354,7 +336,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      exec python "$@"
-@@ -598,11 +378,6 @@
+@@ -598,11 +392,6 @@
      exec git "$@"
  fi
  
@@ -366,7 +348,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -722,20 +497,6 @@
+@@ -722,20 +511,6 @@
  fi
  
  #####################################################################
@@ -387,7 +369,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -758,11 +519,6 @@
+@@ -758,11 +533,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -399,7 +381,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -773,13 +529,6 @@
+@@ -773,13 +543,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -413,7 +395,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -798,38 +547,19 @@
+@@ -798,34 +561,15 @@
     exit 0
  fi
  
@@ -443,10 +425,6 @@ Forwarded: not-needed
 -        build_sage
 -    fi
 +if [ "$1" = '-t' -o "$1" = '-tp' ]; then
-     if [ ! -f  "$DOT_SAGE"/init.sage ]; then
-         echo >&2 "init.sage does not exist ... creating"
-         touch "$DOT_SAGE"/init.sage
-     fi
      SAGE_BANNER=no sage_setup
      export PYTHONIOENCODING="utf-8"  # Fix encoding for doctests
 -    if [ "$1" = '-tp' -o "$1" = '-btp' ]; then
@@ -454,7 +432,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -838,16 +568,6 @@
+@@ -834,16 +578,6 @@
      fi
  fi
  
@@ -471,7 +449,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      SAGE_BANNER=no sage_setup
-@@ -862,114 +582,6 @@
+@@ -858,114 +592,6 @@
      exec sage-eval "$@"
  fi
  
@@ -586,7 +564,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      shift
      exec python -m "sage_setup.docbuild" "$@"
-@@ -1041,10 +653,6 @@
+@@ -1037,10 +663,6 @@
  fi
  
  if [ $# -ge 1 ]; then

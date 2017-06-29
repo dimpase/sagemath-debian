@@ -208,7 +208,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -            master_static_dir = os.path.join('..', '_static')
 +            master_static_dir = os.path.join('..', '..', '_static')
              if os.path.lexists(static_dir):
-                 if os.path.isdir(static_dir) and not os.path.islink(static_dir):
+                 try:
                      shutil.rmtree(static_dir)
 --- a/sage/src/Makefile.in
 +++ b/sage/src/Makefile.in
