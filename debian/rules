@@ -98,6 +98,9 @@ check-dochtml-log:
 	# Also filter out some false positives that are not hard errors.
 	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
 
+override_dh_auto_configure:
+	dh_auto_configure -Dsage -- --prefix=$(SAGE_LOCAL)
+
 # We build everything in both -arch and -indep because the tests need the docs.
 # TODO: as described in #849150, we can make this more efficient if we figure
 # out how to disable the tests that need the docs.
@@ -157,9 +160,9 @@ override_dh_auto_install:
 # we don't distribute them.
 	find debian/build '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
 	rm -f debian/build/usr/bin/*.bat
-	cp -f debian/adhoc/sage-env debian/build/usr/bin/
 	mkdir -p debian/tmp
 	mv debian/build/* debian/tmp
+	cp -f debian/adhoc/sage-env debian/tmp/usr/bin/
 # Don't try to rmdir debian/build if it's a mountpoint, useful for doing builds in /run/shm
 	mountpoint debian/build || rmdir debian/build
 
