@@ -38,7 +38,7 @@ Build-Depends:
  libfplll-dev (>= 5.1.0-2~sage1),
  libfreetype6-dev,
  libgc-dev,
- libgcrypt11-dev,
+ libgcrypt-dev,
  libgd2-noxpm-dev | libgd2-xpm-dev,
  libgf2x-dev,
  libgiac-dev (>= 1.2.3.25+dfsg1-3),
