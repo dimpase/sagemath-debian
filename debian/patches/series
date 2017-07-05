@@ -53,7 +53,7 @@ d1-disable-post-install-tests.patch
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
 # It may be possible to drop these now or in the future; test that first.
-df-revert-lazy-imports-22755.patch -R
+df-revert-lazy-imports-22755.patch
 df-revert-lazy-import-dependent-on-python-patch.patch
 df-revert-minor-feature-dependent-on-python-patch.patch
 df-disable-custom-sphinx-logger.patch
