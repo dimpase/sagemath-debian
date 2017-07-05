@@ -2,9 +2,6 @@ Description: Install to Debian paths
  TODO: upstream hard-codes "site-packages" in a bunch of places; these should
  be fixed to use SAGE_LIB instead and forwarded upstream. Then this patch could
  be a lot smaller.
- .
- The multidocs.py patch looks like a Sage upstream bug, that probably needs to
- be forwarded.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -199,17 +196,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = '<a href="/src/%s" target="_new">src/sage/%s</a>'%(fname,fname)
          else:
              file = filename
---- a/sage/src/sage_setup/docbuild/ext/multidocs.py
-+++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -285,7 +285,7 @@
-             """
-             app.builder.info(bold('linking _static directory.'))
-             static_dir = os.path.join(app.builder.outdir, '_static')
--            master_static_dir = os.path.join('..', '_static')
-+            master_static_dir = os.path.join('..', '..', '_static')
-             if os.path.lexists(static_dir):
-                 try:
-                     shutil.rmtree(static_dir)
 --- a/sage/src/Makefile.in
 +++ b/sage/src/Makefile.in
 @@ -39,7 +39,7 @@

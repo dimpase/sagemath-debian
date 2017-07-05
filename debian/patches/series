@@ -11,6 +11,7 @@ u1-scripts-dir.patch                       #22731
 # Not yet in Debian, uncomment when it is:
 #u1-version-ipython-5.4.patch              #23125
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
+u1-more-sphinx-1.5-fixes.patch             #23364
 
 # Patches that should be upstreamed (may need some work first)
 u2-pari-stackwarn.patch                    #23263

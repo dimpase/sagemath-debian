@@ -37,6 +37,8 @@ sagemath (8.0~beta12-1) UNRELEASED; urgency=medium
 
   [ Ximin Luo ]
   * Use libgcrypt-dev instead of obsolete libgcrypt11-dev. (Closes: #864132)
+  * New patches:
+    - u1-more-sphinx-1.5-fixes.patch from Dmitry Shachnev. (Closes: #866166)
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 08 Jun 2017 21:19:49 +0000
 
