@@ -89,7 +89,8 @@ else
 DEB_BUILD_TARGET = all
 endif
 dh_auto_build-stamp: prune
-	MAKE='make -j$(NUMJOBS)' make --directory=sage $(DEB_BUILD_TARGET)
+	MAKE='make -j$(NUMJOBS)' PREREQ_OPTIONS="--prefix=$(SAGE_LOCAL)" \
+	  $(MAKE) --directory=sage $(DEB_BUILD_TARGET)
 	touch dh_auto_build-stamp
 
 check-dochtml-log:
@@ -97,9 +98,6 @@ check-dochtml-log:
 	# Sage doesn't detect this. Here we detect it and fail the build if so.
 	# Also filter out some false positives that are not hard errors.
 	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
-
-override_dh_auto_configure:
-	dh_auto_configure -Dsage -- --prefix=$(SAGE_LOCAL)
 
 # We build everything in both -arch and -indep because the tests need the docs.
 # TODO: as described in #849150, we can make this more efficient if we figure
