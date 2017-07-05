@@ -1,4 +1,4 @@
-sagemath (8.0~rc0-1) UNRELEASED; urgency=medium
+sagemath (8.0~rc0-0~sage1) UNRELEASED; urgency=medium
 
   [ Tobias Hansen ]
   * New upstream version.
@@ -25,7 +25,7 @@ sagemath (8.0~rc0-1) UNRELEASED; urgency=medium
     - df-sagedoc_avoid_exception.patch
   * Patches with non-trivial modifications:
     - u2-allow-override-sage-local.patch:
-      May need further modifications after https://trac.sagemath.org/ticket/21479
+      May need further edits after https://trac.sagemath.org/ticket/21479
     - d0-libgap-sage.patch
     - d0-pari-stackwarn.patch
     - d0-paths.patch
