@@ -28,7 +28,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          self.files = args
 --- a/sage/src/sage/doctest/test.py
 +++ b/sage/src/sage/doctest/test.py
-@@ -466,14 +466,6 @@
+@@ -463,14 +463,6 @@
      ...
      0
  

@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -202,7 +202,12 @@
+@@ -204,7 +204,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################

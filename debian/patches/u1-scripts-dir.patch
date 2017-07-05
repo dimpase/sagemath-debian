@@ -15,7 +15,7 @@ Forwarded: TODO
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -453,13 +453,13 @@
+@@ -455,13 +455,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
@@ -31,7 +31,7 @@ Forwarded: TODO
          echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
          exit 0
  fi
-@@ -975,14 +975,14 @@
+@@ -977,14 +977,14 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
