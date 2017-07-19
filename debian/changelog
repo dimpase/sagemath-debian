@@ -6,6 +6,7 @@ sagemath (8.0~rc2-0~sage1) UNRELEASED; urgency=medium
     - cypari2
     - brial (>= 0.8.7)
     - cysignals (>= 1.6.4)
+    - cython (>= 0.26~)
     - fplll (>= 5.1.0)
     - fpylll (>= 0.2.4)
     - ipywidgets (>= 6.0.0)
