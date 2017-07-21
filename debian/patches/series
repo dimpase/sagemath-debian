@@ -4,6 +4,7 @@ u0-version-r-3.3.3.patch                   #20523
 u0-version-singular-4.1.0p2.patch          #22425
 u0-version-singular-4.1.0p3.patch          #22868
 u0-fix-proper-scipy-rtol.patch             #22439
+u0-sphinx-1.5.patch                        #22252
 
 # Patches that have open upstream tickets
 u1-version-planarity-3.patch               #21774
@@ -15,6 +16,7 @@ u1-pip-nowarn.patch                        #21835
 u1-fix-atrocious-symlink-logic.patch       #22444
 u1-looser-doctest-basename.patch           #22445
 u1-scripts-dir.patch                       #22731
+u1-more-sphinx-1.5-fixes.patch             #23364
 
 # Patches that should be upstreamed (may need some work first)
 u2-version-cddlib-094h.patch
