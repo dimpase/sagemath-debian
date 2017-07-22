@@ -5,7 +5,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -416,6 +416,7 @@
+@@ -422,6 +422,7 @@
              build_dir=self.build_dir,
              force=self.force,
              aliases=aliases,

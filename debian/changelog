@@ -35,6 +35,7 @@ sagemath (8.0~rc2-0~sage1) UNRELEASED; urgency=medium
     - d1-sage-env.patch
   * New patches:
     - df-revert-lazy-imports-22755.patch
+    - u0-version-cython-0.26.patch
 
   [ Ximin Luo ]
   * Use libgcrypt-dev instead of obsolete libgcrypt11-dev. (Closes: #864132)
