@@ -134,12 +134,12 @@ IGNORE_FAILURES =
 endif
 had-few-failures:
 	test -f $(LOGFILE)
-	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 40
+	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 80
 	test -z "$$($(TESTS_MK) failed-tests-special $(IGNORE_FAILURES))"
 
 had-not-too-many-failures:
 	test -f $(LOGFILE)
-	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 80
+	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 120
 
 check-failed:
 	$(run_tests) -f

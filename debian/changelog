@@ -4,6 +4,7 @@ sagemath (7.6-3) unstable; urgency=medium
     - u0-sphinx-1.5.patch, upstream fixes for sphinx 1.5.
     - u1-more-sphinx-1.5-fixes.patch from Dmitry Shachnev. (Closes: #866166)
   * Use libgcrypt-dev instead of obsolete libgcrypt11-dev. (Closes: #864132)
+  * Increase number of allowed test failures from 40 to 80.
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 21 Jul 2017 20:04:54 +0100
 
