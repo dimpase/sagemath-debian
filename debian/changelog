@@ -20,6 +20,7 @@ sagemath (8.0~rc2-0~sage1) UNRELEASED; urgency=medium
     - u0-version-r-3.3.3.patch
     - u0-version-singular-4.1.0p2.patch
     - u0-version-singular-4.1.0p3.patch
+    - u0-sphinx-1.5.patch
     - u1-fix-use-lexists-not-exists.patch
     - u1-version-ecm-7.patch
     - u1-version-planarity-3.patch
@@ -36,14 +37,22 @@ sagemath (8.0~rc2-0~sage1) UNRELEASED; urgency=medium
   * New patches:
     - df-revert-lazy-imports-22755.patch
     - u0-version-cython-0.26.patch
+  * Decrease number of allowed test failures from 80 to 40.
 
   [ Ximin Luo ]
-  * Use libgcrypt-dev instead of obsolete libgcrypt11-dev. (Closes: #864132)
-  * New patches:
-    - u1-more-sphinx-1.5-fixes.patch from Dmitry Shachnev. (Closes: #866166)
   * Update to latest Standards-Version; no changes required.
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 08 Jun 2017 21:19:49 +0000
+
+sagemath (7.6-3) unstable; urgency=medium
+
+  * New patches:
+    - u0-sphinx-1.5.patch, upstream fixes for sphinx 1.5.
+    - u1-more-sphinx-1.5-fixes.patch from Dmitry Shachnev. (Closes: #866166)
+  * Use libgcrypt-dev instead of obsolete libgcrypt11-dev. (Closes: #864132)
+  * Increase number of allowed test failures from 40 to 80.
+
+ -- Tobias Hansen <thansen@debian.org>  Mon, 24 Jul 2017 10:14:09 +0100
 
 sagemath (7.6-2) unstable; urgency=medium
 
