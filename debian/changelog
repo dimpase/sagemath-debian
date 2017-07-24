@@ -1,4 +1,4 @@
-sagemath (8.0~rc2-0~sage1) UNRELEASED; urgency=medium
+sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
 
   [ Tobias Hansen ]
   * New upstream version.
@@ -42,7 +42,7 @@ sagemath (8.0~rc2-0~sage1) UNRELEASED; urgency=medium
   [ Ximin Luo ]
   * Update to latest Standards-Version; no changes required.
 
- -- Tobias Hansen <thansen@debian.org>  Thu, 08 Jun 2017 21:19:49 +0000
+ -- Tobias Hansen <thansen@debian.org>  Mon, 24 Jul 2017 21:11:28 +0100
 
 sagemath (7.6-3) unstable; urgency=medium
 
