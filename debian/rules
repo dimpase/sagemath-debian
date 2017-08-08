@@ -255,7 +255,7 @@ get-orig-source:
 	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
 
 ../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz debian/control
-	dpkg-buildpackage -d -uc -us -S
+	dpkg-buildpackage -nc -d -uc -us -S
 
 APT_PIN_PRIORITY = 100
 install-apt-sources:
