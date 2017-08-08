@@ -98,6 +98,14 @@ Recommends:
  sagemath-jupyter (= ${source:Version}),
  sagetex,
  texlive-latex-base
+Suggests:
+ gap-design,
+ gap-factint,
+ gap-grape,
+ gap-guava,
+ gap-laguna,
+ gap-sonata,
+ gap-toric
 
 Package: sagemath-common
 Architecture: all
