@@ -37,10 +37,8 @@ else
 NUMJOBS = 1
 endif
 
-ifeq (1,$(TRY_AVOID_REBUILD))
+ifneq (1,$(TRY_AVOID_REBUILD))
 REBUILD_RULES = debian/rules
-else
-REBUILD_RULES =
 endif
 
 %:
@@ -268,6 +266,10 @@ install-apt-sources:
 	  | sudo tee /etc/apt/preferences.d/deb-sci-sage
 	sudo apt-get update
 
+ifneq (1,$(TRY_AVOID_REBUILD))
+REBUILD_RELEASE = ../sagemath_$(DEB_VERSION).dsc
+endif
+
 # Temporary workarounds that will be removed eventually:
 #
 # 1 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
@@ -275,7 +277,7 @@ install-apt-sources:
 #
 # 2 Do the first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
 #   Sage needs it due to its pexpect etc stuff
-release: ../sagemath_$(DEB_VERSION).dsc
+release: $(REBUILD_RELEASE)
 	! $(is_prerelease)
 	cd .. && sbuild \
 	  --build-dep-resolver=aspcud \
@@ -283,7 +285,7 @@ release: ../sagemath_$(DEB_VERSION).dsc
 	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
-release-experimental: ../sagemath_$(DEB_VERSION).dsc
+release-experimental: $(REBUILD_RELEASE)
 	! $(is_prerelease)
 	cd .. && sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
@@ -292,7 +294,7 @@ release-experimental: ../sagemath_$(DEB_VERSION).dsc
 	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
-release-deb-sci-sage: ../sagemath_$(DEB_VERSION).dsc
+release-deb-sci-sage: $(REBUILD_RELEASE)
 	$(is_prerelease)
 	cd .. && sbuild \
 	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
