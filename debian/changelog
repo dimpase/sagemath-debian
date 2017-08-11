@@ -42,6 +42,8 @@ sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
   [ Ximin Luo ]
   * Update to latest Standards-Version; no changes required.
   * Split arch-dep vs arch-indep build and test targets more efficiently.
+  * New patches:
+    - u1-version-giac-1.2.3.57.patch
 
  -- Tobias Hansen <thansen@debian.org>  Mon, 24 Jul 2017 21:11:28 +0100
 
