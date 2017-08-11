@@ -25,6 +25,7 @@ endif
 export SAGE_LOCAL = $(CURDIR)/debian/build/usr
 export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python2.7/dist-packages
 export DOT_SAGE = $(CURDIR)/debian/test
+export SAGE_SCRIPTS_DIR = $(CURDIR)/sage/src/bin
 
 LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3- | LC_ALL=C.UTF-8 LANG=C.UTF-8 sort)
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
@@ -50,6 +51,7 @@ export-build-env:
 	@echo export SAGE_LOCAL=$(SAGE_LOCAL)
 	@echo export PYTHONPATH=$(PYTHONPATH)
 	@echo export DOT_SAGE=$(DOT_SAGE)
+	@echo export SAGE_SCRIPTS_DIR=$(SAGE_SCRIPTS_DIR)
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
