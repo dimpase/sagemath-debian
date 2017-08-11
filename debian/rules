@@ -102,12 +102,13 @@ run_tests = \
 # i386 seems to have issues running parallel tests - TODO: investigate this in more detail
 check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
 run_tests_with_retry = \
-	$(run_tests); \
+	$(run_tests); cd "$(CURDIR)" && \
 	if $(is_prerelease); then :; \
 	elif check_test_log had-few-failures; then :; else \
 	  check_test_log had-not-too-many-failures && \
 	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
-	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && check_test_log had-few-failures; }; \
+	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && \
+	  check_test_log had-few-failures; }; \
 	fi
 
 override_dh_auto_test-arch:
