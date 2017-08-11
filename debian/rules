@@ -81,53 +81,55 @@ prune: debian/control
 	cd sage && python ../debian/pruner/pruner.py || $(is_prerelease)
 	touch prune
 
-ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-DEB_BUILD_TARGET = build
-else
-DEB_BUILD_TARGET = all
-endif
-dh_auto_build-stamp: prune
+run_build = \
 	MAKE='make -j$(NUMJOBS)' PREREQ_OPTIONS="--prefix=$(SAGE_LOCAL)" \
-	  $(MAKE) --directory=sage $(DEB_BUILD_TARGET)
-	touch dh_auto_build-stamp
+	  $(MAKE) --directory=sage
 
-check-dochtml-log:
+override_dh_auto_configure: prune
+
+override_dh_auto_build-arch:
+	$(run_build) build
+	cd sage && src/bin/sage-starts
+
+override_dh_auto_build-indep:
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+	$(run_build) doc
+endif
+
+run_tests = \
+	cd sage && ./sage -t -p $(NUMJOBS) --long --logfile=logs/ptestlong-$(1).log $(2)
+# If tests fail but not by too many more, then retry them once not in parallel
+# i386 seems to have issues running parallel tests - TODO: investigate this in more detail
+check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
+run_tests_with_retry = \
+	$(run_tests); \
+	if $(is_prerelease); then :; \
+	elif check_test_log had-few-failures; then :; else \
+	  check_test_log had-not-too-many-failures && \
+	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
+	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && check_test_log had-few-failures; }; \
+	fi
+
+override_dh_auto_test-arch:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/)
+endif
+
+override_dh_auto_test-indep:
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# These tests never fail so don't bother with the retry logic
+	$(call run_tests,indep,src/doc)
 	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
 	# Sage doesn't detect this. Here we detect it and fail the build if so.
 	# Also filter out some false positives that are not hard errors.
 	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
-
-# We build everything in both -arch and -indep because the tests need the docs.
-# TODO: as described in #849150, we can make this more efficient if we figure
-# out how to disable the tests that need the docs.
-override_dh_auto_build-arch: dh_auto_build-stamp
-# Only run check-dochtml-log if we will actually build the doc packages.
-# Otherwise we get spurious failures on some low-memory arch-any buildds.
-override_dh_auto_build-indep: dh_auto_build-stamp check-dochtml-log
-
-LOGFILE = sage/logs/ptestlong.log
-run_tests = cd sage && ./sage -t -p $(NUMJOBS) --all --long --logfile=logs/ptestlong.log
-override_dh_auto_test:
-	cd sage && src/bin/sage-starts
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	# We do the below instead of `$(MAKE) --directory=sage ptestlong` because
-	# it has a bug where it can't detect a previous successful build. So it
-	# will try to rebuild some sagelib files, then the docbuild, then those
-	# files again, even after a "make all" that was previously successful. This
-	# is not incorrect, but is a massive waste of time. OTOH debhelper is able
-	# to detect a previous successful (override_)dh_auto_build, so if we run
-	# `debian/rules build` twice it will go directly to (override_)dh_auto_test
-	# (and then this target) without trying (override_)dh_auto_build again.
-	$(run_tests) || true
-	# If tests fail but not by too many more, then retry them once not in parallel
-	# i386 seems to have issues running parallel tests - TODO: investigate this in more detail
-	if $(is_prerelease); then :; \
-	elif debian/rules -s had-few-failures; then :; else \
-	  debian/rules -s had-not-too-many-failures && \
-	  mv $(LOGFILE) $(LOGFILE).1 && \
-	  { $(run_tests) -f -p 1; cd "$(CURDIR)" && debian/rules -s had-few-failures; }; \
-	fi
 endif
+endif
+
+# manual target to re-run only failed tests
+check-failed:
+	$(call run_tests,all,--all -f)
 
 TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
 failed-tests%:
@@ -146,9 +148,6 @@ had-few-failures:
 had-not-too-many-failures:
 	test -f $(LOGFILE)
 	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 80
-
-check-failed:
-	$(run_tests) -f
 
 override_dh_auto_install:
 	rm -rf debian/build/usr/var/tmp/sage/build
