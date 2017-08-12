@@ -45,6 +45,9 @@ sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
   * New patches:
     - u1-version-giac-1.2.3.57.patch
 
+  [ Julien Puydt ]
+  * Make searching for python check only the major version (Closes: #871794).
+
  -- Tobias Hansen <thansen@debian.org>  Mon, 24 Jul 2017 21:11:28 +0100
 
 sagemath (7.6-3) unstable; urgency=medium

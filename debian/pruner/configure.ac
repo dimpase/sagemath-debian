@@ -292,10 +292,10 @@ AC_CHECK_HEADER(pynac/version.h, HAS_PYNAC="True", HAS_PYNAC="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_PYNAC)
 
-PKG_CHECK_MODULES(python, python-2.7, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
+PKG_CHECK_MODULES(python, python2, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
 AC_SUBST(HAS_PYTHON)
 
-PKG_CHECK_MODULES(python3, python-3.5, [HAS_PYTHON3='True'], [HAS_PYTHON3='False'])
+PKG_CHECK_MODULES(python3, python3, [HAS_PYTHON3='True'], [HAS_PYTHON3='False'])
 AC_SUBST(HAS_PYTHON3)
 
 AC_CHECK_PROG(HAS_R, R, "True", "False")
