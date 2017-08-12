@@ -1,20 +1,9 @@
 sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
 
   [ Tobias Hansen ]
-  * New upstream version.
+  * New upstream version (Closes: #870688).
   * New (Build-)Depends:
     - cypari2
-    - brial (>= 0.8.7)
-    - cysignals (>= 1.6.4)
-    - cython (>= 0.26~)
-    - fplll (>= 5.1.0)
-    - fpylll (>= 0.2.4)
-    - ipywidgets (>= 6.0.0)
-    - pynac (>= 0.7.8)
-    - sagemath-database-conway-polynomials (>= 0.5-2)
-    - sagenb (>= 1.0.1)
-    - sagenb-export (>= 3.2)
-    - sphinx (>= 1.5.3)
   * Remove patches (applied upstream):
     - u0-fix-proper-scipy-rtol.patch
     - u0-version-r-3.3.3.patch
@@ -44,6 +33,7 @@ sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
   * Split arch-dep vs arch-indep build and test targets more efficiently.
   * New patches:
     - u1-version-giac-1.2.3.57.patch
+    - u2-workaround-sympow-malloc-perturb.patch
 
   [ Julien Puydt ]
   * Make searching for python check only the major version (Closes: #871794).
