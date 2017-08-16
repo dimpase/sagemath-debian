@@ -1,4 +1,4 @@
-sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
+sagemath (8.0-1) experimental; urgency=medium
 
   [ Tobias Hansen ]
   * New upstream version (Closes: #870688).
@@ -38,7 +38,7 @@ sagemath (8.0-0~sage1) UNRELEASED; urgency=medium
   [ Julien Puydt ]
   * Make searching for python check only the major version (Closes: #871794).
 
- -- Tobias Hansen <thansen@debian.org>  Mon, 24 Jul 2017 21:11:28 +0100
+ -- Ximin Luo <infinity0@debian.org>  Wed, 16 Aug 2017 20:25:45 +0200
 
 sagemath (7.6-3) unstable; urgency=medium
 
