@@ -273,6 +273,14 @@ ifneq (1,$(TRY_AVOID_REBUILD))
 REBUILD_RELEASE = ../sagemath_$(DEB_VERSION).dsc
 endif
 
+SBUILD = sbuild --build-failed-commands '%SBUILD_SHELL'
+SBUILD_REPO_EXPERIMENTAL = --extra-repository="deb http://httpredir.debian.org/debian experimental main"
+# Sometimes this is necessary, if the mirrors have different versions for different architectures
+ifeq (1,$(SBUILD_USE_INCOMING))
+SBUILD += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-unstable main"
+SBUILD_REPO_EXPERIMENTAL += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-experimental main"
+endif
+
 # Temporary workarounds that will be removed eventually:
 #
 # 1 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
@@ -282,29 +290,23 @@ endif
 #   Sage needs it due to its pexpect etc stuff
 release: $(REBUILD_RELEASE)
 	! $(is_prerelease)
-	cd .. && sbuild \
-	  --build-dep-resolver=aspcud \
-	  --build-failed-commands '%SBUILD_SHELL' \
+	cd .. && $(SBUILD) \
 	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-experimental: $(REBUILD_RELEASE)
 	! $(is_prerelease)
-	cd .. && sbuild \
-	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
-	  --build-dep-resolver=aspcud \
-	  --build-failed-commands '%SBUILD_SHELL' \
+	cd .. && $(SBUILD) \
+	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
 	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-deb-sci-sage: $(REBUILD_RELEASE)
 	$(is_prerelease)
-	cd .. && sbuild \
-	  --extra-repository='deb http://httpredir.debian.org/debian experimental main' \
+	cd .. && $(SBUILD) \
+	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
 	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
 	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
 	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
-	  --build-dep-resolver=aspcud \
-	  --build-failed-commands '%SBUILD_SHELL' \
 	  $(EXTRA_SBUILD_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
