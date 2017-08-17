@@ -22,6 +22,10 @@ export CCACHE_BASEDIR := $(CURDIR)/debian/build
 $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
+ifeq (,$(filter pkg.sagemath.nolongcheck,$(DEB_BUILD_PROFILES)))
+SAGE_TEST_FLAGS = --long
+endif
+
 export SAGE_LOCAL = $(CURDIR)/debian/build/usr
 export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python2.7/dist-packages
 export DOT_SAGE = $(CURDIR)/debian/test
@@ -99,7 +103,7 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 endif
 
 run_tests = \
-	cd sage && ./sage -t -p $(NUMJOBS) --long --logfile=logs/ptestlong-$(1).log $(2)
+	cd sage && ./sage -t -p $(NUMJOBS) $(SAGE_TEST_FLAGS) --logfile=logs/ptestlong-$(1).log $(2)
 # If tests fail but not by too many more, then retry them once not in parallel
 # i386 seems to have issues running parallel tests - TODO: investigate this in more detail
 check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
