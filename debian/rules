@@ -295,14 +295,14 @@ endif
 release: $(REBUILD_RELEASE)
 	! $(is_prerelease)
 	cd .. && $(SBUILD) \
-	  $(EXTRA_SBUILD_FLAGS) \
+	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-experimental: $(REBUILD_RELEASE)
 	! $(is_prerelease)
 	cd .. && $(SBUILD) \
 	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
-	  $(EXTRA_SBUILD_FLAGS) \
+	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-deb-sci-sage: $(REBUILD_RELEASE)
@@ -312,5 +312,5 @@ release-deb-sci-sage: $(REBUILD_RELEASE)
 	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
 	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
 	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
-	  $(EXTRA_SBUILD_FLAGS) \
+	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
