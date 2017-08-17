@@ -1,4 +1,6 @@
 Description: Additional changes to work with the Debian package of singular
+ We search for a specific SOVERSION of libsingular-Singular, to allow us to
+ runtime-Depend on libsingular4 and not libsingular4-dev.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -39,3 +41,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      # Add cysignals directory to includes
      for path in sys.path:
          inc.append(path)
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -152,7 +153,7 @@
+     else:
+         extension = "so"
+     # library name changed from libsingular to libSingular btw 3.x and 4.x
+-    SINGULAR_SO = SAGE_LOCAL+"/lib/libSingular."+extension
++    SINGULAR_SO = "/usr/lib/%s/libsingular-Singular-4.1.0.so" % sysconfig.get_config_var('MULTIARCH')
+ 
+ _add_variable_or_fallback('SINGULAR_SO', SINGULAR_SO)
+ 

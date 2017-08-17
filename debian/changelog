@@ -1,3 +1,9 @@
+sagemath (8.0-4) UNRELEASED; urgency=medium
+
+  * Relax the runtime dependencies.
+
+ -- Ximin Luo <infinity0@debian.org>  Thu, 17 Aug 2017 12:08:03 +0200
+
 sagemath (8.0-3) experimental; urgency=medium
 
   * Fix FTBFS everywhere caused by bad Makefile syntax for running tests.
