@@ -1,3 +1,9 @@
+sagemath (8.0-3) UNRELEASED; urgency=medium
+
+  * Fix FTBFS everywhere caused by bad Makefile syntax for running tests.
+
+ -- Ximin Luo <infinity0@debian.org>  Thu, 17 Aug 2017 13:54:01 +0200
+
 sagemath (8.0-2) experimental; urgency=medium
 
   * Fix FTBFS everywhere by adding python-dev to Build-Depends since the
