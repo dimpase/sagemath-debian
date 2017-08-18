@@ -35,6 +35,7 @@ LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
 DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
 DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
+DOCS_INSTALL_DIRS = $(LANGS:%=debian/sagemath-doc-%)
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -179,9 +180,15 @@ else
 	dh_auto_clean -Dsage -- maintainer-clean
 endif
 
-override_dh_install: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
+override_dh_install-indep: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
 	dh_install --package sagemath-common -X.so
 	dh_install --remaining-packages --list-missing
+# Basic version of deduplicating the docs, for a much smaller install size.
+# Upstream bug report is at https://trac.sagemath.org/ticket/22088
+# Hard links do work in Debian packages, but only within packages.
+	set -e; for d in $(DOCS_INSTALL_DIRS); do \
+		rdfind -outputname /dev/null -makehardlinks true "$$d"; \
+	done
 
 override_dh_python2-arch:
 	dh_python2

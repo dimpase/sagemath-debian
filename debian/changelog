@@ -1,6 +1,7 @@
 sagemath (8.0-4) UNRELEASED; urgency=medium
 
   * Relax the runtime dependencies.
+  * Deduplicate the documentation using rdfind(1).
 
  -- Ximin Luo <infinity0@debian.org>  Thu, 17 Aug 2017 12:08:03 +0200
 

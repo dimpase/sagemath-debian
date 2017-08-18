@@ -75,6 +75,7 @@ Build-Depends:
  python-dev,
  python3-dev,
  r-base-dev,
+ rdfind,
  scons,
  texlive-latex-base,
  zlib1g-dev,
