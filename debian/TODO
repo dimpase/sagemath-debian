@@ -1,4 +1,4 @@
-## Maintain 7.4
+## Maintenance in Debian testing
 
 *   Deal with any AUTORM issues mentioned in https://qa.debian.org/developer.php?package=sagemath
 
@@ -8,6 +8,12 @@
 
 ## Later
 
+*   Nice-to-have QA stuff:
+
+    *   autopkgtest test suite
+    *   add a sagemath-dev package to depend on -dev packages needed for e.g.
+        tests but not normal use
+
 *   New packages
     *   thebe
         * not *too* essential - SPKG.txt says
@@ -16,6 +22,7 @@
         * lots of JS deps, need to evaluate
 
 ## Much later / probably never
+
 Low-priority things; we'll probably always have higher-priority things to do:
 
 *   Ugly packages:
