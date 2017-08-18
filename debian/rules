@@ -35,6 +35,7 @@ LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
 DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
 DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
+DOCS_OVERRIDES = $(LANGS:%=debian/sagemath-doc-%.lintian-overrides)
 DOCS_INSTALL_DIRS = $(LANGS:%=debian/sagemath-doc-%)
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -80,6 +81,13 @@ debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_R
 		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/a_tour_of_sage\//g' < "$<" > "$@"; \
 	else \
 		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/tutorial\//g' < "$<" > "$@"; \
+	fi
+
+debian/sagemath-doc-%.lintian-overrides: debian/sagemath-doc-LANG.lintian-overrides.in \
+  $(wildcard debian/sagemath-doc-%.lintian-overrides.in) $(REBUILD_RULES)
+	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
+	if [ -f "debian/sagemath-doc-$*.lintian-overrides.in" ]; then \
+		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "debian/sagemath-doc-$*.lintian-overrides.in" >> "$@"; \
 	fi
 
 prune: debian/control
@@ -180,7 +188,7 @@ else
 	dh_auto_clean -Dsage -- maintainer-clean
 endif
 
-override_dh_install-indep: $(DOCS_INSTALL) $(DOCS_DOC_BASE)
+override_dh_install-indep: $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOCS_OVERRIDES)
 	dh_install --package sagemath-common -X.so
 	dh_install --remaining-packages --list-missing
 # Basic version of deduplicating the docs, for a much smaller install size.
@@ -228,7 +236,7 @@ else
 preserve_docs = $(1)
 endif
 override_dh_clean:
-	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE)
+	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOCS_OVERRIDES)
 	rm -rf $(DOT_SAGE)
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)

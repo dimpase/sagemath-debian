@@ -6,5 +6,6 @@
 /sagemath-doc-*.install
 /sagemath-doc-*.control
 /sagemath-doc-*.doc-base
+/sagemath-doc-*.lintian-overrides
 /control
 !/*.in
