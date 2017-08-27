@@ -1,9 +1,10 @@
-sagemath (8.0-4) UNRELEASED; urgency=medium
+sagemath (8.0-4) unstable; urgency=medium
 
+  * Upload to unstable.
   * Relax the runtime dependencies.
   * Deduplicate the documentation using rdfind(1).
 
- -- Ximin Luo <infinity0@debian.org>  Thu, 17 Aug 2017 12:08:03 +0200
+ -- Ximin Luo <infinity0@debian.org>  Sun, 27 Aug 2017 16:00:52 +0200
 
 sagemath (8.0-3) experimental; urgency=medium
 
