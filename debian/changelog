@@ -1,8 +1,8 @@
-sagemath (8.0-5) UNRELEASED; urgency=medium
+sagemath (8.0-5) unstable; urgency=medium
 
   * Tweak the test failure limits to avoid unnecessary FTBFS.
 
- -- Ximin Luo <infinity0@debian.org>  Sun, 27 Aug 2017 22:07:11 +0200
+ -- Ximin Luo <infinity0@debian.org>  Sun, 27 Aug 2017 22:12:28 +0200
 
 sagemath (8.0-4) unstable; urgency=medium
 
