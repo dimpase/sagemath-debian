@@ -235,7 +235,7 @@ AC_SUBST(HAS_NCURSES)
 AC_CHECK_HEADERS(NTL/version.h, HAS_NTL="True", HAS_NTL="False")
 AC_SUBST(HAS_NTL)
 
-AC_CHECK_HEADERS(openblas/cblas.h, HAS_OPENBLAS="True", HAS_OPENBLAS="False")
+PKG_CHECK_MODULES(openblas, blas-openblas, [HAS_OPENBLAS='True'], [HAS_OPENBLAS='False'])
 AC_SUBST(HAS_OPENBLAS)
 
 AC_CHECK_PROG(HAS_PALP, nef-5d.x, "True", "False")

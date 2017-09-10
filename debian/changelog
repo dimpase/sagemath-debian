@@ -1,3 +1,10 @@
+sagemath (8.0-6) UNRELEASED; urgency=medium
+
+  * Use pkg-config to check for openblas in pruner, the old check
+    broke with the multiarchified openblas 0.2.20+ds-3.
+
+ -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 09:16:50 +0000
+
 sagemath (8.0-5) unstable; urgency=medium
 
   * Tweak the test failure limits to avoid unnecessary FTBFS.
