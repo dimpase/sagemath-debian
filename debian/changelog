@@ -1,11 +1,9 @@
-sagemath (8.0-7) UNRELEASED; urgency=medium
+sagemath (8.0-6) UNRELEASED; urgency=medium
 
   * Use pkg-config to check for openblas in pruner, the old check
     broke with the multiarchified openblas 0.2.20+ds-3.
-  * Drop dependency on atlas (libatlas-base-dev), it is now an
-    optional sagemath package.
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 09:19:38 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 09:16:50 +0000
 
 sagemath (8.0-5) unstable; urgency=medium
 

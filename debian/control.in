@@ -24,6 +24,7 @@ Build-Depends:
  git,
  gnutls-dev,
  libgap-sage-dev (>= 4.8.6),
+ libatlas-base-dev,
  libblas-dev,
  libboost-dev (>= 1.55),
  libbrial-dev (>= 0.8.7),
