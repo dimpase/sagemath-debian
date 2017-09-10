@@ -1,4 +1,4 @@
-sagemath (8.0-6) UNRELEASED; urgency=medium
+sagemath (8.0-6) unstable; urgency=medium
 
   * Use pkg-config to check for openblas|atlas in pruner, the old check
     broke with the multiarchified openblas 0.2.20+ds-3 and
@@ -6,7 +6,7 @@ sagemath (8.0-6) UNRELEASED; urgency=medium
   * Build with openblas on supported architectures and with atlas on
     the others.
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 17:58:58 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 18:03:14 +0100
 
 sagemath (8.0-5) unstable; urgency=medium
 
