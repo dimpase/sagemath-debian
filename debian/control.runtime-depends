@@ -82,7 +82,7 @@
  python-rpy2,
  python-sagenb (>= 1.0.1),
  python-sagenb-export (>= 3.2),
- python-scipy,
+ python-scipy (>= 0.19.1),
  python-setuptools,
  python-setuptools-scm,
  python-simplegeneric,
