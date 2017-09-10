@@ -49,7 +49,6 @@ sage_standard_packages = set(subprocess.check_output([
 dico = {
     'appnope': @HAS_APPNOPE@,
     'arb': @HAS_ARB@,
-    'atlas': @HAS_ATLAS@,
     'backports_ssl_match_hostname': @HAS_BACKPORTS_SSL_MATCH_HOSTNAME@,
     'boost_cropped': @HAS_BOOST@,
     'brial': @HAS_POLYBORI@,
@@ -106,7 +105,7 @@ dico = {
     'nauty': @HAS_NAUTY@,
     'ncurses': @HAS_NCURSES@,
     'ntl': @HAS_NTL@,
-    'openblas': @HAS_OPENBLAS@,
+    'openblas': @HAS_BLAS@,
     'palp': @HAS_PALP@,
     'pari': @HAS_PARI@,
     'pari_galdata': @HAS_PARI_GALDATA@,
