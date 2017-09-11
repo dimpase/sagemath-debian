@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 include /usr/share/dpkg/pkg-info.mk
+include /usr/share/dpkg/architecture.mk
 
 #export DH_VERBOSE=1
 
@@ -9,8 +10,15 @@ ifneq (,$(filter $(DEB_DISTRIBUTION),UNRELEASED unstable-sage))
 is_prerelease = true
 else
 is_prerelease = false
-# some buildds are a bit slow
+endif
+
+# Some buildds are a bit slow, see https://buildd.debian.org/status/logs.php?pkg=gcc-7 for a fuller list
+ifeq (false,$(is_prerelease))
+ifneq (,$(filter $(DEB_BUILD_ARCH),armel armhf mips mipsel mips64el))
+export SAGE_TIMEOUT_LONG = 7200
+else
 export SAGE_TIMEOUT_LONG = 3600
+endif
 endif
 
 # Use ccache if pkg.sagemath.ccache build-profile is active.

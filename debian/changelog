@@ -1,3 +1,9 @@
+sagemath (8.0-8) UNRELEASED; urgency=medium
+
+  * Set a higher test timeout for slower architectures.
+
+ -- Ximin Luo <infinity0@debian.org>  Mon, 11 Sep 2017 12:21:02 +0200
+
 sagemath (8.0-7) unstable; urgency=medium
 
   * Add patch u0-version-scipy-0.19.1.patch from upstream.
