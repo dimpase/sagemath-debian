@@ -160,7 +160,9 @@ TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
 failed-tests%:
 	@$(TESTS_MK) "$@"
 
-ifeq (i386,$(shell dpkg-architecture -q DEB_HOST_ARCH))
+# We used to set this for i386 but it seems to be OK now.
+# Perhaps we should set it for armhf, let's see the buildd test results...
+ifneq (,$(filter $(DEB_BUILD_ARCH),))
 IGNORE_FAILURES = | sed -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}'
 else
 IGNORE_FAILURES =
