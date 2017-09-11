@@ -9,10 +9,12 @@
 ## Later
 
 *   Nice-to-have QA stuff:
-
     *   autopkgtest test suite
-    *   add a sagemath-dev package to depend on -dev packages needed for e.g.
-        tests but not normal use
+    *   add a sagemath-dev package to depend on -dev packages that are needed
+        to (e.g.) run tests but not normal use
+
+*   Nice-to-have user stuff:
+    *   rm cython from runtime-depends
 
 *   New packages
     *   thebe
