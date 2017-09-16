@@ -5,6 +5,9 @@ include /usr/share/dpkg/architecture.mk
 
 #export DH_VERBOSE=1
 
+MAX_TEST_FAILURES = 50
+MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
+
 # If we're doing a pre-release, then be less strict about test failures, etc
 ifneq (,$(filter $(DEB_DISTRIBUTION),UNRELEASED unstable-sage))
 is_prerelease = true
@@ -168,13 +171,27 @@ else
 IGNORE_FAILURES =
 endif
 had-few-failures:
-	test -f $(LOGFILE)
-	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 50
-	test -z "$$($(TESTS_MK) failed-tests-special $(IGNORE_FAILURES))"
+	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
+	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
+	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES); then \
+	    echo "Error: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
+	    false; \
+	  else \
+	    echo "Success: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
+	  fi
+	if ! test -z "$$($(TESTS_MK) failed-tests-special $(IGNORE_FAILURES))"; then \
+	  echo "Error: critical test failures (e.g. timeout, segfault, etc.)"; false; fi
 
 had-not-too-many-failures:
-	test -f $(LOGFILE)
-	test "$$($(TESTS_MK) failed-tests-total-normal)" -lt 80
+	echo "Checking number of failed tests to determine whether to rerun tests in series..."
+	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
+	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
+	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES_RERUN); then \
+	    echo "No: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
+	    false; \
+	  else \
+	    echo "Yes: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
+	  fi
 
 override_dh_auto_install:
 	rm -rf debian/build/usr/var/tmp/sage/build
