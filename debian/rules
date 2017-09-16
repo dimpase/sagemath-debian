@@ -1,9 +1,25 @@
 #!/usr/bin/make -f
 
+#
+# CONTENTS:
+#
+# 1. DEFINITIONS
+# 2. GENERATE FILES
+#    Targets to auto-generate files
+# 3. PACKAGE BUILD
+#    Mostly standard targets that are used during package build
+# 4. TEST SUITE
+# 5. MAINTAINER TARGETS
+#    Convenience targets to be used by maintainers
+#    Some are explained at https://wiki.debian.org/DebianScience/Sage
+#
+
+###############################################################################
+# 1. DEFINITIONS
+###############################################################################
+
 include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
-
-#export DH_VERBOSE=1
 
 MAX_TEST_FAILURES = 50
 MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
@@ -62,13 +78,11 @@ endif
 %:
 	dh $@ --with=python2,sphinxdoc
 
-binary build clean install: debian/control
+###############################################################################
+# 2. GENERATE FILES
+###############################################################################
 
-export-build-env:
-	@echo export SAGE_LOCAL=$(SAGE_LOCAL)
-	@echo export PYTHONPATH=$(PYTHONPATH)
-	@echo export DOT_SAGE=$(DOT_SAGE)
-	@echo export SAGE_SCRIPTS_DIR=$(SAGE_SCRIPTS_DIR)
+binary build clean install: debian/control
 
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
@@ -101,6 +115,17 @@ debian/sagemath-doc-%.lintian-overrides: debian/sagemath-doc-LANG.lintian-overri
 		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "debian/sagemath-doc-$*.lintian-overrides.in" >> "$@"; \
 	fi
 
+../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz: .git/modules/sage/HEAD
+	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
+	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
+
+../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz debian/control
+	dpkg-buildpackage -nc -d -uc -us -S
+
+###############################################################################
+# 3. PACKAGE BUILD
+###############################################################################
+
 prune: debian/control
 	cd debian/pruner && autoconf -I m4
 	cd debian/pruner && ./configure --with-sage-root="$(CURDIR)/sage"
@@ -121,77 +146,6 @@ override_dh_auto_build-indep:
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 	$(run_build) doc
 endif
-
-run_tests = \
-	cd sage && ./sage -t -p $(NUMJOBS) $(SAGE_TEST_FLAGS) --logfile=logs/ptestlong-$(1).log $(2)
-# If tests fail but not by too many more, then retry them once not in parallel
-# i386 seems to have issues running parallel tests - TODO: investigate this in more detail
-check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
-run_tests_with_retry = \
-	$(run_tests); cd "$(CURDIR)" && \
-	if $(is_prerelease); then :; \
-	elif $(check_test_log) had-few-failures; then :; else \
-	  $(check_test_log) had-not-too-many-failures && \
-	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
-	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && \
-	  $(check_test_log) had-few-failures; }; \
-	fi
-
-override_dh_auto_test-arch:
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	# TODO: exclude src/sage/misc/sagedoc.py, this will cause ~7 failures if we don't build the docs
-	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/)
-endif
-
-override_dh_auto_test-indep:
-ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	# These tests never fail so don't bother with the retry logic
-	$(call run_tests,indep,src/doc src/sage/misc/sagedoc.py)
-	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
-	# Sage doesn't detect this. Here we detect it and fail the build if so.
-	# Also filter out some false positives that are not hard errors.
-	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
-endif
-endif
-
-# manual target to re-run only failed tests
-check-failed:
-	$(call run_tests,all,--all -f)
-
-TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
-failed-tests%:
-	@$(TESTS_MK) "$@"
-
-# We used to set this for i386 but it seems to be OK now.
-# Perhaps we should set it for armhf, let's see the buildd test results...
-ifneq (,$(filter $(DEB_BUILD_ARCH),))
-IGNORE_FAILURES = | sed -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}'
-else
-IGNORE_FAILURES =
-endif
-had-few-failures:
-	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
-	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
-	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES); then \
-	    echo "Error: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
-	    false; \
-	  else \
-	    echo "Success: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
-	  fi
-	if ! test -z "$$($(TESTS_MK) failed-tests-special $(IGNORE_FAILURES))"; then \
-	  echo "Error: critical test failures (e.g. timeout, segfault, etc.)"; false; fi
-
-had-not-too-many-failures:
-	echo "Checking number of failed tests to determine whether to rerun tests in series..."
-	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
-	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
-	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES_RERUN); then \
-	    echo "No: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
-	    false; \
-	  else \
-	    echo "Yes: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
-	  fi
 
 override_dh_auto_install:
 	rm -rf debian/build/usr/var/tmp/sage/build
@@ -268,6 +222,91 @@ override_dh_clean:
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
+###############################################################################
+# 4. TEST SUITE
+###############################################################################
+
+TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
+failed-tests%:
+	@$(TESTS_MK) "$@"
+
+# We used to set this for i386 but it seems to be OK now.
+# Perhaps we should set it for armhf, let's see the buildd test results...
+ifneq (,$(filter $(DEB_BUILD_ARCH),))
+IGNORE_FAILURES = | sed -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}'
+else
+IGNORE_FAILURES =
+endif
+had-few-failures:
+	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
+	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
+	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES); then \
+	    echo "Error: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
+	    false; \
+	  else \
+	    echo "Success: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
+	  fi
+	if ! test -z "$$($(TESTS_MK) failed-tests-special $(IGNORE_FAILURES))"; then \
+	  echo "Error: critical test failures (e.g. timeout, segfault, etc.)"; false; fi
+
+had-not-too-many-failures:
+	echo "Checking number of failed tests to determine whether to rerun tests in series..."
+	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
+	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
+	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES_RERUN); then \
+	    echo "No: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
+	    false; \
+	  else \
+	    echo "Yes: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
+	  fi
+
+run_tests = \
+	cd sage && ./sage -t -p $(NUMJOBS) $(SAGE_TEST_FLAGS) --logfile=logs/ptestlong-$(1).log $(2)
+# If tests fail but not by too many more, then retry them once not in parallel
+# i386 seems to have issues running parallel tests - TODO: investigate this in more detail
+check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
+run_tests_with_retry = \
+	$(run_tests); cd "$(CURDIR)" && \
+	if $(is_prerelease); then :; \
+	elif $(check_test_log) had-few-failures; then :; else \
+	  $(check_test_log) had-not-too-many-failures && \
+	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
+	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && \
+	  $(check_test_log) had-few-failures; }; \
+	fi
+
+override_dh_auto_test-arch:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# TODO: exclude src/sage/misc/sagedoc.py, this will cause ~7 failures if we don't build the docs
+	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/)
+endif
+
+override_dh_auto_test-indep:
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# These tests never fail so don't bother with the retry logic
+	$(call run_tests,indep,src/doc src/sage/misc/sagedoc.py)
+	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
+	# Sage doesn't detect this. Here we detect it and fail the build if so.
+	# Also filter out some false positives that are not hard errors.
+	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
+endif
+endif
+
+# manual target to re-run only failed tests
+check-failed:
+	$(call run_tests,all,--all -f)
+
+###############################################################################
+# 5. MAINTAINER TARGETS
+###############################################################################
+
+export-build-env:
+	@echo export SAGE_LOCAL=$(SAGE_LOCAL)
+	@echo export PYTHONPATH=$(PYTHONPATH)
+	@echo export DOT_SAGE=$(DOT_SAGE)
+	@echo export SAGE_SCRIPTS_DIR=$(SAGE_SCRIPTS_DIR)
+
 # If the docbuild fails and you want to try again, you should run this first.
 # Otherwise the docbuild gets slower and slower as it re-reads information from
 # its build directory. At least that's my (infinity0) impression; I didn't
@@ -296,13 +335,6 @@ build-dep: debian/control
 
 get-orig-source:
 	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
-
-../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz: .git/modules/sage/HEAD
-	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
-	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
-
-../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz debian/control
-	dpkg-buildpackage -nc -d -uc -us -S
 
 APT_PIN_PRIORITY = 100
 install-apt-sources:
