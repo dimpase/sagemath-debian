@@ -46,8 +46,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    if not os.path.exists(confdir):
 +        confdir = os.path.join(SAGE_LIB, 'sage', 'misc', 'docs', 'introspect')
  
-     doctreedir = os.path.join(srcdir, 'doctrees')
-     confoverrides = {'html_context': {}, 'master_doc': 'docstring'}
+     open(os.path.join(srcdir, 'docutils.conf'), 'w').write(r"""
+ [parsers]
 --- a/sage/src/doc/en/introspect/conf.py
 +++ b/sage/src/doc/en/introspect/conf.py
 @@ -3,8 +3,11 @@

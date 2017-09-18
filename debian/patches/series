@@ -2,6 +2,7 @@
 # Or nearly-finished patches that they'll very probably merge.
 u0-version-cython-0.26.patch               #23360
 u0-version-scipy-0.19.1.patch              #23594
+u0-version-sphinx-1.6.patch                #23023
 
 # Patches that have open upstream tickets
 u1-version-pbori-boost1.62-hashes.patch    #22243

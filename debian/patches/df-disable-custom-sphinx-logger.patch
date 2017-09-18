@@ -5,7 +5,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/sphinxbuild.py
 +++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
-@@ -202,8 +202,9 @@
+@@ -205,8 +205,9 @@
      saved_stderr = sys.stderr
  
      try:

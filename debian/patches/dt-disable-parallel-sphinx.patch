@@ -9,7 +9,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -241,7 +241,7 @@
+@@ -234,7 +234,7 @@
      inventory = builder_helper('inventory')
  
  

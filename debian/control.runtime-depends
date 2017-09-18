@@ -88,9 +88,7 @@
  python-simplegeneric,
  python-singledispatch,
  python-snowballstemmer,
- python-sphinx (>= 1.5.3),
-# TODO: rm after #872259 is fixed
- python-sphinx (<< 1.6~),
+ python-sphinx (>= 1.6),
  python-sympy,
  python-terminado,
  python-tk,
