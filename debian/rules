@@ -289,7 +289,7 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
 	# Sage doesn't detect this. Here we detect it and fail the build if so.
 	# Also filter out some false positives that are not hard errors.
-	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error.*")
+	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error\|Citation \[.*Error\] is not referenced")
 endif
 endif
 
