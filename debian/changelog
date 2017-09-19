@@ -3,7 +3,7 @@ sagemath (8.0-8) UNRELEASED; urgency=medium
   [ Ximin Luo ]
   * Set a higher test timeout for slower architectures.
   * Don't ignore timed-out tests on i386, they work fine.
-  * Re-enable parallel build but using subprocess instead.
+  * Re-enable parallel docbuild but using subprocess instead.
 
   [ Tobias Hansen ]
   * Add upstream patch to build with Sphinx (>= 1.6):
