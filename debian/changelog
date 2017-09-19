@@ -8,6 +8,8 @@ sagemath (8.0-8) UNRELEASED; urgency=medium
   [ Tobias Hansen ]
   * Add upstream patch to build with Sphinx (>= 1.6):
     - u0-version-sphinx-1.6.patch (Closes: #872259)
+  * Print messages explaining why tests do/don't fail.
+  * Organize d/rules into sections.
 
  -- Ximin Luo <infinity0@debian.org>  Mon, 11 Sep 2017 12:21:02 +0200
 
