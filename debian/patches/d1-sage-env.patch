@@ -182,7 +182,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -396,7 +396,7 @@
+@@ -412,7 +412,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example

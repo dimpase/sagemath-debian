@@ -1,0 +1,75 @@
+Description: Better failure modes for the docbuild
+ - Make non-Exception BaseExceptions like SignalError fail the docbuild early.
+ - Don't strip lines in the custom logger, because it messes with stack traces.
+ - Slight refactoring of the build_many stuff to make it easier to play with.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TBD
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -103,8 +103,19 @@
+         try:
+             runsphinx()
+         except Exception:
++            # https://bugs.python.org/issue13831Ups, multiprocessing loses the stack trace
++            logger.exception("sphinx job failed:")
+             if ABORT_ON_ERROR:
+                 raise
++        # this allows us to catch errors like SignalError (raised by cysignals
++        # during a segfault) which inherit from BaseException directly
++        except BaseException as e:
++            # https://bugs.python.org/issue13831Ups, multiprocessing loses the stack trace
++            logger.exception("sphinx job failed extraordinarily:")
++            if ABORT_ON_ERROR:
++                # later on, multiprocessing also ignores non-Exception BaseExceptions so
++                # wrap our non-Exception BaseException in an Exception. hey, dawg.
++                raise Exception(str(e), e)
+ 
+         if "/latex" in output_dir:
+             logger.warning("LaTeX file written to {}".format(output_dir))
+@@ -234,8 +245,8 @@
+     inventory = builder_helper('inventory')
+ 
+ 
+-if NUM_THREADS > 1:
+-    def build_many(target, args):
++if True:
++    def build_many_parallel(target, args):
+         from multiprocessing import Pool
+         pool = Pool(NUM_THREADS, maxtasksperchild=1)
+         # map_async handles KeyboardInterrupt correctly. Plain map and
+@@ -250,8 +261,8 @@
+             if ABORT_ON_ERROR:
+                 raise
+         return ret
+-else:
+-    def build_many(target, args):
++
++    def build_many_serial(target, args):
+         results = []
+ 
+         for arg in args:
+@@ -263,6 +274,11 @@
+ 
+         return results
+ 
++if NUM_THREADS > 1:
++    build_many = build_many_parallel
++else:
++    build_many = build_many_serial
++
+ 
+ ##########################################
+ #      Parallel Building Ref Manual      #
+--- a/sage/src/sage_setup/docbuild/sphinxbuild.py
++++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
+@@ -118,7 +118,7 @@
+             return
+         for (old, new) in self.replacements:
+             line = old.sub(new, line)
+-        line = self._prefix + ' ' + line.strip() + '\n'
++        line = self._prefix + ' ' + line + '\n'
+         if not self._color:
+             line = self.ansi_color.sub('', line)
+         self._stream.write(line)

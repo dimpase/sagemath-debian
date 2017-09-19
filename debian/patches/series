@@ -26,6 +26,7 @@ u2-fix-less-trivial-test-cases.patch
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
 u2-workaround-sympow-malloc-perturb.patch
+u2-better-sphinx-failure-modes.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
@@ -61,15 +62,14 @@ d1-disable-post-install-tests.patch
 df-revert-lazy-imports-22755.patch
 df-revert-lazy-import-dependent-on-python-patch.patch
 df-revert-minor-feature-dependent-on-python-patch.patch
-df-disable-custom-sphinx-logger.patch
 df-python_security.patch
 df-sage-gap-reset-doctest.patch
 df-silence_debian_bug_780186.patch
 df-silence_ecl_opt_signals.patch
+df-subprocess-sphinx.patch
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
-dt-disable-parallel-sphinx.patch
 dt-version-glpk-4.60-extra-hacky-fixes.patch
 dt-r-no-readline.patch
 dt-more-fix-test-cases.patch
