@@ -1,4 +1,4 @@
-sagemath (8.0-8) UNRELEASED; urgency=medium
+sagemath (8.0-8) unstable; urgency=medium
 
   [ Ximin Luo ]
   * Set a higher test timeout for slower architectures.
@@ -11,7 +11,7 @@ sagemath (8.0-8) UNRELEASED; urgency=medium
   * Print messages explaining why tests do/don't fail.
   * Organize d/rules into sections.
 
- -- Ximin Luo <infinity0@debian.org>  Mon, 11 Sep 2017 12:21:02 +0200
+ -- Tobias Hansen <thansen@debian.org>  Wed, 20 Sep 2017 07:18:46 +0000
 
 sagemath (8.0-7) unstable; urgency=medium
 
