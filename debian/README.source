@@ -134,22 +134,37 @@ Current test status
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
 
+An overview over test failures on different architectures on buildds can be found at
+https://people.debian.org/~thansen/sage-test-status.html
+
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/sage/
 Look for files named "sagemath-*_*.log"
 
 Known causes::
 
-sage -t --long src/sage/probability/probability_distribution.pyx  # 1 doctest failed // trivial
-sage -t --long src/sage/numerical/optimize.py  # 3 doctests failed // 1 trivial, 2 reported as Debian #840159
-sage -t --long src/sage/tests/french_book/recequadiff.py  # 2 doctests failed // sympy https://github.com/sympy/sympy/pull/11858
-sage -t --long /usr/lib/python2.7/dist-packages/sagenb/notebook/misc.py  # 2 doctests failed // trivial, JSON sort ordering keeps changing
+sage -t --long src/sage/misc/sagedoc.py  # 7 doctests failed // obviously fails when the documentation is not built
 
 Unknown::
 
 sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
-sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 1 doctest failed
-sage -t --long src/sage/plot/plot.py  # 1 doctest failed
+sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 1 doctest failed // looks trivial
+sage -t --long src/sage/parallel/use_fork.py  # 1 doctest failed // looks trivial
+sage -t --long src/sage/rings/number_field/number_field.py  # 1 doctest failed
+sage -t --long src/sage/rings/number_field/unit_group.py  # 1 doctest failed
+sage -t --long src/sage/rings/polynomial/polynomial_quotient_ring.py  # 8 doctests failed
+sage -t --long src/sage/tests/cython.pyx  # 1 doctest failed // looks trivial
+
+Matplotlib version mismatch (see https://trac.sagemath.org/ticket/23696):
+
 sage -t --long src/sage/plot/arrow.py  # 1 doctest failed
+sage -t --long src/sage/plot/plot.py  # 1 doctest failed
+sage -t --long src/sage/probability/probability_distribution.pyx  # 1 doctest failed // trivial
+
+Sympy (see https://trac.sagemath.org/ticket/23496)
+
+sage -t --long src/sage/symbolic/expression.pyx  # 8 doctests failed
+sage -t --long src/sage/tests/french_book/recequadiff.py  # 2 doctests failed
+
 
 Manual testing
 ==============
