@@ -7,15 +7,15 @@ Forwarded: TODO
 src/sage/rings/integer.pyx
 Sage upstream expects MPIR's error output but we use GMP.
 They know about this difference and advise us to just override it.
+On 32-bit the error does not change.
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -6093,8 +6093,7 @@
+@@ -6093,7 +6093,7 @@
              sage: 1 << (2^60)
              Traceback (most recent call last):
              ...
 -            MemoryError: failed to allocate ... bytes   # 64-bit
--            OverflowError: ...                          # 32-bit
-+            RuntimeError: Aborted
++            RuntimeError: Aborted                       # 64-bit
+             OverflowError: ...                          # 32-bit
          """
          cdef long n
- 
