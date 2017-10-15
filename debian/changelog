@@ -11,7 +11,7 @@ sagemath (8.1~beta7-1) UNRELEASED; urgency=medium
     - u0-version-sphinx-1.6.patch                #23023
     - u1-pip-nowarn.patch                        #21835
     - u1-more-sphinx-1.5-fixes.patch             #23364
-    - d0-cython-sys-path.patch (not deleted yet, test first)
+    - d0-cython-sys-path.patch
     - df-silence_debian_bug_780186.patch
   * Patches with non-trivial modifications:
     - u2-allow-override-sage-local.patch
