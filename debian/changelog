@@ -13,6 +13,8 @@ sagemath (8.1~beta7-1) UNRELEASED; urgency=medium
   * Patches with non-trivial modifications:
     - u2-allow-override-sage-local.patch
     - d0-paths.patch
+  * New patches:
+    - u0-version-pynac-0.7.12.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 15 Oct 2017 10:23:00 +0000
 
