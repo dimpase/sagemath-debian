@@ -1,20 +1,15 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
-u0-version-cython-0.26.patch               #23360
-u0-version-scipy-0.19.1.patch              #23594
-u0-version-sphinx-1.6.patch                #23023
 
 # Patches that have open upstream tickets
 u1-version-pbori-boost1.62-hashes.patch    #22243
 u1-fix-dont-require-DISPLAY.patch          #22441
-u1-pip-nowarn.patch                        #21835
 u1-fix-atrocious-symlink-logic.patch       #22444
 u1-looser-doctest-basename.patch           #22445
 u1-scripts-dir.patch                       #22731
 # Not yet in Debian, uncomment when it is:
 #u1-version-ipython-5.4.patch              #23125
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
-u1-more-sphinx-1.5-fixes.patch             #23364
 u1-version-giac-1.2.3.57.patch             #TODO
 
 # Patches that should be upstreamed (may need some work first)
@@ -22,7 +17,6 @@ u2-pari-stackwarn.patch                    #23263
 u2-version-cddlib-094h.patch
 u2-reproducible-docs.patch
 u2-fix-trivial-test-cases.patch
-u2-fix-less-trivial-test-cases.patch
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
 u2-workaround-sympow-malloc-perturb.patch

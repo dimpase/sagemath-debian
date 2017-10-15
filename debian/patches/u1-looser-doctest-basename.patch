@@ -7,7 +7,7 @@ Forwarded: https://trac.sagemath.org/ticket/22445
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/doctest/sources.py
 +++ b/sage/src/sage/doctest/sources.py
-@@ -85,8 +85,8 @@
+@@ -88,8 +88,8 @@
      root = os.path.dirname(path)
      # If the file is in the sage library, we can use our knowledge of
      # the directory structure

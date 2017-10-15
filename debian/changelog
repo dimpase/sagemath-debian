@@ -1,6 +1,15 @@
 sagemath (8.1~beta7-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * Remove patches (applied upstream):
+    - u0-version-cython-0.26.patch               #23360
+    - u0-version-scipy-0.19.1.patch              #23594
+    - u0-version-sphinx-1.6.patch                #23023
+    - u1-pip-nowarn.patch                        #21835
+    - u1-more-sphinx-1.5-fixes.patch             #23364
+    - u2-fix-less-trivial-test-cases.patch
+  * Patches with non-trivial modifications:
+    - u2-allow-override-sage-local.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 15 Oct 2017 10:23:00 +0000
 
@@ -20,7 +29,7 @@ sagemath (8.0-8) unstable; urgency=medium
  -- Tobias Hansen <thansen@debian.org>  Wed, 20 Sep 2017 07:18:46 +0000
 
 sagemath (8.0-7) unstable; urgency=medium
-
+ 
   * Add patch u0-version-scipy-0.19.1.patch from upstream.
   * Remove parts of u2-fix-less-trivial-test-cases.patch which are
     included in u0-version-scipy-0.19.1.patch.

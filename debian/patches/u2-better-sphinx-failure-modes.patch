@@ -8,7 +8,7 @@ Forwarded: TBD
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -103,8 +103,19 @@
+@@ -104,8 +104,19 @@
          try:
              runsphinx()
          except Exception:
@@ -28,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
          if "/latex" in output_dir:
              logger.warning("LaTeX file written to {}".format(output_dir))
-@@ -234,8 +245,8 @@
+@@ -235,8 +246,8 @@
      inventory = builder_helper('inventory')
  
  
@@ -39,7 +39,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          from multiprocessing import Pool
          pool = Pool(NUM_THREADS, maxtasksperchild=1)
          # map_async handles KeyboardInterrupt correctly. Plain map and
-@@ -250,8 +261,8 @@
+@@ -251,8 +262,8 @@
              if ABORT_ON_ERROR:
                  raise
          return ret
@@ -50,7 +50,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          results = []
  
          for arg in args:
-@@ -263,6 +274,11 @@
+@@ -264,6 +275,11 @@
  
          return results
  

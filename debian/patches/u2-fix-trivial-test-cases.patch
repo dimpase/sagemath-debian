@@ -122,10 +122,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +            Usage: tachyon modelfile [options]...
          """
          r = os.popen('tachyon').read()
-         if use_pager == True:
+         if use_pager:
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -1839,7 +1839,7 @@
+@@ -1841,7 +1841,7 @@
          sage: from sage.interfaces.gap import gap_command
          sage: cmd = 'echo "quit;" | ' + gap_command(use_workspace_cache=False)[0]
          sage: gap_startup = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
