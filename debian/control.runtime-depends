@@ -95,6 +95,7 @@
  python-tornado,
  python-traitlets,
  python-twisted,
+ python-typing,
  python-tz,
  python-vcversioner,
  python-wcwidth,

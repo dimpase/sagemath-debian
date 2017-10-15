@@ -206,6 +206,7 @@ python_modules = [
     'tornado',
     'traitlets',
     'twisted',
+    'typing',
     'vcversioner',
     'wcwidth',
     'werkzeug'
