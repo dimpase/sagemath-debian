@@ -134,3 +134,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          True
          sage: 'Error' not in gap_startup
          True
+--- a/sage/src/sage/tests/books/judson-abstract-algebra/sylow-sage.py
++++ b/sage/src/sage/tests/books/judson-abstract-algebra/sylow-sage.py
+@@ -244,7 +244,7 @@
+ ~~~~~~~~~~~~~~~~~~~~~~ ::
+ 
+     sage: gap.version()
+-    '4.8.6'
++    '4...'
+ 
+ ~~~~~~~~~~~~~~~~~~~~~~ ::
+ 

@@ -15,6 +15,7 @@ sagemath (8.1~beta7-1) UNRELEASED; urgency=medium
     - df-silence_debian_bug_780186.patch
   * Patches with non-trivial modifications:
     - u2-allow-override-sage-local.patch
+    - u2-fix-trivial-test-cases.patch
     - u2-fix-less-trivial-test-cases.patch
     - d0-paths.patch
   * New patches:
