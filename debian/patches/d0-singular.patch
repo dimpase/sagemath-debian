@@ -40,10 +40,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +
      # Add cysignals directory to includes
      for path in sys.path:
-         inc.append(path)
+         cysignals_path = os.path.join(path, "cysignals")
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -152,7 +152,7 @@
+@@ -177,7 +177,7 @@
      else:
          extension = "so"
      # library name changed from libsingular to libSingular btw 3.x and 4.x

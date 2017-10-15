@@ -1,6 +1,6 @@
 --- a/sage/src/sage/libs/ecl.pyx
 +++ b/sage/src/sage/libs/ecl.pyx
-@@ -140,7 +140,7 @@
+@@ -141,7 +141,7 @@
          ECL_OPT_TRAP_SIGBUS = 1
          ECL_OPT_TRAP_SIGCHLD = 0
          ECL_OPT_TRAP_SIGPIPE = 1
@@ -9,7 +9,7 @@
          ECL_OPT_SIGNAL_HANDLING_THREAD = 0
          ECL_OPT_SIGNAL_QUEUE_SIZE = 16
          ECL_OPT_BOOTED = 1
-@@ -155,7 +155,7 @@
+@@ -156,7 +156,7 @@
          ECL_OPT_SIGALTSTACK_SIZE = 1
          ECL_OPT_HEAP_SIZE = ...
          ECL_OPT_HEAP_SAFETY_AREA = ...

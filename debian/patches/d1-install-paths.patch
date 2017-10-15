@@ -9,7 +9,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/clean.py
 +++ b/sage/src/sage_setup/clean.py
-@@ -86,7 +86,7 @@
+@@ -98,7 +98,7 @@
          sage: from sage.misc.sageinspect import loadable_module_extension
          sage: skip_extensions = (loadable_module_extension(),)
          sage: for f in stale_iter:
@@ -17,10 +17,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +        ....:     if f.endswith(skip_extensions) or f.endswith(".pyo"): continue
          ....:     print('Found stale file: ' + f)
      """
-     from sage.misc.sageinspect import loadable_module_extension
+ 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -196,9 +196,9 @@
+@@ -192,9 +192,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -45,7 +45,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -104,9 +104,9 @@
+@@ -131,9 +131,9 @@
  except AttributeError:  # in case of use inside virtualenv
      sitepackages_dirs = [os.path.join(os.path.dirname(site.__file__),
                                       'site-packages')]
@@ -55,9 +55,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -_add_variable_or_fallback('SAGE_LIB',        SITE_PACKAGES[0])
 +_add_variable_or_fallback('SAGE_LIB',        opj('$SAGE_LOCAL', 'lib', 'python2.7', 'dist-packages'))
  
- _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
- 
-@@ -222,8 +222,8 @@
+ # Used by sage/misc/package.py.  Should be SAGE_SRC_ROOT in VPATH.
+ _add_variable_or_fallback('SAGE_PKGS', opj('$SAGE_ROOT', 'build', 'pkgs'))
+@@ -247,8 +247,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1025,8 +1025,7 @@
+@@ -1037,8 +1037,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -137,7 +137,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              '-f', '{connection_file}',
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -148,20 +148,19 @@
+@@ -155,20 +155,19 @@
  
      EXAMPLES::
  
@@ -173,7 +173,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Python file parsing
  triple_quotes = re.compile("\s*[rRuU]*((''')|(\"\"\"))")
-@@ -86,7 +86,7 @@
+@@ -89,7 +89,7 @@
      # If the file is in the sage library, we can use our knowledge of
      # the directory structure
      dev = os.path.normpath(SAGE_SRC)
@@ -198,10 +198,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = filename
 --- a/sage/src/Makefile.in
 +++ b/sage/src/Makefile.in
-@@ -39,7 +39,7 @@
+@@ -37,7 +37,7 @@
+ 	    SAGE_DOC_SRC=/doesnotexist                            \
  	    SAGE_BUILD_DIR=/doesnotexist                          \
  	    SAGE_PKGS=$(abs_top_srcdir)/build/pkgs                \
- 	    SAGE_CYTHONIZED=$(abs_builddir)/build/cythonized      \
 -	&& sage-python23 -u setup.py --no-user-cfg build install
 +	&& sage-python23 -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2
  	if [ "$$UNAME" = "CYGWIN" ]; then                         \

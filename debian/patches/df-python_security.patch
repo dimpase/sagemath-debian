@@ -1,6 +1,6 @@
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -557,19 +557,20 @@
+@@ -558,19 +558,20 @@
          ``sage/tests/cmdline.py`` for a doctest that this works, see
          also :trac:`13579`.
  

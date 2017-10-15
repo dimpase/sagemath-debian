@@ -34,9 +34,9 @@ Forwarded: not-needed
  	rm main.o main *~
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -46,6 +46,10 @@
- gsl_library_dirs = gsl_pc['library_dirs']
- gsl_include_dirs = gsl_pc['include_dirs']
+@@ -26,6 +26,10 @@
+ lapack_library_dirs = lapack_pc['library_dirs']
+ lapack_include_dirs = lapack_pc['include_dirs']
  
 +# LibGAP
 +libgap_pc = pkgconfig.parse('libgap-sage')
@@ -45,7 +45,7 @@ Forwarded: not-needed
  # GD image library
  gd_pc = pkgconfig.parse('gdlib')
  gd_libs = gd_pc['libraries']
-@@ -136,8 +140,8 @@
+@@ -84,8 +88,8 @@
      "brial_groebner",
      "m4rie",
  ] + m4ri_libs + [
@@ -56,7 +56,7 @@ Forwarded: not-needed
      "m", "readline", "Lfunction" ,
  ] + cblas_libs + zlib_libs
  
-@@ -643,15 +647,15 @@
+@@ -615,15 +619,15 @@
  
      Extension('sage.libs.gap.util',
                sources = ["sage/libs/gap/util.pyx"],
@@ -77,7 +77,7 @@ Forwarded: not-needed
      ##
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -86,12 +86,18 @@
+@@ -83,11 +83,17 @@
      compile_result_dir = None
      keep_going = False
  
@@ -88,7 +88,6 @@ Forwarded: not-needed
 +libgap_include_dirs = list(libgap_pc['include_dirs'])
 +
  # search for dependencies and add to gcc -I<path>
- # this depends on SAGE_CYTHONIZED
 -include_dirs = sage_include_directories(use_sources=True)
 +include_dirs = sage_include_directories(use_sources=True) + libgap_include_dirs
  

@@ -10,7 +10,7 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: TODO
 --- a/sage/src/sage/combinat/designs/latin_squares.py
 +++ b/sage/src/sage/combinat/designs/latin_squares.py
-@@ -547,8 +547,7 @@
+@@ -546,8 +546,7 @@
          return
  
      if compare:

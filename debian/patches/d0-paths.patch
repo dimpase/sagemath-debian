@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -195,7 +195,7 @@
+@@ -196,7 +196,7 @@
  
  WORKSPACE = gap_workspace_file()
  
@@ -17,7 +17,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -484,7 +484,7 @@
+@@ -483,7 +483,7 @@
      file_list = []
      for fname in additional_source_files:
          fname = fname.replace("$SAGE_SRC", SAGE_SRC)
@@ -48,21 +48,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  Tests related to the not tested examples (nondeterministic order of atoms)::
  
      sage: from sage.interfaces.qepcad import _qepcad_atoms
---- a/sage/src/sage/tests/cmdline.py
-+++ b/sage/src/sage/tests/cmdline.py
-@@ -570,12 +570,6 @@
-         sage: ret
-         0
- 
--    Check that ``sage-location`` did its job in making Python scripts
--    relative.  We test it on the ``ipython`` script::
--
--        sage: open(os.path.join(SAGE_LOCAL, "bin", "ipython")).readline()
--        '#!/usr/bin/env python\n'
--
-     Test GP using the ``-f`` option which prevents the reading of a ``.gprc``
-     configuration file::
- 
 --- a/sage/src/sage/interfaces/jmoldata.py
 +++ b/sage/src/sage/interfaces/jmoldata.py
 @@ -148,7 +148,7 @@
@@ -87,4 +72,4 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +   PYTHON="/usr/bin/python2"
  fi
  
- 
+ # Check that Python is actually installed and issue an error message if not--in

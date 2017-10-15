@@ -6,16 +6,16 @@ Forwarded: not-needed
 
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -132,7 +132,7 @@
+@@ -80,7 +80,7 @@
      "ec", "ecm",
- ] + linbox_libs + fflas_ffpack_libs + gsl_libs + [
+ ] + aliases["LINBOX_LIBRARIES"] + aliases["FFLASFFPACK_LIBRARIES"] + aliases["GSL_LIBRARIES"] + [
      "pari", "flint", "ratpoints", "ecl", "glpk", "ppl",
 -    "arb", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
 +    "flint-arb", "mpfi", "mpfr", "mpc", "gmp", "gmpxx",
      "brial",
      "brial_groebner",
      "m4rie",
-@@ -805,7 +805,7 @@
+@@ -777,7 +777,7 @@
  
      Extension("sage.matrix.matrix_complex_ball_dense",
                ["sage/matrix/matrix_complex_ball_dense.pyx"],

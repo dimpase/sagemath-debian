@@ -14,7 +14,7 @@ Forwarded: TBD
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -98,10 +98,9 @@
+@@ -99,10 +99,9 @@
          logger.debug(build_command)
  
          # Run Sphinx with Sage's special logger
