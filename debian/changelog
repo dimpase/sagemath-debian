@@ -1,6 +1,9 @@
 sagemath (8.1~beta7-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * New (Build-)Depends:
+    - libpynac-dev (>= 0.7.12)
+    - python-cypari2 (>= 1.1.1)
   * Remove patches (applied upstream):
     - u0-version-cython-0.26.patch               #23360
     - u0-version-scipy-0.19.1.patch              #23594

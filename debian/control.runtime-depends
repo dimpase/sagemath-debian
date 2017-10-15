@@ -40,7 +40,7 @@
  python-crypto,
  python-cvxopt,
  python-cycler,
- python-cypari2,
+ python-cypari2 (>= 1.1.1),
  python-cysignals-pari (>= 1.6.4),
  python-decorator,
  python-docutils,
