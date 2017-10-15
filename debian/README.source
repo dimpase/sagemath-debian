@@ -160,7 +160,8 @@ sage -t --long src/sage/plot/arrow.py  # 1 doctest failed
 sage -t --long src/sage/plot/plot.py  # 1 doctest failed
 sage -t --long src/sage/probability/probability_distribution.pyx  # 1 doctest failed // trivial
 
-Sympy (see https://trac.sagemath.org/ticket/23496)
+Sympy (see https://trac.sagemath.org/ticket/23496,
+       should be fixed with sympy > 1.1.1 by https://github.com/sympy/sympy/pull/12826)
 
 sage -t --long src/sage/symbolic/expression.pyx  # 8 doctests failed
 sage -t --long src/sage/tests/french_book/recequadiff.py  # 2 doctests failed
