@@ -142,21 +142,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          if hasattr(obj, "__get__"):
              return obj.__get__(instance, owner)
          return obj
-@@ -543,7 +553,7 @@
-             sage: type(foo)
-             <type 'sage.misc.lazy_import.LazyImport'>
-             sage: foo[1] = 100
--            sage: print(foo)
-+            sage: print foo
-             [0, 100, 2, 3, 4, 5, 6, 7, 8, 9]
-         """
-         self._get_object()[key] = value
-@@ -557,7 +567,7 @@
-             sage: type(foo)
-             <type 'sage.misc.lazy_import.LazyImport'>
-             sage: del foo[1]
--            sage: print(foo)
-+            sage: print foo
-             [0, 2, 3, 4, 5, 6, 7, 8, 9]
-         """
-         del self._get_object()[key]
