@@ -1,0 +1,33 @@
+Description: Fix some more test cases with less-trivial failures
+ Every override in this file should be accompanied by an explanation on why
+ it's correct or beneficial.
+Author: Tobias Hansen <thansen@debian.org>
+Forwarded: TODO
+---
+src/sage/coding/code_bounds.py
+Obviously equivalent expressions
+---
+src/sage/functions/orthogonal_polys.py
+Obviously equivalent expressions
+--- a/sage/src/sage/coding/code_bounds.py
++++ b/sage/src/sage/coding/code_bounds.py
+@@ -578,7 +578,7 @@
+         sage: codes.bounds.entropy(0, 2)
+         0
+         sage: codes.bounds.entropy(1/5,4).factor()
+-        1/10*(log(3) - 4*log(4/5) - log(1/5))/log(2)
++        1/10*(log(5) + log(3) - 4*log(4/5))/log(2)
+         sage: codes.bounds.entropy(1, 3)
+         log(2)/log(3)
+ 
+--- a/sage/src/sage/functions/orthogonal_polys.py
++++ b/sage/src/sage/functions/orthogonal_polys.py
+@@ -1888,7 +1888,7 @@
+             sage: jacobi_P(1,n,n,n)
+             (n + 1)*n
+             sage: jacobi_P(2,n,n,n)
+-            1/4*(2*n - 1)*(n + 2)*(n + 1)^2
++            1/4*(2*n^2 + n - 1)*(n + 2)*(n + 1)
+             sage: jacobi_P(1,n,n,x)
+             (n + 1)*x
+             sage: jacobi_P(3,2,1,x)
