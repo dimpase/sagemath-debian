@@ -1,0 +1,340 @@
+Revert the following commit from https://trac.sagemath.org/ticket/23544
+to fix doctests for PARI 2.9
+
+From 6896cc7f0e5d41822a6a4480d0f108434b02caee Mon Sep 17 00:00:00 2001
+From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Wed, 6 Sep 2017 14:42:17 +0200
+Subject: Fix doctests for PARI upgrade
+
+---
+ src/sage/groups/generic.py                         |  4 +--
+ src/sage/libs/pari/tests.py                        |  6 ++--
+ src/sage/modular/cusps_nf.py                       |  2 +-
+ src/sage/modular/local_comp/smoothchar.py          |  4 +--
+ src/sage/modular/modsym/p1list_nf.py               |  4 +--
+ src/sage/rings/number_field/number_field.py        | 10 +++---
+ src/sage/rings/number_field/number_field_ideal.py  |  2 +-
+ src/sage/rings/number_field/number_field_rel.py    |  4 +--
+ src/sage/rings/number_field/unit_group.py          | 36 +++++++++++-----------
+ .../rings/padics/padic_capped_absolute_element.pyx |  2 +-
+ .../rings/padics/padic_capped_relative_element.pyx |  2 +-
+ src/sage/rings/padics/padic_fixed_mod_element.pyx  |  2 +-
+ src/sage/rings/qqbar.py                            |  4 +--
+ .../schemes/elliptic_curves/ell_number_field.py    |  4 +--
+ src/sage/schemes/projective/projective_morphism.py |  7 ++---
+ .../books/judson-abstract-algebra/fields-sage.py   | 10 +++---
+ 16 files changed, 51 insertions(+), 52 deletions(-)
+
+--- a/sage/src/sage/groups/generic.py
++++ b/sage/src/sage/groups/generic.py
+@@ -426,7 +426,7 @@
+         sage: F.<a> = GF(37^5)
+         sage: E = EllipticCurve(F, [1,1])
+         sage: P = E.lift_x(a); P
+-        (a : 9*a^4 + 22*a^3 + 23*a^2 + 30 : 1)
++        (a : 28*a^4 + 15*a^3 + 14*a^2 + 7 : 1)
+ 
+     This will return a multiple of the order of P::
+ 
+@@ -860,7 +860,7 @@
+         sage: F.<a> = GF(37^5)
+         sage: E = EllipticCurve(F, [1,1])
+         sage: P = E.lift_x(a); P
+-        (a : 28*a^4 + 15*a^3 + 14*a^2 + 7 : 1)
++        (a : 9*a^4 + 22*a^3 + 23*a^2 + 30 : 1)
+ 
+     This will return a multiple of the order of P::
+ 
+--- a/sage/src/sage/libs/pari/tests.py
++++ b/sage/src/sage/libs/pari/tests.py
+@@ -948,7 +948,7 @@
+     sage: pari('[1,2,3;4,5,6;7,8,9]').matker()
+     [1; -2; 1]
+     sage: pari('[1,2,3;4,5,6;7,8,9]').matker(1)
+-    [1; -2; 1]
++    [3; -6; 3]
+     sage: pari('matrix(3,3,i,j,i)').matker()
+     [-1, -1; 1, 0; 0, 1]
+     sage: pari('[1,2,3;4,5,6;7,8,9]*Mod(1,2)').matker()
+@@ -1601,7 +1601,7 @@
+     sage: nf = F.__pari__()
+     sage: I = pari('[1, -1, 2]~')
+     sage: nf.idealstar(I)
+-    [[[43, 9, 5; 0, 1, 0; 0, 0, 1], [0]], [42, [42]], [Mat([[43, [9, 1, 0]~, 1, 1, [-5, 2, -18; -9, -5, 2; 1, -9, -5]], 1]), Mat([[43, [9, 1, 0]~, 1, 1, [-5, 2, -18; -9, -5, 2; 1, -9, -5]], 1])], [[[[42], [3], [43, 9, 5; 0, 1, 0; 0, 0, 1], [[[-14, -8, 20]~, [1, 34, 38], [43, [9, 1, 0]~, 1, 1, [-5, 2, -18; -9, -5, 2; 1, -9, -5]]]~, 3, [42, [2, 1; 3, 1; 7, 1]]]]], [[], Vecsmall([])]], [Mat(1)]]
++    [[[43, 9, 5; 0, 1, 0; 0, 0, 1], [0]], [42, [42]], Mat([[43, [9, 1, 0]~, 1, 1, [-5, 2, -18; -9, -5, 2; 1, -9, -5]], 1]), [[[[[42], [3], [3], [Vecsmall([])], 1, [43, 9, 5; 0, 1, 0; 0, 0, 1]]]], [[], [], [], Vecsmall([])], Vecsmall([0])], Mat(1)]
+ 
+     sage: x = polygen(QQ)
+     sage: K.<a> = NumberField(x^3 - 17)
+@@ -1675,7 +1675,7 @@
+     [[1, [7605, 4]~, [5610, 5]~, [7913, -6]~; 0, 1, 0, -1; 0, 0, 1, 0; 0, 0, 0, 1], [[19320, 13720; 0, 56], [2, 1; 0, 1], 1, 1]]
+ 
+     sage: pari('x^3 - 17').nfinit()
+-    [x^3 - 17, [1, 1], -867, 3, [[1, 1.68006914259990, 2.57128159065824; 1, -0.340034571299952 - 2.65083754153991*I, -1.28564079532912 + 2.22679517779329*I], [1, 1.68006914259990, 2.57128159065824; 1, -2.99087211283986, 0.941154382464174; 1, 2.31080297023995, -3.51243597312241], [1, 2, 3; 1, -3, 1; 1, 2, -4], [3, 1, 0; 1, -11, 17; 0, 17, 0], [51, 0, 16; 0, 17, 3; 0, 0, 1], [17, 0, -1; 0, 0, 3; -1, 3, 2], [51, [-17, 6, -1; 0, -18, 3; 1, 0, -16]], [3, 17]], [2.57128159065824, -1.28564079532912 + 2.22679517779329*I], [3, x^2 - x + 1, 3*x], [1, 0, -1; 0, 0, 3; 0, 1, 1], [1, 0, 0, 0, -4, 6, 0, 6, -1; 0, 1, 0, 1, 1, -1, 0, -1, 3; 0, 0, 1, 0, 2, 0, 1, 0, 1]]
++    [x^3 - 17, [1, 1], -867, 3, [[1, 1.68006914259990, 2.57128159065824; 1, -0.340034571299952 - 2.65083754153991*I, -1.28564079532912 + 2.22679517779329*I], [1, 1.68006914259990, 2.57128159065824; 1, -2.99087211283986, 0.941154382464174; 1, 2.31080297023995, -3.51243597312241], [1, 2, 3; 1, -3, 1; 1, 2, -4], [3, 1, 0; 1, -11, 17; 0, 17, 0], [51, 0, 16; 0, 17, 3; 0, 0, 1], [17, 0, -1; 0, 0, 3; -1, 3, 2], [51, [-17, 6, -1; 0, -18, 3; 1, 0, -16]], [3, 17]], [2.57128159065824, -1.28564079532912 + 2.22679517779329*I], [1, 1/3*x^2 - 1/3*x + 1/3, x], [1, 0, -1; 0, 0, 3; 0, 1, 1], [1, 0, 0, 0, -4, 6, 0, 6, -1; 0, 1, 0, 1, 1, -1, 0, -1, 3; 0, 0, 1, 0, 2, 0, 1, 0, 1]]
+     sage: pari('x^2 + 10^100 + 1').nfinit()
+     [...]
+     sage: pari('1.0').nfinit()
+--- a/sage/src/sage/modular/cusps_nf.py
++++ b/sage/src/sage/modular/cusps_nf.py
+@@ -41,7 +41,7 @@
+     sage: alpha.ideal()
+     Fractional ideal (7, a + 3)
+     sage: alpha.ABmatrix()
+-    [a + 10, 2*a + 6, 7, a + 5]
++    [a + 10, -3*a + 1, 7, -2*a]
+     sage: alpha.apply([0, 1, -1,0])
+     Cusp [7: -a - 10] of Number Field in a with defining polynomial x^2 + 5
+ 
+--- a/sage/src/sage/modular/local_comp/smoothchar.py
++++ b/sage/src/sage/modular/local_comp/smoothchar.py
+@@ -1601,8 +1601,8 @@
+             sage: G = SmoothCharacterGroupRamifiedQuadratic(3, 1, QQ)
+             sage: s = G.number_field().gen()
+             sage: G.discrete_log(4, 3 + 2*s)
+-            [5, 1, 1, 1]
+-            sage: gs = G.unit_gens(4); gs[0]^5 * gs[1] * gs[2] * gs[3] - (3 + 2*s) in G.ideal(4)
++            [5, 2, 1, 1]
++            sage: gs = G.unit_gens(4); gs[0]^5 * gs[1]^2 * gs[2] * gs[3] - (3 + 2*s) in G.ideal(4)
+             True
+         """
+         x = self.number_field().coerce(x)
+--- a/sage/src/sage/modular/modsym/p1list_nf.py
++++ b/sage/src/sage/modular/modsym/p1list_nf.py
+@@ -58,7 +58,7 @@
+ 
+     sage: alpha = MSymbol(N, a + 2, 3*a^2)
+     sage: alpha.lift_to_sl2_Ok()
+-    [-3*a^2 + a + 12, 25*a^2 - 50*a + 100, a + 2, a^2 - 3*a + 3]
++    [1, -4*a^2 + 9*a - 21, a + 2, a^2 - 3*a + 3]
+     sage: Ok = k.ring_of_integers()
+     sage: M = Matrix(Ok, 2, alpha.lift_to_sl2_Ok())
+     sage: det(M)
+@@ -804,7 +804,7 @@
+             sage: P[5]
+             M-symbol (1/2*a + 1/2: -a) of level Fractional ideal (3)
+             sage: P.lift_to_sl2_Ok(5)
+-            [-a, 2*a - 2, 1/2*a + 1/2, -a]
++            [1, -2, 1/2*a + 1/2, -a]
+ 
+         ::
+ 
+--- a/sage/src/sage/rings/number_field/number_field.py
++++ b/sage/src/sage/rings/number_field/number_field.py
+@@ -3775,7 +3775,7 @@
+             sage: k.<a> = NumberField(x^4 - 3/2*x + 5/3); k
+             Number Field in a with defining polynomial x^4 - 3/2*x + 5/3
+             sage: k.pari_nf()
+-            [y^4 - 324*y + 2160, [0, 2], 48918708, 216, ..., [36, 36*y, y^3 + 6*y^2 - 252, 6*y^2], [1, 0, 0, 252; 0, 1, 0, 0; 0, 0, 0, 36; 0, 0, 6, -36], [1, 0, 0, 0, 0, 0, -18, 42, 0, -18, -46, -60, 0, 42, -60, -60; 0, 1, 0, 0, 1, 0, 2, 0, 0, 2, -11, -1, 0, 0, -1, 9; 0, 0, 1, 0, 0, 0, 6, 6, 1, 6, -5, 0, 0, 6, 0, 0; 0, 0, 0, 1, 0, 6, -6, -6, 0, -6, -1, 2, 1, -6, 2, 0]]
++            [y^4 - 324*y + 2160, [0, 2], 48918708, 216, ..., [1, y, 1/36*y^3 + 1/6*y^2 - 7, 1/6*y^2], [1, 0, 0, 252; 0, 1, 0, 0; 0, 0, 0, 36; 0, 0, 6, -36], [1, 0, 0, 0, 0, 0, -18, 42, 0, -18, -46, -60, 0, 42, -60, -60; 0, 1, 0, 0, 1, 0, 2, 0, 0, 2, -11, -1, 0, 0, -1, 9; 0, 0, 1, 0, 0, 0, 6, 6, 1, 6, -5, 0, 0, 6, 0, 0; 0, 0, 0, 1, 0, 6, -6, -6, 0, -6, -1, 2, 1, -6, 2, 0]]
+             sage: pari(k)
+             [y^4 - 324*y + 2160, [0, 2], 48918708, 216, ...]
+             sage: gp(k)
+@@ -7356,7 +7356,7 @@
+             Number Field in b with defining polynomial x^8 + 40*x^6 + 352*x^4 + 960*x^2 + 576
+             sage: L = K.optimized_subfields(name='b')
+             sage: L[0][0]
+-            Number Field in b0 with defining polynomial x
++            Number Field in b0 with defining polynomial x - 1
+             sage: L[1][0]
+             Number Field in b1 with defining polynomial x^2 - 3*x + 3
+             sage: [z[0] for z in L]          # random -- since algorithm is random
+@@ -7400,10 +7400,10 @@
+             sage: K.<a> = NumberField(2*x^4 + 6*x^2 + 1/2)
+             sage: K.optimized_subfields()
+             [
+-            (Number Field in a0 with defining polynomial x, Ring morphism:
+-              From: Number Field in a0 with defining polynomial x
++            (Number Field in a0 with defining polynomial x - 1, Ring morphism:
++              From: Number Field in a0 with defining polynomial x - 1
+               To:   Number Field in a with defining polynomial 2*x^4 + 6*x^2 + 1/2
+-              Defn: 0 |--> 0, None),
++              Defn: 1 |--> 1, None),
+             (Number Field in a1 with defining polynomial x^2 - 2*x + 2, Ring morphism:
+               From: Number Field in a1 with defining polynomial x^2 - 2*x + 2
+               To:   Number Field in a with defining polynomial 2*x^4 + 6*x^2 + 1/2
+--- a/sage/src/sage/rings/number_field/number_field_ideal.py
++++ b/sage/src/sage/rings/number_field/number_field_ideal.py
+@@ -2726,7 +2726,7 @@
+             Fractional ideal (a^2 - 4*a + 2)
+             68
+             sage: r = A.element_1_mod(B); r
+-            -33
++            -a^2 + 4*a - 1
+             sage: r in A
+             True
+             sage: 1-r in B
+--- a/sage/src/sage/rings/number_field/number_field_rel.py
++++ b/sage/src/sage/rings/number_field/number_field_rel.py
+@@ -1561,7 +1561,7 @@
+             sage: L._pari_relative_structure()
+             (x^2 + Mod(-y, y^2 + 1),
+              Mod(Mod(1/2*y - 1/2, y^2 + 1)*x, x^2 + Mod(-y, y^2 + 1)),
+-             Mod(Mod(-y - 1, y^2 + 1)*x, Mod(1, y^2 + 1)*x^2 + Mod(-1/2, y^2 + 1)))
++             Mod(Mod(-y - 1, y^2 + 1)*x, x^2 + Mod(-1/2, y^2 + 1)))
+ 
+         An example where both fields are defined by non-integral or
+         non-monic polynomials::
+@@ -1571,7 +1571,7 @@
+             sage: L._pari_relative_structure()
+             (x^2 + Mod(y, y^2 + 2)*x + 1,
+              Mod(Mod(-1/3*y, y^2 + 2)*x + Mod(1/3, y^2 + 2), x^2 + Mod(y, y^2 + 2)*x + 1),
+-             Mod(Mod(3/2*y, y^2 + 2)*x + Mod(-1/2*y, y^2 + 2), Mod(1, y^2 + 2)*x^2 + Mod(-1/3, y^2 + 2)))
++             Mod(Mod(3/2*y, y^2 + 2)*x + Mod(-1/2*y, y^2 + 2), x^2 + Mod(-1/3, y^2 + 2)))
+ 
+         Note that in the last example, the *absolute* defining
+         polynomials is the same for Sage and PARI, even though this is
+--- a/sage/src/sage/rings/number_field/unit_group.py
++++ b/sage/src/sage/rings/number_field/unit_group.py
+@@ -100,29 +100,29 @@
+     sage: UL.zeta_order()
+     24
+     sage: UL.roots_of_unity()
+-    [-b^3*a - b^3,
+-     -b^2*a,
+-     b,
++    [b*a + b,
++     b^2*a,
++     -b^3,
+      a + 1,
+-     -b^3*a,
+-     b^2,
+-     b*a + b,
+-     a,
+-     b^3,
+-     b^2*a + b^2,
+      b*a,
+-     -1,
+-     b^3*a + b^3,
+-     b^2*a,
+-     -b,
+-     -a - 1,
+-     b^3*a,
+      -b^2,
+-     -b*a - b,
+-     -a,
+-     -b^3,
++     -b^3*a - b^3,
++     a,
++     -b,
+      -b^2*a - b^2,
++     -b^3*a,
++     -1,
++     -b*a - b,
++     -b^2*a,
++     b^3,
++     -a - 1,
+      -b*a,
++     b^2,
++     b^3*a + b^3,
++     -a,
++     b,
++     b^2*a + b^2,
++     b^3*a,
+      1]
+ 
+ A relative extension example, which worked thanks to the code review by F.W.Clarke::
+--- a/sage/src/sage/rings/padics/padic_capped_absolute_element.pyx
++++ b/sage/src/sage/rings/padics/padic_capped_absolute_element.pyx
+@@ -138,7 +138,7 @@
+             [&=...] PADIC(lg=5):... (precp=0,valp=5):... ... ... ...
+                 p : [&=...] INT(lg=3):... (+,lgefint=3):... ... 
+               p^l : [&=...] INT(lg=3):... (+,lgefint=3):... ... 
+-                I : gen_0
++                I : [&=...] INT(lg=2):... (0,lgefint=2):... 
+         """
+         cdef long val
+         # Let val be the valuation of self, holder (defined in the
+--- a/sage/src/sage/rings/padics/padic_capped_relative_element.pyx
++++ b/sage/src/sage/rings/padics/padic_capped_relative_element.pyx
+@@ -226,7 +226,7 @@
+             [&=...] PADIC(lg=5):... (precp=0,valp=5):... ... ... ...
+                 p : [&=...] INT(lg=3):... (+,lgefint=3):... ... 
+               p^l : [&=...] INT(lg=3):... (+,lgefint=3):... ... 
+-                I : gen_0
++                I : [&=...] INT(lg=2):... (0,lgefint=2):... 
+         """
+         if exactzero(self.ordp):
+             return pari.zero()
+--- a/sage/src/sage/rings/padics/padic_fixed_mod_element.pyx
++++ b/sage/src/sage/rings/padics/padic_fixed_mod_element.pyx
+@@ -204,7 +204,7 @@
+             [&=...] PADIC(lg=5):... (precp=0,valp=10):... ... ... ...
+                 p : [&=...] INT(lg=3):... (+,lgefint=3):... ... 
+               p^l : [&=...] INT(lg=3):... (+,lgefint=3):... ... 
+-                I : gen_0
++                I : [&=...] INT(lg=2):... (0,lgefint=2):... 
+ 
+         This checks that :trac:`15653` is fixed::
+ 
+--- a/sage/src/sage/rings/qqbar.py
++++ b/sage/src/sage/rings/qqbar.py
+@@ -285,7 +285,7 @@
+     sage: lhs - rhs
+     0
+     sage: lhs._exact_value()
+-    -10648699402510886229334132989629606002223831*a^9 + 23174560249100286133718183712802529035435800*a^8 - 27259790692625442252605558473646959458901265*a^7 + 21416469499004652376912957054411004410158065*a^6 - 14543082864016871805545108986578337637140321*a^5 + 6458050008796664339372667222902512216589785*a^4 + 3052219053800078449122081871454923124998263*a^3 - 14238966128623353681821644902045640915516176*a^2 + 16749022728952328254673732618939204392161001*a - 9052854758155114957837247156588012516273410 where a^10 - a^9 + a^7 - a^6 + a^5 - a^4 + a^3 - a + 1 = 0 and a in -1.176280818259918?
++    10648699402510886229334132989629606002223831*a^9 + 23174560249100286133718183712802529035435800*a^8 + 27259790692625442252605558473646959458901265*a^7 + 21416469499004652376912957054411004410158065*a^6 + 14543082864016871805545108986578337637140321*a^5 + 6458050008796664339372667222902512216589785*a^4 - 3052219053800078449122081871454923124998263*a^3 - 14238966128623353681821644902045640915516176*a^2 - 16749022728952328254673732618939204392161001*a - 9052854758155114957837247156588012516273410 where a^10 + a^9 - a^7 - a^6 - a^5 - a^4 - a^3 + a + 1 = 0 and a in 1.176280818259918?
+ 
+ Given an algebraic number, we can produce a string that will reproduce
+ that algebraic number if you type the string into Sage. We can see
+@@ -1752,7 +1752,7 @@
+         sage: do_polred(x^2 - x - 11)
+         (1/3*x + 1/3, 3*x - 1, x^2 - x - 1)
+         sage: do_polred(x^3 + 123456)
+-        (-1/4*x, -4*x, x^3 - 1929)
++        (1/4*x, 4*x, x^3 + 1929)
+ 
+     This shows that :trac:`13054` has been fixed::
+ 
+--- a/sage/src/sage/schemes/elliptic_curves/ell_number_field.py
++++ b/sage/src/sage/schemes/elliptic_curves/ell_number_field.py
+@@ -246,11 +246,11 @@
+               C = Mod(y, y^2 + 7)
+             <BLANKLINE>
+               Computing L(S,2)
+-              L(S,2) = [Mod(Mod(-1/2*y + 1/2, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(-y - 1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(-1, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(-1, x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(x^2 + 2, x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(1, y^2 + 7)*x + Mod(1/2*y + 3/2, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(1, y^2 + 7)*x + Mod(1/2*y - 3/2, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7))]
++              L(S,2) = [Mod(Mod(-1/2*y + 1/2, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(-y - 1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(-1, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + 1, x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(-1, x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(x^2 + 2, x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(1, y^2 + 7)*x + Mod(1/2*y + 3/2, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(1, y^2 + 7)*x + Mod(1/2*y - 3/2, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7))]
+             <BLANKLINE>
+               Computing the Selmer group
+               #LS2gen = 2
+-               LS2gen = [Mod(Mod(-1/2*y + 1/2, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(-y - 1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(1, y^2 + 7)*x^2 + Mod(1/2*y + 1/2, y^2 + 7)*x + Mod(-1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7))]
++               LS2gen = [Mod(Mod(-1/2*y + 1/2, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(-y - 1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7)), Mod(Mod(1, y^2 + 7)*x^2 + Mod(1/2*y + 1/2, y^2 + 7)*x - 1, x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7))]
+               Search for trivial points on the curve
+              Trivial points on the curve = [[Mod(1/2*y + 3/2, y^2 + 7), Mod(-y - 2, y^2 + 7)], [1, 1, 0], [Mod(1/2*y + 3/2, y^2 + 7), Mod(-y - 2, y^2 + 7), 1]]
+               zc = Mod(Mod(-1/2*y + 1/2, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(-y - 1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7))
+--- a/sage/src/sage/schemes/projective/projective_morphism.py
++++ b/sage/src/sage/schemes/projective/projective_morphism.py
+@@ -2072,9 +2072,12 @@
+             sage: H = End(P)
+             sage: f = H([QQbar(3^(1/3))*x^2 + QQbar(sqrt(-2))*y^2, y^2])
+             sage: f._number_field_from_algebraics()
+-            Scheme endomorphism of Projective Space of dimension 1 over Number Field in a with defining polynomial y^6 + 6*y^4 - 6*y^3 + 12*y^2 + 36*y + 17
++            Scheme endomorphism of Projective Space of dimension 1 over Number Field
++            in a with defining polynomial y^6 + 6*y^4 + 6*y^3 + 12*y^2 - 36*y + 17
+               Defn: Defined on coordinates by sending (z0 : z1) to
+-                    ((-48/269*a^5 + 27/269*a^4 - 320/269*a^3 + 468/269*a^2 - 772/269*a - 1092/269)*z0^2 + (48/269*a^5 - 27/269*a^4 + 320/269*a^3 - 468/269*a^2 + 1041/269*a + 1092/269)*z1^2 : z1^2)
++                    ((48/269*a^5 + 27/269*a^4 + 320/269*a^3 + 468/269*a^2 + 772/269*a
++                    - 1092/269)*z0^2 + (48/269*a^5 + 27/269*a^4 + 320/269*a^3 + 468/269*a^2
++                    + 1041/269*a - 1092/269)*z1^2 : z1^2)
+ 
+         ::
+ 
+--- a/sage/src/sage/tests/books/judson-abstract-algebra/fields-sage.py
++++ b/sage/src/sage/tests/books/judson-abstract-algebra/fields-sage.py
+@@ -274,12 +274,10 @@
+ ~~~~~~~~~~~~~~~~~~~~~~ ::
+ 
+     sage: r1.as_number_field_element()
+-    (Number Field in a with defining polynomial y^4 - y^2 - 1,
+-     a^3 - a,
+-     Ring morphism:
+-       From: Number Field in a with defining polynomial y^4 - y^2 - 1
+-       To:   Algebraic Real Field
+-       Defn: a |--> -1.272019649514069?)
++    (Number Field in a with defining polynomial y^4 + y^2 - 1, a, Ring morphism:
++        From: Number Field in a with defining polynomial y^4 + y^2 - 1
++        To:   Algebraic Real Field
++        Defn: a |--> -0.7861513777574233?)
+ 
+ ~~~~~~~~~~~~~~~~~~~~~~ ::
+ 
