@@ -28,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  if os.path.exists('/usr/lib/libblas.dll.a'):
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -30,10 +30,9 @@
+@@ -31,10 +31,9 @@
  
  
  # CBLAS can be one of multiple implementations

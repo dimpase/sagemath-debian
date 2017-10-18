@@ -17,15 +17,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -483,7 +483,7 @@
-     file_list = []
+@@ -468,7 +468,7 @@
+     extra_sources = []
      for fname in additional_source_files:
          fname = fname.replace("$SAGE_SRC", SAGE_SRC)
 -        fname = fname.replace("$SAGE_LOCAL", SAGE_LOCAL)
 +        fname = fname.replace("$SAGE_LOCAL", '/usr/include')
-         if fname.startswith(os.path.sep):
-             file_list.append("'"+fname+"'")
-         else:
+         extra_sources.append(fname)
+ 
+     # Now do the actual build, directly calling Cython and distutils
 --- a/sage/src/sage/libs/lcalc/lcalc_sage.h
 +++ b/sage/src/sage/libs/lcalc/lcalc_sage.h
 @@ -1,4 +1,4 @@

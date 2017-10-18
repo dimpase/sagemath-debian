@@ -11,7 +11,7 @@ Forwarded: https://trac.sagemath.org/ticket/22243
 
 --- a/sage/src/sage/rings/polynomial/pbori.pyx
 +++ b/sage/src/sage/rings/polynomial/pbori.pyx
-@@ -2378,8 +2378,8 @@
+@@ -2379,8 +2379,8 @@
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: m = x.lm()
              sage: m.stable_hash()
@@ -22,7 +22,7 @@ Forwarded: https://trac.sagemath.org/ticket/22243
  
          .. NOTE::
  
-@@ -4652,8 +4652,8 @@
+@@ -4653,8 +4653,8 @@
  
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: x.stable_hash()
@@ -33,7 +33,7 @@ Forwarded: https://trac.sagemath.org/ticket/22243
  
          .. NOTE::
  
-@@ -5747,8 +5747,8 @@
+@@ -5748,8 +5748,8 @@
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: s = x.set()
              sage: s.stable_hash()
