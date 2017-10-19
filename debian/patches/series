@@ -3,6 +3,7 @@
 u0-version-cython-0.26.patch               #23360
 u0-version-scipy-0.19.1.patch              #23594
 u0-version-sphinx-1.6.patch                #23023
+u0-version-numpy-1.13.patch                #24063
 u0-version-arb-2.11.1.patch
 
 # Patches that have open upstream tickets
