@@ -1,0 +1,113 @@
+From 3a5b70d9bc38575e2d77ab8a4f73d7f53b31d1bc Mon Sep 17 00:00:00 2001
+From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Wed, 18 Oct 2017 14:49:22 +0200
+Subject: Don't use NumPy functions on Sage Elements
+
+---
+ src/sage/matrix/matrix_double_dense.pyx | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+From bfb8061c316a0fc30ebd1730073f0cacf5d77539 Mon Sep 17 00:00:00 2001
+From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Wed, 18 Oct 2017 15:22:20 +0200
+Subject: Silence warnings from old matplotlib + new numpy
+
+---
+ src/sage/all.py | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+--- a/sage/src/sage/matrix/matrix_double_dense.pyx
++++ b/sage/src/sage/matrix/matrix_double_dense.pyx
+@@ -2567,7 +2567,7 @@
+             unitary = T._is_lower_triangular(tol)
+             if unitary:
+                 for 0 <= i < self._nrows:
+-                    if numpy.absolute(numpy.absolute(T.get_unsafe(i,i)) - 1) > tol:
++                    if abs(abs(T.get_unsafe(i,i)) - 1) > tol:
+                         unitary = False
+                         break
+         elif algorithm == 'naive':
+@@ -2576,11 +2576,11 @@
+             for i from 0 <= i < self._nrows:
+                 # off-diagonal, since P is Hermitian
+                 for j from 0 <= j < i:
+-                    if numpy.absolute(P.get_unsafe(i,j)) > tol:
++                    if abs(P.get_unsafe(i,j)) > tol:
+                         unitary = False
+                         break
+                 # at diagonal
+-                if numpy.absolute(P.get_unsafe(i,i)-1) > tol:
++                if abs(P.get_unsafe(i,i) - 1) > tol:
+                     unitary = False
+                 if not unitary:
+                     break
+@@ -2619,7 +2619,7 @@
+         cdef Py_ssize_t i, j
+         for i in range(self._nrows):
+             for j in range(i+1, self._ncols):
+-                if numpy.absolute(self.get_unsafe(i,j)) > tol:
++                if abs(self.get_unsafe(i,j)) > tol:
+                     return False
+         return True
+ 
+@@ -2777,14 +2777,14 @@
+             hermitian = T._is_lower_triangular(tol)
+             if hermitian:
+                 for i in range(T._nrows):
+-                    if numpy.absolute(numpy.imag(T.get_unsafe(i,i))) > tol:
++                    if abs(T.get_unsafe(i,i).imag()) > tol:
+                         hermitian = False
+                         break
+         elif algorithm == 'naive':
+             hermitian = True
+             for i in range(self._nrows):
+                 for j in range(i+1):
+-                    if numpy.absolute(self.get_unsafe(i,j) - self.get_unsafe(j,i).conjugate()) > tol:
++                    if abs(self.get_unsafe(i,j) - self.get_unsafe(j,i).conjugate()) > tol:
+                         hermitian = False
+                         break
+                 if not hermitian:
+@@ -2976,7 +2976,7 @@
+             # two products are Hermitian, need only check lower triangle
+             for i in range(self._nrows):
+                 for j in range(i+1):
+-                    if numpy.absolute(left.get_unsafe(i,j) - right.get_unsafe(i,j)) > tol:
++                    if abs(left.get_unsafe(i,j) - right.get_unsafe(i,j)) > tol:
+                         normal = False
+                         break
+                 if not normal:
+--- a/sage/src/sage/all.py
++++ b/sage/src/sage/all.py
+@@ -310,21 +310,25 @@
+     O.close()
+ 
+ 
+-# Set a new random number seed as the very last thing
+-# (so that printing initial_seed() and using that seed
+-# in set_random_seed() will result in the same sequence you got at
+-# Sage startup).
+-set_random_seed()
+-
+ import warnings
+ warnings.filters.remove(('ignore', None, DeprecationWarning, None, 0))
+ # Ignore all deprecations from IPython etc.
+ warnings.filterwarnings('ignore',
+     module='.*(IPython|ipykernel|jupyter_client|jupyter_core|nbformat|notebook|ipywidgets|storemagic)')
+-# but not those that have OUR deprecation warnings
++# Ignore warnings due to matplotlib-1.5 together with numpy-1.13
++warnings.filterwarnings('ignore', module='matplotlib[.]contour|numpy[.]ma[.]core')
++# However, be sure to keep OUR deprecation warnings
+ warnings.filterwarnings('default',
+     '[\s\S]*See http://trac.sagemath.org/[0-9]* for details.')
+ 
++
++# Set a new random number seed as the very last thing
++# (so that printing initial_seed() and using that seed
++# in set_random_seed() will result in the same sequence you got at
++# Sage startup).
++set_random_seed()
++
++
+ # From now on it is ok to resolve lazy imports
+ sage.misc.lazy_import.finish_startup()
+ 

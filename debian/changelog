@@ -12,6 +12,10 @@ sagemath (8.1~beta8-1) UNRELEASED; urgency=medium
   * New patches:
     - d0-pari-2.9-revert-23544.patch
 
+  [ Ximin Luo ]
+  * New patches:
+    - u0-version-numpy-1.13.patch
+
  -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 16 Oct 2017 20:14:41 +0200
 
 sagemath (8.1~beta7-1) experimental; urgency=medium
