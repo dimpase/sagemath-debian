@@ -38,7 +38,7 @@ Build-Depends:
  libfreetype6-dev,
  libgc-dev,
  libgcrypt-dev,
- libgd2-noxpm-dev | libgd2-xpm-dev,
+ libgd-dev,
  libgf2x-dev,
  libgiac-dev (>= 1.2.3.25+dfsg1-3),
  libgivaro-dev (>= 4.0.2-7~),
