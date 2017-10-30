@@ -107,7 +107,7 @@ There are three cases:
   You'll need to re-run the build again. First, make sure you've followed any
   applicable commands from the "Rewinding the build" section above. Then:
 
-  $ DEB_BUILD_OPTIONS=nodoc debian/rules build
+  $ debian/rules override_dh_auto_build-arch
 
   This *should* only build the changed files. However we explicitly avoid
   rebuilding the documentation, because incremental docbuild is currently
@@ -165,6 +165,17 @@ Sympy (see https://trac.sagemath.org/ticket/23496,
 
 sage -t --long src/sage/symbolic/expression.pyx  # 8 doctests failed
 sage -t --long src/sage/tests/french_book/recequadiff.py  # 2 doctests failed
+
+GLPK verbosity patch:
+
+sage -t --long src/sage/numerical/backends/glpk_exact_backend.pyx  # 1 doctest failed
+sage -t --long src/sage/numerical/backends/generic_backend.pyx  # 1 doctest failed
+sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 4 doctests failed
+
+This patch needs to be upstreamed to GLPK:
+https://git.sagemath.org/sage.git/tree/build/pkgs/glpk/patches/glp_exact_verbosity.patch?h=develop
+More discussion in the second half of:
+https://lists.alioth.debian.org/pipermail/debian-science-sagemath/2017-October/001086.html
 
 
 Manual testing
