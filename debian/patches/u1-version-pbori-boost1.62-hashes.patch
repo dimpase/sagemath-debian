@@ -22,7 +22,7 @@ Forwarded: https://trac.sagemath.org/ticket/22243
  
          .. NOTE::
  
-@@ -4653,8 +4653,8 @@
+@@ -4645,8 +4645,8 @@
  
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: x.stable_hash()
@@ -33,7 +33,7 @@ Forwarded: https://trac.sagemath.org/ticket/22243
  
          .. NOTE::
  
-@@ -5748,8 +5748,8 @@
+@@ -5728,8 +5728,8 @@
              sage: B.<x,y> = BooleanPolynomialRing()
              sage: s = x.set()
              sage: s.stable_hash()

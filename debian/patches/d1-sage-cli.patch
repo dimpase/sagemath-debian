@@ -395,7 +395,7 @@ Forwarded: not-needed
      shift
      sage-cleaner &>/dev/null &
 @@ -801,34 +563,15 @@
-    exit 0
+     exit 0
  fi
  
 -if [ "$1" = '-b' ]; then
@@ -409,8 +409,8 @@ Forwarded: not-needed
 -fi
 -
  if [ "$1" = '-r' ]; then
-    shift
-    interactive_sage
+     shift
+     interactive_sage
  fi
  
 -if [ "$1" = '-ba' -o "$1" = '-ba-force' -o "$1" = '--ba-force' ]; then

@@ -1,7 +1,5 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
-u0-version-pynac-0.7.12.patch              #23950
-u0-version-numpy-1.13.patch                #24063
 
 # Patches that have open upstream tickets
 u1-version-pbori-boost1.62-hashes.patch    #22243

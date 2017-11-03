@@ -1,6 +1,6 @@
 --- a/sage/src/sage/graphs/graph_generators.py
 +++ b/sage/src/sage/graphs/graph_generators.py
-@@ -880,10 +880,10 @@
+@@ -881,10 +881,10 @@
  
              sage: gen = graphs.nauty_geng("4", debug=True)
              sage: print(next(gen))
@@ -15,7 +15,7 @@
          if debug:
 --- a/sage/src/sage/graphs/digraph_generators.py
 +++ b/sage/src/sage/graphs/digraph_generators.py
-@@ -484,7 +484,7 @@
+@@ -548,7 +548,7 @@
  
          nauty_input +=  " "+str(n) +" "
  
