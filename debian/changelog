@@ -1,7 +1,7 @@
 sagemath (8.0-9) UNRELEASED; urgency=medium
 
   [ Tobias Hansen ]
-  * Changed (Build-)Depends:
+  * Changed (Build-)Depends: (Closes: #880781)
     - (libgd2-noxpm-dev | libgd2-xpm-dev) to libgd-dev
 
  -- Ximin Luo <infinity0@debian.org>  Fri, 10 Nov 2017 11:13:14 +0100
