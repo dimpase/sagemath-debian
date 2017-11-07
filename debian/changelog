@@ -18,6 +18,9 @@ sagemath (8.1~beta9-1) UNRELEASED; urgency=medium
   * Remove patches:
     - u0-version-pynac-0.7.12.patch
 
+  [ Julien Puydt ]
+  * Bump d/watch to version 4.
+
  -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 16 Oct 2017 20:14:41 +0200
 
 sagemath (8.1~beta7-1) experimental; urgency=medium
