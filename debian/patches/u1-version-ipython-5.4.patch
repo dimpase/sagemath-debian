@@ -4,9 +4,9 @@ Description: Update to IPython 5.4
 Author: Ximin Luo <infinity0@debian.org>
 Bug: https://trac.sagemath.org/ticket/23125
 
---- a/src/sage/interfaces/sage0.py
-+++ b/src/sage/interfaces/sage0.py
-@@ -160,7 +160,7 @@ class Sage(ExtraTabCompletion, Expect):
+--- a/sage/src/sage/interfaces/sage0.py
++++ b/sage/src/sage/interfaces/sage0.py
+@@ -161,7 +161,7 @@
                  '--no-term-title',
                  '--simple-prompt',
              ])
@@ -15,9 +15,9 @@ Bug: https://trac.sagemath.org/ticket/23125
              if init_code is None:
                  init_code = ['from six.moves import cPickle']
  
---- a/src/sage/repl/configuration.py
-+++ b/src/sage/repl/configuration.py
-@@ -11,7 +11,7 @@ the IPython simple prompt is being used::
+--- a/sage/src/sage/repl/configuration.py
++++ b/sage/src/sage/repl/configuration.py
+@@ -11,7 +11,7 @@
      sage: output = pexpect.run(
      ....:     'bash -c \'echo "{0}" | sage\''.format(cmd),
      ....: )
@@ -26,9 +26,9 @@ Bug: https://trac.sagemath.org/ticket/23125
      True
  """
  
---- a/src/sage/doctest/test.py
-+++ b/src/sage/doctest/test.py
-@@ -360,7 +360,7 @@ Test the ``--debug`` option::
+--- a/sage/src/sage/doctest/test.py
++++ b/sage/src/sage/doctest/test.py
+@@ -379,7 +379,7 @@
          s...: b = 5
          s...: a + b
          8
@@ -37,9 +37,9 @@ Bug: https://trac.sagemath.org/ticket/23125
      <BLANKLINE>
      Returning to doctests...
      **********************************************************************
---- a/src/sage/tests/cmdline.py
-+++ b/src/sage/tests/cmdline.py
-@@ -386,7 +386,7 @@ def test_executable(args, input="", timeout=100.0, **kwds):
+--- a/sage/src/sage/tests/cmdline.py
++++ b/sage/src/sage/tests/cmdline.py
+@@ -387,7 +387,7 @@
          **********************************************************************
          Previously executed commands:
              s...: assert True == False
@@ -48,4 +48,3 @@ Bug: https://trac.sagemath.org/ticket/23125
          <BLANKLINE>
          Returning to doctests...
          **********************************************************************
-
