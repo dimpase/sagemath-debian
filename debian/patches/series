@@ -8,7 +8,7 @@ u1-fix-atrocious-symlink-logic.patch       #22444
 u1-looser-doctest-basename.patch           #22445
 u1-scripts-dir.patch                       #22731
 # Not yet in Debian, uncomment when it is:
-#u1-version-ipython-5.4.patch              #23125
+u1-version-ipython-5.4.patch               #23125
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
 u1-version-giac-1.2.3.57.patch             #TODO
 

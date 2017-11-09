@@ -21,6 +21,10 @@ sagemath (8.1~beta9-1) UNRELEASED; urgency=medium
   [ Julien Puydt ]
   * Bump d/watch to version 4.
 
+  [ Ximin Luo ]
+  * New patches:
+    - u1-version-ipython-5.4.patch
+
  -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 16 Oct 2017 20:14:41 +0200
 
 sagemath (8.1~beta7-1) experimental; urgency=medium
