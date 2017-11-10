@@ -359,13 +359,23 @@ SBUILD += --extra-repository="deb http://incoming.debian.org/debian-buildd build
 SBUILD_REPO_EXPERIMENTAL += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-experimental main"
 endif
 
-# Temporary workarounds that will be removed eventually:
+SBUILD_REPO_DEBSCISAGE = \
+	  --chroot-setup-commands='apt-get install -y ca-certificates' \
+	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
+	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
+
+# If the sbuild rules fail for you, try these workarounds:
 #
-# 1 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
-#   This helps to avoid http errors due to the mirror network being shitty and apt not doing retries
+# 0 https://wiki.debian.org/sbuild#Using_aliases
+#   if schroot complains about non-existent chroot
 #
-# 2 Do the first part of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=817236#5
-#   Sage needs it due to its pexpect etc stuff
+# 1 bottom of https://wiki.debian.org/DebianScience/Sage
+#   for misc other fixes
+#
+# 2 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
+#   If you get download errors and sbuild isn't smart enough to ask apt to retry
+#
+
 release: $(REBUILD_RELEASE)
 	! $(is_prerelease)
 	cd .. && $(SBUILD) \
@@ -374,17 +384,22 @@ release: $(REBUILD_RELEASE)
 
 release-experimental: $(REBUILD_RELEASE)
 	! $(is_prerelease)
-	cd .. && $(SBUILD) \
+	cd .. && $(SBUILD) -d experimental \
 	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
 	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
-release-deb-sci-sage: $(REBUILD_RELEASE)
+prerelease-unstable: $(REBUILD_RELEASE)
 	$(is_prerelease)
-	cd .. && $(SBUILD) \
+	cd .. && $(SBUILD) -d UNRELEASED \
+	  $(SBUILD_REPO_DEBSCISAGE)  --build-dep-resolver=aspcud \
+	  $(SBUILD_EXTRA_FLAGS) \
+	  "sagemath_$(DEB_VERSION).dsc"
+
+prerelease: $(REBUILD_RELEASE)
+	$(is_prerelease)
+	cd .. && $(SBUILD) -d UNRELEASED \
 	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
-	  --chroot-setup-commands='apt-get install -y apt-transport-https' \
-	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
-	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
+	  $(SBUILD_REPO_DEBSCISAGE) \
 	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
