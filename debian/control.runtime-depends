@@ -35,7 +35,7 @@
  python-backports-abc,
  python-backports-shutil-get-terminal-size,
  python-backports.ssl-match-hostname,
- python-brial (>= 0.8.5),
+ python-brial (>= 1.0.1),
  python-configparser,
  python-crypto,
  python-cvxopt,
