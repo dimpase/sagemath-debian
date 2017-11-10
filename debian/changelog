@@ -1,11 +1,11 @@
-sagemath (8.0-10) UNRELEASED; urgency=medium
+sagemath (8.0-10) unstable; urgency=medium
 
   * New patches:
     - u0-version-arb-2.11.1.patch
     - u0-version-numpy-1.13.patch
   * Temporarily raise test failure limit to 60, until next major version.
 
- -- Ximin Luo <infinity0@debian.org>  Fri, 10 Nov 2017 18:39:02 +0100
+ -- Ximin Luo <infinity0@debian.org>  Fri, 10 Nov 2017 19:54:20 +0100
 
 sagemath (8.0-9) unstable; urgency=medium
 
