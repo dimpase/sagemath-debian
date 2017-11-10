@@ -1,4 +1,4 @@
-sagemath (8.0-9) UNRELEASED; urgency=medium
+sagemath (8.0-9) unstable; urgency=medium
 
   [ Tobias Hansen ]
   * Changed (Build-)Depends: (Closes: #880781)
@@ -8,7 +8,7 @@ sagemath (8.0-9) UNRELEASED; urgency=medium
   * New patches:
     - u1-version-ipython-5.4.patch
 
- -- Ximin Luo <infinity0@debian.org>  Fri, 10 Nov 2017 11:13:14 +0100
+ -- Ximin Luo <infinity0@debian.org>  Fri, 10 Nov 2017 14:45:27 +0100
 
 sagemath (8.0-8) unstable; urgency=medium
 
