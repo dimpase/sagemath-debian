@@ -4,7 +4,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -89,7 +89,6 @@
+@@ -97,7 +97,6 @@
  SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
  
  #---------------------------------------------------------

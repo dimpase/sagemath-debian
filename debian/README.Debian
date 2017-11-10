@@ -14,8 +14,9 @@ are summarised below; see the respective packages for more details.
 From web-based notebooks, the default viewer for 3D plots (JSmol) is currently
 unavailable in Debian, because it does not satisfy the Debian Free Software
 Guidelines. It may be possible to resolve this, but it would take a lot of work
-- see the jmol package documentation for details. As a work-around, you may
-explicitly specify a different viewer; either "canvas3d" or "tachyon".
+- see the jmol package documentation for details. As a work-around, you can
+specify a different viewer; one of "threejs", "canvas3d" (SageNB only) or
+"tachyon".
 
 In the standard Sage command-line interface, the default viewer is Jmol (the
 Java counterpart to JSmol) and this should work fine.

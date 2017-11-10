@@ -1,3 +1,107 @@
+sagemath (8.0-8) unstable; urgency=medium
+
+  [ Ximin Luo ]
+  * Set a higher test timeout for slower architectures.
+  * Don't ignore timed-out tests on i386, they work fine.
+  * Re-enable parallel docbuild but using subprocess instead.
+
+  [ Tobias Hansen ]
+  * Add upstream patch to build with Sphinx (>= 1.6):
+    - u0-version-sphinx-1.6.patch (Closes: #872259)
+  * Print messages explaining why tests do/don't fail.
+  * Organize d/rules into sections.
+
+ -- Tobias Hansen <thansen@debian.org>  Wed, 20 Sep 2017 07:18:46 +0000
+
+sagemath (8.0-7) unstable; urgency=medium
+
+  * Add patch u0-version-scipy-0.19.1.patch from upstream.
+  * Remove parts of u2-fix-less-trivial-test-cases.patch which are
+    included in u0-version-scipy-0.19.1.patch.
+  * Depend on scipy >= 0.19.1.
+
+ -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 20:01:46 +0000
+
+sagemath (8.0-6) unstable; urgency=medium
+
+  * Use pkg-config to check for openblas|atlas in pruner, the old check
+    broke with the multiarchified openblas 0.2.20+ds-3 and
+    atlas 3.10.3-4.
+  * Build with openblas on supported architectures and with atlas on
+    the others.
+
+ -- Tobias Hansen <thansen@debian.org>  Sun, 10 Sep 2017 18:03:14 +0100
+
+sagemath (8.0-5) unstable; urgency=medium
+
+  * Tweak the test failure limits to avoid unnecessary FTBFS.
+
+ -- Ximin Luo <infinity0@debian.org>  Sun, 27 Aug 2017 22:12:28 +0200
+
+sagemath (8.0-4) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Relax the runtime dependencies.
+  * Deduplicate the documentation using rdfind(1).
+
+ -- Ximin Luo <infinity0@debian.org>  Sun, 27 Aug 2017 16:00:52 +0200
+
+sagemath (8.0-3) experimental; urgency=medium
+
+  * Fix FTBFS everywhere caused by bad Makefile syntax for running tests.
+  * Add a pkg.sagemath.nolongcheck build profile for skipping --long tests.
+
+ -- Ximin Luo <infinity0@debian.org>  Thu, 17 Aug 2017 15:23:14 +0200
+
+sagemath (8.0-2) experimental; urgency=medium
+
+  * Fix FTBFS everywhere by adding python-dev to Build-Depends since the
+    pruner was updated to check for that instead of python-2.7.pc.
+
+ -- Ximin Luo <infinity0@debian.org>  Thu, 17 Aug 2017 11:59:21 +0200
+
+sagemath (8.0-1) experimental; urgency=medium
+
+  [ Tobias Hansen ]
+  * New upstream version (Closes: #870688).
+  * New (Build-)Depends:
+    - cypari2
+  * Remove patches (applied upstream):
+    - u0-fix-proper-scipy-rtol.patch
+    - u0-version-r-3.3.3.patch
+    - u0-version-singular-4.1.0p2.patch
+    - u0-version-singular-4.1.0p3.patch
+    - u0-sphinx-1.5.patch
+    - u1-fix-use-lexists-not-exists.patch
+    - u1-version-ecm-7.patch
+    - u1-version-planarity-3.patch
+    - df-sagedoc_avoid_exception.patch
+  * Patches with non-trivial modifications:
+    - u2-allow-override-sage-local.patch:
+      May need further edits after https://trac.sagemath.org/ticket/21479
+    - d0-libgap-sage.patch
+    - d0-pari-stackwarn.patch
+    - d0-paths.patch
+    - d0-singular.patch
+    - d1-install-paths.patch
+    - d1-sage-env.patch
+  * New patches:
+    - df-revert-lazy-imports-22755.patch
+    - u0-version-cython-0.26.patch
+  * Decrease number of allowed test failures from 80 to 40.
+
+  [ Ximin Luo ]
+  * Update to latest Standards-Version; no changes required.
+  * Split arch-dep vs arch-indep build and test targets more efficiently.
+  * New patches:
+    - u1-version-giac-1.2.3.57.patch
+    - u2-workaround-sympow-malloc-perturb.patch
+
+  [ Julien Puydt ]
+  * Make searching for python check only the major version (Closes: #871794).
+
+ -- Ximin Luo <infinity0@debian.org>  Wed, 16 Aug 2017 20:25:45 +0200
+
 sagemath (7.6-3) unstable; urgency=medium
 
   * New patches:

@@ -2,9 +2,6 @@ Description: Install to Debian paths
  TODO: upstream hard-codes "site-packages" in a bunch of places; these should
  be fixed to use SAGE_LIB instead and forwarded upstream. Then this patch could
  be a lot smaller.
- .
- The multidocs.py patch looks like a Sage upstream bug, that probably needs to
- be forwarded.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -23,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      from sage.misc.sageinspect import loadable_module_extension
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -174,9 +174,9 @@
+@@ -196,9 +196,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -35,29 +32,20 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +                "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
                }
  
- import pkgconfig
-@@ -202,7 +202,7 @@
- 
-     m.extra_compile_args = m.extra_compile_args + extra_compile_args
-     m.extra_link_args = m.extra_link_args + extra_link_args
--    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
-+    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib"), '/usr/lib']
-     m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
- 
  
 --- a/sage/sage
 +++ b/sage/sage
-@@ -22,6 +22,7 @@
- # automatically.
- #SAGE_ROOT=/path/to/sage-version
+@@ -16,6 +16,7 @@
+ # along with this program; if not, write to the Free Software
+ # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  
 +if test -n "$SAGE_LOCAL"; then export PATH="$SAGE_LOCAL/bin:$PATH"; fi
  
- 
- # Resolve all symbolic links in a filename.  This more or less behaves
+ # Set SAGE_ROOT to the location of the sage install, i.e. the directory
+ # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -103,9 +103,9 @@
+@@ -104,9 +104,9 @@
  except AttributeError:  # in case of use inside virtualenv
      sitepackages_dirs = [os.path.join(os.path.dirname(site.__file__),
                                       'site-packages')]
@@ -69,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  _add_variable_or_fallback('SAGE_CYTHONIZED', opj('$SAGE_ROOT', 'src', 'build', 'cythonized'))
  
-@@ -213,8 +213,8 @@
+@@ -222,8 +222,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -82,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1006,8 +1006,7 @@
+@@ -1025,8 +1025,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -208,51 +196,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = '<a href="/src/%s" target="_new">src/sage/%s</a>'%(fname,fname)
          else:
              file = filename
---- a/sage/src/sage_setup/docbuild/ext/multidocs.py
-+++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -283,7 +283,7 @@
-             """
-             app.builder.info(bold('linking _static directory.'))
-             static_dir = os.path.join(app.builder.outdir, '_static')
--            master_static_dir = os.path.join('..', '_static')
-+            master_static_dir = os.path.join('..', '..', '_static')
-             if os.path.lexists(static_dir):
-                 if os.path.isdir(static_dir) and not os.path.islink(static_dir):
-                     shutil.rmtree(static_dir)
 --- a/sage/src/Makefile.in
 +++ b/sage/src/Makefile.in
-@@ -40,7 +40,7 @@
- 		   SAGE_BUILD_DIR=/doesnotexist							\
- 		   SAGE_PKGS=$(abs_top_srcdir)/build/pkgs					\
- 		   SAGE_CYTHONIZED=$(abs_builddir)/build/cythonized				\
--	 && python -u setup.py --no-user-cfg build install)
-+	 && python -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2)
- 
- clean:
- 	@echo "Deleting Sage library build artifacts..."
---- a/sage/src/sage/plot/plot3d/base.pyx
-+++ b/sage/src/sage/plot/plot3d/base.pyx
-@@ -386,19 +386,13 @@
-             if isinstance(backend, BackendIPythonNotebook):
-                 scripts = ( """
- <script src="/nbextensions/threejs/three.min.js"></script>
--<script src="/nbextensions/threejs/OrbitControls.js"></script>
--<script>
--  if ( !window.THREE ) document.write('\
--<script src="https://cdn.rawgit.com/mrdoob/three.js/r80/build/three.min.js"><\/script>\
--<script src="https://cdn.rawgit.com/mrdoob/three.js/r80/examples/js/controls/OrbitControls.js"><\/script>');
--</script>
-+<script src="/nbextensions/threejs/examples/js/controls/OrbitControls.js"></script>
-                 """ )
-             else:
--                from sage.env import SAGE_SHARE
-                 scripts = ( """
--<script src="{0}/threejs/three.min.js"></script>
--<script src="{0}/threejs/OrbitControls.js"></script>
--                """.format( SAGE_SHARE ) )
-+<script src="{0}/three.min.js"></script>
-+<script src="{0}/examples/js/controls/OrbitControls.js"></script>
-+                """.format( "file:///usr/share/javascript/three" ) )
- 
-         b = self.bounding_box()
-         bounds = '[{{"x":{}, "y":{}, "z":{}}}, {{"x":{}, "y":{}, "z":{}}}]'.format(
+@@ -39,7 +39,7 @@
+ 	    SAGE_BUILD_DIR=/doesnotexist                          \
+ 	    SAGE_PKGS=$(abs_top_srcdir)/build/pkgs                \
+ 	    SAGE_CYTHONIZED=$(abs_builddir)/build/cythonized      \
+-	&& sage-python23 -u setup.py --no-user-cfg build install
++	&& sage-python23 -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2
+ 	if [ "$$UNAME" = "CYGWIN" ]; then                         \
+ 	    sage-rebase.sh "$$SAGE_LOCAL" 2>/dev/null;            \
+ 	fi

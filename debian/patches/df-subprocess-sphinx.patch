@@ -1,0 +1,40 @@
+Description: Use subprocess to run parallel sphinx build
+ The upstream sphinx parallel build segfaults because we don't patch Python,
+ see our revert-lazy-import patches for details. (Those reverts are needed to
+ make the serial build not segfault, but the parallel build still segfaults.)
+ .
+ We used to disable parallel build completely, but it was too slow. This
+ alternative method of running the parallel build seems to work OK.
+ .
+ As of SageMath 8.0 the RAM usage seems to be more reasonable (~3-4GB for 4
+ threads), but please complain on the mailing list if this eats your machine.
+Author: Ximin Luo <infinity0@debian.org>
+Forwarded: TBD
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -98,10 +98,9 @@
+         logger.debug(build_command)
+ 
+         # Run Sphinx with Sage's special logger
+-        sys.argv = ["sphinx-build"] + build_command.split()
+-        from .sphinxbuild import runsphinx
++        args = "python -um sage_setup.docbuild.sphinxbuild -N".split() + build_command.split()
+         try:
+-            runsphinx()
++            subprocess.check_call(args)
+         except Exception:
+             # https://bugs.python.org/issue13831Ups, multiprocessing loses the stack trace
+             logger.exception("sphinx job failed:")
+--- a/sage/src/sage_setup/docbuild/sphinxbuild.py
++++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
+@@ -216,3 +216,8 @@
+ 
+     if exception is not None:
+         raise exception
++
++if __name__ == '__main__':
++    import sys
++    sys.argv[0] = "sphinx-build"
++    runsphinx()

@@ -49,7 +49,6 @@ sage_standard_packages = set(subprocess.check_output([
 dico = {
     'appnope': @HAS_APPNOPE@,
     'arb': @HAS_ARB@,
-    'atlas': @HAS_ATLAS@,
     'backports_ssl_match_hostname': @HAS_BACKPORTS_SSL_MATCH_HOSTNAME@,
     'boost_cropped': @HAS_BOOST@,
     'brial': @HAS_POLYBORI@,
@@ -60,6 +59,7 @@ dico = {
     'cliquer': @HAS_CLIQUER@,
     'combinatorial_designs': @HAS_COMBINATORIAL_DESIGNS@,
     'conway_polynomials': @HAS_CONWAY_POLYNOMIALS@,
+    'curl': @HAS_CURL@,
     'cython': @HAS_CYTHON@,
     'ecl': @HAS_ECL@,
     'eclib': @HAS_ECLIB@,
@@ -105,12 +105,13 @@ dico = {
     'nauty': @HAS_NAUTY@,
     'ncurses': @HAS_NCURSES@,
     'ntl': @HAS_NTL@,
-    'openblas': @HAS_OPENBLAS@,
+    'openblas': @HAS_BLAS@,
     'palp': @HAS_PALP@,
     'pari': @HAS_PARI@,
     'pari_galdata': @HAS_PARI_GALDATA@,
     'pari_seadata_small': @HAS_PARI_SEADATA@,
     'patch': @HAS_PATCH@,
+    'pcre': @HAS_PCRE@,
     'pip': @HAS_PIP@,
     'pkgconf': @HAS_PKGCONF@,
     'pkgconfig': @HAS_PKGCONFIG@,
@@ -138,6 +139,7 @@ dico = {
     'threejs': @HAS_THREEJS@,
     'widgetsnbextension': @HAS_WIDGETSNBEXTENSION@,
     'xz': @HAS_XZ@,
+    'yasm': @HAS_YASM@,
     'zeromq': @HAS_ZEROMQ@,
     'zlib': @HAS_ZLIB@,
     'zn_poly': @HAS_ZNPOLY@
@@ -211,6 +213,7 @@ python_modules = [
 
 python_packages_to_modules = {
     'backports_shutil_get_terminal_size': 'backports/shutil_get_terminal_size',
+    'cypari': 'cypari2',
     'enum34': 'enum',
     'pathpy': 'path',
     'pillow': 'PIL',
@@ -221,6 +224,7 @@ python_packages_to_modules = {
 }
 
 unneeded_packages = {
+    'requests', # FIXME(requests): only used to build sphinx, not needed in Debian
     'speaklater'
 }
 

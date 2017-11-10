@@ -8,9 +8,9 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/sage
 +++ b/sage/sage
-@@ -134,6 +134,8 @@
-     exec "$SAGE_ROOT/src/bin/sage" "$@"
+@@ -133,6 +133,8 @@
  elif [ -x "$SAGE_ROOT/local/bin/sage" ]; then # if in a stripped binary
+     # Note in this case we assume that SAGE_LOCAL is the "local" subdirectory
      exec "$SAGE_ROOT/local/bin/sage" "$@"
 +elif [ -x "$SAGE_LOCAL/bin/sage" ]; then # if in a stripped binary
 +    exec "$SAGE_LOCAL/bin/sage" "$@"
@@ -19,16 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -187,7 +187,7 @@
- 
- # SAGE_LOCAL is the installation prefix and can be customized
- if [ -z "$SAGE_LOCAL" ]; then
--    export SAGE_LOCAL="$SAGE_ROOT/local"
-+    export SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
- fi
- 
- # sage-env must know where the Sage's script files are
-@@ -265,7 +265,7 @@
+@@ -267,7 +267,7 @@
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
@@ -39,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -77,7 +77,7 @@
+@@ -78,7 +78,7 @@
      if force:
          value = fallback
      if isinstance(value, six.string_types):
@@ -48,7 +39,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              if isinstance(v, six.string_types):
                  value = value.replace('$'+k, v)
      SAGE_ENV[key] = value
-@@ -114,7 +114,7 @@
+@@ -116,7 +116,7 @@
  
  _add_variable_or_fallback('SAGE_EXTCODE',    opj('$SAGE_SHARE', 'sage', 'ext'))
  _add_variable_or_fallback('SAGE_LOGS',       opj('$SAGE_ROOT', 'logs', 'pkgs'))
@@ -59,14 +50,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  _add_variable_or_fallback('DOT_SAGE',        opj(os.environ.get('HOME','$SAGE_ROOT'), '.sage'))
 --- a/sage/build/make/install
 +++ b/sage/build/make/install
-@@ -7,13 +7,13 @@
- # Assume current directory is SAGE_ROOT/build/make
- export SAGE_ROOT=`cd ../.. && pwd -P`
- if [ -z "$SAGE_LOCAL" ]; then
--    export SAGE_LOCAL="$SAGE_ROOT/local"
-+    export SAGE_LOCAL="${SAGE_LOCAL:-SAGE_ROOT/local}"
- fi
- export SAGE_SRC="$SAGE_ROOT/src"
+@@ -18,7 +18,7 @@
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
@@ -75,7 +59,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_VERSION=`cat $SAGE_ROOT/VERSION.txt | sed 's+.*\ \(.*\),.*+\1+'`
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
-@@ -22,7 +22,7 @@
+@@ -27,7 +27,7 @@
  fi
  export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
  
@@ -86,29 +70,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # seconds since 1970-01-01 in a hidden file called
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -81,12 +81,12 @@
- # Assume current directory is SAGE_ROOT
- SAGE_ROOT=`pwd -P`
- if test -z "$SAGE_LOCAL"; then
--    SAGE_LOCAL="$SAGE_ROOT/local"
-+    SAGE_LOCAL="${SAGE_LOCAL:-$SAGE_ROOT/local}"
+@@ -94,7 +94,7 @@
+     SAGE_LOCAL=local
  fi
  SAGE_SRC="$SAGE_ROOT/src"
- SAGE_SHARE="$SAGE_LOCAL/share"
- SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
 -SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
 +SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
  
  #---------------------------------------------------------
  AX_CHECK_ROOT([AC_MSG_ERROR([You cannot build Sage as root, switch to an unpriviledged user])], [])
---- a/sage/src/sage/repl/ipython_kernel/install.py
-+++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -102,7 +102,7 @@
-                 pass
-             else:
-                 raise
--        os.symlink(src, dst)
-+        os.symlink(os.path.relpath(src, os.path.dirname(dst)), dst)
- 
-     def use_local_mathjax(self):
-         """

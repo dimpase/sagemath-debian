@@ -1,0 +1,55 @@
+Description: Money-patch ipywidgets in the way that Sage upstream expects
+ Sage upstream patches ipywidgets, but this is still being discussed
+ upstream (see Bug below). In the meantime, we can have Sage monkey-patch
+ ipywidgets at runtime, to prevent other users of ipywidgets being affected.
+Author: Ximin Luo <infinity0@debian.org>
+Author: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Bug: https://github.com/jupyter-widgets/ipywidgets/pull/1031
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/repl/ipython_kernel/widgets.py
++++ b/sage/src/sage/repl/ipython_kernel/widgets.py
+@@ -26,13 +26,42 @@
+ 
+ from ipywidgets.widgets import (IntSlider, IntRangeSlider, FloatSlider,
+         FloatRangeSlider, Text, Textarea, ColorPicker, HTML,
+-        Label, HBox, VBox, ValueWidget)
++        Label, HBox, VBox, ValueWidget, Widget)
+ from traitlets import List, Unicode, link
+ 
+ from sage.misc.sage_eval import sage_eval
+ from sage.repl.user_globals import get_globals
+ from sage.plot.colors import Color
+ 
++def __widgets__repr__(self):
++    """
++    Textual representation of this widget, mainly used for testing
++    and debugging.
++    """
++    # List of attributes to show with default values. The attribute
++    # is printed if it exists and its value is not equal to this
++    # default value.
++    attributes = [("value", None),
++                  ("min", None),
++                  ("max", None),
++                  ("step", None),
++                  ("options", None),
++                  ("description", ""),
++                  ("children", [])]
++    r = ""
++    for (attr, default) in attributes:
++        try:
++            v = getattr(self, attr)
++        except AttributeError:
++            continue
++        if default == v:
++            continue
++        if r:
++            r += ", "
++        r += attr + "=" + repr(v)
++    return "%s(%s)" % (type(self).__name__, r)
++Widget.__repr__ = __widgets__repr__
++del __widgets__repr__
+ 
+ class HTMLText(HTML):
+     """

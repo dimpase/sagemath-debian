@@ -7,7 +7,7 @@ Uploaders: Tobias Hansen <thansen@debian.org>,
            Julien Puydt <julien.puydt@laposte.net>,
            Jerome Benoit <calculus@rezozer.net>,
            Ximin Luo <infinity0@debian.org>
-Standards-Version: 3.9.8
+Standards-Version: 4.1.0
 X-Python-Version: 2.7
 Homepage: http://www.sagemath.org/
 Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/sagemath.git
@@ -24,29 +24,28 @@ Build-Depends:
  git,
  gnutls-dev,
  libgap-sage-dev (>= 4.8.6),
- libatlas-base-dev,
  libblas-dev,
  libboost-dev (>= 1.55),
- libbrial-dev (>= 0.8.5-4),
- libbrial-groebner-dev (>= 0.8.5-4),
+ libbrial-dev (>= 0.8.7),
+ libbrial-groebner-dev (>= 0.8.7),
  libcdd-dev (>= 094h),
  libcliquer-dev,
  libec-dev (>= 20170122),
  libecm-dev,
  libflint-arb-dev (>= 2.8.1-2),
  libflint-dev (>= 2.5.2-5+b2),
- libfplll-dev (>= 5.0.3),
+ libfplll-dev (>= 5.1.0-2~sage1),
  libfreetype6-dev,
  libgc-dev,
  libgcrypt-dev,
  libgd2-noxpm-dev | libgd2-xpm-dev,
  libgf2x-dev,
  libgiac-dev (>= 1.2.3.25+dfsg1-3),
- libgivaro-dev (>= 4.0.1-3),
+ libgivaro-dev (>= 4.0.2-7~),
  libglpk-dev,
  libgmp-dev (>= 2:5.1.2),
  libgpg-error-dev,
- libgsl-dev,
+ libgsl-dev (>= 2.4+dfsg-5~),
  libiml-dev,
  liblapack-dev,
  liblfunction-dev,
@@ -58,20 +57,24 @@ Build-Depends:
  libmpfi-dev,
  libmpfr-dev,
  libntl-dev (>= 9.9.1-2),
- libopenblas-dev (>= 0.2.19),
+ libopenblas-dev (>= 0.2.19) [amd64 arm64 armhf i386 powerpc ppc64el ppc64 kfreebsd-i386 kfreebsd-amd64 mips64el sparc64] | libatlas-base-dev,
  libpari-dev (>= 2.9.0),
  libplanarity-dev,
  libpng-dev,
  libppl-dev (>= 1:1.1),
- libpynac-dev (>= 0.7.5),
+ libpynac-dev (>= 0.7.8-2~sage1),
  libratpoints-dev,
  libreadline-dev,
  librw-dev,
+ libsingular4-dev (>= 1:4.1.0-p3),
  libsqlite3-dev,
  libsymmetrica-dev,
  libzn-poly-dev,
  pkg-config,
- python2.7-dev,
+ python-dev,
+ python3-dev,
+ r-base-dev,
+ rdfind,
  scons,
  texlive-latex-base,
  zlib1g-dev,
@@ -93,7 +96,19 @@ Description: Open Source Mathematical Software
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
  RUNTIME_DEPENDS
  sagemath-common (= ${source:Version})
-Recommends: sagemath-doc-en, sagemath-jupyter, sagetex, texlive-latex-base
+Recommends:
+ sagemath-doc-en (= ${source:Version}),
+ sagemath-jupyter (= ${source:Version}),
+ sagetex,
+ texlive-latex-base
+Suggests:
+ gap-design,
+ gap-factint,
+ gap-grape,
+ gap-guava,
+ gap-laguna,
+ gap-sonata,
+ gap-toric
 
 Package: sagemath-common
 Architecture: all

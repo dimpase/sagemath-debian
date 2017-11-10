@@ -1,16 +1,20 @@
-## Maintain 7.4
+## Maintenance in Debian testing
 
 *   Deal with any AUTORM issues mentioned in https://qa.debian.org/developer.php?package=sagemath
 
 ## Current
 
-*   Package red stuff in https://people.debian.org/~thansen/debian-sage-status.html
-    *   ecl, ntl, configparser (not strictly needed, tests seem to work OK)
-
-*   Package red stuff in https://people.debian.org/~thansen/debian-sage-dev-status.html
-    *   ipywidgets, maxima, jupyter-notebook, threejs
+*   See https://wiki.debian.org/DebianScience/Sage#Open_tasks
 
 ## Later
+
+*   Nice-to-have QA stuff:
+    *   autopkgtest test suite
+    *   add a sagemath-dev package to depend on -dev packages that are needed
+        to (e.g.) run tests but not normal use
+
+*   Nice-to-have user stuff:
+    *   rm cython from runtime-depends
 
 *   New packages
     *   thebe
@@ -20,6 +24,7 @@
         * lots of JS deps, need to evaluate
 
 ## Much later / probably never
+
 Low-priority things; we'll probably always have higher-priority things to do:
 
 *   Ugly packages:

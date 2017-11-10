@@ -9,7 +9,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/rings/integer.pyx
 +++ b/sage/src/sage/rings/integer.pyx
-@@ -754,16 +754,6 @@
+@@ -762,16 +762,6 @@
              4
              sage: v[Integer(2):Integer(4)]
              [3, 4]

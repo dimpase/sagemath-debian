@@ -50,8 +50,13 @@ AC_SUBST(HAS_CLIQUER)
 AC_CHECK_FILE(/usr/share/sagemath/combinatorial_designs/MOLS_table.txt, HAS_COMBINATORIAL_DESIGNS="True", HAS_COMBINATORIAL_DESIGNS="False")
 AC_SUBST(HAS_COMBINATORIAL_DESIGNS)
 
-AC_CHECK_FILE(/usr/share/sagemath/conway_polynomials/conway_polynomials.sobj, HAS_CONWAY_POLYNOMIALS="True", HAS_CONWAY_POLYNOMIALS="False")
+AC_CHECK_FILE(/usr/share/sagemath/conway_polynomials/conway_polynomials.p, HAS_CONWAY_POLYNOMIALS="True", HAS_CONWAY_POLYNOMIALS="False")
 AC_SUBST(HAS_CONWAY_POLYNOMIALS)
+
+# FIXME(curl): only needed by the spkg build system to download stuff, not needed in Debian
+#AC_CHECK_PROG(HAS_CURL, curl, "True", "False")
+HAS_CURL="True"
+AC_SUBST(HAS_CURL)
 
 AC_CHECK_PROG(HAS_CYTHON, cython, "True", "False")
 AC_SUBST(HAS_CYTHON)
@@ -230,8 +235,11 @@ AC_SUBST(HAS_NCURSES)
 AC_CHECK_HEADERS(NTL/version.h, HAS_NTL="True", HAS_NTL="False")
 AC_SUBST(HAS_NTL)
 
-AC_CHECK_HEADERS(openblas/cblas.h, HAS_OPENBLAS="True", HAS_OPENBLAS="False")
-AC_SUBST(HAS_OPENBLAS)
+PKG_CHECK_MODULES(openblas, blas-openblas, [HAS_BLAS='True'], [HAS_BLAS='False'])
+if test "x${HAS_BLAS}" = "xFalse"; then
+  PKG_CHECK_MODULES(atlas, blas-atlas, [HAS_BLAS='True'], [HAS_BLAS='False'])
+fi
+AC_SUBST(HAS_BLAS)
 
 AC_CHECK_PROG(HAS_PALP, nef-5d.x, "True", "False")
 AC_SUBST(HAS_PALP)
@@ -247,6 +255,11 @@ AC_SUBST(HAS_PARI_SEADATA)
 
 AC_CHECK_PROG(HAS_PATCH, patch, "True", "False")
 AC_SUBST(HAS_PATCH)
+
+# FIXME(pcre): only used to build R, not needed in Debian
+#AC_CHECK_HEADER(pcre.h, HAS_PCRE="True", HAS_PCRE="False")
+HAS_PCRE="True"
+AC_SUBST(HAS_PCRE)
 
 AC_CHECK_PROG(HAS_PIP, pip, "True", "False")
 AC_SUBST(HAS_PIP)
@@ -282,10 +295,10 @@ AC_CHECK_HEADER(pynac/version.h, HAS_PYNAC="True", HAS_PYNAC="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_PYNAC)
 
-PKG_CHECK_MODULES(python, python-2.7, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
+PKG_CHECK_MODULES(python, python2, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
 AC_SUBST(HAS_PYTHON)
 
-PKG_CHECK_MODULES(python3, python-3.5, [HAS_PYTHON3='True'], [HAS_PYTHON3='False'])
+PKG_CHECK_MODULES(python3, python3, [HAS_PYTHON3='True'], [HAS_PYTHON3='False'])
 AC_SUBST(HAS_PYTHON3)
 
 AC_CHECK_PROG(HAS_R, R, "True", "False")
@@ -337,6 +350,11 @@ AC_SUBST(HAS_WIDGETSNBEXTENSION)
 # xz is always installed
 HAS_XZ="True"
 AC_SUBST(HAS_XZ)
+
+# FIXME(yasm): only used to build mpir, not needed in Debian
+#AC_CHECK_PROG(HAS_YASM, yasm, "True", "False")
+HAS_YASM="True"
+AC_SUBST(HAS_YASM)
 
 # FIXME(zeromq): useful only for pyzmq
 HAS_ZEROMQ="True"

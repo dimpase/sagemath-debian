@@ -1,4 +1,6 @@
 Description: Additional changes to work with the Debian package of singular
+ We search for a specific SOVERSION of libsingular-Singular, to allow us to
+ runtime-Depend on libsingular4 and not libsingular4-dev.
 Author: Tobias Hansen <thansen@debian.org>
 Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
@@ -6,7 +8,17 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2291,7 +2291,7 @@
+@@ -652,7 +652,8 @@
+ 
+         s = Expect.eval(self, x, **kwds)
+ 
+-        if s.find("error") != -1 or s.find("Segment fault") != -1:
++        # Debian puts "-Werror=" in C*FLAGS which ends up in Singular's "system version" output
++        if s.replace("-Werror=", "").find("error") != -1 or s.find("Segment fault") != -1:
+             raise SingularError('Singular error:\n%s'%s)
+ 
+         if get_verbose() > 0:
+@@ -2287,7 +2288,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -17,12 +29,37 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -311,7 +311,7 @@
+@@ -274,6 +274,11 @@
+     args = ['-w','-O2'] + args
+     libdirs = cblas_library_dirs
  
-         sage: code = [
-         ....: "#clang C++",
--        ....: "#clib m readline Singular givaro ntl gmpxx gmp",
-+        ....: "#clib m readline singular-Singular givaro ntl gmpxx gmp",
-         ....: "from sage.rings.polynomial.multi_polynomial_libsingular cimport MPolynomial_libsingular",
-         ....: "from sage.libs.singular.polynomial cimport singular_polynomial_pow",
-         ....: "def test(MPolynomial_libsingular p):",
++    # Add Singular directories to includes
++    if "singular" in s or "pynac" in s:
++        import pkgconfig
++        inc.extend(sorted(set(pkgconfig.parse("Singular")["include_dirs"])))
++
+     # Add cysignals directory to includes
+     for path in sys.path:
+         inc.append(path)
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -152,7 +152,7 @@
+     else:
+         extension = "so"
+     # library name changed from libsingular to libSingular btw 3.x and 4.x
+-    SINGULAR_SO = SAGE_LOCAL+"/lib/libSingular."+extension
++    SINGULAR_SO = "/usr/lib/%s/libsingular-Singular-4.1.0.so" % sysconfig.get_config_var('MULTIARCH')
+ 
+ _add_variable_or_fallback('SINGULAR_SO', SINGULAR_SO)
+ 
+--- a/sage/src/sage/misc/compat.py
++++ b/sage/src/sage/misc/compat.py
+@@ -87,7 +87,7 @@
+     EXAMPLES::
+ 
+         sage: from sage.misc.compat import find_library
+-        sage: find_library('Singular')
++        sage: find_library('singular-Singular')
+         '...Singular...'
+ 
+     """

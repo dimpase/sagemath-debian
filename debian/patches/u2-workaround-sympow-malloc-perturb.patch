@@ -1,0 +1,16 @@
+Description: Work around sympow segfault due to MALLOC_PERTURB_
+Author: Ximin Luo <infinity0@debian.org>
+Bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863919
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/lfunctions/sympow.py
++++ b/sage/src/sage/lfunctions/sympow.py
+@@ -77,7 +77,7 @@ class Sympow(SageObject):
+         """
+         Used to call sympow with given args
+         """
+-        cmd = 'env SYMPOW_CACHEDIR="%s/sympow///" sympow %s' % (DOT_SAGE, args)
++        cmd = 'env -u MALLOC_PERTURB_ SYMPOW_CACHEDIR="%s/sympow///" sympow %s' % (DOT_SAGE, args)
+         v = os.popen(cmd).read().strip()
+         verbose(v, level=2)
+         return v

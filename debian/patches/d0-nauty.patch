@@ -1,6 +1,6 @@
 --- a/sage/src/sage/graphs/graph_generators.py
 +++ b/sage/src/sage/graphs/graph_generators.py
-@@ -872,10 +872,10 @@
+@@ -879,10 +879,10 @@
  
              sage: gen = graphs.nauty_geng("4", debug=True)
              sage: print(next(gen))

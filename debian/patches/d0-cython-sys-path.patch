@@ -5,17 +5,17 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -402,6 +402,7 @@
-             build_dir=SAGE_CYTHONIZED,
-             force=force,
+@@ -422,6 +422,7 @@
+             build_dir=self.build_dir,
+             force=self.force,
              aliases=aliases,
 +            include_path=sys.path,
-             compiler_directives={
-                 'autotestdict': False,
-                 'cdivision': True,
+             compiler_directives=self.cython_directives,
+             compile_time_env={'PY_VERSION_HEX':sys.hexversion},
+             create_extension=sage_create_extension,
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -245,6 +245,7 @@
+@@ -277,6 +277,7 @@
  
      # Add cysignals directory to includes
      for path in sys.path:

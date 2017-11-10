@@ -3,7 +3,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
 
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -307,22 +307,6 @@
+@@ -322,22 +322,6 @@
              if "all" in options.optional:
                  # Special case to run all optional tests
                  options.optional = True
@@ -28,7 +28,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk?h=packages/s
          self.files = args
 --- a/sage/src/sage/doctest/test.py
 +++ b/sage/src/sage/doctest/test.py
-@@ -444,14 +444,6 @@
+@@ -463,14 +463,6 @@
      ...
      0
  

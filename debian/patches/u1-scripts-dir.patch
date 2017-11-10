@@ -5,7 +5,7 @@ Forwarded: TODO
 
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -92,6 +92,7 @@
+@@ -93,6 +93,7 @@
  _add_variable_or_fallback('SAGE_ROOT',       None)
  _add_variable_or_fallback('SAGE_LOCAL',      None)
  _add_variable_or_fallback('SAGE_ETC',        opj('$SAGE_LOCAL', 'etc'))
@@ -15,7 +15,7 @@ Forwarded: TODO
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -452,13 +452,13 @@
+@@ -455,13 +455,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
@@ -31,7 +31,7 @@ Forwarded: TODO
          echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
          exit 0
  fi
-@@ -968,14 +968,14 @@
+@@ -977,14 +977,14 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -52,7 +52,7 @@ Forwarded: TODO
  fi
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -153,7 +153,7 @@
+@@ -154,7 +154,7 @@
      elif [ "$SAGE_BANNER" != "no" ]; then
          # This file sage-banner is not yet available during the build
          # of Sage, so we ignore errors from cat.
@@ -61,7 +61,7 @@ Forwarded: TODO
      fi
  }
  
-@@ -275,7 +275,7 @@
+@@ -277,7 +277,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
  fi
@@ -121,16 +121,16 @@ Forwarded: TODO
  if [ ! -d "$DOT_SAGE/valgrind" ]; then
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
-@@ -473,7 +473,7 @@
+@@ -472,7 +472,7 @@
  
  from random import randrange
  
 -from sage.env import DOT_SAGE, SAGE_LOCAL
 +from sage.env import DOT_SAGE, SAGE_SCRIPTS_DIR
  
- ##import sage.rings.all
- 
-@@ -524,7 +524,7 @@
+ from .expect import (Expect, ExpectElement, FunctionElement,
+                     ExpectFunction, gc_disabled)
+@@ -523,7 +523,7 @@
          # setting inchar and outchar..
          eval_using_file_cutoff = 256
          self.__eval_using_file_cutoff = eval_using_file_cutoff
@@ -150,7 +150,7 @@ Forwarded: TODO
      which is mostly to make doctesting more predictable.
  
      EXAMPLES::
-@@ -252,7 +252,7 @@
+@@ -267,7 +267,7 @@
  
          INPUT:
  
@@ -159,7 +159,7 @@ Forwarded: TODO
                       or a DocTestDefaults object (possibly with some entries modified)
          - args -- a list of filenames to doctest
  
-@@ -954,9 +954,9 @@
+@@ -969,9 +969,9 @@
              sage: from sage.doctest.control import DocTestDefaults, DocTestController
              sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
              sage: print(DC._assemble_cmd())
@@ -171,7 +171,7 @@ Forwarded: TODO
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -990,14 +990,14 @@
+@@ -1005,14 +1005,14 @@
              sage: DD = DocTestDefaults(gdb=True)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)

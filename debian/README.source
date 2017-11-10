@@ -38,6 +38,10 @@ sure you're in the top-level package directory, where debian/ is. Then:
  $ . <(debian/rules export-build-env)  # assumes you're in bash or zsh
  sage$ ./sage -t -p --long src/sage/file/you/want/to/test
 
+To run all the tests:
+
+ sage$ ./sage -t -p --all --long --logfile=logs/ptestlong.log
+
 See https://www.sagemath.org/git-developer-guide/doctesting.html for more
 information and helpful tips.
 
@@ -130,29 +134,37 @@ Current test status
 You should get something roughly like the following. If you get different
 results, please add your experience to the below summary.
 
+An overview over test failures on different architectures on buildds can be found at
+https://people.debian.org/~thansen/sage-test-status.html
+
 You can see infinity0's test failures here: https://people.debian.org/~infinity0/sage/
 Look for files named "sagemath-*_*.log"
 
 Known causes::
 
-sage -t --long src/sage/homology/simplicial_complex.py  # 1 doctest failed (see upstream #15585)
-sage -t --long src/sage/libs/singular/function.pyx  # 2 doctests failed (see upstream #17254#comment:252)
-sage -t --long src/sage/numerical/optimize.py  # 1 doctest failed (1 reported as Debian #840159)
+sage -t --long src/sage/misc/sagedoc.py  # 7 doctests failed // obviously fails when the documentation is not built
 
-We're not sure why the below occur, or if they indicate a major problem. Some
-of them involve advanced mathematics, which we're not too familiar with.
+Unknown::
 
-Files with "many" failures::
-sage -t --long src/sage/coding/linear_code.py  # 3 doctests failed
-sage -t --long src/sage/misc/randstate.pyx  # 13 doctests failed
-
-Files with "few" failures::
-sage -t --long src/sage/algebras/group_algebra.py  # 2 doctests failed
-sage -t --long src/sage/coding/codecan/autgroup_can_label.pyx  # 1 doctest failed
 sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
-sage -t --long src/sage/groups/matrix_gps/matrix_group.py  # 1 doctest failed
-sage -t --long src/sage/interfaces/r.py  # 2 doctests failed
+sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 1 doctest failed // looks trivial
+sage -t --long src/sage/parallel/use_fork.py  # 1 doctest failed // looks trivial
 sage -t --long src/sage/rings/number_field/number_field.py  # 1 doctest failed
+sage -t --long src/sage/rings/number_field/unit_group.py  # 1 doctest failed
+sage -t --long src/sage/rings/polynomial/polynomial_quotient_ring.py  # 8 doctests failed
+sage -t --long src/sage/tests/cython.pyx  # 1 doctest failed // looks trivial
+
+Matplotlib version mismatch (see https://trac.sagemath.org/ticket/23696):
+
+sage -t --long src/sage/plot/arrow.py  # 1 doctest failed
+sage -t --long src/sage/plot/plot.py  # 1 doctest failed
+sage -t --long src/sage/probability/probability_distribution.pyx  # 1 doctest failed // trivial
+
+Sympy (see https://trac.sagemath.org/ticket/23496)
+
+sage -t --long src/sage/symbolic/expression.pyx  # 8 doctests failed
+sage -t --long src/sage/tests/french_book/recequadiff.py  # 2 doctests failed
+
 
 Manual testing
 ==============

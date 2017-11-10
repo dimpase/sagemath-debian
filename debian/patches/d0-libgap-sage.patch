@@ -54,9 +54,9 @@ Forwarded: not-needed
 +    "zn_poly",
 +] + libgap_libs + gd_libs + png_libs + [
      "m", "readline", "Lfunction" ,
- ] + cblas_libs + [
-     "cryptominisat",
-@@ -637,15 +641,15 @@
+ ] + cblas_libs + zlib_libs
+ 
+@@ -643,15 +647,15 @@
  
      Extension('sage.libs.gap.util',
                sources = ["sage/libs/gap/util.pyx"],
@@ -77,9 +77,9 @@ Forwarded: not-needed
      ##
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -179,6 +179,12 @@
-                 "ntl":     [ os.path.join(SAGE_INC, 'NTL', 'config.h') ]
-               }
+@@ -86,12 +86,18 @@
+     compile_result_dir = None
+     keep_going = False
  
 +import pkgconfig
 +# LibGAP
@@ -87,17 +87,14 @@ Forwarded: not-needed
 +libgap_library_dirs = list(libgap_pc['library_dirs'])
 +libgap_include_dirs = list(libgap_pc['include_dirs'])
 +
- # In the loop below, don't append to any list, since many of these
- # lists are actually identical Python objects. For every list, we need
- # to write (at least the first time):
-@@ -196,8 +202,8 @@
+ # search for dependencies and add to gcc -I<path>
+ # this depends on SAGE_CYTHONIZED
+-include_dirs = sage_include_directories(use_sources=True)
++include_dirs = sage_include_directories(use_sources=True) + libgap_include_dirs
  
-     m.extra_compile_args = m.extra_compile_args + extra_compile_args
-     m.extra_link_args = m.extra_link_args + extra_link_args
--    m.library_dirs = m.library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
--    m.include_dirs = m.include_dirs + include_dirs
-+    m.library_dirs = m.library_dirs + libgap_library_dirs + [os.path.join(SAGE_LOCAL, "lib")]
-+    m.include_dirs = m.include_dirs + libgap_include_dirs + include_dirs
+ # Look for libraries in $SAGE_LOCAL/lib
+-library_dirs = [os.path.join(SAGE_LOCAL, "lib")]
++library_dirs = [os.path.join(SAGE_LOCAL, "lib")] + libgap_library_dirs
  
- 
- #############################################
+ # Manually add -fno-strict-aliasing, which is needed to compile Cython
+ # and disappears from the default flags if the user has set CFLAGS.

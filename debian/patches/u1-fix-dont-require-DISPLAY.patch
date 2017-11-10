@@ -16,7 +16,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/sage/probability/probability_distribution.pyx
 +++ b/sage/src/sage/probability/probability_distribution.pyx
-@@ -112,6 +112,7 @@
+@@ -113,6 +113,7 @@
  
          EXAMPLES::
  

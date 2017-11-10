@@ -10,7 +10,7 @@ Forwarded: https://trac.sagemath.org/ticket/22444
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -89,11 +89,19 @@
+@@ -89,12 +89,20 @@
              sage: os.listdir(path)
              ['b']
          """
@@ -23,10 +23,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          except OSError as err:
              if err.errno == errno.EEXIST:
                  return
+-        os.symlink(src, dst)
 +            elif err.errno == errno.ENOENT:
 +                pass
 +            else:
 +                raise
-         os.symlink(src, dst)
++        os.symlink(os.path.relpath(src, os.path.dirname(dst)), dst)
  
      def use_local_mathjax(self):
+         """

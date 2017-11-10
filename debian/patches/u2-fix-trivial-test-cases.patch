@@ -19,7 +19,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/calculus/calculus.py
 +++ b/sage/src/sage/calculus/calculus.py
-@@ -770,7 +770,7 @@
+@@ -767,7 +767,7 @@
      Now numerically integrating, we see why the answer is wrong::
  
          sage: f.nintegrate(x,0,1)
@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      in floating point.
 --- a/sage/src/sage/modules/free_module_element.pyx
 +++ b/sage/src/sage/modules/free_module_element.pyx
-@@ -3882,11 +3882,11 @@
+@@ -3883,11 +3883,11 @@
              sage: type(vec)
              <type 'sage.modules.vector_real_double_dense.Vector_real_double_dense'>
              sage: answers
@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              sage: rc is None
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -173,14 +173,15 @@
+@@ -207,14 +207,15 @@
          'm',
          'ec',
          'gsl',
@@ -89,7 +89,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'c',
          [], ['-w', '-O2'],...)
          sage: s, libs, inc, lang, f, args, libdirs = pyx_preparse("# clang c++\n #clib foo\n # cinclude bar\n")
-@@ -195,7 +196,7 @@
+@@ -229,7 +230,7 @@
          'm',
          'ec',
          'gsl',
@@ -98,7 +98,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          'ntl']
          sage: libs[1:] == sage.misc.cython.standard_libs
          True
-@@ -205,9 +206,10 @@
+@@ -239,9 +240,10 @@
          '.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -123,14 +123,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          """
          r = os.popen('tachyon').read()
          if use_pager == True:
---- a/sage/src/sage/tests/gap_packages.py
-+++ b/sage/src/sage/tests/gap_packages.py
-@@ -102,7 +102,7 @@
- 
-         sage: from sage.tests.gap_packages import all_installed_packages
-         sage: all_installed_packages()
--        (...'GAPDoc',...)
-+        (...'GAPDoc'...)
-     """
-     packages = []
-     for path in libgap.eval('GAP_ROOT_PATHS').sage():
+--- a/sage/src/sage/interfaces/gap.py
++++ b/sage/src/sage/interfaces/gap.py
+@@ -1839,7 +1839,7 @@
+         sage: from sage.interfaces.gap import gap_command
+         sage: cmd = 'echo "quit;" | ' + gap_command(use_workspace_cache=False)[0]
+         sage: gap_startup = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
+-        sage: 'http://www.gap-system.org' in gap_startup
++        sage: 'www.gap-system.org' in gap_startup
+         True
+         sage: 'Error' not in gap_startup
+         True
