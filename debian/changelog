@@ -1,4 +1,4 @@
-sagemath (8.1~beta9-1) UNRELEASED; urgency=medium
+sagemath (8.1~rc0-1) UNRELEASED; urgency=medium
 
   [ Gianfranco Costamagna ]
   * Drop lcalc binNMU requirement, now it is satisfied everywhere
