@@ -68,7 +68,7 @@ dico = {
     'fflas_ffpack': @HAS_FFLAS_FFPACK@,
     'flint': @HAS_FLINT@,
     'flintqs': @HAS_FLINTQS@,
-    'libfplll': @HAS_FPLLL@,
+    'fplll': @HAS_FPLLL@,
     'freetype': @HAS_FREETYPE@,
     'gap': @HAS_GAP@,
     'gc': @HAS_BOEHM_GC@,
