@@ -154,7 +154,7 @@ Subject: Fix doctests for PARI upgrade
                To:   Number Field in a with defining polynomial 2*x^4 + 6*x^2 + 1/2
 --- a/sage/src/sage/rings/number_field/number_field_ideal.py
 +++ b/sage/src/sage/rings/number_field/number_field_ideal.py
-@@ -2726,7 +2726,7 @@
+@@ -2709,7 +2709,7 @@
              Fractional ideal (a^2 - 4*a + 2)
              68
              sage: r = A.element_1_mod(B); r

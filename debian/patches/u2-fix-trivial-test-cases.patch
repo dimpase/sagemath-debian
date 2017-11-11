@@ -19,7 +19,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/calculus/calculus.py
 +++ b/sage/src/sage/calculus/calculus.py
-@@ -767,7 +767,7 @@
+@@ -769,7 +769,7 @@
      Now numerically integrating, we see why the answer is wrong::
  
          sage: f.nintegrate(x,0,1)

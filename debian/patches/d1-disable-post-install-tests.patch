@@ -7,7 +7,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/misc/sage_ostools.py
 +++ b/sage/src/sage/misc/sage_ostools.py
-@@ -24,8 +24,6 @@
+@@ -27,8 +27,6 @@
          True
          sage: have_program('there_is_not_a_program_with_this_name')
          False
@@ -18,7 +18,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/all.py
 +++ b/sage/src/sage/all.py
-@@ -290,14 +290,6 @@
+@@ -288,14 +288,6 @@
  
      The non-existence of this file will be used as a trigger to run
      ``sage-starts`` during the Sage build.

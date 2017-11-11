@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -1037,8 +1037,7 @@
+@@ -1056,8 +1056,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else

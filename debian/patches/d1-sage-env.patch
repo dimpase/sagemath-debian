@@ -171,7 +171,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage/structure/sage_object.pyx
 +++ b/sage/src/sage/structure/sage_object.pyx
-@@ -1597,7 +1597,7 @@
+@@ -1579,7 +1579,7 @@
  
      When run with no arguments :meth:`unpickle_all` tests that all of the
      "standard" pickles stored in the pickle_jar at
