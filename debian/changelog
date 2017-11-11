@@ -11,6 +11,8 @@ sagemath (8.1~rc0-1) UNRELEASED; urgency=medium
     - python-cypari2 (>= 1.1.3)
     - python-numpy (>= 1:1.13)
     - brial (>= 1.0.1)
+    - fplll (>= 5.2.0)
+    - python-fpylll (>= 0.3.0)
   * Changed (Build-)Depends: (Closes: #880781)
     - (libgd2-noxpm-dev | libgd2-xpm-dev) to libgd-dev
   * New patches:

@@ -51,7 +51,7 @@
  python-flask-oldsessions,
  python-flask-openid,
  python-flask-silk,
- python-fpylll (>= 0.2.4),
+ python-fpylll (>= 0.3.0),
  python-functools32,
  python-future,
  python-gd,
