@@ -1,4 +1,4 @@
-sagemath (8.1~rc0-1) UNRELEASED; urgency=medium
+sagemath (8.1~rc0-1) experimental; urgency=medium
 
   [ Gianfranco Costamagna ]
   * Drop lcalc binNMU requirement, now it is satisfied everywhere
@@ -28,7 +28,7 @@ sagemath (8.1~rc0-1) UNRELEASED; urgency=medium
   * New patches:
     - u1-version-ipython-5.4.patch
 
- -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 16 Oct 2017 20:14:41 +0200
+ -- Tobias Hansen <thansen@debian.org>  Mon, 13 Nov 2017 22:05:10 +0100
 
 sagemath (8.1~beta7-1) experimental; urgency=medium
 
