@@ -19,6 +19,7 @@ sagemath (8.1~rc0-1) UNRELEASED; urgency=medium
     - d0-pari-2.9-revert-23544.patch
   * Remove patches:
     - u0-version-pynac-0.7.12.patch
+    - u2-fix-less-trivial-test-cases.patch
 
   [ Julien Puydt ]
   * Bump d/watch to version 4.

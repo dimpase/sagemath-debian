@@ -16,7 +16,6 @@ u2-pari-stackwarn.patch                    #23263
 u2-version-cddlib-094h.patch
 u2-reproducible-docs.patch
 u2-fix-trivial-test-cases.patch
-u2-fix-less-trivial-test-cases.patch
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
 u2-workaround-sympow-malloc-perturb.patch
