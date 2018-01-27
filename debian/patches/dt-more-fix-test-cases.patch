@@ -8,6 +8,14 @@ src/sage/interfaces/tests.py
 They are bugs in the dependency tools that Sage upstream patches out on their
 side. Hopefully they have forwarded these on, so at some point they will be
 fixed also in Debian. For now, we override to reduce the noise in our tests.
+---
+src/doc/en/constructions/algebraic_geometry.rst
+src/doc/en/developer/coding_in_other.rst
+For some reason the order of these lists changed. It seems to be related to
+singular, which was not updated but rebuilt recently against libmpfr6.
+Also normaliz (a dependency of singular) was updated recently.
+Hopefully the change will eventually reach upstream sage and they change
+the tests as well.
 --- a/sage/src/sage/interfaces/tests.py
 +++ b/sage/src/sage/interfaces/tests.py
 @@ -32,9 +32,9 @@
@@ -22,3 +30,32 @@ fixed also in Debian. For now, we override to reduce the noise in our tests.
      sage: subprocess.call("echo syntax error | gp", **kwds)
      0
      sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
+--- a/sage/src/doc/en/constructions/algebraic_geometry.rst
++++ b/sage/src/doc/en/constructions/algebraic_geometry.rst
+@@ -146,8 +146,8 @@
+        [1]:
+           _[1]=y+1  # 32-bit
+           _[2]=x+1  # 32-bit
+-          _[1]=y    # 64-bit
+-          _[2]=x    # 64-bit
++          _[1]=y^2+y+1  # 64-bit
++          _[2]=x+y+1    # 64-bit
+        ...
+ 
+ -  Another way to compute rational points is to use Singular's
+--- a/sage/src/doc/en/developer/coding_in_other.rst
++++ b/sage/src/doc/en/developer/coding_in_other.rst
+@@ -437,13 +437,6 @@
+           1
+        [3]:
+           0
+-    [2]:
+-       [1]:
+-          -2
+-       [2]:
+-          -1
+-       [3]:
+-          1
+     ...
+ 
+ From looking at the output, notice that our wrapper function will need
