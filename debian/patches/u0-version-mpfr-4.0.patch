@@ -1,0 +1,142 @@
+From 3c089ff224e709cc6ad647a123b8e06fe35d152a Mon Sep 17 00:00:00 2001
+From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Tue, 9 Jan 2018 09:30:44 +0100
+Subject: Minor fixes for MPFR-4; support MPFR_RNDF
+
+Bug: https://trac.sagemath.org/ticket/24353
+
+---
+ src/sage/libs/mpfr/__init__.pxd   |  1 +
+ src/sage/rings/complex_mpc.pyx    |  2 +-
+ src/sage/rings/complex_number.pyx |  2 +-
+ src/sage/rings/real_mpfr.pyx      | 26 ++++++++++++++++----------
+ 4 files changed, 19 insertions(+), 12 deletions(-)
+
+--- a/sage/src/sage/libs/mpfr.pxd
++++ b/sage/src/sage/libs/mpfr.pxd
+@@ -115,6 +115,7 @@
+     int mpfr_sqrt (mpfr_t rop, mpfr_t op, mpfr_rnd_t rnd)
+     int mpfr_sqrt_ui (mpfr_t rop, unsigned long int op, mpfr_rnd_t rnd)
+     int mpfr_cbrt (mpfr_t rop, mpfr_t op, mpfr_rnd_t rnd)
++    int mpfr_rootn_ui(mpfr_t rop, mpfr_t op, unsigned long int k, mpfr_rnd_t rnd)
+     int mpfr_root (mpfr_t rop, mpfr_t op, unsigned long int k, mpfr_rnd_t rnd)
+     int mpfr_pow (mpfr_t rop, mpfr_t op1, mpfr_t op2, mpfr_rnd_t rnd)
+     int mpfr_pow_ui (mpfr_t rop, mpfr_t op1, unsigned long int op2, mpfr_rnd_t rnd)
+--- a/sage/src/sage/rings/complex_mpc.pyx
++++ b/sage/src/sage/rings/complex_mpc.pyx
+@@ -2141,7 +2141,7 @@
+         cdef RealNumber a,r
+         a = self.argument()/n
+         r = self.abs()
+-        mpfr_root(r.value, r.value, n, rrnd)
++        mpfr_rootn_ui(r.value, r.value, n, rrnd)
+ 
+         cdef MPComplexNumber z
+         z = self._new()
+--- a/sage/src/sage/rings/complex_number.pyx
++++ b/sage/src/sage/rings/complex_number.pyx
+@@ -2216,7 +2216,7 @@
+         rho = abs(self)
+         arg = self.argument() / n
+         mpfr_init2(r, self._prec)
+-        mpfr_root(r, rho.value, n, rnd)
++        mpfr_rootn_ui(r, rho.value, n, rnd)
+ 
+         mpfr_sin_cos(z.__im, z.__re, arg.value, rnd)
+         mpfr_mul(z.__re, z.__re, r, rnd)
+--- a/sage/src/sage/rings/real_mpfr.pyx
++++ b/sage/src/sage/rings/real_mpfr.pyx
+@@ -189,16 +189,16 @@
+ 
+         sage: from sage.rings.real_mpfr import mpfr_prec_min
+         sage: mpfr_prec_min()
+-        2
++        1
+         sage: R = RealField(2)
+         sage: R(2) + R(1)
+         3.0
+         sage: R(4) + R(1)
+         4.0
+-        sage: R = RealField(1)
++        sage: R = RealField(0)
+         Traceback (most recent call last):
+         ...
+-        ValueError: prec (=1) must be >= 2 and <= 2147483391
++        ValueError: prec (=0) must be >= 1 and <= 2147483391
+     """
+     return MPFR_PREC_MIN
+ 
+@@ -217,7 +217,7 @@
+         sage: R = RealField(2^31-256)
+         Traceback (most recent call last):
+         ...
+-        ValueError: prec (=2147483392) must be >= 2 and <= 2147483391
++        ValueError: prec (=2147483392) must be >= 1 and <= 2147483391
+     """
+     global MY_MPFR_PREC_MAX
+     return MY_MPFR_PREC_MAX
+@@ -352,7 +352,7 @@
+ 
+ from sage.misc.long cimport pyobject_to_long
+ cdef dict rounding_modes = dict(RNDN=MPFR_RNDN, RNDZ=MPFR_RNDZ,
+-        RNDD=MPFR_RNDD, RNDU=MPFR_RNDU, RNDA=MPFR_RNDA)
++        RNDD=MPFR_RNDD, RNDU=MPFR_RNDU, RNDA=MPFR_RNDA, RNDF=MPFR_RNDF)
+ 
+ cdef double LOG_TEN_TWO_PLUS_EPSILON = 3.321928094887363 # a small overestimate of log(10,2)
+ 
+@@ -383,6 +383,8 @@
+       - ``'RNDZ'`` -- round towards zero
+       - ``'RNDU'`` -- round towards plus infinity
+       - ``'RNDA'`` -- round away from zero
++      - ``'RNDF'`` -- faithful rounding (currently experimental; not
++                      guaranteed correct for every operation)
+       - for specialized applications, the rounding mode can also be
+         given as an integer value of type ``mpfr_rnd_t``. However, the
+         exact values are unspecified.
+@@ -471,6 +473,8 @@
+             Real Field with 100 bits of precision and rounding RNDD
+             sage: RealField(100, rnd="RNDA")
+             Real Field with 100 bits of precision and rounding RNDA
++            sage: RealField(100, rnd="RNDF")
++            Real Field with 100 bits of precision and rounding RNDF
+             sage: RealField(100, rnd=0)
+             Real Field with 100 bits of precision
+             sage: RealField(100, rnd=1)
+@@ -481,14 +485,16 @@
+             Real Field with 100 bits of precision and rounding RNDD
+             sage: RealField(100, rnd=4)
+             Real Field with 100 bits of precision and rounding RNDA
++            sage: RealField(100, rnd=5)
++            Real Field with 100 bits of precision and rounding RNDF
+             sage: RealField(100, rnd=3.14)
+             Traceback (most recent call last):
+             ...
+-            ValueError: rounding mode (=3.14000000000000) must be one of ['RNDA', 'RNDZ', 'RNDD', 'RNDU', 'RNDN']
+-            sage: RealField(100, rnd=5)
++            ValueError: rounding mode (=3.14000000000000) must be one of ['RNDA', 'RNDD', 'RNDF', 'RNDN', 'RNDU', 'RNDZ']
++            sage: RealField(100, rnd=6)
+             Traceback (most recent call last):
+             ...
+-            ValueError: unknown rounding mode 5
++            ValueError: unknown rounding mode 6
+             sage: RealField(100, rnd=10^100)
+             Traceback (most recent call last):
+             ...
+@@ -4420,7 +4426,7 @@
+ 
+             sage: r = -1.0
+             sage: r.eint()
+-            NaN
++            -0.219383934395520
+         """
+         cdef RealNumber x = self._new()
+         if (<RealField_class>self._parent).__prec > SIG_PREC_THRESHOLD: sig_on()
+@@ -5276,7 +5282,7 @@
+         if algorithm == 1:
+             x = self._new()
+             sig_on()
+-            mpfr_root(x.value, self.value, n, (<RealField_class>self._parent).rnd)
++            mpfr_rootn_ui(x.value, self.value, n, (<RealField_class>self._parent).rnd)
+             sig_off()
+             return x
+ 
