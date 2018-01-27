@@ -10,8 +10,8 @@ Uploaders: Tobias Hansen <thansen@debian.org>,
 Standards-Version: 4.1.2
 X-Python-Version: 2.7
 Homepage: http://www.sagemath.org/
-Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/sagemath.git
-Vcs-Git: https://anonscm.debian.org/git/debian-science/packages/sagemath.git
+Vcs-Git: https://salsa.debian.org/science-team/sagemath.git
+Vcs-Browser: https://salsa.debian.org/science-team/sagemath
 Build-Depends:
  RUNTIME_DEPENDS
  JUPYTER_DEPENDS
