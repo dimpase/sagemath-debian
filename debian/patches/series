@@ -1,5 +1,6 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
+u0-version-matplotlib-2.1.0.patch          #23696
 u0-version-mpfr-4.0.patch                  #24353
 
 # Patches that have open upstream tickets

@@ -7,7 +7,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/doc/common/conf.py
 +++ b/sage/src/doc/common/conf.py
-@@ -55,7 +55,7 @@
+@@ -61,7 +61,7 @@
  
  # General information about the project.
  project = u""
