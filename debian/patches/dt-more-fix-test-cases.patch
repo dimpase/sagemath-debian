@@ -32,8 +32,12 @@ the tests as well.
      sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
 --- a/sage/src/doc/en/constructions/algebraic_geometry.rst
 +++ b/sage/src/doc/en/constructions/algebraic_geometry.rst
-@@ -146,8 +146,8 @@
-        [1]:
+@@ -143,11 +143,11 @@
+        sage: L = singular.closed_points(I)
+        sage: # Here you have all the points :
+        sage: print(L)
+-       [1]:
++       [1]:...
            _[1]=y+1  # 32-bit
            _[2]=x+1  # 32-bit
 -          _[1]=y    # 64-bit
