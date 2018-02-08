@@ -40,6 +40,11 @@ def declare_system(package):
 mkdir_if_needed (installed_dir)
 mkdir_if_needed ('@SAGE_ROOT@/local')
 mkdir_if_needed ('@SAGE_ROOT@/local/include')
+# if this file is newer than an spkg's "installed" marker file then sage's
+# Makefiles will try to rebuild it again, so touch it as well.
+dummy_pkg = os.path.join(installed_dir, ".dummy")
+with open(dummy_pkg, 'a'):
+    os.utime(dummy_pkg, (now, now))
 
 sage_standard_packages = set(subprocess.check_output([
     '/bin/sh', '-c',
