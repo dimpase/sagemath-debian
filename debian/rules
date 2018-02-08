@@ -330,8 +330,8 @@ build-dep-maint:
 	sudo apt-get install --no-install-recommends equivs devscripts git iso-codes python quilt
 
 build-dep: debian/control
-	if which aptitude >/dev/null; then sudo mk-build-deps -ir -t 'aptitude -R'; \
-	else sudo mk-build-deps -ir; fi
+	if which aptitude >/dev/null; then sudo -E mk-build-deps -ir -t 'aptitude -R'; \
+	else sudo -E mk-build-deps -ir; fi
 
 get-orig-source:
 	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
