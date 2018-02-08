@@ -17,7 +17,7 @@ Build-Depends:
  JUPYTER_DEPENDS
  autoconf,
  ccache <pkg.sagemath.ccache>,
- cython-dbg,
+ cython-dbg <pkg.sagemath.dbg>,
  debhelper (>= 10),
  dh-python (>= 2.20170125),
  dpkg-dev (>= 1.17.14),
@@ -73,6 +73,7 @@ Build-Depends:
  libzn-poly-dev,
  pkg-config,
  python-dev,
+ python-dbg <pkg.sagemath.dbg>,
  python3-dev,
  r-base-dev,
  rdfind,
