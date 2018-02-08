@@ -17,10 +17,11 @@ Build-Depends:
  JUPYTER_DEPENDS
  autoconf,
  ccache <pkg.sagemath.ccache>,
+ cython-dbg,
  debhelper (>= 10),
  dh-python (>= 2.20170125),
  dpkg-dev (>= 1.17.14),
- gdb,
+ gdb-python2,
  git,
  gnutls-dev,
  libgap-sage-dev (>= 4.8.6),
