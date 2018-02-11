@@ -1,5 +1,6 @@
 sagemath (8.1-3) UNRELEASED; urgency=medium
 
+  [ Tobias Hansen ]
   * Update Vcs-* links for salsa.
   * New patches:
     - u0-version-mpfr-4.0.patch
@@ -11,7 +12,15 @@ sagemath (8.1-3) UNRELEASED; urgency=medium
   * Modified patches:
     - dt-more-fix-test-cases.patch
       Fix ordering issue in two tests in the documentation.
+
+  [ Ximin Luo ]
   * Tests now pass fine after fixes in other packages. (Closes: #888912)
+  * Modified patches:
+    - dt-more-fix-test-cases.patch
+      Ignore sigabrt in sage_object.pyx doctest.
+  * Add dbg packages to the pkg.sagemath.dbg build-profile to make
+    stack traces work.
+  * Touch the dummy spkg file to avoid rebuilds in some cases.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 27 Jan 2018 01:29:17 +0000
 
