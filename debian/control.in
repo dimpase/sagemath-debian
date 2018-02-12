@@ -41,7 +41,7 @@ Build-Depends:
  libgc-dev,
  libgcrypt-dev,
  libgd-dev,
- libgf2x-dev (>= 1.2-3),
+ libgf2x-dev (>= 1.2-4),
  libgiac-dev (>= 1.2.3.25+dfsg1-3),
  libgivaro-dev (>= 4.0.2-7~),
  libglpk-dev,
