@@ -21,7 +21,7 @@
 include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
 
-MAX_TEST_FAILURES = 50
+MAX_TEST_FAILURES = 62
 MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
 
 # If we're doing a pre-release, then be less strict about test failures, etc

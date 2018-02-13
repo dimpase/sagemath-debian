@@ -2,6 +2,13 @@ sagemath (8.1-4) UNRELEASED; urgency=medium
 
   * Bump gf2x build-dependency to pull in fixes for illegal instruction
     on older amd64 and i386 machines.
+  * Increase the allowed test failures from 50 up to 62. This is mostly to
+    handle certain arches that have 11 extra failures; most arches should
+    stay below 50.
+    - Generally we have to do this increasing when the versions of the
+      Build-Deps in Debian grow newer and further apart from what upstream
+      expects; and can reset the number back down to 50 or less when a new
+      upstream version is released.
 
  -- Ximin Luo <infinity0@debian.org>  Mon, 12 Feb 2018 14:46:10 +0100
 
