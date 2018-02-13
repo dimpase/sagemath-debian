@@ -1,4 +1,4 @@
-sagemath (8.1-4) UNRELEASED; urgency=medium
+sagemath (8.1-4) unstable; urgency=medium
 
   * Bump gf2x build-dependency to pull in fixes for illegal instruction
     on older amd64 and i386 machines.
@@ -10,7 +10,7 @@ sagemath (8.1-4) UNRELEASED; urgency=medium
       expects; and can reset the number back down to 50 or less when a new
       upstream version is released.
 
- -- Ximin Luo <infinity0@debian.org>  Mon, 12 Feb 2018 14:46:10 +0100
+ -- Ximin Luo <infinity0@debian.org>  Tue, 13 Feb 2018 11:28:20 +0100
 
 sagemath (8.1-3) unstable; urgency=medium
 
