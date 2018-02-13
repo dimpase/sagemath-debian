@@ -1,7 +1,7 @@
 sagemath (8.1-4) UNRELEASED; urgency=medium
 
-  * Bump gf2x build-dependency to pull in amd64 fixes that cause illegal
-    instruction on older machines.
+  * Bump gf2x build-dependency to pull in fixes for illegal instruction
+    on older amd64 and i386 machines.
 
  -- Ximin Luo <infinity0@debian.org>  Mon, 12 Feb 2018 14:46:10 +0100
 
