@@ -31,6 +31,17 @@ else
 is_prerelease = false
 endif
 
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+# Building on armel buildds often hangs forever, restrict to 2 threads
+ifneq (,$(filter $(DEB_BUILD_ARCH),armel))
+NUMJOBS = 1
+else
+NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+endif
+else
+NUMJOBS = 1
+endif
+
 # Some buildds are a bit slow, see https://buildd.debian.org/status/logs.php?pkg=gcc-7 for a fuller list
 ifeq (false,$(is_prerelease))
 ifneq (,$(filter $(DEB_BUILD_ARCH),armel armhf mips mipsel mips64el))
@@ -64,12 +75,6 @@ DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
 DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
 DOCS_OVERRIDES = $(LANGS:%=debian/sagemath-doc-%.lintian-overrides)
 DOCS_INSTALL_DIRS = $(LANGS:%=debian/sagemath-doc-%)
-
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-else
-NUMJOBS = 1
-endif
 
 ifneq (1,$(TRY_AVOID_REBUILD))
 REBUILD_RULES = debian/rules
