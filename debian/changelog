@@ -1,3 +1,9 @@
+sagemath (8.1-6) unstable; urgency=medium
+
+  * Add patch dt-version-glpk-4.65-ignore-warnings.patch.
+
+ -- Tobias Hansen <thansen@debian.org>  Wed, 28 Feb 2018 16:23:41 +0000
+
 sagemath (8.1-5) unstable; urgency=medium
 
   * Restrict to one thread on armel to try to avoid buildds getting stuck.
