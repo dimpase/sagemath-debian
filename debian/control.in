@@ -106,6 +106,7 @@ Recommends:
  sagetex,
  texlive-latex-base
 Suggests:
+ dot2tex,
  gap-design,
  gap-factint,
  gap-grape,

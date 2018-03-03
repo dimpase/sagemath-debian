@@ -1,3 +1,9 @@
+sagemath (8.1-7) UNRELEASED; urgency=medium
+
+  * Add dot2tex to Suggests, needed by GenericGraph.layout_graphviz().
+
+ -- Ximin Luo <infinity0@debian.org>  Sat, 03 Mar 2018 01:39:54 +0100
+
 sagemath (8.1-6) unstable; urgency=medium
 
   * Add patch dt-version-glpk-4.65-ignore-warnings.patch.
