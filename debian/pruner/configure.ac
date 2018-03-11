@@ -105,7 +105,7 @@ AC_CHECK_HEADER(fplll/fplll.h, HAS_FPLLL="True", HAS_FPLLL="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_FPLLL)
 
-AC_CHECK_PROG(HAS_FREETYPE, freetype-config, "True", "False")
+PKG_CHECK_MODULES(freetype, freetype2, [HAS_FREETYPE="True"], [HAS_FREETYPE="False"])
 AC_SUBST(HAS_FREETYPE)
 
 AC_CHECK_FILE(/usr/lib/gap/sysinfo.gap, HAS_GAP="True", HAS_GAP="False")
