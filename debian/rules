@@ -32,12 +32,7 @@ is_prerelease = false
 endif
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-# Building on armel buildds often hangs forever, restrict to 2 threads
-ifneq (,$(filter $(DEB_BUILD_ARCH),armel))
-NUMJOBS = 1
-else
 NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-endif
 else
 NUMJOBS = 1
 endif
