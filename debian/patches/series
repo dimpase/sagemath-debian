@@ -69,3 +69,4 @@ dt-version-glpk-4.65-ignore-warnings.patch
 dt-r-no-readline.patch
 dt-more-fix-test-cases.patch
 dt-work-around-doc-common-conf.patch
+dt-work-around-singular-mips64el-segfault.patch

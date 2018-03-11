@@ -1,6 +1,7 @@
 sagemath (8.1-7) UNRELEASED; urgency=medium
 
   * Add dot2tex to Suggests, needed by GenericGraph.layout_graphviz().
+  * Work around Singular bug on mips64el (#892622) by disabling ASLR.
 
  -- Ximin Luo <infinity0@debian.org>  Sat, 03 Mar 2018 01:39:54 +0100
 
