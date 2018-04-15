@@ -1,6 +1,11 @@
 sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * Remove patches (applied upstream):
+    - u0-version-matplotlib-2.1.0.patch          #23696
+    - u0-version-mpfr-4.0.patch                  #24353
+    - u1-version-ipython-5.4.patch               #24389
+    - u1-version-giac-1.2.3.57.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 15 Apr 2018 06:36:48 +0000
 

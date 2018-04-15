@@ -15,7 +15,7 @@ Forwarded: TODO
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -456,13 +456,13 @@
+@@ -461,13 +461,13 @@
  #####################################################################
  
  if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
@@ -31,7 +31,7 @@ Forwarded: TODO
          echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
          exit 0
  fi
-@@ -978,14 +978,14 @@
+@@ -988,14 +988,14 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -52,16 +52,7 @@ Forwarded: TODO
  fi
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -154,7 +154,7 @@
-     elif [ "$SAGE_BANNER" != "no" ]; then
-         # This file sage-banner is not yet available during the build
-         # of Sage, so we ignore errors from cat.
--        cat "$SAGE_LOCAL/bin/sage-banner" 2>/dev/null
-+        cat "$SAGE_SCRIPTS_DIR/sage-banner" 2>/dev/null
-     fi
- }
- 
-@@ -315,7 +315,7 @@
+@@ -304,7 +304,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
  fi
@@ -141,7 +132,7 @@ Forwarded: TODO
          # This avoids that sage's maxima inadvertently loads
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -44,7 +44,7 @@
+@@ -48,7 +48,7 @@
      This class is used for doctesting the Sage doctest module.
  
      It fills in attributes to be the same as the defaults defined in
@@ -150,7 +141,7 @@ Forwarded: TODO
      which is mostly to make doctesting more predictable.
  
      EXAMPLES::
-@@ -273,7 +273,7 @@
+@@ -274,7 +274,7 @@
  
          INPUT:
  
@@ -159,7 +150,7 @@ Forwarded: TODO
                       or a DocTestDefaults object (possibly with some entries modified)
          - args -- a list of filenames to doctest
  
-@@ -968,9 +968,9 @@
+@@ -991,9 +991,9 @@
              sage: from sage.doctest.control import DocTestDefaults, DocTestController
              sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
              sage: print(DC._assemble_cmd())
@@ -171,7 +162,7 @@ Forwarded: TODO
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -1004,14 +1004,14 @@
+@@ -1027,14 +1027,14 @@
              sage: DD = DocTestDefaults(gdb=True)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)

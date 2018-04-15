@@ -19,7 +19,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/calculus/calculus.py
 +++ b/sage/src/sage/calculus/calculus.py
-@@ -769,7 +769,7 @@
+@@ -762,7 +762,7 @@
      Now numerically integrating, we see why the answer is wrong::
  
          sage: f.nintegrate(x,0,1)
@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      in floating point.
 --- a/sage/src/sage/modules/free_module_element.pyx
 +++ b/sage/src/sage/modules/free_module_element.pyx
-@@ -3883,11 +3883,11 @@
+@@ -3884,11 +3884,11 @@
              sage: type(vec)
              <type 'sage.modules.vector_real_double_dense.Vector_real_double_dense'>
              sage: answers
@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              sage: rc is None
 --- a/sage/src/sage/interfaces/tachyon.py
 +++ b/sage/src/sage/interfaces/tachyon.py
-@@ -170,7 +170,8 @@
+@@ -173,7 +173,8 @@
              sage: from sage.interfaces.tachyon import TachyonRT
              sage: t = TachyonRT()
              sage: t.usage(use_pager=False)
@@ -82,7 +82,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          if use_pager:
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -1841,7 +1841,7 @@
+@@ -1831,7 +1831,7 @@
          sage: from sage.interfaces.gap import gap_command
          sage: cmd = 'echo "quit;" | ' + gap_command(use_workspace_cache=False)[0]
          sage: gap_startup = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
