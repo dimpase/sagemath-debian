@@ -12,6 +12,8 @@ sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
     - u1-version-ipython-5.4.patch               #24389
     - u1-version-giac-1.2.3.57.patch
     - u1-ipywidgets-repr.patch
+  * New patches:
+    - u0-version-pynac-0.7.19.patch              #24838
 
   * Patches with non-trivial modifications:
     - d0-pari-2.9-revert-23544.patch
