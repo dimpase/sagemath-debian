@@ -35,7 +35,7 @@ super-important (being able to unpickle something twice) so just ignore it.
 +    139
      sage: subprocess.call("echo syntax error | gp", **kwds)
      0
-     sage: subprocess.call("echo syntax error | ipython", **kwds) in (0,1)
+     sage: subprocess.call("echo syntax error | ipython", **kwds) in (0, 1, 120)
 --- a/sage/src/doc/en/constructions/algebraic_geometry.rst
 +++ b/sage/src/doc/en/constructions/algebraic_geometry.rst
 @@ -143,11 +143,11 @@
@@ -69,18 +69,3 @@ super-important (being able to unpickle something twice) so just ignore it.
      ...
  
  From looking at the output, notice that our wrapper function will need
---- a/sage/src/sage/structure/sage_object.pyx
-+++ b/sage/src/sage/structure/sage_object.pyx
-@@ -1589,12 +1589,6 @@
-         Successfully unpickled ... objects.
-         Failed to unpickle 0 objects.
- 
--    Check that unpickling a second time works (see :trac:`5838`)::
--
--        sage: sage.structure.sage_object.unpickle_all()
--        Successfully unpickled ... objects.
--        Failed to unpickle 0 objects.
--
-     When it is not possible to unpickle a pickle in the pickle_jar then
-     :meth:`unpickle_all` prints the following error message which warns against removing
-     pickles from the pickle_jar and directs the user towards

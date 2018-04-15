@@ -25,26 +25,6 @@ Subject: Fix doctests for PARI upgrade
  .../books/judson-abstract-algebra/fields-sage.py   | 10 +++---
  16 files changed, 51 insertions(+), 52 deletions(-)
 
---- a/sage/src/sage/groups/generic.py
-+++ b/sage/src/sage/groups/generic.py
-@@ -426,7 +426,7 @@
-         sage: F.<a> = GF(37^5)
-         sage: E = EllipticCurve(F, [1,1])
-         sage: P = E.lift_x(a); P
--        (a : 9*a^4 + 22*a^3 + 23*a^2 + 30 : 1)
-+        (a : 28*a^4 + 15*a^3 + 14*a^2 + 7 : 1)
- 
-     This will return a multiple of the order of P::
- 
-@@ -860,7 +860,7 @@
-         sage: F.<a> = GF(37^5)
-         sage: E = EllipticCurve(F, [1,1])
-         sage: P = E.lift_x(a); P
--        (a : 28*a^4 + 15*a^3 + 14*a^2 + 7 : 1)
-+        (a : 9*a^4 + 22*a^3 + 23*a^2 + 30 : 1)
- 
-     This will return a multiple of the order of P::
- 
 --- a/sage/src/sage/libs/pari/tests.py
 +++ b/sage/src/sage/libs/pari/tests.py
 @@ -948,7 +948,7 @@
@@ -120,7 +100,7 @@ Subject: Fix doctests for PARI upgrade
  
 --- a/sage/src/sage/rings/number_field/number_field.py
 +++ b/sage/src/sage/rings/number_field/number_field.py
-@@ -3775,7 +3775,7 @@
+@@ -3789,7 +3789,7 @@
              sage: k.<a> = NumberField(x^4 - 3/2*x + 5/3); k
              Number Field in a with defining polynomial x^4 - 3/2*x + 5/3
              sage: k.pari_nf()
@@ -129,7 +109,7 @@ Subject: Fix doctests for PARI upgrade
              sage: pari(k)
              [y^4 - 324*y + 2160, [0, 2], 48918708, 216, ...]
              sage: gp(k)
-@@ -7356,7 +7356,7 @@
+@@ -7472,7 +7472,7 @@
              Number Field in b with defining polynomial x^8 + 40*x^6 + 352*x^4 + 960*x^2 + 576
              sage: L = K.optimized_subfields(name='b')
              sage: L[0][0]
@@ -138,7 +118,7 @@ Subject: Fix doctests for PARI upgrade
              sage: L[1][0]
              Number Field in b1 with defining polynomial x^2 - 3*x + 3
              sage: [z[0] for z in L]          # random -- since algorithm is random
-@@ -7400,10 +7400,10 @@
+@@ -7516,10 +7516,10 @@
              sage: K.<a> = NumberField(2*x^4 + 6*x^2 + 1/2)
              sage: K.optimized_subfields()
              [
@@ -154,7 +134,7 @@ Subject: Fix doctests for PARI upgrade
                To:   Number Field in a with defining polynomial 2*x^4 + 6*x^2 + 1/2
 --- a/sage/src/sage/rings/number_field/number_field_ideal.py
 +++ b/sage/src/sage/rings/number_field/number_field_ideal.py
-@@ -2709,7 +2709,7 @@
+@@ -2702,7 +2702,7 @@
              Fractional ideal (a^2 - 4*a + 2)
              68
              sage: r = A.element_1_mod(B); r
@@ -277,7 +257,7 @@ Subject: Fix doctests for PARI upgrade
  
  Given an algebraic number, we can produce a string that will reproduce
  that algebraic number if you type the string into Sage. We can see
-@@ -1752,7 +1752,7 @@
+@@ -1767,7 +1767,7 @@
          sage: do_polred(x^2 - x - 11)
          (1/3*x + 1/3, 3*x - 1, x^2 - x - 1)
          sage: do_polred(x^3 + 123456)

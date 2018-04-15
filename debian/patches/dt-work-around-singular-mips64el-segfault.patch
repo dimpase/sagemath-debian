@@ -10,5 +10,5 @@
 +fi
 +
  help_banner() {
-     sage_banner | grep -v 'Type'
+     cat "$SAGE_ROOT/VERSION.txt"
      echo

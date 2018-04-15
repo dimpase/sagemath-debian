@@ -6,6 +6,12 @@ sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
     - u0-version-mpfr-4.0.patch                  #24353
     - u1-version-ipython-5.4.patch               #24389
     - u1-version-giac-1.2.3.57.patch
+    - u1-ipywidgets-repr.patch
+
+  * Patches with non-trivial modifications:
+    - d0-pari-2.9-revert-23544.patch
+    - d0-paths.patch
+    - d1-sage-cli.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 15 Apr 2018 06:36:48 +0000
 

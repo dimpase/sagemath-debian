@@ -46,7 +46,7 @@ Subject: Fix traceback
 
 --- a/sage/src/sage/dynamics/all.py
 +++ b/sage/src/sage/dynamics/all.py
-@@ -1,4 +1,5 @@
+@@ -1,5 +1,6 @@
 -from sage.dynamics.interval_exchanges.all import *
 -from sage.dynamics.flat_surfaces.all import *
 +from sage.misc.lazy_import import lazy_import
@@ -54,6 +54,7 @@ Subject: Fix traceback
 +lazy_import("sage.dynamics.flat_surfaces.all", "*", overwrite=False)
  from sage.dynamics.arithmetic_dynamics.all import *
  from sage.dynamics.complex_dynamics.all import *
+ from sage.dynamics.cellular_automata.all import *
 --- a/sage/src/sage/libs/mpmath/utils.pyx
 +++ b/sage/src/sage/libs/mpmath/utils.pyx
 @@ -15,6 +15,7 @@
@@ -284,7 +285,7 @@ Subject: Fix traceback
          """
 @@ -305,7 +340,7 @@
              sage: rm._sage_argspec_()
-             ArgSpec(args=['ring', 'nrows', 'ncols', 'algorithm'], varargs='args', keywords='kwds', defaults=(None, 'randomize'))
+             ArgSpec(args=['ring', 'nrows', 'ncols', 'algorithm', 'implementation'], varargs='args', keywords='kwds', defaults=(None, 'randomize', None))
          """
 -        return sageinspect.sage_getargspec(self.get_object())
 +        return sageinspect.sage_getargspec(self._get_object())
@@ -468,7 +469,7 @@ Subject: Fix traceback
          """
 @@ -571,7 +572,7 @@
              sage: iter(version_info)
-             <iterator object at ...>
+             <...iterator object at ...>
          """
 -        return iter(self.get_object())
 +        return iter(self._get_object())

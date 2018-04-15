@@ -49,7 +49,7 @@ Forwarded: TODO
      global _db
 --- a/sage/src/sage/graphs/strongly_regular_db.pyx
 +++ b/sage/src/sage/graphs/strongly_regular_db.pyx
-@@ -3213,8 +3213,7 @@
+@@ -3243,8 +3243,7 @@
          return
      import json
  

@@ -73,7 +73,7 @@ Author: Tobias Hansen <thansen@debian.org>
 +    os.system('maxima-sage')
 --- a/sage/src/sage/interfaces/expect.py
 +++ b/sage/src/sage/interfaces/expect.py
-@@ -568,7 +568,7 @@
+@@ -562,7 +562,7 @@
  
              sage: a = maxima('y')
              sage: maxima.quit(verbose=True)
@@ -84,7 +84,7 @@ Author: Tobias Hansen <thansen@debian.org>
              ...
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -543,7 +543,7 @@
+@@ -548,7 +548,7 @@
  
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift

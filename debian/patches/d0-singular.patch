@@ -8,7 +8,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -652,7 +652,8 @@
+@@ -653,7 +653,8 @@
  
          s = Expect.eval(self, x, **kwds)
  
@@ -18,7 +18,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              raise SingularError('Singular error:\n%s'%s)
  
          if get_verbose() > 0:
-@@ -2287,7 +2288,7 @@
+@@ -2258,7 +2259,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -29,7 +29,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -326,6 +326,11 @@
+@@ -324,6 +324,11 @@
      args = ['-w','-O2'] + args
      libdirs = cblas_library_dirs
  

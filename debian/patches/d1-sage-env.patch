@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -205,7 +205,12 @@
+@@ -206,7 +206,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################
@@ -23,7 +23,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
      echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -304,12 +304,12 @@
+@@ -293,12 +293,12 @@
  # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
@@ -38,7 +38,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -365,12 +365,12 @@
+@@ -354,12 +354,12 @@
  fi
  
  # For PARI/GP
@@ -56,7 +56,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -385,16 +385,6 @@
+@@ -374,16 +374,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -73,7 +73,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -437,8 +427,10 @@
+@@ -426,8 +416,10 @@
      unset PYTHONHOME
  fi
  
@@ -85,7 +85,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -499,7 +491,6 @@
+@@ -488,7 +480,6 @@
          fi
      fi
  fi
@@ -93,7 +93,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
  
-@@ -619,9 +610,6 @@
+@@ -608,9 +599,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -169,17 +169,6 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    In the future, this may grow, of course. Note: after using this, if you
    want to build the documentation and include the pictures, you should
    run ``make doc-clean``, because the presence, or lack, of pictures
---- a/sage/src/sage/structure/sage_object.pyx
-+++ b/sage/src/sage/structure/sage_object.pyx
-@@ -1579,7 +1579,7 @@
- 
-     When run with no arguments :meth:`unpickle_all` tests that all of the
-     "standard" pickles stored in the pickle_jar at
--    ``SAGE_SHARE/sage/ext/pickle_jar/pickle_jar.tar.bz2`` can be unpickled.
-+    ``SAGE_EXTCODE/pickle_jar/pickle_jar.tar.bz2`` can be unpickled.
- 
-     ::
- 
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
 @@ -413,7 +413,7 @@

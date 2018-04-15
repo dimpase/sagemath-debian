@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -196,7 +196,7 @@
+@@ -197,7 +197,7 @@
  
  WORKSPACE = gap_workspace_file()
  
@@ -17,7 +17,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -528,7 +528,7 @@
+@@ -582,7 +582,7 @@
      extra_sources = []
      for fname in additional_source_files:
          fname = fname.replace("$SAGE_SRC", SAGE_SRC)
@@ -25,7 +25,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +        fname = fname.replace("$SAGE_LOCAL", '/usr/include')
          extra_sources.append(fname)
  
-     # Now do the actual build, directly calling Cython and distutils
+     # Add current working directory to includes. This is needed because
 --- a/sage/src/sage/libs/lcalc/lcalc_sage.h
 +++ b/sage/src/sage/libs/lcalc/lcalc_sage.h
 @@ -1,4 +1,4 @@
@@ -34,23 +34,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  int *new_ints(int l)
  {
---- a/sage/src/sage/interfaces/qepcad.py
-+++ b/sage/src/sage/interfaces/qepcad.py
-@@ -528,11 +528,6 @@
- 
- TESTS:
- 
--Check the qepcad configuration file::
--
--    sage: open('%s/default.qepcadrc'%SAGE_LOCAL).readlines()[-1]
--    'SINGULAR .../bin\n'
--
- Tests related to the not tested examples (nondeterministic order of atoms)::
- 
-     sage: from sage.interfaces.qepcad import _qepcad_atoms
 --- a/sage/src/sage/interfaces/jmoldata.py
 +++ b/sage/src/sage/interfaces/jmoldata.py
-@@ -148,7 +148,7 @@
+@@ -149,7 +149,7 @@
              True
          """
          # Set up paths, file names and scripts

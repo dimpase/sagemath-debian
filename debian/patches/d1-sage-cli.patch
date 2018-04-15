@@ -65,7 +65,7 @@ Forwarded: not-needed
      echo "  -gdb                -- run Sage under the control of gdb"
      echo "  -gp [...]           -- run Sage's PARI/GP calculator with given arguments"
      echo "  -ipython [...]      -- run Sage's IPython using the default environment (not"
-@@ -116,7 +103,6 @@
+@@ -117,7 +104,6 @@
      echo "                         (not installed currently, run sage -i polymake)"
      echo "  -python [...]       -- run the Python interpreter"
      echo "  -R [...]            -- run Sage's R with given arguments"
@@ -73,7 +73,7 @@ Forwarded: not-needed
      echo "  -sh [...]           -- run \$SHELL ($SHELL) with Sage environment variables"
      echo "  -singular [...]     -- run Sage's singular with given arguments"
      echo "  -sqlite3 [...]      -- run Sage's sqlite3 with given arguments"
-@@ -125,55 +111,7 @@
+@@ -126,55 +112,7 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -130,7 +130,7 @@ Forwarded: not-needed
      echo "  -startuptime [module] -- display how long each component of Sage takes to"
      echo "                         start up; optionally specify a module to get more"
      echo "                         details about that particular module"
-@@ -182,9 +120,7 @@
+@@ -183,9 +121,7 @@
      echo "                         selected options:"
      echo "                           --long - include lines with the phrase 'long time'"
      echo "                           --verbose - print debugging output during the test"
@@ -140,7 +140,7 @@ Forwarded: not-needed
      echo "                           --initial - only show the first failure per block"
      echo "                           --debug - drop into PDB after an unexpected error"
      echo "                           --failed - only test files that failed last test"
-@@ -201,9 +137,6 @@
+@@ -202,9 +138,6 @@
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
      echo "Documentation:"
@@ -150,7 +150,7 @@ Forwarded: not-needed
      echo "  -docbuild [lang/]<document> <html|pdf|...> -- Build the Sage documentation"
      echo "  -search_src <string> -- search through all the Sage library code for string"
      echo "  -search_doc <string> -- search through the Sage documentation for string"
-@@ -226,16 +159,6 @@
+@@ -227,16 +160,6 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -167,7 +167,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -276,91 +199,6 @@
+@@ -277,98 +200,6 @@
      exit $status
  fi
  
@@ -219,39 +219,46 @@ Forwarded: not-needed
 -    fi
 -
 -    set -e
--
 -    cd "$SAGE_ROOT"
 -
--    # First of all, make sure that the toolchain is up-to-date
--    # (which is a dependency of every package)
--    ./sage --location
--    $MAKE all-toolchain
--    echo
--
+-    # Parse options
+-    PACKAGES=""         # Packages to install
 -    INSTALL_OPTIONS=""  # Options to sage-spkg
--    for PKG in "$@"
--    do
--        case "$PKG" in
+-    for OPT in "$@"; do
+-        case "$OPT" in
 -            -info|--info)
--                echo >&2 "Error: 'sage -i $PKG <package>' is no longer supported, use 'sage --info <package>' instead."
+-                echo >&2 "Error: 'sage -i $OPT <package>' is no longer supported, use 'sage --info <package>' instead."
 -                exit 2;;
 -            -f) FORCE_INSTALL=yes;;
--            -*) INSTALL_OPTIONS="$INSTALL_OPTIONS $PKG";;
--            *)
--                # First check that $PKG is actually a Makefile target
--                if ! grep "^$PKG: " build/make/Makefile >/dev/null; then
--                    echo >&2 "Error: package '$PKG' not found"
--                    echo >&2 "Assuming it is an old-style package... (this is deprecated: use -p instead of -i to install old-style packages)"
--                    echo >&2
--                    sleep 5
--                    ./sage -p $INSTALL_OPTIONS "$PKG"
--                else
--                    if [ x$FORCE_INSTALL = xyes ]; then
--                        $MAKE "$PKG-clean"
--                    fi
--                    $MAKE SAGE_SPKG="sage-spkg $INSTALL_OPTIONS" "$PKG"
--                fi;;
+-            -*) INSTALL_OPTIONS="$INSTALL_OPTIONS $OPT";;
+-            *) PACKAGES="$PACKAGES $OPT";;
 -        esac
+-    done
+-
+-    # First, uninstall the packages if -f was given
+-    if [ "$FORCE_INSTALL" = yes ]; then
+-        for PKG in $PACKAGES; do
+-            $MAKE "$PKG-clean" || true  # Ignore errors
+-        done
+-    fi
+-
+-    # Make sure that the toolchain is up-to-date
+-    # (which is a dependency of every package)
+-    $MAKE all-toolchain
+-
+-    # Now install the packages
+-    for PKG in $PACKAGES; do
+-        echo
+-        # First check that $PKG is actually a Makefile target
+-        # Since https://trac.sagemath.org/ticket/21524 there is not explicitly
+-        # a target for the package, but if it has a vers_<pkgname> variable
+-        # there will also be a generated rule for it
+-        if ! grep "^vers_$PKG = " build/make/Makefile >/dev/null; then
+-            echo >&2 "Error: package '$PKG' not found"
+-            echo >&2 "Note: if it is an old-style package, use -p instead of -i to install it"
+-            exit 1
+-        fi
+-        $MAKE SAGE_SPKG="sage-spkg $INSTALL_OPTIONS" "$PKG"
 -    done
 -    exit 0
 -fi
@@ -259,11 +266,10 @@ Forwarded: not-needed
  
  #####################################################################
  # Source sage-env ($0 is the name of this "sage" script, so we can just
-@@ -386,29 +224,9 @@
- 
+@@ -395,25 +226,7 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
--    # Check that we're not in a source tarball which hasn't been built yet (#13561).
+     # Check that we're not in a source tarball which hasn't been built yet (#13561).
 -    if [ ! -x "$SAGE_LOCAL/bin/sage" ]; then
 -        echo >&2 '************************************************************************'
 -        echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
@@ -275,11 +281,8 @@ Forwarded: not-needed
 -        exit 1
 -    fi
 -
-     # Display the startup banner (unless SAGE_BANNER is explicitly "no")
-     sage_banner
- 
 -    maybe_sage_location
--
+ 
 -    if [ ! -d "$IPYTHONDIR" ]; then
 -        # make sure that $DOT_SAGE exists so that ipython will happily
 -        # create its config directories there.  If DOT_SAGE doesn't
@@ -289,7 +292,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
-@@ -486,11 +304,6 @@
+@@ -491,11 +304,6 @@
      exec gap "$@"
  fi
  
@@ -301,7 +304,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -536,11 +349,6 @@
+@@ -541,11 +349,6 @@
      exec kash "$@"
  fi
  
@@ -313,7 +316,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -556,21 +364,6 @@
+@@ -561,21 +364,6 @@
      exec M2 "$@"
  fi
  
@@ -335,7 +338,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      exec python "$@"
-@@ -601,11 +394,6 @@
+@@ -611,11 +399,6 @@
      exec git "$@"
  fi
  
@@ -347,7 +350,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -725,20 +513,6 @@
+@@ -735,20 +518,6 @@
  fi
  
  #####################################################################
@@ -368,7 +371,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -761,11 +535,6 @@
+@@ -771,11 +540,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -380,7 +383,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -776,13 +545,6 @@
+@@ -786,13 +550,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -394,7 +397,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -801,34 +563,15 @@
+@@ -811,34 +568,15 @@
      exit 0
  fi
  
@@ -424,14 +427,14 @@ Forwarded: not-needed
 -        build_sage
 -    fi
 +if [ "$1" = '-t' -o "$1" = '-tp' ]; then
-     SAGE_BANNER=no sage_setup
+     sage_setup
      export PYTHONIOENCODING="utf-8"  # Fix encoding for doctests
 -    if [ "$1" = '-tp' -o "$1" = '-btp' ]; then
 +    if [ "$1" = '-tp' ]; then
          shift
          exec sage-runtests -p "$@"
      else
-@@ -837,16 +580,6 @@
+@@ -847,16 +585,6 @@
      fi
  fi
  
@@ -440,15 +443,15 @@ Forwarded: not-needed
 -        build_sage
 -    fi
 -    shift
--    SAGE_BANNER=no sage_setup
+-    sage_setup
 -    export PYTHONIOENCODING="utf-8"  # Fix encoding for doctests
 -    exec sage-runtests --new "$@"
 -fi
 -
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
-     SAGE_BANNER=no sage_setup
-@@ -861,114 +594,6 @@
+     sage_setup
+@@ -871,114 +599,6 @@
      exec sage-eval "$@"
  fi
  
@@ -562,8 +565,8 @@ Forwarded: not-needed
 -
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      shift
-     exec python -m "sage_setup.docbuild" "$@"
-@@ -1040,10 +665,6 @@
+     exec sage-python23 -m "sage_setup.docbuild" "$@"
+@@ -1050,10 +670,6 @@
  fi
  
  if [ $# -ge 1 ]; then
@@ -571,7 +574,7 @@ Forwarded: not-needed
 -    if [ "$T" = "spkg" ]; then
 -        install "$@"
 -    fi
-     SAGE_BANNER=no sage_setup
+     sage_setup
      unset TERM  # See Trac #12263
      exec sage-run "$@"
 --- a/sage/src/sage/tests/cmdline.py
