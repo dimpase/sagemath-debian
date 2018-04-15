@@ -1,6 +1,11 @@
 sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * New (Build-)Depends:
+    - fflas-ffpack (>= 2.3.2)
+    - givaro (>= 4.0.4)
+    - linbox (>= 1.5.2)
+    - pynac (>= 0.7.19)
   * Remove patches (applied upstream):
     - u0-version-matplotlib-2.1.0.patch          #23696
     - u0-version-mpfr-4.0.patch                  #24353
