@@ -230,8 +230,19 @@ python_packages_to_modules = {
 }
 
 unneeded_packages = {
+    'backports_functools_lru_cache',
+    'bleach',
+    'html5lib',
+    'libatomic_ops',
+    'pandocfilters',
     'requests', # FIXME(requests): only used to build sphinx, not needed in Debian
-    'speaklater'
+    'scandir',
+    'send2trash',
+    'speaklater',
+    'sphinxcontrib_websupport',
+    'subprocess32',
+    'testpath',
+    'webencodings'
 }
 
 for p in python_modules:
