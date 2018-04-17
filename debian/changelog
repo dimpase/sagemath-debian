@@ -2,6 +2,7 @@ sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
 
   * New upstream version.
   * New (Build-)Depends:
+    - cython (>= 0.28.2)
     - fflas-ffpack (>= 2.3.2)
     - givaro (>= 4.0.4)
     - linbox (>= 1.5.2)
