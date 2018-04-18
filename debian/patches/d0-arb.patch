@@ -88,3 +88,19 @@ Forwarded: not-needed
  
  from sage.libs.arb.types cimport *
  from sage.libs.flint.types cimport fmpz_poly_t, fmpq_poly_t
+--- a/sage/src/sage/libs/arb/acb_calc.pxd
++++ b/sage/src/sage/libs/arb/acb_calc.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ from sage.libs.flint.types cimport fmpz_t, fmpq_t
+--- a/sage/src/sage/libs/arb/acb_elliptic.pxd
++++ b/sage/src/sage/libs/arb/acb_elliptic.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = gmp flint arb
++# distutils: libraries = gmp flint flint-arb
+ 
+ from sage.libs.arb.types cimport *
+ 

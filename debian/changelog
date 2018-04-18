@@ -18,6 +18,7 @@ sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
     - u0-version-pynac-0.7.19.patch              #24838
     - d0-pari-2.9-revert-24531.patch
   * Patches with non-trivial modifications:
+    - d0-arb.patch
     - d0-pari-2.9-revert-23544.patch
     - d0-paths.patch
     - d1-sage-cli.patch
