@@ -167,7 +167,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -277,98 +200,6 @@
+@@ -277,97 +200,6 @@
      exit $status
  fi
  
@@ -246,14 +246,14 @@ Forwarded: not-needed
 -    # (which is a dependency of every package)
 -    $MAKE all-toolchain
 -
+-    ALL_TARGETS="$($MAKE list 2>/dev/null)"
+-
 -    # Now install the packages
 -    for PKG in $PACKAGES; do
 -        echo
 -        # First check that $PKG is actually a Makefile target
--        # Since https://trac.sagemath.org/ticket/21524 there is not explicitly
--        # a target for the package, but if it has a vers_<pkgname> variable
--        # there will also be a generated rule for it
--        if ! grep "^vers_$PKG = " build/make/Makefile >/dev/null; then
+-        # See https://trac.sagemath.org/ticket/25078
+-        if ! echo "$ALL_TARGETS" | grep "^${PKG}$" >/dev/null; then
 -            echo >&2 "Error: package '$PKG' not found"
 -            echo >&2 "Note: if it is an old-style package, use -p instead of -i to install it"
 -            exit 1
@@ -262,11 +262,10 @@ Forwarded: not-needed
 -    done
 -    exit 0
 -fi
--
+ 
  
  #####################################################################
- # Source sage-env ($0 is the name of this "sage" script, so we can just
-@@ -395,25 +226,7 @@
+@@ -395,25 +227,7 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
@@ -280,9 +279,9 @@ Forwarded: not-needed
 -        echo >&2 '************************************************************************'
 -        exit 1
 -    fi
--
--    maybe_sage_location
  
+-    maybe_sage_location
+-
 -    if [ ! -d "$IPYTHONDIR" ]; then
 -        # make sure that $DOT_SAGE exists so that ipython will happily
 -        # create its config directories there.  If DOT_SAGE doesn't
@@ -292,7 +291,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
-@@ -491,11 +304,6 @@
+@@ -491,11 +305,6 @@
      exec gap "$@"
  fi
  
@@ -304,7 +303,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -541,11 +349,6 @@
+@@ -541,11 +350,6 @@
      exec kash "$@"
  fi
  
@@ -316,7 +315,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -561,21 +364,6 @@
+@@ -561,21 +365,6 @@
      exec M2 "$@"
  fi
  
@@ -338,7 +337,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      exec python "$@"
-@@ -611,11 +399,6 @@
+@@ -611,11 +400,6 @@
      exec git "$@"
  fi
  
@@ -350,7 +349,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -735,20 +518,6 @@
+@@ -735,20 +519,6 @@
  fi
  
  #####################################################################
@@ -371,7 +370,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -771,11 +540,6 @@
+@@ -771,11 +541,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -383,7 +382,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -786,13 +550,6 @@
+@@ -786,13 +551,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -397,7 +396,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -811,34 +568,15 @@
+@@ -811,34 +569,15 @@
      exit 0
  fi
  
@@ -434,7 +433,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -847,16 +585,6 @@
+@@ -847,16 +586,6 @@
      fi
  fi
  
@@ -451,7 +450,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      sage_setup
-@@ -871,114 +599,6 @@
+@@ -871,114 +600,6 @@
      exec sage-eval "$@"
  fi
  
@@ -566,7 +565,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      shift
      exec sage-python23 -m "sage_setup.docbuild" "$@"
-@@ -1050,10 +670,6 @@
+@@ -1049,10 +670,6 @@
  fi
  
  if [ $# -ge 1 ]; then

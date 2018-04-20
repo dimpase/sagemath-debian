@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -206,7 +206,12 @@
+@@ -207,7 +207,12 @@
  # append -env to that). We redirect stdout to stderr, which is safer
  # for scripts.
  #####################################################################
@@ -127,7 +127,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
     of the documentation, run:  
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -235,7 +235,7 @@
+@@ -241,7 +241,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:

@@ -31,7 +31,7 @@ Forwarded: TODO
          echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
          exit 0
  fi
-@@ -988,14 +988,14 @@
+@@ -988,13 +988,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -40,9 +40,8 @@ Forwarded: TODO
 +        gdb -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
 +            -args python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
      else
-         # Location of cython_debug directory
-         cygdb_dir="$SAGE_SRC/build/cythonized"
-         cygdb "$cygdb_dir" "$SAGE_SRC/sage" \
+         sage_dir=$(sage-python23 -c 'import os, sage; print(os.path.dirname(sage.__file__))')
+         cygdb "$sage_dir" "$SAGE_SRC/sage" \
 -            -- -x "$SAGE_LOCAL/bin/sage-gdb-commands" \
 -            -args python "$SAGE_LOCAL/bin/sage-ipython" "$@" -i
 +            -- -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
