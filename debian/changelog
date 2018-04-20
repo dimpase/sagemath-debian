@@ -8,6 +8,7 @@ sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
     - givaro (>= 4.0.4)
     - linbox (>= 1.5.2)
     - pynac (>= 0.7.19)
+    - sphinx (>= 1.7)
   * Remove patches (applied upstream):
     - u0-version-matplotlib-2.1.0.patch          #23696
     - u0-version-mpfr-4.0.patch                  #24353
@@ -16,6 +17,7 @@ sagemath (8.2~rc2-1) UNRELEASED; urgency=medium
     - u1-ipywidgets-repr.patch
   * New patches:
     - u0-version-pynac-0.7.19.patch              #24838
+    - u0-version-sphinx-1.7.patch                #24935
     - d0-pari-2.9-revert-24531.patch
   * Patches with non-trivial modifications:
     - d0-arb.patch

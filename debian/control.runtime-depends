@@ -90,7 +90,7 @@
  python-simplegeneric,
  python-singledispatch,
  python-snowballstemmer,
- python-sphinx (>= 1.6),
+ python-sphinx (>= 1.7),
  python-subprocess32,
  python-sympy,
  python-terminado,
