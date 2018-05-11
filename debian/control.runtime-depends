@@ -67,7 +67,7 @@
  python-moinmoin,
  python-mpmath,
  python-networkx,
- python-numpy (>= 1:1.13),
+ python-numpy (>= 1:1.14),
  python-openid,
  python-path,
  python-pathlib2,

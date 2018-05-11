@@ -1,5 +1,6 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
+u0-version-numpy-1.14.3.patch              #25260
 u0-version-pynac-0.7.19.patch              #24838
 u0-version-sphinx-1.7.patch                #24935
 
