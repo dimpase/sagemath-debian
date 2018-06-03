@@ -82,7 +82,7 @@
  python-ptyprocess,
  python-pygments,
  python-rpy2,
- python-sagenb (>= 1.0.1),
+ python-sagenb (>= 1.0.1+ds1-5),
  python-sagenb-export (>= 3.2),
  python-scipy (>= 0.19.1),
  python-setuptools,

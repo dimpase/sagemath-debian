@@ -10,6 +10,7 @@ sagemath (8.2-1) UNRELEASED; urgency=medium
     - pynac (>= 0.7.19)
     - sphinx (>= 1.7)
     - python-numpy (>= 1:1.14)
+    - python-sagenb (>= 1.0.1+ds1-5)
   * Remove patches (applied upstream):
     - u0-version-matplotlib-2.1.0.patch          #23696
     - u0-version-mpfr-4.0.patch                  #24353
