@@ -1,4 +1,4 @@
-sagemath (8.2-1) UNRELEASED; urgency=medium
+sagemath (8.2-1) experimental; urgency=medium
 
   * New upstream version.
   * New (Build-)Depends:
@@ -33,7 +33,7 @@ sagemath (8.2-1) UNRELEASED; urgency=medium
     - d1-sage-cli.patch
   * Increase the allowed test failures from 62 up to 70.
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 15 Apr 2018 06:36:48 +0000
+ -- Tobias Hansen <thansen@debian.org>  Wed, 06 Jun 2018 17:48:06 +0000
 
 sagemath (8.1-7) unstable; urgency=medium
 
