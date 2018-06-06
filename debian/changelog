@@ -11,6 +11,10 @@ sagemath (8.2-1) UNRELEASED; urgency=medium
     - sphinx (>= 1.7)
     - python-numpy (>= 1:1.14)
     - python-sagenb (>= 1.0.1+ds1-5)
+  * Version restrictions to use packages from unstable
+    rather than experimental:
+    - libec-dev (<< 20171219~)
+    - libsingular4-dev (<< 1:4.1.1~)
   * Remove patches (applied upstream):
     - u0-version-matplotlib-2.1.0.patch          #23696
     - u0-version-mpfr-4.0.patch                  #24353
@@ -27,6 +31,7 @@ sagemath (8.2-1) UNRELEASED; urgency=medium
     - d0-pari-2.9-revert-23544.patch
     - d0-paths.patch
     - d1-sage-cli.patch
+  * Increase the allowed test failures from 62 up to 70.
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 15 Apr 2018 06:36:48 +0000
 
