@@ -9,8 +9,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          """
          Used to call sympow with given args
          """
--        cmd = 'env SYMPOW_CACHEDIR="%s/sympow///" sympow %s' % (DOT_SAGE, args)
-+        cmd = 'env -u MALLOC_PERTURB_ SYMPOW_CACHEDIR="%s/sympow///" sympow %s' % (DOT_SAGE, args)
+-        cmd = 'sympow %s'%args
++        cmd = 'env -u MALLOC_PERTURB_ sympow %s' % (DOT_SAGE, args)
          v = os.popen(cmd).read().strip()
          verbose(v, level=2)
          return v
