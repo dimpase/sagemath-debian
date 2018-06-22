@@ -1,5 +1,8 @@
 sagemath (8.2-2) UNRELEASED; urgency=medium
 
+  * New (Build-)Depends:
+    - python-networkx (>= 2.1)
+    - sympow (>= 1.023-9)
   * New patches:
     - u0-version-networkx-2.1.patch              #24374
 

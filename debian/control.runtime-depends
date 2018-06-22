@@ -118,6 +118,6 @@
  singular-doc (>= 1:4.1.0-p3),
  singular-doc (<< 1:4.1.1~),
  sqlite3,
- sympow (>= 1.023-8),
+ sympow (>= 1.023-9),
  tachyon,
  xcas,
