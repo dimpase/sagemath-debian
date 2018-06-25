@@ -1226,7 +1226,7 @@ Some more comments:
                  G = self.networkx_graph(copy=False)
              G.add_nodes_from(self.vertices())
  
-+            degree = self.out_degree if self.is_directed else self.degree
++            degree = self.out_degree if self.is_directed() else self.degree
              if vert is None:
 -                closeness = networkx.closeness_centrality(G,vert,
 -                                                          distance = 'weight'
@@ -1352,3 +1352,13 @@ Some more comments:
  
      @doc_index("Clique-related methods")
      def cliques_get_clique_bipartite(self, **kwds):
+--- a/sage/src/sage/combinat/permutation.py
++++ b/sage/src/sage/combinat/permutation.py
+@@ -6967,6 +6967,7 @@
+ 
+     while G.size() > 0:
+         matching = G.matching(use_edge_labels=True)
++        matching = [(min(u,v), max(u, v), w) for u,v,w in matching]
+ 
+         # This minimum is strictly larger than 0
+         minimum = min([x[2] for x in matching])
