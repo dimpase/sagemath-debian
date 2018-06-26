@@ -1,3 +1,9 @@
+sagemath (8.2-4) unstable; urgency=medium
+
+  * Depend on libflint-arb-dev (>= 1:2.12).
+
+ -- Tobias Hansen <thansen@debian.org>  Tue, 26 Jun 2018 18:00:34 +0200
+
 sagemath (8.2-3) unstable; urgency=medium
 
   * Upload to unstable.

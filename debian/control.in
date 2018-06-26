@@ -35,7 +35,7 @@ Build-Depends:
  libec-dev (>= 20171002),
  libec-dev (<< 20171219~),
  libecm-dev,
- libflint-arb-dev (>= 2.12),
+ libflint-arb-dev (>= 1:2.12),
  libflint-dev (>= 2.5.2-5),
  libfplll-dev (>= 5.2.0),
  libfreetype6-dev,
