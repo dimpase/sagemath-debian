@@ -1,3 +1,9 @@
+sagemath (8.2-5) unstable; urgency=medium
+
+  * New patch d1-remove-sage-python23.patch. (Closes: #902545)
+
+ -- Tobias Hansen <thansen@debian.org>  Fri, 29 Jun 2018 12:12:45 +0200
+
 sagemath (8.2-4) unstable; urgency=medium
 
   * Depend on libflint-arb-dev (>= 1:2.12).
