@@ -100,7 +100,7 @@ Subject: Fix doctests for PARI upgrade
  
 --- a/sage/src/sage/rings/number_field/number_field.py
 +++ b/sage/src/sage/rings/number_field/number_field.py
-@@ -3789,7 +3789,7 @@
+@@ -3862,7 +3862,7 @@
              sage: k.<a> = NumberField(x^4 - 3/2*x + 5/3); k
              Number Field in a with defining polynomial x^4 - 3/2*x + 5/3
              sage: k.pari_nf()
@@ -109,7 +109,7 @@ Subject: Fix doctests for PARI upgrade
              sage: pari(k)
              [y^4 - 324*y + 2160, [0, 2], 48918708, 216, ...]
              sage: gp(k)
-@@ -7472,7 +7472,7 @@
+@@ -7543,7 +7543,7 @@
              Number Field in b with defining polynomial x^8 + 40*x^6 + 352*x^4 + 960*x^2 + 576
              sage: L = K.optimized_subfields(name='b')
              sage: L[0][0]
@@ -118,7 +118,7 @@ Subject: Fix doctests for PARI upgrade
              sage: L[1][0]
              Number Field in b1 with defining polynomial x^2 - 3*x + 3
              sage: [z[0] for z in L]          # random -- since algorithm is random
-@@ -7516,10 +7516,10 @@
+@@ -7587,10 +7587,10 @@
              sage: K.<a> = NumberField(2*x^4 + 6*x^2 + 1/2)
              sage: K.optimized_subfields()
              [
@@ -134,7 +134,7 @@ Subject: Fix doctests for PARI upgrade
                To:   Number Field in a with defining polynomial 2*x^4 + 6*x^2 + 1/2
 --- a/sage/src/sage/rings/number_field/number_field_ideal.py
 +++ b/sage/src/sage/rings/number_field/number_field_ideal.py
-@@ -2702,7 +2702,7 @@
+@@ -2722,7 +2722,7 @@
              Fractional ideal (a^2 - 4*a + 2)
              68
              sage: r = A.element_1_mod(B); r
@@ -257,7 +257,7 @@ Subject: Fix doctests for PARI upgrade
  
  Given an algebraic number, we can produce a string that will reproduce
  that algebraic number if you type the string into Sage. We can see
-@@ -1767,7 +1767,7 @@
+@@ -1763,7 +1763,7 @@
          sage: do_polred(x^2 - x - 11)
          (1/3*x + 1/3, 3*x - 1, x^2 - x - 1)
          sage: do_polred(x^3 + 123456)
@@ -284,7 +284,7 @@ Subject: Fix doctests for PARI upgrade
                zc = Mod(Mod(-1/2*y + 1/2, y^2 + 7)*x^2 + Mod(-1/2*y - 1/2, y^2 + 7)*x + Mod(-y - 1, y^2 + 7), x^3 + Mod(1, y^2 + 7)*x + Mod(y, y^2 + 7))
 --- a/sage/src/sage/schemes/projective/projective_morphism.py
 +++ b/sage/src/sage/schemes/projective/projective_morphism.py
-@@ -2072,9 +2072,12 @@
+@@ -2079,9 +2079,12 @@
              sage: H = End(P)
              sage: f = H([QQbar(3^(1/3))*x^2 + QQbar(sqrt(-2))*y^2, y^2])
              sage: f._number_field_from_algebraics()

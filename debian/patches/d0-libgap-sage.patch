@@ -56,25 +56,6 @@ Forwarded: not-needed
      "m", "readline", "Lfunction" ,
  ] + cblas_libs + zlib_libs
  
-@@ -584,15 +588,15 @@
- 
-     Extension('sage.libs.gap.util',
-               sources = ["sage/libs/gap/util.pyx"],
--              libraries = ['gmp', 'gap', 'm']),
-+              libraries = ['gmp'] + libgap_libs + ['m']),
- 
-     Extension('sage.libs.gap.element',
-               sources = ["sage/libs/gap/element.pyx"],
--              libraries = ['gmp', 'gap', 'm']),
-+              libraries = ['gmp'] + libgap_libs + ['m']),
- 
-     Extension('sage.libs.gap.libgap',
-               sources = ["sage/libs/gap/libgap.pyx"],
--              libraries = ['gmp', 'gap', 'm']),
-+              libraries = ['gmp'] + libgap_libs + ['m']),
- 
-     ###################################
-     ##
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
 @@ -83,11 +83,17 @@

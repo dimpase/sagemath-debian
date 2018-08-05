@@ -15,16 +15,16 @@ Author: Tobias Hansen <thansen@debian.org>
  ecl_eval("(defvar *MAXIMA-LANG-SUBDIR* NIL)")
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
-@@ -556,7 +556,7 @@
+@@ -546,7 +546,7 @@
          Expect.__init__(self,
                          name = 'maxima',
                          prompt = '\(\%i[0-9]+\) ',
--                        command = 'maxima --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
-+                        command = 'maxima-sage --userdir="%s" -p "%s"'%(SAGE_MAXIMA_DIR,STARTUP),
+-                        command = 'maxima -p "{0}"'.format(STARTUP),
++                        command = 'maxima-sage -p "{0}"'.format(STARTUP),
                          env = {'TMPDIR': str(ECL_TMP)},
                          script_subdirectory = script_subdirectory,
                          restart_on_ctrlc = False,
-@@ -790,7 +790,7 @@
+@@ -787,7 +787,7 @@
          if not wait_for_prompt:
              return
          # line_echo sometimes has randomly inserted terminal echo in front #15811
@@ -32,10 +32,10 @@ Author: Tobias Hansen <thansen@debian.org>
 +        #assert line_echo.strip().endswith(line.strip()), 'mismatch:\n' + line_echo + line
  
          self._expect_expr(self._display_prompt)
-         out = self._before()        # input echo + output prompt + output
+         out = self._before()  # input echo + output prompt + output
 --- a/sage/src/sage/interfaces/maxima_abstract.py
 +++ b/sage/src/sage/interfaces/maxima_abstract.py
-@@ -166,7 +166,7 @@
+@@ -168,7 +168,7 @@
              -- Function: gcd (<p_1>, <p_2>, <x_1>, ...)
              ...
          """
@@ -44,28 +44,28 @@ Author: Tobias Hansen <thansen@debian.org>
          if sage.server.support.EMBEDDED_MODE:
              cmd += '< /dev/null'
  
-@@ -179,10 +179,7 @@
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE)
-             res = p.stdout.read()
+@@ -178,10 +178,7 @@
+         if redirect:
+             res = bytes_to_str(subprocess.check_output(cmd, shell=True,
+                                                        env=env))
 -            # We get 4 lines of commented verbosity
 -            # every time Maxima starts, so we need to get rid of them
 -            for _ in range(4):
 -                res = res[res.find('\n')+1:]
 +            res = '\n'.join([line for line in res.split('\n') if line != '' and not line.startswith(';;;') and not line.startswith('(%i1)')])
+ 
              return AsciiArtString(res)
          else:
-             subprocess.Popen(cmd, shell=True, env=env)
 @@ -2195,7 +2192,7 @@
-         sage: maxima_version()
-         '5.39.0'
+         sage: maxima_version()  # random
+         '5.41.0'
      """
--    return os.popen('maxima --version').read().split()[-1]
-+    return os.popen('maxima-sage --version').read().split()[-1]
+-    with os.popen('maxima --version') as p:
++    with os.popen('maxima-sage --version') as p:
+         return p.read().split()[-1]
  
- def maxima_console():
-     """
-@@ -2211,4 +2208,4 @@
+ 
+@@ -2213,4 +2210,4 @@
      from sage.repl.rich_output.display_manager import get_display_manager
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
@@ -73,7 +73,7 @@ Author: Tobias Hansen <thansen@debian.org>
 +    os.system('maxima-sage')
 --- a/sage/src/sage/interfaces/expect.py
 +++ b/sage/src/sage/interfaces/expect.py
-@@ -562,7 +562,7 @@
+@@ -578,7 +578,7 @@
  
              sage: a = maxima('y')
              sage: maxima.quit(verbose=True)
@@ -84,7 +84,7 @@ Author: Tobias Hansen <thansen@debian.org>
              ...
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -548,7 +548,7 @@
+@@ -564,7 +564,7 @@
  
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift

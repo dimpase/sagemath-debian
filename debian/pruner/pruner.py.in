@@ -186,6 +186,7 @@ python_modules = [
     'networkx',
     'notebook',
     'numpy',
+    'packaging',
     'pathlib2',
     'pexpect',
     'pickleshare',
@@ -235,6 +236,7 @@ unneeded_packages = {
     'html5lib',
     'libatomic_ops',
     'pandocfilters',
+    'pycygwin',
     'requests', # FIXME(requests): only used to build sphinx, not needed in Debian
     'scandir',
     'send2trash',

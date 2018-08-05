@@ -43,7 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -        jmolpath = os.path.join(SAGE_LOCAL, "share", "jmol", "JmolData.jar")
 +        jmolpath = os.path.join("/usr", "share", "jmol", "JmolData.jar")
          target_native = targetfile
-         import sys
+ 
          if sys.platform == 'cygwin':
 --- a/sage/build/bin/sage-python23
 +++ b/sage/build/bin/sage-python23

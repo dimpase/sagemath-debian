@@ -8,7 +8,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -653,7 +653,8 @@
+@@ -654,7 +654,8 @@
  
          s = Expect.eval(self, x, **kwds)
  
@@ -18,7 +18,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              raise SingularError('Singular error:\n%s'%s)
  
          if get_verbose() > 0:
-@@ -2258,7 +2259,7 @@
+@@ -2262,7 +2263,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -43,7 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          cysignals_path = os.path.join(path, "cysignals")
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -177,7 +177,7 @@
+@@ -178,7 +178,7 @@
      else:
          extension = "so"
      # library name changed from libsingular to libSingular btw 3.x and 4.x

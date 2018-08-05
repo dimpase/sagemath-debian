@@ -15,23 +15,18 @@ Forwarded: TODO
  
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -461,13 +461,13 @@
- #####################################################################
- 
- if [ "$1" = '-dumpversion' -o "$1" = '--dumpversion' ]; then
--        . "$SAGE_LOCAL"/bin/sage-version.sh
-+        . "$SAGE_SCRIPTS_DIR"/sage-version.sh
-         echo ${SAGE_VERSION}
-         exit 0
- fi
- 
- if [ "$1" = '-v' -o "$1" = '-version' -o "$1" = '--version' ]; then
--        . "$SAGE_LOCAL"/bin/sage-version.sh
-+        . "$SAGE_SCRIPTS_DIR"/sage-version.sh
-         echo "SageMath version ${SAGE_VERSION}, Release Date: ${SAGE_RELEASE_DATE}"
-         exit 0
- fi
-@@ -988,13 +988,13 @@
+@@ -4,8 +4,8 @@
+ # usage: sage_version [-v]
+ #   -v    display the full version banner including release date
+ sage_version() {
+-    if [ -f "$SAGE_LOCAL/bin/sage-version.sh" ]; then
+-        . "$SAGE_LOCAL/bin/sage-version.sh"
++    if [ -f "$SAGE_SCRIPTS_DIR/bin/sage-version.sh" ]; then
++        . "$SAGE_SCRIPTS_DIR/bin/sage-version.sh"
+     else
+         . "$SAGE_ROOT/src/bin/sage-version.sh"
+     fi
+@@ -1016,13 +1016,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -119,16 +114,16 @@ Forwarded: TODO
 +from sage.env import DOT_SAGE, SAGE_SCRIPTS_DIR
  from sage.misc.misc import ECL_TMP
  
- from .expect import (Expect, ExpectElement, FunctionElement,
-@@ -524,7 +524,7 @@
+ from .expect import (Expect, ExpectElement, gc_disabled)
+@@ -523,7 +523,7 @@
          # setting inchar and outchar..
          eval_using_file_cutoff = 256
          self.__eval_using_file_cutoff = eval_using_file_cutoff
 -        STARTUP = os.path.join(SAGE_LOCAL,'bin','sage-maxima.lisp')
 +        STARTUP = os.path.join(SAGE_SCRIPTS_DIR,'sage-maxima.lisp')
  
-         # We set maxima's configuration directory to $DOT_SAGE/maxima
-         # This avoids that sage's maxima inadvertently loads
+         if not os.path.exists(STARTUP):
+             raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
 @@ -48,7 +48,7 @@

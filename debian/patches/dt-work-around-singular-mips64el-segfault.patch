@@ -9,6 +9,6 @@
 +    SAGE_DEB_MIPS64_WORKAROUND=1 exec setarch mips64 -R "$0" "$@"
 +fi
 +
- help_banner() {
-     cat "$SAGE_ROOT/VERSION.txt"
-     echo
+ # Display the current version of Sage
+ # usage: sage_version [-v]
+ #   -v    display the full version banner including release date
