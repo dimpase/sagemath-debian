@@ -98,7 +98,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  from sage.env import (
 -    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE,
-+    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE
++    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE,
      SAGE_VERSION
  )
  
