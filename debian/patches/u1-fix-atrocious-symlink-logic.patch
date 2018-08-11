@@ -10,7 +10,7 @@ Forwarded: https://trac.sagemath.org/ticket/22444
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -89,12 +89,20 @@
+@@ -97,12 +97,20 @@
              sage: os.listdir(path)
              ['b']
          """

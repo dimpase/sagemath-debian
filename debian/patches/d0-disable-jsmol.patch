@@ -7,7 +7,7 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -121,23 +121,6 @@
+@@ -129,23 +129,6 @@
          dst = os.path.join(self.nbextensions_dir, 'mathjax')
          self.symlink(src, dst)
  
@@ -31,9 +31,9 @@ Forwarded: not-needed
      def use_local_threejs(self):
          """
          Symlink threejs to the Jupyter notebook.
-@@ -260,7 +243,6 @@
+@@ -268,7 +251,6 @@
          """
-         instance = cls()
+         instance = cls(*args, **kwds)
          instance.use_local_mathjax()
 -        instance.use_local_jsmol()
          instance.use_local_threejs()

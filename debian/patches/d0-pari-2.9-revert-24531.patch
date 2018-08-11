@@ -475,7 +475,7 @@ Subject: Use PARI instead of ratpoints
 -    return r
 --- a/sage/src/sage/schemes/elliptic_curves/ell_rational_field.py
 +++ b/sage/src/sage/schemes/elliptic_curves/ell_rational_field.py
-@@ -95,7 +95,7 @@
+@@ -91,7 +91,7 @@
  from sage.functions.log import log
  
  import sage.matrix.all as matrix
@@ -484,7 +484,7 @@ Subject: Use PARI instead of ratpoints
  from sage.functions.gamma import gamma_inc
  from math import sqrt
  from sage.interfaces.all import gp
-@@ -2771,13 +2771,14 @@
+@@ -2766,13 +2766,14 @@
  
          -  ``verbose (bool)`` - (default: ``False``)
  
@@ -501,7 +501,7 @@ Subject: Use PARI instead of ratpoints
             independent nontorsion points.
  
          OUTPUT: points (list) - list of independent points which generate
-@@ -2790,19 +2791,19 @@
+@@ -2785,19 +2786,19 @@
             the running time to increase by a factor of approximately
             4.5 (=exp(1.5)).
  
@@ -524,7 +524,7 @@ Subject: Use PARI instead of ratpoints
  
          In fact this curve has rank 2 so no more than 2 points will ever be
          output, but we are not using this fact.
-@@ -2810,7 +2811,7 @@
+@@ -2805,7 +2806,7 @@
          ::
  
              sage: E.saturation(_)
@@ -533,7 +533,7 @@ Subject: Use PARI instead of ratpoints
  
          What this shows is that if the rank is 2 then the points listed do
          generate the Mordell-Weil group (mod torsion). Finally,
-@@ -2824,19 +2825,32 @@
+@@ -2819,19 +2820,32 @@
  
              sage: E.point_search(5, verbose=False, rank_bound=1)
              [(-2 : 0 : 1)]
@@ -577,7 +577,7 @@ Subject: Use PARI instead of ratpoints
          if rank_bound is None:
              points = self.saturation(points, verbose=verbose)[0]
          return points
-@@ -5746,11 +5760,8 @@
+@@ -5717,11 +5731,8 @@
  
              sage: E = EllipticCurve([0, 0, 1, -7, 6])
              sage: xset = E.integral_x_coords_in_interval(-100,100)
@@ -590,7 +590,7 @@ Subject: Use PARI instead of ratpoints
  
          TESTS:
  
-@@ -5760,15 +5771,12 @@
+@@ -5731,15 +5742,12 @@
              sage: E.integral_points()
              [(0 : 0 : 1), (2 : 1 : 1)]
          """

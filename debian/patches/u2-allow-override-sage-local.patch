@@ -19,15 +19,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -294,7 +294,7 @@
+@@ -293,7 +293,7 @@
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
 -export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
 +export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
+ export SAGE_SPKG_SCRIPTS="$SAGE_LOCAL/var/lib/sage/scripts"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
- export SAGE_DOC_SRC="$SAGE_SRC/doc"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
 @@ -141,7 +141,7 @@
@@ -47,10 +47,10 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
 -export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
 +export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
- export SAGE_VERSION=`cat $SAGE_ROOT/VERSION.txt | sed 's+.*\ \(.*\),.*+\1+'`
+ . "$SAGE_SRC"/bin/sage-version.sh
+ export SAGE_VERSION
  
- if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
-@@ -27,7 +27,7 @@
+@@ -28,7 +28,7 @@
  fi
  export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
  

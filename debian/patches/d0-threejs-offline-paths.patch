@@ -1,21 +1,28 @@
 --- a/sage/src/sage/repl/rich_output/backend_ipython.py
 +++ b/sage/src/sage/repl/rich_output/backend_ipython.py
-@@ -411,11 +411,10 @@
+@@ -412,17 +412,10 @@
              sage: backend.threejs_offline_scripts()
              '...<script ...</script>...'
          """
 -        from sage.env import SAGE_SHARE
-         return """
--<script src="{0}/threejs/three.min.js"></script>
--<script src="{0}/threejs/OrbitControls.js"></script>
--        """.format(SAGE_SHARE)
+-
+-        scripts = [os.path.join(SAGE_SHARE, 'threejs', script)
+-                   for script in ['three.min.js', 'OrbitControls.js']]
+-
+-        if sys.platform == 'cygwin':
+-            import cygwin
+-            scripts = [cygwin.cygpath(script, 'w') for script in scripts]
+-
+-        return '\n'.join('<script src="{0}"></script>'.format(script)
+-                         for script in scripts)
++        return """
 +<script src="{0}/three/three.min.js"></script>
 +<script src="{0}/three/examples/js/controls/OrbitControls.js"></script>
 +        """.format("file:///usr/share/javascript")
  
  
  IFRAME_TEMPLATE = \
-@@ -588,14 +587,9 @@
+@@ -595,14 +588,9 @@
              sage: from sage.repl.rich_output.backend_ipython import BackendIPythonNotebook
              sage: backend = BackendIPythonNotebook()
              sage: backend.threejs_offline_scripts()

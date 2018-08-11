@@ -57,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Used by sage/misc/package.py.  Should be SAGE_SRC_ROOT in VPATH.
  _add_variable_or_fallback('SAGE_PKGS', opj('$SAGE_ROOT', 'build', 'pkgs'))
-@@ -247,8 +247,8 @@
+@@ -248,8 +248,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -799,8 +799,7 @@
+@@ -798,8 +798,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -93,7 +93,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ### pkg-config setup
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -10,11 +10,12 @@
+@@ -10,7 +10,7 @@
  import errno
  
  from sage.env import (
@@ -101,14 +101,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE,
      SAGE_VERSION
  )
- from jupyter_core.paths import ENV_JUPYTER_PATH
--JUPYTER_PATH = ENV_JUPYTER_PATH[0]
-+# if SAGE_SHARE is writeable, assume we're building the Debian package and the path is a dummy path that doesn't get installed
-+JUPYTER_PATH = ENV_JUPYTER_PATH[0] if not os.access(SAGE_SHARE, os.W_OK) else os.path.join(SAGE_SHARE, "jupyter")
  
- 
- class SageKernelSpec(object):
-@@ -117,7 +118,7 @@
+@@ -125,7 +125,7 @@
              sage: os.path.isdir(mathjax)
              True
          """
@@ -117,7 +111,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'mathjax')
          self.symlink(src, dst)
  
-@@ -134,7 +135,7 @@
+@@ -142,7 +142,7 @@
              sage: os.path.isdir(threejs)
              True
          """
@@ -126,7 +120,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'threejs')
          self.symlink(src, dst)
  
-@@ -159,7 +160,7 @@
+@@ -167,7 +167,7 @@
               '{connection_file}']
          """
          return [

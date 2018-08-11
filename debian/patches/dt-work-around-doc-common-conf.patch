@@ -66,19 +66,21 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                'sphinx.ext.extlinks']
 --- a/sage/src/doc/common/conf.py
 +++ b/sage/src/doc/common/conf.py
-@@ -1,11 +1,15 @@
+@@ -1,5 +1,5 @@
  import sys, os, sphinx
 -from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, THEBE_DIR, SAGE_SHARE
 +from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB, THEBE_DIR, SAGE_SHARE
- from datetime import date
+ import sage.version
+ import dateutil.parser
  from six import iteritems
- 
+@@ -7,6 +7,11 @@
  # If your extensions are in another directory, add it here.
  sys.path.append(os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
  
 +# If we can't find the doc sources, try in SAGE_LIB
 +if not os.path.exists(SAGE_DOC_SRC):
 +    SAGE_DOC_SRC = os.path.join(SAGE_LIB, 'sage', 'misc', 'docs')
++
 +
  # General configuration
  # ---------------------
