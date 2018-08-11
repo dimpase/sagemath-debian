@@ -88,3 +88,22 @@ Forwarded: not-needed
  
  # Manually add -fno-strict-aliasing, which is needed to compile Cython
  # and disappears from the default flags if the user has set CFLAGS.
+--- a/sage/src/sage/libs/gap/gap_includes.pxd
++++ b/sage/src/sage/libs/gap/gap_includes.pxd
+@@ -1,4 +1,4 @@
+-# distutils: libraries = gap gmp m
++# distutils: libraries = gap-sage gmp m
+ ###############################################################################
+ #       Copyright (C) 2009, William Stein <wstein@gmail.com>
+ #       Copyright (C) 2012, Volker Braun <vbraun.name@gmail.com>
+--- a/sage/src/sage/libs/gap/util.pyx
++++ b/sage/src/sage/libs/gap/util.pyx
+@@ -295,7 +295,7 @@
+     ``libgap_enter()``::
+ 
+         sage: cython('''
+-        ....: # distutils: libraries = gap
++        ....: # distutils: libraries = gap-sage
+         ....: from sage.libs.gap.gap_includes cimport libgap_enter
+         ....: libgap_enter()
+         ....: ''')
