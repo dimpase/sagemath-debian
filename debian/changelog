@@ -1,6 +1,24 @@
 sagemath (8.3-1) UNRELEASED; urgency=medium
 
   * New upstream version.
+  * New (Build-)Depends:
+    - gfan (>= 0.6.2)
+    - libflint-arb-dev (>= 1:2.13)
+    - libfplll-dev (>= 5.2.1)
+    - libgiac-dev (>= 1.4.9.69)
+    - libpynac-dev (>= 0.7.22)
+    - ipython (>= 5.5.0)
+    - maxima-sage (>= 5.41.0)
+    - python-fpylll (>= 0.4.1)
+    - python-packaging
+  * Remove patches (applied upstream):
+    - u0-version-pynac-0.7.19.patch              #24838
+    - u0-version-sphinx-1.7.patch                #24935
+    - u0-version-pbori-boost1.62-hashes.patch    #22243
+    - u0-version-networkx-2.1.patch              #24374
+    - u0-reproducible-docs.patch                 #25093
+    - u0-better-sphinx-failure-modes.patch       #25160, 25161
+    - u1-version-cddlib-094h.patch               #25341
 
  -- Julian Rüth <julian.rueth@fsfe.org>  Sun, 05 Aug 2018 00:09:56 +0000
 
