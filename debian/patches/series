@@ -1,5 +1,7 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
+u0-version-cypari2-1.2.1.patch             #25813
+u0-version-pari-2.11.patch                 #25567
 u0-version-numpy-1.14.3.patch              #25260
 u0-fix-dont-require-DISPLAY.patch          #22441
 
@@ -12,15 +14,12 @@ u1-workaround-sympow-malloc-perturb.patch  #https://salsa.debian.org/science-tea
 u1-fix-trivial-test-cases.patch            #25094, #25096, #25102, the interpreter bits do not seem necessary anymore
 
 # Patches that should be upstreamed (may need some work first)
-u2-pari-stackwarn.patch                    #23263
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
-d0-pari-2.9-revert-24531.patch
-d0-pari-2.9-revert-23544.patch
 d0-arb.patch
 d0-gsl-cblas.patch
 d0-libgap-sage.patch

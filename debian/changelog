@@ -23,6 +23,15 @@ sagemath (8.3-1) UNRELEASED; urgency=medium
   * New (Build-)Depends:
     - gfan (>= 0.6.2)
     - libgiac-dev (>= 1.4.9.69)
+    - pari (>= 2.11.0)
+    - python-cypari2 (>= 1.2.1),
+  * New patches:
+    - u0-version-cypari2-1.2.1.patch             #25813
+    - u0-version-pari-2.11.patch                 #25567
+  * Removed patches (aaplied upstream):
+    - u2-pari-stackwarn.patch                    #23263
+    - d0-pari-2.9-revert-24531.patch
+    - d0-pari-2.9-revert-23544.patch
   * Use atlas instead of openblas to work around crashes with openblas 0.3.2.
 
  -- Julian Rüth <julian.rueth@fsfe.org>  Sun, 05 Aug 2018 00:09:56 +0000
