@@ -1,11 +1,10 @@
 sagemath (8.3-1) UNRELEASED; urgency=medium
 
+  [ Julian Rüth ]
   * New upstream version.
   * New (Build-)Depends:
-    - gfan (>= 0.6.2)
     - libflint-arb-dev (>= 1:2.13)
     - libfplll-dev (>= 5.2.1)
-    - libgiac-dev (>= 1.4.9.69)
     - libpynac-dev (>= 0.7.22)
     - ipython (>= 5.5.0)
     - maxima-sage (>= 5.41.0)
@@ -19,6 +18,12 @@ sagemath (8.3-1) UNRELEASED; urgency=medium
     - u0-reproducible-docs.patch                 #25093
     - u0-better-sphinx-failure-modes.patch       #25160, 25161
     - u1-version-cddlib-094h.patch               #25341
+
+  [ Tobias Hansen ]
+  * New (Build-)Depends:
+    - gfan (>= 0.6.2)
+    - libgiac-dev (>= 1.4.9.69)
+  * Use atlas instead of openblas to work around crashes with openblas 0.3.2.
 
  -- Julian Rüth <julian.rueth@fsfe.org>  Sun, 05 Aug 2018 00:09:56 +0000
 
