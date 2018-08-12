@@ -86,17 +86,15 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -489,9 +481,6 @@
+@@ -489,7 +481,6 @@
      fi
  fi
  
 -export MAXIMA_PREFIX="$SAGE_LOCAL"
--export MAXIMA_USERDIR="$DOT_SAGE/maxima"
--
- PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
+ export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
- # Allow SAGE_BROWSER to override BROWSER (Trac #22449)
-@@ -601,9 +590,6 @@
+ PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
+@@ -601,9 +592,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
