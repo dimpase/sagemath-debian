@@ -1,4 +1,4 @@
-sagemath (8.3-1) UNRELEASED; urgency=medium
+sagemath (8.3-1~exp1) experimental; urgency=medium
 
   [ Julian Rüth ]
   * New upstream version.
@@ -35,7 +35,7 @@ sagemath (8.3-1) UNRELEASED; urgency=medium
     - d0-pari-2.9-revert-23544.patch
   * Use atlas instead of openblas to work around crashes with openblas 0.3.2.
 
- -- Julian Rüth <julian.rueth@fsfe.org>  Sun, 05 Aug 2018 00:09:56 +0000
+ -- Ximin Luo <infinity0@debian.org>  Sun, 12 Aug 2018 14:53:31 -0700
 
 sagemath (8.2-5) unstable; urgency=medium
 
