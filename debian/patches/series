@@ -4,6 +4,7 @@ u0-version-cypari2-1.2.1.patch             #25813
 u0-version-pari-2.11.patch                 #25567
 u0-version-arb-2.14.patch                  #25966
 u0-version-numpy-1.14.3.patch              #25260
+u0-version-eclib-20180815.patch            #25862
 u0-fix-dont-require-DISPLAY.patch          #22441
 
 # Patches that have open upstream tickets
