@@ -5,6 +5,7 @@ u0-version-pari-2.11.patch                 #25567
 u0-version-arb-2.14.patch                  #25966
 u0-version-numpy-1.14.3.patch              #25260
 u0-fix-dont-require-DISPLAY.patch          #22441
+u0-fix-mkdir-sage-kernel-spec.patch        #25722
 
 # Patches that have open upstream tickets
 u1-fix-atrocious-symlink-logic.patch       #22444
