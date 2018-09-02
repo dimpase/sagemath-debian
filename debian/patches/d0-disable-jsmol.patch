@@ -7,31 +7,7 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -129,23 +129,6 @@
-         dst = os.path.join(self.nbextensions_dir, 'mathjax')
-         self.symlink(src, dst)
- 
--    def use_local_jsmol(self):
--        """
--        Symlink jsmol to the Jupyter notebook.
--
--        EXAMPLES::
--
--            sage: from sage.repl.ipython_kernel.install import SageKernelSpec
--            sage: spec = SageKernelSpec(prefix=tmp_dir())
--            sage: spec.use_local_jsmol()
--            sage: jsmol = os.path.join(spec.nbextensions_dir, 'jsmol')
--            sage: os.path.isdir(jsmol)
--            True
--        """
--        src = os.path.join(SAGE_LOCAL, 'share', 'jsmol')
--        dst = os.path.join(self.nbextensions_dir, 'jsmol')
--        self.symlink(src, dst)
--
-     def use_local_threejs(self):
-         """
-         Symlink threejs to the Jupyter notebook.
-@@ -268,7 +251,6 @@
+@@ -280,7 +280,6 @@
          """
          instance = cls(*args, **kwds)
          instance.use_local_mathjax()

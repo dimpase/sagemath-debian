@@ -93,7 +93,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ### pkg-config setup
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -10,7 +10,7 @@
+@@ -18,7 +18,7 @@
  import errno
  
  from sage.env import (
@@ -102,7 +102,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      SAGE_VERSION
  )
  
-@@ -125,7 +125,7 @@
+@@ -134,7 +134,7 @@
              sage: os.path.isdir(mathjax)
              True
          """
@@ -111,7 +111,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'mathjax')
          self.symlink(src, dst)
  
-@@ -142,7 +142,7 @@
+@@ -168,7 +168,7 @@
              sage: os.path.isdir(threejs)
              True
          """
@@ -120,7 +120,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          dst = os.path.join(self.nbextensions_dir, 'threejs')
          self.symlink(src, dst)
  
-@@ -167,7 +167,7 @@
+@@ -193,7 +193,7 @@
               '{connection_file}']
          """
          return [

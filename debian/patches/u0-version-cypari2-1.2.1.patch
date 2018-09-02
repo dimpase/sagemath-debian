@@ -6,11 +6,9 @@ Date: Tue, 10 Jul 2018 15:47:12 +0200
 Subject: Upgrade cypari2
 
 
-diff --git a/src/sage/rings/number_field/number_field_rel.py b/src/sage/rings/number_field/number_field_rel.py
-index aa585f6..b3f9c9e 100644
 --- a/sage/src/sage/rings/number_field/number_field_rel.py
 +++ b/sage/src/sage/rings/number_field/number_field_rel.py
-@@ -1103,8 +1103,8 @@ class NumberField_relative(NumberField_generic):
+@@ -1103,8 +1103,8 @@
          element = self.base_field().coerce(element)
          element = to_abs_base(element)
          # Express element as a polynomial in the absolute generator of self
@@ -21,7 +19,7 @@ index aa585f6..b3f9c9e 100644
          # We do NOT call self(...) because this code is called by
          # __init__ before we initialize self.gens(), and self(...)
          # uses self.gens()
-@@ -1515,8 +1515,7 @@ class NumberField_relative(NumberField_generic):
+@@ -1515,8 +1515,7 @@
              sage: K.<a> = NumberField(x^2 - 2)
              sage: L.<b> = K.extension(x^2 - 3)
              sage: L._pari_nfzk()
@@ -31,6 +29,3 @@ index aa585f6..b3f9c9e 100644
          """
          return self._pari_base_nf()._nf_nfzk(self._pari_rnfeq())
  
--- 
-cgit v1.0-1-gd88e
-
