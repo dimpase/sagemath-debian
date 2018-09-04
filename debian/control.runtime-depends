@@ -92,6 +92,7 @@
  python-singledispatch,
  python-snowballstemmer,
  python-sphinx (>= 1.7),
+ python-stemmer,
  python-subprocess32,
  python-sympy,
  python-terminado,
