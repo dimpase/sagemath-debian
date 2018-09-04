@@ -4,6 +4,10 @@ sagemath (8.3-1~exp2) UNRELEASED; urgency=medium
   * New patches:
     - u0-fix-symlink-sage-kernel-spec.patch      #25722
 
+  [ Ximin Luo ]
+  * New patches:
+    - u2-version-r-3.5.1-incomplete.patch        #26185
+
  -- Tobias Hansen <thansen@debian.org>  Fri, 17 Aug 2018 22:35:20 +0200
 
 sagemath (8.3-1~exp1) experimental; urgency=medium
