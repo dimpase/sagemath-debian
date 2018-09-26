@@ -1,3 +1,9 @@
+sagemath (8.3-1) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Tobias Hansen <thansen@debian.org>  Wed, 26 Sep 2018 18:44:43 +0000
+
 sagemath (8.3-1~exp2) experimental; urgency=medium
 
   [ Julian Rüth ]
