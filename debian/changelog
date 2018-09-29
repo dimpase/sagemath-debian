@@ -1,6 +1,10 @@
 sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * Remove patches (applied upstream):
+    - u0-version-cypari2-1.2.1.patch             #25813
+    - u0-version-pari-2.11.patch                 #25567
+    - u0-version-arb-2.14.patch                  #25966
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 29 Sep 2018 11:25:02 +0000
 
