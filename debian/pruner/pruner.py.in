@@ -77,7 +77,9 @@ dico = {
     'freetype': @HAS_FREETYPE@,
     'gap': @HAS_GAP@,
     'gc': @HAS_BOEHM_GC@,
+    'libbraiding': @HAS_LIBBRAIDING@,
     'libgd': @HAS_GD@,
+    'libhomfly': @HAS_LIBHOMFLY@,
     'gf2x': @HAS_GF2X@,
     'gfan': @HAS_GFAN@,
     'gcc': @HAS_GFORTRAN@,
@@ -224,7 +226,6 @@ python_packages_to_modules = {
     'enum34': 'enum',
     'pathpy': 'path',
     'pillow': 'PIL',
-    'pycrypto': 'Crypto',
     'python_openid': 'openid',
     'pyzmq': 'zmq',
     'zope_interface': 'zope/interface'
@@ -234,6 +235,7 @@ unneeded_packages = {
     'backports_functools_lru_cache',
     'bleach',
     'html5lib',
+    'kiwisolver', # dependency of matplotlib
     'libatomic_ops',
     'pandocfilters',
     'pycygwin',
