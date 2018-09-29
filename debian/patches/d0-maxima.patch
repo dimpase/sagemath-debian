@@ -2,23 +2,12 @@ Description: Change to work with Debians maxima-sage packages
  Most changes are to find the differently named binary.
 Author: Tobias Hansen <thansen@debian.org>
 
---- a/sage/src/sage/interfaces/maxima_lib.py
-+++ b/sage/src/sage/interfaces/maxima_lib.py
-@@ -101,7 +101,7 @@
- ## We begin here by initializing Maxima in library mode
- ## i.e. loading it into ECL
- ecl_eval("(setf *load-verbose* NIL)")
--ecl_eval("(require 'maxima)")
-+ecl_eval("(require 'maxima \"/usr/lib/ecl/maxima.fas\")")
- ecl_eval("(in-package :maxima)")
- ecl_eval("(setq $nolabels t))")
- ecl_eval("(defvar *MAXIMA-LANG-SUBDIR* NIL)")
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
 @@ -546,7 +546,7 @@
          Expect.__init__(self,
                          name = 'maxima',
-                         prompt = '\(\%i[0-9]+\) ',
+                         prompt = r'\(\%i[0-9]+\) ',
 -                        command = 'maxima -p "{0}"'.format(STARTUP),
 +                        command = 'maxima-sage -p "{0}"'.format(STARTUP),
                          env = {'TMPDIR': str(ECL_TMP)},
@@ -56,7 +45,7 @@ Author: Tobias Hansen <thansen@debian.org>
  
              return AsciiArtString(res)
          else:
-@@ -2195,7 +2192,7 @@
+@@ -2193,7 +2190,7 @@
          sage: maxima_version()  # random
          '5.41.0'
      """
@@ -65,7 +54,7 @@ Author: Tobias Hansen <thansen@debian.org>
          return p.read().split()[-1]
  
  
-@@ -2213,4 +2210,4 @@
+@@ -2211,4 +2208,4 @@
      from sage.repl.rich_output.display_manager import get_display_manager
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
@@ -84,7 +73,7 @@ Author: Tobias Hansen <thansen@debian.org>
              ...
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -564,7 +564,7 @@
+@@ -569,7 +569,7 @@
  
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift

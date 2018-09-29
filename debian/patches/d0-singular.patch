@@ -8,25 +8,15 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -654,7 +654,8 @@
- 
-         s = Expect.eval(self, x, **kwds)
- 
--        if s.find("error") != -1 or s.find("Segment fault") != -1:
-+        # Debian puts "-Werror=" in C*FLAGS which ends up in Singular's "system version" output
-+        if s.replace("-Werror=", "").find("error") != -1 or s.find("Segment fault") != -1:
-             raise SingularError('Singular error:\n%s'%s)
- 
-         if get_verbose() > 0:
-@@ -2262,7 +2263,7 @@
-     nodes.clear()
+@@ -2264,7 +2264,7 @@
      node_names.clear()
  
--    singular_docdir = SAGE_LOCAL+"/share/info/"
-+    singular_docdir = "/usr/share/doc/singular-doc/"
+     import os
+-    singular_docdir = os.environ['SINGULARPATH']+"/../info/"
++    singular_docdir = "/usr/share/doc/singular/"
  
-     new_node = re.compile("File: singular\.hlp,  Node: ([^,]*),.*")
-     new_lookup = re.compile("\* ([^:]*):*([^.]*)\..*")
+     new_node = re.compile(r"File: singular\.hlp,  Node: ([^,]*),.*")
+     new_lookup = re.compile(r"\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -324,6 +324,11 @@
@@ -43,7 +33,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          cysignals_path = os.path.join(path, "cysignals")
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -178,7 +178,7 @@
+@@ -187,7 +187,7 @@
      else:
          extension = "so"
      # library name changed from libsingular to libSingular btw 3.x and 4.x

@@ -264,7 +264,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
      """
 --- a/sage/src/sage/finance/time_series.pyx
 +++ b/sage/src/sage/finance/time_series.pyx
-@@ -109,8 +109,8 @@
+@@ -111,8 +111,8 @@
  
              sage: import numpy
              sage: v = numpy.array([[1,2], [3,4]], dtype=float); v
@@ -275,7 +275,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
              sage: finance.TimeSeries(v)
              [1.0000, 2.0000, 3.0000, 4.0000]
              sage: finance.TimeSeries(v[:,0])
-@@ -2098,14 +2098,14 @@
+@@ -2100,14 +2100,14 @@
  
              sage: w[0] = 20
              sage: w
@@ -377,7 +377,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
  
          Test pickling::
  
-@@ -538,7 +538,7 @@
+@@ -553,7 +553,7 @@
              sage: import numpy
              sage: a = numpy.linspace(0,2,6)
              sage: floor(a)
@@ -386,7 +386,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
              sage: floor(x)._sympy_()
              floor(x)
  
-@@ -839,7 +839,7 @@
+@@ -869,7 +869,7 @@
              sage: import numpy
              sage: a = numpy.arange(2,5)
              sage: sqrt(a)
@@ -397,7 +397,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
              return math.sqrt(x)
 --- a/sage/src/sage/functions/trig.py
 +++ b/sage/src/sage/functions/trig.py
-@@ -721,7 +721,7 @@
+@@ -724,7 +724,7 @@
              sage: import numpy
              sage: a = numpy.arange(2, 5)
              sage: arccot(a)
@@ -406,7 +406,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          """
          return math.pi/2 - arctan(x)
  
-@@ -777,7 +777,7 @@
+@@ -780,7 +780,7 @@
              sage: import numpy
              sage: a = numpy.arange(2, 5)
              sage: arccsc(a)
@@ -415,7 +415,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          """
          return arcsin(1.0/x)
  
-@@ -835,7 +835,7 @@
+@@ -838,7 +838,7 @@
              sage: import numpy
              sage: a = numpy.arange(2, 5)
              sage: arcsec(a)
@@ -424,7 +424,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          """
          return arccos(1.0/x)
  
-@@ -910,13 +910,13 @@
+@@ -913,13 +913,13 @@
              sage: a = numpy.linspace(1, 3, 3)
              sage: b = numpy.linspace(3, 6, 3)
              sage: atan2(a, b)
@@ -499,7 +499,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
  
 --- a/sage/src/sage/matrix/special.py
 +++ b/sage/src/sage/matrix/special.py
-@@ -705,7 +705,7 @@
+@@ -706,7 +706,7 @@
  
          sage: import numpy
          sage: entries = numpy.array([1.2, 5.6]); entries
@@ -508,7 +508,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          sage: A = diagonal_matrix(3, entries); A
          [1.2 0.0 0.0]
          [0.0 5.6 0.0]
-@@ -715,7 +715,7 @@
+@@ -716,7 +716,7 @@
  
          sage: j = numpy.complex(0,1)
          sage: entries = numpy.array([2.0+j, 8.1, 3.4+2.6*j]); entries
@@ -519,7 +519,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          [        0.0         8.1         0.0]
 --- a/sage/src/sage/modules/free_module_element.pyx
 +++ b/sage/src/sage/modules/free_module_element.pyx
-@@ -987,7 +987,7 @@
+@@ -988,7 +988,7 @@
              sage: v.numpy()
              array([1, 2, 5/6], dtype=object)
              sage: v.numpy(dtype=float)
@@ -528,7 +528,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
              sage: v.numpy(dtype=int)
              array([1, 2, 0])
              sage: import numpy
-@@ -998,7 +998,7 @@
+@@ -999,7 +999,7 @@
          be more efficient but may have unintended consequences::
  
              sage: v.numpy(dtype=None)
@@ -570,20 +570,6 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          """
          if dtype is None or dtype is self._vector_numpy.dtype:
              from copy import copy
---- a/sage/src/sage/numerical/optimize.py
-+++ b/sage/src/sage/numerical/optimize.py
-@@ -486,9 +486,9 @@
-                 else:
-                     min = optimize.fmin_tnc(f, x0, approx_grad=True, bounds=cons, messages=0, **args)[0]
-         elif isinstance(cons[0], function_type) or isinstance(cons[0], Expression):
--            min = optimize.fmin_cobyla(f, x0, cons, iprint=0, **args)
-+            min = optimize.fmin_cobyla(f, x0, cons, disp=0, **args)
-     elif isinstance(cons, function_type) or isinstance(cons, Expression):
--        min = optimize.fmin_cobyla(f, x0, cons, iprint=0, **args)
-+        min = optimize.fmin_cobyla(f, x0, cons, disp=0, **args)
-     return vector(RDF, min)
- 
- 
 --- a/sage/src/sage/plot/complex_plot.pyx
 +++ b/sage/src/sage/plot/complex_plot.pyx
 @@ -61,9 +61,9 @@
@@ -704,7 +690,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          l = [float(self.get_random_element()) for _ in range(num_samples)]
 --- a/sage/src/sage/rings/rational.pyx
 +++ b/sage/src/sage/rings/rational.pyx
-@@ -1069,7 +1069,7 @@
+@@ -1041,7 +1041,7 @@
              dtype('O')
  
              sage: numpy.array([1, 1/2, 3/4])
@@ -726,7 +712,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
              sage: numpy.array([1.000000000000000000000000000000000000]).dtype
 --- a/sage/src/sage/schemes/elliptic_curves/height.py
 +++ b/sage/src/sage/schemes/elliptic_curves/height.py
-@@ -1623,18 +1623,18 @@
+@@ -1627,18 +1627,18 @@
          even::
  
              sage: H.wp_on_grid(v,4)
@@ -755,7 +741,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
          fk, err = self.fk_intervals(v, 15, CDF)
 --- a/sage/src/sage/symbolic/ring.pyx
 +++ b/sage/src/sage/symbolic/ring.pyx
-@@ -1135,7 +1135,7 @@
+@@ -1136,7 +1136,7 @@
          sage: cos(numpy.int('2'))
          cos(2)
          sage: numpy.cos(numpy.int('2'))

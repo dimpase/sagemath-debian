@@ -6,28 +6,6 @@ Author: Ximin Luo <infinity0@debian.org>
 Bug: https://trac.sagemath.org/ticket/21732
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/sage/misc/sagedoc.py
-+++ b/sage/src/sage/misc/sagedoc.py
-@@ -494,10 +494,15 @@
-     """
-     if embedded:
-         return s
--    oldpath = sys.path
--    sys.path = [os.path.join(SAGE_DOC_SRC, 'common')] + oldpath
--    from conf import extlinks
--    sys.path = oldpath
-+    extlinks = {
-+        'python': ('https://docs.python.org/release/'+sys.version.split(' ')[0]+'/%s', ''),
-+        'trac': ('https://trac.sagemath.org/%s', 'trac ticket #'),
-+        'wikipedia': ('https://en.wikipedia.org/wiki/%s', 'Wikipedia article '),
-+        'arxiv': ('http://arxiv.org/abs/%s', 'Arxiv '),
-+        'oeis': ('https://oeis.org/%s', 'OEIS sequence '),
-+        'doi': ('https://dx.doi.org/%s', 'doi:'),
-+        'mathscinet': ('http://www.ams.org/mathscinet-getitem?mr=%s', 'MathSciNet ')
-+        }
-     for key in extlinks:
-         while True:
-             m = re.search(':%s:`([^`]*)`' % key, s)
 --- a/sage/src/sage/misc/sphinxify.py
 +++ b/sage/src/sage/misc/sphinxify.py
 @@ -22,7 +22,7 @@
@@ -71,9 +49,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, THEBE_DIR, SAGE_SHARE
 +from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB, THEBE_DIR, SAGE_SHARE
  import sage.version
+ from sage.misc.sagedoc import extlinks
  import dateutil.parser
- from six import iteritems
-@@ -7,6 +7,11 @@
+@@ -8,6 +8,11 @@
  # If your extensions are in another directory, add it here.
  sys.path.append(os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
  

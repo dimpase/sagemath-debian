@@ -9,7 +9,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/clean.py
 +++ b/sage/src/sage_setup/clean.py
-@@ -99,7 +99,7 @@
+@@ -98,7 +98,7 @@
          sage: from sage.misc.sageinspect import loadable_module_extension
          sage: skip_extensions = (loadable_module_extension(),)
          sage: for f in stale_iter:
@@ -57,7 +57,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  # Used by sage/misc/package.py.  Should be SAGE_SRC_ROOT in VPATH.
  _add_variable_or_fallback('SAGE_PKGS', opj('$SAGE_ROOT', 'build', 'pkgs'))
-@@ -248,8 +248,8 @@
+@@ -253,8 +253,8 @@
          ['.../include',
          '.../include/python...',
          '.../python.../numpy/core/include',
@@ -70,7 +70,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      import distutils.sysconfig
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -798,8 +798,7 @@
+@@ -743,8 +743,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -91,44 +91,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  #########################################################
  ### pkg-config setup
---- a/sage/src/sage/repl/ipython_kernel/install.py
-+++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -18,7 +18,7 @@
- import errno
- 
- from sage.env import (
--    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE,
-+    SAGE_DOC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SHARE,
-     SAGE_VERSION
- )
- 
-@@ -134,7 +134,7 @@
-             sage: os.path.isdir(mathjax)
-             True
-         """
--        src = os.path.join(SAGE_LOCAL, 'share', 'mathjax')
-+        src = "/usr/share/javascript/mathjax"
-         dst = os.path.join(self.nbextensions_dir, 'mathjax')
-         self.symlink(src, dst)
- 
-@@ -168,7 +168,7 @@
-             sage: os.path.isdir(threejs)
-             True
-         """
--        src = os.path.join(SAGE_LOCAL, 'share', 'threejs')
-+        src = "/usr/share/javascript/three"
-         dst = os.path.join(self.nbextensions_dir, 'threejs')
-         self.symlink(src, dst)
- 
-@@ -193,7 +193,7 @@
-              '{connection_file}']
-         """
-         return [
--            os.path.join(SAGE_LOCAL, 'bin', 'sage'),
-+            '/usr/bin/sage',
-             '--python',
-             '-m', 'sage.repl.ipython_kernel',
-             '-f', '{connection_file}',
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
 @@ -179,20 +179,19 @@
@@ -166,7 +128,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +from sage.env import SAGE_SRC, SAGE_LOCAL, SAGE_LIB
  
  # Python file parsing
- triple_quotes = re.compile("\s*[rRuU]*((''')|(\"\"\"))")
+ triple_quotes = re.compile(r"\s*[rRuU]*((''')|(\"\"\"))")
 @@ -89,7 +89,7 @@
      # If the file is in the sage library, we can use our knowledge of
      # the directory structure
@@ -196,8 +158,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  	    SAGE_DOC_SRC=/doesnotexist                            \
  	    SAGE_BUILD_DIR=/doesnotexist                          \
  	    SAGE_PKGS=$(abs_top_srcdir)/build/pkgs                \
--	&& sage-python23 -u setup.py --no-user-cfg build install
-+	&& sage-python23 -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2
+-	&& sage-python23 -u setup.py --quiet --no-user-cfg build install
++	&& sage-python23 -u setup.py --quiet --no-user-cfg build install --root ../../debian/build --install-layout deb -O2
  	if [ "$$UNAME" = "CYGWIN" ]; then                         \
  	    sage-rebase.sh "$$SAGE_LOCAL" 2>/dev/null;            \
  	fi

@@ -6,11 +6,12 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -197,7 +197,7 @@
+@@ -197,8 +197,7 @@
  
  WORKSPACE = gap_workspace_file()
  
--GAP_BINARY = os.path.join(SAGE_LOCAL, 'bin', 'gap')
+-from sage.env import GAP_ROOT_DIR
+-GAP_BINARY = os.path.join(GAP_ROOT_DIR, 'bin', 'gap.sh')
 +GAP_BINARY = '/usr/bin/gap'
  
  first_try = True
@@ -34,17 +35,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  int *new_ints(int l)
  {
---- a/sage/src/sage/interfaces/jmoldata.py
-+++ b/sage/src/sage/interfaces/jmoldata.py
-@@ -149,7 +149,7 @@
-             True
-         """
-         # Set up paths, file names and scripts
--        jmolpath = os.path.join(SAGE_LOCAL, "share", "jmol", "JmolData.jar")
-+        jmolpath = os.path.join("/usr", "share", "jmol", "JmolData.jar")
-         target_native = targetfile
- 
-         if sys.platform == 'cygwin':
 --- a/sage/build/bin/sage-python23
 +++ b/sage/build/bin/sage-python23
 @@ -12,9 +12,9 @@

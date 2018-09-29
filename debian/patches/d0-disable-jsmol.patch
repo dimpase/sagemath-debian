@@ -7,7 +7,7 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 --- a/sage/src/sage/repl/ipython_kernel/install.py
 +++ b/sage/src/sage/repl/ipython_kernel/install.py
-@@ -280,7 +280,6 @@
+@@ -282,7 +282,6 @@
          """
          instance = cls(*args, **kwds)
          instance.use_local_mathjax()

@@ -15,7 +15,7 @@
  """
  
  import os
-@@ -29,10 +37,11 @@
+@@ -30,10 +38,11 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -29,7 +29,7 @@
              True
          """
          self._display_name = 'SageMath {0}'.format(SAGE_VERSION)
-@@ -50,7 +59,7 @@
+@@ -51,7 +60,7 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -38,7 +38,7 @@
              sage: spec._mkdirs()
              sage: os.path.isdir(spec.nbextensions_dir)
              True
-@@ -91,7 +100,7 @@
+@@ -92,7 +101,7 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -47,7 +47,7 @@
              sage: path = tmp_dir()
              sage: spec.symlink(os.path.join(path, 'a'), os.path.join(path, 'b'))
              sage: os.listdir(path)
-@@ -174,7 +183,7 @@
+@@ -177,7 +186,7 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -56,7 +56,7 @@
              sage: spec._kernel_cmd()
              ['/.../sage',
               '--python',
-@@ -201,7 +210,7 @@
+@@ -204,7 +213,7 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -65,7 +65,7 @@
              sage: spec.kernel_spec()
              {'argv': ..., 'display_name': 'SageMath ...'}
          """
-@@ -217,8 +226,9 @@
+@@ -220,8 +229,9 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -77,7 +77,7 @@
          """
          jsonfile = os.path.join(self.kernel_dir, "kernel.json")
          import json
-@@ -236,9 +246,10 @@
+@@ -239,9 +249,10 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec
@@ -91,7 +91,7 @@
          """
          path = os.path.join(SAGE_EXTCODE, 'notebook-ipython')
          for filename in os.listdir(path):
-@@ -263,8 +274,8 @@
+@@ -266,8 +277,8 @@
          EXAMPLES::
  
              sage: from sage.repl.ipython_kernel.install import SageKernelSpec

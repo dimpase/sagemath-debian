@@ -29,7 +29,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                  raise
 --- a/sage/src/sage_setup/docbuild/sphinxbuild.py
 +++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
-@@ -280,3 +280,8 @@
+@@ -323,3 +323,8 @@
          sys.stderr = saved_stderr
          sys.stdout.flush()
          sys.stderr.flush()

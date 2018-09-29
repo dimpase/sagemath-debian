@@ -10,13 +10,13 @@ Bug-Debian: https://bugs.debian.org/891465
 +++ b/sage/src/sage/doctest/parsing.py
 @@ -40,6 +40,7 @@
  
- float_regex = re.compile('\s*([+-]?\s*((\d*\.?\d+)|(\d+\.?))([eE][+-]?\d+)?)')
+ float_regex = re.compile(r'\s*([+-]?\s*((\d*\.?\d+)|(\d+\.?))([eE][+-]?\d+)?)')
  optional_regex = re.compile(r'(py2|py3|long time|not implemented|not tested|known bug)|([^ a-z]\s*optional\s*[:-]*((\s|\w)*))')
 +glpk_simplex_warning_regex = re.compile(r'(Long-step dual simplex will be used)')
  find_sage_prompt = re.compile(r"^(\s*)sage: ", re.M)
  find_sage_continuation = re.compile(r"^(\s*)\.\.\.\.:", re.M)
  random_marker = re.compile('.*random', re.I)
-@@ -1038,6 +1039,7 @@
+@@ -1039,6 +1040,7 @@
              <type 'float'>
          """
          got = self.human_readable_escape_sequences(got)

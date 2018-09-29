@@ -6,7 +6,7 @@ Bug-Debian: https://bugs.debian.org/902545
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -635,7 +635,7 @@
+@@ -643,7 +643,7 @@
      # tends to ask interactive questions if something goes wrong. These
      # cause the build to hang. If stdin is /dev/null, TeX just aborts.
      shift
@@ -15,7 +15,7 @@ Bug-Debian: https://bugs.debian.org/902545
  fi
  
  if [ "$1" = '-gdb' -o "$1" = "--gdb" ]; then
-@@ -645,7 +645,7 @@
+@@ -653,7 +653,7 @@
          gdb -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
              -args python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
      else

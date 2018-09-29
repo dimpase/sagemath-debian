@@ -130,17 +130,16 @@ Forwarded: not-needed
      echo "  -startuptime [module] -- display how long each component of Sage takes to"
      echo "                         start up; optionally specify a module to get more"
      echo "                         details about that particular module"
-@@ -198,9 +136,7 @@
-     echo "                         selected options:"
-     echo "                           --long - include lines with the phrase 'long time'"
+@@ -200,8 +138,6 @@
      echo "                           --verbose - print debugging output during the test"
+     echo "                           --all - test all files"
+     echo "                           --sagenb - test all sagenb files"
 -    echo "                           --optional - controls which optional tests are run"
-     echo "                           --randorder[=seed] - randomize order of tests"
 -    echo "                           --new - only test files modified since last commit"
      echo "                           --initial - only show the first failure per block"
      echo "                           --debug - drop into PDB after an unexpected error"
      echo "                           --failed - only test files that failed last test"
-@@ -217,9 +153,6 @@
+@@ -220,9 +156,6 @@
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
      echo "Documentation:"
@@ -150,7 +149,7 @@ Forwarded: not-needed
      echo "  -docbuild [lang/]<document> <html|pdf|...> -- Build the Sage documentation"
      echo "  -search_src <string> -- search through all the Sage library code for string"
      echo "  -search_doc <string> -- search through the Sage documentation for string"
-@@ -244,16 +177,6 @@
+@@ -249,16 +182,6 @@
      echo
      ####  1.......................26..................................................78
      ####  |.....................--.|...................................................|
@@ -167,7 +166,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -294,97 +217,6 @@
+@@ -299,97 +222,6 @@
      exit $status
  fi
  
@@ -265,7 +264,7 @@ Forwarded: not-needed
  
  
  #####################################################################
-@@ -432,25 +264,7 @@
+@@ -437,25 +269,7 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
@@ -291,7 +290,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
-@@ -507,11 +321,6 @@
+@@ -512,11 +326,6 @@
      exec gap "$@"
  fi
  
@@ -303,7 +302,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -557,11 +366,6 @@
+@@ -562,11 +371,6 @@
      exec kash "$@"
  fi
  
@@ -315,7 +314,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -577,21 +381,6 @@
+@@ -582,21 +386,6 @@
      exec M2 "$@"
  fi
  
@@ -326,7 +325,7 @@ Forwarded: not-needed
 -
 -if [ "$1" = '-pip' -o "$1" = '--pip' ]; then
 -    shift
--    exec pip "$@"
+-    exec sage-python23 -m pip "$@"
 -fi
 -
 -if [ "$1" = '-fix-pkg-checksums' -o "$1" = '--fix-pkg-checksums' ]; then
@@ -337,7 +336,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      if [ "$SAGE_PYTHON3" = 'yes' ]; then
-@@ -631,11 +420,6 @@
+@@ -636,11 +425,6 @@
      exec git "$@"
  fi
  
@@ -349,7 +348,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -755,20 +539,6 @@
+@@ -760,20 +544,6 @@
  fi
  
  #####################################################################
@@ -370,7 +369,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -796,11 +566,6 @@
+@@ -804,11 +574,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -382,7 +381,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -811,13 +576,6 @@
+@@ -819,13 +584,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -396,7 +395,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -836,34 +594,15 @@
+@@ -844,34 +602,15 @@
      exit 0
  fi
  
@@ -433,7 +432,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -872,16 +611,6 @@
+@@ -880,16 +619,6 @@
      fi
  fi
  
@@ -450,7 +449,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      sage_setup
-@@ -896,114 +625,6 @@
+@@ -904,114 +633,6 @@
      exec sage-eval "$@"
  fi
  
@@ -565,7 +564,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      # Redirect stdin from /dev/null. This helps with running TeX which
      # tends to ask interactive questions if something goes wrong. These
-@@ -1077,10 +698,6 @@
+@@ -1085,10 +706,6 @@
  fi
  
  if [ $# -ge 1 ]; then

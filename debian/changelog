@@ -5,6 +5,16 @@ sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
     - u0-version-cypari2-1.2.1.patch             #25813
     - u0-version-pari-2.11.patch                 #25567
     - u0-version-arb-2.14.patch                  #25966
+    - u0-fix-symlink-sage-kernel-spec.patch      #25722
+    - d0-pari.patch
+    - d0-paths-sharedata.patch
+    - dt-r-no-readline.patch
+  * Patches with non-trivial modifications:
+    - d0-maxima.patch
+    - d0-paths.patch
+    - d1-install-paths.patch
+    - d1-sage-env.patch
+    - dt-work-around-doc-common-conf.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 29 Sep 2018 11:25:02 +0000
 
