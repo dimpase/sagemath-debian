@@ -1,6 +1,12 @@
 sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * New (Build-)Depends:
+    - libbraiding
+    - libhomfly
+    - cddlib (>= 094j)
+    - eclib (>= 20180815)
+    - singular (>= 1:4.1.1-p2)
   * Remove patches (applied upstream):
     - u0-version-cypari2-1.2.1.patch             #25813
     - u0-version-pari-2.11.patch                 #25567

@@ -38,7 +38,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          extension = "so"
      # library name changed from libsingular to libSingular btw 3.x and 4.x
 -    SINGULAR_SO = SAGE_LOCAL+"/lib/libSingular."+extension
-+    SINGULAR_SO = "/usr/lib/%s/libsingular-Singular-4.1.0.so" % sysconfig.get_config_var('MULTIARCH')
++    SINGULAR_SO = "/usr/lib/%s/libsingular-Singular-4.1.1.so" % sysconfig.get_config_var('MULTIARCH')
  
  _add_variable_or_fallback('SINGULAR_SO', SINGULAR_SO)
  
