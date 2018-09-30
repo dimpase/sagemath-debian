@@ -37,7 +37,6 @@ d1-install-paths.patch # many things in here could be split into an upstreamable
 d1-sage-cli.patch
 d1-sage-env.patch
 d1-fakeroot.patch
-d1-test-optional.patch
 d1-multiarch-python-paths.patch
 d1-doc-docs.patch
 d1-disable-post-install-tests.patch
