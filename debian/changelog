@@ -14,7 +14,6 @@ sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
     - u0-fix-symlink-sage-kernel-spec.patch      #25722
     - d0-pari.patch
     - d0-paths-sharedata.patch
-    - d1-test-optional.patch
     - dt-r-no-readline.patch
   * Patches with non-trivial modifications:
     - d0-maxima.patch
@@ -24,6 +23,14 @@ sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
     - dt-work-around-doc-common-conf.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 29 Sep 2018 11:25:02 +0000
+
+sagemath (8.3-2) unstable; urgency=medium
+
+  * Remove dependency on backports.ssl-match-hostname. (Closes: #909975)
+  * Remove patches:
+    - d1-test-optional.patch
+
+ -- Tobias Hansen <thansen@debian.org>  Mon, 01 Oct 2018 20:16:30 +0200
 
 sagemath (8.3-1) unstable; urgency=medium
 

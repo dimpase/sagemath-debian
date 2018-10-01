@@ -54,7 +54,6 @@ sage_standard_packages = set(subprocess.check_output([
 dico = {
     'appnope': @HAS_APPNOPE@,
     'arb': @HAS_ARB@,
-    'backports_ssl_match_hostname': @HAS_BACKPORTS_SSL_MATCH_HOSTNAME@,
     'boost_cropped': @HAS_BOOST@,
     'brial': @HAS_POLYBORI@,
     'bzip2': @HAS_BZIP2@,
@@ -233,6 +232,7 @@ python_packages_to_modules = {
 
 unneeded_packages = {
     'backports_functools_lru_cache',
+    'backports_ssl_match_hostname',
     'bleach',
     'html5lib',
     'kiwisolver', # dependency of matplotlib

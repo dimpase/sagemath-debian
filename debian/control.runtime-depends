@@ -35,7 +35,6 @@
  python-backports-abc,
  python-backports.functools-lru-cache,
  python-backports-shutil-get-terminal-size,
- python-backports.ssl-match-hostname,
  python-brial (>= 1.0.1),
  python-configparser,
  python-crypto,
