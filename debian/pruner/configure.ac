@@ -19,10 +19,6 @@ AC_SUBST(HAS_APPNOPE)
 AC_CHECK_HEADER(atlas/clapack.h, HAS_ATLAS="True", HAS_ATLAS="False")
 AC_SUBST(HAS_ATLAS)
 
-# FIXME(backports_ssl_match_hostname): only needed for tornado, hence not needed
-HAS_BACKPORTS_SSL_MATCH_HOSTNAME="True"
-AC_SUBST(HAS_BACKPORTS_SSL_MATCH_HOSTNAME)
-
 AC_CHECK_HEADER(gc.h, HAS_BOEHM_GC="True", HAS_BOEHM_GC="False")
 AC_SUBST(HAS_BOEHM_GC)
 
