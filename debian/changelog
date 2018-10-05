@@ -1,3 +1,12 @@
+sagemath (8.3-3) UNRELEASED; urgency=medium
+
+  * New (Build-)Depends:
+    - singular (== 4.1.1-p2)
+  * New patches:
+    - u0-version-singular-4.1.1p2.patch
+
+ -- Tobias Hansen <thansen@debian.org>  Fri, 05 Oct 2018 21:09:43 +0200
+
 sagemath (8.3-2) unstable; urgency=medium
 
   * Remove dependency on backports.ssl-match-hostname. (Closes: #909975)
