@@ -6,8 +6,8 @@ sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
     - libhomfly
     - cddlib (>= 094j)
     - eclib (>= 20180815)
-    - singular (>= 1:4.1.1-p2)
   * Remove patches (applied upstream):
+    - u0-version-singular-4.1.1p2.patch
     - u0-version-cypari2-1.2.1.patch             #25813
     - u0-version-pari-2.11.patch                 #25567
     - u0-version-arb-2.14.patch                  #25966
@@ -23,6 +23,20 @@ sagemath (8.4~beta6-1) UNRELEASED; urgency=medium
     - dt-work-around-doc-common-conf.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 29 Sep 2018 11:25:02 +0000
+
+sagemath (8.3-3) unstable; urgency=medium
+
+  * New (Build-)Depends:
+    - singular (== 4.1.1-p2)
+  * New patches:
+    - u0-version-singular-4.1.1p2.patch
+  * Remove patches (applied upstream):
+    - u0-fix-dont-require-DISPLAY.patch          #22441
+  * dt-more-fix-test-cases.patch:
+    Disable a test in sage/src/sage/libs/pari/tests.py that sometimes
+    hangs on ppc64el.
+
+ -- Tobias Hansen <thansen@debian.org>  Sat, 06 Oct 2018 14:15:28 +0000
 
 sagemath (8.3-2) unstable; urgency=medium
 
