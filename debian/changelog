@@ -6,6 +6,9 @@ sagemath (8.3-3) UNRELEASED; urgency=medium
     - u0-version-singular-4.1.1p2.patch
   * Remove patches (applied upstream):
     - u0-fix-dont-require-DISPLAY.patch          #22441
+  * dt-more-fix-test-cases.patch:
+    Disable a test in sage/src/sage/libs/pari/tests.py that sometimes
+    hangs on ppc64el.
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 05 Oct 2018 21:09:43 +0200
 
