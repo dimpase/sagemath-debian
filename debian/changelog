@@ -1,4 +1,4 @@
-sagemath (8.3-3) UNRELEASED; urgency=medium
+sagemath (8.3-3) unstable; urgency=medium
 
   * New (Build-)Depends:
     - singular (== 4.1.1-p2)
@@ -10,7 +10,7 @@ sagemath (8.3-3) UNRELEASED; urgency=medium
     Disable a test in sage/src/sage/libs/pari/tests.py that sometimes
     hangs on ppc64el.
 
- -- Tobias Hansen <thansen@debian.org>  Fri, 05 Oct 2018 21:09:43 +0200
+ -- Tobias Hansen <thansen@debian.org>  Sat, 06 Oct 2018 14:15:28 +0000
 
 sagemath (8.3-2) unstable; urgency=medium
 
