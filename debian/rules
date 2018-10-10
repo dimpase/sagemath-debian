@@ -24,13 +24,6 @@ include /usr/share/dpkg/architecture.mk
 MAX_TEST_FAILURES = 70
 MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
 
-# If we're doing a pre-release, then be less strict about test failures, etc
-ifneq (,$(filter $(DEB_DISTRIBUTION),UNRELEASED unstable-sage))
-is_prerelease = true
-else
-is_prerelease = false
-endif
-
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 else
@@ -38,12 +31,10 @@ NUMJOBS = 1
 endif
 
 # Some buildds are a bit slow, see https://buildd.debian.org/status/logs.php?pkg=gcc-7 for a fuller list
-ifeq (false,$(is_prerelease))
 ifneq (,$(filter $(DEB_BUILD_ARCH),armel armhf mips mipsel mips64el))
 export SAGE_TIMEOUT_LONG = 7200
 else
 export SAGE_TIMEOUT_LONG = 3600
-endif
 endif
 
 # Use ccache if pkg.sagemath.ccache build-profile is active.
@@ -129,7 +120,7 @@ debian/sagemath-doc-%.lintian-overrides: debian/sagemath-doc-LANG.lintian-overri
 prune: debian/control
 	cd debian/pruner && autoconf -I m4
 	cd debian/pruner && ./configure --with-sage-root="$(CURDIR)/sage"
-	cd sage && python ../debian/pruner/pruner.py || $(is_prerelease)
+	cd sage && python ../debian/pruner/pruner.py
 	touch prune
 
 run_build = \
@@ -267,8 +258,7 @@ run_tests = \
 check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
 run_tests_with_retry = \
 	$(run_tests); cd "$(CURDIR)" && \
-	if $(is_prerelease); then :; \
-	elif $(check_test_log) had-few-failures; then :; else \
+	if $(check_test_log) had-few-failures; then :; else \
 	  $(check_test_log) had-not-too-many-failures && \
 	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
 	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && \
@@ -336,17 +326,6 @@ build-dep: debian/control
 get-orig-source:
 	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
 
-APT_PIN_PRIORITY = 100
-install-apt-sources:
-	sudo apt-get install -y apt-transport-https
-	for d in deb deb-src; do \
-	  echo "$$d https://debian-science.alioth.debian.org/apt sid-sage/"; done \
-	  | sudo tee /etc/apt/sources.list.d/deb-sci-sage.list
-	sudo apt-key add $(CURDIR)/debian/deb-sci-sage.asc
-	printf "Package: *\nPin: release n=sid-sage\nPin-Priority: $(APT_PIN_PRIORITY)\n" \
-	  | sudo tee /etc/apt/preferences.d/deb-sci-sage
-	sudo apt-get update
-
 ifneq (1,$(TRY_AVOID_REBUILD))
 REBUILD_RELEASE = ../sagemath_$(DEB_VERSION).dsc
 endif
@@ -358,11 +337,6 @@ ifeq (1,$(SBUILD_USE_INCOMING))
 SBUILD += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-unstable main"
 SBUILD_REPO_EXPERIMENTAL += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-experimental main"
 endif
-
-SBUILD_REPO_DEBSCISAGE = \
-	  --chroot-setup-commands='apt-get install -y ca-certificates' \
-	  --extra-repository='deb https://debian-science.alioth.debian.org/apt sid-sage/' \
-	  --extra-repository-key=$(CURDIR)/debian/deb-sci-sage.asc \
 
 # If the sbuild rules fail for you, try these workarounds:
 #
@@ -377,29 +351,12 @@ SBUILD_REPO_DEBSCISAGE = \
 #
 
 release: $(REBUILD_RELEASE)
-	! $(is_prerelease)
 	cd .. && $(SBUILD) \
 	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
 
 release-experimental: $(REBUILD_RELEASE)
-	! $(is_prerelease)
 	cd .. && $(SBUILD) -d experimental \
 	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
-	  $(SBUILD_EXTRA_FLAGS) \
-	  "sagemath_$(DEB_VERSION).dsc"
-
-prerelease-unstable: $(REBUILD_RELEASE)
-	$(is_prerelease)
-	cd .. && $(SBUILD) -d UNRELEASED \
-	  $(SBUILD_REPO_DEBSCISAGE)  --build-dep-resolver=aspcud \
-	  $(SBUILD_EXTRA_FLAGS) \
-	  "sagemath_$(DEB_VERSION).dsc"
-
-prerelease: $(REBUILD_RELEASE)
-	$(is_prerelease)
-	cd .. && $(SBUILD) -d UNRELEASED \
-	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
-	  $(SBUILD_REPO_DEBSCISAGE) \
 	  $(SBUILD_EXTRA_FLAGS) \
 	  "sagemath_$(DEB_VERSION).dsc"
