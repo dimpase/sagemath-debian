@@ -1,11 +1,11 @@
-sagemath (8.3-4) UNRELEASED; urgency=medium
+sagemath (8.3-4) unstable; urgency=medium
 
   * Install sage-python23. (Closes: #910940)
   * Remove d1-remove-sage-python23.patch.
   * Fix some lintian warnings.
   * Fix path to sage-version.sh in u1-scripts-dir.patch.
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 14 Oct 2018 09:29:24 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sun, 14 Oct 2018 12:47:48 +0000
 
 sagemath (8.3-3) unstable; urgency=medium
 
