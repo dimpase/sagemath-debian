@@ -39,7 +39,6 @@ d1-fakeroot.patch
 d1-multiarch-python-paths.patch
 d1-doc-docs.patch
 d1-disable-post-install-tests.patch
-d1-remove-sage-python23.patch
 
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
