@@ -12,3 +12,7 @@ sagemath source: source-is-missing sage/src/ext/doctest/rich_output/example.flv
 # This is just a trivial video containing two function plots,
 # used for testing basic functionality for handling flv files.
 sagemath source: source-contains-prebuilt-flash-object sage/src/ext/doctest/rich_output/example.flv
+
+# It does in fact call dh_clean, unless one builds with the option 'nodoc',
+# in which case previously generated docs are preserved.
+sagemath source: override_dh_clean-does-not-call-dh_clean

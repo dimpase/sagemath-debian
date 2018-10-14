@@ -1,4 +1,4 @@
-Description: Change to work with Debians maxima-sage packages
+Description: Change to work with Debian's maxima-sage packages
  Most changes are to find the differently named binary.
 Author: Tobias Hansen <thansen@debian.org>
 

@@ -28,6 +28,7 @@ sagemath (8.3-4) UNRELEASED; urgency=medium
 
   * Install sage-python23. (Closes: #910940)
   * Remove d1-remove-sage-python23.patch.
+  * Fix some lintian warnings.
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 14 Oct 2018 09:29:24 +0000
 
