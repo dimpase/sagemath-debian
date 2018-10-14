@@ -21,8 +21,8 @@ Forwarded: TODO
  sage_version() {
 -    if [ -f "$SAGE_LOCAL/bin/sage-version.sh" ]; then
 -        . "$SAGE_LOCAL/bin/sage-version.sh"
-+    if [ -f "$SAGE_SCRIPTS_DIR/bin/sage-version.sh" ]; then
-+        . "$SAGE_SCRIPTS_DIR/bin/sage-version.sh"
++    if [ -f "$SAGE_SCRIPTS_DIR/sage-version.sh" ]; then
++        . "$SAGE_SCRIPTS_DIR/sage-version.sh"
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
