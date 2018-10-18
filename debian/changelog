@@ -4,6 +4,7 @@ sagemath (8.4-1) UNRELEASED; urgency=medium
   * New (Build-)Depends:
     - libbraiding
     - libhomfly
+    - brial (>= 1.2.4)
     - cddlib (>= 094j)
     - eclib (>= 20180815)
   * Remove patches (applied upstream):
