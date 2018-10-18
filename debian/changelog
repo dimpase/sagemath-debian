@@ -1,4 +1,4 @@
-sagemath (8.4-1) UNRELEASED; urgency=medium
+sagemath (8.4-1) experimental; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
@@ -23,7 +23,7 @@ sagemath (8.4-1) UNRELEASED; urgency=medium
     - d1-sage-env.patch
     - dt-work-around-doc-common-conf.patch
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 29 Sep 2018 11:25:02 +0000
+ -- Tobias Hansen <thansen@debian.org>  Fri, 19 Oct 2018 00:18:23 +0200
 
 sagemath (8.3-4) unstable; urgency=medium
 
