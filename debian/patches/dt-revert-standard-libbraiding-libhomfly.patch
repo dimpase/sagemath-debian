@@ -1,0 +1,602 @@
+Description: Keep libbraiding and libhomfly optional for now
+ We have to build without libbraiding and libhomfly until they
+ have passed the NEW queue. This patch reverts the following two commits
+ from https://trac.sagemath.org/ticket/25705 and
+ https://trac.sagemath.org/ticket/26007
+
+From 34542a470ff8235f6db2e1f1a3dbd3879441f156 Mon Sep 17 00:00:00 2001
+From: Miguel Marco <mmarco@unizar.es>
+Date: Fri, 29 Jun 2018 17:54:07 +0200
+Subject: Make libbraiding and libhomfly standard packages
+
+From 456cb3c532c146127cfc1bcde3ec49196b605f6a Mon Sep 17 00:00:00 2001
+From: Miguel Marco <mmarco@unizar.es>
+Date: Fri, 29 Jun 2018 18:02:13 +0200
+Subject: Remove optional tag from some doctests, and warnings
+
+From a7ee30d4cf83b22b78d94af8e34c2134d7f9d999 Mon Sep 17 00:00:00 2001
+From: Jeroen Demeyer <jdemeyer@cage.ugent.be>
+Date: Tue, 7 Aug 2018 08:37:38 +0200
+Subject: Add missing sagelib dependencies
+
+---
+ build/pkgs/libbraiding/type |  2 +-
+ build/pkgs/libhomfly/type   |  2 +-
+ src/module_list.py          |  8 +++----
+ src/sage/groups/braid.py    | 54 ++++++++++++++++++++++-----------------------
+ src/sage/knots/link.py      | 26 +++++++++++-----------
+ 5 files changed, 45 insertions(+), 47 deletions(-)
+
+--- a/sage/src/module_list.py
++++ b/sage/src/module_list.py
+@@ -498,14 +498,16 @@
+     Extension('sage.libs.gmp.pylong',
+               sources = ['sage/libs/gmp/pylong.pyx']),
+ 
+-    Extension('sage.libs.braiding',
++    OptionalExtension('sage.libs.braiding',
+                       sources = ["sage/libs/braiding.pyx"],
+                       libraries = ["braiding"],
++                      package="libbraiding",
+                       language = 'c++'),
+ 
+-    Extension('sage.libs.homfly',
++    OptionalExtension('sage.libs.homfly',
+                       sources = ["sage/libs/homfly.pyx"],
+-                      libraries = ["homfly", "gc"]),
++                      libraries = ["homfly", "gc"],
++                      package="libhomfly"),
+ 
+     OptionalExtension('sage.libs.sirocco',
+                       sources = ["sage/libs/sirocco.pyx"],
+--- a/sage/src/sage/groups/braid.py
++++ b/sage/src/sage/groups/braid.py
+@@ -1062,8 +1062,13 @@
+ 
+             sage: B = BraidGroup(4)
+             sage: b = B([1, 2, 1, -2, 3, 1])
+-            sage: b.right_normal_form()
++            sage: b.right_normal_form() # optional - libbraiding
+             (s1*s0, s0*s2, 1)
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import rightnormalform
+@@ -1081,9 +1086,13 @@
+ 
+             sage: B = BraidGroup(4)
+             sage: b = B([2, 1, 3, 2])
+-            sage: b.centralizer()
++            sage: b.centralizer() # optional - libbraiding
+             [s1*s0*s2*s1, s0*s2]
+ 
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import centralizer
+@@ -1101,12 +1110,16 @@
+ 
+             sage: B = BraidGroup(3)
+             sage: b = B([1, 2, -1, -2, -2, 1])
+-            sage: b.super_summit_set()
++            sage: b.super_summit_set() # optional - libbraiding
+             [s0^-1*s1^-1*s0^-2*s1^2*s0^2,
+             (s0^-1*s1^-1*s0^-1)^2*s1^2*s0^3*s1,
+             (s0^-1*s1^-1*s0^-1)^2*s1*s0^3*s1^2,
+             s0^-1*s1^-1*s0^-2*s1^-1*s0*s1^3*s0]
+ 
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import supersummitset
+@@ -1129,10 +1142,15 @@
+             sage: B = BraidGroup(3)
+             sage: b = B([1, 2, -1, -2, -2, 1])
+             sage: c = B([1, 2, 1])
+-            sage: b.gcd(c)
++            sage: b.gcd(c) # optional - libbraiding
+             s0^-1*s1^-1*s0^-2*s1^2*s0
+-            sage: c.gcd(b)
++            sage: c.gcd(b) # optional - libbraiding
+             s0^-1*s1^-1*s0^-2*s1^2*s0
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import greatestcommondivisor
+@@ -1155,8 +1173,12 @@
+             sage: B = BraidGroup(3)
+             sage: b = B([1, 2, -1, -2, -2, 1])
+             sage: c = B([1, 2, 1])
+-            sage: b.lcm(c)
++            sage: b.lcm(c) # optional - libbraiding
+             (s0*s1)^2*s0
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package to be installed.
+         """
+         try:
+             from sage.libs.braiding import leastcommonmultiple
+@@ -1180,13 +1202,18 @@
+             sage: a = B([2, 2, -1, -1])
+             sage: b = B([2, 1, 2, 1])
+             sage: c = b * a / b
+-            sage: d = a.conjugating_braid(c)
+-            sage: d * c / d == a
++            sage: d = a.conjugating_braid(c) # optional - libbraiding
++            sage: d * c / d == a # optional - libbraiding
+             True
+-            sage: d
++            sage: d # optional - libbraiding
+             s1*s0
+-            sage: d * a / d == c
++            sage: d * a / d == c # optional - libbraiding
+             False
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import conjugatingbraid
+@@ -1212,10 +1239,15 @@
+             sage: a = B([2, 2, -1, -1])
+             sage: b = B([2, 1, 2, 1])
+             sage: c = b * a / b
+-            sage: c.is_conjugated(a)
++            sage: c.is_conjugated(a) # optional - libbraiding
+             True
+-            sage: c.is_conjugated(b)
++            sage: c.is_conjugated(b) # optional - libbraiding
+             False
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import conjugatingbraid
+@@ -1233,9 +1265,9 @@
+             sage: B = BraidGroup(3)
+             sage: a = B([2, 2, -1, -1, 2, 2])
+             sage: b = B([2, 1, 2, 1])
+-            sage: b.ultra_summit_set()
++            sage: b.ultra_summit_set() # optional - libbraiding
+             [[s0*s1*s0^2, (s0*s1)^2]]
+-            sage: a.ultra_summit_set()
++            sage: a.ultra_summit_set() # optional - libbraiding
+             [[(s0^-1*s1^-1*s0^-1)^2*s1^3*s0^2*s1^3,
+             (s0^-1*s1^-1*s0^-1)^2*s1^2*s0^2*s1^4,
+             (s0^-1*s1^-1*s0^-1)^2*s1*s0^2*s1^5,
+@@ -1248,6 +1280,11 @@
+             (s0^-1*s1^-1*s0^-1)^2*s1*s0^6*s1,
+             s0^-1*s1^-1*s0^-2*s1^-1*s0^4*s1^2*s0,
+             s0^-1*s1^-1*s0^-2*s1^-1*s0^3*s1^2*s0^2]]
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import ultrasummitset
+@@ -1269,14 +1306,19 @@
+ 
+             sage: B = BraidGroup(3)
+             sage: b = B([1, 2, -1])
+-            sage: b.thurston_type()
++            sage: b.thurston_type() # optional - libbraiding
+             'reducible'
+             sage: a = B([2, 2, -1, -1, 2, 2])
+-            sage: a.thurston_type()
++            sage: a.thurston_type() # optional - libbraiding
+             'pseudo-anosov'
+             sage: c = B([2, 1, 2, 1])
+-            sage: c.thurston_type()
++            sage: c.thurston_type() # optional - libbraiding
+             'periodic'
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import thurston_type
+@@ -1292,12 +1334,16 @@
+ 
+             sage: B = BraidGroup(3)
+             sage: b = B([1, 2, -1])
+-            sage: b.is_reducible()
++            sage: b.is_reducible() # optional - libbraiding
+             True
+             sage: a = B([2, 2, -1, -1, 2, 2])
+-            sage: a.is_reducible()
++            sage: a.is_reducible() # optional - libbraiding
+             False
+ 
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         return self.thurston_type() == 'reducible'
+ 
+@@ -1310,10 +1356,15 @@
+             sage: B = BraidGroup(3)
+             sage: a = B([2, 2, -1, -1, 2, 2])
+             sage: b = B([2, 1, 2, 1])
+-            sage: a.is_periodic()
++            sage: a.is_periodic() # optional - libbraiding
+             False
+-            sage: b.is_periodic()
++            sage: b.is_periodic() # optional - libbraiding
+             True
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         return self.thurston_type() == 'periodic'
+ 
+@@ -1326,10 +1377,15 @@
+             sage: B = BraidGroup(3)
+             sage: a = B([2, 2, -1, -1, 2, 2])
+             sage: b = B([2, 1, 2, 1])
+-            sage: a.is_pseudoanosov()
++            sage: a.is_pseudoanosov() # optional - libbraiding
+             True
+-            sage: b.is_pseudoanosov()
++            sage: b.is_pseudoanosov() # optional - libbraiding
+             False
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         return self.thurston_type() == 'pseudo-anosov'
+ 
+@@ -1342,10 +1398,15 @@
+             sage: B = BraidGroup(3)
+             sage: b = B([2, 1, 2, 1])
+             sage: a = B([2, 2, -1, -1, 2, 2])
+-            sage: a.rigidity()
++            sage: a.rigidity() # optional - libbraiding
+             6
+-            sage: b.rigidity()
++            sage: b.rigidity() # optional - libbraiding
+             0
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import rigidity
+@@ -1366,7 +1427,7 @@
+ 
+             sage: B = BraidGroup(3)
+             sage: a = B([2, 2, -1, -1, 2, 2])
+-            sage: a.sliding_circuits()
++            sage: a.sliding_circuits() # optional - libbraiding
+             [[(s0^-1*s1^-1*s0^-1)^2*s1^3*s0^2*s1^3],
+              [s0^-1*s1^-1*s0^-2*s1^-1*s0^2*s1^2*s0^3],
+              [s0^-1*s1^-1*s0^-2*s1^-1*s0^3*s1^2*s0^2],
+@@ -1380,8 +1441,13 @@
+              [(s0^-1*s1^-1*s0^-1)^2*s1*s0^6*s1],
+              [s0^-1*s1^-1*s0^-2*s1^5*s0]]
+             sage: b = B([2, 1, 2, 1])
+-            sage: b.sliding_circuits()
++            sage: b.sliding_circuits() # optional - libbraiding
+             [[s0*s1*s0^2, (s0*s1)^2]]
++
++        .. WARNING::
++
++            This functionality requires the libbraiding package
++            to be installed.
+         """
+         try:
+             from sage.libs.braiding import sliding_circuits
+--- a/sage/src/sage/knots/link.py
++++ b/sage/src/sage/knots/link.py
+@@ -2493,13 +2493,13 @@
+ 
+             sage: g = BraidGroup(2).gen(0)
+             sage: K = Knot(g^5)
+-            sage: K.homfly_polynomial()
++            sage: K.homfly_polynomial()   # optional - libhomfly
+             L^-4*M^4 - 4*L^-4*M^2 + 3*L^-4 - L^-6*M^2 + 2*L^-6
+ 
+         The Hopf link::
+ 
+             sage: L = Link([[1,3,2,4],[4,2,3,1]])
+-            sage: L.homfly_polynomial('x', 'y')
++            sage: L.homfly_polynomial('x', 'y')  # optional - libhomfly
+             -x^-1*y + x^-1*y^-1 + x^-3*y^-1
+ 
+         Another version of the Hopf link where the orientation
+@@ -2507,18 +2507,18 @@
+         and `y \mapsto M`::
+ 
+             sage: L = Link([[1,4,2,3], [4,1,3,2]])
+-            sage: L.homfly_polynomial()
++            sage: L.homfly_polynomial()  # optional - libhomfly
+             L^3*M^-1 - L*M + L*M^-1
+             sage: L = Link([[1,4,2,3], [4,1,3,2]])
+-            sage: L.homfly_polynomial('a', 'z', 'az')
++            sage: L.homfly_polynomial('a', 'z', 'az')  # optional - libhomfly
+             a^3*z^-1 - a*z - a*z^-1
+ 
+         The figure-eight knot::
+ 
+             sage: L = Link([[2,1,4,5], [5,6,7,3], [6,4,1,9], [9,2,3,7]])
+-            sage: L.homfly_polynomial()
++            sage: L.homfly_polynomial()  # optional - libhomfly
+             -L^2 + M^2 - 1 - L^-2
+-            sage: L.homfly_polynomial('a', 'z', 'az')
++            sage: L.homfly_polynomial('a', 'z', 'az')  # optional - libhomfly
+             a^2 - z^2 - 1 + a^-2
+ 
+         The "monster" unknot::
+@@ -2526,17 +2526,17 @@
+             sage: L = Link([[3,1,2,4], [8,9,1,7], [5,6,7,3], [4,18,6,5],
+             ....:           [17,19,8,18], [9,10,11,14], [10,12,13,11],
+             ....:           [12,19,15,13], [20,16,14,15], [16,20,17,2]])
+-            sage: L.homfly_polynomial()
++            sage: L.homfly_polynomial()  # optional - libhomfly
+             1
+ 
+         The knot `9_6`::
+ 
+             sage: B = BraidGroup(3)
+             sage: K = Knot(B([-1,-1,-1,-1,-1,-1,-2,1,-2,-2]))
+-            sage: K.homfly_polynomial()
++            sage: K.homfly_polynomial()  # optional - libhomfly
+             L^10*M^4 - L^8*M^6 - 3*L^10*M^2 + 4*L^8*M^4 + L^6*M^6 + L^10
+              - 3*L^8*M^2 - 5*L^6*M^4 - L^8 + 7*L^6*M^2 - 3*L^6
+-            sage: K.homfly_polynomial('a', 'z', normalization='az')
++            sage: K.homfly_polynomial('a', 'z', normalization='az')  # optional - libhomfly
+             -a^10*z^4 + a^8*z^6 - 3*a^10*z^2 + 4*a^8*z^4 + a^6*z^6 - a^10
+              + 3*a^8*z^2 + 5*a^6*z^4 - a^8 + 7*a^6*z^2 + 3*a^6
+ 
+@@ -2546,13 +2546,13 @@
+ 
+             sage: L = Link([[[1, -1], [2, -2]], [1, 1]])
+             sage: L2 = Link([[1, 3, 2, 4], [2, 3, 1, 4]])
+-            sage: L2.homfly_polynomial()
++            sage: L2.homfly_polynomial()  # optional - libhomfly
+             -L*M^-1 - L^-1*M^-1
+-            sage: L.homfly_polynomial()
++            sage: L.homfly_polynomial()  # optional - libhomfly
+             -L*M^-1 - L^-1*M^-1
+-            sage: L.homfly_polynomial('a', 'z', 'az')
++            sage: L.homfly_polynomial('a', 'z', 'az')  # optional - libhomfly
+             a*z^-1 - a^-1*z^-1
+-            sage: L2.homfly_polynomial('a', 'z', 'az')
++            sage: L2.homfly_polynomial('a', 'z', 'az')  # optional - libhomfly
+             a*z^-1 - a^-1*z^-1
+ 
+         REFERENCES:
+--- a/sage/src/sage/libs/braiding.pyx
++++ b/sage/src/sage/libs/braiding.pyx
+@@ -57,11 +57,11 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import conjugatingbraid
++        sage: from sage.libs.braiding import conjugatingbraid # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,1,-2])
+         sage: c = B([1,2])
+-        sage: conjugatingbraid(b,c)
++        sage: conjugatingbraid(b,c)  # optional - libbraiding
+         [[0], [2]]
+ 
+     """
+@@ -89,10 +89,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import leftnormalform
++        sage: from sage.libs.braiding import leftnormalform # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,1,-2])
+-        sage: leftnormalform(b)
++        sage: leftnormalform(b) # optional - libbraiding
+         [[0], [2, 1]]
+ 
+     """
+@@ -119,10 +119,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import rightnormalform
++        sage: from sage.libs.braiding import rightnormalform # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,1,-2])
+-        sage: rightnormalform(b)
++        sage: rightnormalform(b) # optional - libbraiding
+         [[2, 1], [0]]
+ 
+     """
+@@ -148,11 +148,11 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import greatestcommondivisor
++        sage: from sage.libs.braiding import greatestcommondivisor # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b1 = B([1, 2, -1])
+         sage: b2 = B([2, 2, 2])
+-        sage: greatestcommondivisor(b1, b2)
++        sage: greatestcommondivisor(b1, b2) # optional - libbraiding
+         [[-1], [2, 1]]
+ 
+     """
+@@ -179,11 +179,11 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import leastcommonmultiple
++        sage: from sage.libs.braiding import leastcommonmultiple # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b1 = B([1, 2, -1])
+         sage: b2 = B([2, 2, 2])
+-        sage: leastcommonmultiple(b1, b2)
++        sage: leastcommonmultiple(b1, b2) # optional - libbraiding
+         [[1], [1], [1]]
+ 
+     """
+@@ -210,10 +210,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import centralizer
++        sage: from sage.libs.braiding import centralizer # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,-1])
+-        sage: centralizer(b)
++        sage: centralizer(b) # optional - libbraiding
+         [[[-1], [2, 1], [1, 2]], [[0], [1], [1, 2], [2]]]
+ 
+     """
+@@ -246,10 +246,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import supersummitset
++        sage: from sage.libs.braiding import supersummitset # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,-1])
+-        sage: supersummitset(b)
++        sage: supersummitset(b) # optional - libbraiding
+         [[[0], [2]], [[0], [1]]]
+ 
+     """
+@@ -275,10 +275,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import ultrasummitset
++        sage: from sage.libs.braiding import ultrasummitset # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,-1])
+-        sage: ultrasummitset(b)
++        sage: ultrasummitset(b) # optional - libbraiding
+         [[[[0], [2]]], [[[0], [1]]]]
+ 
+     """
+@@ -304,16 +304,16 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import thurston_type
++        sage: from sage.libs.braiding import thurston_type # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: b = B([1,2,-1])
+-        sage: thurston_type(b)
++        sage: thurston_type(b) # optional - libbraiding
+         'reducible'
+         sage: c = B([1,2,1])
+-        sage: thurston_type(c)
++        sage: thurston_type(c) # optional - libbraiding
+         'periodic'
+         sage: d = B([1,1,1,2,2])
+-        sage: thurston_type(d)
++        sage: thurston_type(d) # optional - libbraiding
+         'pseudo-anosov'
+ 
+     """
+@@ -343,10 +343,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import rigidity
++        sage: from sage.libs.braiding import rigidity # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: c = B([1,1,1,2,2])
+-        sage: rigidity(c)
++        sage: rigidity(c) # optional - libbraiding
+         3
+ 
+     """
+@@ -372,10 +372,10 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.braiding import sliding_circuits
++        sage: from sage.libs.braiding import sliding_circuits # optional - libbraiding
+         sage: B = BraidGroup(3)
+         sage: c = B([1,1,1,2,2])
+-        sage: sliding_circuits(c)
++        sage: sliding_circuits(c) # optional - libbraiding
+         [[[[0], [1], [1, 2], [2, 1]]],
+         [[[0], [2], [2, 1], [1, 2]]],
+         [[[0], [1, 2], [2, 1], [1]]],
+--- a/sage/src/sage/libs/homfly.pyx
++++ b/sage/src/sage/libs/homfly.pyx
+@@ -64,9 +64,9 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.homfly import homfly_polynomial_string
++        sage: from sage.libs.homfly import homfly_polynomial_string # optional - libhomfly
+         sage: trefoil = '1 6 0 1  1 -1  2 1  0 -1  1 1  2 -1 0 1 1 1 2 1'
+-        sage: homfly_polynomial_string(trefoil)
++        sage: homfly_polynomial_string(trefoil) # optional - libhomfly
+         ' - L^-4 - 2L^-2 + M^2L^-2'
+     """
+     link = str_to_bytes(link)
+@@ -90,9 +90,9 @@
+ 
+     EXAMPLES::
+ 
+-        sage: from sage.libs.homfly import homfly_polynomial_dict
++        sage: from sage.libs.homfly import homfly_polynomial_dict # optional - libhomfly
+         sage: trefoil = '1 6 0 1  1 -1  2 1  0 -1  1 1  2 -1 0 1 1 1 2 1'
+-        sage: homfly_polynomial_dict(trefoil)
++        sage: homfly_polynomial_dict(trefoil) # optional - libhomfly
+         {(-4, 0): -1, (-2, 0): -2, (-2, 2): 1}
+     """
+     link = str_to_bytes(link)
+--- a/sage/build/pkgs/libhomfly/type
++++ b/sage/build/pkgs/libhomfly/type
+@@ -1 +1 @@
+-standard
++optional
+--- a/sage/build/pkgs/libbraiding/type
++++ b/sage/build/pkgs/libbraiding/type
+@@ -1 +1 @@
+-standard
++optional
+--- a/sage/build/make/deps
++++ b/sage/build/make/deps
+@@ -141,9 +141,7 @@
+ 		$(inst_jupyter_core) \
+ 		$(inst_lcalc) \
+ 		$(inst_lrcalc) \
+-		$(inst_libbraiding) \
+ 		$(inst_libgap) \
+-		$(inst_libhomfly) \
+ 		$(inst_libpng) \
+ 		$(inst_linbox) \
+ 		$(inst_m4ri) \
