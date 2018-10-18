@@ -4,7 +4,7 @@ Origin: https://github.com/timokau/nixpkgs/blob/eeee5439e8e43bc9a6c31441440de675
 
 --- a/sage/src/doc/en/faq/faq-usage.rst
 +++ b/sage/src/doc/en/faq/faq-usage.rst
-@@ -338,7 +338,7 @@
+@@ -341,7 +341,7 @@
      sage: RealNumber = float; Integer = int
      sage: from scipy import stats
      sage: stats.ttest_ind(list([1,2,3,4,5]),list([2,3,4,5,.6]))
