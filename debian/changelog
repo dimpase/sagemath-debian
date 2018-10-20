@@ -1,12 +1,13 @@
-sagemath (8.4-2) UNRELEASED; urgency=medium
+sagemath (8.4-2) unstable; urgency=medium
 
+  * Upload to unstable.
   * New (Build-)Depends:
     - libbraiding
     - libhomfly
   * Remove patch:
     - dt-revert-standard-libbraiding-libhomfly.patch
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 20 Oct 2018 09:16:04 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sat, 20 Oct 2018 11:41:45 +0200
 
 sagemath (8.4-1) experimental; urgency=medium
 
