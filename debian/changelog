@@ -2,11 +2,11 @@ sagemath (8.4-1) experimental; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
+    - libbraiding
+    - libhomfly
     - brial (>= 1.2.4)
     - cddlib (>= 094j)
     - eclib (>= 20180815)
-  * New patches:
-    - dt-revert-standard-libbraiding-libhomfly.patch
   * Remove patches (applied upstream):
     - u0-version-singular-4.1.1p2.patch
     - u0-version-cypari2-1.2.1.patch             #25813
