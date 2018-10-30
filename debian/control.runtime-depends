@@ -7,6 +7,7 @@
  fflas-ffpack (>= 2.3.2),
  flintqs,
  gap-core (>= 4r8p6),
+ gap-core (<< 4r9p3),
  gfan (>= 0.6.2),
  gmp-ecm,
  ipython (>= 5.5.0),
