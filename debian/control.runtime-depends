@@ -18,8 +18,6 @@
  libcdd-tools (>= 094j),
  libjs-mathjax,
  libjs-three (>= 80),
- libsingular4 (>= 1:4.1.1-p2),
- libsingular4 (<< 1:4.1.1-p3+ds-1),
  maxima-sage (>= 5.41.0),
  maxima-sage-doc (>= 5.41.0),
  maxima-sage-share (>= 5.41.0),
