@@ -95,7 +95,6 @@ dico = {
     'jupyter_client': @HAS_JUPYTER_CLIENT@,
     'jupyter_core': @HAS_JUPYTER_CORE@,
     'lcalc': @HAS_LCALC@,
-    'libgap': @HAS_LIBGAP@,
     'libpng': @HAS_LIBPNG@,
     'linbox': @HAS_LINBOX@,
     'lrcalc': @HAS_LRCALC@,
@@ -237,6 +236,7 @@ unneeded_packages = {
     'html5lib',
     'kiwisolver', # dependency of matplotlib
     'libatomic_ops',
+    'libgap',
     'pandocfilters',
     'pycygwin',
     'requests', # FIXME(requests): only used to build sphinx, not needed in Debian

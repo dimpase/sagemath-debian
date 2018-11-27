@@ -24,7 +24,6 @@ Build-Depends:
  git,
  gnutls-dev,
  libc6-dbg <pkg.sagemath.dbg>,
- libgap-sage-dev (>= 4.8.6),
  libblas-dev,
  libboost-dev (>= 1.55),
  libbraiding-dev,

@@ -8,7 +8,7 @@ Forwarded: not-needed / TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/gap.py
 +++ b/sage/src/sage/interfaces/gap.py
-@@ -27,6 +27,7 @@
+@@ -28,6 +28,7 @@
  
  We factor an integer using GAP::
  

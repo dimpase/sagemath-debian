@@ -171,10 +171,6 @@ AC_CHECK_HEADER(Lfunction/L.h, HAS_LCALC="True", HAS_LCALC="False")
 AC_LANG_POP([C++])
 AC_SUBST(HAS_LCALC)
 
-# libgap: shouldn't exist, but does
-AC_CHECK_FILE(/usr/include/libgap-sage/gap/libgap.h, HAS_LIBGAP="True", HAS_LIBGAP="False")
-AC_SUBST(HAS_LIBGAP)
-
 AC_CHECK_PROG(HAS_LIBPNG, libpng-config, "True", "False")
 AC_SUBST(HAS_LIBPNG)
 

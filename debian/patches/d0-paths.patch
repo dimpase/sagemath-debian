@@ -4,18 +4,6 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/sage/interfaces/gap.py
-+++ b/sage/src/sage/interfaces/gap.py
-@@ -197,8 +197,7 @@
- 
- WORKSPACE = gap_workspace_file()
- 
--from sage.env import GAP_ROOT_DIR
--GAP_BINARY = os.path.join(GAP_ROOT_DIR, 'bin', 'gap.sh')
-+GAP_BINARY = '/usr/bin/gap'
- 
- first_try = True
- 
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
 @@ -582,7 +582,7 @@
