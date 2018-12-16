@@ -5,7 +5,8 @@ sagemath (8.4-3) UNRELEASED; urgency=medium
   * Remove Build-Depends: libsingular4. (Closes: #912593)
   * New patches:
     - u0-gap-util.patch
-    - u0-version-gap-4.10.patch
+    - u0-version-gap-4.10.patch                  #22626
+    - u0-version-networkx-2.2.patch              #26326
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 21 Oct 2018 09:32:53 +0000
 

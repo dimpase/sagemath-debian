@@ -2,6 +2,7 @@
 # Or nearly-finished patches that they'll very probably merge.
 u0-gap-util.patch
 u0-version-gap-4.10.patch                  #22626
+u0-version-networkx-2.2.patch              #26326
 u0-version-numpy-1.14.3.patch              #25260
 
 # Patches that have open upstream tickets

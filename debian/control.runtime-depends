@@ -63,7 +63,7 @@
  python-mistune,
  python-moinmoin,
  python-mpmath,
- python-networkx (>= 2.1),
+ python-networkx (>= 2.2),
  python-numpy (>= 1:1.14),
  python-openid,
  python-packaging,
