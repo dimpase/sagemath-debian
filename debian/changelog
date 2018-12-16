@@ -3,7 +3,7 @@ sagemath (8.4-3) UNRELEASED; urgency=medium
   * Add lintian overrides for threejs example files with long lines.
   * Depend on gap (>= 4r10p0) instead od libgap-sage.
   * Remove Build-Depends: libsingular4. (Closes: #912593)
-  * New patches:
+  * New patches (Closes: #912980):
     - u0-gap-util.patch
     - u0-version-gap-4.10.patch                  #22626
     - u0-version-networkx-2.2.patch              #26326
