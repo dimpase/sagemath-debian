@@ -20,7 +20,7 @@ Build-Depends:
  debhelper (>= 10),
  dh-python (>= 2.20170125),
  dpkg-dev (>= 1.17.14),
- gdb-python2,
+ gdb,
  git,
  gnutls-dev,
  libc6-dbg <pkg.sagemath.dbg>,
