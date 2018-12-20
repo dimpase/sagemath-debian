@@ -24,7 +24,6 @@ u2-version-r-3.5.1-incomplete.patch        #26185
 # Not suitable for upstreaming
 d0-arb.patch
 d0-gsl-cblas.patch
-#d0-libgap-sage.patch
 d0-libgap-path.patch
 d0-maxima.patch
 d0-nauty.patch
