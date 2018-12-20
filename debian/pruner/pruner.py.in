@@ -236,7 +236,6 @@ unneeded_packages = {
     'html5lib',
     'kiwisolver', # dependency of matplotlib
     'libatomic_ops',
-    'libgap',
     'pandocfilters',
     'pycygwin',
     'requests', # FIXME(requests): only used to build sphinx, not needed in Debian

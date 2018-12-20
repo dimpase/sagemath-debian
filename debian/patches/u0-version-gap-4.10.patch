@@ -1,13 +1,21 @@
 Source: https://trac.sagemath.org/ticket/22626
 
-From 633f4a4fba7277485ebe73af6cb05848a296760e Mon Sep 17 00:00:00 2001
+From f1df813436137414f3775da00ad1de3e3c6e7826 Mon Sep 17 00:00:00 2001
 From: Tobias Hansen <thansen@debian.org>
-Date: Sun, 16 Dec 2018 11:06:01 +0000
+Date: Thu, 20 Dec 2018 23:31:32 +0000
 Subject: [PATCH] Upstream patch for gap 4.10.
 
 ---
  build/make/deps                               |   2 +-
- src/doc/en/constructions/groups.rst           |  10 +-
+ build/pkgs/libgap/SPKG.txt                    |  41 --
+ build/pkgs/libgap/checksums.ini               |   4 -
+ build/pkgs/libgap/dependencies                |   5 -
+ build/pkgs/libgap/package-version.txt         |   1 -
+ build/pkgs/libgap/spkg-check                  |  10 -
+ build/pkgs/libgap/spkg-install                |  17 -
+ build/pkgs/libgap/type                        |   1 -
+ src/doc/en/constructions/groups.rst           |  12 +-
+ .../en/prep/Quickstarts/Abstract-Algebra.rst  |  12 +-
  .../en/thematic_tutorials/group_theory.rst    |  27 +-
  .../en/thematic_tutorials/lie/weyl_groups.rst |   2 +-
  src/doc/ja/tutorial/tour_groups.rst           |   2 +-
@@ -20,6 +28,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  src/sage/combinat/symmetric_group_algebra.py  |   2 +-
  src/sage/combinat/tiling.py                   |  24 +-
  src/sage/env.py                               |   2 +-
+ src/sage/graphs/generators/families.py        |  19 +-
  .../groups/abelian_gps/abelian_group_gap.py   |   4 +-
  src/sage/groups/braid.py                      |   3 +-
  src/sage/groups/finitely_presented.py         |  47 +-
@@ -27,26 +36,35 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  .../groups/matrix_gps/finitely_generated.py   |  14 +-
  src/sage/groups/perm_gps/permgroup.py         |   7 +-
  .../groups/perm_gps/permgroup_element.pyx     |   6 +-
- src/sage/interfaces/gap.py                    |  72 ++-
+ src/sage/interfaces/gap.py                    |  79 ++-
  src/sage/knots/link.py                        |   5 +-
  src/sage/libs/gap/assigned_names.py           |   2 +-
  src/sage/libs/gap/element.pxd                 |  38 +-
- src/sage/libs/gap/element.pyx                 | 606 +++++++++---------
+ src/sage/libs/gap/element.pyx                 | 621 ++++++++++--------
  src/sage/libs/gap/gap_functions.py            |  52 +-
  src/sage/libs/gap/gap_globals.py              |  46 ++
- src/sage/libs/gap/gap_includes.pxd            | 428 ++++---------
+ src/sage/libs/gap/gap_includes.pxd            | 428 ++++--------
  src/sage/libs/gap/libgap.pyx                  | 221 +++----
- src/sage/libs/gap/operations.py               |  23 +-
+ src/sage/libs/gap/operations.py               |  24 +-
  src/sage/libs/gap/sage.gaprc                  |  12 +
  src/sage/libs/gap/saved_workspace.py          |   3 +-
  src/sage/libs/gap/types.pxd                   |  26 -
  src/sage/libs/gap/util.pxd                    |  21 +-
- src/sage/libs/gap/util.pyx                    | 487 +++++++-------
+ src/sage/libs/gap/util.pyx                    | 496 +++++++-------
  src/sage/misc/randstate.pyx                   |  40 +-
+ .../homomorph-sage-exercises.py               |   3 +-
+ .../judson-abstract-algebra/normal-sage.py    |   2 +-
  .../judson-abstract-algebra/sylow-sage.py     |   2 +-
  src/sage/tests/gap_packages.py                |   2 +-
  src/setup.py                                  |   3 +
- 40 files changed, 1093 insertions(+), 1244 deletions(-)
+ 51 files changed, 1142 insertions(+), 1344 deletions(-)
+ delete mode 100644 build/pkgs/libgap/SPKG.txt
+ delete mode 100644 build/pkgs/libgap/checksums.ini
+ delete mode 100644 build/pkgs/libgap/dependencies
+ delete mode 100644 build/pkgs/libgap/package-version.txt
+ delete mode 100644 build/pkgs/libgap/spkg-check
+ delete mode 100644 build/pkgs/libgap/spkg-install
+ delete mode 100644 build/pkgs/libgap/type
  create mode 100644 src/sage/libs/gap/gap_globals.py
  create mode 100644 src/sage/libs/gap/sage.gaprc
  delete mode 100644 src/sage/libs/gap/types.pxd
@@ -69,6 +87,106 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  		$(inst_libhomfly) \
  		$(inst_libpng) \
  		$(inst_linbox) \
+--- a/sage/build/pkgs/libgap/SPKG.txt
++++ /dev/null
+@@ -1,41 +0,0 @@
+-= libGAP =
+-
+-== Description ==
+-
+-This is the
+-
+-== License ==
+-
+-GPL v3+
+-
+-== Upstream Contact ==
+-
+-Volker Braun <vbraun.name@gmail.com>
+-
+-== Dependencies ==
+-
+-* GAP (that is, the gap-x.y.z.spkg of the same version)
+-
+-== Special Update/Build Instructions ==
+-
+-LibGAP is essentially a fork of the upstream GAP kernel. It is
+-developed in its own repository at
+-https://bitbucket.org/vbraun/libgap. This is also where the spkg
+-metadata is tracked. To build a new spkg, use the spkg/make-spkg.sh
+-script in the repository.
+-
+-To update to a new version, you need to bump the version number in
+-configure.ac and rerun autotools (autoreconf -fiv).
+-
+-Note that the repository in the spkg is just a dummy to make Sage
+-happy, any changes should be merged to the upstream repo.
+-
+-Also, the spkg/libGAPify.py script requires the ply python package,
+-which is not part of sage. It is only required to make the spkg,
+-though. This scrip parses the GAP sources, identifies global
+-identifiers, and adds a libGAP_ prefix to them to avoid symbol
+-namespace collisions in Sage.
+-
+-=== Patches ===
+-
+-None
+--- a/sage/build/pkgs/libgap/checksums.ini
++++ /dev/null
+@@ -1,4 +0,0 @@
+-tarball=libgap-VERSION.tar.gz
+-sha1=996d925cdeae798219ab2dd7d5f4491f2e8f98f1
+-md5=dd5e20228a136a5fa8e86ad3f4bcf81a
+-cksum=1956377298
+--- a/sage/build/pkgs/libgap/dependencies
++++ /dev/null
+@@ -1,5 +0,0 @@
+-gap
+-
+-----------
+-All lines of this file are ignored except the first.
+-It is copied by SAGE_ROOT/build/make/install into SAGE_ROOT/build/make/Makefile.
+--- a/sage/build/pkgs/libgap/package-version.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-4.8.6.p0
+--- a/sage/build/pkgs/libgap/spkg-check
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# location of the corresponding gap installation
+-# it is only used by the test suite
+-# it cannot be moved to spkg-install as it can interfere
+-# with proper detection of PIC flags, notably with clang
+-# see #22784
+-CPPFLAGS="$CPPFLAGS"' -DSYS_DEFAULT_PATHS=\"'"$SAGE_LOCAL/gap/latest"'\"'
+-
+-cd src
+-make check CPPFLAGS="$CPPFLAGS"
+-
+--- a/sage/build/pkgs/libgap/spkg-install
++++ /dev/null
+@@ -1,17 +0,0 @@
+-if [ "$SAGE_DEBUG" == "yes" ] ; then
+-    # Note that -g3 allows you to use preprocessor macros in gdb which are widely used
+-    CFLAGS="$CFLAGS -O0 -g3 -DDEBUG_MASTERPOINTERS -DDEBUG_GLOBAL_BAGS -DDEBUG_FUNCTIONS_BAGS"
+-    #  -DDEBUG_HANDLER_REGISTRATION is broken
+-fi
+-
+-source "$SAGE_LOCAL/gap/latest/sysinfo.gap"
+-echo "GAP was configured with $GAParch_system"
+-
+-cd src
+-
+-sdh_configure --disable-static \
+-              CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" CPPFLAGS="$CPPFLAGS" \
+-              --with-gap_system_arch="$GAParch_system" \
+-              --with-sage="$SAGE_LOCAL" --with-gmp="$SAGE_LOCAL"
+-sdh_make
+-sdh_make_install
+--- a/sage/build/pkgs/libgap/type
++++ /dev/null
+@@ -1 +0,0 @@
+-standard
 --- a/sage/src/doc/en/constructions/groups.rst
 +++ b/sage/src/doc/en/constructions/groups.rst
 @@ -163,7 +163,7 @@
@@ -96,7 +214,8 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 +    [ Alt( [ 1 .. 5 ] ), Group(()) ]
      sage: G = gap.new("DihedralGroup( 10 )")
      sage: G.NormalSubgroups()
-     [ Group( <identity> of ... ), Group( [ f2 ] ), Group( [ f1, f2 ] ) ]
+-    [ Group( <identity> of ... ), Group( [ f2 ] ), Group( [ f1, f2 ] ) ]
++    [ Group( [ f1, f2 ] ), Group( [ f2 ] ), Group( <identity> of ... ) ]
      sage: print(gap.eval("G := SymmetricGroup( 4 )"))
      Sym( [ 1 .. 4 ] )
      sage: print(gap.eval("normal := NormalSubgroups( G );"))
@@ -107,6 +226,28 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
  .. index::
     pair: groups; center
+--- a/sage/src/doc/en/prep/Quickstarts/Abstract-Algebra.rst
++++ b/sage/src/doc/en/prep/Quickstarts/Abstract-Algebra.rst
+@@ -85,13 +85,13 @@
+ 
+     sage: for K in D.normal_subgroups():
+     ....:     print(K)
+-    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [()]
+-    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,5)(2,6)(3,7)(4,8)]
+-    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
+-    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,2)(3,8)(4,7)(5,6), (1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
+-    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(2,8)(3,7)(4,6), (1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
+-    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,2,3,4,5,6,7,8), (1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
+     Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,2,3,4,5,6,7,8), (1,8)(2,7)(3,6)(4,5)]
++    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,2,3,4,5,6,7,8), (1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
++    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8), (1,8)(2,7)(3,6)(4,5)]
++    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(2,8)(3,7)(4,6), (1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
++    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,3,5,7)(2,4,6,8), (1,5)(2,6)(3,7)(4,8)]
++    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [(1,5)(2,6)(3,7)(4,8)]
++    Subgroup of (Dihedral group of order 16 as a permutation group) generated by [()]
+ 
+ We can access specific subgroups if we know the generators as a
+ permutation group.
 --- a/sage/src/doc/en/thematic_tutorials/group_theory.rst
 +++ b/sage/src/doc/en/thematic_tutorials/group_theory.rst
 @@ -586,7 +586,12 @@
@@ -404,6 +545,34 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  _add_variable_or_fallback('THEBE_DIR',        opj('$SAGE_SHARE','thebe'))
  _add_variable_or_fallback('COMBINATORIAL_DESIGN_DATA_DIR', opj('$SAGE_SHARE', 'combinatorial_designs'))
  _add_variable_or_fallback('CREMONA_MINI_DATA_DIR', opj('$SAGE_SHARE', 'cremona'))
+--- a/sage/src/sage/graphs/generators/families.py
++++ b/sage/src/sage/graphs/generators/families.py
+@@ -3169,15 +3169,16 @@
+         sage: ff=list(map(lambda y: (y[0]-1,y[1]-1),
+         ....:          Permutation(map(lambda x: 1+r.index(x^-1), r)).cycle_tuples()[1:]))
+         sage: L = sum(i*(r[a]-r[b]) for i,(a,b) in zip(range(1,len(ff)+1), ff)); L
+-        [ 0 -1  1 -2 -3 -4  2  4  3]
+-        [ 1  0 -1 -4 -2 -3  3  2  4]
+-        [-1  1  0 -3 -4 -2  4  3  2]
+-        [ 2  4  3  0 -1  1 -2 -3 -4]
+-        [ 3  2  4  1  0 -1 -4 -2 -3]
+-        [ 4  3  2 -1  1  0 -3 -4 -2]
+-        [-2 -3 -4  2  4  3  0 -1  1]
+-        [-4 -2 -3  3  2  4  1  0 -1]
+-        [-3 -4 -2  4  3  2 -1  1  0]
++        [ 0  1 -1 -3 -2 -4  3  4  2]
++        [-1  0  1 -4 -3 -2  2  3  4]
++        [ 1 -1  0 -2 -4 -3  4  2  3]
++        [ 3  4  2  0  1 -1 -3 -2 -4]
++        [ 2  3  4 -1  0  1 -4 -3 -2]
++        [ 4  2  3  1 -1  0 -2 -4 -3]
++        [-3 -2 -4  3  4  2  0  1 -1]
++        [-4 -3 -2  2  3  4 -1  0  1]
++        [-2 -4 -3  4  2  3  1 -1  0]
++
+         sage: G.relabel()
+         sage: G3x3=graphs.MathonPseudocyclicStronglyRegularGraph(2,G=G,L=L)
+         sage: G3x3.is_strongly_regular(parameters=True)
 --- a/sage/src/sage/groups/abelian_gps/abelian_group_gap.py
 +++ b/sage/src/sage/groups/abelian_gps/abelian_group_gap.py
 @@ -363,10 +363,10 @@
@@ -743,11 +912,18 @@ Subject: [PATCH] Upstream patch for gap 4.10.
          """
          args, kwds = self._convert_args_kwds(args, kwds)
          self._check_valid_function_name(function)
-@@ -1129,13 +1129,13 @@
+@@ -1129,13 +1129,20 @@
          """
          self.__use_workspace_cache = use_workspace_cache
          cmd, self.__make_workspace = gap_command(use_workspace_cache, server is None)
 -        cmd += " -b -p -T"
++        # -b: suppress banner
++        # -p: enable "package output mode"; this confusingly named option
++        #     causes GAP to output special control characters that are normally
++        #     intended for communication with a window manager (i.e. for xgap)
++        #     but that we also use to control GAP with pexepect
++        # -T: disable interactive break loop when encountering errors
++        # -E: disable readline support
 +        cmd += " -b -p -T -E"
          if max_workspace_size is None:
              max_workspace_size = _get_gap_memory_pool_size_MB()
@@ -759,7 +935,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
          Expect.__init__(self,
                          name='gap',
                          prompt='gap> ',
-@@ -1343,11 +1343,11 @@
+@@ -1343,11 +1350,11 @@
  
              sage: print(gap.help('SymmetricGroup', pager=False))
              <BLANKLINE>
@@ -774,7 +950,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
          """
          tmp_to_use = self._local_tmpfile()
          if self.is_remote():
-@@ -1364,6 +1364,7 @@
+@@ -1364,6 +1371,7 @@
              print(line)
          else:
              (sline,) = match.groups()
@@ -782,7 +958,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
              if self.is_remote():
                  self._get_tmpfile()
              with io.open(self._local_tmpfile(), "r",
-@@ -1371,9 +1372,20 @@
+@@ -1371,9 +1379,20 @@
                  help = fobj.read()
                  if pager:
                      from IPython.core.page import page
@@ -805,7 +981,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
      def set(self, var, value):
          """
-@@ -1552,8 +1564,8 @@
+@@ -1552,8 +1571,8 @@
      # Create new workspace with filename WORKSPACE
      g = Gap(use_workspace_cache=False, max_workspace_size=None)
      g.eval('SetUserPreference("HistoryMaxLines", 30)')
@@ -816,7 +992,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
                  'toric', 'laguna', 'braid', 'polycyclic', 'nq']:
          # NOTE: Do *not* autoload hap - it screws up PolynomialRing(Rationals,2)
          try:
-@@ -1647,10 +1659,9 @@
+@@ -1647,10 +1666,9 @@
  
              sage: print(gap(4).SymmetricGroup.__doc__)
              <BLANKLINE>
@@ -829,7 +1005,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
              ...
          """
          M = self._obj.parent()
-@@ -1660,16 +1671,15 @@
+@@ -1660,16 +1678,15 @@
  
  @instancedoc
  class GapFunction(ExpectFunction):
@@ -1948,7 +2124,29 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      r"""
      Turn a Gap C List object (of type ``Obj``) into a Cython ``GapElement_List``.
  
-@@ -2498,7 +2525,7 @@
+@@ -2484,6 +2511,21 @@
+         IndexError: index out of range.
+     """
+ 
++    def __bool__(self):
++        r"""
++        Return True if the list is non-empty, as with Python ``list``s.
++
++        EXAMPLES::
++
++            sage: lst = libgap.eval('[1,,,4]')
++            sage: bool(lst)
++            True
++            sage: lst = libgap.eval('[]')
++            sage: bool(lst)
++            False
++        """
++        return bool(len(self))
++
+     def __len__(self):
+         r"""
+         Return the length of the list.
+@@ -2498,7 +2540,7 @@
              sage: len(lst)
              4
          """
@@ -1957,7 +2155,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
      def __getitem__(self, i):
          r"""
-@@ -2542,21 +2569,21 @@
+@@ -2542,21 +2584,21 @@
              ValueError: too many indices
          """
          cdef int j
@@ -1985,7 +2183,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
          return make_any_gap_element(self.parent(), obj)
  
-@@ -2609,20 +2636,20 @@
+@@ -2609,20 +2651,20 @@
              sage: m
              [ [ 1, 2 ], [ 3, 4 ] ]
          """
@@ -2012,7 +2210,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
                  raise ValueError('too many indices')
              j = i[-1]
          else:
-@@ -2637,7 +2664,7 @@
+@@ -2637,7 +2679,7 @@
          else:
              celt= self.parent()(elt)
  
@@ -2021,7 +2219,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
      def sage(self, **kwds):
          r"""
-@@ -2755,7 +2782,7 @@
+@@ -2755,7 +2797,7 @@
  ############################################################################
  
  
@@ -2030,7 +2228,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      r"""
      Turn a Gap C permutation object (of type ``Obj``) into a Cython ``GapElement_Permutation``.
  
-@@ -2809,7 +2836,7 @@
+@@ -2809,7 +2851,7 @@
  ### GapElement_Record ######################################################
  ############################################################################
  
@@ -2039,7 +2237,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      r"""
      Turn a Gap C rec object (of type ``Obj``) into a Cython ``GapElement_Record``.
  
-@@ -2851,7 +2878,8 @@
+@@ -2851,7 +2893,8 @@
          sage: rec['no_such_element']
          Traceback (most recent call last):
          ...
@@ -2049,7 +2247,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      """
  
      def __len__(self):
-@@ -2868,7 +2896,7 @@
+@@ -2868,7 +2911,7 @@
              sage: len(rec)
              3
          """
@@ -2058,7 +2256,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
  
      def __iter__(self):
-@@ -2885,19 +2913,19 @@
+@@ -2885,19 +2928,19 @@
              sage: iter = rec.__iter__()
              sage: type(iter)
              <type 'sage.libs.gap.element.GapElement_RecordIterator'>
@@ -2081,7 +2279,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
          OUTPUT:
  
-@@ -2914,12 +2942,7 @@
+@@ -2914,12 +2957,7 @@
              3776L
          """
          name = str_to_bytes(name)
@@ -2095,7 +2293,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
      def __getitem__(self, name):
          r"""
-@@ -2939,15 +2962,18 @@
+@@ -2939,15 +2977,18 @@
              sage: rec['first']
              123
          """
@@ -2120,7 +2318,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
  
      def sage(self):
-@@ -2991,7 +3017,7 @@
+@@ -2991,7 +3032,7 @@
      EXAMPLES::
  
          sage: rec = libgap.eval('rec(a:=123, b:=456)')
@@ -2129,7 +2327,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
          [('a', 123), ('b', 456)]
          sage: dict(rec)
          {'a': 123, 'b': 456}
-@@ -3027,20 +3053,18 @@
+@@ -3027,20 +3068,18 @@
  
              sage: rec = libgap.eval('rec(a:=123, b:=456)')
              sage: iter = rec.__iter__()
@@ -3231,7 +3429,15 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
 --- a/sage/src/sage/libs/gap/operations.py
 +++ b/sage/src/sage/libs/gap/operations.py
-@@ -18,6 +18,7 @@
+@@ -11,6 +11,7 @@
+ 
+ import re
+ import string
++
+ from sage.structure.sage_object import SageObject
+ from sage.libs.gap.libgap import libgap
+ 
+@@ -18,6 +19,7 @@
  FlagsType = libgap.function_factory('FlagsType')
  TypeObj = libgap.function_factory('TypeObj')
  IS_SUBSET_FLAGS = libgap.function_factory('IS_SUBSET_FLAGS')
@@ -3239,7 +3445,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  OPERATIONS = libgap.get_global('OPERATIONS')
  NameFunction = libgap.function_factory('NameFunction')
  
-@@ -74,7 +75,7 @@
+@@ -74,7 +76,7 @@
  
              sage: from sage.libs.gap.operations import OperationInspector
              sage: x = OperationInspector(libgap(123))
@@ -3248,7 +3454,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
              123
          """
          return self._obj
-@@ -95,20 +96,12 @@
+@@ -95,20 +97,12 @@
              sage: Unknown in x.operations()
              True
          """
@@ -3267,10 +3473,10 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 -                result.append(op)
 -        return result
 +        def mfi(o):
-+            f = GET_OPER_FLAGS(o)
-+            return (len(f)>0)    and \
-+                   (len(f[0])>0) and \
-+                   IS_SUBSET_FLAGS(self.flags, f[0][0])
++            filts = GET_OPER_FLAGS(o)
++            return any(all(IS_SUBSET_FLAGS(self.flags, fl) for fl in fls)
++                       for fls in filts)
++
 +        return filter(mfi, OPERATIONS)
  
      def op_names(self):
@@ -3387,7 +3593,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 +cdef Obj gap_eval(str gap_string) except? NULL
 --- a/sage/src/sage/libs/gap/util.pyx
 +++ b/sage/src/sage/libs/gap/util.pyx
-@@ -14,10 +14,17 @@
+@@ -14,24 +14,33 @@
  
  from __future__ import print_function, absolute_import
  
@@ -3406,8 +3612,17 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 +from cysignals.pysignals import changesignal
  from cysignals.signals cimport sig_on, sig_off, sig_error
  
++import sage.env
++
  from .gap_includes cimport *
-@@ -32,6 +39,7 @@
+ from .element cimport *
+ from sage.cpython.string import FS_ENCODING
+ from sage.cpython.string cimport str_to_bytes, char_to_str
+ from sage.interfaces.gap_workspace import prepare_workspace_dir
+-from sage.env import SAGE_LOCAL, GAP_ROOT_DIR
+ 
+ 
+ ############################################################################
  ### Hooking into the GAP memory management #################################
  ############################################################################
  
@@ -3415,7 +3630,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  cdef class ObjWrapper(object):
      """
      Wrapper for GAP master pointers
-@@ -47,7 +55,7 @@
+@@ -47,7 +56,7 @@
  
      def __richcmp__(ObjWrapper self, ObjWrapper other, int op):
          r"""
@@ -3424,7 +3639,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
          INPUT:
  
-@@ -68,8 +76,8 @@
+@@ -68,8 +77,8 @@
              True
          """
          cdef result
@@ -3435,7 +3650,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
          if op == Py_LT:
              return self_value < other_value
          elif op == Py_LE:
-@@ -99,7 +107,7 @@
+@@ -99,7 +108,7 @@
          return <int>(self.value)
  
  
@@ -3444,7 +3659,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      """
      Constructor function for :class:`ObjWrapper`
      """
-@@ -109,8 +117,13 @@
+@@ -109,8 +118,13 @@
  
  
  # a dictionary to keep all GAP elements
@@ -3458,7 +3673,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  cpdef get_owned_objects():
      """
      Helper to access the refcount dictionary from Python code
-@@ -118,19 +131,20 @@
+@@ -118,19 +132,20 @@
      return owned_objects_refcount
  
  
@@ -3481,7 +3696,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      """
      Reference ``obj``
      """
-@@ -147,7 +161,7 @@
+@@ -147,7 +162,7 @@
      """
      global owned_objects_refcount
      for obj in owned_objects_refcount:
@@ -3490,52 +3705,61 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
  
  
-@@ -157,47 +171,75 @@
+@@ -157,25 +172,6 @@
  ### Initialization of libGAP ###############################################
  ############################################################################
  
 -def _guess_gap_root():
-+def gap_root():
-     """
+-    """
 -    Used as a fallback to determine gapdir if if GAP_ROOT_DIR is undefined or
 -    pointing to the wrong location.
-+    Find the location of the GAP root install which is stored in the gap
-+    startup script.
- 
-     EXAMPLES::
- 
+-
+-    EXAMPLES::
+-
 -        sage: from sage.libs.gap.util import _guess_gap_root
 -        sage: _guess_gap_root()
 -        The gap-4.5.5.spkg (or later) seems to be not installed!
 -        ...
-+        sage: from sage.libs.gap.util import gap_root
-+        sage: gap_root()   # random output
-+        '/home/vbraun/opt/sage-5.3.rc0/local/gap/latest'
-     """
-+    import os.path
-+    if os.path.exists(GAP_ROOT_DIR):
-+        return GAP_ROOT_DIR
-     print('The gap-4.5.5.spkg (or later) seems to be not installed!')
-     gap_sh = open(os.path.join(SAGE_LOCAL, 'bin', 'gap')).read().splitlines()
--    gapdir = next(dir for dir in gap_sh if dir.strip().startswith('GAP_DIR'))
-+    gapdir = filter(lambda dir:dir.strip().startswith('GAP_ROOT'), gap_sh)[0]
-     gapdir = gapdir.split('"')[1]
-     gapdir = gapdir.replace('$SAGE_LOCAL', SAGE_LOCAL)
-     return gapdir
- 
--def gap_root():
 -    """
--    Find the location of the GAP root install which is stored in the gap
--    startup script.
+-    print('The gap-4.5.5.spkg (or later) seems to be not installed!')
+-    gap_sh = open(os.path.join(SAGE_LOCAL, 'bin', 'gap')).read().splitlines()
+-    gapdir = next(dir for dir in gap_sh if dir.strip().startswith('GAP_DIR'))
+-    gapdir = gapdir.split('"')[1]
+-    gapdir = gapdir.replace('$SAGE_LOCAL', SAGE_LOCAL)
+-    return gapdir
+-
+ def gap_root():
+     """
+     Find the location of the GAP root install which is stored in the gap
+@@ -187,17 +183,68 @@
+         sage: gap_root()   # random output
+         '/home/vbraun/opt/sage-5.3.rc0/local/gap/latest'
+     """
+-    try:
+-        if os.path.exists(GAP_ROOT_DIR):
+-            return GAP_ROOT_DIR
+-    except TypeError:
+-        raise RuntimeError('The GAP_ROOT_DIR environment variable is set to an invalid path: "{}"'.format(GAP_ROOT_DIR))
++    if os.path.exists(sage.env.GAP_ROOT_DIR):
++        return sage.env.GAP_ROOT_DIR
  
--    EXAMPLES::
-+# To ensure that we call initialize_libgap only once.
-+cdef bint _gap_is_initialized = False
+-    return _guess_gap_root()
++    # Attempt to figure out the appropriate GAP_ROOT by reading the
++    # local/bin/gap shell script; this is an ugly hack that exists for
++    # historical reasons; the best approach to setting where Sage looks for
++    # the appropriate GAP_ROOT is to set the GAP_ROOT_DIR variable
++    SAGE_LOCAL = sage.env.SAGE_LOCAL
++    gap_sh = open(os.path.join(SAGE_LOCAL, 'bin', 'gap')).read().splitlines()
++    gapdir = filter(lambda dir:dir.strip().startswith('GAP_ROOT'), gap_sh)[0]
++    gapdir = gapdir.split('"')[1]
++    gapdir = gapdir.replace('$SAGE_LOCAL', SAGE_LOCAL)
++    return gapdir
+ 
+ 
+ # To ensure that we call initialize_libgap only once.
+ cdef bint _gap_is_initialized = False
 +cdef extern char **environ
- 
--        sage: from sage.libs.gap.util import gap_root
--        sage: gap_root()   # random output
--        '/home/vbraun/opt/sage-5.3.rc0/local/gap/latest'
++
 +
 +cdef char* _reset_error_output_cmd = """\
 +libgap_errout := "";
@@ -3559,19 +3783,13 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 +
 +    Returns a pointer to the copy, which is the caller's responsibility to
 +    free.
-     """
--    try:
--        if os.path.exists(GAP_ROOT_DIR):
--            return GAP_ROOT_DIR
--    except TypeError:
--        raise RuntimeError('The GAP_ROOT_DIR environment variable is set to an invalid path: "{}"'.format(GAP_ROOT_DIR))
- 
--    return _guess_gap_root()
++    """
++
 +    cdef char** env_copy
 +    cdef int envc = 0;
 +    cdef int idx
 +    cdef size_t size
- 
++
 +    while env[envc]:
 +        envc += 1
 +
@@ -3584,13 +3802,11 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 +
 +    env_copy[envc] = NULL
 +    return env_copy
- 
--# To ensure that we call initialize_libgap only once.
--cdef bint _gap_is_initialized = False
++
  
  cdef initialize():
      """
-@@ -209,13 +251,14 @@
+@@ -209,13 +256,14 @@
          sage: libgap(123)   # indirect doctest
          123
      """
@@ -3607,14 +3823,14 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      argv[0] = "sage"
      argv[1] = "-l"
      s = str_to_bytes(gap_root(), FS_ENCODING, "surrogateescape")
-@@ -232,36 +275,56 @@
+@@ -232,36 +280,56 @@
      argv[8] = "64m"
  
      argv[9] = "-q"    # no prompt!
 -    argv[10] = "-T"    # no debug loop
 -    argv[11] = NULL
 -    cdef int argc = 11   # argv[argc] must be NULL
-+    argv[10] = "-E"    # don't use readline as this will interfere with Python
++    argv[10] = "-E"   # don't use readline as this will interfere with Python
 +    argv[11] = "--nointeract"  # Implies -T
 +
 +    cdef int argc = 12   # argv[argc] must be NULL
@@ -3682,7 +3898,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
      # Finished!
      _gap_is_initialized = True
-@@ -279,7 +342,7 @@
+@@ -279,7 +347,7 @@
  ### Evaluate string in GAP #################################################
  ############################################################################
  
@@ -3691,7 +3907,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      r"""
      Evaluate a string in GAP.
  
-@@ -290,79 +353,109 @@
+@@ -290,79 +358,109 @@
      OUTPUT:
  
      The resulting GAP object or NULL+Python Exception in case of error.
@@ -3742,9 +3958,6 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 +         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 +        Error, Variable: 'precision' must have a value
 +
-+
-+    Test that on a subsequent attemt we get the same message (no garbage was
-+    left in the error stream)::
  
 -        sage: cython('''
 -        ....: # distutils: libraries = gap
@@ -3752,6 +3965,9 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 -        ....: libgap_enter()
 -        ....: ''')
 -        sage: libgap.eval('1+1')
++    Test that on a subsequent attemt we get the same message (no garbage was
++    left in the error stream)::
++
 +        sage: libgap.eval('Complex Field with 53 bits of precision;')
          Traceback (most recent call last):
          ...
@@ -3842,7 +4058,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  ### Helper to protect temporary objects from deletion ######################
  ############################################################################
  
-@@ -370,9 +463,9 @@
+@@ -370,9 +468,9 @@
  # get deleted this works by assigning it to a global variable. This is
  # very simple, but you can't use it to keep two objects alive. Be
  # careful.
@@ -3854,7 +4070,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      """
      Hold a reference (inside the GAP kernel) to obj
  
-@@ -381,177 +474,79 @@
+@@ -381,177 +479,79 @@
      very simple, but you can't use it to keep two objects alive. Be
      careful.
      """
@@ -3902,13 +4118,16 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 -
 -
 -
--
+ 
 -cpdef memory_usage():
--    """
++cdef object extract_libgap_errout():
+     """
 -    Return information about the memory usage.
 -
 -    See :meth:`~sage.libs.gap.libgap.Gap.mem` for details.
--    """
++    Reads the global variable libgap_errout and returns a Python string
++    containing the error message (with some boilerplate removed).
+     """
 -    cdef size_t SizeMptrsArea = libGAP_OldBags - libGAP_MptrBags
 -    cdef size_t SizeOldBagsArea = libGAP_YoungBags - libGAP_OldBags
 -    cdef size_t SizeYoungBagsArea = libGAP_AllocBags - libGAP_YoungBags
@@ -3916,20 +4135,21 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 -    cdef size_t SizeUnavailableArea = libGAP_EndBags - libGAP_StopBags
 -    return (SizeMptrsArea, SizeOldBagsArea, SizeYoungBagsArea, SizeAllocationArea, SizeUnavailableArea)
 -
--
++    cdef Obj r
++    cdef char *msg
+ 
 -cpdef error_enter_libgap_block_twice():
 -    """
 -    Demonstrate that we catch errors from entering a block twice.
 -
 -    EXAMPLES::
- 
+-
 -        sage: from sage.libs.gap.util import error_enter_libgap_block_twice
 -        sage: error_enter_libgap_block_twice()
 -        Traceback (most recent call last):
 -        ...
 -        RuntimeError: Entered a critical block twice
-+cdef object extract_libgap_errout():
-     """
+-    """
 -    from sage.libs.gap.libgap import libgap
 -    try:
 -        # The exception will be seen by this sig_on() after being
@@ -3943,13 +4163,9 @@ Subject: [PATCH] Upstream patch for gap 4.10.
 -
 -
 -cpdef error_exit_libgap_block_without_enter():
-+    Reads the global variable libgap_errout and returns a Python string
-+    containing the error message (with some boilerplate removed).
-     """
+-    """
 -    Demonstrate that we catch errors from omitting libgap_enter.
-+    cdef Obj r
-+    cdef char *msg
- 
+-
 -    EXAMPLES::
 -
 -        sage: from sage.libs.gap.util import error_exit_libgap_block_without_enter
@@ -4169,6 +4385,28 @@ Subject: [PATCH] Upstream patch for gap 4.10.
          """
          global _gap_seed_randstate
          if _gap_seed_randstate is not self:
+--- a/sage/src/sage/tests/books/judson-abstract-algebra/homomorph-sage-exercises.py
++++ b/sage/src/sage/tests/books/judson-abstract-algebra/homomorph-sage-exercises.py
+@@ -60,7 +60,6 @@
+ ~~~~~~~~~~~~~~~~~~~~~~ ::
+ 
+     sage: G = DihedralGroup(20)
+-    sage: [H.order() for H in G.normal_subgroups()]
++    sage: l=[H.order() for H in G.normal_subgroups()]; l.sort(); l
+     [1, 2, 4, 5, 10, 20, 20, 20, 40]
+-
+ """
+--- a/sage/src/sage/tests/books/judson-abstract-algebra/normal-sage.py
++++ b/sage/src/sage/tests/books/judson-abstract-algebra/normal-sage.py
+@@ -128,7 +128,7 @@
+ 
+     sage: G = DihedralGroup(8)
+     sage: N = G.normal_subgroups()
+-    sage: [H.order() for H in N]
++    sage: l=[H.order() for H in N]; l.sort(); l
+     [1, 2, 4, 8, 8, 8, 16]
+ 
+ """
 --- a/sage/src/sage/tests/books/judson-abstract-algebra/sylow-sage.py
 +++ b/sage/src/sage/tests/books/judson-abstract-algebra/sylow-sage.py
 @@ -226,7 +226,7 @@
