@@ -1,15 +1,21 @@
 sagemath (8.4-3) UNRELEASED; urgency=medium
 
-  * Add lintian overrides for threejs example files with long lines.
-  * Depend on gap (>= 4r10p0) instead od libgap-sage.
-  * Remove Build-Depends: libsingular4. (Closes: #912593)
-  * Replace Build-Depends: gdb-python2 by gdb. (Closes: #890231)
-  * New patches (Closes: #912980):
+  * New (Build-)Depends:
+    - gap (>= 4r10p0-3) (Closes: #912980)
+    - networkx (>= 2.2)
+    - gdb
+  * Removed (Build-)Depends:
+    - libgap-sage
+    - libsingular4 (Closes: #912593)
+    - gdb-python2 (Closes: #890231)
+  * New patches:
     - u0-gap-util.patch
     - u0-version-gap-4.10.patch                  #22626
     - u0-version-networkx-2.2.patch              #26326
+    - d0-libgap-path.patch
   * Removed patches:
     - d0-libgap-sage.patch
+  * Add lintian overrides for threejs example files with long lines.
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 21 Oct 2018 09:32:53 +0000
 
