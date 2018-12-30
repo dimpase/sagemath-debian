@@ -16,6 +16,7 @@ sagemath (8.4-3) UNRELEASED; urgency=medium
   * Removed patches:
     - d0-libgap-sage.patch
   * Add lintian overrides for threejs example files with long lines.
+  * Allow 90 test failures for 'arch' tests, 10 for 'indep'.
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 21 Oct 2018 09:32:53 +0000
 

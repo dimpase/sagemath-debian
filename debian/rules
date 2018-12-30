@@ -21,7 +21,6 @@
 include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
 
-MAX_TEST_FAILURES = 70
 MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
@@ -257,7 +256,7 @@ run_tests = \
 	cd sage && ./sage -t -p $(NUMJOBS) $(SAGE_TEST_FLAGS) --logfile=logs/ptestlong-$(1).log $(2)
 # If tests fail but not by too many more, then retry them once not in parallel
 # i386 seems to have issues running parallel tests - TODO: investigate this in more detail
-check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log
+check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3)
 run_tests_with_retry = \
 	$(run_tests); cd "$(CURDIR)" && \
 	if $(check_test_log) had-few-failures; then :; else \
@@ -270,14 +269,13 @@ run_tests_with_retry = \
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# TODO: exclude src/sage/misc/sagedoc.py, this will cause ~7 failures if we don't build the docs
-	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/)
+	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/,90)
 endif
 
 override_dh_auto_test-indep:
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	# These tests never fail so don't bother with the retry logic
-	$(call run_tests,indep,src/doc src/sage/misc/sagedoc.py)
+	$(call run_tests_with_retry,indep,src/doc src/sage/misc/sagedoc.py,10)
 	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
 	# Sage doesn't detect this. Here we detect it and fail the build if so.
 	# Also filter out some false positives that are not hard errors.
