@@ -32,10 +32,6 @@ AC_CHECK_PROG(HAS_CDDLIB, cdd_both_reps, "True", "False")
 AC_CHECK_HEADER(cdd/setoper.h, HAS_CDDLIB="True", HAS_CDDLIB="False")
 AC_SUBST(HAS_CDDLIB)
 
-# FIXME(cephes): we shouldn't need it
-HAS_CEPHES="True"
-AC_SUBST(HAS_CEPHES)
-
 # FIXME(certifi): only needed for tornado, hence not needed
 HAS_CERTIFI="True"
 AC_SUBST(HAS_CERTIFI)

@@ -58,7 +58,6 @@ dico = {
     'brial': @HAS_POLYBORI@,
     'bzip2': @HAS_BZIP2@,
     'cddlib': @HAS_CDDLIB@,
-    'cephes': @HAS_CEPHES@,
     'certifi': @HAS_CERTIFI@,
     'cliquer': @HAS_CLIQUER@,
     'combinatorial_designs': @HAS_COMBINATORIAL_DESIGNS@,
@@ -234,9 +233,11 @@ unneeded_packages = {
     'backports_ssl_match_hostname',
     'bleach',
     'html5lib',
+    'ipaddress',
     'kiwisolver', # dependency of matplotlib
     'libatomic_ops',
     'pandocfilters',
+    'prometheus_client',
     'pycygwin',
     'requests', # FIXME(requests): only used to build sphinx, not needed in Debian
     'scandir',
