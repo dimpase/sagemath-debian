@@ -1,0 +1,2 @@
+# We have to define rpath because libgap resides in /usr/lib/*/gap for now.
+sagemath: binary-or-shlib-defines-rpath
