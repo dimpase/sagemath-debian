@@ -8,7 +8,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/sage
 +++ b/sage/sage
-@@ -133,6 +133,8 @@
+@@ -137,6 +137,8 @@
  elif [ -x "$SAGE_ROOT/local/bin/sage" ]; then # if in a stripped binary
      # Note in this case we assume that SAGE_LOCAL is the "local" subdirectory
      exec "$SAGE_ROOT/local/bin/sage" "$@"
@@ -57,8 +57,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -export PYTHONPATH="$SAGE_LOCAL"
 +export PYTHONPATH="${PYTHONPATH:-SAGE_LOCAL}"
  
- # Storing the start time of the build process. The time is stored in
- # seconds since 1970-01-01 in a hidden file called
+ ###############################################################################
+ # Skip the rest if nothing to do (i.e., to [re]build).
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
 @@ -96,7 +96,7 @@

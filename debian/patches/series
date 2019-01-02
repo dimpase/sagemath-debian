@@ -1,9 +1,6 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
-u0-gap-util.patch
-u0-version-gap-4.10.patch                  #22626
 u0-version-networkx-2.2.patch              #26326
-u0-version-numpy-1.14.3.patch              #25260
 
 # Patches that have open upstream tickets
 u1-fix-atrocious-symlink-logic.patch       #22444
@@ -12,12 +9,10 @@ u1-scripts-dir.patch                       #22731
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
 u1-workaround-sympow-malloc-perturb.patch  #https://salsa.debian.org/science-team/sympow/merge_requests/1, reported to upstream by private email
 u1-fix-trivial-test-cases.patch            #25094, #25096, #25102, the interpreter bits do not seem necessary anymore
-u1-fix-mkdirs-sage-kernel-spec.patch       #26176
 
 # Patches that should be upstreamed (may need some work first)
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
-u2-version-r-3.5.1-incomplete.patch        #26185
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version

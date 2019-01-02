@@ -135,7 +135,7 @@ Forwarded: TODO
      which is mostly to make doctesting more predictable.
  
      EXAMPLES::
-@@ -290,7 +290,7 @@
+@@ -291,7 +291,7 @@
  
          INPUT:
  
@@ -144,7 +144,7 @@ Forwarded: TODO
                       or a DocTestDefaults object (possibly with some entries modified)
          - args -- a list of filenames to doctest
  
-@@ -1014,9 +1014,9 @@
+@@ -1019,9 +1019,9 @@
              sage: from sage.doctest.control import DocTestDefaults, DocTestController
              sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
              sage: print(DC._assemble_cmd())
@@ -156,7 +156,7 @@ Forwarded: TODO
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -1050,14 +1050,14 @@
+@@ -1055,14 +1055,14 @@
              sage: DD = DocTestDefaults(gdb=True)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)

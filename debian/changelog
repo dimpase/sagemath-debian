@@ -1,6 +1,12 @@
 sagemath (8.6~beta1-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * Remove patches (applied upstream):
+    - u0-gap-util.patch
+    - u0-version-gap-4.10.patch                  #22626
+    - u0-version-numpy-1.14.3.patch              #25260
+    - u1-fix-mkdirs-sage-kernel-spec.patch       #26176
+    - u2-version-r-3.5.1-incomplete.patch        #26185
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 02 Jan 2019 17:19:20 +0000
 
