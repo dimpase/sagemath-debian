@@ -1,3 +1,11 @@
+sagemath (8.4-4) UNRELEASED; urgency=medium
+
+  * New patches:
+    - u0-gap-trac-26889.patch                    #26889
+    - u0-gap-trac-26856.patch                    #26856
+
+ -- Tobias Hansen <thansen@debian.org>  Wed, 02 Jan 2019 12:39:58 +0000
+
 sagemath (8.4-3) unstable; urgency=medium
 
   * New (Build-)Depends:

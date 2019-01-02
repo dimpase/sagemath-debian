@@ -1,7 +1,9 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
 u0-gap-util.patch
+u0-gap-trac-26889.patch                    #26889
 u0-version-gap-4.10.patch                  #22626
+u0-gap-trac-26856.patch                    #26856
 u0-version-networkx-2.2.patch              #26326
 u0-version-numpy-1.14.3.patch              #25260
 

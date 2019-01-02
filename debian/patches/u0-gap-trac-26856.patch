@@ -1,0 +1,1841 @@
+Bug: https://trac.sagemath.org/ticket/26856
+
+--- a/sage/src/sage/groups/perm_gps/permgroup_named.py
++++ b/sage/src/sage/groups/perm_gps/permgroup_named.py
+@@ -19,14 +19,12 @@
+ -- DiCyclicGroup, nonabelian groups of order `4m` with a unique element of order 2
+ 
+ -- TransitiveGroup, $n^{th}$ transitive group of degree $d$
+-                      from the GAP tables of transitive groups (requires
+-                      the "optional" package database_gap)
++                      from the GAP tables of transitive groups
+ 
+ -- TransitiveGroups(d), TransitiveGroups(), set of all of the above
+ 
+ -- PrimitiveGroup, $n^{th}$ primitive group of degree $d$
+-                      from the GAP tables of primitive groups (requires
+-                      the "optional" package database_gap)
++                      from the GAP tables of primitive groups
+ 
+ -- PrimitiveGroups(d), PrimitiveGroups(), set of all of the above
+ 
+@@ -1781,18 +1779,18 @@
+             Transitive group number 1 of degree 0
+             sage: TransitiveGroup(1,1)
+             Transitive group number 1 of degree 1
+-            sage: G = TransitiveGroup(5, 2); G         # optional - database_gap
++            sage: G = TransitiveGroup(5, 2); G
+             Transitive group number 2 of degree 5
+-            sage: G.gens()                             # optional - database_gap
++            sage: G.gens()
+             [(1,2,3,4,5), (1,4)(2,3)]
+ 
+-            sage: G.category()                         # optional - database_gap
++            sage: G.category()
+             Category of finite enumerated permutation groups
+ 
+         .. warning:: this follows GAP's naming convention of indexing
+           the transitive groups starting from ``1``::
+ 
+-            sage: TransitiveGroup(5,0)                 # optional - database_gap
++            sage: TransitiveGroup(5,0)
+             Traceback (most recent call last):
+             ...
+             ValueError: Index n must be in {1,..,5}
+@@ -1800,10 +1798,10 @@
+         .. warning:: only transitive groups of "small" degree are
+           available in GAP's database::
+ 
+-            sage: TransitiveGroup(31,1)                # optional - database_gap
++            sage: TransitiveGroup(32,1)
+             Traceback (most recent call last):
+             ...
+-            NotImplementedError: Only the transitive groups of order less than 30 are available in GAP's database
++            NotImplementedError: Only the transitive groups of degree at most 31 are available in GAP's database
+ 
+         TESTS::
+ 
+@@ -1813,9 +1811,9 @@
+ 
+             sage: TestSuite(TransitiveGroup(0,1)).run()
+             sage: TestSuite(TransitiveGroup(1,1)).run()
+-            sage: TestSuite(TransitiveGroup(5,2)).run()# optional - database_gap
++            sage: TestSuite(TransitiveGroup(5,2)).run()
+ 
+-            sage: TransitiveGroup(1,5)                 # optional - database_gap
++            sage: TransitiveGroup(1,5)
+             Traceback (most recent call last):
+             ...
+             ValueError: Index n must be in {1,..,1}
+@@ -1832,7 +1830,7 @@
+             PermutationGroup_generic.__init__(self, gap_group=gap_group)
+         except RuntimeError:
+             from sage.misc.misc import verbose
+-            verbose("Warning: Computing with TransitiveGroups requires the optional database_gap package. Please install it.", level=0)
++            verbose("Error: TransitiveGroups requires a standard GAP package. Not having it installed is a packaging error.", level=0)
+ 
+         self._d = d
+         self._n = n
+@@ -1857,9 +1855,6 @@
+     ``d`` up to isomorphisms. If ``d`` is not specified, it returns the set of all
+     transitive groups up to isomorphisms.
+ 
+-    Warning: TransitiveGroups requires the optional GAP database
+-    package. Please install it with ``sage -i database_gap``.
+-
+     EXAMPLES::
+ 
+         sage: TransitiveGroups(3)
+@@ -1873,12 +1868,12 @@
+         Transitive Groups
+ 
+     .. warning:: in practice, the database currently only contains
+-      transitive groups up to degree 30::
++      transitive groups up to degree 31::
+ 
+-        sage: TransitiveGroups(31).cardinality() # optional - database_gap
++        sage: TransitiveGroups(32).cardinality()
+         Traceback (most recent call last):
+         ...
+-        NotImplementedError: Only the transitive groups of order less than 30 are available in GAP's database
++        NotImplementedError: Only the transitive groups of degree at most 31 are available in GAP's database
+ 
+     """
+     if d is None:
+@@ -1902,22 +1897,22 @@
+         sage: L.cardinality()
+         +Infinity
+ 
+-        sage: p = L.__iter__()            # optional - database_gap
+-        sage: (next(p), next(p), next(p), next(p), next(p), next(p), next(p), next(p)) # optional - database_gap
++        sage: p = L.__iter__()
++        sage: (next(p), next(p), next(p), next(p), next(p), next(p), next(p), next(p))
+         (Transitive group number 1 of degree 0, Transitive group number 1 of degree 1, Transitive group number 1 of degree 2, Transitive group number 1 of degree 3, Transitive group number 2 of degree 3, Transitive group number 1 of degree 4, Transitive group number 2 of degree 4, Transitive group number 3 of degree 4)
+ 
+     TESTS:
+ 
+     The following test is broken, see :trac:`22576`::
+ 
+-        sage: TestSuite(TransitiveGroups()).run() # known bug # optional - database_gap # long time
++        sage: TestSuite(TransitiveGroups()).run() # known bug # long time
+     """
+     def __init__(self):
+         """
+         TESTS::
+ 
+-            sage: S = TransitiveGroups() # optional - database_gap
+-            sage: S.category() # optional - database_gap
++            sage: S = TransitiveGroups()
++            sage: S.category()
+             Category of facade infinite enumerated sets
+         """
+         DisjointUnionEnumeratedSets.__init__(self, Family(NonNegativeIntegers(), lambda i: TransitiveGroups(i)) )
+@@ -1926,7 +1921,7 @@
+         """
+         TESTS::
+ 
+-            sage: TransitiveGroups() # optional - database_gap # indirect doctest
++            sage: TransitiveGroups() # indirect doctest
+             Transitive Groups
+         """
+         return "Transitive Groups"
+@@ -1935,11 +1930,11 @@
+         r"""
+         EXAMPLES::
+ 
+-            sage: TransitiveGroup(5,2) in TransitiveGroups() # optional - database_gap
++            sage: TransitiveGroup(5,2) in TransitiveGroups()
+             True
+-            sage: TransitiveGroup(6,5) in TransitiveGroups() # optional - database_gap
++            sage: TransitiveGroup(6,5) in TransitiveGroups()
+             True
+-            sage: 1 in TransitiveGroups() # optional - database_gap
++            sage: 1 in TransitiveGroups()
+             False
+         """
+         return isinstance(G,TransitiveGroup)
+@@ -1950,17 +1945,17 @@
+ 
+     EXAMPLES::
+ 
+-        sage: S = TransitiveGroups(4); S       # optional - database_gap
++        sage: S = TransitiveGroups(4); S
+         Transitive Groups of degree 4
+-        sage: list(S)                          # optional - database_gap
++        sage: list(S)
+         [Transitive group number 1 of degree 4, Transitive group number 2 of degree 4, Transitive group number 3 of degree 4, Transitive group number 4 of degree 4, Transitive group number 5 of degree 4]
+ 
+-        sage: TransitiveGroups(5).an_element() # optional - database_gap
++        sage: TransitiveGroups(5).an_element()
+         Transitive group number 1 of degree 5
+ 
+     We write the cardinality of all transitive groups of degree 5::
+ 
+-        sage: for G in TransitiveGroups(5):    # optional - database_gap
++        sage: for G in TransitiveGroups(5):
+         ....:     print(G.cardinality())
+         5
+         10
+@@ -1970,7 +1965,7 @@
+ 
+     TESTS::
+ 
+-        sage: TestSuite(TransitiveGroups(3)).run() # optional - database_gap
++        sage: TestSuite(TransitiveGroups(3)).run()
+ 
+ 
+     """
+@@ -1978,8 +1973,8 @@
+         """
+         TESTS::
+ 
+-            sage: S = TransitiveGroups(4) # optional - database_gap
+-            sage: S.category() # optional - database_gap
++            sage: S = TransitiveGroups(4)
++            sage: S.category()
+             Category of finite enumerated sets
+         """
+         self._degree = n
+@@ -1989,7 +1984,7 @@
+         """
+         TESTS::
+ 
+-            sage: TransitiveGroups(6) # optional - database_gap
++            sage: TransitiveGroups(6)
+             Transitive Groups of degree 6
+         """
+         return "Transitive Groups of degree %s"%(self._degree)
+@@ -1998,11 +1993,11 @@
+         r"""
+         EXAMPLES::
+ 
+-            sage: TransitiveGroup(6,5) in TransitiveGroups(4) # optional - database_gap
++            sage: TransitiveGroup(6,5) in TransitiveGroups(4)
+             False
+-            sage: TransitiveGroup(4,3) in TransitiveGroups(4) # optional - database_gap
++            sage: TransitiveGroup(4,3) in TransitiveGroups(4)
+             True
+-            sage: 1 in TransitiveGroups(4) # optional - database_gap
++            sage: 1 in TransitiveGroups(4)
+             False
+         """
+         if isinstance(G,TransitiveGroup):
+@@ -2020,7 +2015,7 @@
+ 
+         EXAMPLES::
+ 
+-            sage: TransitiveGroups(5)[3]          # optional - database_gap
++            sage: TransitiveGroups(5)[3]
+             Transitive group number 3 of degree 5
+ 
+         .. warning::
+@@ -2028,7 +2023,7 @@
+             this follows GAP's naming convention of indexing
+             the transitive groups starting from ``1``::
+ 
+-                sage: TransitiveGroups(5)[0]          # optional - database_gap
++                sage: TransitiveGroups(5)[0]
+                 Traceback (most recent call last):
+                 ...
+                 ValueError: Index n must be in {1,..,5}
+@@ -2039,7 +2034,7 @@
+         """
+         EXAMPLES::
+ 
+-            sage: list(TransitiveGroups(5)) # indirect doctest # optional - database_gap
++            sage: list(TransitiveGroups(5)) # indirect doctest
+             [Transitive group number 1 of degree 5, Transitive group number 2 of degree 5, Transitive group number 3 of degree 5, Transitive group number 4 of degree 5, Transitive group number 5 of degree 5]
+         """
+         for n in range(1, self.cardinality() + 1):
+@@ -2053,30 +2048,30 @@
+ 
+         EXAMPLES::
+ 
+-            sage: TransitiveGroups(0).cardinality()                      # optional - database_gap
++            sage: TransitiveGroups(0).cardinality()
+             1
+-            sage: TransitiveGroups(2).cardinality()                      # optional - database_gap
++            sage: TransitiveGroups(2).cardinality()
+             1
+-            sage: TransitiveGroups(7).cardinality()                      # optional - database_gap
++            sage: TransitiveGroups(7).cardinality()
+             7
+-            sage: TransitiveGroups(12).cardinality()                     # optional - database_gap
++            sage: TransitiveGroups(12).cardinality()
+             301
+-            sage: [TransitiveGroups(i).cardinality() for i in range(11)] # optional - database_gap
++            sage: [TransitiveGroups(i).cardinality() for i in range(11)]
+             [1, 1, 1, 2, 5, 5, 16, 7, 50, 34, 45]
+ 
+         .. warning::
+ 
+-            The database_gap contains all transitive groups
+-            up to degree 30::
++            GAP comes with a database containing all transitive groups
++            up to degree 31::
+ 
+-                sage: TransitiveGroups(31).cardinality()                     # optional - database_gap
++                sage: TransitiveGroups(32).cardinality()
+                 Traceback (most recent call last):
+                 ...
+-                NotImplementedError: Only the transitive groups of order less than 30 are available in GAP's database
++                NotImplementedError: Only the transitive groups of degree at most 31 are available in GAP's database
+ 
+         TESTS::
+ 
+-            sage: type(TransitiveGroups(12).cardinality())               # optional - database_gap
++            sage: type(TransitiveGroups(12).cardinality())
+             <type 'sage.rings.integer.Integer'>
+             sage: type(TransitiveGroups(0).cardinality())
+             <type 'sage.rings.integer.Integer'>
+@@ -2092,9 +2087,9 @@
+                 return Integer(gap.NrTransitiveGroups(gap(self._degree)))
+             except RuntimeError:
+                 from sage.misc.misc import verbose
+-                verbose("Warning: TransitiveGroups requires the GAP database package. Please install it with ``sage -i database_gap``.", level=0)
++                verbose("Error: TransitiveGroups should come with GAP.", level=0)
+             except TypeError:
+-                raise NotImplementedError("Only the transitive groups of order less than 30 are available in GAP's database")
++                raise NotImplementedError("Only the transitive groups of degree at most 31 are available in GAP's database")
+ 
+ class PrimitiveGroup(PermutationGroup_unique):
+     """
+@@ -2117,11 +2112,11 @@
+         Trivial group
+         sage: PrimitiveGroup(1,1)
+         Trivial group
+-        sage: G = PrimitiveGroup(5, 2); G           # optional - database_gap
++        sage: G = PrimitiveGroup(5, 2); G
+         D(2*5)
+-        sage: G.gens()                              # optional - database_gap
++        sage: G.gens()
+         [(2,4)(3,5), (1,2,3,5,4)]
+-        sage: G.category()                          # optional - database_gap
++        sage: G.category()
+         Category of finite enumerated permutation groups
+ 
+     .. warning::
+@@ -2129,7 +2124,7 @@
+         this follows GAP's naming convention of indexing the primitive
+         groups starting from ``1``::
+ 
+-            sage: PrimitiveGroup(5,0)               # optional - database_gap
++            sage: PrimitiveGroup(5,0)
+             Traceback (most recent call last):
+             ...
+             ValueError: Index n must be in {1,..,5}
+@@ -2137,7 +2132,7 @@
+     Only primitive groups of "small" degree are available in GAP's
+     database::
+ 
+-        sage: PrimitiveGroup(2500,1)          # optional - database_gap
++        sage: PrimitiveGroup(2500,1)
+         Traceback (most recent call last):
+         ...
+         NotImplementedError: Only the primitive groups of degree less
+@@ -2156,8 +2151,8 @@
+ 
+             sage: TestSuite(PrimitiveGroup(0,1)).run()
+             sage: TestSuite(PrimitiveGroup(1,1)).run()
+-            sage: TestSuite(PrimitiveGroup(5,2)).run()  # optional - database_gap
+-            sage: PrimitiveGroup(6,5)                   # optional - database_gap
++            sage: TestSuite(PrimitiveGroup(5,2)).run()
++            sage: PrimitiveGroup(6,5)
+             Traceback (most recent call last):
+             ...
+             ValueError: Index n must be in {1,..,4}
+@@ -2179,7 +2174,7 @@
+             PermutationGroup_generic.__init__(self, gap_group=gap_group)
+         except RuntimeError:
+             from sage.misc.misc import verbose
+-            verbose("Warning: Computing with PrimitiveGroups requires the optional database_gap package. Please install it.", level=0)
++            verbose("Error: GAP should come with PrimitiveGroups installed.", level=0)
+ 
+         self._d = d
+         self._n = n
+@@ -2195,7 +2190,7 @@
+ 
+         EXAMPLES::
+ 
+-            sage: G = PrimitiveGroup(5,1); G             # optional - database_gap
++            sage: G = PrimitiveGroup(5,1); G
+             C(5)
+         """
+         return self._pretty_name
+@@ -2204,15 +2199,13 @@
+         """
+         Return the index of this group in the GAP database of primitive groups.
+ 
+-        Requires "optional" database_gap package.
+-
+         OUTPUT:
+ 
+         A positive integer, following GAP's conventions.
+ 
+         EXAMPLES::
+ 
+-            sage: G = PrimitiveGroup(5,2); G.group_primitive_id()  # optional - database_gap
++            sage: G = PrimitiveGroup(5,2); G.group_primitive_id()
+             2
+         """
+         return self._n
+@@ -2231,11 +2224,6 @@
+     isomorphisms using GAP. If ``d`` is not specified, it returns the
+     set of all primitive groups up to isomorphisms stored in GAP.
+ 
+-    .. WARNING::
+-
+-        PrimitiveGroups requires the optional GAP database package.
+-        Please install it by running ``sage -i database_gap``.
+-
+     EXAMPLES::
+ 
+         sage: PrimitiveGroups(3)
+@@ -2250,7 +2238,7 @@
+     The database currently only contains primitive groups up to degree
+     2499::
+ 
+-         sage: PrimitiveGroups(2500).cardinality() # optional - database_gap
++         sage: PrimitiveGroups(2500).cardinality()
+          Traceback (most recent call last):
+          ...
+          NotImplementedError: Only the primitive groups of degree less
+@@ -2285,8 +2273,8 @@
+         sage: L.cardinality()
+         +Infinity
+ 
+-        sage: p = L.__iter__()            # optional - database_gap
+-        sage: (next(p), next(p), next(p), next(p), # optional - database_gap
++        sage: p = L.__iter__()
++        sage: (next(p), next(p), next(p), next(p),
+         ....:  next(p), next(p), next(p), next(p))
+         (Trivial group, Trivial group, S(2), A(3), S(3), A(4), S(4), C(5))
+ 
+@@ -2294,14 +2282,14 @@
+ 
+     The following test is broken, see :trac:`22576`::
+ 
+-        sage: TestSuite(PrimitiveGroups()).run() # known bug # optional - database_gap # long time
++        sage: TestSuite(PrimitiveGroups()).run() # known bug # long time
+     """
+     def __init__(self):
+         """
+         TESTS::
+ 
+-            sage: S = PrimitiveGroups() # optional - database_gap
+-            sage: S.category() # optional - database_gap
++            sage: S = PrimitiveGroups()
++            sage: S.category()
+             Category of facade infinite enumerated sets
+         """
+         DisjointUnionEnumeratedSets.__init__(self, Family(NonNegativeIntegers(), lambda i: PrimitiveGroups(i)) )
+@@ -2316,7 +2304,7 @@
+ 
+         TESTS::
+ 
+-            sage: PrimitiveGroups() # optional - database_gap # indirect doctest
++            sage: PrimitiveGroups() # indirect doctest
+             Primitive Groups
+         """
+         return "Primitive Groups"
+@@ -2335,11 +2323,11 @@
+ 
+         EXAMPLES::
+ 
+-            sage: PrimitiveGroup(5,2) in PrimitiveGroups() # optional - database_gap
++            sage: PrimitiveGroup(5,2) in PrimitiveGroups()
+             True
+-            sage: PrimitiveGroup(6,4) in PrimitiveGroups() # optional - database_gap
++            sage: PrimitiveGroup(6,4) in PrimitiveGroups()
+             True
+-            sage: 1 in PrimitiveGroups() # optional - database_gap
++            sage: 1 in PrimitiveGroups()
+             False
+         """
+         return isinstance(G,PrimitiveGroup)
+@@ -2350,16 +2338,16 @@
+ 
+     EXAMPLES::
+ 
+-        sage: S = PrimitiveGroups(5); S       # optional - database_gap
++        sage: S = PrimitiveGroups(5); S
+         Primitive Groups of degree 5
+-        sage: S.list()                          # optional - database_gap
++        sage: S.list()
+         [C(5), D(2*5), AGL(1, 5), A(5), S(5)]
+-        sage: S.an_element() # optional - database_gap
++        sage: S.an_element()
+         C(5)
+ 
+     We write the cardinality of all primitive groups of degree 5::
+ 
+-        sage: for G in PrimitiveGroups(5):    # optional - database_gap
++        sage: for G in PrimitiveGroups(5):
+         ....:     print(G.cardinality())
+         5
+         10
+@@ -2369,14 +2357,14 @@
+ 
+     TESTS::
+ 
+-        sage: TestSuite(PrimitiveGroups(3)).run() # optional - database_gap
++        sage: TestSuite(PrimitiveGroups(3)).run()
+     """
+     def __init__(self, n):
+         """
+         TESTS::
+ 
+-            sage: S = PrimitiveGroups(4) # optional - database_gap
+-            sage: S.category() # optional - database_gap
++            sage: S = PrimitiveGroups(4)
++            sage: S.category()
+             Category of finite enumerated sets
+         """
+         self._degree = n
+@@ -2392,7 +2380,7 @@
+ 
+         TESTS::
+ 
+-            sage: PrimitiveGroups(6) # optional - database_gap
++            sage: PrimitiveGroups(6)
+             Primitive Groups of degree 6
+         """
+         return "Primitive Groups of degree %s"%(self._degree)
+@@ -2411,11 +2399,11 @@
+ 
+         EXAMPLES::
+ 
+-            sage: PrimitiveGroup(6,4) in PrimitiveGroups(4) # optional - database_gap
++            sage: PrimitiveGroup(6,4) in PrimitiveGroups(4)
+             False
+-            sage: PrimitiveGroup(4,2) in PrimitiveGroups(4) # optional - database_gap
++            sage: PrimitiveGroup(4,2) in PrimitiveGroups(4)
+             True
+-            sage: 1 in PrimitiveGroups(4) # optional - database_gap
++            sage: 1 in PrimitiveGroups(4)
+             False
+         """
+         if isinstance(G,PrimitiveGroup):
+@@ -2433,7 +2421,7 @@
+ 
+         EXAMPLES::
+ 
+-            sage: PrimitiveGroups(5)[3]          # optional - database_gap
++            sage: PrimitiveGroups(5)[3]
+             AGL(1, 5)
+ 
+         .. warning::
+@@ -2441,7 +2429,7 @@
+             this follows GAP's naming convention of indexing the
+             primitive groups starting from ``1``::
+ 
+-                sage: PrimitiveGroups(5)[0]      # optional - database_gap
++                sage: PrimitiveGroups(5)[0]
+                 Traceback (most recent call last):
+                 ...
+                 ValueError: Index n must be in {1,..,5}
+@@ -2452,7 +2440,7 @@
+         """
+         EXAMPLES::
+ 
+-            sage: list(PrimitiveGroups(5)) # indirect doctest # optional - database_gap
++            sage: list(PrimitiveGroups(5)) # indirect doctest
+             [C(5), D(2*5), AGL(1, 5), A(5), S(5)]
+         """
+         for n in range(1, self.cardinality() + 1):
+@@ -2470,21 +2458,20 @@
+ 
+         EXAMPLES::
+ 
+-            sage: PrimitiveGroups(0).cardinality()                      # optional - database_gap
++            sage: PrimitiveGroups(0).cardinality()
+             1
+-            sage: PrimitiveGroups(2).cardinality()                      # optional - database_gap
++            sage: PrimitiveGroups(2).cardinality()
+             1
+-            sage: PrimitiveGroups(7).cardinality()                      # optional - database_gap
++            sage: PrimitiveGroups(7).cardinality()
+             7
+-            sage: PrimitiveGroups(12).cardinality()                     # optional - database_gap
++            sage: PrimitiveGroups(12).cardinality()
+             6
+-            sage: [PrimitiveGroups(i).cardinality() for i in range(11)] # optional - database_gap
++            sage: [PrimitiveGroups(i).cardinality() for i in range(11)]
+             [1, 1, 1, 2, 2, 5, 4, 7, 7, 11, 9]
+ 
+-        The database_gap contains all primitive groups up to degree
+-        2499::
++        GAP contains all primitive groups up to degree 2499::
+ 
+-            sage: PrimitiveGroups(2500).cardinality()                     # optional - database_gap
++            sage: PrimitiveGroups(2500).cardinality()
+             Traceback (most recent call last):
+             ...
+             NotImplementedError: Only the primitive groups of degree less than
+@@ -2492,7 +2479,7 @@
+ 
+         TESTS::
+ 
+-            sage: type(PrimitiveGroups(12).cardinality())               # optional - database_gap
++            sage: type(PrimitiveGroups(12).cardinality())
+             <type 'sage.rings.integer.Integer'>
+             sage: type(PrimitiveGroups(0).cardinality())
+             <type 'sage.rings.integer.Integer'>
+@@ -2509,7 +2496,7 @@
+                 return Integer(gap.NrPrimitiveGroups(gap(self._degree)))
+             except RuntimeError:
+                 from sage.misc.misc import verbose
+-                verbose("Warning: PrimitiveGroups requires the GAP database package. Please install it with ``sage -i database_gap``.", level=0)
++                verbose("Error: PrimitiveGroups should be in GAP already.", level=0)
+ 
+ 
+ class PermutationGroup_plg(PermutationGroup_unique):
+@@ -2707,7 +2694,7 @@
+         EXAMPLES::
+ 
+             sage: G = PSL(2,13)
+-            sage: G.ramification_module_decomposition_hurwitz_curve() # random, optional - database_gap gap_packages
++            sage: G.ramification_module_decomposition_hurwitz_curve() # random, optional - gap_packages
+             [0, 7, 7, 12, 12, 12, 13, 15, 14]
+ 
+         This means, for example, that the trivial representation does not
+@@ -2755,7 +2742,7 @@
+         EXAMPLES::
+ 
+             sage: G = PSL(2,7)
+-            sage: G.ramification_module_decomposition_modular_curve() # random, optional - database_gap gap_packages
++            sage: G.ramification_module_decomposition_modular_curve() # random, optional - gap_packages
+             [0, 4, 3, 6, 7, 8]
+ 
+         This means, for example, that the trivial representation does not
+--- a/sage/src/doc/de/tutorial/interfaces.rst
++++ b/sage/src/doc/de/tutorial/interfaces.rst
+@@ -160,7 +160,7 @@
+     Group( [ (1,2,3)(4,5), (3,4) ] )
+     sage: G.Center()
+     Group( () )
+-    sage: G.IdGroup()    # optional - database_gap
++    sage: G.IdGroup()
+     [ 120, 34 ]
+     sage: G.Order()
+     120
+@@ -173,15 +173,15 @@
+     sage: G = PermutationGroup([[(1,2,3),(4,5)],[(3,4)]])
+     sage: G.center()
+     Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-    sage: G.group_id()    # optional - database_gap
++    sage: G.group_id()
+     [120, 34]
+     sage: n = G.order(); n
+     120
+ 
+-Nach Installation zweier optionaler Sage-Pakete mit folgendem Befehl
++Nach Installation eine optionale Sage-Pakete mit folgendem Befehl
+ sind weitere GAP-Funktionen verfügbar::
+ 
+-    sage -i gap_packages database_gap
++    sage -i gap_packages
+ 
+ 
+ Singular
+--- a/sage/src/doc/en/constructions/groups.rst
++++ b/sage/src/doc/en/constructions/groups.rst
+@@ -140,12 +140,12 @@
+     sage: gamma = CG[2]
+     sage: g = gamma.Representative()
+     sage: CG; gamma; g
+-    [ ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), () ), 
+-      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (4,7) ), 
+-      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (3,4,7) ), 
+-      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (2,3)(4,7) ), 
+-      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (2,3,4,7) ), 
+-      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (1,2)(3,4,7) ), 
++    [ ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), () ),
++      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (4,7) ),
++      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (3,4,7) ),
++      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (2,3)(4,7) ),
++      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (2,3,4,7) ),
++      ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (1,2)(3,4,7) ),
+       ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (1,2,3,4,7) ) ]
+     ConjugacyClass( SymmetricGroup( [ 1, 2, 3, 4, 7 ] ), (4,7) )
+     (4,7)
+@@ -224,16 +224,15 @@
+ The group id database
+ =====================
+ 
+-The function ``group_id`` requires that the Small Groups Library of
+-E. A. O'Brien, B. Eick, and H. U. Besche be installed.  You can do
+-this by typing ``sage -i database_gap`` in the shell.
++The function ``group_id`` uses the Small Groups Library of
++E. A. O'Brien, B. Eick, and H. U. Besche, which is a part of GAP.
+ 
+ ::
+ 
+     sage: G = PermutationGroup(['(1,2,3)(4,5)', '(3,4)'])
+     sage: G.order()
+     120
+-    sage: G.group_id()      # optional - database_gap
++    sage: G.group_id()
+     [120, 34]
+ 
+ Another example of using the small groups database: ``group_id``
+@@ -243,11 +242,17 @@
+ ::
+ 
+     sage: gap_console()
+-    GAP4, Version: 4.4.6 of 02-Sep-2005, x86_64-unknown-linux-gnu-gcc
++    ┌───────┐   GAP 4.10.0 of 01-Nov-2018
++    │  GAP  │   https://www.gap-system.org
++    └───────┘   Architecture: x86_64-pc-linux-gnu-default64
++    Configuration:  gmp 6.0.0, readline
++    Loading the library and packages ...
++    Packages:   GAPDoc 1.6.2, PrimGrp 3.3.2, SmallGrp 1.3, TransGrp 2.0.4
++    Try '??help' for help. See also '?copyright', '?cite' and '?authors'
+     gap> G:=Group((4,6,5)(7,8,9),(1,7,2,4,6,9,5,3));
+     Group([ (4,6,5)(7,8,9), (1,7,2,4,6,9,5,3) ])
+     gap> StructureDescription(G);
+-    "(((C3 x C3) : Q8) : C3) : C2"
++    "(C3 x C3) : GL(2,3)" 
+ 
+ Construction instructions for every group of order less than 32
+ ===============================================================
+@@ -259,7 +264,7 @@
+ Every group of order less than 32 is implemented in Sage as a permutation
+ group. They can all be created easily. We will first show how to build direct
+ products and semidirect products, then give the commands necessary to build
+-all of these small groups. 
++all of these small groups.
+ 
+ Let ``G1``, ``G2``, ..., ``Gn`` be permutation groups already initialized in
+ Sage. The following command can be used to take their direct product (where,
+@@ -555,76 +560,76 @@
+ ::
+ 
+     sage: D = groups.presentation.Dihedral(n)
+- 
+-This table was modeled after the preceding table created by Kevin Halasz. 
+ 
++This table was modeled after the preceding table created by Kevin Halasz.
+ 
+-===== =============================================== =============================================================================================== =========================== 
+-Order Group Description                                Command(s)                                                                                     GAP ID 
+-===== =============================================== =============================================================================================== =========================== 
+-1     The Trivial Group                               ::                                                                                              [1,1] 
+ 
+-                                                        sage: G = groups.presentation.Symmetric(1) 
++===== =============================================== =============================================================================================== ===========================
++Order Group Description                                Command(s)                                                                                     GAP ID
++===== =============================================== =============================================================================================== ===========================
++1     The Trivial Group                               ::                                                                                              [1,1]
+ 
+-2     `C_2`                                           ::                                                                                              [2,1] 
++                                                        sage: G = groups.presentation.Symmetric(1)
++
++2     `C_2`                                           ::                                                                                              [2,1]
+ 
+                                                         sage: G = groups.presentation.Symmetric(2)
+ 
+-3     `C_3`                                           ::                                                                                              [3,1] 
++3     `C_3`                                           ::                                                                                              [3,1]
+ 
+-                                                        sage: G = groups.presentation.Cyclic(3) 
++                                                        sage: G = groups.presentation.Cyclic(3)
+ 
+-4     `C_4`                                                                                                                                           [4,1] 
++4     `C_4`                                                                                                                                           [4,1]
+ 
+-4     `C_2 \times C_2`                                ::                                                                                              [4,2] 
++4     `C_2 \times C_2`                                ::                                                                                              [4,2]
+ 
+-                                                        sage: G = groups.presentation.Klein() 
++                                                        sage: G = groups.presentation.Klein()
+ 
+-5     `C_5`                                                                                                                                           [5,1] 
+-6     `C_6`                                                                                                                                           [6,2] 
++5     `C_5`                                                                                                                                           [5,1]
++6     `C_6`                                                                                                                                           [6,2]
+ 
+-6     `S_3` (Symmetric Group on 3 letters)            ::                                                                                              [6,1] 
++6     `S_3` (Symmetric Group on 3 letters)            ::                                                                                              [6,1]
+ 
+-                                                        sage: G = groups.presentation.Symmetric(3) 
++                                                        sage: G = groups.presentation.Symmetric(3)
+ 
+-7     `C_7`                                                                                                                                           [7,1] 
+-8     `C_8`                                                                                                                                           [8,1] 
++7     `C_7`                                                                                                                                           [7,1]
++8     `C_8`                                                                                                                                           [8,1]
+ 
+ 8     `C_4 \times C_2`                                ::                                                                                              [8,2]
+ 
+                                                         sage: G = groups.presentation.FGAbelian([4,2])
+ 
+-8     `C_2\times C_2\times C_2`                       ::                                                                                              [8,5] 
++8     `C_2\times C_2\times C_2`                       ::                                                                                              [8,5]
+ 
+                                                         sage: G = groups.presentation.FGAbelian([2,2,2])
+ 
+-8     `D_4`                                           ::                                                                                              [8,3] 
++8     `D_4`                                           ::                                                                                              [8,3]
+ 
+                                                         sage: G = groups.presentation.Dihedral(4)
+- 
+-8     The Quaternion Group (Q)                        ::                                                                                              [8,4] 
+ 
+-                                                        sage: G = groups.presentation.Quaternion() 
++8     The Quaternion Group (Q)                        ::                                                                                              [8,4]
+ 
+-9     `C_9`                                                                                                                                           [9,1] 
+-9     `C_3 \times C_3`                                                                                                                                [9,2] 
+-10    `C_{10}`                                                                                                                                        [10,2] 
+-10    `D_5`                                                                                                                                           [10,1] 
+-11    `C_{11}`                                                                                                                                        [11,1] 
+-12    `C_{12}`                                                                                                                                        [12,2] 
+-12    `C_6 \times C_2`                                                                                                                                [12,5] 
+-12    `D_6`                                                                                                                                           [12,4] 
+-12    `A_4` (Alternating Group on 4 letters)          ::                                                                                              [12,3] 
++                                                        sage: G = groups.presentation.Quaternion()
+ 
+-                                                        sage: G = groups.presentation.Alternating(4) 
++9     `C_9`                                                                                                                                           [9,1]
++9     `C_3 \times C_3`                                                                                                                                [9,2]
++10    `C_{10}`                                                                                                                                        [10,2]
++10    `D_5`                                                                                                                                           [10,1]
++11    `C_{11}`                                                                                                                                        [11,1]
++12    `C_{12}`                                                                                                                                        [12,2]
++12    `C_6 \times C_2`                                                                                                                                [12,5]
++12    `D_6`                                                                                                                                           [12,4]
++12    `A_4` (Alternating Group on 4 letters)          ::                                                                                              [12,3]
++
++                                                        sage: G = groups.presentation.Alternating(4)
++
++12    `Q_6` (DiCyclic group of order 12)              ::                                                                                              [12,1]
+ 
+-12    `Q_6` (DiCyclic group of order 12)              ::                                                                                              [12,1] 
+-       
+                                                         sage: G = groups.presentation.DiCyclic(3)
+- 
+-13    `C_{13}`                                                                                                                                        [13,1] 
+-14    `C_{14}`                                                                                                                                        [14,2] 
+-14    `D_{7}`                                                                                                                                         [14,1] 
+-15    `C_{15}`                                                                                                                                        [15,1]  
++
++13    `C_{13}`                                                                                                                                        [13,1]
++14    `C_{14}`                                                                                                                                        [14,2]
++14    `D_{7}`                                                                                                                                         [14,1]
++15    `C_{15}`                                                                                                                                        [15,1]
+ ===== =============================================== =============================================================================================== ===========================
+ 
+--- a/sage/src/doc/en/thematic_tutorials/explicit_methods_in_number_theory/nf_galois_groups.rst
++++ b/sage/src/doc/en/thematic_tutorials/explicit_methods_in_number_theory/nf_galois_groups.rst
+@@ -89,7 +89,7 @@
+ ::
+ 
+     sage: K.<a> = NumberField(x^3 - 2)
+-    sage: K.galois_group(type="gap", algorithm='magma')  # optional - magma database_gap
++    sage: K.galois_group(type="gap", algorithm='magma')  # optional - magma
+     Galois group Transitive group number 2 of degree 3 of
+     the Number Field in a with defining polynomial x^3 - 2
+ 
+--- a/sage/src/doc/en/tutorial/interfaces.rst
++++ b/sage/src/doc/en/tutorial/interfaces.rst
+@@ -147,9 +147,7 @@
+ Sage comes with GAP for computational discrete mathematics,
+ especially group theory.
+ 
+-Here's an example of GAP's ``IdGroup`` function, which uses the
+-optional small groups database that has to be installed separately,
+-as explained below.
++Here's an example of GAP's ``IdGroup`` function.
+ 
+ ::
+ 
+@@ -158,7 +156,7 @@
+     Group( [ (1,2,3)(4,5), (3,4) ] )
+     sage: G.Center()
+     Group( () )
+-    sage: G.IdGroup()    # optional - database_gap
++    sage: G.IdGroup()
+     [ 120, 34 ]
+     sage: G.Order()
+     120
+@@ -171,15 +169,15 @@
+     sage: G = PermutationGroup([[(1,2,3),(4,5)],[(3,4)]])
+     sage: G.center()
+     Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-    sage: G.group_id()     # optional - database_gap
++    sage: G.group_id()
+     [120, 34]
+     sage: n = G.order(); n
+     120
+ 
+-For some GAP functionality, you should install two optional
++For some GAP functionality, you should install an optional
+ Sage packages. This can be done with the command::
+ 
+-    sage -i gap_packages database_gap
++    sage -i gap_packages
+ 
+ 
+ Singular
+--- a/sage/src/doc/fr/tutorial/interfaces.rst
++++ b/sage/src/doc/fr/tutorial/interfaces.rst
+@@ -159,7 +159,7 @@
+     Group( [ (1,2,3)(4,5), (3,4) ] )
+     sage: G.Center()
+     Group( () )
+-    sage: G.IdGroup()    # optional - database_gap
++    sage: G.IdGroup()
+     [ 120, 34 ]
+     sage: G.Order()
+     120
+@@ -172,16 +172,16 @@
+     sage: G = PermutationGroup([[(1,2,3),(4,5)],[(3,4)]])
+     sage: G.center()
+     Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-    sage: G.group_id()    # optional - database_gap
++    sage: G.group_id()
+     [120, 34]
+     sage: n = G.order(); n
+     120
+ 
+ Pour utiliser certaines fonctionnalités de GAP,
+-vous devez installer deux paquets Sage optionnels.
++vous devez installer un paquet Sage optionnel.
+ Cela peut être fait avec la commande::
+ 
+-    sage -i gap_packages database_gap
++    sage -i gap_packages
+ 
+ 
+ Singular
+--- a/sage/src/doc/ja/tutorial/interfaces.rst
++++ b/sage/src/doc/ja/tutorial/interfaces.rst
+@@ -57,7 +57,7 @@
+     sage: type(pari('znprimroot(10007)'))
+     <type 'cypari2.gen.Gen'>
+ 
+-では，どちらの方法を選ぶべきだろうか？ 
++では，どちらの方法を選ぶべきだろうか？
+ 答は目的による、としか言えない．
+ GPインターフェイスはGP/PARIプログラムをそのまま動作させるのだから，GP/PARIのコマンド入力行から可能なことは全て出来る．
+ 複雑なPARIプログラムを読み込んで走らせたい場合などには向いているだろう．
+@@ -137,7 +137,7 @@
+     Group( [ (1,2,3)(4,5), (3,4) ] )
+     sage: G.Center()
+     Group( () )
+-    sage: G.IdGroup()   # optional - database_gap オプション - database_gapが必要
++    sage: G.IdGroup()
+     [ 120, 34 ]
+     sage: G.Order()
+     120
+@@ -150,7 +150,7 @@
+     sage: G = PermutationGroup([[(1,2,3),(4,5)],[(3,4)]])
+     sage: G.center()
+     Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-    sage: G.group_id()  # optional - database_gap オプションのdatabase_gapパッケージが必要
++    sage: G.group_id()
+     [120, 34]
+     sage: n = G.order(); n
+     120
+@@ -158,7 +158,6 @@
+ (GAPの機能の一部は，二種類の標準外Sageパッケージをインストールしないと使うことができない．
+ コマンド行から ``sage -optional`` と入力すると，インストール可能なパッケージの一覧が表示される．
+ その一覧に ``gap\_packages-x.y.z`` といった項目があるから， ``sage -i gap\_packages-x.y.z`` を実行してパッケージをインストールする．
+-パッケージ ``database\_gap-x.y.z`` のインストールも手順は同じだ．
+ 一部のGPLではないGAPパッケージは，GAPウェブサイト [GAPkg]_ からダウンロードし， ``$SAGE_ROOT/local/lib/gap-4.4.10/pkg`` で解凍してからインストールする必要がある．)
+ 
+ 
+--- a/sage/src/doc/pt/tutorial/interfaces.rst
++++ b/sage/src/doc/pt/tutorial/interfaces.rst
+@@ -119,7 +119,7 @@
+ ::
+ 
+     sage: e = v.ellinit()
+-    sage: e.type()         
++    sage: e.type()
+     't_VEC'
+     sage: pari(e)[:13]
+     [1, 2, 3, 4, 5, 9, 11, 29, 35, -183, -3429, -10351, 6128487/10351]
+@@ -158,7 +158,7 @@
+     Group( [ (1,2,3)(4,5), (3,4) ] )
+     sage: G.Center()
+     Group( () )
+-    sage: G.IdGroup()    # optional - database_gap
++    sage: G.IdGroup()
+     [ 120, 34 ]
+     sage: G.Order()
+     120
+@@ -171,15 +171,15 @@
+     sage: G = PermutationGroup([[(1,2,3),(4,5)],[(3,4)]])
+     sage: G.center()
+     Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-    sage: G.group_id()     # optional - database_gap
++    sage: G.group_id()
+     [120, 34]
+     sage: n = G.order(); n
+     120
+ 
+-Para algumas funcionalidades do GAP, deve-se instalar dois pacotes
+-Sage opcionais. Isso pode ser feito com o comando::
++Para algumas funcionalidades do GAP, deve-se instalar um pacote
++Sage opcional. Isso pode ser feito com o comando::
+ 
+-    sage -i gap_packages database_gap
++    sage -i gap_packages
+ 
+ 
+ Singular
+@@ -200,7 +200,7 @@
+     //   coefficients: QQ
+     //   number of vars : 2
+     //        block   1 : ordering dp
+-    //                  : names    x y 
++    //                  : names    x y
+     //        block   2 : ordering C
+     sage: f = singular('9*y^8 - 9*x^2*y^7 - 18*x^3*y^6 - 18*x^5*y^6 +'
+     ....:    '9*x^6*y^4 + 18*x^7*y^5 + 36*x^8*y^4 + 9*x^10*y^4 - 18*x^11*y^2 -'
+@@ -284,7 +284,7 @@
+     sage: v1 = V(sage_eval(repr(eigA[1][0][0]))); lambda1 = eigA[0][0][0]
+     sage: v2 = V(sage_eval(repr(eigA[1][1][0]))); lambda2 = eigA[0][0][1]
+     sage: v3 = V(sage_eval(repr(eigA[1][2][0]))); lambda3 = eigA[0][0][2]
+-    
++
+     sage: M = MatrixSpace(QQ,3,3)
+     sage: AA = M([[1,0,0],[1, - 1,0],[1,3, - 2]])
+     sage: b1 = v1.base_ring()
+--- a/sage/src/doc/ru/tutorial/interfaces.rst
++++ b/sage/src/doc/ru/tutorial/interfaces.rst
+@@ -153,7 +153,7 @@
+     Group( [ (1,2,3)(4,5), (3,4) ] )
+     sage: G.Center()
+     Group( () )
+-    sage: G.IdGroup()    # optional - database_gap
++    sage: G.IdGroup()
+     [ 120, 34 ]
+     sage: G.Order()
+     120
+@@ -166,15 +166,15 @@
+     sage: G = PermutationGroup([[(1,2,3),(4,5)],[(3,4)]])
+     sage: G.center()
+     Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-    sage: G.group_id()     # optional - database_gap
++    sage: G.group_id()
+     [120, 34]
+     sage: n = G.order(); n
+     120
+ 
+ Некотоые функции системы GAP доступны только после инсталляции
+-двух дополнительных пакетов Sage. Они могут быть установлены командой::
++дополнительного пакета Sage. Он может быть установлен командой::
+ 
+-    sage -i gap_packages database_gap
++    sage -i gap_packages
+ 
+ 
+ Singular
+--- a/sage/src/sage/categories/finite_permutation_groups.py
++++ b/sage/src/sage/categories/finite_permutation_groups.py
+@@ -169,7 +169,7 @@
+                 sage: 60 * AlternatingGroup(5).cycle_index()
+                 p[1, 1, 1, 1, 1] + 15*p[2, 2, 1] + 20*p[3, 1, 1] + 24*p[5]
+ 
+-                sage: for G in TransitiveGroups(5):               # optional - database_gap # long time
++                sage: for G in TransitiveGroups(5):               # long time
+                 ....:     G.cardinality() * G.cycle_index()
+                 p[1, 1, 1, 1, 1] + 4*p[5]
+                 p[1, 1, 1, 1, 1] + 5*p[2, 2, 1] + 4*p[5]
+--- a/sage/src/sage/combinat/integer_vectors_mod_permgroup.py
++++ b/sage/src/sage/combinat/integer_vectors_mod_permgroup.py
+@@ -583,8 +583,8 @@
+ 
+     Here is the enumeration of unlabeled graphs over 5 vertices::
+ 
+-        sage: G = IntegerVectorsModPermutationGroup(TransitiveGroup(10,12), max_part=1) # optional - database_gap
+-        sage: G.cardinality()  # optional - database_gap
++        sage: G = IntegerVectorsModPermutationGroup(TransitiveGroup(10,12), max_part=1)
++        sage: G.cardinality()
+         34
+ 
+     TESTS::
+--- a/sage/src/sage/combinat/sloane_functions.py
++++ b/sage/src/sage/combinat/sloane_functions.py
+@@ -329,9 +329,6 @@
+         r"""
+         Number of groups of order `n`.
+ 
+-        Note: The package database_gap must be installed for
+-        `n > 50`: run ``sage -i database_gap`` first.
+-
+         INPUT:
+ 
+         -  ``n`` -- positive integer
+@@ -354,7 +351,7 @@
+             2
+             sage: a.list(16)
+             [1, 1, 1, 2, 1, 2, 1, 5, 2, 2, 1, 5, 1, 2, 1, 14]
+-            sage: a(60)  # optional - database_gap
++            sage: a(60)
+             13
+ 
+         AUTHORS:
+@@ -379,16 +376,17 @@
+ 
+             sage: sloane.A000001._eval(4)
+             2
+-            sage: sloane.A000001._eval(51) # optional - database_gap
++            sage: sloane.A000001._eval(51)
+             1
++            sage: sloane.A000001._eval(5000)
++            Traceback (most recent call last):
++            ...
++            ValueError: libGAP: Error, the library of groups of size 5000 is not available
+         """
+         if n <= 50:
+             return self._small[n-1]
+-        try:
+-            return Integer(gap.gap.eval('NumberSmallGroups(%s)' % n))
+-        except Exception:  # help, don't know what to do here? Jaap
+-            print("Install database_gap first. See optional packages.")
+-
++        from sage.libs.gap.libgap import libgap
++        return Integer(libgap.NumberSmallGroups(n))
+ 
+ class A000027(SloaneSequence):
+     def __init__(self):
+--- a/sage/src/sage/features/gap.py
++++ b/sage/src/sage/features/gap.py
+@@ -48,89 +48,3 @@
+         else:
+             return FeatureTestResult(self, False,
+                     reason = "`{command}` evaluated to `{presence}` in GAP.".format(command=command, presence=presence))
+-
+-
+-class SmallGroupsLibrary(Feature):
+-    r"""
+-    A feature describing the presence of the Small Groups Library for GAP.
+-
+-    EXMAPLES::
+-
+-        sage: from sage.features.gap import SmallGroupsLibrary
+-        sage: SmallGroupsLibrary()
+-        Feature('Small Groups Library')
+-    """
+-    def __init__(self):
+-        r"""
+-        TESTS::
+-
+-            sage: from sage.features.gap import SmallGroupsLibrary
+-            sage: isinstance(SmallGroupsLibrary(), SmallGroupsLibrary)
+-            True
+-        """
+-        Feature.__init__(self, "Small Groups Library", spkg="database_gap", url="www.gap-system.org/Packages/sgl.html")
+-
+-    def _is_present(self):
+-        r"""
+-        Return whether the Small Groups Library is available in GAP.
+-
+-        EXAMPLES::
+-
+-            sage: from sage.features.gap import SmallGroupsLibrary
+-            sage: SmallGroupsLibrary().is_present()  # optional: database_gap
+-            FeatureTestResult('Small Groups Library', True)
+-        """
+-        from sage.libs.gap.libgap import libgap
+-        command = 'SmallGroup(13,1)'
+-        output = None
+-        presence = False
+-        try:
+-            output = str(libgap.eval(command))
+-            presence = True
+-        except ValueError as e:
+-            output = str(e)
+-        return FeatureTestResult(self, presence,
+-            reason = "`{command}` evaluated to `{output}` in GAP.".format(command=command, output=output))
+-
+-
+-class PrimitiveGroupsLibrary(Feature):
+-    r"""
+-    A feature describing the presence of the Primitive Groups Library for GAP.
+-
+-    EXMAPLES::
+-
+-        sage: from sage.features.gap import PrimitiveGroupsLibrary
+-        sage: PrimitiveGroupsLibrary()
+-        Feature('Primitive Groups Library')
+-    """
+-    def __init__(self):
+-        r"""
+-        TESTS::
+-
+-            sage: from sage.features.gap import PrimitiveGroupsLibrary
+-            sage: isinstance(PrimitiveGroupsLibrary(), PrimitiveGroupsLibrary)
+-            True
+-        """
+-        Feature.__init__(self, "Primitive Groups Library", spkg="database_gap", url="www.gap-system.org/Datalib/prim.html")
+-
+-    def _is_present(self):
+-        r"""
+-        Return whether the Primitive Groups Library is available in GAP.
+-
+-        EXAMPLES::
+-
+-            sage: from sage.features.gap import PrimitiveGroupsLibrary
+-            sage: PrimitiveGroupsLibrary().is_present()  # optional: database_gap
+-            FeatureTestResult('Primitive Groups Library', True)
+-        """
+-        from sage.libs.gap.libgap import libgap
+-        command = 'PrimitiveGroup(5,1)'
+-        output = None
+-        presence = False
+-        try:
+-            output = str(libgap.eval(command))
+-            presence = True
+-        except ValueError as e:
+-            output = str(e)
+-        return FeatureTestResult(self, presence,
+-            reason = "`{command}` evaluated to `{output}` in GAP.".format(command=command, output=output))
+--- a/sage/src/sage/graphs/generators/smallgraphs.py
++++ b/sage/src/sage/graphs/generators/smallgraphs.py
+@@ -613,9 +613,9 @@
+ 
+     EXAMPLES::
+ 
+-        sage: g = graphs.SuzukiGraph(); g            # optional database_gap internet # not tested
++        sage: g = graphs.SuzukiGraph(); g            # optional internet # not tested
+         Suzuki graph: Graph on 1782 vertices
+-        sage: g.is_strongly_regular(parameters=True) # optional database_gap internet # not tested
++        sage: g.is_strongly_regular(parameters=True) # optional internet # not tested
+         (1782, 416, 100, 96)
+     """
+     from sage.groups.perm_gps.permgroup_named import SuzukiSporadicGroup
+@@ -3281,7 +3281,7 @@
+     other nodes in the graph (i.e.: Closeness Centrality).  Please execute the
+     example for visualization.
+ 
+-    EXAMPLES: 
++    EXAMPLES:
+ 
+     Construct and show a Krackhardt kite graph ::
+ 
+@@ -4151,7 +4151,7 @@
+ 
+     This graph is obtained from the Higman Sims graph by considering the graph
+     induced by the vertices at distance two from the vertices of an (any)
+-    edge. It is the only strongly regular graph with parameters `v = 56`, 
++    edge. It is the only strongly regular graph with parameters `v = 56`,
+     `k = 10`, `\lambda = 0`, `\mu = 2`
+ 
+     For more information on the Sylvester graph, see
+--- a/sage/src/sage/graphs/strongly_regular_db.pyx
++++ b/sage/src/sage/graphs/strongly_regular_db.pyx
+@@ -2447,8 +2447,10 @@
+         (416, 100, 36, 20)
+     """
+     from sage.libs.gap.libgap import libgap
++    libgap.eval("SetInfoLevel(InfoWarning,0)") # silence #I warnings from GAP (without IO pkg)
+     libgap.LoadPackage("AtlasRep")
+     g=libgap.AtlasGroup("G2(4)",libgap.NrMovedPoints,416)
++    libgap.eval("SetInfoLevel(InfoWarning,1)") # restore #I warnings
+     h = Graph()
+     h.add_edges(g.Orbit([1,5],libgap.OnSets))
+     h.relabel()
+@@ -2465,8 +2467,8 @@
+     EXAMPLES::
+ 
+         sage: from sage.graphs.strongly_regular_db import SRG_560_208_72_80
+-        sage: g = SRG_560_208_72_80()                # optional - database_gap # not tested (~2s)
+-        sage: g.is_strongly_regular(parameters=True) # optional - database_gap # not tested (~2s)
++        sage: g = SRG_560_208_72_80()                # not tested (~2s)
++        sage: g.is_strongly_regular(parameters=True) # not tested (~2s)
+         (560, 208, 72, 80)
+     """
+     from sage.libs.gap.libgap import libgap
+--- a/sage/src/sage/groups/generic.py
++++ b/sage/src/sage/groups/generic.py
+@@ -1362,8 +1362,6 @@
+ 
+     This methods wraps GAP's ``StructureDescription`` method.
+ 
+-    Requires the *optional* ``database_gap`` package.
+-
+     For full details, including the form of the returned string and the
+     algorithm to build it, see `GAP's documentation
+     <http://www.gap-system.org/Manuals/doc/ref/chap39.html>`_.
+@@ -1388,42 +1386,39 @@
+     EXAMPLES::
+ 
+         sage: G = CyclicPermutationGroup(6)
+-        sage: G.structure_description()             # optional - database_gap
++        sage: G.structure_description()
+         'C6'
+-        sage: G.structure_description(latex=True)   # optional - database_gap
++        sage: G.structure_description(latex=True)
+         'C_{6}'
+         sage: G2 = G.direct_product(G, maps=False)
+-        sage: LatexExpr(G2.structure_description(latex=True))   # optional - database_gap
++        sage: LatexExpr(G2.structure_description(latex=True))
+         C_{6} \times C_{6}
+ 
+     This method is mainly intended for small groups or groups with few
+     normal subgroups. Even then there are some surprises::
+ 
+         sage: D3 = DihedralGroup(3)
+-        sage: D3.structure_description()    # optional - database_gap
++        sage: D3.structure_description()
+         'S3'
+ 
+     We use the Sage notation for the degree of dihedral groups::
+ 
+         sage: D4 = DihedralGroup(4)
+-        sage: D4.structure_description()    # optional - database_gap
++        sage: D4.structure_description()
+         'D4'
+ 
+     Works for finitely presented groups (:trac:`17573`)::
+ 
+         sage: F.<x, y> = FreeGroup()
+         sage: G=F / [x^2*y^-1, x^3*y^2, x*y*x^-1*y^-1]
+-        sage: G.structure_description()     # optional - database_gap
++        sage: G.structure_description()
+         'C7'
+ 
+     And matrix groups (:trac:`17573`)::
+ 
+-        sage: groups.matrix.GL(4,2).structure_description() # optional - database_gap
++        sage: groups.matrix.GL(4,2).structure_description()
+         'A8'
+     """
+-    from sage.features.gap import SmallGroupsLibrary
+-    SmallGroupsLibrary().require()
+-
+     import re
+     def correct_dihedral_degree(match):
+         return "%sD%d" % (match.group(1), int(match.group(2)) // 2)
+--- a/sage/src/sage/groups/perm_gps/permgroup.py
++++ b/sage/src/sage/groups/perm_gps/permgroup.py
+@@ -289,9 +289,9 @@
+         sage: H = pari('x^4 - 2*x^3 - 2*x + 1').polgalois()
+         sage: G = PariGroup(H, 4); G
+         PARI group [8, -1, 3, "D(4)"] of degree 4
+-        sage: H = PermutationGroup(G); H          # optional - database_gap
++        sage: H = PermutationGroup(G); H
+         Transitive group number 3 of degree 4
+-        sage: H.gens()                            # optional - database_gap
++        sage: H.gens()
+         [(1,2,3,4), (1,3)]
+ 
+     We can also create permutation groups whose generators are Gap
+@@ -360,7 +360,7 @@
+         Permutation Group with generators [(3,4), (1,2,3)(4,5)]
+         sage: G.center()
+         Subgroup of (Permutation Group with generators [(3,4), (1,2,3)(4,5)]) generated by [()]
+-        sage: G.group_id()          # optional - database_gap
++        sage: G.group_id()
+         [120, 34]
+         sage: n = G.order(); n
+         120
+@@ -1671,8 +1671,8 @@
+             [[()], [()], [(), (3,4)], [()]]
+             sage: G.strong_generating_system(base_of_group=[3,1,2,4])
+             [[(), (3,4)], [()], [()], [()]]
+-            sage: G = TransitiveGroup(12,17)         # optional - database_gap
+-            sage: G.strong_generating_system()       # optional - database_gap
++            sage: G = TransitiveGroup(12,17)
++            sage: G.strong_generating_system()
+             [[(), (1,4,11,2)(3,6,5,8)(7,10,9,12), (1,8,3,2)(4,11,10,9)(5,12,7,6),
+               (1,7)(2,8)(3,9)(4,10)(5,11)(6,12), (1,12,7,2)(3,10,9,8)(4,11,6,5),
+               (1,11)(2,8)(3,5)(4,10)(6,12)(7,9), (1,10,11,8)(2,3,12,5)(4,9,6,7),
+@@ -1953,28 +1953,25 @@
+     def group_id(self):
+         """
+         Return the ID code of this group, which is a list of two integers.
+-        Requires "optional" database_gap package.
+ 
+         EXAMPLES::
+ 
+             sage: G = PermutationGroup([[(1,2,3),(4,5)], [(1,2)]])
+-            sage: G.group_id()    # optional - database_gap
++            sage: G.group_id()
+             [12, 4]
+         """
+-        from sage.features.gap import SmallGroupsLibrary
+-        SmallGroupsLibrary().require()
+ 
+         return [Integer(n) for n in self._gap_().IdGroup()]
+ 
+     def id(self):
+         """
+         (Same as ``self.group_id()``.) Return the ID code of this group, which
+-        is a list of two integers. Requires "optional" database_gap package.
++        is a list of two integers.
+ 
+         EXAMPLES::
+ 
+             sage: G = PermutationGroup([[(1,2,3),(4,5)], [(1,2)]])
+-            sage: G.group_id()    # optional - database_gap
++            sage: G.group_id()
+             [12, 4]
+         """
+         return self.group_id()
+@@ -1983,8 +1980,6 @@
+         """
+         Return the index of this group in the GAP database of primitive groups.
+ 
+-        Requires "optional" database_gap package.
+-
+         OUTPUT:
+ 
+         A positive integer, following GAP's conventions. A
+@@ -1993,7 +1988,7 @@
+         EXAMPLES::
+ 
+             sage: G = PermutationGroup([[(1,2,3,4,5)], [(1,5),(2,4)]])
+-            sage: G.group_primitive_id()    # optional - database_gap
++            sage: G.group_primitive_id()
+             2
+             sage: G.degree()
+             5
+@@ -2002,18 +1997,15 @@
+         you can recover the isomorphism class of your group in the GAP
+         database::
+ 
+-            sage: H = PrimitiveGroup(5,2)  # optional - database_gap
+-            sage: G == H                     # optional - database_gap
++            sage: H = PrimitiveGroup(5,2)
++            sage: G == H
+             False
+-            sage: G.is_isomorphic(H)         # optional - database_gap
++            sage: G.is_isomorphic(H)
+             True
+         """
+         if not self.is_primitive():
+             raise ValueError('Group is not primitive')
+ 
+-        from sage.features.gap import PrimitiveGroupsLibrary
+-        PrimitiveGroupsLibrary().require()
+-
+         return Integer(self._gap_().PrimitiveIdentification())
+ 
+     def center(self):
+--- a/sage/src/sage/modules/free_quadratic_module_integer_symmetric.py
++++ b/sage/src/sage/modules/free_quadratic_module_integer_symmetric.py
+@@ -1112,7 +1112,7 @@
+             sage: conj = Aut.conjugacy_classes_representatives()
+             sage: len(conj)
+             14
+-            sage: Aut.structure_description()   # optional - database_gap
++            sage: Aut.structure_description()
+             'C2 x S5'
+ 
+         The lattice can live in a larger ambient space::
+--- a/sage/src/sage/rings/number_field/galois_group.py
++++ b/sage/src/sage/rings/number_field/galois_group.py
+@@ -132,9 +132,9 @@
+             sage: G = NumberField(x^3 + 2*x + 2, 'theta').galois_group(type="pari")
+             sage: H = G.group(); H
+             PARI group [6, -1, 2, "S3"] of degree 3
+-            sage: P = H.permutation_group(); P  # optional - database_gap
++            sage: P = H.permutation_group(); P
+             Transitive group number 2 of degree 3
+-            sage: sorted(P)                     # optional - database_gap
++            sage: sorted(P)
+             [(), (2,3), (1,2), (1,2,3), (1,3,2), (1,3)]
+         """
+         return self.__group
+--- a/sage/src/sage/rings/number_field/number_field.py
++++ b/sage/src/sage/rings/number_field/number_field.py
+@@ -5436,8 +5436,7 @@
+            ``GaloisGroup_v2`` object.  Otherwise, return a ``GaloisGroup_v1``
+            wrapper object based on a PARI or Gap transitive group object, which
+            is quicker to compute, but rather less useful (in particular, it
+-           can't be made to act on self).  If type = 'gap', the database_gap
+-           package should be installed.
++           can't be made to act on self).
+ 
+         -  ``algorithm`` - 'pari', 'kash', 'magma'. (default: 'pari', except
+            when the degree is >= 12 when 'kash' is tried.)
+@@ -5483,19 +5482,19 @@
+ 
+         ::
+ 
+-            sage: NumberField(x-1, 'a').galois_group(type="gap")    # optional - database_gap
++            sage: NumberField(x-1, 'a').galois_group(type="gap")
+             Galois group Transitive group number 1 of degree 1 of the Number Field in a with defining polynomial x - 1
+-            sage: NumberField(x^2+2, 'a').galois_group(type="gap")  # optional - database_gap
++            sage: NumberField(x^2+2, 'a').galois_group(type="gap")
+             Galois group Transitive group number 1 of degree 2 of the Number Field in a with defining polynomial x^2 + 2
+-            sage: NumberField(x^3-2, 'a').galois_group(type="gap")  # optional - database_gap
++            sage: NumberField(x^3-2, 'a').galois_group(type="gap")
+             Galois group Transitive group number 2 of degree 3 of the Number Field in a with defining polynomial x^3 - 2
+ 
+         ::
+ 
+             sage: x = polygen(QQ)
+-            sage: NumberField(x^3 + 2*x + 1, 'a').galois_group(type='gap')    # optional - database_gap
++            sage: NumberField(x^3 + 2*x + 1, 'a').galois_group(type='gap')
+             Galois group Transitive group number 2 of degree 3 of the Number Field in a with defining polynomial x^3 + 2*x + 1
+-            sage: NumberField(x^3 + 2*x + 1, 'a').galois_group(algorithm='magma')   # optional - magma database_gap
++            sage: NumberField(x^3 + 2*x + 1, 'a').galois_group(algorithm='magma')   # optional - magma
+             Galois group Transitive group number 2 of degree 3 of the Number Field in a with defining polynomial x^3 + 2*x + 1
+ 
+         EXPLICIT GALOIS GROUP: We compute the Galois group as an explicit
+--- a/sage/src/sage/rings/polynomial/polynomial_rational_flint.pyx
++++ b/sage/src/sage/rings/polynomial/polynomial_rational_flint.pyx
+@@ -2052,11 +2052,11 @@
+ 
+             sage: R.<x> = QQ[]
+             sage: f = x^4 - 17*x^3 - 2*x + 1
+-            sage: G = f.galois_group(); G            # optional - database_gap
++            sage: G = f.galois_group(); G
+             Transitive group number 5 of degree 4
+-            sage: G.gens()                           # optional - database_gap
++            sage: G.gens()
+             [(1,2), (1,2,3,4)]
+-            sage: G.order()                          # optional - database_gap
++            sage: G.order()
+             24
+ 
+         It is potentially useful to instead obtain the corresponding PARI
+@@ -2069,7 +2069,7 @@
+             sage: f = x^4 - 17*x^3 - 2*x + 1
+             sage: G = f.galois_group(pari_group=True); G
+             PARI group [24, -1, 5, "S4"] of degree 4
+-            sage: PermutationGroup(G)                # optional - database_gap
++            sage: PermutationGroup(G)
+             Transitive group number 5 of degree 4
+ 
+         You can use KASH to compute Galois groups as well.  The advantage is
+@@ -2084,7 +2084,7 @@
+             Transitive group number 5 of degree 4
+ 
+             sage: f = x^4 - 17*x^3 - 2*x + 1
+-            sage: f.galois_group(algorithm='magma')  # optional - magma database_gap
++            sage: f.galois_group(algorithm='magma')  # optional - magma
+             Transitive group number 5 of degree 4
+ 
+         TESTS:
+--- a/sage/src/sage/tests/gap_packages.py
++++ b/sage/src/sage/tests/gap_packages.py
+@@ -9,9 +9,7 @@
+       Status   Package   GAP Output
+     +--------+---------+------------+
+ 
+-These are packages in the ``database_gap`` package::
+-
+-    sage: test_packages(['atlasrep', 'tomlib'])    # optional - database_gap gap_packages
++    sage: test_packages(['atlasrep', 'tomlib'])
+       Status   Package    GAP Output
+     +--------+----------+------------+
+                atlasrep   true
+@@ -92,8 +90,20 @@
+                    toric        true
+     """
+     rows = [['Status', 'Package', 'GAP Output']]
+-    for pkg in packages:
+-        output = libgap.eval('LoadPackage("{0}")'.format(pkg))
++    for pkgdir in packages:
++        # to allow weird suffixes e.g. 'qpa-version'
++        pkg = pkgdir.split('-')[0]
++        orig_warning_level = libgap.InfoLevel(libgap.InfoWarning)
++        # Silence warnings about missing optional packages that might occur
++        # when loading packages; they're not important for the purposes of this
++        # test code
++        libgap.SetInfoLevel(libgap.InfoWarning, 0)
++        try:
++            output = libgap.LoadPackage(pkg)
++        finally:
++            # Restore the original warning level
++            libgap.SetInfoLevel(libgap.InfoWarning, orig_warning_level)
++
+         ok = bool(output)
+         status = '' if ok else 'Failure'
+         if ok and only_failures:
+--- a/sage/README.md
++++ b/sage/README.md
+@@ -188,11 +188,7 @@
+    * Optional: If you want to build the PDF version (requires LaTeX)
+    of the documentation, run `make doc-pdf`.
+ 
+-1. Optional: It is recommended that you install the optional GAP
+-   database by typing `./sage -i database_gap`.
+-
+-   This will download the package and install it. While you're at it,
+-   you might install other optional packages of interest to you: type
++1. Optional: You might install optional packages of interest to you: type
+    `./sage --optional` to get a list.
+ 
+ 1. Optional: It is recommended that you have both LaTeX and the
+--- a/sage/src/sage/graphs/generic_graph.py
++++ b/sage/src/sage/graphs/generic_graph.py
+@@ -22035,9 +22035,9 @@
+ 
+         .. NOTE::
+ 
+-            For this routine to work on all graphs, the optional packages
+-            ``gap_packages`` and ``database_gap`` need to be installed: to do
+-            so, it is enough to run ``sage -i gap_packages database_gap``.
++            For this routine to work on all graphs, the optional package
++            ``gap_packages`` needs to be installed: to do
++            so, it is enough to run ``sage -i gap_packages``.
+ 
+         INPUT:
+ 
+--- a/sage/src/sage/interfaces/gap.py
++++ b/sage/src/sage/interfaces/gap.py
+@@ -511,14 +511,14 @@
+             sage: gap.load_package("chevie")
+             Traceback (most recent call last):
+             ...
+-            RuntimeError: Error loading Gap package chevie. You may want to install the gap_packages and/or database_gap SPKGs.
++            RuntimeError: Error loading Gap package chevie. You may want to install gap_packages SPKG.
+         """
+         if verbose:
+             print("Loading GAP package {}" % pkg)
+         x = self.eval('LoadPackage("%s")'%pkg)
+         if x == 'fail':
+             raise RuntimeError("Error loading Gap package "+str(pkg)+". "+
+-                               "You may want to install the gap_packages and/or database_gap SPKGs.")
++                               "You may want to install gap_packages SPKG.")
+ 
+     def eval(self, x, newlines=False, strip=True, split_lines=True, **kwds):
+         r"""
+@@ -1571,10 +1571,8 @@
+     # Create new workspace with filename WORKSPACE
+     g = Gap(use_workspace_cache=False, max_workspace_size=None)
+     g.eval('SetUserPreference("HistoryMaxLines", 30)')
+-    for pkg in ['GAPDoc', 'ctbllib', 'sonata', 'guava', 'factint',
+-                'gapdoc', 'grape', 'design',
+-                'toric', 'laguna', 'braid', 'polycyclic', 'nq']:
+-        # NOTE: Do *not* autoload hap - it screws up PolynomialRing(Rationals,2)
++    from sage.tests.gap_packages import all_installed_packages
++    for pkg in all_installed_packages():
+         try:
+             g.load_package(pkg, verbose=verbose)
+         except RuntimeError as msg:
+--- a/sage/src/sage/libs/gap/gap_functions.py
++++ b/sage/src/sage/libs/gap/gap_functions.py
+@@ -38,6 +38,7 @@
+   'AppendTo',
+   'Apply',
+   'AsGroup',
++  'AtlasGroup',
+   'AutomorphismGroup',
+   'BaseOfGroup',
+   'Basis',
+--- a/sage/src/sage/libs/gap/util.pyx
++++ b/sage/src/sage/libs/gap/util.pyx
+@@ -263,7 +263,7 @@
+     # initialize GAP. Note that we must pass define the memory pool
+     # size!
+     cdef char** env
+-    cdef char* argv[16]
++    cdef char* argv[18]
+     argv[0] = "sage"
+     argv[1] = "-l"
+     s = str_to_bytes(gap_root(), FS_ENCODING, "surrogateescape")
+@@ -282,8 +282,12 @@
+     argv[9] = "-q"    # no prompt!
+     argv[10] = "-E"   # don't use readline as this will interfere with Python
+     argv[11] = "--nointeract"  # Implies -T
++    argv[12] = "-x"    # set the "screen" width so that GAP is less likely to
++    argv[13] = "4096"  # insert newlines when printing objects
++                       # 4096 unfortunately is the hard-coded max, but should
++                       # be long enough for most cases
+ 
+-    cdef int argc = 12   # argv[argc] must be NULL
++    cdef int argc = 14   # argv[argc] must be NULL
+ 
+     from .saved_workspace import workspace
+     workspace, workspace_is_up_to_date = workspace()
+--- a/sage/src/sage/libs/gap/element.pyx
++++ b/sage/src/sage/libs/gap/element.pyx
+@@ -884,8 +884,7 @@
+             sage: libgap(1) - libgap.CyclicGroup(2)
+             Traceback (most recent call last):
+             ...
+-            ValueError: libGAP: Error, no method found!
+-            Error, no 1st choice method found for `-' on 2 arguments
++            ValueError: libGAP: Error, no method found! ...
+         """
+         cdef Obj result
+         sig_on()
+--- a/sage/src/sage/libs/gap/libgap.pyx
++++ b/sage/src/sage/libs/gap/libgap.pyx
+@@ -214,6 +214,7 @@
+ from sage.structure.element cimport ModuleElement, RingElement, Vector
+ from sage.rings.all import ZZ
+ from sage.misc.cachefunc import cached_method
++from sage.misc.randstate cimport current_randstate
+ from sage.misc.superseded import deprecated_function_alias, deprecation
+ 
+ 
+@@ -538,6 +539,28 @@
+         from sage.libs.gap.context_managers import GlobalVariableContext
+         return GlobalVariableContext(variable, value)
+ 
++    def set_seed(self, seed=None):
++        """
++        Reseed the standard GAP pseudo-random sources with the given seed.
++
++        Uses a random seed given by ``current_randstate().ZZ_seed()`` if
++        ``seed=None``.  Otherwise the seed should be an integer.
++
++        EXAMPLES::
++
++            sage: libgap.set_seed(0)
++            0
++            sage: [libgap.Random(1, 10) for i in range(5)]
++            [2, 3, 3, 4, 2]
++        """
++        if seed is None:
++            seed = current_randstate().ZZ_seed()
++
++        Reset = self.function_factory("Reset")
++        Reset(self.GlobalMersenneTwister, seed)
++        Reset(self.GlobalRandomSource, seed)
++        return seed
++
+     def _an_element_(self):
+         r"""
+         Return a :class:`GapElement`.
+--- a/sage/src/sage/groups/braid.py
++++ b/sage/src/sage/groups/braid.py
+@@ -2157,8 +2157,7 @@
+ 
+             sage: B = BraidGroup(5)
+             sage: B._element_from_libbraiding([[-2], [2, 1], [1, 2], [2, 1]])
+-            (s0^-1*s1^-1*s2^-1*s3^-1*s0^-1*s1^-1*s2^-1*s0^-1*s1^-1*s0^-1)^2*s1*s0^2*s1^2*s\
+-            0
++            (s0^-1*s1^-1*s2^-1*s3^-1*s0^-1*s1^-1*s2^-1*s0^-1*s1^-1*s0^-1)^2*s1*s0^2*s1^2*s0
+             sage: B._element_from_libbraiding([[0]])
+             1
+         """
+--- a/sage/src/sage/knots/link.py
++++ b/sage/src/sage/knots/link.py
+@@ -479,8 +479,7 @@
+              x1*x3^-1*x2^-1*x3, x3*x1^-1*x0^-1*x1 >
+             sage: GB = K8.fundamental_group(presentation='braid')
+             sage: GB
+-            Finitely presented group < x0, x1, x2 | x1*x2^-1*x1^-1*x0*x1*x2*x1*x2^-1*x1^-1*x0^-1*x1*x2*x1^-1*x0^-1, x1*x2^-1*x1^-1*x0*x1*x2*x1^-1*x2^-1*x1^-1*x0^-1*x1*x2*x1^-1*x0*x1*x2*x1*x2^-1*\
+-            x1^-1*x0^-1*x1*x2*x1^-2, x1*x2^-1*x1^-1*x0*x1*x2*x1^-1*x2^-1 >
++            Finitely presented group < x0, x1, x2 | x1*x2^-1*x1^-1*x0*x1*x2*x1*x2^-1*x1^-1*x0^-1*x1*x2*x1^-1*x0^-1, x1*x2^-1*x1^-1*x0*x1*x2*x1^-1*x2^-1*x1^-1*x0^-1*x1*x2*x1^-1*x0*x1*x2*x1*x2^-1*x1^-1*x0^-1*x1*x2*x1^-2, x1*x2^-1*x1^-1*x0*x1*x2*x1^-1*x2^-1 >
+             sage: GA.simplified()
+             Finitely presented group < x0, x1 |
+              x1^-1*x0*x1*x0^-1*x1*x0*x1^-1*x0^-1*x1*x0^-1 >
+--- a/sage/src/sage/categories/modules_with_basis.py
++++ b/sage/src/sage/categories/modules_with_basis.py
+@@ -1200,9 +1200,16 @@
+ 
+                 sage: DihedralGroup(6).algebra(QQ).random_element()
+                 -1/95*() - 1/2*(1,4)(2,5)(3,6)
++
++            Note, this result can depend on the PRNG state in libgap in a way
++            that depends on which packages are loaded, so we must re-seed GAP
++            to ensure a consistent result for this example::
++
++                sage: libgap.set_seed(0)
++                0
+                 sage: SU(2, 13).algebra(QQ).random_element(1)
+-                1/2*[       5 2*a + 12]
+-                [   a + 6        6]
++                1/2*[       1  9*a + 2]
++                [2*a + 12        2]
+                 sage: CombinatorialFreeModule(ZZ, Partitions(4)).random_element() # random
+                 2*B[[2, 1, 1]] + B[[2, 2]]
+             """
+--- a/sage/src/sage/coding/linear_code.py
++++ b/sage/src/sage/coding/linear_code.py
+@@ -797,25 +797,31 @@
+         - generators of the automorphism group of ``self``
+         - the order of the automorphism group of ``self``
+ 
+-        EXAMPLES::
++        EXAMPLES:
++
++        Note, this result can depend on the PRNG state in libgap in a way that
++        depends on which packages are loaded, so we must re-seed GAP to ensure
++        a consistent result for this example::
+ 
++            sage: libgap.set_seed(0)
++            0
+             sage: C = codes.HammingCode(GF(4, 'z'), 3)
+             sage: C.automorphism_group_gens()
+-            ([((z, 1, z + 1, z + 1, 1, 1, z + 1, z, z, 1, z + 1, z + 1, z + 1, 1, z, z + 1, 1, z, z + 1, z + 1, z); (1,5,4,2)(6,17,10,20,19,18,12,8)(7,14,15,21,16,9,11,13), Ring endomorphism of Finite Field in z of size 2^2
++            ([((1, z, z + 1, z, z, 1, 1, z, z + 1, z, z, 1, z, z + 1, z, z, 1, z, z + 1, z, z); (1,5,18,7,11,8)(2,12,21)(3,20,14,10,19,15)(4,9)(13,17,16), Ring endomorphism of Finite Field in z of size 2^2
++                Defn: z |--> z + 1),
++              ((1, 1, z, z + 1, z, z, z + 1, z + 1, z, 1, 1, z, z, z + 1, z + 1, 1, z, z, 1, z, z + 1); (2,11)(3,13)(4,14)(5,20)(6,17)(8,15)(16,19), Ring endomorphism of Finite Field in z of size 2^2
+                 Defn: z |--> z + 1),
+-              ((z + 1, 1, z + 1, z + 1, z + 1, z, 1, z, 1, 1, 1, z + 1, z + 1, z, 1, z, z, 1, z, z, z); (1,5,20,19,16,6,4,12,2,18,21,10,11,15,8,14,13,7,3,9,17), Ring endomorphism of Finite Field in z of size 2^2
+-                Defn: z |--> z),
+               ((z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z); (), Ring endomorphism of Finite Field in z of size 2^2
+                 Defn: z |--> z)],
+-            362880)
++             362880)
+             sage: C.automorphism_group_gens(equivalence="linear")
+-            ([((1, 1, 1, z, z + 1, z, z + 1, 1, 1, z, z + 1, z, 1, 1, z, z + 1, z, 1, 1, z, z + 1); (1,8,3,4,12,13,17,6,18,15,20,5,19,21,16)(2,11,10,9,7), Ring endomorphism of Finite Field in z of size 2^2
++            ([((z, 1, 1, z, z + 1, z, z, z + 1, z + 1, z + 1, 1, z + 1, z, z, 1, 1, 1, z, z, z + 1, z); (1,6)(2,20,9,16)(3,10,8,11)(4,15,21,5)(12,17)(13,14,19,18), Ring endomorphism of Finite Field in z of size 2^2
+                 Defn: z |--> z),
+-              ((1, z + 1, z, z + 1, z + 1, 1, 1, z + 1, z, z, z + 1, 1, z + 1, z, 1, z + 1, 1, z + 1, z, 1, z + 1); (1,21,12,14,11,5,9,3,15,13,16,20,6,18,19,17,7,4,8,10,2), Ring endomorphism of Finite Field in z of size 2^2
++              ((1, z, z + 1, z, z, z, z + 1, z + 1, 1, z, z, z, 1, z, 1, z + 1, z, z + 1, z, z + 1, 1); (1,15,20,5,8,6,12,14,13,7,16,11,19,3,21,4,9,10,18,17,2), Ring endomorphism of Finite Field in z of size 2^2
+                 Defn: z |--> z),
+               ((z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1); (), Ring endomorphism of Finite Field in z of size 2^2
+                 Defn: z |--> z)],
+-            181440)
++             181440)
+             sage: C.automorphism_group_gens(equivalence="permutational")
+             ([((1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); (1,19)(3,17)(4,21)(5,20)(7,14)(9,12)(10,16)(11,15), Ring endomorphism of Finite Field in z of size 2^2
+                 Defn: z |--> z),
+@@ -1065,17 +1071,23 @@
+ 
+             * ``semilinear``
+ 
+-        EXAMPLES::
++        EXAMPLES:
+ 
++        Note, this result can depend on the PRNG state in libgap in a way that
++        depends on which packages are loaded, so we must re-seed GAP to ensure
++        a consistent result for this example::
++
++            sage: libgap.set_seed(0)
++            0
+             sage: C = codes.HammingCode(GF(4, 'z'), 3)
+             sage: aut_group_can_label = C._canonize("semilinear")
+             sage: C_iso = LinearCode(aut_group_can_label.get_transporter()*C.generator_matrix())
+             sage: C_iso == aut_group_can_label.get_canonical_form()
+             True
+             sage: aut_group_can_label.get_autom_gens()
+-            [((z + 1, z + 1, z, z, 1, z, z, z, z, z, z, z + 1, z + 1, z + 1, z + 1, z + 1, 1, 1, 1, 1, 1); (1,2,13,11,7,19,4,18)(3,6,20,9,15,12,21,16)(5,8,14,10), Ring endomorphism of Finite Field in z of size 2^2
++            [((1, z, z + 1, z, z, 1, 1, z, z + 1, z, z, 1, z, z + 1, z, z, 1, z, z + 1, z, z); (1,5,18,7,11,8)(2,12,21)(3,20,14,10,19,15)(4,9)(13,17,16), Ring endomorphism of Finite Field in z of size 2^2
+                Defn: z |--> z + 1),
+-             ((z, 1, z + 1, 1, 1, 1, z + 1, z + 1, z, 1, 1, 1, z + 1, 1, z, z + 1, 1, z, 1, z + 1, z); (1,17,5,21,12,8,6,10,11,13,4,2,20,9)(3,19,18,15,7,14,16), Ring endomorphism of Finite Field in z of size 2^2
++             ((1, 1, z, z + 1, z, z, z + 1, z + 1, z, 1, 1, z, z, z + 1, z + 1, 1, z, z, 1, z, z + 1); (2,11)(3,13)(4,14)(5,20)(6,17)(8,15)(16,19), Ring endomorphism of Finite Field in z of size 2^2
+                Defn: z |--> z + 1),
+              ((z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z, z); (), Ring endomorphism of Finite Field in z of size 2^2
+                Defn: z |--> z)]
+--- a/sage/src/sage/libs/gap/gap_globals.py
++++ b/sage/src/sage/libs/gap/gap_globals.py
+@@ -38,6 +38,7 @@
+   'InfoNumtheor',
+   'InfoOptions',
+   'InfoPcSubgroup',
++  'InfoWarning',
+   'Integers',
+   'NiceBasisFiltersInfo',
+   'Primes',
+--- a/sage/src/sage/libs/gap/all_documented_functions.py
++++ b/sage/src/sage/libs/gap/all_documented_functions.py
+@@ -1,4 +1,4 @@
+-"""
++"""nodoctest
+ All Documented GAP Functions
+ 
+ This Python module contains all documented GAP functions, they can be
+--- a/sage/src/sage/libs/gap/assigned_names.py
++++ b/sage/src/sage/libs/gap/assigned_names.py
+@@ -1,4 +1,4 @@
+-"""
++"""nodoctest
+ List of assigned names in GAP
+ 
+ EXAMPLES::

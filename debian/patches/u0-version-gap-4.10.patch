@@ -709,7 +709,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
      x,y,z = F.gens()
 --- a/sage/src/sage/groups/matrix_gps/finitely_generated.py
 +++ b/sage/src/sage/groups/matrix_gps/finitely_generated.py
-@@ -544,7 +544,7 @@
+@@ -537,7 +537,7 @@
          smallest one.
  
          EXAMPLES::
@@ -718,7 +718,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
              sage: MS = MatrixSpace(GF(2), 5, 5)
              sage: A = MS([[0,0,0,0,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0]])
              sage: G = MatrixGroup([A])
-@@ -712,8 +712,8 @@
+@@ -706,8 +706,8 @@
              sage: gens = [MS([[0,1],[-1,0]]),MS([[1,1],[2,3]])]
              sage: G = MatrixGroup(gens)
              sage: G.invariant_generators()
@@ -729,7 +729,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
               x1^18 + 2*x1^15*x2^3 + 3*x1^12*x2^6 + 3*x1^6*x2^12 - 2*x1^3*x2^15 + x2^18]
  
              sage: q = 4; a = 2
-@@ -1070,10 +1070,10 @@
+@@ -1063,10 +1063,10 @@
              sage: chi = G.character(G.character_table()[1])
              sage: R.<x,y,z> = K[]
              sage: G.reynolds_operator(x*y^5, chi)
@@ -742,7 +742,7 @@ Subject: [PATCH] Upstream patch for gap 4.10.
  
          ::
  
-@@ -1288,9 +1288,9 @@
+@@ -1281,9 +1281,9 @@
              sage: G =  MatrixGroup(CyclicPermutationGroup(3))
              sage: chi = G.character(G.character_table()[1])
              sage: R.<x,y,z> = K[]
