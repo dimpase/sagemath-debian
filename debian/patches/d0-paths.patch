@@ -6,7 +6,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -582,7 +582,7 @@
+@@ -581,7 +581,7 @@
      extra_sources = []
      for fname in additional_source_files:
          fname = fname.replace("$SAGE_SRC", SAGE_SRC)

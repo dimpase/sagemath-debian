@@ -8,7 +8,7 @@ Bug: https://trac.sagemath.org/ticket/21732
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/misc/sphinxify.py
 +++ b/sage/src/sage/misc/sphinxify.py
-@@ -22,7 +22,7 @@
+@@ -26,7 +26,7 @@
  import re
  import shutil
  from tempfile import mkdtemp
@@ -17,7 +17,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  from sphinx.application import Sphinx
  
  
-@@ -79,6 +79,8 @@
+@@ -83,6 +83,8 @@
      # Sphinx constructor: Sphinx(srcdir, confdir, outdir, doctreedir,
      # buildername, confoverrides, status, warning, freshenv).
      confdir = os.path.join(SAGE_DOC_SRC, 'en', 'introspect')

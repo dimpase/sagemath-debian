@@ -1,6 +1,6 @@
 --- a/sage/src/sage/graphs/graph_generators.py
 +++ b/sage/src/sage/graphs/graph_generators.py
-@@ -904,14 +904,14 @@
+@@ -905,14 +905,14 @@
  
              sage: gen = graphs.nauty_geng("4", debug=True)
              sage: print(next(gen))
@@ -19,7 +19,7 @@
                                **enc_kwargs)
 --- a/sage/src/sage/graphs/digraph_generators.py
 +++ b/sage/src/sage/graphs/digraph_generators.py
-@@ -543,7 +543,7 @@
+@@ -545,7 +545,7 @@
  
          nauty_input +=  " "+str(n) +" "
  
@@ -30,9 +30,9 @@
  
 --- a/sage/src/sage/graphs/hypergraph_generators.py
 +++ b/sage/src/sage/graphs/hypergraph_generators.py
-@@ -137,7 +137,7 @@
+@@ -161,7 +161,7 @@
  
-         nauty_input +=  " "+str(number_of_vertices) +" "+str(number_of_sets)+" "
+         nauty_input +=  " " + str(number_of_vertices) + " " + str(number_of_sets) + " "
  
 -        sp = subprocess.Popen("genbg {0}".format(nauty_input), shell=True,
 +        sp = subprocess.Popen("nauty-genbg {0}".format(nauty_input), shell=True,

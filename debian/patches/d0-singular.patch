@@ -19,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      new_lookup = re.compile(r"\* ([^:]*):*([^.]*)\..*")
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -324,6 +324,11 @@
+@@ -323,6 +323,11 @@
      args = ['-w','-O2'] + args
      libdirs = cblas_library_dirs
  

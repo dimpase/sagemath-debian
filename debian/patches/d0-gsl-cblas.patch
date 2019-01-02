@@ -12,7 +12,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -12,10 +12,9 @@
+@@ -11,10 +11,9 @@
  import pkgconfig
  
  # CBLAS can be one of multiple implementations
@@ -28,7 +28,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  if os.path.exists('/usr/lib/libblas.dll.a'):
 --- a/sage/src/sage/misc/cython.py
 +++ b/sage/src/sage/misc/cython.py
-@@ -40,10 +40,9 @@
+@@ -39,10 +39,9 @@
  
  
  # CBLAS can be one of multiple implementations

@@ -369,8 +369,8 @@ Subject: Fix doctest in cpython/debug.pyx
 +    (IntSlider(value=5, min=0, max=10, step=1, description=u'x'), Output())
  """
  
- #*****************************************************************************
-@@ -53,10 +53,10 @@
+ # ****************************************************************************
+@@ -52,10 +52,10 @@
          sage: from sage.repl.ipython_kernel.interact import sage_interactive
          sage: def myfunc(x=10, y="hello", z=None): pass
          sage: sage_interactive(myfunc, x=(0,100), z=["one", "two", "three"])
@@ -384,7 +384,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      def __init__(*args, **kwds):
          """
-@@ -190,15 +190,15 @@
+@@ -189,15 +189,15 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_tuple( (0, 10) )
@@ -729,7 +729,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
 --- a/sage/src/sage/cpython/debug.pyx
 +++ b/sage/src/sage/cpython/debug.pyx
-@@ -97,7 +97,7 @@
+@@ -102,7 +102,7 @@
            returning log (<class 'sage.interfaces.expect.FunctionElement'>)
          sage: from ipywidgets import IntSlider
          sage: _ = getattr_debug(IntSlider(), "value")
