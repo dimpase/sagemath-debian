@@ -5,6 +5,9 @@ sagemath (8.6~beta1-1) UNRELEASED; urgency=medium
     - cython (>= 0.29.1)
     - libflint-arb-dev (>= 1:2.15)
     - python-cypari2 (>= 1.3.1)
+    - gap-primgrp
+    - gap-smallgrp
+    - gap-transgrp
   * Remove patches (applied upstream):
     - u0-gap-util.patch
     - u0-version-gap-4.10.patch                  #22626
