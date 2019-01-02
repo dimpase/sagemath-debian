@@ -1,1 +1,2 @@
 tar-ignore debian/ccache
+extend-diff-ignore="^(sage/m4/sage_spkg_configures.m4)"
