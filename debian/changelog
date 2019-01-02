@@ -1,4 +1,4 @@
-sagemath (8.4-3) UNRELEASED; urgency=medium
+sagemath (8.4-3) unstable; urgency=medium
 
   * New (Build-)Depends:
     - gap (>= 4r10p0-3) (Closes: #912980)
@@ -20,7 +20,7 @@ sagemath (8.4-3) UNRELEASED; urgency=medium
   * Install shlibs.local for libgap.
   * Add lintian override for /usr/lib/*/gap in rpath.
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 21 Oct 2018 09:32:53 +0000
+ -- Tobias Hansen <thansen@debian.org>  Wed, 02 Jan 2019 11:28:59 +0000
 
 sagemath (8.4-2) unstable; urgency=medium
 
