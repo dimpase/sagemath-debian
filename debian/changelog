@@ -1,5 +1,6 @@
-sagemath (8.4-4) UNRELEASED; urgency=medium
+sagemath (8.4-4) unstable; urgency=medium
 
+  * Closes: #918068
   * New (Build-)Depends:
     - gap-primgrp
     - gap-smallgrp
@@ -9,7 +10,7 @@ sagemath (8.4-4) UNRELEASED; urgency=medium
     - u0-gap-trac-26889.patch                    #26889
     - u0-gap-trac-26856.patch                    #26856
 
- -- Tobias Hansen <thansen@debian.org>  Wed, 02 Jan 2019 12:39:58 +0000
+ -- Tobias Hansen <thansen@debian.org>  Thu, 03 Jan 2019 11:15:59 +0000
 
 sagemath (8.4-3) unstable; urgency=medium
 
