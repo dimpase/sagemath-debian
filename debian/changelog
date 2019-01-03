@@ -4,6 +4,7 @@ sagemath (8.4-4) UNRELEASED; urgency=medium
     - gap-primgrp
     - gap-smallgrp
     - gap-transgrp
+    - lcalc (>= 1.23+dfsg-9)
   * New patches:
     - u0-gap-trac-26889.patch                    #26889
     - u0-gap-trac-26856.patch                    #26856

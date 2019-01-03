@@ -15,7 +15,7 @@
  ipython (>= 5.5.0),
  iso-codes,
  jmol (>= 14.6.4),
- lcalc (>= 1.23+dfsg-6),
+ lcalc (>= 1.23+dfsg-9),
  less,
  libcdd-tools (>= 094j),
  libjs-mathjax,
