@@ -62,7 +62,7 @@ Author: Tobias Hansen <thansen@debian.org>
 +    os.system('maxima-sage')
 --- a/sage/src/sage/interfaces/expect.py
 +++ b/sage/src/sage/interfaces/expect.py
-@@ -578,7 +578,7 @@
+@@ -577,7 +577,7 @@
  
              sage: a = maxima('y')
              sage: maxima.quit(verbose=True)
