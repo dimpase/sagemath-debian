@@ -1,4 +1,4 @@
-sagemath (8.6~rc0-1) UNRELEASED; urgency=medium
+sagemath (8.6~rc0-1) experimental; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
@@ -6,17 +6,30 @@ sagemath (8.6~rc0-1) UNRELEASED; urgency=medium
     - lcalc (>= 1.23+dfsg-10)
     - libflint-arb-dev (>= 1:2.15)
     - python-cypari2 (>= 1.3.1)
-    - gap-primgrp
-    - gap-smallgrp
-    - gap-transgrp
   * Remove patches (applied upstream):
     - u0-gap-util.patch
     - u0-version-gap-4.10.patch                  #22626
     - u0-version-numpy-1.14.3.patch              #25260
+    - u0-gap-trac-26889.patch                    #26889
+    - u0-gap-trac-26856.patch                    #26856
     - u1-fix-mkdirs-sage-kernel-spec.patch       #26176
     - u2-version-r-3.5.1-incomplete.patch        #26185
 
- -- Tobias Hansen <thansen@debian.org>  Wed, 02 Jan 2019 17:19:20 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sun, 06 Jan 2019 12:19:11 +0000
+
+sagemath (8.4-4) unstable; urgency=medium
+
+  * Closes: #918068
+  * New (Build-)Depends:
+    - gap-primgrp
+    - gap-smallgrp
+    - gap-transgrp
+    - lcalc (>= 1.23+dfsg-9)
+  * New patches:
+    - u0-gap-trac-26889.patch                    #26889
+    - u0-gap-trac-26856.patch                    #26856
+
+ -- Tobias Hansen <thansen@debian.org>  Thu, 03 Jan 2019 11:15:59 +0000
 
 sagemath (8.4-3) unstable; urgency=medium
 
