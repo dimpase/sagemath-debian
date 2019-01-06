@@ -50,7 +50,7 @@ Build-Depends:
  libhomfly-dev,
  libiml-dev,
  liblapack-dev,
- liblfunction-dev,
+ liblfunction-dev (>= 1.23+dfsg-10),
  liblinboxsage-dev (>= 1.5.2-2),
  liblrcalc-dev (>= 1.2-2),
  libm4ri-dev (>= 20130416),
