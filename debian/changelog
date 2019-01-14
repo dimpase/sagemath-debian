@@ -2,6 +2,7 @@ sagemath (8.6~rc1-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
+    - cysignals (>= 1.8.1)
     - libpynac-dev (>= 0.7.23)
   * Remove patches (applied upstream):
     - u0-version-networkx-2.2.patch              #26326
