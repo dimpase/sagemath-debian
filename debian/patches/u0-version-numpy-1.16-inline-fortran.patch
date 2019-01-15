@@ -1,0 +1,104 @@
+Bug: https://trac.sagemath.org/ticket/27061
+
+From 81cc6bf6686103a9f4717ac99913f447f90c1821 Mon Sep 17 00:00:00 2001
+From: "Erik M. Bray" <erik.bray@lri.fr>
+Date: Tue, 15 Jan 2019 16:31:30 +0100
+Subject: fix sage.misc.inline_fortran to work with Numpy 1.16
+
+Numpy 1.16 introduced a slight backwards incompatibility such that the
+way we were calling f2py.compile() would no longer work for capturing a
+log of the f2py output.
+
+It turns out f2py.compile() doesn't do anything very interesting anyways
+and has many redundancies with what we do here: It's easy to call f2py
+in a subprocess ourselves with the correct arguments and handle the
+output.
+---
+ src/sage/misc/inline_fortran.py | 49 +++++++++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 21 deletions(-)
+
+--- a/sage/src/sage/misc/inline_fortran.py
++++ b/sage/src/sage/misc/inline_fortran.py
+@@ -5,6 +5,7 @@
+ 
+ import os
+ import shutil
++import subprocess
+ import sys
+ 
+ import six
+@@ -154,8 +155,6 @@
+                 from sage.repl.user_globals import get_globals
+                 globals = get_globals()
+ 
+-        from numpy import f2py
+-
+         # Create everything in a temporary directory
+         mytmpdir = tmp_dir()
+ 
+@@ -171,36 +170,44 @@
+             else:
+                 fortran_file = name + '.f'
+ 
+-            s_lib_path = ""
+-            s_lib = ""
+-            for s in self.library_paths:
+-                s_lib_path = s_lib_path + "-L%s "
+-
+-            for s in self.libraries:
+-                s_lib = s_lib + "-l%s "%s
+-
+-            log = name + ".log"
+-            extra_args = ('--quiet --f77exec=sage-inline-fortran '
+-                          '--f90exec=sage-inline-fortran {lib_path} {lib} '
+-                          '> {log} 2>&1'.format(lib_path=s_lib_path,
+-                                                lib=s_lib, log=log))
++            s_lib_path = ['-L' + p for p in self.library_paths]
++            s_lib = ['-l' + l for l in self.libraries]
++
++            with open(fortran_file, 'w') as fobj:
++                fobj.write(x)
+ 
+-            f2py.compile(x, name, extra_args=extra_args,
+-                         source_fn=fortran_file)
++            # This is basically the same as what f2py.compile() does, but we
++            # do it manually here in order to customize running the subprocess
++            # a bit more (in particular to capture stderr)
++            cmd = [sys.executable, '-c', 'import numpy.f2py; numpy.f2py.main()']
++
++            # What follows are the arguments to f2py itself (appended later
++            # just for logical separation)
++            cmd += ['-c', '-m', name, fortran_file, '--quiet',
++                    '--f77exec=sage-inline-fortran',
++                    '--f90exec=sage-inline-fortran'] + s_lib_path + s_lib
+ 
+-            with open(log) as fobj:
+-                log_string = fobj.read()
++            try:
++                out = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
++            except subprocess.CalledProcessError as exc:
++                raise RuntimeError(
++                    "failed to compile Fortran code:\n{}".format(exc.output))
+ 
+             # Note that f2py() doesn't raise an exception if it fails.
+             # In that case, the import below will fail.
+             try:
+                 mod = _import_module_from_path(name, [mytmpdir])
+-            except ImportError:
+-                raise RuntimeError("failed to compile Fortran code:\n" +
+-                                   log_string)
++            except ImportError as exc:
++                # Failed to import the module; include any output from building
++                # the module (even though it was ostensibly successful) in case
++                # it might help
++                msg = "failed to load compiled Fortran code: {}".format(exc)
++                if out:
++                    msg += '\n' + out
++                raise RuntimeError(msg)
+ 
+             if self.verbose:
+-                print(log_string)
++                print(out)
+         finally:
+             os.chdir(old_cwd)
+ 
