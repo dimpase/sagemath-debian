@@ -37,3 +37,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  fi
  
  # Check that Python is actually installed and issue an error message if not--in
+--- a/sage/src/sage/repl/ipython_kernel/install.py
++++ b/sage/src/sage/repl/ipython_kernel/install.py
+@@ -196,7 +196,7 @@
+              '{connection_file}']
+         """
+         return [
+-            os.path.join(SAGE_LOCAL, 'bin', 'sage'),
++            os.path.join('/usr', 'bin', 'sage'),
+             '--python',
+             '-m', 'sage.repl.ipython_kernel',
+             '-f', '{connection_file}',

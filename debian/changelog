@@ -7,6 +7,7 @@ sagemath (8.6~rc1-1) UNRELEASED; urgency=medium
     - python-sphinx (<< 1.8~)
   * Remove patches (applied upstream):
     - u0-version-networkx-2.2.patch              #26326
+  * Fix path to sage in Jupyter kernel spec. (Closes: #918993)
 
  -- Tobias Hansen <thansen@debian.org>  Mon, 14 Jan 2019 11:03:31 +0000
 
