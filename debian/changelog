@@ -5,6 +5,7 @@ sagemath (8.6-2) UNRELEASED; urgency=medium
     - maxima-sage (>= 5.41.0+ds-3)
   * New patches:
     - u0-version-ecl-16.1.3.patch                #22191
+  * Don't run dh_strip_nondeterminism on sageicon.png to avoid error.
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 16 Jan 2019 14:40:29 +0100
 

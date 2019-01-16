@@ -214,6 +214,9 @@ override_dh_clean:
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
+override_dh_strip_nondeterminism:
+	dh_strip_nondeterminism -Xsageicon.png # This failed claiming it's not a png file.
+
 ###############################################################################
 # 4. TEST SUITE
 ###############################################################################
