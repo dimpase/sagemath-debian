@@ -1,3 +1,12 @@
+sagemath (8.6-3) UNRELEASED; urgency=medium
+
+  * New (Build-)Depends:
+    - gap-online-help
+    - gap-atlasrep
+    - gap-table-of-marks
+
+ -- Tobias Hansen <thansen@debian.org>  Fri, 18 Jan 2019 20:37:13 +0000
+
 sagemath (8.6-2) unstable; urgency=medium
 
   * New (Build-)Depends:
