@@ -272,7 +272,7 @@ run_tests_with_retry = \
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	# TODO: exclude src/sage/misc/sagedoc.py, this will cause ~7 failures if we don't build the docs
-	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/,90)
+	$(call run_tests_with_retry,arch,src/sage /usr/lib/python2.7/dist-packages/sagenb/,50)
 endif
 
 override_dh_auto_test-indep:

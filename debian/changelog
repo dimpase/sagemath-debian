@@ -4,6 +4,7 @@ sagemath (8.6-3) UNRELEASED; urgency=medium
     - gap-online-help
     - gap-atlasrep
     - gap-table-of-marks
+  * Allow up to 50 test failures.
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 18 Jan 2019 20:37:13 +0000
 
