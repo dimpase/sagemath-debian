@@ -1,10 +1,14 @@
 sagemath (8.6-3) UNRELEASED; urgency=medium
 
+  [ Tobias Hansen ]
   * New (Build-)Depends:
     - gap-online-help
     - gap-atlasrep
     - gap-table-of-marks
   * Allow up to 50 test failures.
+
+  [ E. Madison Bray ]
+  * New patch: u2-libgap-symbol-loading.patch
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 18 Jan 2019 20:37:13 +0000
 
