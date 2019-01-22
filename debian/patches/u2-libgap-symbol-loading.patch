@@ -1,0 +1,52 @@
+Description: force all symbols in libgap.so to be loaded
+ This fixes a bug that occurs when trying to load compiled GAP packages using
+ libgap as opposed to the gap executable.  The problem is caused by the fact
+ that compiled GAP packages are not currently linked with -lgap; rather they
+ assume they will be loaded by running the gap executable, which has all of the
+ GAP library compiled into it and thus is able to resolve all the symbols it
+ uses at runtime.  However, when using libgap, symbols are resolved lazily by
+ default (this is in turn due to the dlopen flags that Python uses when
+ importing a module), and when libgap in turn tries to dlopen() a compiled
+ GAP module such as io.so, since io.so does not have a DT_NEEDED entry for
+ libgap it fails to find some of the symbols it needs that haven't been
+ resolved yet.
+
+ This fixes the issue in Sage's libgap interface by immediately, before
+ initializing GAP, re-dlopen()-ing libgap.so with the RTLD_GLOBAL | RTLD_NOW
+ flagset, forcing all symbols in the library to be resolved.
+Author: E. Madison Bray <erik.m.bray+debian@gmail.com>
+Origin: https://trac.sagemath.org/ticket/22626#comment:424
+Bug: https://trac.sagemath.org/ticket/26930
+Last-Update: 2019-01-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/sage/src/sage/libs/gap/util.pyx
++++ b/sage/src/sage/libs/gap/util.pyx
+@@ -18,6 +18,7 @@ import os
+ import signal
+ import warnings
+ 
++from posix.dlfcn cimport dlopen, dlclose, RTLD_NOW, RTLD_GLOBAL
+ from libc.string cimport strcpy, strlen
+ 
+ from cpython.exc cimport PyErr_SetObject, PyErr_Occurred, PyErr_Fetch
+@@ -259,6 +260,19 @@ cdef initialize():
+     global _gap_is_initialized, environ
+     if _gap_is_initialized: return
+ 
++    # Hack to ensure that all symbols provided by libgap are loaded into the
++    # global symbol table; see
++    # https://trac.sagemath.org/ticket/22626#comment:424
++    # Note: we could use RTLD_NOLOAD and avoid the subsequent dlclose() but
++    # this is less portable
++    cdef void* handle
++    handle = dlopen("libgap.so", RTLD_NOW | RTLD_GLOBAL)
++    if handle == NULL:
++        raise RuntimeError(
++                "Could not dlopen() libgap.so even though it should already "
++                "be loaded!")
++    dlclose(handle)
++
+     # Define argv and environ variables, which we will pass in to
+     # initialize GAP. Note that we must pass define the memory pool
+     # size!
