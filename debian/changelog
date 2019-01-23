@@ -5,6 +5,10 @@ sagemath (8.6-3) UNRELEASED; urgency=medium
     - gap-online-help
     - gap-atlasrep
     - gap-table-of-marks
+    - libopenblas-dev (on supported architectures)
+  * Remove (Build-)Depends:
+    - libatlas-base-dev (on openblas supported architectures)
+    - liblapack-dev
   * Allow up to 50 test failures.
   * Run tests with appropriate --optional flag.
 
