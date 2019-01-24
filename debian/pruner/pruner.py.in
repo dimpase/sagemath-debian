@@ -124,7 +124,6 @@ dico = {
     'ppl': @HAS_PPL@,
     'pynac': @HAS_PYNAC@,
     'python2': @HAS_PYTHON@,
-    'python3': @HAS_PYTHON3@,
     'r': @HAS_R@,
     'ratpoints': @HAS_RATPOINTS@,
     # those two go together afaik:
@@ -133,7 +132,6 @@ dico = {
     'rubiks': @HAS_RUBIKS@,
     'rw': @HAS_RW@,
     'sagetex': True, # to break a circular build-dependency, and it's not actually needed by the build
-    'scons': @HAS_SCONS@,
     'singular': @HAS_SINGULAR@,
     'sqlite': @HAS_SQLITE@,
     'symmetrica': @HAS_SYMMETRICA@,
@@ -176,7 +174,6 @@ python_modules = [
     'ipywidgets',
     'itsdangerous',
     'jinja2',
-    'jsonschema',
     'matplotlib',
     'mistune',
     'mpmath',
@@ -234,11 +231,13 @@ unneeded_packages = {
     'bleach',
     'html5lib',
     'ipaddress',
+    'jsonschema',
     'kiwisolver', # dependency of matplotlib
     'libatomic_ops',
     'pandocfilters',
     'prometheus_client',
     'pycygwin',
+    'python3',
     'requests', # FIXME(requests): only used to build sphinx, not needed in Debian
     'scandir',
     'send2trash',

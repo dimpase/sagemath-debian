@@ -294,9 +294,6 @@ AC_SUBST(HAS_PYNAC)
 PKG_CHECK_MODULES(python, python2, [HAS_PYTHON='True'], [HAS_PYTHON='False'])
 AC_SUBST(HAS_PYTHON)
 
-PKG_CHECK_MODULES(python3, python3, [HAS_PYTHON3='True'], [HAS_PYTHON3='False'])
-AC_SUBST(HAS_PYTHON3)
-
 AC_CHECK_PROG(HAS_R, R, "True", "False")
 AC_SUBST(HAS_R)
 
@@ -314,9 +311,6 @@ AC_SUBST(HAS_RW)
 
 AC_LATEX_PACKAGE(sagetex, article, has_sagetex_yesno, HAS_SAGETEX="True", HAS_SAGETEX="False")
 AC_SUBST(HAS_SAGETEX)
-
-AC_CHECK_PROG(HAS_SCONS, scons, "True", "False")
-AC_SUBST(HAS_SCONS)
 
 PKG_CHECK_MODULES(singular, Singular, [HAS_SINGULAR='True'], [HAS_SINGULAR='False'])
 AC_SUBST(HAS_SINGULAR)
