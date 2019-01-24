@@ -32,7 +32,7 @@ super-important (being able to unpickle something twice) so just ignore it.
 +    139
      sage: subprocess.call("echo syntax error | gap", **kwds)
 -    0
-+    139
++    1
      sage: subprocess.call("echo syntax error | gp", **kwds)
      0
      sage: subprocess.call("echo syntax error | ipython", **kwds) in (0, 1, 120)

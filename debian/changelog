@@ -20,6 +20,7 @@ sagemath (8.6-4) UNRELEASED; urgency=medium
     - python-moinmoin
     - python-ply
     - python-tk
+  * Adjust two trivial test fixes.
 
  -- Ximin Luo <infinity0@debian.org>  Thu, 24 Jan 2019 01:11:42 -0800
 
