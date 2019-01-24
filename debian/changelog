@@ -1,4 +1,4 @@
-sagemath (8.6-3) UNRELEASED; urgency=medium
+sagemath (8.6-3) unstable; urgency=medium
 
   [ Tobias Hansen ]
   * New (Build-)Depends:
@@ -15,7 +15,7 @@ sagemath (8.6-3) UNRELEASED; urgency=medium
   [ E. Madison Bray ]
   * New patch: u2-libgap-symbol-loading.patch
 
- -- Tobias Hansen <thansen@debian.org>  Fri, 18 Jan 2019 20:37:13 +0000
+ -- Tobias Hansen <thansen@debian.org>  Thu, 24 Jan 2019 08:52:42 +0000
 
 sagemath (8.6-2) unstable; urgency=medium
 
