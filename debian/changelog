@@ -1,8 +1,6 @@
 sagemath (8.6-4) UNRELEASED; urgency=medium
 
-  * Add Rules-Requires-Root: no, this is beneficial by itself but also works
-    around a fakeroot issue that affects dh_sphinxdoc, which sometimes crops up
-    when doing a developer build locally.
+  * Add Rules-Requires-Root: no, avoid using fakeroot.
 
  -- Ximin Luo <infinity0@debian.org>  Thu, 24 Jan 2019 01:11:42 -0800
 
