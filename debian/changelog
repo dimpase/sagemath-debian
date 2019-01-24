@@ -1,6 +1,10 @@
 sagemath (8.6-4) UNRELEASED; urgency=medium
 
+  [ Ximin Luo ]
   * Add Rules-Requires-Root: no, avoid using fakeroot.
+
+  [ Tobias Hansen ]
+  * Install a desktop file to start the Jupyter notebook.
 
  -- Ximin Luo <infinity0@debian.org>  Thu, 24 Jan 2019 01:11:42 -0800
 

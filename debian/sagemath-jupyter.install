@@ -1,1 +1,3 @@
 usr/share/jupyter/*
+usr/share/icons/*
+debian/adhoc/sagemath.desktop usr/share/applications/

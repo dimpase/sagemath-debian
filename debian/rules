@@ -152,6 +152,11 @@ override_dh_auto_install:
 	cp -f debian/adhoc/sage-env debian/tmp/usr/bin/
 # Install sage-python23 which is required at runtime but located in build/bin.
 	cp -f sage/build/bin/sage-python23  debian/tmp/usr/bin/
+# Install (renamed) icons.
+	mkdir -p debian/tmp/usr/share/icons/hicolor/64x64/apps
+	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
+	cp -f sage/src/ext/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
+	cp -f sage/src/ext/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
 # Don't try to rmdir debian/build if it's a mountpoint, useful for doing builds in /run/shm
 	mountpoint debian/build || rmdir debian/build
 

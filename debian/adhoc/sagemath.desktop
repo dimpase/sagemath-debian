@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SageMath
+GenericName=Mathematics Software
+Comment=Computer Algebra System (Jupyter Notebook)
+Exec=sage --notebook=jupyter
+Terminal=true
+Icon=sagemath
+Type=Application
+Version=1.0
+Categories=Science;Math;
