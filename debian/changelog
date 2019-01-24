@@ -5,6 +5,21 @@ sagemath (8.6-4) UNRELEASED; urgency=medium
 
   [ Tobias Hansen ]
   * Install a desktop file to start the Jupyter notebook.
+  * Remove (Build-)Depends:
+    - gnutls-dev
+    - libblas-dev
+    - libgcrypt-dev
+    - python3-dev
+    - scons
+    - f2c
+    - octave
+    - python-crypto
+    - python-gd
+    - python-gnutls
+    - python-jsonschema
+    - python-moinmoin
+    - python-ply
+    - python-tk
 
  -- Ximin Luo <infinity0@debian.org>  Thu, 24 Jan 2019 01:11:42 -0800
 
