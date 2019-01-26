@@ -18,8 +18,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
 @@ -83,6 +83,8 @@
-     # Sphinx constructor: Sphinx(srcdir, confdir, outdir, doctreedir,
-     # buildername, confoverrides, status, warning, freshenv).
+         filed.write(docstring)
+ 
      confdir = os.path.join(SAGE_DOC_SRC, 'en', 'introspect')
 +    if not os.path.exists(confdir):
 +        confdir = os.path.join(SAGE_LIB, 'sage', 'misc', 'docs', 'introspect')

@@ -14,7 +14,7 @@ Forwarded: TBD
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -81,28 +81,6 @@ def builder_helper(type):
+@@ -80,28 +80,6 @@
      """
      Returns a function which builds the documentation for
      output type ``type``.
@@ -43,7 +43,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
      def f(self, *args, **kwds):
          output_dir = self._output_dir(type)
-@@ -124,10 +102,9 @@ def builder_helper(type):
+@@ -123,10 +101,9 @@
          logger.debug(build_command)
  
          # Run Sphinx with Sage's special logger
@@ -58,7 +58,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
                  raise
 --- a/sage/src/sage_setup/docbuild/sphinxbuild.py
 +++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
-@@ -323,3 +323,8 @@ def runsphinx():
+@@ -324,3 +324,8 @@
          sys.stderr = saved_stderr
          sys.stdout.flush()
          sys.stderr.flush()

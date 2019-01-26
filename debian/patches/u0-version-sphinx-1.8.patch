@@ -1,0 +1,333 @@
+Bug: https://trac.sagemath.org/ticket/26451
+
+From e7aa0422d570a48265a1bf351e9237868fea31c4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
+Date: Wed, 10 Oct 2018 09:54:11 +0200
+Subject: Call Sphinx() 1.8 constructor
+
+i.e., do not make srcdir and outdir the same as Sphinx does not allow that
+anymore.
+---
+ src/sage/misc/sphinxify.py | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+From fd941c1288596aaa7206c64455ea2b6f10f52a2b Mon Sep 17 00:00:00 2001
+From: "John H. Palmieri" <palmieri@math.washington.edu>
+Date: Sun, 20 Jan 2019 23:03:02 -0800
+Subject: trac 26451: Sphinx 1.8.3
+
+---
+ build/pkgs/sphinx/checksums.ini             |  6 ++---
+ build/pkgs/sphinx/package-version.txt       |  2 +-
+ src/sage_setup/docbuild/__init__.py         |  2 +-
+ src/sage_setup/docbuild/ext/multidocs.py    | 37 +++++++++++++++--------------
+ src/sage_setup/docbuild/ext/sage_autodoc.py |  3 ++-
+ src/sage_setup/docbuild/sphinxbuild.py      |  5 ++--
+ 6 files changed, 29 insertions(+), 26 deletions(-)
+
+From a3568fd6a76821e4903ea7693d6d8204a6b37a5e Mon Sep 17 00:00:00 2001
+From: "John H. Palmieri" <palmieri@math.washington.edu>
+Date: Sun, 20 Jan 2019 23:04:50 -0800
+Subject: trac 26461: inventory builder: remove _static directory upon cleanup
+
+---
+ src/sage_setup/docbuild/ext/inventory_builder.py | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+From a3ceda240bb3e8bbb840d8635e5a62dc240d858a Mon Sep 17 00:00:00 2001
+From: "John H. Palmieri" <palmieri@math.washington.edu>
+Date: Tue, 29 Jan 2019 22:00:38 -0800
+Subject: trac 26451: change 'app.builder.info' to 'logger.info'
+
+---
+ src/sage_setup/docbuild/ext/multidocs.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+--- a/sage/src/sage/misc/sphinxify.py
++++ b/sage/src/sage/misc/sphinxify.py
+@@ -68,20 +68,20 @@
+         sage: assert n == len(sys.path)
+     """
+     srcdir = mkdtemp()
+-    base_name = os.path.join(srcdir, 'docstring')
+-    rst_name = base_name + '.rst'
++    outdir = mkdtemp()
++    src_base_name = os.path.join(srcdir, 'docstring')
++    out_base_name = os.path.join(outdir, 'docstring')
++    rst_name = src_base_name + '.rst'
+ 
+     if format == 'html':
+         suffix = '.html'
+     else:
+         suffix = '.txt'
+-    output_name = base_name + suffix
++    output_name = out_base_name + suffix
+ 
+     with open(rst_name, 'w') as filed:
+         filed.write(docstring)
+ 
+-    # Sphinx constructor: Sphinx(srcdir, confdir, outdir, doctreedir,
+-    # buildername, confoverrides, status, warning, freshenv).
+     confdir = os.path.join(SAGE_DOC_SRC, 'en', 'introspect')
+ 
+     open(os.path.join(srcdir, 'docutils.conf'), 'w').write(r"""
+@@ -93,7 +93,9 @@
+ 
+     import sys
+     old_sys_path = list(sys.path)  # Sphinx modifies sys.path
+-    sphinx_app = Sphinx(srcdir, confdir, srcdir, doctreedir, format,
++    # Sphinx constructor: Sphinx(srcdir, confdir, outdir, doctreedir,
++    # buildername, confoverrides, status, warning, freshenv).
++    sphinx_app = Sphinx(srcdir, confdir, outdir, doctreedir, format,
+                         confoverrides, None, None, True)
+     sphinx_app.build(None, [rst_name])
+     sys.path = old_sys_path
+@@ -118,13 +120,15 @@
+         # Remove spurious \(, \), \[, \].
+         output = output.replace('\\(', '').replace('\\)', '').replace('\\[', '').replace('\\]', '')
+     else:
+-        print("BUG -- Sphinx error")
++        from warnings import warn
++        warn("Sphinx did not produce any output", Warning)
+         if format == 'html':
+             output = '<pre class="introspection">%s</pre>' % docstring
+         else:
+             output = docstring
+ 
+     shutil.rmtree(srcdir, ignore_errors=True)
++    shutil.rmtree(outdir, ignore_errors=True)
+ 
+     return output
+ 
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -47,7 +47,6 @@
+ 
+ logger = logging.getLogger(__name__)
+ 
+-import sphinx.cmdline
+ import sphinx.util.console
+ import sphinx.ext.intersphinx
+ 
+@@ -334,6 +333,7 @@
+             getattr(get_builder(document), 'inventory')(*args, **kwds)
+ 
+         logger.warning("Building reference manual, second pass.\n")
++        sage_makedirs(os.path.join(SAGE_DOC, "html", "en", "reference", "_static"))
+         for document in refs:
+             getattr(get_builder(document), name)(*args, **kwds)
+ 
+--- a/sage/src/sage_setup/docbuild/ext/multidocs.py
++++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
+@@ -32,6 +32,7 @@
+ from sage.env import SAGE_DOC
+ from sage.misc.misc import sage_makedirs
+ 
++logger = sphinx.util.logging.getLogger(__name__)
+ 
+ CITE_FILENAME = 'citations.pickle'
+ 
+@@ -48,13 +49,13 @@
+ 
+     - domaindata['py']['modules'] # list of python modules
+     """
+-    app.info(bold('Merging environment/index files...'))
++    logger.info(bold('Merging environment/index files...'))
+     for curdoc in app.env.config.multidocs_subdoc_list:
+-        app.info("    %s:"%curdoc, nonl=1)
++        logger.info("    %s:"%curdoc, nonl=1)
+         docenv = get_env(app, curdoc)
+         if docenv is not None:
+             fixpath = lambda path: os.path.join(curdoc, path)
+-            app.info(" %s todos, %s index, %s citations"%(
++            logger.info(" %s todos, %s index, %s citations"%(
+                     len(docenv.todo_all_todos),
+                     len(docenv.indexentries),
+                     len(docenv.domaindata["std"]["citations"])
+@@ -99,8 +100,8 @@
+                 six.iteritems(docenv.domaindata['py']['modules'])):
+                 newmodules[ind] = (fixpath(modpath),v1,v2,v3)
+             env.domaindata['py']['modules'].update(newmodules)
+-            app.info(", %s modules"%(len(newmodules)))
+-    app.info('... done (%s todos, %s index, %s citations, %s modules)'%(
++            logger.info(", %s modules"%(len(newmodules)))
++    logger.info('... done (%s todos, %s index, %s citations, %s modules)'%(
+             len(env.todo_all_todos),
+             len(env.indexentries),
+             len(env.domaindata["std"]["citations"]),
+@@ -118,8 +119,8 @@
+     try:
+         f = open(filename, 'rb')
+     except IOError:
+-        app.info("")
+-        app.warn("Unable to fetch %s " % filename)
++        logger.info("")
++        logger.warning("Unable to fetch %s " % filename)
+         return None
+     docenv = cPickle.load(f)
+     f.close()
+@@ -130,16 +131,16 @@
+     """
+     Merge the JS indexes of the sub-docs into the main JS index
+     """
+-    app.info('')
+-    app.info(bold('Merging js index files...'))
++    logger.info('')
++    logger.info(bold('Merging js index files...'))
+     mapping = app.builder.indexer._mapping
+     for curdoc in app.env.config.multidocs_subdoc_list:
+-        app.info("    %s:"%curdoc, nonl=1)
++        logger.info("    %s:"%curdoc, nonl=1)
+         fixpath = lambda path: os.path.join(curdoc, path)
+         index = get_js_index(app, curdoc)
+         if index is not None:
+             # merge the mappings
+-            app.info(" %s js index entries"%(len(index._mapping)))
++            logger.info(" %s js index entries"%(len(index._mapping)))
+             for (ref, locs) in six.iteritems(index._mapping):
+                 newmapping = set(map(fixpath, locs))
+                 if ref in mapping:
+@@ -159,8 +160,8 @@
+             dest = os.path.join(app.outdir, "_sources", curdoc)
+             if not os.path.exists(dest):
+                 os.symlink(os.path.join("..", curdoc, "_sources"), dest)
+-    app.info('... done (%s js index entries)'%(len(mapping)))
+-    app.info(bold('Writing js search indexes...'), nonl=1)
++    logger.info('... done (%s js index entries)'%(len(mapping)))
++    logger.info(bold('Writing js search indexes...'), nonl=1)
+     return [] # no extra page to setup
+ 
+ 
+@@ -181,8 +182,8 @@
+     try:
+         f = open(indexfile, 'r')
+     except IOError:
+-        app.info("")
+-        app.warn("Unable to fetch %s " % indexfile)
++        logger.info("")
++        logger.warning("Unable to fetch %s " % indexfile)
+         return None
+     indexer.load(f, sphinx.search.js_index)
+     f.close()
+@@ -238,7 +239,7 @@
+     outdir = citation_dir(app)
+     with atomic_write(os.path.join(outdir, CITE_FILENAME), binary=True) as f:
+         cPickle.dump(citations, f)
+-    app.info("Saved pickle file: %s" % CITE_FILENAME)
++    logger.info("Saved pickle file: %s" % CITE_FILENAME)
+ 
+ 
+ def fetch_citation(app, env):
+@@ -246,13 +247,13 @@
+     Fetch the global citation index from the refman to allow for cross
+     references.
+     """
+-    app.builder.info(bold('loading cross citations... '), nonl=1)
++    logger.info(bold('loading cross citations... '), nonl=1)
+     filename = os.path.join(citation_dir(app), '..', CITE_FILENAME)
+     if not os.path.isfile(filename):
+         return
+     with open(filename, 'rb') as f:
+         cache = cPickle.load(f)
+-    app.builder.info("done (%s citations)."%len(cache))
++    logger.info("done (%s citations)."%len(cache))
+     cite = env.domaindata["std"]["citations"]
+     for ind, (path, tag, lineno) in six.iteritems(cache):
+         if ind not in cite: # don't override local citation
+@@ -265,18 +266,18 @@
+     doc itself.
+     """
+     if app.config.multidocs_is_master:
+-        app.info(bold("Compiling the master document"))
++        logger.info(bold("Compiling the master document"))
+         app.connect('env-updated', merge_environment)
+         app.connect('html-collect-pages', merge_js_index)
+         if app.config.multidocs_subdoc_list:
+             # Master file with indexes computed by merging indexes:
+             # Monkey patch index fetching to silence warning about broken index
+             def load_indexer(docnames):
+-                app.builder.info(bold('skipping loading of indexes... '), nonl=1)
++                logger.info(bold('skipping loading of indexes... '), nonl=1)
+             app.builder.load_indexer = load_indexer
+ 
+     else:
+-        app.info(bold("Compiling a sub-document"))
++        logger.info(bold("Compiling a sub-document"))
+         app.connect('html-page-context', fix_path_html)
+         if not app.config.multidoc_first_pass:
+             app.connect('env-updated', fetch_citation)
+@@ -292,7 +293,7 @@
+                     def copy_static_files(self):
+                     [...]
+             """
+-            app.builder.info(bold('linking _static directory.'))
++            logger.info(bold('linking _static directory.'))
+             static_dir = os.path.join(app.builder.outdir, '_static')
+             master_static_dir = os.path.join('..', '_static')
+             if os.path.lexists(static_dir):
+--- a/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
++++ b/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
+@@ -40,7 +40,8 @@
+ from sphinx.ext.autodoc.importer import mock, import_object, get_object_members
+ from sphinx.ext.autodoc.inspector import format_annotation, formatargspec
+ from sphinx.locale import _, __
+-from sphinx.pycode import ModuleAnalyzer, PycodeError
++from sphinx.pycode import ModuleAnalyzer
++from sphinx.errors import ExtensionError, PycodeError
+ from sphinx.util import logging
+ from sphinx.util import rpartition, force_decode
+ from sphinx.util.docstrings import prepare_docstring
+--- a/sage/src/sage_setup/docbuild/sphinxbuild.py
++++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
+@@ -22,6 +22,7 @@
+ # ****************************************************************************
+ 
+ import os, sys, re, sphinx
++import sphinx.cmd.build
+ 
+ # override the fancy multi-line formatting
+ def term_width_line(text):
+@@ -310,12 +311,12 @@
+     try:
+         sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
+         sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
+-        # Note that this call as of eraly 2018 leaks memory. So make sure that
++        # Note that this call as of early 2018 leaks memory. So make sure that
+         # you don't call runsphinx() several times in a row. (i.e., you want to
+         # fork() somewhere before this call.)
+         # We don't use subprocess here, as we don't want to re-initialize Sage
+         # for every docbuild as this takes a while.
+-        sphinx.cmdline.main(sys.argv[1:])
++        sphinx.cmd.build.main(sys.argv[1:])
+         sys.stderr.raise_errors()
+         sys.stdout.raise_errors()
+     finally:
+--- a/sage/src/sage_setup/docbuild/ext/inventory_builder.py
++++ b/sage/src/sage_setup/docbuild/ext/inventory_builder.py
+@@ -12,6 +12,7 @@
+ 
+ from six import iteritems, text_type
+ 
++import shutil
+ 
+ try:
+     from hashlib import md5
+@@ -107,6 +108,18 @@
+         """
+         raise RuntimeError("This function shouldn't be called in \"%s\" builder"%(self.name))
+ 
++    def cleanup(self):
++        """
++        Remove the '_static' directory.
++
++        This directory is unnecessary for the inventory build, but it
++        may be created by the graphviz extension. Its presence will
++        break the docbuild later on, so remove it.
++        """
++        if path.isdir(path.join(self.outdir, '_static')):
++            shutil.rmtree(path.join(self.outdir, '_static'))
++
++
+     copy_image_files = removed_method_error
+     copy_download_files = removed_method_error
+     copy_static_files = removed_method_error
