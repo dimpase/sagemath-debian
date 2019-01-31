@@ -1,4 +1,4 @@
-sagemath (8.6-4) UNRELEASED; urgency=medium
+sagemath (8.6-4) unstable; urgency=medium
 
   [ Ximin Luo ]
   * Add Rules-Requires-Root: no, avoid using fakeroot.
@@ -28,7 +28,7 @@ sagemath (8.6-4) UNRELEASED; urgency=medium
     - u0-version-sphinx-1.8.patch                #26451
   * Don't install sage-env-config. (Closes: #918990)
 
- -- Ximin Luo <infinity0@debian.org>  Thu, 24 Jan 2019 01:11:42 -0800
+ -- Tobias Hansen <thansen@debian.org>  Thu, 31 Jan 2019 15:35:11 +0000
 
 sagemath (8.6-3) unstable; urgency=medium
 
