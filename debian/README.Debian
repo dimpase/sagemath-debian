@@ -49,12 +49,10 @@ Running doctests
 
 One can run the tests using the installed sage packages. First, get the source
 code for this package (`apt-get source sagemath`), and make sure the Debian
-patches are applied. Then, from any directory:
+patches are applied. Then, from the 'sage' directory in the sources:
 
  *$ export -n SAGE_LOCAL SAGE_ROOT
- *$ SAGE_SRC=/path/to/sage/src \
-    SAGE_PKGS=/path/to/sage/build/pkgs \
-    sage -t -p --long --logfile=ptestlong.log --all
+ *$ SAGE_SRC=$(pwd)/src SAGE_PKGS=$(pwd)/build/pkgs sage -t -p --long --logfile=ptestlong.log --all
 
 It's recommended that you install *all* packages, including all documentation
 packages in all languages, when running these tests. Otherwise you will see
