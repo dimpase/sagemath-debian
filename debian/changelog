@@ -26,6 +26,7 @@ sagemath (8.6-4) UNRELEASED; urgency=medium
   * New patches:
     - u0-version-sphinx-1.8-dependency.patch     #26949
     - u0-version-sphinx-1.8.patch                #26451
+  * Don't install sage-env-config. (Closes: #918990)
 
  -- Ximin Luo <infinity0@debian.org>  Thu, 24 Jan 2019 01:11:42 -0800
 
