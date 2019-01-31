@@ -6,7 +6,7 @@ sagemath (8.6-4) UNRELEASED; urgency=medium
   [ Tobias Hansen ]
   * Install a desktop file to start the Jupyter notebook.
   * New (Build-)Depends:
-    - python-sphinx (>= 1.8)
+    - python-sphinx (>= 1.8) (Closes: #920989)
   * Remove (Build-)Depends:
     - gnutls-dev
     - libblas-dev
@@ -23,7 +23,7 @@ sagemath (8.6-4) UNRELEASED; urgency=medium
     - python-ply
     - python-tk
   * Adjust two trivial test fixes.
-  * New patch:
+  * New patches:
     - u0-version-sphinx-1.8-dependency.patch     #26949
     - u0-version-sphinx-1.8.patch                #26451
 
