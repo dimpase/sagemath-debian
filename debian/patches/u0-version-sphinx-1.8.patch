@@ -43,6 +43,15 @@ Subject: trac 26451: change 'app.builder.info' to 'logger.info'
  src/sage_setup/docbuild/ext/multidocs.py | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
+From 62b989d5ee1d9646db85ea56053cd22e9ffde5ab Mon Sep 17 00:00:00 2001
+From: "John H. Palmieri" <jhpalmieri64@gmail.com>
+Date: Fri, 1 Feb 2019 10:50:00 -0800
+Subject: trac 26451: fix doctest in src/doc/common/conf.py
+
+---
+ src/doc/common/conf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 --- a/sage/src/sage/misc/sphinxify.py
 +++ b/sage/src/sage/misc/sphinxify.py
 @@ -68,20 +68,20 @@
@@ -331,3 +340,14 @@ Subject: trac 26451: change 'app.builder.info' to 'logger.info'
      copy_image_files = removed_method_error
      copy_download_files = removed_method_error
      copy_static_files = removed_method_error
+--- a/sage/src/doc/common/conf.py
++++ b/sage/src/doc/common/conf.py
+@@ -614,7 +614,7 @@
+         sage: for line in open(thematic_index).readlines():  # optional - dochtml
+         ....:     if "padics" in line:
+         ....:         sys.stdout.write(line)
+-        <li><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage Reference Manual: p-Adics v...)"><span>Introduction to the -adics</span></a></li>
++        <li><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage Reference Manual: p-Adics v...)"><span>Introduction to the p-adics</span></a></li>
+     """
+     debug_inf(app, "???? Trying intersphinx for %s"%node['reftarget'])
+     builder = app.builder
