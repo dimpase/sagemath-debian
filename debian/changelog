@@ -5,6 +5,7 @@ sagemath (8.6-5) UNRELEASED; urgency=medium
       Makes threejs the default 3D viewer in the Jupyter and sagenb
       notebooks.
   * Update u0-version-sphinx-1.8.patch.
+  * Exclude all png's from dh_strip_nondeterminism.
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 01 Feb 2019 20:41:06 +0000
 
