@@ -6,6 +6,7 @@ u0-version-sphinx-1.8-dependency.patch     #26949
 u0-version-sphinx-1.8.patch                #26451
 
 # Patches that have open upstream tickets
+u1-pkgconfig-extra-link-flags.patch        #27205
 u1-fix-atrocious-symlink-logic.patch       #22444
 u1-looser-doctest-basename.patch           #22445
 u1-scripts-dir.patch                       #22731

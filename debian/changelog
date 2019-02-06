@@ -4,6 +4,7 @@ sagemath (8.6-5) UNRELEASED; urgency=medium
     - d0-threejs-default-in-notebooks.patch
       Makes threejs the default 3D viewer in the Jupyter and sagenb
       notebooks.
+    - u1-pkgconfig-extra-link-flags.patch (Closes: #919573)
   * Update u0-version-sphinx-1.8.patch.
   * Exclude all png's from dh_strip_nondeterminism.
 
