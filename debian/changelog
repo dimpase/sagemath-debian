@@ -1,3 +1,28 @@
+sagemath (8.6-6) UNRELEASED; urgency=medium
+
+  * Remove (Build-)Depends:
+    - python-flask
+    - python-flask-autoindex
+    - python-flask-babel
+    - python-flask-oldsessions
+    - python-flask-openid
+    - python-flask-silk
+  * Move packages from Depends to Recommends of sagemath (they all stay
+    Build-Depends):
+    - gap-online-help
+    - gap-atlasrep
+    - gap-primgrp
+    - gap-smallgrp
+    - gap-transgrp
+    - gap-table-of-marks
+    - maxima-sage-doc
+    - pari-doc
+    - python-sagenb-export
+    - r-cran-lattice
+    - singular-doc
+
+ -- Tobias Hansen <thansen@debian.org>  Tue, 19 Feb 2019 22:30:09 +0000
+
 sagemath (8.6-5) unstable; urgency=medium
 
   * New patches:

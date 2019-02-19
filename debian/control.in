@@ -14,6 +14,7 @@ Vcs-Browser: https://salsa.debian.org/science-team/sagemath
 Rules-Requires-Root: no
 Build-Depends:
  RUNTIME_DEPENDS
+ RUNTIME_RECOMMENDS
  JUPYTER_DEPENDS
  autoconf,
  ccache <pkg.sagemath.ccache>,
@@ -97,6 +98,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
  RUNTIME_DEPENDS
  sagemath-common (= ${source:Version})
 Recommends:
+ RUNTIME_RECOMMENDS
  sagemath-doc-en (= ${source:Version}),
  sagemath-jupyter (= ${source:Version}),
  sagetex,

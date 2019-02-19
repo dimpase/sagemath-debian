@@ -81,6 +81,7 @@ binary build clean install: debian/control
 debian/control: debian/control.in $(DOCS_CONTROL)
 	cat $^ > "$@"
 	sed -i -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' "$@"
+	sed -i -e '/RUNTIME_RECOMMENDS/ {' -e 'r debian/control.runtime-recommends' -e 'd' -e '}' "$@"
 	sed -i -e '/JUPYTER_DEPENDS/ {' -e 'r debian/control.jupyter-depends' -e 'd' -e '}' "$@"
 
 debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in $(REBUILD_RULES)
