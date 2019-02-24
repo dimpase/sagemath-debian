@@ -1,5 +1,6 @@
 sagemath (8.6-6) UNRELEASED; urgency=medium
 
+  * Update u0-version-sphinx-1.8.patch.
   * Remove (Build-)Depends:
     - python-flask
     - python-flask-autoindex
