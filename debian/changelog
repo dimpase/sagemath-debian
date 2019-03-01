@@ -23,6 +23,7 @@ sagemath (8.6-6) UNRELEASED; urgency=medium
     - python-sagenb-export
     - r-cran-lattice
     - singular-doc
+  * Fix 'sage --version'. (Closes: #923166)
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 19 Feb 2019 22:30:09 +0000
 

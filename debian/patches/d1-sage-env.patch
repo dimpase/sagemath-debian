@@ -7,20 +7,54 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -258,7 +258,12 @@
- # append -env to that). We redirect stdout to stderr, which is safer
- # for scripts.
- #####################################################################
--. "$0-env" >&2
+@@ -224,6 +224,27 @@
+ 
+ 
+ 
++
++
++
++#####################################################################
++# Source sage-env ($0 is the name of this "sage" script, so we can just
++# append -env to that). We redirect stdout to stderr, which is safer
++# for scripts.
++#####################################################################
 +if [ "\"$0\"" = "\"/usr/bin/sage\"" ]; then
 +    . "/usr/share/sagemath/bin/sage-env" >&2
 +else
 +    . "$0-env" >&2
 +fi
 +
- if [ $? -ne 0 ]; then
-     echo >&2 "Error setting environment variables by sourcing '$0-env';"
-     echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
++if [ $? -ne 0 ]; then
++    echo >&2 "Error setting environment variables by sourcing '$0-env';"
++    echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
++    exit 1
++fi
++
++
+ #####################################################################
+ # Report information about the Sage environment
+ #####################################################################
+@@ -253,19 +274,6 @@
+ fi
+ 
+ 
+-#####################################################################
+-# Source sage-env ($0 is the name of this "sage" script, so we can just
+-# append -env to that). We redirect stdout to stderr, which is safer
+-# for scripts.
+-#####################################################################
+-. "$0-env" >&2
+-if [ $? -ne 0 ]; then
+-    echo >&2 "Error setting environment variables by sourcing '$0-env';"
+-    echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
+-    exit 1
+-fi
+-
+-
+ # Prepare for running Sage, either interactively or non-interactively.
+ sage_setup() {
+     # Check that we're not in a source tarball which hasn't been built yet (#13561).
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -292,13 +292,13 @@
