@@ -1,0 +1,16 @@
+Description: Change mathjax_path
+ _static/mathjax are symlinks to /usr/share/javascript/mathjax created in debian/rules.
+Author: Tobias Hansen <thansen@debian.org>
+Forwarded: not-needed
+
+--- a/sage/src/doc/common/conf.py
++++ b/sage/src/doc/common/conf.py
+@@ -207,7 +207,7 @@
+             and os.environ.get('SAGE_DOC_MATHJAX', 'no') != 'False'):
+ 
+     extensions.append('sphinx.ext.mathjax')
+-    mathjax_path = 'MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js'
++    mathjax_path = 'mathjax/MathJax.js?config=TeX-AMS_HTML-full,../../mathjax_sage.js'
+ 
+     from sage.misc.latex_macros import sage_mathjax_macros
+     html_theme_options['mathjax_macros'] = sage_mathjax_macros()

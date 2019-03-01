@@ -140,6 +140,9 @@ override_dh_auto_build-arch:
 override_dh_auto_build-indep:
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 	$(run_build) doc
+	cd debian/build/usr/share/doc/sagemath/html && \
+	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
+	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
 endif
 
 override_dh_auto_install:

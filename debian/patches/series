@@ -27,6 +27,7 @@ d0-arb.patch
 d0-gsl-cblas.patch
 d0-libgap-path.patch
 d0-maxima.patch
+d0-mathjax.patch
 d0-nauty.patch
 d0-rubiks.patch
 d0-singular.patch

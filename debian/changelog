@@ -2,7 +2,10 @@ sagemath (8.6-6) UNRELEASED; urgency=medium
 
   * New patches:
     - u1-sphinx-1.8-doctest-transform.patch
+    - d0-mathjax.patch
   * Update u0-version-sphinx-1.8.patch.
+  * Create symlinks to system mathjax to fix math typesetting
+    in documentation.
   * Remove (Build-)Depends:
     - python-flask
     - python-flask-autoindex
