@@ -1,4 +1,4 @@
-sagemath (8.6-6) UNRELEASED; urgency=medium
+sagemath (8.6-6) unstable; urgency=medium
 
   * New patches:
     - u1-sphinx-1.8-doctest-transform.patch
@@ -22,7 +22,7 @@ sagemath (8.6-6) UNRELEASED; urgency=medium
     - singular-doc
   * Fix 'sage --version'. (Closes: #923166)
 
- -- Tobias Hansen <thansen@debian.org>  Tue, 19 Feb 2019 22:30:09 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sat, 02 Mar 2019 02:54:33 +0000
 
 sagemath (8.6-5) unstable; urgency=medium
 
