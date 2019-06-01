@@ -19,7 +19,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/tachyon.py
 +++ b/sage/src/sage/interfaces/tachyon.py
-@@ -173,7 +173,7 @@
+@@ -172,7 +172,7 @@
              sage: from sage.interfaces.tachyon import TachyonRT
              sage: t = TachyonRT()
              sage: t.usage(use_pager=False)

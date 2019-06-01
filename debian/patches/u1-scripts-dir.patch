@@ -5,14 +5,14 @@ Forwarded: TODO
 
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -120,6 +120,7 @@
- _add_variable_or_fallback('SAGE_ROOT',       None)
- _add_variable_or_fallback('SAGE_LOCAL',      None)
- _add_variable_or_fallback('SAGE_ETC',        opj('$SAGE_LOCAL', 'etc'))
-+_add_variable_or_fallback('SAGE_SCRIPTS_DIR',opj('$SAGE_LOCAL', 'bin'))
- _add_variable_or_fallback('SAGE_INC',        opj('$SAGE_LOCAL', 'include'))
- _add_variable_or_fallback('SAGE_SHARE',      opj('$SAGE_LOCAL', 'share'))
- 
+@@ -153,6 +153,7 @@
+ # bunch of sage directories and files
+ var('SAGE_LOCAL',          os.path.abspath(sys.prefix))
+ var('SAGE_ETC',            join(SAGE_LOCAL, 'etc'))
++var('SAGE_SCRIPTS_DIR',    join(SAGE_LOCAL, 'bin'))
+ var('SAGE_INC',            join(SAGE_LOCAL, 'include'))
+ var('SAGE_SHARE',          join(SAGE_LOCAL, 'share'))
+ var('SAGE_DOC',            join(SAGE_SHARE, 'doc', 'sage'))
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
 @@ -4,8 +4,8 @@
@@ -26,7 +26,7 @@ Forwarded: TODO
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
-@@ -1024,13 +1024,13 @@
+@@ -1032,13 +1032,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -144,7 +144,7 @@ Forwarded: TODO
                       or a DocTestDefaults object (possibly with some entries modified)
          - args -- a list of filenames to doctest
  
-@@ -1019,9 +1019,9 @@
+@@ -1023,9 +1023,9 @@
              sage: from sage.doctest.control import DocTestDefaults, DocTestController
              sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
              sage: print(DC._assemble_cmd())
@@ -156,7 +156,7 @@ Forwarded: TODO
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -1055,14 +1055,14 @@
+@@ -1059,14 +1059,14 @@
              sage: DD = DocTestDefaults(gdb=True)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)
@@ -168,8 +168,8 @@ Forwarded: TODO
              sage: DD = DocTestDefaults(valgrind=True, optional="all", timeout=172800)
              sage: DC = DocTestController(DD, ["hello_world.py"])
              sage: DC.run_val_gdb(testing=True)
--            exec valgrind --tool=memcheck --leak-resolution=high --leak-check=full --num-callers=25 --suppressions="$SAGE_LOCAL/lib/valgrind/sage.supp"  --log-file=".../valgrind/sage-memcheck.%p" python "$SAGE_LOCAL/bin/sage-runtests" --serial --timeout=172800 --optional=all hello_world.py
-+            exec valgrind --tool=memcheck --leak-resolution=high --leak-check=full --num-callers=25 --suppressions="$SAGE_LOCAL/lib/valgrind/sage.supp"  --log-file=".../valgrind/sage-memcheck.%p" python "$SAGE_SCRIPTS_DIR/sage-runtests" --serial --timeout=172800 --optional=all hello_world.py
+-            exec valgrind --tool=memcheck --leak-resolution=high --leak-check=full --num-callers=25 --suppressions="$SAGE_EXTCODE/valgrind/pyalloc.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage-additional.supp"  --log-file=".../valgrind/sage-memcheck.%p" python "$SAGE_LOCAL/bin/sage-runtests" --serial --timeout=172800 --optional=all hello_world.py
++            exec valgrind --tool=memcheck --leak-resolution=high --leak-check=full --num-callers=25 --suppressions="$SAGE_EXTCODE/valgrind/pyalloc.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage-additional.supp"  --log-file=".../valgrind/sage-memcheck.%p" python "$SAGE_SCRIPTS_DIR/bin/sage-runtests" --serial --timeout=172800 --optional=all hello_world.py
          """
          try:
              sage_cmd = self._assemble_cmd()

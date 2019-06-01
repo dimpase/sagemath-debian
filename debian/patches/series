@@ -1,12 +1,9 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
-u0-version-numpy-1.16-inline-fortran.patch #27061
 u0-version-ecl-16.1.3.patch                #22191
-u0-version-sphinx-1.8-dependency.patch     #26949
 u0-version-sphinx-1.8.patch                #26451
 
 # Patches that have open upstream tickets
-u1-sphinx-1.8-doctest-transform.patch
 u1-pkgconfig-extra-link-flags.patch        #27205
 u1-fix-atrocious-symlink-logic.patch       #22444
 u1-looser-doctest-basename.patch           #22445
@@ -18,7 +15,6 @@ u1-fix-trivial-test-cases.patch            #25094, #25096, #25102, the interpret
 # Patches that should be upstreamed (may need some work first)
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
-u2-libgap-symbol-loading.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version

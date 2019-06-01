@@ -1,67 +1,49 @@
 Bug: https://trac.sagemath.org/ticket/26451
 
-From e7aa0422d570a48265a1bf351e9237868fea31c4 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Julian=20R=C3=BCth?= <julian.rueth@fsfe.org>
-Date: Wed, 10 Oct 2018 09:54:11 +0200
-Subject: Call Sphinx() 1.8 constructor
-
-i.e., do not make srcdir and outdir the same as Sphinx does not allow that
-anymore.
----
- src/sage/misc/sphinxify.py | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
-
-From fd941c1288596aaa7206c64455ea2b6f10f52a2b Mon Sep 17 00:00:00 2001
+From 827ff8023fb8e0d12de3613738585a3940b514eb Mon Sep 17 00:00:00 2001
 From: "John H. Palmieri" <palmieri@math.washington.edu>
-Date: Sun, 20 Jan 2019 23:03:02 -0800
-Subject: trac 26451: Sphinx 1.8.3
+Date: Sun, 24 Mar 2019 16:48:48 -0700
+Subject: trac 26451: Call Sphinx() 1.8 constructor i.e., do not make srcdir
+ and outdir the same as Sphinx does not allow that anymore.
 
 ---
- build/pkgs/sphinx/checksums.ini             |  6 ++---
- build/pkgs/sphinx/package-version.txt       |  2 +-
- src/sage_setup/docbuild/__init__.py         |  2 +-
- src/sage_setup/docbuild/ext/multidocs.py    | 37 +++++++++++++++--------------
+ src/sage/misc/sphinxify.py                  | 18 +++++++++++-------
  src/sage_setup/docbuild/ext/sage_autodoc.py |  3 ++-
- src/sage_setup/docbuild/sphinxbuild.py      |  5 ++--
- 6 files changed, 29 insertions(+), 26 deletions(-)
+ src/sage_setup/docbuild/sphinxbuild.py      |  5 +++--
+ 3 files changed, 16 insertions(+), 10 deletions(-)
 
-From a3568fd6a76821e4903ea7693d6d8204a6b37a5e Mon Sep 17 00:00:00 2001
+From 22736d7d7e0f2ef96ddd08ef9fbb4544d8824b3d Mon Sep 17 00:00:00 2001
 From: "John H. Palmieri" <palmieri@math.washington.edu>
-Date: Sun, 20 Jan 2019 23:04:50 -0800
-Subject: trac 26461: inventory builder: remove _static directory upon cleanup
+Date: Sun, 24 Mar 2019 16:49:06 -0700
+Subject: trac 26451: change 'app.builder.info' to 'logger.info'. Also, emit
+ 'env-check-consistency' if not in the first pass building ref manual, to make
+ sure mathjax gets installed properly in the html files.
 
 ---
+ src/sage_setup/docbuild/ext/multidocs.py | 48 +++++++++++++++++---------------
+ 1 file changed, 26 insertions(+), 22 deletions(-)
+
+From 4cab150f22d17a8613d061f82888ae0dc28ad412 Mon Sep 17 00:00:00 2001
+From: "John H. Palmieri" <palmieri@math.washington.edu>
+Date: Sun, 24 Mar 2019 16:49:21 -0700
+Subject: trac 26451: inventory builder: remove _static directory upon cleanup,
+ and create SAGE_DOC/html/en/reference/_static at the start of the second pass
+ through the reference manual, if it doesn't exist already.
+
+---
+ src/sage_setup/docbuild/__init__.py              |  2 +-
  src/sage_setup/docbuild/ext/inventory_builder.py | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-From a3ceda240bb3e8bbb840d8635e5a62dc240d858a Mon Sep 17 00:00:00 2001
-From: "John H. Palmieri" <palmieri@math.washington.edu>
-Date: Tue, 29 Jan 2019 22:00:38 -0800
-Subject: trac 26451: change 'app.builder.info' to 'logger.info'
 
----
- src/sage_setup/docbuild/ext/multidocs.py | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-From 62b989d5ee1d9646db85ea56053cd22e9ffde5ab Mon Sep 17 00:00:00 2001
+From f1a08e3522b66afe96e8fdd389cf1114b1db1365 Mon Sep 17 00:00:00 2001
 From: "John H. Palmieri" <jhpalmieri64@gmail.com>
-Date: Fri, 1 Feb 2019 10:50:00 -0800
-Subject: trac 26451: fix doctest in src/doc/common/conf.py
+Date: Mon, 25 Mar 2019 11:13:54 -0700
+Subject: trac 26451: fix one doctest
 
 ---
  src/doc/common/conf.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
-
-From d566fc954df56bf61efab7eaf25d7ee87fee5f11 Mon Sep 17 00:00:00 2001
-From: "John H. Palmieri" <jhpalmieri64@gmail.com>
-Date: Tue, 19 Feb 2019 14:45:33 -0800
-Subject: trac 26451: emit 'env-check-consistency' if not first pass building
- ref manual, to make sure mathjax gets installed properly in the html files.
-
----
- src/sage_setup/docbuild/ext/multidocs.py | 3 +++
- 1 file changed, 3 insertions(+)
-
 --- a/sage/src/sage/misc/sphinxify.py
 +++ b/sage/src/sage/misc/sphinxify.py
 @@ -68,20 +68,20 @@
@@ -118,24 +100,43 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
  
      return output
  
---- a/sage/src/sage_setup/docbuild/__init__.py
-+++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -47,7 +47,6 @@
+--- a/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
++++ b/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
+@@ -40,7 +40,8 @@
+ from sphinx.ext.autodoc.importer import mock, import_object, get_object_members
+ from sphinx.ext.autodoc.inspector import format_annotation, formatargspec
+ from sphinx.locale import _, __
+-from sphinx.pycode import ModuleAnalyzer, PycodeError
++from sphinx.pycode import ModuleAnalyzer
++from sphinx.errors import ExtensionError, PycodeError
+ from sphinx.util import logging
+ from sphinx.util import rpartition, force_decode
+ from sphinx.util.docstrings import prepare_docstring
+--- a/sage/src/sage_setup/docbuild/sphinxbuild.py
++++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
+@@ -22,6 +22,7 @@
+ # ****************************************************************************
  
- logger = logging.getLogger(__name__)
+ import os, sys, re, sphinx
++import sphinx.cmd.build
  
--import sphinx.cmdline
- import sphinx.util.console
- import sphinx.ext.intersphinx
- 
-@@ -334,6 +333,7 @@
-             getattr(get_builder(document), 'inventory')(*args, **kwds)
- 
-         logger.warning("Building reference manual, second pass.\n")
-+        sage_makedirs(os.path.join(SAGE_DOC, "html", "en", "reference", "_static"))
-         for document in refs:
-             getattr(get_builder(document), name)(*args, **kwds)
- 
+ # override the fancy multi-line formatting
+ def term_width_line(text):
+@@ -304,12 +305,12 @@
+     try:
+         sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
+         sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
+-        # Note that this call as of eraly 2018 leaks memory. So make sure that
++        # Note that this call as of early 2018 leaks memory. So make sure that
+         # you don't call runsphinx() several times in a row. (i.e., you want to
+         # fork() somewhere before this call.)
+         # We don't use subprocess here, as we don't want to re-initialize Sage
+         # for every docbuild as this takes a while.
+-        sphinx.cmdline.main(sys.argv[1:])
++        sphinx.cmd.build.main(sys.argv[1:])
+         sys.stderr.raise_errors()
+         sys.stdout.raise_errors()
+     finally:
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
 @@ -32,6 +32,7 @@
@@ -153,7 +154,7 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
 -    app.info(bold('Merging environment/index files...'))
 +    logger.info(bold('Merging environment/index files...'))
      for curdoc in app.env.config.multidocs_subdoc_list:
--        app.info("    %s:"%curdoc, nonl=1)
+-        app.info("    %s:" % curdoc, nonl=1)
 +        logger.info("    %s:"%curdoc, nonl=1)
          docenv = get_env(app, curdoc)
          if docenv is not None:
@@ -228,7 +229,7 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
          return None
      indexer.load(f, sphinx.search.js_index)
      f.close()
-@@ -238,7 +239,7 @@
+@@ -240,7 +241,7 @@
      outdir = citation_dir(app)
      with atomic_write(os.path.join(outdir, CITE_FILENAME), binary=True) as f:
          cPickle.dump(citations, f)
@@ -237,7 +238,7 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
  
  
  def fetch_citation(app, env):
-@@ -246,13 +247,13 @@
+@@ -248,13 +249,13 @@
      Fetch the global citation index from the refman to allow for cross
      references.
      """
@@ -253,7 +254,7 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
      cite = env.domaindata["std"]["citations"]
      for ind, (path, tag, lineno) in six.iteritems(cache):
          if ind not in cite: # don't override local citation
-@@ -265,18 +266,18 @@
+@@ -267,18 +268,18 @@
      doc itself.
      """
      if app.config.multidocs_is_master:
@@ -275,7 +276,7 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
          app.connect('html-page-context', fix_path_html)
          if not app.config.multidoc_first_pass:
              app.connect('env-updated', fetch_citation)
-@@ -292,7 +293,7 @@
+@@ -294,7 +295,7 @@
                      def copy_static_files(self):
                      [...]
              """
@@ -284,52 +285,34 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
              static_dir = os.path.join(app.builder.outdir, '_static')
              master_static_dir = os.path.join('..', '_static')
              if os.path.lexists(static_dir):
-@@ -306,6 +307,8 @@
+@@ -308,6 +309,9 @@
  
      if app.config.multidoc_first_pass == 1:
          app.config.intersphinx_mapping = {}
 +    else:
 +        app.emit('env-check-consistency', app.env)
++
  
  
  def setup(app):
---- a/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
-+++ b/sage/src/sage_setup/docbuild/ext/sage_autodoc.py
-@@ -40,7 +40,8 @@
- from sphinx.ext.autodoc.importer import mock, import_object, get_object_members
- from sphinx.ext.autodoc.inspector import format_annotation, formatargspec
- from sphinx.locale import _, __
--from sphinx.pycode import ModuleAnalyzer, PycodeError
-+from sphinx.pycode import ModuleAnalyzer
-+from sphinx.errors import ExtensionError, PycodeError
- from sphinx.util import logging
- from sphinx.util import rpartition, force_decode
- from sphinx.util.docstrings import prepare_docstring
---- a/sage/src/sage_setup/docbuild/sphinxbuild.py
-+++ b/sage/src/sage_setup/docbuild/sphinxbuild.py
-@@ -22,6 +22,7 @@
- # ****************************************************************************
+--- a/sage/src/sage_setup/docbuild/__init__.py
++++ b/sage/src/sage_setup/docbuild/__init__.py
+@@ -53,7 +53,6 @@
  
- import os, sys, re, sphinx
-+import sphinx.cmd.build
+ logger = logging.getLogger(__name__)
  
- # override the fancy multi-line formatting
- def term_width_line(text):
-@@ -310,12 +311,12 @@
-     try:
-         sys.stdout = SageSphinxLogger(sys.stdout, os.path.basename(output_dir))
-         sys.stderr = SageSphinxLogger(sys.stderr, os.path.basename(output_dir))
--        # Note that this call as of eraly 2018 leaks memory. So make sure that
-+        # Note that this call as of early 2018 leaks memory. So make sure that
-         # you don't call runsphinx() several times in a row. (i.e., you want to
-         # fork() somewhere before this call.)
-         # We don't use subprocess here, as we don't want to re-initialize Sage
-         # for every docbuild as this takes a while.
--        sphinx.cmdline.main(sys.argv[1:])
-+        sphinx.cmd.build.main(sys.argv[1:])
-         sys.stderr.raise_errors()
-         sys.stdout.raise_errors()
-     finally:
+-import sphinx.cmdline
+ import sphinx.util.console
+ import sphinx.ext.intersphinx
+ 
+@@ -354,6 +353,7 @@
+             getattr(get_builder(document), 'inventory')(*args, **kwds)
+ 
+         logger.warning("Building reference manual, second pass.\n")
++        sage_makedirs(os.path.join(SAGE_DOC, "html", "en", "reference", "_static"))
+         for document in refs:
+             getattr(get_builder(document), name)(*args, **kwds)
+ 
 --- a/sage/src/sage_setup/docbuild/ext/inventory_builder.py
 +++ b/sage/src/sage_setup/docbuild/ext/inventory_builder.py
 @@ -12,6 +12,7 @@
@@ -361,12 +344,12 @@ Subject: trac 26451: emit 'env-check-consistency' if not first pass building
      copy_static_files = removed_method_error
 --- a/sage/src/doc/common/conf.py
 +++ b/sage/src/doc/common/conf.py
-@@ -614,7 +614,7 @@
+@@ -669,7 +669,7 @@
          sage: for line in open(thematic_index).readlines():  # optional - dochtml
          ....:     if "padics" in line:
-         ....:         sys.stdout.write(line)
+         ....:         _ = sys.stdout.write(line)
 -        <li><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage Reference Manual: p-Adics v...)"><span>Introduction to the -adics</span></a></li>
 +        <li><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage Reference Manual: p-Adics v...)"><span>Introduction to the p-adics</span></a></li>
      """
-     debug_inf(app, "???? Trying intersphinx for %s"%node['reftarget'])
+     debug_inf(app, "???? Trying intersphinx for %s" % node['reftarget'])
      builder = app.builder

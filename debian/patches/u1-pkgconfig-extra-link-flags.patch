@@ -8,7 +8,7 @@ Bug-Debian: https://bugs.debian.org/919573
 
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -288,22 +288,27 @@
+@@ -363,22 +363,27 @@
          ['FFLASFFPACK_CFLAGS',
           'FFLASFFPACK_INCDIR',
           'FFLASFFPACK_LIBDIR',
@@ -36,7 +36,7 @@ Bug-Debian: https://bugs.debian.org/919573
           'SINGULAR_LIBRARIES']
      """
      import pkgconfig
-@@ -318,6 +323,7 @@
+@@ -393,6 +398,7 @@
          # passed in CFLAGS
          aliases[var + "INCDIR"] = pc['include_dirs']
          aliases[var + "LIBDIR"] = pc['library_dirs']
