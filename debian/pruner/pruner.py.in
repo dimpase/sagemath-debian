@@ -168,6 +168,7 @@ python_modules = [
     'fpylll',
     'functools32',
     'future',
+    'gmpy2',
     'imagesize',
     'ipykernel',
     'ipython_genutils',
@@ -180,6 +181,7 @@ python_modules = [
     'nbconvert',
     'nbformat',
     'networkx',
+    'nose',
     'notebook',
     'numpy',
     'packaging',
@@ -220,6 +222,7 @@ python_packages_to_modules = {
     'enum34': 'enum',
     'pathpy': 'path',
     'pillow': 'PIL',
+    'pplpy': 'ppl',
     'python_openid': 'openid',
     'pyzmq': 'zmq',
     'zope_interface': 'zope/interface'
@@ -229,11 +232,13 @@ unneeded_packages = {
     'backports_functools_lru_cache',
     'backports_ssl_match_hostname',
     'bleach',
+    'defusedxml', # dependency of nbconvert
     'html5lib',
     'ipaddress',
     'jsonschema',
     'kiwisolver', # dependency of matplotlib
     'libatomic_ops',
+    'libffi', # dependency of Python 3
     'pandocfilters',
     'prometheus_client',
     'pycygwin',

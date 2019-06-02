@@ -1,6 +1,12 @@
 sagemath (8.7-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * New (Build-)Depends:
+    - libec-dev (>= 20190226)
+    - python-cypari2 (>= 2.1)
+    - python-gmpy2
+    - python-nose
+    - python-ppl
   * Remove patches (applied upstream):
     - u0-version-numpy-1.16-inline-fortran.patch #27061
     - u0-version-sphinx-1.8-dependency.patch     #26949
