@@ -54,7 +54,7 @@ Subject: Fix doctest in cpython/debug.pyx
 +      dpi: IntSlider(value=100, min=10, max=300, step=10, description=u'dpi')
      <h2>Polar Prime Spiral</h2>           <div style="white-space: normal;">          For more information about the factors in the spiral, visit           <a href="http://www.dcs.gla.ac.uk/~jhw/spirals/index.html" target="_blank">          Number Spirals by John Williamson</a>.</div>
      <script type="math/tex">n = 89</script>
-     Pink Curve:  <script type="math/tex">n^2 + 8.0</script>
+     Pink Curve:  <script type="math/tex">n^2 + 8</script>
 @@ -53,27 +53,27 @@
      sage: test(interacts.calculus.taylor_polynomial)
      Interactive function <function taylor_polynomial at ...> with 3 widgets
@@ -121,20 +121,7 @@ Subject: Fix doctest in cpython/debug.pyx
      <h2>The Solutions of the Quadratic Equation</h2>
      <script type="math/tex">x^2 + x - 2 = 0</script>
      <script type="math/tex">Ax^2 + Bx + C = 0</script>
-@@ -105,9 +105,9 @@
- 
-     sage: test(interacts.calculus.trigonometric_properties_triangle)
-     Interactive function <function trigonometric_properties_triangle at ...> with 3 widgets
--      a0: IntSlider(value=30, description=u'A', max=360)
--      a1: IntSlider(value=180, description=u'B', max=360)
--      a2: IntSlider(value=300, description=u'C', max=360)
-+      a0: IntSlider(value=30, min=0, max=360, step=1, description=u'A')
-+      a1: IntSlider(value=180, min=0, max=360, step=1, description=u'B')
-+      a2: IntSlider(value=300, min=0, max=360, step=1, description=u'C')
-     <h2>Trigonometric Properties of a Triangle</h2>
-     <script type="math/tex">\angle A = {60.0}^{\circ},</script> <script type="math/tex">\angle B = {45.0}^{\circ},</script> <script type="math/tex">\angle C = {75.0}^{\circ}</script>
-     <script type="math/tex">AB = 1.93185165258,</script>  <script type="math/tex">BC = 1.73205080757,</script>  <script type="math/tex">CA = 1.41421356237</script>
-@@ -116,10 +116,10 @@
+@@ -106,10 +106,10 @@
      sage: test(interacts.calculus.secant_method)
      Interactive function <function secant_method at ...> with 5 widgets
        title: HTMLText(value=u'<h2>Secant method for numerical root finding</h2>')
@@ -149,7 +136,7 @@ Subject: Fix doctest in cpython/debug.pyx
      <script type="math/tex">\text{Precision }h = 10^{-d}=10^{-3}=0.00100</script>
      <script type="math/tex">{c = }1.4144038097709382</script>
      <script type="math/tex">{f(c) = }0.0005381370945443109</script>
-@@ -128,11 +128,11 @@
+@@ -118,11 +118,11 @@
      sage: test(interacts.calculus.newton_method)
      Interactive function <function newton_method at ...> with 7 widgets
        title: HTMLText(value=u'<h2>Newton method</h2>')
@@ -166,7 +153,7 @@ Subject: Fix doctest in cpython/debug.pyx
        list_steps: Checkbox(value=False, description=u'List steps')
      <script type="math/tex">\text{Precision } 2h = 0.001</script>
      <script type="math/tex">{c = }1.4142141576301823</script>
-@@ -142,12 +142,12 @@
+@@ -132,12 +132,12 @@
      sage: test(interacts.calculus.trapezoid_integration)
      Interactive function <function trapezoid_integration at ...> with 7 widgets
        title: HTMLText(value=u'<h2>Trapezoid integration</h2>')
@@ -185,7 +172,7 @@ Subject: Fix doctest in cpython/debug.pyx
      Function <script type="math/tex">f(x)=x^{2} - 5 \, x + 10</script>
      Integral value to seven decimal places is: <script type="math/tex">\displaystyle\int_{0.00}^{8.00} {f(x) \, \mathrm{d}x} = 90.666667</script>
      <BLANKLINE>
-@@ -165,12 +165,12 @@
+@@ -155,12 +155,12 @@
      sage: test(interacts.calculus.simpson_integration)
      Interactive function <function simpson_integration at ...> with 7 widgets
        title: HTMLText(value=u'<h2>Simpson integration</h2>')
@@ -204,7 +191,7 @@ Subject: Fix doctest in cpython/debug.pyx
      Function <script type="math/tex">f(x)=x \sin\left(x\right) + x + 1</script>
      Integral value to seven decimal places is: <script type="math/tex">\displaystyle\int_{0.00}^{10.00} {f(x) \, \mathrm{d}x} = 67.846694</script>
      <BLANKLINE>
-@@ -188,10 +188,10 @@
+@@ -178,10 +178,10 @@
      sage: test(interacts.calculus.bisection_method)
      Interactive function <function bisection_method at ...> with 5 widgets
        title: HTMLText(value=u'<h2>Bisection method</h2>')
@@ -219,7 +206,7 @@ Subject: Fix doctest in cpython/debug.pyx
      <script type="math/tex">\text{Precision }h = 10^{-d}=10^{-3}=0.00100</script>
      <script type="math/tex">{c = }1.4140625</script>
      <script type="math/tex">{f(c) = }-0.00042724609375</script>
-@@ -200,12 +200,12 @@
+@@ -190,12 +190,12 @@
      sage: test(interacts.calculus.riemann_sum)
      Manual interactive function <function riemann_sum at ...> with 9 widgets
        title: HTMLText(value=u'<h2>Riemann integral with random sampling</h2>')
@@ -237,7 +224,7 @@ Subject: Fix doctest in cpython/debug.pyx
        hr2: HTMLText(value=u'<hr>')
        list_table: Checkbox(value=False, description=u'List table')
      <small>Adjust your data and click Update button. Click repeatedly for another random values.</small>
-@@ -218,10 +218,10 @@
+@@ -208,10 +208,10 @@
      Interactive function <function function_tool at ...> with 7 widgets
        f: EvalText(value=u'sin(x)', description=u'f')
        g: EvalText(value=u'cos(x)', description=u'g')
@@ -251,7 +238,7 @@ Subject: Fix doctest in cpython/debug.pyx
        do_plot: Checkbox(value=True, description=u'Draw Plots')
      <center><font color="red"><script type="math/tex">f = \sin\left(x\right)</script></font></center>
      <center><font color="green"><script type="math/tex">g = \cos\left(x\right)</script></font></center>
-@@ -229,46 +229,46 @@
+@@ -219,46 +219,46 @@
  
      sage: test(interacts.fractals.mandelbrot)
      Interactive function <function mandelbrot at ...> with 6 widgets
@@ -318,9 +305,9 @@ Subject: Fix doctest in cpython/debug.pyx
 +      a1: IntSlider(value=180, min=0, max=360, step=1, description=u'B')
 +      a2: IntSlider(value=300, min=0, max=360, step=1, description=u'C')
      <h2>Trigonometric Properties of a Triangle</h2>
-     <script type="math/tex">\angle A = {60.0}^{\circ},</script> <script type="math/tex">\angle B = {45.0}^{\circ},</script> <script type="math/tex">\angle C = {75.0}^{\circ}</script>
-     <script type="math/tex">AB = 1.93185165258,</script>  <script type="math/tex">BC = 1.73205080757,</script>  <script type="math/tex">CA = 1.41421356237</script>
-@@ -277,9 +277,9 @@
+     <script type="math/tex">\angle A = {60.000}^{\circ},</script> <script type="math/tex">\angle B = {45.000}^{\circ},</script> <script type="math/tex">\angle C = {75.000}^{\circ}</script>
+     <script type="math/tex">AB = 1.931852</script>, <script type="math/tex">BC = 1.732051</script>, <script type="math/tex">CA = 1.414214</script>
+@@ -267,9 +267,9 @@
      sage: test(interacts.geometry.special_points)
      Interactive function <function special_points at ...> with 10 widgets
        title: HTMLText(value=u'<h2>Special points in triangle</h2>')
@@ -333,7 +320,7 @@ Subject: Fix doctest in cpython/debug.pyx
        show_median: Checkbox(value=False, description=u'Medians')
        show_pb: Checkbox(value=False, description=u'Perpendicular Bisectors')
        show_alt: Checkbox(value=False, description=u'Altitudes')
-@@ -289,8 +289,7 @@
+@@ -279,8 +279,7 @@
  
      sage: test(interacts.statistics.coin)
      Interactive function <function coin at ...> with 2 widgets
@@ -384,7 +371,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      def __init__(*args, **kwds):
          """
-@@ -189,15 +189,15 @@
+@@ -189,17 +189,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_tuple( (0, 10) )
@@ -396,16 +383,19 @@ Subject: Fix doctest in cpython/debug.pyx
              sage: sage_interactive.widget_from_tuple( (3, (0, 10)) )
 -            IntSlider(value=3, max=10)
 +            IntSlider(value=3, min=0, max=10, step=1)
-             sage: sage_interactive.widget_from_tuple( (2, dict(one=1, two=2, three=3)) )
+             sage: sage_interactive.widget_from_tuple((2, dict(one=1, two=2, three=3))) # py2
 -            Dropdown(index=1, options={'three': 3, 'two': 2, 'one': 1}, value=2)
 +            Dropdown(value=2, options={'three': 3, 'two': 2, 'one': 1})
+             sage: sage_interactive.widget_from_tuple((2, dict(one=1, two=2, three=3))) # py3
+-            Dropdown(index=1, options={'one': 1, 'two': 2, 'three': 3}, value=2)
++            Dropdown(value=2, options={'one': 1, 'two': 2, 'three': 3})
              sage: sage_interactive.widget_from_tuple( (sqrt(2), pi) )
 -            FloatSlider(value=2.277903107981444, max=3.141592653589793, min=1.4142135623730951)
 +            FloatSlider(value=2.277903107981444, min=1.4142135623730951, max=3.141592653589793, step=0.1)
          """
          # Support (description, abbrev)
          if len(abbrev) == 2 and isinstance(abbrev[0], str):
-@@ -231,17 +231,17 @@
+@@ -233,17 +233,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_iterable([1..5])
@@ -439,7 +429,7 @@ Subject: Fix doctest in cpython/debug.pyx
      sage: setup_test_comm()
  """
  
-@@ -131,7 +131,7 @@
+@@ -132,7 +132,7 @@
          sage: class TransformToggleButtons(TransformWidget, ToggleButtons): pass
          sage: w = TransformToggleButtons(options=["pi", "e"], transform=lambda x: x+x)
          sage: w
@@ -448,7 +438,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          'pipi'
      """
-@@ -201,7 +201,7 @@
+@@ -202,7 +202,7 @@
          sage: class EvalToggleButtons(EvalWidget, ToggleButtons): pass
          sage: w = EvalToggleButtons(options=["pi", "e"], transform=lambda x: x+x)
          sage: w
@@ -457,7 +447,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2*pi
      """
-@@ -216,7 +216,7 @@
+@@ -217,7 +217,7 @@
              sage: class EvalDropdown(EvalWidget, Dropdown): pass
              sage: w = EvalDropdown(options=["the_answer"], transform=RR)
              sage: w
@@ -466,7 +456,7 @@ Subject: Fix doctest in cpython/debug.pyx
              sage: the_answer = 42
              sage: w.get_value()
              42
-@@ -236,7 +236,7 @@
+@@ -237,7 +237,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformIntSlider
          sage: w = TransformIntSlider(min=0, max=100, value=7, transform=lambda x: x^2)
          sage: w
@@ -475,7 +465,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          49
      """
-@@ -253,7 +253,7 @@
+@@ -254,7 +254,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformFloatSlider
          sage: w = TransformFloatSlider(min=0, max=100, value=7, transform=lambda x: sqrt(x))
          sage: w
@@ -484,7 +474,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2.6457513110645907
      """
-@@ -270,7 +270,7 @@
+@@ -271,7 +271,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformIntRangeSlider
          sage: w = TransformIntRangeSlider(min=0, max=100, value=(7,9), transform=lambda x: x[1]-x[0])
          sage: w
@@ -493,7 +483,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2
      """
-@@ -287,7 +287,7 @@
+@@ -288,7 +288,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformFloatRangeSlider
          sage: w = TransformFloatRangeSlider(min=0, max=100, value=(7,9), transform=lambda x: x[1]-x[0])
          sage: w
@@ -502,7 +492,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2.0
      """
-@@ -364,7 +364,7 @@
+@@ -365,7 +365,7 @@
  
  class SageColorPicker(ColorPicker):
      """
@@ -511,7 +501,7 @@ Subject: Fix doctest in cpython/debug.pyx
  
      EXAMPLES::
  
-@@ -427,7 +427,7 @@
+@@ -428,7 +428,7 @@
              sage: w = Grid(2, 2, lambda i,j: EvalText(str(j+4*i)),
              ....:         description="2x2 matrix", transform=matrix)
              sage: w
@@ -670,7 +660,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: [parent(x) for x in w.get_interact_value()]
          [Real Double Field, Real Double Field]
  
-@@ -442,31 +442,31 @@
+@@ -442,35 +442,35 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import selector
          sage: selector(range(5), label="choose one")
@@ -694,22 +684,28 @@ Subject: Fix doctest in cpython/debug.pyx
      is not ordered, it is better to use an :class:`OrderedDict`::
  
          sage: from collections import OrderedDict
-         sage: selector(OrderedDict(one=1, two=2, three=3))
+         sage: selector(OrderedDict(one=1, two=2, three=3))  # py2
 -        Dropdown(options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]), value=1)
 +        Dropdown(value=1, options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]))
-         sage: selector(OrderedDict(one=1, two=2, three=3), buttons=True)
+         sage: selector(OrderedDict(one=1, two=2, three=3))  # py3
+-        Dropdown(options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]), value=1)
++        Dropdown(value=1, options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]))
+         sage: selector(OrderedDict(one=1, two=2, three=3), buttons=True) # py2
 -        ToggleButtons(options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]), value=1)
 +        ToggleButtons(value=1, options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]))
+         sage: selector(OrderedDict(one=1, two=2, three=3), buttons=True) # py3
+-        ToggleButtons(options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]), value=1)
++        ToggleButtons(value=1, options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]))
  
      The values can be any kind of object:
  
          sage: selector([sin(x^2), GF(29), EllipticCurve('37a1')])
 -        Dropdown(options=(sin(x^2), Finite Field of size 29, Elliptic Curve defined by y^2 + y = x^3 - x over Rational Field), value=sin(x^2))
-+        Dropdown(value=sin(x^2), options=[sin(x^2), Finite Field of size 29, Elliptic Curve defined by y^2 + y = x^3 - x over Rational Field])
++        Dropdown(value=sin(x^2), options=(sin(x^2), Finite Field of size 29, Elliptic Curve defined by y^2 + y = x^3 - x over Rational Field))
      """
      if isinstance(values, Sequence):
          values = list(values)
-@@ -519,14 +519,14 @@
+@@ -523,14 +523,14 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import input_grid
          sage: input_grid(2, 2, default=42, label="answers")
@@ -729,7 +725,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
 --- a/sage/src/sage/cpython/debug.pyx
 +++ b/sage/src/sage/cpython/debug.pyx
-@@ -102,7 +102,7 @@
+@@ -112,7 +112,7 @@
            returning log (<class 'sage.interfaces.expect.FunctionElement'>)
          sage: from ipywidgets import IntSlider
          sage: _ = getattr_debug(IntSlider(), "value")
