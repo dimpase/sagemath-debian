@@ -72,7 +72,7 @@
  python-pygments,
  python-rpy2,
  python-sagenb (>= 1.0.1+ds1-5),
- python-scipy (>= 0.19.1),
+ python-scipy (>= 1.2),
  python-setuptools,
  python-setuptools-scm,
  python-simplegeneric,
