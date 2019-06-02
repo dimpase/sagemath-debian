@@ -1,6 +1,6 @@
 --- a/sage/src/sage/graphs/graph_generators.py
 +++ b/sage/src/sage/graphs/graph_generators.py
-@@ -905,14 +905,14 @@
+@@ -917,14 +917,14 @@
  
              sage: gen = graphs.nauty_geng("4", debug=True)
              sage: print(next(gen))
@@ -19,9 +19,9 @@
                                **enc_kwargs)
 --- a/sage/src/sage/graphs/digraph_generators.py
 +++ b/sage/src/sage/graphs/digraph_generators.py
-@@ -545,7 +545,7 @@
+@@ -554,7 +554,7 @@
  
-         nauty_input +=  " "+str(n) +" "
+         nauty_input +=  " " + str(n) + " "
  
 -        sp = subprocess.Popen("gentourng {0}".format(nauty_input), shell=True,
 +        sp = subprocess.Popen("nauty-gentourng {0}".format(nauty_input), shell=True,

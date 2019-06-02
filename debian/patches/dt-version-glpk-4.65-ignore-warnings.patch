@@ -8,7 +8,7 @@ Bug-Debian: https://bugs.debian.org/891465
 
 --- a/sage/src/sage/doctest/parsing.py
 +++ b/sage/src/sage/doctest/parsing.py
-@@ -40,6 +40,7 @@
+@@ -39,6 +39,7 @@
  
  float_regex = re.compile(r'\s*([+-]?\s*((\d*\.?\d+)|(\d+\.?))([eE][+-]?\d+)?)')
  optional_regex = re.compile(r'(py2|py3|long time|not implemented|not tested|known bug)|([^ a-z]\s*optional\s*[:-]*((\s|\w)*))')
@@ -16,7 +16,7 @@ Bug-Debian: https://bugs.debian.org/891465
  find_sage_prompt = re.compile(r"^(\s*)sage: ", re.M)
  find_sage_continuation = re.compile(r"^(\s*)\.\.\.\.:", re.M)
  find_python_continuation = re.compile(r"^(\s*)\.\.\.([^\.])", re.M)
-@@ -1061,6 +1062,7 @@
+@@ -1065,6 +1066,7 @@
              <type 'float'>
          """
          got = self.human_readable_escape_sequences(got)

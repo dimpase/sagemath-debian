@@ -28,11 +28,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  [parsers]
 --- a/sage/src/doc/en/introspect/conf.py
 +++ b/sage/src/doc/en/introspect/conf.py
-@@ -3,8 +3,11 @@
- # See sagenb.notebook.cell.Cell.set_introspect_html() for details.
+@@ -4,8 +4,11 @@
  
  import sys, os
--sys.path.append(os.environ['SAGE_DOC_SRC'])
+ from sage.env import SAGE_DOC_SRC
+-sys.path.append(SAGE_DOC_SRC)
 -from common.conf import *
 +if 'SAGE_DOC_SRC' in os.environ: sys.path.append(os.environ['SAGE_DOC_SRC'])
 +try:

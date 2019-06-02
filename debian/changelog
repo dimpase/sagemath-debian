@@ -8,6 +8,10 @@ sagemath (8.7-1) UNRELEASED; urgency=medium
     - u2-libgap-symbol-loading.patch             #26930
   * Patches with non-trivial modifications:
     - u0-version-sphinx-1.8.patch                #26451
+    - d0-singular.patch
+    - d0-paths.patch
+    - d1-install-paths.patch
+    - d1-sage-env.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 01 Jun 2019 17:34:19 +0000
 

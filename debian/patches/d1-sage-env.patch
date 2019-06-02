@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -224,6 +224,27 @@
+@@ -227,6 +227,27 @@
  
  
  
@@ -35,7 +35,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  #####################################################################
  # Report information about the Sage environment
  #####################################################################
-@@ -253,19 +274,6 @@
+@@ -256,19 +277,6 @@
  fi
  
  
@@ -151,7 +151,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  . "$SAGE_SRC"/bin/sage-version.sh
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -250,7 +250,7 @@
+@@ -248,7 +248,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:
@@ -195,7 +195,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -421,7 +421,7 @@
+@@ -441,7 +441,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example
@@ -206,44 +206,36 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
              # Walk through all of the files in the sage_directory
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -21,6 +21,7 @@
- import os
- import socket
- import site
-+import sysconfig
- from . import version
+@@ -171,20 +171,20 @@
  
- opj = os.path.join
-@@ -161,20 +162,20 @@
- _add_variable_or_fallback('SAGE_IMPORTALL',          'yes')
+ # installation directories for various packages
+ var('SAGE_EXTCODE',                  join(SAGE_SHARE, 'sage', 'ext'))
+-var('CONWAY_POLYNOMIALS_DATA_DIR',   join(SAGE_SHARE, 'conway_polynomials'))
+-var('GRAPHS_DATA_DIR',               join(SAGE_SHARE, 'graphs'))
+-var('ELLCURVE_DATA_DIR',             join(SAGE_SHARE, 'ellcurves'))
+-var('POLYTOPE_DATA_DIR',             join(SAGE_SHARE, 'reflexive_polytopes'))
+-var('GAP_ROOT_DIR',                  join(SAGE_SHARE, 'gap'))
+-var('THEBE_DIR',                     join(SAGE_SHARE, 'thebe'))
+-var('COMBINATORIAL_DESIGN_DATA_DIR', join(SAGE_SHARE, 'combinatorial_designs'))
+-var('CREMONA_MINI_DATA_DIR',         join(SAGE_SHARE, 'cremona'))
++var('CONWAY_POLYNOMIALS_DATA_DIR',   '/usr/share/sagemath/conway_polynomials')
++var('GRAPHS_DATA_DIR',               '/usr/share/sagemath/graphs')
++var('ELLCURVE_DATA_DIR',             '/usr/share/sagemath/ellcurves')
++var('POLYTOPE_DATA_DIR',             '/usr/share/sagemath/ellcurves')
++var('GAP_ROOT_DIR',                  '/usr/share/gap')
++var('THEBE_DIR',                     '/usr/share/thebe')
++var('COMBINATORIAL_DESIGN_DATA_DIR', '/usr/share/sagemath/combinatorial_designs')
++var('CREMONA_MINI_DATA_DIR',         '/usr/share/sagemath/cremona')
+ var('CREMONA_LARGE_DATA_DIR',        join(SAGE_SHARE, 'cremona'))
+-var('JMOL_DIR',                      join(SAGE_SHARE, 'jmol'))
++var('JMOL_DIR',                      '/usr/share/jmol')
+ var('JSMOL_DIR',                     join(SAGE_SHARE, 'jsmol'))
+-var('MATHJAX_DIR',                   join(SAGE_SHARE, 'mathjax'))
+-var('THREEJS_DIR',                   join(SAGE_SHARE, 'threejs'))
+-var('MAXIMA_FAS')
++var('MATHJAX_DIR',                   '/usr/share/javascript/mathjax')
++var('THREEJS_DIR',                   '/usr/share/javascript/three')
++var('MAXIMA_FAS',                    '/usr/lib/ecl/maxima.fas')
  
- # additional packages locations
--_add_variable_or_fallback('CONWAY_POLYNOMIALS_DATA_DIR',  opj('$SAGE_SHARE','conway_polynomials'))
--_add_variable_or_fallback('GRAPHS_DATA_DIR',  opj('$SAGE_SHARE','graphs'))
--_add_variable_or_fallback('ELLCURVE_DATA_DIR',opj('$SAGE_SHARE','ellcurves'))
--_add_variable_or_fallback('POLYTOPE_DATA_DIR',opj('$SAGE_SHARE','reflexive_polytopes'))
--_add_variable_or_fallback('GAP_ROOT_DIR',     opj('$SAGE_SHARE','gap'))
--_add_variable_or_fallback('THEBE_DIR',        opj('$SAGE_SHARE','thebe'))
--_add_variable_or_fallback('COMBINATORIAL_DESIGN_DATA_DIR', opj('$SAGE_SHARE', 'combinatorial_designs'))
--_add_variable_or_fallback('CREMONA_MINI_DATA_DIR', opj('$SAGE_SHARE', 'cremona'))
-+_add_variable_or_fallback('CONWAY_POLYNOMIALS_DATA_DIR', '/usr/share/sagemath/conway_polynomials')
-+_add_variable_or_fallback('GRAPHS_DATA_DIR',             '/usr/share/sagemath/graphs')
-+_add_variable_or_fallback('ELLCURVE_DATA_DIR',           '/usr/share/sagemath/ellcurves')
-+_add_variable_or_fallback('POLYTOPE_DATA_DIR',           '/usr/share/sagemath/reflexive_polytopes')
-+_add_variable_or_fallback('GAP_ROOT_DIR',                '/usr/share/gap')
-+_add_variable_or_fallback('THEBE_DIR',                   '/usr/share/thebe')
-+_add_variable_or_fallback('COMBINATORIAL_DESIGN_DATA_DIR', '/usr/share/sagemath/combinatorial_designs')
-+_add_variable_or_fallback('CREMONA_MINI_DATA_DIR',       '/usr/share/sagemath/cremona')
- _add_variable_or_fallback('CREMONA_LARGE_DATA_DIR', opj('$SAGE_SHARE', 'cremona'))
--_add_variable_or_fallback('JMOL_DIR', opj('$SAGE_SHARE', 'jmol'))
-+_add_variable_or_fallback('JMOL_DIR',                    '/usr/share/jmol')
- _add_variable_or_fallback('JSMOL_DIR', opj('$SAGE_SHARE', 'jsmol'))
--_add_variable_or_fallback('MATHJAX_DIR', opj('$SAGE_SHARE', 'mathjax'))
--_add_variable_or_fallback('THREEJS_DIR', opj('$SAGE_SHARE', 'threejs'))
--_add_variable_or_fallback('MAXIMA_FAS', None)
-+_add_variable_or_fallback('MATHJAX_DIR',                 '/usr/share/javascript/mathjax')
-+_add_variable_or_fallback('THREEJS_DIR',                 '/usr/share/javascript/three')
-+_add_variable_or_fallback('MAXIMA_FAS',                  '/usr/lib/ecl/maxima.fas')
- 
- 
- # locate singular shared object
+ # misc
+ var('SAGE_BANNER', '')

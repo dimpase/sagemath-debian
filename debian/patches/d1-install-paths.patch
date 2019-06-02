@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -188,9 +188,9 @@
+@@ -136,9 +136,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -45,32 +45,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -131,9 +131,9 @@
- except AttributeError:  # in case of use inside virtualenv
-     sitepackages_dirs = [os.path.join(os.path.dirname(site.__file__),
-                                      'site-packages')]
--_add_variable_or_fallback('SITE_PACKAGES',   sitepackages_dirs)
-+_add_variable_or_fallback('SITE_PACKAGES',   [d for d in sitepackages_dirs if "local" not in d])
- 
--_add_variable_or_fallback('SAGE_LIB',        SITE_PACKAGES[0])
-+_add_variable_or_fallback('SAGE_LIB',        opj('$SAGE_LOCAL', 'lib', 'python2.7', 'dist-packages'))
- 
- # Used by sage/misc/package.py.  Should be SAGE_SRC_ROOT in VPATH.
- _add_variable_or_fallback('SAGE_PKGS', opj('$SAGE_ROOT', 'build', 'pkgs'))
-@@ -253,8 +253,8 @@
+@@ -322,7 +322,7 @@
+         sage: import sage.env
+         sage: sage.env.sage_include_directories()
          ['.../include',
+-        '.../python.../site-packages/sage/ext',
++        '.../python.../dist-packages/sage/ext',
          '.../include/python...',
-         '.../python.../numpy/core/include',
--        '.../python.../site-packages',
--        '.../python.../site-packages/sage/ext']
-+        '.../python.../dist-packages',
-+        '.../python.../dist-packages/sage/ext']
-     """
-     import os, numpy
-     import distutils.sysconfig
+         '.../python.../numpy/core/include']
+ 
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -491,8 +491,7 @@
+@@ -502,8 +502,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -93,7 +79,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ### pkg-config setup
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -179,20 +179,19 @@
+@@ -179,10 +179,9 @@
  
      EXAMPLES::
  
@@ -104,12 +90,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +        sage: from sage.env import SAGE_LIB
 +        sage: files_by_module = installed_files_by_module(SAGE_LIB)
          sage: from sage.misc.sageinspect import loadable_module_extension
-         sage: 'sage/structure/sage_object' + loadable_module_extension() in \
-         ....:     files_by_module['sage.structure.sage_object']
-         True
-         sage: sorted(files_by_module['sage.structure'])
--        ['sage/structure/__init__.py', 'sage/structure/__init__.pyc']
-+        ['sage/structure/__init__.py', 'sage/structure/__init__.pyc'...]
+         sage: (f,) = files_by_module['sage.structure.sage_object']; f
+         'sage/structure/sage_object...'
+@@ -194,7 +193,7 @@
  
      This takes about 30ms with warm cache:
  
@@ -118,26 +101,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          ....:        number=1, repeat=1)
          1 loops, best of 1: 29.6 ms per loop
      """
---- a/sage/src/sage/doctest/sources.py
-+++ b/sage/src/sage/doctest/sources.py
-@@ -33,7 +33,7 @@
- from .parsing import SageDocTestParser
- from .util import NestedName
- from sage.structure.dynamic_class import dynamic_class
--from sage.env import SAGE_SRC, SAGE_LOCAL
-+from sage.env import SAGE_SRC, SAGE_LOCAL, SAGE_LIB
- 
- # Python file parsing
- triple_quotes = re.compile(r"\s*[rRuU]*((''')|(\"\"\"))")
-@@ -89,7 +89,7 @@
-     # If the file is in the sage library, we can use our knowledge of
-     # the directory structure
-     dev = os.path.normpath(SAGE_SRC)
--    sp = os.path.normpath(os.path.join(SAGE_LOCAL, 'lib', 'python', 'site-packages'))
-+    sp = os.path.normpath(SAGE_LIB)
-     if path.startswith(dev):
-         # there will be a branch name
-         i = path.find(os.path.sep, len(dev))
 --- a/sage/src/sage/interacts/debugger.py
 +++ b/sage/src/sage/interacts/debugger.py
 @@ -198,9 +198,9 @@

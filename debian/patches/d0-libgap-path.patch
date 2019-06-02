@@ -4,7 +4,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -12,6 +12,7 @@
+@@ -17,6 +17,7 @@
  from distutils.dep_util import newer_group
  from distutils.errors import (DistutilsSetupError, DistutilsModuleError,
                                DistutilsOptionError)

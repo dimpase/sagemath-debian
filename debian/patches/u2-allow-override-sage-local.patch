@@ -30,15 +30,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  export SAGE_SRC="$SAGE_ROOT/src"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -157,7 +157,7 @@
+@@ -157,10 +157,10 @@
  var('SAGE_INC',            join(SAGE_LOCAL, 'include'))
  var('SAGE_SHARE',          join(SAGE_LOCAL, 'share'))
  var('SAGE_DOC',            join(SAGE_SHARE, 'doc', 'sage'))
 -var('SAGE_SPKG_INST',      join(SAGE_LOCAL, 'var', 'lib', 'sage', 'installed'))
-+var('SAGE_SPKG_INST',      join(SAGE_ROOT, 'local', 'var', 'lib', 'sage', 'installed'))
  var('SAGE_LIB',            os.path.dirname(os.path.dirname(sage.__file__)))
  
  var('SAGE_ROOT')           # no fallback for SAGE_ROOT
++var('SAGE_SPKG_INST',      join(SAGE_ROOT, 'local', 'var', 'lib', 'sage', 'installed'))
+ var('SAGE_SRC',            join(SAGE_ROOT, 'src'), SAGE_LIB)
+ var('SAGE_DOC_SRC',        join(SAGE_SRC, 'doc'))
+ var('SAGE_PKGS',           join(SAGE_ROOT, 'build', 'pkgs'))
 --- a/sage/build/make/install
 +++ b/sage/build/make/install
 @@ -18,7 +18,7 @@
