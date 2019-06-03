@@ -78,7 +78,7 @@
  python-simplegeneric,
  python-singledispatch,
  python-snowballstemmer,
- python-sphinx (>= 1.8),
+ python-sphinx (>= 1.8.5),
  python-stemmer,
  python-subprocess32,
  python-sympy,

@@ -8,6 +8,7 @@ sagemath (8.7-1) UNRELEASED; urgency=medium
     - python-nose
     - python-ppl
     - python-scipy (>= 1.2)
+    - python-sphinx (>= 1.8.5)
   * Remove patches (applied upstream):
     - u0-version-numpy-1.16-inline-fortran.patch #27061
     - u0-version-sphinx-1.8-dependency.patch     #26949
