@@ -221,7 +221,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 +var('CONWAY_POLYNOMIALS_DATA_DIR',   '/usr/share/sagemath/conway_polynomials')
 +var('GRAPHS_DATA_DIR',               '/usr/share/sagemath/graphs')
 +var('ELLCURVE_DATA_DIR',             '/usr/share/sagemath/ellcurves')
-+var('POLYTOPE_DATA_DIR',             '/usr/share/sagemath/ellcurves')
++var('POLYTOPE_DATA_DIR',             '/usr/share/sagemath/reflexive_polytopes')
 +var('GAP_ROOT_DIR',                  '/usr/share/gap')
 +var('THEBE_DIR',                     '/usr/share/thebe')
 +var('COMBINATORIAL_DESIGN_DATA_DIR', '/usr/share/sagemath/combinatorial_designs')
