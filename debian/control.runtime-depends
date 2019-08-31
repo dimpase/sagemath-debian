@@ -66,6 +66,7 @@
  python-pip,
  python-pkgconfig,
  python-ppl,
+ python-ppl-doc,
  python-prompt-toolkit,
  python-psutil,
  python-ptyprocess,
