@@ -19,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -293,7 +293,7 @@
+@@ -295,7 +295,7 @@
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
