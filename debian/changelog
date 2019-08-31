@@ -20,6 +20,7 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
     - u0-version-sphinx-1.8.patch                #26451
     - d0-singular.patch
     - d0-paths.patch
+    - d0-libgap-path.patch
     - d1-install-paths.patch
     - d1-sage-env.patch
     - dt-version-ipywidgets-6-revert-23177.patch

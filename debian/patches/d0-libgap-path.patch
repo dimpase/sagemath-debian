@@ -22,3 +22,14 @@ Author: Tobias Hansen <thansen@debian.org>
  
  # Manually add -fno-strict-aliasing, which is needed to compile Cython
  # and disappears from the default flags if the user has set CFLAGS.
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -272,7 +272,7 @@
+ var('SINGULAR_SO', SINGULAR_SO)
+ 
+ # locate libgap shared object
+-GAP_SO= _get_shared_lib_filename('gap','')
++GAP_SO= "/usr/lib/%s/gap/libgap.so" % sysconfig.get_config_var('MULTIARCH')
+ var('GAP_SO', GAP_SO)
+ 
+ # post process
