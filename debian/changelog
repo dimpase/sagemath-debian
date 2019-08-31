@@ -1,4 +1,4 @@
-sagemath (8.7-1) UNRELEASED; urgency=medium
+sagemath (8.8-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
