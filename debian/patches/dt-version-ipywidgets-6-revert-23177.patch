@@ -320,7 +320,7 @@ Subject: Fix doctest in cpython/debug.pyx
        show_median: Checkbox(value=False, description=u'Medians')
        show_pb: Checkbox(value=False, description=u'Perpendicular Bisectors')
        show_alt: Checkbox(value=False, description=u'Altitudes')
-@@ -279,8 +279,7 @@
+@@ -279,10 +279,9 @@
  
      sage: test(interacts.statistics.coin)
      Interactive function <function coin at ...> with 2 widgets
@@ -332,6 +332,8 @@ Subject: Fix doctest in cpython/debug.pyx
 +      interval: IntRangeSlider(value=(0, 0), min=0, max=1, step=1, description=u'Plotting range (y)')
 +    doctest:...: UserWarning: Attempting to set identical bottom==top results in singular transformations; automatically expanding.
      bottom=0.0, top=0.0
+ 
+ Test matrix control (see :trac:`27735`)::
 --- a/sage/src/sage/repl/ipython_kernel/interact.py
 +++ b/sage/src/sage/repl/ipython_kernel/interact.py
 @@ -8,7 +8,7 @@
@@ -357,7 +359,7 @@ Subject: Fix doctest in cpython/debug.pyx
  """
  
  # ****************************************************************************
-@@ -52,10 +52,10 @@
+@@ -54,10 +54,10 @@
          sage: from sage.repl.ipython_kernel.interact import sage_interactive
          sage: def myfunc(x=10, y="hello", z=None): pass
          sage: sage_interactive(myfunc, x=(0,100), z=["one", "two", "three"])
@@ -371,7 +373,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      def __init__(*args, **kwds):
          """
-@@ -189,17 +189,17 @@
+@@ -196,17 +196,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_tuple( (0, 10) )
@@ -395,7 +397,7 @@ Subject: Fix doctest in cpython/debug.pyx
          """
          # Support (description, abbrev)
          if len(abbrev) == 2 and isinstance(abbrev[0], str):
-@@ -233,17 +233,17 @@
+@@ -240,17 +240,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_iterable([1..5])

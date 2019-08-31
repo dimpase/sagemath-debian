@@ -166,7 +166,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -302,97 +225,6 @@
+@@ -302,99 +225,6 @@
      exit $status
  fi
  
@@ -178,7 +178,7 @@ Forwarded: not-needed
 -    # We set PYTHONPATH to that directory such that the system Python
 -    # should also find the sage_patchbot package.
 -    cmd='import sage_patchbot as p; import os; print(os.path.dirname(p.__path__[0]))'
--    export PYTHONPATH=`"$SAGE_ROOT/sage" --python -c "$cmd"`
+-    export PYTHONPATH=`"$SAGE_ROOT/sage" --python3 -c "$cmd"`
 -    if [ -z "$PYTHONPATH" ]; then
 -        # Something went wrong, assume that the patchbot is not installed
 -        echo >&2 "Error: cannot find installation path for sage_patchbot"
@@ -186,13 +186,10 @@ Forwarded: not-needed
 -        exit 1
 -    fi
 -
--    # Try "python2.7", then "python2", then "python"
 -    shopt -s execfail  # Do not exit if "exec" fails
--    exec python2.7 -m sage_patchbot.patchbot "$@"
--    exec python2 -m sage_patchbot.patchbot "$@"
--    exec python -m sage_patchbot.patchbot "$@"
--    echo >&2 "Error: cannot find a suitable Python program."
--    echo >&2 "The SageMath patchbot requires a system Python installation."
+-    exec python3 -m sage_patchbot.patchbot "$@"
+-    echo >&2 "Error: cannot find a suitable Python 3 program."
+-    echo >&2 "The SageMath patchbot requires a system Python 3 installation."
 -    exit 127
 -fi
 -
@@ -259,12 +256,17 @@ Forwarded: not-needed
 -        fi
 -        $MAKE SAGE_SPKG="sage-spkg $INSTALL_OPTIONS" "$PKG"
 -    done
+-
+-    echo "New packages may have been installed."
+-    echo "Re-running configure and make in case any dependent packages need updating."
+-    touch "$SAGE_ROOT/configure" && $MAKE all-build
 -    exit 0
 -fi
- 
+-
  
  #####################################################################
-@@ -440,25 +272,7 @@
+ # Report information about the Sage environment
+@@ -441,25 +271,7 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
@@ -278,9 +280,9 @@ Forwarded: not-needed
 -        echo >&2 '************************************************************************'
 -        exit 1
 -    fi
- 
--    maybe_sage_location
 -
+-    maybe_sage_location
+ 
 -    if [ ! -d "$IPYTHONDIR" ]; then
 -        # make sure that $DOT_SAGE exists so that ipython will happily
 -        # create its config directories there.  If DOT_SAGE doesn't
@@ -290,7 +292,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
-@@ -515,11 +329,6 @@
+@@ -516,11 +328,6 @@
      exec gap "$@"
  fi
  
@@ -302,7 +304,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -565,11 +374,6 @@
+@@ -566,11 +373,6 @@
      exec kash "$@"
  fi
  
@@ -314,7 +316,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -585,21 +389,6 @@
+@@ -586,26 +388,6 @@
      exec M2 "$@"
  fi
  
@@ -328,6 +330,11 @@ Forwarded: not-needed
 -    exec sage-python23 -m pip "$@"
 -fi
 -
+-if [ "$1" = '--pip3' ]; then
+-    shift
+-    exec python3 -m pip "$@"
+-fi
+-
 -if [ "$1" = '-fix-pkg-checksums' -o "$1" = '--fix-pkg-checksums' ]; then
 -    shift
 -    exec sage-fix-pkg-checksums "$@"
@@ -336,7 +343,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      if [ "$SAGE_PYTHON3" = 'yes' ]; then
-@@ -644,11 +433,6 @@
+@@ -650,11 +432,6 @@
      exec git "$@"
  fi
  
@@ -348,7 +355,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -768,20 +552,6 @@
+@@ -774,20 +551,6 @@
  fi
  
  #####################################################################
@@ -369,7 +376,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -812,11 +582,6 @@
+@@ -818,11 +581,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -381,7 +388,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -827,13 +592,6 @@
+@@ -833,13 +591,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -395,7 +402,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -852,34 +610,15 @@
+@@ -858,34 +609,15 @@
      exit 0
  fi
  
@@ -432,7 +439,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -888,16 +627,6 @@
+@@ -894,16 +626,6 @@
      fi
  fi
  
@@ -449,7 +456,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      sage_setup
-@@ -912,114 +641,6 @@
+@@ -918,114 +640,6 @@
      exec sage-eval "$@"
  fi
  
@@ -564,7 +571,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      # Redirect stdin from /dev/null. This helps with running TeX which
      # tends to ask interactive questions if something goes wrong. These
-@@ -1093,10 +714,6 @@
+@@ -1099,10 +713,6 @@
  fi
  
  if [ $# -ge 1 ]; then
@@ -595,37 +602,37 @@ Forwarded: not-needed
  --python
  --python3
 @@ -203,36 +200,6 @@
-         sage: ret
+         sage: ret  # optional -build
          0
  
 -    Test ``sage --info [packages]`` and the equivalent
 -    ``sage -p --info --info [packages]`` (the doubling of ``--info``
 -    is intentional, that option should be idempotent)::
 -
--        sage: out, err, ret = test_executable(["sage", "--info", "sqlite"])
--        sage: print(out)
+-        sage: out, err, ret = test_executable(["sage", "--info", "sqlite"])  # optional - build
+-        sage: print(out)  # optional - build
 -        Found local metadata for sqlite-...
 -        = SQLite =
 -        ...
 -        SQLite is a software library that implements a self-contained,
 -        serverless, zero-configuration, transactional SQL database engine.
 -        ...
--        sage: err
+-        sage: err  # optional - build
 -        ''
--        sage: ret
+-        sage: ret  # optional - build
 -        0
 -
--        sage: out, err, ret = test_executable(["sage", "-p", "--info", "--info", "sqlite"])
--        sage: print(out)
+-        sage: out, err, ret = test_executable(["sage", "-p", "--info", "--info", "sqlite"])  # optional - build
+-        sage: print(out)  # optional - build
 -        Found local metadata for sqlite-...
 -        = SQLite =
 -        ...
 -        SQLite is a software library that implements a self-contained,
 -        serverless, zero-configuration, transactional SQL database engine.
 -        ...
--        sage: err
+-        sage: err  # optional - build
 -        ''
--        sage: ret
+-        sage: ret  # optional - build
 -        0
 -
      Test ``sage-run`` on a Python file, both with an absolute and with a relative path::

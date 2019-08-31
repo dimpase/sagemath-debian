@@ -7,8 +7,8 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -227,6 +227,27 @@
- 
+@@ -226,6 +226,27 @@
+ fi
  
  
 +
@@ -35,7 +35,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  #####################################################################
  # Report information about the Sage environment
  #####################################################################
-@@ -256,19 +277,6 @@
+@@ -255,19 +276,6 @@
  fi
  
  
@@ -57,7 +57,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -292,13 +292,13 @@
+@@ -294,13 +294,13 @@
  # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
@@ -73,7 +73,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -360,12 +360,12 @@
+@@ -362,12 +362,12 @@
  fi
  
  # For PARI/GP
@@ -91,7 +91,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -380,16 +380,6 @@
+@@ -382,16 +382,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -108,7 +108,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -432,8 +422,10 @@
+@@ -434,8 +424,10 @@
      unset PYTHONHOME
  fi
  
@@ -120,7 +120,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -495,7 +487,6 @@
+@@ -497,7 +489,6 @@
      fi
  fi
  
@@ -128,7 +128,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -607,9 +598,6 @@
+@@ -609,9 +600,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -162,7 +162,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  ###############################################################################
 --- a/sage/src/doc/en/developer/sage_manuals.rst
 +++ b/sage/src/doc/en/developer/sage_manuals.rst
-@@ -52,7 +52,7 @@
+@@ -54,7 +54,7 @@
  
      sage --docbuild tutorial html
  
@@ -173,7 +173,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  - Do you want to **add a new file** to the documentation? :ref:`Click here
 --- a/sage/src/doc/en/faq/faq-general.rst
 +++ b/sage/src/doc/en/faq/faq-general.rst
-@@ -312,7 +312,7 @@
+@@ -316,7 +316,7 @@
  documentation that makes up the Sage standard documentation. If you
  have downloaded a binary Sage release, the HTML version of the
  corresponding documentation comes pre-built and can be found under the
@@ -181,10 +181,10 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 +directory ``SAGE_LOCAL/share/doc/sagemath/html/``.
  During the compilation of Sage from source, the HTML version of the
  documentation is also built in the process. To build the HTML version
- of the documentation, issue the following command from ``SAGE_ROOT``::
+ of the documentation, issue the following command from ``SAGE_ROOT``:
 --- a/sage/src/doc/en/installation/source.rst
 +++ b/sage/src/doc/en/installation/source.rst
-@@ -836,7 +836,7 @@
+@@ -879,7 +879,7 @@
    primarily intended for use when producing certain binary
    distributions of Sage, to lower the size of the distribution. As of
    this writing (December 2014, Sage 6.5), there are only a few such
@@ -195,7 +195,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -441,7 +441,7 @@
+@@ -439,7 +439,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example
@@ -206,7 +206,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
              # Walk through all of the files in the sage_directory
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -171,20 +171,20 @@
+@@ -171,21 +171,21 @@
  
  # installation directories for various packages
  var('SAGE_EXTCODE',                  join(SAGE_SHARE, 'sage', 'ext'))
@@ -232,9 +232,10 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  var('JSMOL_DIR',                     join(SAGE_SHARE, 'jsmol'))
 -var('MATHJAX_DIR',                   join(SAGE_SHARE, 'mathjax'))
 -var('THREEJS_DIR',                   join(SAGE_SHARE, 'threejs'))
--var('MAXIMA_FAS')
 +var('MATHJAX_DIR',                   '/usr/share/javascript/mathjax')
 +var('THREEJS_DIR',                   '/usr/share/javascript/three')
+ var('PPLPY_DOCS',                    join(SAGE_SHARE, 'doc', 'pplpy'))
+-var('MAXIMA_FAS')
 +var('MAXIMA_FAS',                    '/usr/lib/ecl/maxima.fas')
  
  # misc

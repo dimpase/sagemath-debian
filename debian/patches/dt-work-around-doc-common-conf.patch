@@ -46,12 +46,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +++ b/sage/src/doc/common/conf.py
 @@ -1,5 +1,5 @@
  import sys, os, sphinx
--from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, THEBE_DIR, SAGE_SHARE
-+from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB, THEBE_DIR, SAGE_SHARE
+-from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, THEBE_DIR, PPLPY_DOCS, SAGE_SHARE
++from sage.env import SAGE_DOC_SRC, SAGE_DOC, SAGE_SRC, SAGE_LIB, THEBE_DIR, PPLPY_DOCS, SAGE_SHARE
  import sage.version
  from sage.misc.sagedoc import extlinks
  import dateutil.parser
-@@ -8,6 +8,11 @@
+@@ -13,6 +13,11 @@
  # If your extensions are in another directory, add it here.
  sys.path.append(os.path.join(SAGE_SRC, "sage_setup", "docbuild", "ext"))
  

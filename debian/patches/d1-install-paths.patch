@@ -45,7 +45,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -322,7 +322,7 @@
+@@ -323,7 +323,7 @@
          sage: import sage.env
          sage: sage.env.sage_include_directories()
          ['.../include',
@@ -56,7 +56,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -502,8 +502,7 @@
+@@ -477,8 +477,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -103,7 +103,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/interacts/debugger.py
 +++ b/sage/src/sage/interacts/debugger.py
-@@ -198,9 +198,9 @@
+@@ -205,9 +205,9 @@
          code = code.replace(TRACEBACK, TRACEBACK[:-1])
  
          # Create a hyperlink to the file, if possible.

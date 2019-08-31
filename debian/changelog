@@ -15,6 +15,7 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
     - u0-version-sphinx-1.8-dependency.patch     #26949
     - u1-sphinx-1.8-doctest-transform.patch      #27528
     - u2-libgap-symbol-loading.patch             #26930
+    - d1-disable-post-install-tests.patch
   * Patches with non-trivial modifications:
     - u0-version-sphinx-1.8.patch                #26451
     - d0-singular.patch

@@ -37,7 +37,7 @@
 -<script>
 -  if ( !window.THREE ) document.write('{}');
 -</script>
--        """.format(CDN_scripts.replace('</script>', r'<\/script>'))
+-        """.format(CDN_scripts.replace('</script>', r'<\/script>').replace('\n', ' \\\n'))
 +<script src="/nbextensions/threejs/examples/js/controls/OrbitControls.js"></script>
 +        """
 --- a/sage/src/sage/repl/rich_output/backend_sagenb.py
