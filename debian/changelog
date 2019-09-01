@@ -2,6 +2,8 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
+    - libbrial-dev (>= 1.2.5)
+    - libbrial-groebner-dev (>= 1.2.5)
     - libec-dev (>= 20190226)
     - python-cypari2 (>= 2.1)
     - python-gmpy2
