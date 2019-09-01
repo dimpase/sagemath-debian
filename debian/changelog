@@ -30,6 +30,7 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
     - d1-sage-cli.patch
     - d1-sage-env.patch
     - dt-version-ipywidgets-6-revert-23177.patch
+  * Allow up to 65 failed tests.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 01 Jun 2019 17:34:19 +0000
 
