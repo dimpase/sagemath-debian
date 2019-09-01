@@ -206,7 +206,23 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
              # Walk through all of the files in the sage_directory
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -171,21 +171,21 @@
+@@ -4,15 +4,6 @@
+ AUTHORS:
+ 
+ - \R. Andrew Ohana (2012): Initial version.
+-
+-Verify that Sage can be started without any ``SAGE_`` environment
+-variables::
+-
+-    sage: env = {k:v for (k,v) in os.environ.items() if not k.startswith("SAGE_")}
+-    sage: import subprocess
+-    sage: cmd = "from sage.all import SAGE_ROOT; print(SAGE_ROOT)"
+-    sage: res = subprocess.call([sys.executable, "-c", cmd], env=env)  # long time
+-    None
+ """
+ 
+ # ****************************************************************************
+@@ -171,21 +162,21 @@
  
  # installation directories for various packages
  var('SAGE_EXTCODE',                  join(SAGE_SHARE, 'sage', 'ext'))
