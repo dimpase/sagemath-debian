@@ -8,6 +8,7 @@ sagemath (8.8-2) UNRELEASED; urgency=medium
   * Simplify pruner script, decleare all standard packages
     as installed.
   * Fix 3 doctests in interfaces/maxima_abstract.py.
+  * Use Python 3. (Closes: #938426, #939402)
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 03 Sep 2019 17:18:36 +0200
 

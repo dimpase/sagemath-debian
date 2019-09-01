@@ -46,17 +46,19 @@ $(shell mkdir -p "$(CCACHE_DIR)")
 endif
 
 ifeq (,$(filter pkg.sagemath.nolongcheck,$(DEB_BUILD_PROFILES)))
-SAGE_TEST_FLAGS_ARCH = --optional=sage,python2,memlimit --long
-SAGE_TEST_FLAGS_INDEP = --optional=sage,python2,memlimit,dochtml --long
+SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit --long
+SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml --long
 else
-SAGE_TEST_FLAGS_ARCH = --optional=sage,python2,memlimit
-SAGE_TEST_FLAGS_INDEP = --optional=sage,python2,memlimit,dochtml
+SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit
+SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml
 endif
 
 export SAGE_LOCAL = $(CURDIR)/debian/build/usr
-export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python2.7/dist-packages
+export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python3/dist-packages
 export DOT_SAGE = $(CURDIR)/debian/test
 export SAGE_SCRIPTS_DIR = $(CURDIR)/sage/src/bin
+export SAGE_PYTHON3=yes
+export SAGE_PYTHON_VERSION=3
 
 LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3- | LC_ALL=C.UTF-8 LANG=C.UTF-8 sort)
 DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
@@ -70,7 +72,7 @@ REBUILD_RULES = debian/rules
 endif
 
 %:
-	dh $@ --with=python2,sphinxdoc
+	dh $@ --with=python3,sphinxdoc
 
 ###############################################################################
 # 2. GENERATE FILES
@@ -122,7 +124,7 @@ debian/sagemath-doc-%.lintian-overrides: debian/sagemath-doc-LANG.lintian-overri
 ###############################################################################
 
 prune: debian/control
-	cd sage && python ../debian/pruner.py --sageroot="$(CURDIR)/sage"
+	cd sage && python3 ../debian/pruner.py --sageroot="$(CURDIR)/sage"
 	touch prune
 
 run_build = \
@@ -184,9 +186,9 @@ override_dh_install-indep: $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOCS_OVERRIDES)
 		rdfind -outputname /dev/null -makehardlinks true "$$d"; \
 	done
 
-override_dh_python2-arch:
-	dh_python2
-	dh_numpy --package sagemath # stop lintian complaining at us
+override_dh_python3-arch:
+	dh_python3
+	dh_numpy3 --package sagemath # stop lintian complaining at us
 
 override_dh_shlibdeps:
 	dh_shlibdeps -l debian/tmp/usr/lib
@@ -284,7 +286,7 @@ run_tests_with_retry = \
 
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage /usr/lib/python2.7/dist-packages/sagenb/,65)
+	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,65)
 endif
 
 override_dh_auto_test-indep:

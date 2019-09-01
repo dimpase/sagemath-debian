@@ -47,7 +47,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          # Run Sphinx with Sage's special logger
 -        sys.argv = ["sphinx-build"] + build_command.split()
 -        from .sphinxbuild import runsphinx
-+        args = "python -um sage_setup.docbuild.sphinxbuild -N".split() + build_command.split()
++        args = "python3 -um sage_setup.docbuild.sphinxbuild -N".split() + build_command.split()
          try:
 -            runsphinx()
 +            subprocess.check_call(args)

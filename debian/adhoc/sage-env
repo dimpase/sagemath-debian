@@ -65,7 +65,9 @@ if [ -r "$SAGE_RC_FILE" ]; then
 	fi
 fi
 
-export EPYTHON=python2.7
+export SAGE_PYTHON3=yes
+export SAGE_PYTHON_VERSION=3
+export EPYTHON=python3
 export MPMATH_NOGMPY=1
 export PATH="$PATH:$SAGE_SCRIPTS_DIR"
 GP_DATA_DIR="/usr/share/pari" && export GP_DATA_DIR
