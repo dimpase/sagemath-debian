@@ -1,6 +1,6 @@
 sagemath (8.8-1) UNRELEASED; urgency=medium
 
-  * New upstream release.
+  * New upstream release. (Closes: #932367, #934171)
   * New (Build-)Depends:
     - libbrial-dev (>= 1.2.5)
     - libbrial-groebner-dev (>= 1.2.5)
