@@ -5,6 +5,7 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
     - libbrial-dev (>= 1.2.5)
     - libbrial-groebner-dev (>= 1.2.5)
     - libec-dev (>= 20190226)
+    - maxima-sage (>= 5.42.2)
     - python-cypari2 (>= 2.1)
     - python-gmpy2
     - python-nose
@@ -12,6 +13,7 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
     - python-ppl-doc
     - python-scipy (>= 1.2)
     - python-sphinx (>= 1.8.5)
+    - sagemath-database-conway-polynomials (>= 0.5-7)
   * Remove patches (applied upstream):
     - u0-version-numpy-1.16-inline-fortran.patch #27061
     - u0-version-sphinx-1.8.patch                #26451
