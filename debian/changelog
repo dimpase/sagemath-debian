@@ -1,4 +1,4 @@
-sagemath (8.8-1) UNRELEASED; urgency=medium
+sagemath (8.8-1) unstable; urgency=medium
 
   * New upstream release. (Closes: #932367, #934171)
   * New (Build-)Depends:
@@ -32,7 +32,7 @@ sagemath (8.8-1) UNRELEASED; urgency=medium
     - dt-version-ipywidgets-6-revert-23177.patch
   * Allow up to 65 failed tests.
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 01 Jun 2019 17:34:19 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sun, 01 Sep 2019 16:14:42 +0000
 
 sagemath (8.6-6) unstable; urgency=medium
 
