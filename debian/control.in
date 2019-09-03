@@ -61,7 +61,6 @@ Build-Depends:
  libpari-dev (>= 2.11.0),
  libplanarity-dev,
  libpng-dev,
- libppl-dev (>= 1:1.1),
  libpynac-dev (>= 0.7.23),
  libratpoints-dev,
  libreadline-dev,
