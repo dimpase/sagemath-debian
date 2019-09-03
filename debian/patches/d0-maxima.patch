@@ -33,19 +33,7 @@ Author: Tobias Hansen <thansen@debian.org>
          if sage.server.support.EMBEDDED_MODE:
              cmd += '< /dev/null'
  
-@@ -178,10 +178,7 @@
-         if redirect:
-             res = bytes_to_str(subprocess.check_output(cmd, shell=True,
-                                                        env=env))
--            # We get 4 lines of commented verbosity every time Maxima starts
--            # and the input is echoed, so we need to get rid of them
--            for _ in range(5):
--                res = res[res.find('\n')+1:]
-+            res = '\n'.join([line for line in res.split('\n') if line != '' and not line.startswith(';;;') and not line.startswith('(%i1)')])
- 
-             return AsciiArtString(res)
-         else:
-@@ -2193,7 +2190,7 @@
+@@ -2193,7 +2193,7 @@
          sage: maxima_version()  # random
          '5.41.0'
      """
@@ -54,7 +42,7 @@ Author: Tobias Hansen <thansen@debian.org>
          return p.read().split()[-1]
  
  
-@@ -2211,4 +2208,4 @@
+@@ -2211,4 +2211,4 @@
      from sage.repl.rich_output.display_manager import get_display_manager
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')
