@@ -1,3 +1,11 @@
+sagemath (8.8-2) UNRELEASED; urgency=medium
+
+  [ Martin von Gagern ]
+  * New patches:
+    - dt-version-ipywidgets-6-tests.patch
+
+ -- Tobias Hansen <thansen@debian.org>  Tue, 03 Sep 2019 17:18:36 +0200
+
 sagemath (8.8-1) unstable; urgency=medium
 
   * New upstream release. (Closes: #932367, #934171)
