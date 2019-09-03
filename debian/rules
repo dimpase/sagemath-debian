@@ -122,9 +122,7 @@ debian/sagemath-doc-%.lintian-overrides: debian/sagemath-doc-LANG.lintian-overri
 ###############################################################################
 
 prune: debian/control
-	cd debian/pruner && autoconf -I m4
-	cd debian/pruner && ./configure --with-sage-root="$(CURDIR)/sage"
-	cd sage && python ../debian/pruner/pruner.py
+	cd sage && python ../debian/pruner.py --sageroot="$(CURDIR)/sage"
 	touch prune
 
 run_build = \
