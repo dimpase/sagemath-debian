@@ -16,8 +16,8 @@ def mkdir_if_needed(dirname):
         os.makedirs(dirname)
 
 def declare_system(package):
-    version = subprocess.check_output(['/bin/cat', '%s/build/pkgs/%s/package-version.txt' % (sr, package)]).decode().strip()
-    filename = '{0:s}/{1:s}-{2:s}'.format(installed_dir, package, version)
+    version = subprocess.check_output(['/bin/cat', "{}/build/pkgs/{}/package-version.txt".format(sr, package)]).decode().strip()
+    filename = '{}/{}-{}'.format(installed_dir, package, version)
     installed = codecs.open(filename, 'w')
     installed.write ('system')
     installed.close()
@@ -38,16 +38,16 @@ if __name__ == '__main__':
     options, args = parser.parse_args()
 
     if options.sageroot == '-':
-        print >> sys.stdout, 'ERROR: Script called without specifying --sageroot option.'
+        print('ERROR: Script called without specifying --sageroot option.')
         sys.exit(system_packages_not_found)
     else:
         sr = options.sageroot
 
-    installed_dir = '%s/local/var/lib/sage/installed' % sr
+    installed_dir = '{}/local/var/lib/sage/installed'.format(sr)
 
     mkdir_if_needed (installed_dir)
-    mkdir_if_needed ('%s/local' % sr)
-    mkdir_if_needed ('%s/local/include' % sr)
+    mkdir_if_needed ('{}/local'.format(sr))
+    mkdir_if_needed ('{}/local/include'.format(sr))
     # if this file is newer than an spkg's "installed" marker file then sage's
     # Makefiles will try to rebuild it again, so touch it as well.
     dummy_pkg = os.path.join(installed_dir, ".dummy")
@@ -56,8 +56,8 @@ if __name__ == '__main__':
 
     sage_standard_packages = set(subprocess.check_output([
         '/bin/sh', '-c',
-        'for p in %s/build/pkgs/*; do test $(cat $p/type) = standard && basename $p; done' % sr
-    ]).split())
+        'for p in {}/build/pkgs/*; do test $(cat $p/type) = standard && basename $p; done'.format(sr)
+    ]).decode().split())
 
     sage_standard_packages.add('python2')
 
