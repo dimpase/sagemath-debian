@@ -1,8 +1,6 @@
 sagemath (8.8-2) UNRELEASED; urgency=medium
 
   [ Martin von Gagern ]
-  * Remove (Build-)Depends:
-    - libppl-dev
   * New patches:
     - dt-version-ipywidgets-6-tests.patch
 
