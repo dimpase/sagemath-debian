@@ -9,6 +9,8 @@ sagemath (8.8-2) UNRELEASED; urgency=medium
     as installed.
   * Fix 3 doctests in interfaces/maxima_abstract.py.
   * Use Python 3. (Closes: #938426, #939402)
+  * New (Build-)Depends:
+    - libpynac-dev (>= 0.7.26-2) (linked against libpython3)
   * New patches:
     - u2-version-rpy-3.patch
 

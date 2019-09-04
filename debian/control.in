@@ -62,7 +62,7 @@ Build-Depends:
  libplanarity-dev,
  libpng-dev,
  libppl-dev (>= 1:1.1),
- libpynac-dev (>= 0.7.23),
+ libpynac-dev (>= 0.7.26-2),
  libratpoints-dev,
  libreadline-dev,
  librw-dev,
