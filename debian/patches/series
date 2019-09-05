@@ -59,3 +59,4 @@ dt-work-around-doc-common-conf.patch
 dt-work-around-singular-mips64el-segfault.patch
 dt-version-ipywidgets-6-revert-23177.patch
 dt-version-ipywidgets-6-tests.patch
+dt-version-sympy-1.3.patch
