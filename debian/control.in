@@ -94,7 +94,7 @@ Description: Open Source Mathematical Software
  Mathematica and Matlab.
  .
  This package contains the main SageMath installation.
-Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends},
+Depends: ${misc:Depends}, ${shlibs:Depends}, ${python3:Depends},
  RUNTIME_DEPENDS
  sagemath-common (= ${source:Version})
 Recommends:
@@ -127,7 +127,7 @@ Description: Open Source Mathematical Software - architecture-independent files
  Mathematica and Matlab.
  .
  This package contains the architecture-independent files of SageMath.
-Depends: ${misc:Depends}, ${python:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 
 Package: sagemath-jupyter
 Architecture: all
