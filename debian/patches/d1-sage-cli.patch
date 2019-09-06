@@ -266,11 +266,11 @@ Forwarded: not-needed
  
  #####################################################################
  # Report information about the Sage environment
-@@ -441,25 +271,7 @@
+@@ -446,25 +276,6 @@
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
      # Check that we're not in a source tarball which hasn't been built yet (#13561).
--    if [ ! -x "$SAGE_LOCAL/bin/sage" ]; then
+-    if [ ! -z "$SAGE_LOCAL" ] && [ ! -x "$SAGE_LOCAL/bin/sage" ]; then
 -        echo >&2 '************************************************************************'
 -        echo >&2 'It seems that you are attempting to run Sage from an unpacked source'
 -        echo >&2 'tarball, but you have not compiled it yet (or maybe the build has not'
@@ -282,7 +282,7 @@ Forwarded: not-needed
 -    fi
 -
 -    maybe_sage_location
- 
+-
 -    if [ ! -d "$IPYTHONDIR" ]; then
 -        # make sure that $DOT_SAGE exists so that ipython will happily
 -        # create its config directories there.  If DOT_SAGE doesn't
@@ -292,7 +292,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
-@@ -516,11 +328,6 @@
+@@ -521,11 +332,6 @@
      exec gap "$@"
  fi
  
@@ -304,7 +304,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -566,11 +373,6 @@
+@@ -571,11 +377,6 @@
      exec kash "$@"
  fi
  
@@ -316,7 +316,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -586,26 +388,6 @@
+@@ -591,26 +392,6 @@
      exec M2 "$@"
  fi
  
@@ -343,7 +343,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      if [ "$SAGE_PYTHON3" = 'yes' ]; then
-@@ -650,11 +432,6 @@
+@@ -655,11 +436,6 @@
      exec git "$@"
  fi
  
@@ -355,7 +355,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -774,20 +551,6 @@
+@@ -779,20 +555,6 @@
  fi
  
  #####################################################################
@@ -376,7 +376,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -818,11 +581,6 @@
+@@ -823,11 +585,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -388,7 +388,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -833,13 +591,6 @@
+@@ -838,13 +595,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -402,7 +402,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -858,34 +609,15 @@
+@@ -863,34 +613,15 @@
      exit 0
  fi
  
@@ -439,7 +439,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -894,16 +626,6 @@
+@@ -899,16 +630,6 @@
      fi
  fi
  
@@ -456,7 +456,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      sage_setup
-@@ -918,114 +640,6 @@
+@@ -923,114 +644,6 @@
      exec sage-eval "$@"
  fi
  
@@ -571,7 +571,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      # Redirect stdin from /dev/null. This helps with running TeX which
      # tends to ask interactive questions if something goes wrong. These
-@@ -1099,10 +713,6 @@
+@@ -1104,10 +717,6 @@
  fi
  
  if [ $# -ge 1 ]; then

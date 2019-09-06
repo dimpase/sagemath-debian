@@ -8,11 +8,11 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2261,7 +2261,7 @@
+@@ -2262,7 +2262,7 @@
      nodes.clear()
      node_names.clear()
  
--    singular_docdir = os.environ['SINGULARPATH']+"/../info/"
+-    singular_docdir = SINGULARPATH + "/../info/"
 +    singular_docdir = "/usr/share/doc/singular/"
  
      new_node = re.compile(r"File: singular\.hlp,  Node: ([^,]*),.*")
@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -268,7 +268,7 @@
+@@ -270,7 +270,7 @@
  
  # locate singular shared object
  # On Debian it's libsingular-Singular so try that as well

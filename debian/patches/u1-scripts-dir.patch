@@ -19,26 +19,26 @@ Forwarded: TODO
  # usage: sage_version [-v]
  #   -v    display the full version banner including release date
  sage_version() {
--    if [ -f "$SAGE_LOCAL/bin/sage-version.sh" ]; then
--        . "$SAGE_LOCAL/bin/sage-version.sh"
+-    if [ -f "$0-version.sh" ]; then
+-        . "$0-version.sh"
 +    if [ -f "$SAGE_SCRIPTS_DIR/sage-version.sh" ]; then
 +        . "$SAGE_SCRIPTS_DIR/sage-version.sh"
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
-@@ -1038,13 +1038,13 @@
+@@ -1043,13 +1043,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
--        gdb -x "$SAGE_LOCAL/bin/sage-gdb-commands" \
--            -args python "$SAGE_LOCAL/bin/sage-ipython" "$@" -i
+-        gdb -x "$0-gdb-commands" \
+-            -args python "$0-ipython" "$@" -i
 +        gdb -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
 +            -args python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
      else
          sage_dir=$(sage-python23 -c 'import os, sage; print(os.path.dirname(sage.__file__))')
          cygdb "$sage_dir" "$SAGE_SRC/sage" \
--            -- -x "$SAGE_LOCAL/bin/sage-gdb-commands" \
--            -args python "$SAGE_LOCAL/bin/sage-ipython" "$@" -i
+-            -- -x "$0-gdb-commands" \
+-            -args python "$0-ipython" "$@" -i
 +            -- -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
 +            -args python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
      fi
@@ -46,7 +46,7 @@ Forwarded: TODO
  fi
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -306,7 +306,7 @@
+@@ -295,7 +295,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
  fi
@@ -55,55 +55,6 @@ Forwarded: TODO
  
  # We offer a toolchain option, so if $SAGE_LOCAL/toolchain/toolchain-env exists source it.
  # Since the user might do something crazy we do not do any checks, but hope for the best.
---- a/sage/src/bin/sage-massif
-+++ b/sage/src/bin/sage-massif
-@@ -1,7 +1,7 @@
- #!/usr/bin/env bash
- 
- # We reuse the gdb pythonstartup script.
--PYTHONSTARTUP=$SAGE_LOCAL/bin/sage-ipython
-+PYTHONSTARTUP=$SAGE_SCRIPTS_DIR/sage-ipython
- export PYTHONSTARTUP
- echo $PYTHONSTARTUP
- if [ ! -d "$DOT_SAGE/valgrind" ]; then
---- a/sage/src/bin/sage-valgrind
-+++ b/sage/src/bin/sage-valgrind
-@@ -19,4 +19,4 @@
-     echo "Using default flags: $MEMCHECK_FLAGS"
- fi
- 
--valgrind --tool=memcheck $MEMCHECK_FLAGS python "$SAGE_LOCAL/bin/sage-ipython" "$@" -i
-+valgrind --tool=memcheck $MEMCHECK_FLAGS python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
---- a/sage/src/bin/sage-cachegrind
-+++ b/sage/src/bin/sage-cachegrind
-@@ -1,7 +1,7 @@
- #!/usr/bin/env bash
- 
- # We reuse the gdb pythonstartup script.
--PYTHONSTARTUP=$SAGE_LOCAL/bin/sage-ipython
-+PYTHONSTARTUP=$SAGE_SCRIPTS_DIR/sage-ipython
- export PYTHONSTARTUP
- echo $PYTHONSTARTUP
- if [ ! -d "$DOT_SAGE/valgrind" ]; then
---- a/sage/src/bin/sage-callgrind
-+++ b/sage/src/bin/sage-callgrind
-@@ -13,4 +13,4 @@
-     echo "Using default flags: $CALLGRIND_FLAGS"
- fi
- 
--valgrind --tool=callgrind $CALLGRIND_FLAGS python "$SAGE_LOCAL/bin/sage-ipython" "$@" -i
-+valgrind --tool=callgrind $CALLGRIND_FLAGS python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
---- a/sage/src/bin/sage-omega
-+++ b/sage/src/bin/sage-omega
-@@ -1,7 +1,7 @@
- #!/usr/bin/env bash
- 
- # We reuse the gdb pythonstartup script.
--PYTHONSTARTUP=$SAGE_LOCAL/bin/sage-ipython
-+PYTHONSTARTUP=$SAGE_SCRIPTS_DIR/sage-ipython
- export PYTHONSTARTUP
- echo $PYTHONSTARTUP
- if [ ! -d "$DOT_SAGE/valgrind" ]; then
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
 @@ -472,7 +472,7 @@
@@ -126,50 +77,30 @@ Forwarded: TODO
              raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -48,7 +48,7 @@
-     This class is used for doctesting the Sage doctest module.
+@@ -26,7 +26,7 @@
+ import six
+ import sage.misc.flatten
+ from sage.structure.sage_object import SageObject
+-from sage.env import DOT_SAGE, SAGE_LIB, SAGE_SRC, SAGE_LOCAL, SAGE_EXTCODE
++from sage.env import DOT_SAGE, SAGE_LIB, SAGE_SRC, SAGE_LOCAL, SAGE_EXTCODE, SAGE_SCRIPTS_DIR
+ from sage.misc.temporary_file import tmp_dir
+ from cysignals.signals import AlarmInterrupt, init_cysignals
  
-     It fills in attributes to be the same as the defaults defined in
--    ``SAGE_LOCAL/bin/sage-runtests``, expect for a few places,
-+    ``SAGE_SCRIPTS_DIR/sage-runtests``, expect for a few places,
-     which is mostly to make doctesting more predictable.
- 
-     EXAMPLES::
-@@ -291,7 +291,7 @@
- 
-         INPUT:
- 
--        - options -- either options generated from the command line by SAGE_LOCAL/bin/sage-runtests
-+        - options -- either options generated from the command line by SAGE_SCRIPTS_DIR/sage-runtests
-                      or a DocTestDefaults object (possibly with some entries modified)
-         - args -- a list of filenames to doctest
- 
-@@ -1023,9 +1023,9 @@
-             sage: from sage.doctest.control import DocTestDefaults, DocTestController
-             sage: DC = DocTestController(DocTestDefaults(timeout=123), ["hello_world.py"])
+@@ -1025,7 +1025,7 @@
              sage: print(DC._assemble_cmd())
--            python "$SAGE_LOCAL/bin/sage-runtests" --serial --timeout=123 hello_world.py
-+            python "$SAGE_SCRIPTS_DIR/sage-runtests" --serial --timeout=123 hello_world.py
+             python "...sage-runtests" --serial --timeout=123 hello_world.py
          """
--        cmd = '''python "%s" --serial '''%(os.path.join("$SAGE_LOCAL","bin","sage-runtests"))
-+        cmd = '''python "%s" --serial '''%(os.path.join("$SAGE_SCRIPTS_DIR","sage-runtests"))
+-        cmd = '''python "%s" --serial '''%(os.path.join(SAGE_LOCAL,"bin","sage-runtests"))
++        cmd = '''python "%s" --serial '''%(os.path.join(SAGE_SCRIPTS_DIR,"sage-runtests"))
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -1059,14 +1059,14 @@
-             sage: DD = DocTestDefaults(gdb=True)
-             sage: DC = DocTestController(DD, ["hello_world.py"])
-             sage: DC.run_val_gdb(testing=True)
--            exec gdb -x "$SAGE_LOCAL/bin/sage-gdb-commands" --args python "$SAGE_LOCAL/bin/sage-runtests" --serial --timeout=0 hello_world.py
-+            exec gdb -x "$SAGE_LOCAL/bin/sage-gdb-commands" --args python "$SAGE_SCRIPTS_DIR/sage-runtests" --serial --timeout=0 hello_world.py
- 
-         ::
- 
-             sage: DD = DocTestDefaults(valgrind=True, optional="all", timeout=172800)
-             sage: DC = DocTestController(DD, ["hello_world.py"])
-             sage: DC.run_val_gdb(testing=True)
--            exec valgrind --tool=memcheck --leak-resolution=high --leak-check=full --num-callers=25 --suppressions="$SAGE_EXTCODE/valgrind/pyalloc.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage-additional.supp"  --log-file=".../valgrind/sage-memcheck.%p" python "$SAGE_LOCAL/bin/sage-runtests" --serial --timeout=172800 --optional=all hello_world.py
-+            exec valgrind --tool=memcheck --leak-resolution=high --leak-check=full --num-callers=25 --suppressions="$SAGE_EXTCODE/valgrind/pyalloc.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage.supp" --suppressions="$SAGE_EXTCODE/valgrind/sage-additional.supp"  --log-file=".../valgrind/sage-memcheck.%p" python "$SAGE_SCRIPTS_DIR/bin/sage-runtests" --serial --timeout=172800 --optional=all hello_world.py
-         """
-         try:
-             sage_cmd = self._assemble_cmd()
+@@ -1075,7 +1075,7 @@
+             return 2
+         opt = self.options
+         if opt.gdb:
+-            cmd = '''exec gdb -x "%s" --args '''%(os.path.join(SAGE_LOCAL,"bin","sage-gdb-commands"))
++            cmd = '''exec gdb -x "%s" --args '''%(os.path.join(SAGE_SCRIPTS_DIR,"sage-gdb-commands"))
+             flags = ""
+             if opt.logfile:
+                 sage_cmd += " --logfile %s"%(opt.logfile)

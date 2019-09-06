@@ -19,18 +19,18 @@ u2-allow-override-sage-local.patch
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
-d0-arb.patch
+#d0-arb.patch
 d0-gsl-cblas.patch
 d0-libgap-path.patch
 d0-maxima.patch
-d0-mathjax.patch
+#d0-mathjax.patch
 d0-nauty.patch
 d0-rubiks.patch
 d0-singular.patch
 d0-threejs-default-in-notebooks.patch
 d0-disable-jsmol.patch
 d0-paths.patch
-d0-threejs-offline-paths.patch
+#d0-threejs-offline-paths.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
@@ -56,7 +56,7 @@ df-subprocess-sphinx.patch
 dt-version-glpk-4.60-extra-hacky-fixes.patch
 dt-version-glpk-4.65-ignore-warnings.patch
 dt-more-fix-test-cases.patch
-dt-work-around-doc-common-conf.patch
+#dt-work-around-doc-common-conf.patch
 dt-work-around-singular-mips64el-segfault.patch
 dt-version-ipywidgets-6-revert-23177.patch
 dt-version-ipywidgets-6-tests.patch

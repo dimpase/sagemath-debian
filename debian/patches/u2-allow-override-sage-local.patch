@@ -19,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -295,7 +295,7 @@
+@@ -284,7 +284,7 @@
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
@@ -40,7 +40,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  var('SAGE_ROOT')           # no fallback for SAGE_ROOT
 +var('SAGE_SPKG_INST',      join(SAGE_ROOT, 'local', 'var', 'lib', 'sage', 'installed'))
  var('SAGE_SRC',            join(SAGE_ROOT, 'src'), SAGE_LIB)
- var('SAGE_DOC_SRC',        join(SAGE_SRC, 'doc'))
+ var('SAGE_DOC_SRC',        join(SAGE_ROOT, 'src', 'doc'), SAGE_DOC)
  var('SAGE_PKGS',           join(SAGE_ROOT, 'build', 'pkgs'))
 --- a/sage/build/make/install
 +++ b/sage/build/make/install

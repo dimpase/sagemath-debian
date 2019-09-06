@@ -45,7 +45,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -323,7 +323,7 @@
+@@ -325,7 +325,7 @@
          sage: import sage.env
          sage: sage.env.sage_include_directories()
          ['.../include',

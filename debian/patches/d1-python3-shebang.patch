@@ -34,14 +34,6 @@ Author: Tobias Hansen
  
  import os, sys
  
---- a/sage/src/bin/sage-cython
-+++ b/sage/src/bin/sage-cython
-@@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/usr/bin/env python3
- 
- # This script is a deprecated wrapper around the "cython" program.
- # It is deprecated since Trac #27041 (Sage 8.7) because one should
 --- a/sage/src/bin/sage-location
 +++ b/sage/src/bin/sage-location
 @@ -1,4 +1,4 @@
