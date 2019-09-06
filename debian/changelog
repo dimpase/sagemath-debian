@@ -13,6 +13,7 @@ sagemath (8.8-2) UNRELEASED; urgency=medium
     - libpynac-dev (>= 0.7.26-2) (linked against libpython3)
   * New patches:
     - u2-version-rpy-3.patch
+    - d1-python3-shebang.patch
     - dt-version-sympy-1.3.patch
   * Allow up to 150 failed tests.
 
