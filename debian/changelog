@@ -12,6 +12,9 @@ sagemath (8.9~beta9-1) UNRELEASED; urgency=medium
   * Use Python 3. (Closes: #938426, #939402)
   * New (Build-)Depends:
     - libpynac-dev (>= 0.7.26-2) (linked against libpython3)
+    - libgivaro-dev (>= 4.1.1)
+    - fflas-ffpack (>= 2.4.3)
+    - liblinbox-dev (>= 1.6.3)
   * New patches:
     - u2-version-rpy-3.patch
     - d1-python3-shebang.patch
