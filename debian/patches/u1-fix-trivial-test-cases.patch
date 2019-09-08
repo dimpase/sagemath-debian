@@ -28,14 +28,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          """
          r = os.popen('tachyon').read()
          if use_pager:
---- a/sage/src/sage/tests/books/judson-abstract-algebra/sylow-sage.py
-+++ b/sage/src/sage/tests/books/judson-abstract-algebra/sylow-sage.py
-@@ -225,7 +225,7 @@
- ~~~~~~~~~~~~~~~~~~~~~~ ::
- 
-     sage: gap.version()  # random
--    '4.10.0'
-+    '4...'
- 
- ~~~~~~~~~~~~~~~~~~~~~~ ::
- 
