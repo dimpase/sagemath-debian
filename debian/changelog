@@ -22,6 +22,8 @@ sagemath (8.9~beta9-1) UNRELEASED; urgency=medium
   * Remove obsolete patches:
     - debian/patches/d0-arb.patch
     - dt-work-around-doc-common-conf.patch
+  * Replace language specific documentation packages
+    by a single package sagemath-doc containing all languages.
   * Allow up to 150 failed tests.
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 03 Sep 2019 17:18:36 +0200

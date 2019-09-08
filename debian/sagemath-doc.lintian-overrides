@@ -1,0 +1,5 @@
+# False positive: This is not a license file, but the reference file for sage/misc/copying.py.
+sagemath-doc binary: extra-license-file usr/share/doc/sagemath/html/en/reference/misc/_sources/sage/misc/copying.rst.txt
+
+# Lintian's warning is only about cross-device links, I was advised to override it by another DD
+sagemath-doc binary: package-contains-hardlink usr/share/doc/sagemath/html/*

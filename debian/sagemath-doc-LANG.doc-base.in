@@ -1,9 +1,0 @@
-Document: sagemath-doc-LANG
-Title: SageMath Manual (LANGUAGE)
-Author: The Sage Development Team
-Abstract: This is the manual for SageMath in LANGUAGE.
-Section: Science/Mathematics
-
-Format: HTML
-Index: /usr/share/doc/sagemath/html/LANG/SUBDIRindex.html
-Files: /usr/share/doc/sagemath/html/LANG/*

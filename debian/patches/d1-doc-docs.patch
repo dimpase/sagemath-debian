@@ -7,7 +7,7 @@
 -            raise OSError("""The document '{0}' does not exist.  Please build it
 -with 'sage -docbuild {0} html --mathjax' and try again.""".format(name))
 +            raise OSError("""The document '{0}' does not exist.  Please install
-+the 'sagemath-doc-en' package and try again.""".format(name))
++the 'sagemath-doc' package and try again.""".format(name))
  
          if testing:
              return (url, path)

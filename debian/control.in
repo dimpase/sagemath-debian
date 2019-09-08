@@ -99,7 +99,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends}, ${python3:Depends},
  sagemath-common (= ${source:Version})
 Recommends:
  RUNTIME_RECOMMENDS
- sagemath-doc-en (= ${source:Version}),
+ sagemath-doc (= ${source:Version}),
  sagemath-jupyter (= ${source:Version}),
  sagetex,
  texlive-latex-base
@@ -146,3 +146,39 @@ Description: Open Source Mathematical Software - Jupyter kernel
 Depends: ${misc:Depends},
  JUPYTER_DEPENDS
  sagemath (>= ${source:Version}), sagemath (<< ${source:Version}.1~)
+
+Package: sagemath-doc
+Architecture: all
+Description: Open Source Mathematical Software - documentation
+ SageMath is a free open-source mathematics software system licensed under the
+ GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
+ matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
+ power through a common, Python-based language or directly via interfaces or
+ wrappers.
+ .
+ Mission: Creating a viable free open source alternative to Magma, Maple,
+ Mathematica and Matlab.
+ .
+ This package contains the documentation.
+Depends: ${misc:Depends}, ${sphinxdoc:Depends}
+Built-Using: ${sphinxdoc:Built-Using}
+Breaks: sagemath-doc-ca (<< 8.9~beta9-1~), sagemath-doc-de (<< 8.9~beta9-1~),
+ sagemath-doc-en (<< 8.9~beta9-1~), sagemath-doc-es (<< 8.9~beta9-1~),
+ sagemath-doc-fr (<< 8.9~beta9-1~), sagemath-doc-hu (<< 8.9~beta9-1~),
+ sagemath-doc-it (<< 8.9~beta9-1~), sagemath-doc-ja (<< 8.9~beta9-1~),
+ sagemath-doc-pt (<< 8.9~beta9-1~), sagemath-doc-ru (<< 8.9~beta9-1~),
+ sagemath-doc-tr (<< 8.9~beta9-1~)
+Replaces: sagemath-doc-ca (<< 8.9~beta9-1~), sagemath-doc-de (<< 8.9~beta9-1~),
+ sagemath-doc-en (<< 8.9~beta9-1~), sagemath-doc-es (<< 8.9~beta9-1~),
+ sagemath-doc-fr (<< 8.9~beta9-1~), sagemath-doc-hu (<< 8.9~beta9-1~),
+ sagemath-doc-it (<< 8.9~beta9-1~), sagemath-doc-ja (<< 8.9~beta9-1~),
+ sagemath-doc-pt (<< 8.9~beta9-1~), sagemath-doc-ru (<< 8.9~beta9-1~),
+ sagemath-doc-tr (<< 8.9~beta9-1~)
+
+Package: sagemath-doc-en
+Depends: sagemath-doc, ${misc:Depends}
+Architecture: all
+Priority: optional
+Section: oldlibs
+Description: transitional package
+ This is a transitional package. It can safely be removed.

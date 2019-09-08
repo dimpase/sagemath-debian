@@ -60,13 +60,6 @@ export SAGE_SCRIPTS_DIR = $(CURDIR)/sage/src/bin
 export SAGE_PYTHON3=yes
 export SAGE_PYTHON_VERSION=3
 
-LANGS = $(shell cd sage/src/doc && find . -mindepth 1 -maxdepth 1 -type d | grep -v common | cut -b3- | LC_ALL=C.UTF-8 LANG=C.UTF-8 sort)
-DOCS_INSTALL = $(LANGS:%=debian/sagemath-doc-%.install)
-DOCS_CONTROL = $(LANGS:%=debian/sagemath-doc-%.control)
-DOCS_DOC_BASE = $(LANGS:%=debian/sagemath-doc-%.doc-base)
-DOCS_OVERRIDES = $(LANGS:%=debian/sagemath-doc-%.lintian-overrides)
-DOCS_INSTALL_DIRS = $(LANGS:%=debian/sagemath-doc-%)
-
 ifneq (1,$(TRY_AVOID_REBUILD))
 REBUILD_RULES = debian/rules
 endif
@@ -80,37 +73,11 @@ endif
 
 binary build clean install: debian/control
 
-debian/control: debian/control.in $(DOCS_CONTROL)
+debian/control: debian/control.in
 	cat $^ > "$@"
 	sed -i -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' "$@"
 	sed -i -e '/RUNTIME_RECOMMENDS/ {' -e 'r debian/control.runtime-recommends' -e 'd' -e '}' "$@"
 	sed -i -e '/JUPYTER_DEPENDS/ {' -e 'r debian/control.jupyter-depends' -e 'd' -e '}' "$@"
-
-debian/sagemath-doc-%.control: debian/sagemath-doc-LANG.control.in $(REBUILD_RULES)
-	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
-
-debian/sagemath-doc-%.install: debian/sagemath-doc-LANG.install.in $(REBUILD_RULES)
-	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
-
-debian/sagemath-doc-en.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_RULES)
-	sed -e "s/LANGUAGE/$$(debian/lang.py en)/g" -e 's/LANG/en/g' -e 's/SUBDIR//g' < "$<" > "$@"
-
-debian/sagemath-doc-ca.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_RULES)
-	sed -e "s/LANGUAGE/$$(debian/lang.py ca)/g" -e 's/LANG/ca/g' -e 's/SUBDIR/intro\//g' < "$<" > "$@"
-
-debian/sagemath-doc-%.doc-base: debian/sagemath-doc-LANG.doc-base.in $(REBUILD_RULES)
-	if [ "$*" = "hu" -o "$*" = "it" -o "$*" = "tr" ]; then \
-		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/a_tour_of_sage\//g' < "$<" > "$@"; \
-	else \
-		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' -e 's/SUBDIR/tutorial\//g' < "$<" > "$@"; \
-	fi
-
-debian/sagemath-doc-%.lintian-overrides: debian/sagemath-doc-LANG.lintian-overrides.in \
-  $(wildcard debian/sagemath-doc-%.lintian-overrides.in) $(REBUILD_RULES)
-	sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "$<" > "$@"
-	if [ -f "debian/sagemath-doc-$*.lintian-overrides.in" ]; then \
-		sed -e "s/LANGUAGE/$$(debian/lang.py $*)/g" -e 's/LANG/$*/g' < "debian/sagemath-doc-$*.lintian-overrides.in" >> "$@"; \
-	fi
 
 ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz: .git/modules/sage/HEAD
 	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
@@ -176,15 +143,13 @@ else
 	dh_auto_clean -Dsage -- maintainer-clean
 endif
 
-override_dh_install-indep: $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOCS_OVERRIDES)
+override_dh_install-indep:
 	dh_install --package sagemath-common -X.so
 	dh_install --remaining-packages --list-missing
 # Basic version of deduplicating the docs, for a much smaller install size.
 # Upstream bug report is at https://trac.sagemath.org/ticket/22088
 # Hard links do work in Debian packages, but only within packages.
-	set -e; for d in $(DOCS_INSTALL_DIRS); do \
-		rdfind -outputname /dev/null -makehardlinks true "$$d"; \
-	done
+	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc; \
 
 override_dh_python3-arch:
 	dh_python3
@@ -224,7 +189,6 @@ else
 preserve_docs = $(1)
 endif
 override_dh_clean:
-	rm -f $(DOCS_INSTALL) $(DOCS_DOC_BASE) $(DOCS_OVERRIDES)
 	rm -rf $(DOT_SAGE)
 	$(call preserve_docs,dh_clean,debian/tmp)
 	$(call preserve_docs,rm -rf debian/build/*,debian/build)

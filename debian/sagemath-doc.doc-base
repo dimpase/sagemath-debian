@@ -1,0 +1,9 @@
+Document: sagemath-doc
+Title: SageMath Manual
+Author: The Sage Development Team
+Abstract: This is the manual for SageMath.
+Section: Science/Mathematics
+
+Format: HTML
+Index: /usr/share/doc/sagemath/html/en/index.html
+Files: /usr/share/doc/sagemath/html/*
