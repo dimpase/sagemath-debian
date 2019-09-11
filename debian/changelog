@@ -26,7 +26,6 @@ sagemath (8.9~beta9-1) UNRELEASED; urgency=medium
   * Simplify pruner script, decleare all standard packages
     as installed.
   * Fix 3 doctests in interfaces/maxima_abstract.py.
-  * Allow up to 150 failed tests.
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 03 Sep 2019 17:18:36 +0200
 
