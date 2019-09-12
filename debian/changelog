@@ -1,3 +1,9 @@
+sagemath (8.9~rc0-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Tobias Hansen <thansen@debian.org>  Thu, 12 Sep 2019 21:44:53 +0200
+
 sagemath (8.9~beta9-1) unstable; urgency=medium
 
   [ Martin von Gagern ]
