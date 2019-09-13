@@ -4,14 +4,6 @@ Author: Ximin Luo <infinity0@debian.org>
 Forwarded: not-needed
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/sage/libs/lcalc/lcalc_sage.h
-+++ b/sage/src/sage/libs/lcalc/lcalc_sage.h
-@@ -1,4 +1,4 @@
--#include "libLfunction/L.h"
-+#include "Lfunction/L.h"
- 
- int *new_ints(int l)
- {
 --- a/sage/build/bin/sage-python23
 +++ b/sage/build/bin/sage-python23
 @@ -12,9 +12,9 @@

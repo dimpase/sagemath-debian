@@ -164,7 +164,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -442,7 +442,7 @@
+@@ -415,7 +415,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example
