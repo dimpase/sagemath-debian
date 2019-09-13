@@ -41,7 +41,7 @@ Build-Depends:
  libgd-dev,
  libgf2x-dev (>= 1.2-4),
  libgiac-dev (>= 1.4.9.69),
- libgivaro-dev (>= 4.1.1),
+ libgivaro-dev (>= 4.1.1-2),
  libglpk-dev,
  libgmp-dev (>= 2:5.1.2),
  libgpg-error-dev,
