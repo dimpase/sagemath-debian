@@ -1,10 +1,10 @@
-sagemath (8.9-1) UNRELEASED; urgency=medium
+sagemath (8.9-1) unstable; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
     - libgivaro-dev (>= 4.1.1-2)
 
- -- Tobias Hansen <thansen@debian.org>  Thu, 12 Sep 2019 21:44:53 +0200
+ -- Tobias Hansen <thansen@debian.org>  Tue, 01 Oct 2019 11:29:02 +0200
 
 sagemath (8.9~beta9-1) unstable; urgency=medium
 
