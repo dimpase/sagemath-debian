@@ -1,11 +1,23 @@
 --- a/sage/src/sage/graphs/graph_generators.py
 +++ b/sage/src/sage/graphs/graph_generators.py
-@@ -900,14 +900,14 @@
+@@ -899,7 +899,7 @@
  
              sage: gen = graphs.nauty_geng("4", debug=True)
              sage: print(next(gen))
 -            >A geng -d0D3 n=4 e=0-6
 +            >A nauty-geng -d0D3 n=4 e=0-6
+             sage: gen = graphs.nauty_geng("4 -q", debug=True)
+             sage: next(gen)
+             ''
+@@ -913,16 +913,16 @@
+             ...
+             ValueError: wrong format of parameter option
+             sage: list(graphs.nauty_geng("-c3", debug=True))
+-            ['>E Usage: geng [-cCmtfbd#D#] [-uygsnh] [-lvq] \n']
++            ['>E Usage: nauty-geng [-cCmtfbd#D#] [-uygsnh] [-lvq] \n']
+             sage: list(graphs.nauty_geng("-c 3", debug=True))
+-            ['>A geng -cd1D2 n=3 e=2-3\n', Graph on 3 vertices, Graph on 3 vertices]
++            ['>A nauty-geng -cd1D2 n=3 e=2-3\n', Graph on 3 vertices, Graph on 3 vertices]
          """
          if PY2:
              enc_kwargs = {}

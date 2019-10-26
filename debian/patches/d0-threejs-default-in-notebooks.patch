@@ -40,5 +40,5 @@ Forwarded: not-needed
 +        if viewer == 'jmol' and not can_view_jmol:           viewer = 'threejs'
 +        if viewer == 'threejs' and not can_view_threejs:     viewer = 'tachyon'
          ### Second, return the corresponding graphics file
-         if viewer == 'jmol':
-             return self._rich_repr_jmol(**opts)
+         if viewer == 'threejs':
+             return self._rich_repr_threejs(**opts)

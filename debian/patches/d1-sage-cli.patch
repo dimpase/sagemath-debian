@@ -601,7 +601,7 @@ Forwarded: not-needed
  --preparse
  --python
  --python3
-@@ -417,50 +414,6 @@
+@@ -419,50 +416,6 @@
          ...
          RuntimeError: refusing to run doctests...
  
