@@ -3,6 +3,7 @@ sagemath (8.9-2) UNRELEASED; urgency=medium
   * Follow best practices for blas in Debian:
     - Build-Depend on libblas-dev instead of libopenblas-dev|libatlas-base-dev
     - Recommend libopenblas-base|libblis2|libatlas3-base|libblas3|libblas.so.3
+  * Update pplpy documentation path for pplpy 0.8.4-3.
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 30 Oct 2019 19:43:18 +0000
 
