@@ -277,6 +277,8 @@ export-build-env:
 	@echo export PYTHONPATH=$(PYTHONPATH)
 	@echo export DOT_SAGE=$(DOT_SAGE)
 	@echo export SAGE_SCRIPTS_DIR=$(SAGE_SCRIPTS_DIR)
+	@echo export SAGE_PYTHON3=$(SAGE_PYTHON3)
+	@echo export SAGE_PYTHON_VERSION=$(SAGE_PYTHON_VERSION)
 
 # If the docbuild fails and you want to try again, you should run this first.
 # Otherwise the docbuild gets slower and slower as it re-reads information from
