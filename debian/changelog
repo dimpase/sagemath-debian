@@ -1,4 +1,4 @@
-sagemath (8.9-2) UNRELEASED; urgency=medium
+sagemath (8.9-2) unstable; urgency=medium
 
   * Follow best practices for blas in Debian:
     - Build-Depend on libblas-dev instead of libopenblas-dev|libatlas-base-dev
@@ -9,7 +9,7 @@ sagemath (8.9-2) UNRELEASED; urgency=medium
     - brial (>= 1.2.5-2)
   * Override lintian error for sagemath-dbgsym: field-too-long 'Build-Ids'.
 
- -- Tobias Hansen <thansen@debian.org>  Wed, 30 Oct 2019 19:43:18 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sun, 10 Nov 2019 21:41:38 +0100
 
 sagemath (8.9-1) unstable; urgency=medium
 
