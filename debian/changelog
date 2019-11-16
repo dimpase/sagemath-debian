@@ -2,6 +2,7 @@ sagemath (9.0~beta5-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove patches:
+    - d1-python3-shebang.patch
     - df-python_security.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 26 Oct 2019 15:42:45 +0200

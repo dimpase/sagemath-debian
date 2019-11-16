@@ -327,7 +327,7 @@ Forwarded: not-needed
 -
 -if [ "$1" = '-pip' -o "$1" = '--pip' ]; then
 -    shift
--    exec sage-python23 -m pip "$@"
+-    exec sage-python -m pip "$@"
 -fi
 -
 -if [ "$1" = '--pip3' ]; then
