@@ -141,6 +141,7 @@ ifneq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 	rm -rf sage/local sage/upstream
 else
 	dh_auto_clean -Dsage -- maintainer-clean
+	rm -f sage/config.status
 endif
 
 override_dh_install-indep:

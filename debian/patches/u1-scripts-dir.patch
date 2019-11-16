@@ -86,7 +86,7 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1025,7 +1025,7 @@
+@@ -1031,7 +1031,7 @@
              sage: print(DC._assemble_cmd())
              python "...sage-runtests" --serial --timeout=123 hello_world.py
          """
@@ -95,7 +95,7 @@ Forwarded: TODO
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -1075,7 +1075,7 @@
+@@ -1081,7 +1081,7 @@
              return 2
          opt = self.options
          if opt.gdb:
