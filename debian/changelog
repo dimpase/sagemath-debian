@@ -2,6 +2,7 @@ sagemath (8.9-3) UNRELEASED; urgency=medium
 
   * New patch (Closes: #944648)
     - u0-32bit-overflow-trac-28795.patch         #28795
+    - d1-packages-exclude-pip
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 28 Nov 2019 19:17:32 +0000
 

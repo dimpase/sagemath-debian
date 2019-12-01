@@ -1,0 +1,16 @@
+Description: Avoid calling pip list
+ This is to avoid the bug #945214, however we are not using this
+ functionality anyway.
+Author: Tobias Hansen <thansen@debian.org>
+
+--- a/sage/src/sage/misc/package.py
++++ b/sage/src/sage/misc/package.py
+@@ -288,7 +288,7 @@
+         :func:`sage.misc.package.list_packages`
+     """
+     installed = {}
+-    if not exclude_pip:
++    if False:
+         installed.update(pip_installed_packages())
+     # Sage packages should override pip packages (Trac #23997)
+     installed.update(pkgname_split(pkgname)
