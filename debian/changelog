@@ -1,7 +1,10 @@
 sagemath (8.9-3) UNRELEASED; urgency=medium
 
+  * New (Build-)Depends:
+    - libjs-three (>= 111)
   * New patch (Closes: #944648)
     - u0-32bit-overflow-trac-28795.patch         #28795
+    - u0-version-threejs-111.patch               #28560
     - d1-packages-exclude-pip
 
  -- Tobias Hansen <thansen@debian.org>  Thu, 28 Nov 2019 19:17:32 +0000

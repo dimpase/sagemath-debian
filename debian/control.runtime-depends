@@ -20,7 +20,7 @@
  less,
  libcdd-tools (>= 094j),
  libjs-mathjax,
- libjs-three (>= 80),
+ libjs-three (>= 111),
  maxima-sage (>= 5.42.2),
  maxima-sage-share (>= 5.42.2),
  nauty,
