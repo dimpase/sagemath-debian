@@ -1,4 +1,4 @@
-sagemath (8.9-3) UNRELEASED; urgency=medium
+sagemath (8.9-3) unstable; urgency=medium
 
   * New (Build-)Depends:
     - libjs-three (>= 111)
@@ -7,7 +7,7 @@ sagemath (8.9-3) UNRELEASED; urgency=medium
     - u0-version-threejs-111.patch               #28560
     - d1-packages-exclude-pip
 
- -- Tobias Hansen <thansen@debian.org>  Thu, 28 Nov 2019 19:17:32 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sun, 01 Dec 2019 12:26:58 +0000
 
 sagemath (8.9-2) unstable; urgency=medium
 
