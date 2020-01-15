@@ -39,7 +39,6 @@ d1-install-paths.patch # many things in here could be split into an upstreamable
 d1-sage-cli.patch
 d1-sage-env.patch
 d1-packages-exclude-pip.patch
-d1-python3-shebang.patch
 d1-fakeroot.patch
 d1-multiarch-python-paths.patch
 d1-doc-docs.patch
@@ -48,7 +47,6 @@ d1-doc-docs.patch
 # We had to do these to make things work, at some time in the past
 # It may be possible to drop these now or in the future; test that first.
 df-revert-minor-feature-dependent-on-python-patch.patch
-df-python_security.patch
 df-sage-gap-reset-doctest.patch
 df-silence_ecl_opt_signals.patch
 df-subprocess-sphinx.patch

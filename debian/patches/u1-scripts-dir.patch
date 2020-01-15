@@ -35,7 +35,7 @@ Forwarded: TODO
 +        gdb -x "$SAGE_SCRIPTS_DIR/sage-gdb-commands" \
 +            -args python "$SAGE_SCRIPTS_DIR/sage-ipython" "$@" -i
      else
-         sage_dir=$(sage-python23 -c 'import os, sage; print(os.path.dirname(sage.__file__))')
+         sage_dir=$(sage-python -c 'import os, sage; print(os.path.dirname(sage.__file__))')
          cygdb "$sage_dir" "$SAGE_SRC/sage" \
 -            -- -x "$0-gdb-commands" \
 -            -args python "$0-ipython" "$@" -i
@@ -86,16 +86,16 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1025,7 +1025,7 @@
+@@ -1031,7 +1031,7 @@
              sage: print(DC._assemble_cmd())
-             python "...sage-runtests" --serial --timeout=123 hello_world.py
+             sage-python "...sage-runtests" --serial --timeout=123 hello_world.py
          """
--        cmd = '''python "%s" --serial '''%(os.path.join(SAGE_LOCAL,"bin","sage-runtests"))
-+        cmd = '''python "%s" --serial '''%(os.path.join(SAGE_SCRIPTS_DIR,"sage-runtests"))
+-        cmd = '''sage-python "%s" --serial '''%(os.path.join(SAGE_LOCAL,"bin","sage-runtests"))
++        cmd = '''sage-python "%s" --serial '''%(os.path.join(SAGE_SCRIPTS_DIR,"sage-runtests"))
          opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
          for o in ("all", "sagenb"):
              if o in opt:
-@@ -1075,7 +1075,7 @@
+@@ -1081,7 +1081,7 @@
              return 2
          opt = self.options
          if opt.gdb:
