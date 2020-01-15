@@ -1,4 +1,4 @@
-sagemath (9.0~beta5-1) UNRELEASED; urgency=medium
+sagemath (9.0-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove patches:
