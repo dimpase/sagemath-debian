@@ -2,6 +2,8 @@ sagemath (9.0-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove patches:
+    - u0-32bit-overflow-trac-28795.patch         #28795
+    - u0-version-threejs-111.patch               #28560
     - d1-python3-shebang.patch
     - df-python_security.patch
   * Depend on cython3 instead of cython.

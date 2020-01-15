@@ -9,7 +9,7 @@ Forwarded: not-needed
 
 --- a/sage/src/sage/repl/rich_output/backend_ipython.py
 +++ b/sage/src/sage/repl/rich_output/backend_ipython.py
-@@ -497,7 +497,7 @@
+@@ -499,7 +499,7 @@
              OutputHtml,
              OutputImagePng, OutputImageGif, OutputImageJpg,
              OutputImageSvg, OutputImagePdf,

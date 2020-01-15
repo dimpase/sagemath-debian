@@ -13,11 +13,12 @@
              return (url, path)
 --- a/sage/src/sage/misc/copying.py
 +++ b/sage/src/sage/misc/copying.py
-@@ -14,6 +14,6 @@
+@@ -15,7 +15,7 @@
          return "Type license() to see the full license text."
  
      def __str__(self):
--        return open(os.path.join(SAGE_ROOT,'COPYING.txt')).read()
-+        return open("/usr/share/doc/sagemath/copyright").read()
+-        with open(os.path.join(SAGE_ROOT,'COPYING.txt')) as f:
++        with open("/usr/share/doc/sagemath/copyright") as f:
+             return f.read()
  
- license = License()
+ 

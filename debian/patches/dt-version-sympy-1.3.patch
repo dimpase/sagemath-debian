@@ -31,7 +31,7 @@ Subject: Adjust doctests for sympy 1.4 output syntax changes
  
 --- a/sage/src/sage/manifolds/chart_func.py
 +++ b/sage/src/sage/manifolds/chart_func.py
-@@ -2352,7 +2352,7 @@
+@@ -2373,7 +2373,7 @@
              sage: f = X.function(sqrt(x^2-2*x+1)); f
              sqrt(x**2 - 2*x + 1)
              sage: f.simplify()

@@ -4,31 +4,15 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
 
 --- a/sage/src/sage/dynamics/complex_dynamics/mandel_julia.py
 +++ b/sage/src/sage/dynamics/complex_dynamics/mandel_julia.py
-@@ -130,13 +130,13 @@
-     Notebook, set ``interact`` to ``True``::
- 
-         sage: mandelbrot_plot(interact=True)
--        interactive(children=(FloatSlider(value=-1.0, description=u'Real center'...
-+        interactive(children=(FloatSlider(value=-1.0,... description=u'Real center'...
- 
-     ::
- 
-         sage: mandelbrot_plot(interact=True, x_center=-0.75, y_center=0.25,
-         ....:     image_width=1/2, number_of_colors=75)
--        interactive(children=(FloatSlider(value=-0.75, description=u'Real center'...
-+        interactive(children=(FloatSlider(value=-0.75,... description=u'Real center'...
-     """
-     base_color = Color(base_color)
- 
-@@ -415,7 +415,7 @@
-     set ``interact`` to ``True``::
+@@ -527,7 +527,7 @@
+     the form ``f = z^2 + c``)::
  
          sage: julia_plot(interact=True)
 -        interactive(children=(FloatSlider(value=-1.0, description=u'Real c'...
 +        interactive(children=(FloatSlider(value=-1.0,... description=u'Real c'...
  
-     To return the Julia set of a random `c` value with (formal) cycle structure
-     `(2,3)`, set ``period = [2,3]``::
+         ::
+ 
 --- a/sage/src/sage/interacts/library.py
 +++ b/sage/src/sage/interacts/library.py
 @@ -14,8 +14,8 @@

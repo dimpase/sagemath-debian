@@ -86,16 +86,7 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1031,7 +1031,7 @@
-             sage: print(DC._assemble_cmd())
-             sage-python "...sage-runtests" --serial --timeout=123 hello_world.py
-         """
--        cmd = '''sage-python "%s" --serial '''%(os.path.join(SAGE_LOCAL,"bin","sage-runtests"))
-+        cmd = '''sage-python "%s" --serial '''%(os.path.join(SAGE_SCRIPTS_DIR,"sage-runtests"))
-         opt = dict_difference(self.options.__dict__, DocTestDefaults().__dict__)
-         for o in ("all", "sagenb"):
-             if o in opt:
-@@ -1081,7 +1081,7 @@
+@@ -1082,7 +1082,7 @@
              return 2
          opt = self.options
          if opt.gdb:

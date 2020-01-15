@@ -14,12 +14,12 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  from sage.structure.sage_object import SageObject
  from sage.misc.all import pager, verbose
  import sage.rings.all
-@@ -76,7 +77,7 @@
+@@ -77,7 +78,7 @@
          """
          Used to call sympow with given args
          """
 -        cmd = 'env -u MALLOC_PERTURB_ sympow %s' % (DOT_SAGE, args)
 +        cmd = 'env -u MALLOC_PERTURB_ SYMPOW_CACHEDIR="%s/sympow///" sympow %s' % (DOT_SAGE, args)
-         v = os.popen(cmd).read().strip()
+         with os.popen(cmd) as f:
+             v = f.read().strip()
          verbose(v, level=2)
-         return v

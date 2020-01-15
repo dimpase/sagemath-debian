@@ -33,7 +33,7 @@ Author: Tobias Hansen <thansen@debian.org>
          if sage.server.support.EMBEDDED_MODE:
              cmd += '< /dev/null'
  
-@@ -2193,7 +2193,7 @@
+@@ -2209,7 +2209,7 @@
          sage: maxima_version()  # random
          '5.41.0'
      """
@@ -42,7 +42,7 @@ Author: Tobias Hansen <thansen@debian.org>
          return p.read().split()[-1]
  
  
-@@ -2211,4 +2211,4 @@
+@@ -2227,4 +2227,4 @@
      from sage.repl.rich_output.display_manager import get_display_manager
      if not get_display_manager().is_in_terminal():
          raise RuntimeError('Can use the console only in the terminal. Try %%maxima magics instead.')

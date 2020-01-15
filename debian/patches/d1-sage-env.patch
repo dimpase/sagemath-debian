@@ -49,9 +49,9 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -350,8 +351,8 @@
-     CPATH="${CPATH}:/usr/include/$MULTI_ARCH"
- fi
+@@ -342,8 +343,8 @@
+ [ -z "$CPATH" ] || CPATH="${CPATH}:"
+ export CPATH="${CPATH}$SAGE_LOCAL/include"
  
 -SINGULARPATH="$SAGE_LOCAL/share/singular" && export SINGULARPATH
 -SINGULAR_EXECUTABLE="$SAGE_LOCAL/bin/Singular" && export SINGULAR_EXECUTABLE
@@ -60,7 +60,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -366,16 +367,6 @@
+@@ -358,16 +359,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -77,7 +77,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -418,8 +409,10 @@
+@@ -410,8 +401,10 @@
      unset PYTHONHOME
  fi
  
@@ -89,7 +89,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -481,7 +474,6 @@
+@@ -473,7 +466,6 @@
      fi
  fi
  
@@ -97,7 +97,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -593,9 +585,6 @@
+@@ -585,9 +577,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  

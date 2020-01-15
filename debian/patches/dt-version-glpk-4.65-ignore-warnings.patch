@@ -16,7 +16,7 @@ Bug-Debian: https://bugs.debian.org/891465
  find_sage_prompt = re.compile(r"^(\s*)sage: ", re.M)
  find_sage_continuation = re.compile(r"^(\s*)\.\.\.\.:", re.M)
  find_python_continuation = re.compile(r"^(\s*)\.\.\.([^\.])", re.M)
-@@ -1065,6 +1066,7 @@
+@@ -1068,6 +1069,7 @@
              <type 'float'>
          """
          got = self.human_readable_escape_sequences(got)
