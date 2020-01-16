@@ -1,6 +1,8 @@
 sagemath (9.0-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * New patches (from Arch Linux):
+    - u0-version-ipython-7.patch                 #28197
   * Remove patches:
     - u0-32bit-overflow-trac-28795.patch         #28795
     - u0-version-threejs-111.patch               #28560
