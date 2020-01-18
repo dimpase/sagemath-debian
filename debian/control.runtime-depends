@@ -13,7 +13,7 @@
  gap-table-of-marks,
  gfan (>= 0.6.2),
  gmp-ecm,
- ipython3 (>= 5.5.0),
+ ipython3 (>= 7.11.1),
  iso-codes,
  jmol (>= 14.6.4),
  lcalc (>= 1.23+dfsg-10),
