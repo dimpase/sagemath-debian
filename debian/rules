@@ -257,7 +257,7 @@ endif
 override_dh_auto_test-indep:
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	$(call run_tests_with_retry,indep,$(SAGE_TEST_FLAGS_INDEP) src/doc src/sage/misc/sagedoc.py,10)
+	$(call run_tests_with_retry,indep,$(SAGE_TEST_FLAGS_INDEP) src/doc src/sage/misc/sagedoc.py,25)
 	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
 	# Sage doesn't detect this. Here we detect it and fail the build if so.
 	# Also filter out some false positives that are not hard errors.
