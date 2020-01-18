@@ -1,6 +1,10 @@
 sagemath (8.9-4) UNRELEASED; urgency=medium
 
+  [ Tobias Hansen ]
   * Depend on cython3 instead of cython.
+
+  [ Julien Puydt ]
+  * Update d1-sage-env.patch to find scripts (Closes: #948212)
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 29 Dec 2019 00:29:05 +0100
 
