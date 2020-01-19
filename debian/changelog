@@ -3,7 +3,7 @@ sagemath (9.0-1) UNRELEASED; urgency=medium
   [ Tobias Hansen ]
   * New upstream release.
   * New (Build-)Depends:
-    - ipython3 (>= 7.11.1)
+    - ipython3 (>= 7.11.1) (Closes: #949287)
   * New patches (from Arch Linux):
     - u0-version-ipython-7.patch                 #28197
   * Remove patches:
