@@ -13,7 +13,7 @@ sagemath (9.0-1) UNRELEASED; urgency=medium
     - d1-python3-shebang.patch
     - df-python_security.patch
     - dt-version-sympy-1.3.patch
-  * Depend on cython3 instead of cython.
+  * Depend on cython3 instead of cython (Closes: #938426)
 
   [ Julien Puydt ]
   * Update d1-sage-env.patch to find scripts (Closes: #948212)
