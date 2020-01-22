@@ -1,13 +1,13 @@
-sagemath (9.0-1) UNRELEASED; urgency=medium
+sagemath (9.0-1) unstable; urgency=medium
 
   [ Tobias Hansen ]
   * New upstream release.
   * New (Build-)Depends:
-    - ipython3 (>= 7.11.1) (Closes: #949287, #949446)
+    - ipython3 (>= 7.11.1) (Closes: #949287)
   * Remove (Build-)Depends:
     - python3-prompt-toolkit (Closes: #944544)
   * New patches (from Arch Linux):
-    - u0-version-ipython-7.patch                 #28197
+    - u0-version-ipython-7.patch (Closes: #949446)
   * Remove patches:
     - u0-32bit-overflow-trac-28795.patch         #28795
     - u0-version-threejs-111.patch               #28560
@@ -23,7 +23,7 @@ sagemath (9.0-1) UNRELEASED; urgency=medium
   [ Julien Puydt ]
   * Update d1-sage-env.patch to find scripts (Closes: #948212)
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 29 Dec 2019 00:29:05 +0100
+ -- Tobias Hansen <thansen@debian.org>  Wed, 22 Jan 2020 22:37:42 +0100
 
 sagemath (8.9-3) unstable; urgency=medium
 
