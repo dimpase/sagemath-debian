@@ -1,9 +1,13 @@
-sagemath (9.0-2.1) UNRELEASED; urgency=medium
+sagemath (9.0-3) UNRELEASED; urgency=medium
 
-  * Non-maintainer upload.
+  [ Julien Puydt ]
   * Mark the -doc-en package M-A: foreign following hinter.
 
- -- Julien Puydt <jpuydt@debian.org>  Tue, 17 Mar 2020 11:45:22 +0100
+  [ Tobias Hansen ]
+  * New patches:
+    - u0-version-python-3.8.patch                #27754
+
+ -- Tobias Hansen <thansen@debian.org>  Wed, 29 Jan 2020 17:42:48 +0100
 
 sagemath (9.0-2) unstable; urgency=medium
 
