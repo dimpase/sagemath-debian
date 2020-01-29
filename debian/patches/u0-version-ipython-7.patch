@@ -2066,44 +2066,32 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          This method is deprecated since Sage-4.4.1.alpha2. Please use instead:
  
              sage: g.layout(layout = "planar", save_pos = True)
--            {0: [1, 4], 1: [5, 1], 2: [0, 5], 3: [1, 0], 4: [1, 2], 5: [2, 1], 6: [4, 1]}
-+            {1: [5, 1], 2: [0, 5], 3: [1, 0], 0: [1, 4], 4: [1, 2], 5: [2, 1], 6: [4, 1]}
+-            {0: [0, 5], 1: [1, 4], 2: [5, 1], 3: [3, 1], 4: [1, 0], 5: [2, 1], 6: [1, 3]}
++            {2: [5, 1], 0: [0, 5], 4: [1, 0], 1: [1, 4], 3: [3, 1], 5: [2, 1], 6: [1, 3]}
          """
          deprecation(24494, 'This method is replaced by the method layout. '
                             'Please use layout(layout="planar", save_pos=True) '
-@@ -5209,16 +5209,16 @@
+@@ -5209,11 +5209,11 @@
  
              sage: g = graphs.PathGraph(10)
              sage: g.layout(layout='planar', save_pos=True, test=True)
--            {0: [3, 2],
--             1: [4, 3],
--             2: [3, 4],
--             3: [4, 4],
--             4: [2, 6],
--             5: [8, 1],
--             6: [1, 7],
--             7: [0, 8],
--             8: [1, 1],
--             9: [1, 0]}
-+            {5: [8, 1],
-+             7: [0, 8],
-+             9: [1, 0],
-+             0: [3, 2],
-+             1: [4, 3],
-+             2: [3, 4],
-+             3: [4, 4],
-+             4: [2, 6],
-+             6: [1, 7],
-+             8: [1, 1]}
-             sage: g = graphs.BalancedTree(3, 4)
-             sage: pos = g.layout(layout='planar', save_pos=True, test=True)
-             sage: pos[0]
+-            {0: [0, 8],
++            {2: [8, 1],
++             0: [0, 8],
++             4: [1, 0],
+              1: [6, 2],
+-             2: [8, 1],
+              3: [6, 1],
+-             4: [1, 0],
+              5: [5, 2],
+              6: [2, 2],
+              7: [2, 3],
 @@ -5227,7 +5227,7 @@
-             [3, 64]
+             [93, 14]
              sage: g = graphs.CycleGraph(7)
              sage: g.layout(layout='planar', save_pos=True, test=True)
--            {0: [1, 4], 1: [5, 1], 2: [0, 5], 3: [1, 0], 4: [1, 2], 5: [2, 1], 6: [4, 1]}
-+            {1: [5, 1], 2: [0, 5], 3: [1, 0], 0: [1, 4], 4: [1, 2], 5: [2, 1], 6: [4, 1]}
+-            {0: [0, 5], 1: [1, 4], 2: [5, 1], 3: [3, 1], 4: [1, 0], 5: [2, 1], 6: [1, 3]}
++            {2: [5, 1], 0: [0, 5], 4: [1, 0], 1: [1, 4], 3: [3, 1], 5: [2, 1], 6: [1, 3]}
              sage: g = graphs.CompleteGraph(5)
              sage: g.layout(layout='planar', save_pos=True, test=True, set_embedding=True)
              Traceback (most recent call last):
@@ -2631,8 +2619,8 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          sage: r = _realizer(g, tn)
          sage: _compute_coordinates(g,r)
          sage: g.get_pos()
--        {0: [0, 5], 1: [5, 1], 2: [1, 0], 3: [4, 1], 4: [1, 1], 5: [2, 2], 6: [1, 4]}
-+        {1: [5, 1], 0: [0, 5], 2: [1, 0], 3: [4, 1], 4: [1, 1], 5: [2, 2], 6: [1, 4]}
+-        {0: [0, 5], 1: [5, 1], 2: [1, 0], 3: [2, 1], 4: [1, 3], 5: [2, 2], 6: [4, 1]}
++        {1: [5, 1], 0: [0, 5], 2: [1, 0], 3: [2, 1], 4: [1, 3], 5: [2, 2], 6: [4, 1]}
      """
  
      tree_nodes, (v1, v2, v3) = x
@@ -4180,8 +4168,8 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              {N(-2): 2, N(1): 1}
          """
 @@ -1955,7 +1955,7 @@
-             N(1, -3) (9, 2)
              N(-1, 2) (11, 1)
+             N(1, -3) (9, 2)
              sage: f._ray_index_map
 -            {N(-3, 4): 10, N(-1, 2): 11, N(0, 1): 5, N(1, 0): 4, N(2, -6): 9}
 +            {N(1, 0): 4, N(0, 1): 5, N(-3, 4): 10, N(2, -6): 9, N(-1, 2): 11}
