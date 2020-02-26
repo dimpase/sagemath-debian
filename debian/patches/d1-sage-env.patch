@@ -254,7 +254,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  var('SINGULARPATH',                  join(SAGE_SHARE, 'singular'))
 -var('PPLPY_DOCS',                    join(SAGE_SHARE, 'doc', 'pplpy'))
 -var('MAXIMA_FAS')
-+var('PPLPY_DOCS',                    '/usr/share/doc/python-ppl-doc/html')
++var('PPLPY_DOCS',                    '/usr/share/doc/python3-ppl/html')
 +var('MAXIMA_FAS',                    '/usr/lib/ecl/maxima.fas')
  
  # misc

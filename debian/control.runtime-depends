@@ -59,7 +59,7 @@
  python3-pip,
  python3-pkgconfig,
  python3-ppl,
- python-ppl-doc (>= 0.8.4-3),
+ python-ppl-doc (>= 0.8.4-4),
  python3-psutil,
  python3-ptyprocess,
  python3-pygments,
