@@ -180,6 +180,7 @@ Replaces: sagemath-doc-ca (<< 8.9~beta9-1~), sagemath-doc-de (<< 8.9~beta9-1~),
 Package: sagemath-doc-en
 Depends: sagemath-doc, ${misc:Depends}
 Architecture: all
+Multi-Arch: foreign
 Priority: optional
 Section: oldlibs
 Description: transitional package
