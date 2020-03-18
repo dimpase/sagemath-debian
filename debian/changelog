@@ -4,6 +4,9 @@ sagemath (9.0-3) UNRELEASED; urgency=medium
   * Mark the -doc-en package M-A: foreign following hinter.
 
   [ Tobias Hansen ]
+  * Remove (Build-)Depends:
+    - python3-openid   #29320
+    - python3-twisted  #29320
   * New patches:
     - u0-version-python-3.8.patch                #27754
 
