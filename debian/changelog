@@ -11,6 +11,8 @@ sagemath (9.0-3) UNRELEASED; urgency=medium
     - python3-twisted  #29320
   * New patches:
     - u0-version-python-3.8.patch (Closes: #950147)
+    - u0-version-pari-2.11.3.patch               #29313
+    - u0-version-sympy-1.5.patch                 #28911
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 29 Jan 2020 17:42:48 +0100
 
