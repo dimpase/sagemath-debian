@@ -4,11 +4,13 @@ sagemath (9.0-3) UNRELEASED; urgency=medium
   * Mark the -doc-en package M-A: foreign following hinter.
 
   [ Tobias Hansen ]
+  * New (Build-)Depends:
+    - pari (>= 2.11.4~pre1)
   * Remove (Build-)Depends:
     - python3-openid   #29320
     - python3-twisted  #29320
   * New patches:
-    - u0-version-python-3.8.patch                #27754
+    - u0-version-python-3.8.patch (Closes: #950147)
 
  -- Tobias Hansen <thansen@debian.org>  Wed, 29 Jan 2020 17:42:48 +0100
 

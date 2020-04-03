@@ -25,7 +25,7 @@
  maxima-sage-share (>= 5.42.2),
  nauty,
  palp (>= 2.1-2),
- pari-gp (>= 2.11.0),
+ pari-gp (>= 2.11.4~pre1),
  pari-galdata,
  pari-seadata,
  python3,
