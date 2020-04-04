@@ -6,7 +6,7 @@
  flintqs,
  gap-dev (>= 4r10p0-3),
  gap-online-help,
- gap-atlasrep,
+ gap-atlasrep (>= 2.1.0-2),
  gap-primgrp,
  gap-smallgrp,
  gap-transgrp,
