@@ -1,4 +1,4 @@
-sagemath (9.0-3) UNRELEASED; urgency=medium
+sagemath (9.0-3) unstable; urgency=medium
 
   [ Julien Puydt ]
   * Mark the -doc-en package M-A: foreign following hinter.
@@ -17,7 +17,7 @@ sagemath (9.0-3) UNRELEASED; urgency=medium
     - u0-version-sympy-1.5.patch                 #28911
     - u2-version-matplotlib-3.2.1.patch (Closes: #954504)
 
- -- Tobias Hansen <thansen@debian.org>  Wed, 29 Jan 2020 17:42:48 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sat, 04 Apr 2020 20:48:51 +0200
 
 sagemath (9.0-2) unstable; urgency=medium
 
