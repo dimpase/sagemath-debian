@@ -7,6 +7,7 @@ sagemath (9.0-3) UNRELEASED; urgency=medium
   * New (Build-)Depends:
     - pari (>= 2.11.4~pre1)
     - gap-atlasrep (>= 2.1.0-2)
+    - libec-dev (>= 20190909-3)
   * Remove (Build-)Depends:
     - python3-openid   #29320
     - python3-twisted  #29320
