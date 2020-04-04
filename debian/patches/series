@@ -16,6 +16,7 @@ u1-workaround-sympow-malloc-perturb.patch  #https://salsa.debian.org/science-tea
 u1-fix-trivial-test-cases.patch            #25094, #25096, #25102, the interpreter bits do not seem necessary anymore
 
 # Patches that should be upstreamed (may need some work first)
+u2-version-matplotlib-3.2.1.patch
 u2-version-rpy-3.patch
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
