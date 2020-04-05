@@ -4,7 +4,6 @@ u0-version-python-3.8.patch                #27754
 u0-version-ipython-7.patch                 #28197
 u0-version-ecl-16.1.3.patch                #22191
 u0-version-pari-2.11.3.patch               #29313
-u0-version-sympy-1.5.patch                 #28911
 
 # Patches that have open upstream tickets
 u1-pkgconfig-extra-link-flags.patch        #27205
@@ -17,7 +16,6 @@ u1-fix-trivial-test-cases.patch            #25094, #25096, #25102, the interpret
 
 # Patches that should be upstreamed (may need some work first)
 u2-version-matplotlib-3.2.1.patch
-u2-version-rpy-3.patch
 u2-fix-sympow-cachedir.patch
 u2-allow-override-sage-local.patch
 

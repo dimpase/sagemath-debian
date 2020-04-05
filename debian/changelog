@@ -2,6 +2,9 @@ sagemath (9.1~beta9-1) UNRELEASED; urgency=medium
 
   * Modified patches:
     - u0-version-python-3.8.patch (add 32-bit hashes)
+  * Remove patches (applied upstream):
+    - u0-version-sympy-1.5.patch                 #28911
+    - u2-version-rpy-3.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 05 Apr 2020 14:57:27 +0200
 

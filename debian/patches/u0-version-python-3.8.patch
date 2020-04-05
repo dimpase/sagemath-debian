@@ -11,20 +11,6 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
                  # At this point we assume they are given by the index set
                  pass
  
---- a/sage/src/sage/all.py
-+++ b/sage/src/sage/all.py
-@@ -324,6 +324,11 @@
- # However, be sure to keep OUR deprecation warnings
- warnings.filterwarnings('default', category=DeprecationWarning,
-     message=r'[\s\S]*See https\?://trac\.sagemath\.org/[0-9]* for details.')
-+# Python 3.8 deprecation warnings
-+warnings.filterwarnings('ignore', category=DeprecationWarning,
-+    message='.*PY_SSIZE_T_CLEAN.*')
-+warnings.filterwarnings('ignore', category=DeprecationWarning,
-+    message='.*an integer is required.*')
- 
- # Set a new random number seed as the very last thing
- # (so that printing initial_seed() and using that seed
 --- a/sage/src/sage/categories/coxeter_groups.py
 +++ b/sage/src/sage/categories/coxeter_groups.py
 @@ -283,7 +283,7 @@
@@ -108,7 +94,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          return [f for f in self if tuple(f.color()) == color]
 --- a/sage/src/sage/combinat/growth.py
 +++ b/sage/src/sage/combinat/growth.py
-@@ -1707,7 +1707,7 @@
+@@ -1706,7 +1706,7 @@
          EXAMPLES::
  
              sage: from sage.combinat.growth import Rule
@@ -373,7 +359,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          ::
  
-@@ -3894,13 +3894,13 @@
+@@ -3893,13 +3893,13 @@
              sage: P.<x,y,z> = ProjectiveSpace(K,2)
              sage: f = DynamicalSystem_projective([x^2+z^2, y^2+x^2, z^2+y^2])
              sage: f.periodic_points(1)
@@ -424,7 +410,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          ::
 --- a/sage/src/sage/geometry/cone.py
 +++ b/sage/src/sage/geometry/cone.py
-@@ -2274,8 +2274,7 @@
+@@ -2281,8 +2281,7 @@
              sage: face = L.level_sets()[1][0]
              sage: D = L.hasse_diagram()
              sage: D.neighbors(face)
@@ -434,7 +420,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          However, you can achieve some of this functionality using
          :meth:`facets`, :meth:`facet_of`, and :meth:`adjacent` methods::
-@@ -4047,7 +4046,7 @@
+@@ -4056,7 +4055,7 @@
              (N(0, 1), N(1, 0), N(-1, 0))
              sage: line = Cone([(1,1,1),(-1,-1,-1)])
              sage: line.semigroup_generators()
@@ -664,7 +650,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
 --- a/sage/src/sage/graphs/generic_graph.py
 +++ b/sage/src/sage/graphs/generic_graph.py
-@@ -5155,7 +5155,7 @@
+@@ -5211,7 +5211,7 @@
          This method is deprecated since Sage-4.4.1.alpha2. Please use instead:
  
              sage: g.layout(layout = "planar", save_pos = True)
@@ -673,7 +659,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          deprecation(24494, 'This method is replaced by the method layout. '
                             'Please use layout(layout="planar", save_pos=True) '
-@@ -5209,25 +5209,25 @@
+@@ -5265,25 +5265,25 @@
  
              sage: g = graphs.PathGraph(10)
              sage: g.layout(layout='planar', save_pos=True, test=True)
@@ -712,7 +698,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              sage: g = graphs.CompleteGraph(5)
              sage: g.layout(layout='planar', save_pos=True, test=True, set_embedding=True)
              Traceback (most recent call last):
-@@ -5753,17 +5753,17 @@
+@@ -5809,17 +5809,17 @@
              sage: T = graphs.TetrahedralGraph()
              sage: T.faces({0: [1, 3, 2], 1: [0, 2, 3], 2: [0, 3, 1], 3: [0, 1, 2]})
              [[(0, 1), (1, 2), (2, 0)],
@@ -738,7 +724,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/graphs/graph.py
 +++ b/sage/src/sage/graphs/graph.py
-@@ -6764,7 +6764,7 @@
+@@ -6770,7 +6770,7 @@
              sage: all(F.degree(u) == len(cliques) for u,cliques in d.items())
              True
              sage: F.cliques_containing_vertex(vertices=[(0, 1)])
@@ -747,7 +733,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          """
          import networkx
-@@ -7101,7 +7101,7 @@
+@@ -7147,7 +7147,7 @@
          Vertices may be arbitrary --- check that :trac:`24898` is fixed::
  
              sage: Graph({(1,2):[(2,3)],(2,3):[(1,2)]}).modular_decomposition()
@@ -1112,7 +1098,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/parallel/map_reduce.py
 +++ b/sage/src/sage/parallel/map_reduce.py
-@@ -1396,7 +1396,7 @@
+@@ -1402,7 +1402,7 @@
              sage: EX = RESetMPExample(maxl=6)
              sage: EX.setup_workers(2)
              sage: EX.random_worker()
@@ -1121,7 +1107,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              sage: EX.random_worker() in EX._workers
              True
  
-@@ -1580,7 +1580,7 @@
+@@ -1586,7 +1586,7 @@
              sage: from sage.parallel.map_reduce import RESetMPExample, RESetMapReduceWorker
              sage: EX = RESetMPExample()
              sage: RESetMapReduceWorker(EX, 200, True)
@@ -1164,10 +1150,10 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
 -            3713081631935493181             # 64-bit
 +            -1668829180                     # 32-bit
 +            8389048192121911274             # 64-bit
-         
+ 
          ::
  
-@@ -257,8 +257,8 @@
+@@ -258,8 +258,8 @@
             sage: A.<x,y> = AffineSpace(QQ, 2)
             sage: X = A.subscheme(x - y)
             sage: hash(X([1, 1]))
@@ -1175,12 +1161,12 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
 -           3713081631935493181             # 64-bit
 +           -1668829180                     # 32-bit
 +           8389048192121911274             # 64-bit
-        
+ 
         ::
  
 --- a/sage/src/sage/schemes/curves/curve.py
 +++ b/sage/src/sage/schemes/curves/curve.py
-@@ -265,12 +265,12 @@
+@@ -301,12 +301,12 @@
              + 67/3*x^2*y*z^2 + 117/4*y^5 + 9*x^5 + 6*x^3*z^2 + 393/4*x*y^4\
              + 145*x^2*y^3 + 115*x^3*y^2 + 49*x^4*y], P)
              sage: C.singular_points(K)

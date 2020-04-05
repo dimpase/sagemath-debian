@@ -5,7 +5,7 @@ Forwarded: TODO
 
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -153,6 +153,7 @@
+@@ -160,6 +160,7 @@
  # bunch of sage directories and files
  var('SAGE_LOCAL',          os.path.abspath(sys.prefix))
  var('SAGE_ETC',            join(SAGE_LOCAL, 'etc'))
@@ -26,7 +26,7 @@ Forwarded: TODO
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
-@@ -1043,13 +1043,13 @@
+@@ -1064,13 +1064,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -61,8 +61,8 @@ Forwarded: TODO
  
  from random import randrange
  
--from sage.env import DOT_SAGE, SAGE_LOCAL
-+from sage.env import DOT_SAGE, SAGE_SCRIPTS_DIR
+-from sage.env import DOT_SAGE, SAGE_LOCAL, MAXIMA
++from sage.env import DOT_SAGE, SAGE_SCRIPTS_DIR, MAXIMA
  from sage.misc.misc import ECL_TMP
  
  from .expect import (Expect, ExpectElement, gc_disabled)
@@ -86,7 +86,7 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1082,7 +1082,7 @@
+@@ -1070,7 +1070,7 @@
              return 2
          opt = self.options
          if opt.gdb:

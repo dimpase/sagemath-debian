@@ -6,7 +6,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/plot/contour_plot.py
 +++ b/sage/src/sage/plot/contour_plot.py
-@@ -220,7 +220,7 @@
+@@ -223,7 +223,7 @@
                  cb.add_lines(CS)
  
  
