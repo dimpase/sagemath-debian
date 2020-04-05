@@ -1,3 +1,10 @@
+sagemath (9.0-4) UNRELEASED; urgency=medium
+
+  * Modified patches:
+    - u0-version-python-3.8.patch (add 32-bit hashes)
+
+ -- Tobias Hansen <thansen@debian.org>  Sun, 05 Apr 2020 14:57:27 +0200
+
 sagemath (9.0-3) unstable; urgency=medium
 
   [ Julien Puydt ]

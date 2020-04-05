@@ -53,26 +53,30 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
                  Note that ``hello!`` actually gets printed twice in
 --- a/sage/src/sage/combinat/colored_permutations.py
 +++ b/sage/src/sage/combinat/colored_permutations.py
-@@ -48,7 +48,7 @@
+@@ -48,8 +48,8 @@
              sage: C = ColoredPermutations(4, 3)
              sage: s1,s2,t = C.gens()
              sage: hash(s1), hash(s2), hash(t)
 -            (2666658751600856334, 3639282354432100950, 3639281107336048003) # 64-bit
+-            (-1973744370, 88459862, -1467077245)                            # 32-bit
 +            (-7431276062462044858, 4467820216222971401, -2123707189549658121) # 64-bit
-             (-1973744370, 88459862, -1467077245)                            # 32-bit
++            (-201241102, -476873172, 1402108937)                              # 32-bit
          """
          return hash(self._perm) ^ hash(self._colors)
+ 
 --- a/sage/src/sage/combinat/constellation.py
 +++ b/sage/src/sage/combinat/constellation.py
-@@ -222,7 +222,7 @@
+@@ -222,8 +222,8 @@
  
              sage: c = Constellation(([0,2,1],[2,1,0],[1,2,0]), mutable=False)
              sage: c.__hash__()
 -            5481133608926415725  # 64-bit
+-            511937389  # 32-bit
 +            5143726921437074942  # 64-bit
-             511937389  # 32-bit
++            1436120812  # 32-bit
          """
          if self._mutable:
+             raise ValueError("can not hash mutable constellation")
 --- a/sage/src/sage/combinat/e_one_star.py
 +++ b/sage/src/sage/combinat/e_one_star.py
 @@ -888,7 +888,7 @@
@@ -140,50 +144,60 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/combinat/rooted_tree.py
 +++ b/sage/src/sage/combinat/rooted_tree.py
-@@ -258,7 +258,7 @@
+@@ -258,8 +258,8 @@
  
              sage: RT = RootedTree
              sage: hash(RT([[],[[]]]))  # indirect doctest
 -            2578595415271398032           # 64-bit
+-            1119083152                    # 32-bit
 +            -8292843089974895681           # 64-bit
-             1119083152                    # 32-bit
++            1677524105                     # 32-bit
          """
          return hash(self.sort_key())
-@@ -955,7 +955,7 @@
+ 
+@@ -955,8 +955,8 @@
  
              sage: lb = RootedTrees()([[],[[], []]]).canonical_labelling()
              sage: hash(lb)  # indirect doctest
 -            686798862222558969           # 64-bit
+-            652936953                    # 32-bit
 +            284563909797196897           # 64-bit
-             652936953                    # 32-bit
++            -1623243561                  # 32-bit
          """
          return hash(self.sort_key())
+ 
 --- a/sage/src/sage/combinat/similarity_class_type.py
 +++ b/sage/src/sage/combinat/similarity_class_type.py
-@@ -411,13 +411,13 @@
+@@ -411,14 +411,14 @@
              sage: PT2 = PrimarySimilarityClassType(3, [3, 2, 1])
              sage: PT3 = PrimarySimilarityClassType(2, [4, 2, 1])
              sage: hash(PT1)
 -            5050909583595644741 # 64-bit
+-            1658169157          # 32-bit
 +            -925386691174542829 # 64-bit
-             1658169157          # 32-bit
++            1776023648          # 32-bit
              sage: hash(PT2)
 -            5050909583595644740 # 64-bit
+-            1658169156          # 32-bit
 +            -925386691174542830 # 64-bit
-             1658169156          # 32-bit
++            1776023649          # 32-bit
              sage: hash(PT3)
 -            6312110366011971308 # 64-bit
+-            1429493484          # 32-bit
 +            -4335854808978270833 # 64-bit
-             1429493484          # 32-bit
++            710786041            # 32-bit
          """
          return hash(self._deg) ^ hash(tuple(self._par))
+ 
 --- a/sage/src/sage/combinat/symmetric_group_representations.py
 +++ b/sage/src/sage/combinat/symmetric_group_representations.py
-@@ -296,7 +296,7 @@
+@@ -295,8 +295,8 @@
+ 
              sage: spc1 = SymmetricGroupRepresentation([3], cache_matrices=True)
              sage: hash(spc1)
-             -1137003014   # 32-bit
+-            -1137003014   # 32-bit
 -            3430541866490 # 64-bit
++            511837696            # 32-bit
 +            -5029647728263747574 # 64-bit
          """
          return hash(self._ring) ^ hash(self._partition)
@@ -578,15 +592,17 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              raise ValueError("Boundary can be traversed only for 2-polytopes!")
 --- a/sage/src/sage/geometry/linear_expression.py
 +++ b/sage/src/sage/geometry/linear_expression.py
-@@ -385,7 +385,7 @@
+@@ -385,8 +385,8 @@
              sage: from sage.geometry.linear_expression import LinearExpressionModule
              sage: L.<x> = LinearExpressionModule(QQ)
              sage: hash(L([0,1]))
 -            3430019387558 # 64-bit
+-            -1659481946   # 32-bit
 +            -6644214454873602895 # 64-bit
-             -1659481946   # 32-bit
++            1956216267           # 32-bit
          """
          return hash(self._coeffs) ^ hash(self._const)
+ 
 --- a/sage/src/sage/geometry/polyhedron/library.py
 +++ b/sage/src/sage/geometry/polyhedron/library.py
 @@ -2287,12 +2287,12 @@
@@ -635,11 +651,13 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/geometry/polyhedron/representation.py
 +++ b/sage/src/sage/geometry/polyhedron/representation.py
-@@ -92,7 +92,7 @@
+@@ -91,8 +91,8 @@
+             sage: from sage.geometry.polyhedron.representation import Hrepresentation
              sage: pr = Hrepresentation(Polyhedron(vertices = [[1,2,3]]).parent())
              sage: hash(pr)
-             1647257843           # 32-bit
+-            1647257843           # 32-bit
 -            4686581268940269811  # 64-bit
++            -750272864            # 32-bit
 +            -3226225171056353554  # 64-bit
          """
          # TODO: ideally the argument self._vector of self should be immutable.
@@ -795,26 +813,30 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
      tree_nodes, (v1, v2, v3) = x
 --- a/sage/src/sage/groups/free_group.py
 +++ b/sage/src/sage/groups/free_group.py
-@@ -237,7 +237,7 @@
+@@ -237,8 +237,8 @@
  
              sage: G.<a,b> = FreeGroup()
              sage: hash(a*b*b*~a)
 -            -485698212495963022 # 64-bit
+-            -1876767630         # 32-bit
 +            1250396620696320862 # 64-bit
-             -1876767630         # 32-bit
++            -1557405210         # 32-bit
          """
          return hash(self.Tietze())
+ 
 --- a/sage/src/sage/homology/cubical_complex.py
 +++ b/sage/src/sage/homology/cubical_complex.py
-@@ -701,7 +701,7 @@
+@@ -701,8 +701,8 @@
              sage: from sage.homology.cubical_complex import Cube
              sage: C1 = Cube([[1,1], [2,3], [4,5]])
              sage: C1.__hash__()
 -            837272820736660832  # 64-bit
+-            -1004989088  # 32-bit
 +            7259885766499979052  # 64-bit
-             -1004989088  # 32-bit
++            -1052183722  # 32-bit
          """
          return hash(self.__tuple)
+ 
 --- a/sage/src/sage/interacts/debugger.py
 +++ b/sage/src/sage/interacts/debugger.py
 @@ -212,8 +212,8 @@
@@ -879,37 +901,44 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          sage: visitor.visit(v.value)
 --- a/sage/src/sage/modular/btquotients/btquotient.py
 +++ b/sage/src/sage/modular/btquotients/btquotient.py
-@@ -1524,7 +1524,7 @@
+@@ -1523,8 +1523,8 @@
+ 
              sage: X = BruhatTitsQuotient(5,13)
              sage: X._cache_key()
-             -406423199 # 32-bit
+-            -406423199 # 32-bit
 -            1375458358400022881 # 64-bit
++            -2021778350 # 32-bit
 +            5846077021080349588 # 64-bit
  
              sage: Y = BruhatTitsQuotient(5,13,use_magma = True) # optional - magma
              sage: Y._cache_key() == X._cache_key() # optional - magma
 --- a/sage/src/sage/modular/cusps.py
 +++ b/sage/src/sage/modular/cusps.py
-@@ -241,10 +241,10 @@
+@@ -240,11 +240,11 @@
+         EXAMPLES::
  
              sage: hash(Cusp(1/3))
-             1298787075             # 32-bit
+-            1298787075             # 32-bit
 -            3713081631933328131    # 64-bit
++            1736087823             # 32-bit
 +            -1440771752368011620   # 64-bit
              sage: hash(Cusp(oo))
-             1302034650             # 32-bit
+-            1302034650             # 32-bit
 -            3713081631936575706    # 64-bit
++            1884778150             # 32-bit
 +            -5164621852614943976   # 64-bit
          """
          return hash((self.__a, self.__b))
  
 --- a/sage/src/sage/modular/dirichlet.py
 +++ b/sage/src/sage/modular/dirichlet.py
-@@ -418,7 +418,7 @@
+@@ -417,8 +417,8 @@
+ 
              sage: e = DirichletGroup(16)([-1, 1])
              sage: hash(e)
-             -1497246046           # 32-bit
+-            -1497246046           # 32-bit
 -            -3713082714463545694  # 64-bit
++            627578543             # 32-bit
 +            9083154820904886697   # 64-bit
          """
          return hash(self.values_on_gens())
@@ -975,39 +1004,46 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
      if not is_Matrix(relation_matrix):
 --- a/sage/src/sage/modular/overconvergent/weightspace.py
 +++ b/sage/src/sage/modular/overconvergent/weightspace.py
-@@ -577,7 +577,7 @@
+@@ -577,8 +577,8 @@
  
              sage: w = pAdicWeightSpace(23)(12, DirichletGroup(23, QQ).0)
              sage: hash(w)
 -            2363715643371367891  # 64-bit
+-            -1456525869          # 32-bit
 +            7257908766003276212  # 64-bit
-             -1456525869          # 32-bit
++            -125579366           # 32-bit
          """
          if self._chi.is_trivial():
+             return hash(self._k)
 --- a/sage/src/sage/modules/fg_pid/fgp_element.py
 +++ b/sage/src/sage/modules/fg_pid/fgp_element.py
-@@ -347,12 +347,12 @@
+@@ -347,13 +347,13 @@
              sage: Q = V/W
              sage: x = Q.0 + 3*Q.1
              sage: hash(x)
 -            3713081631933328131 # 64-bit
+-            1298787075          # 32-bit
 +            -1440771752368011620 # 64-bit
-             1298787075          # 32-bit
++            1736087823           # 32-bit
  
              sage: A = AdditiveAbelianGroup([3])
              sage: hash(A.an_element())
 -            3430019387558 # 64-bit
+-            -1659481946   # 32-bit
 +            -6644214454873602895 # 64-bit
-             -1659481946   # 32-bit
++            1956216267           # 32-bit
          """
          return hash(self.vector())
+ 
 --- a/sage/src/sage/modules/fg_pid/fgp_module.py
 +++ b/sage/src/sage/modules/fg_pid/fgp_module.py
-@@ -1897,7 +1897,7 @@
+@@ -1896,8 +1896,8 @@
+ 
              sage: A = (ZZ**2) / span([[4,0],[0,3]], ZZ)
              sage: hash(A)
-             1328975982 # 32-bit
+-            1328975982 # 32-bit
 -            -7071641102956720018 # 64-bit
++            -1754348490         # 32-bit
 +            5076152747135039110 # 64-bit
          """
          return hash((self.V(), self.W()))
@@ -1025,56 +1061,66 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          generators = set()
 --- a/sage/src/sage/modules/quotient_module.py
 +++ b/sage/src/sage/modules/quotient_module.py
-@@ -189,13 +189,13 @@
+@@ -188,14 +188,14 @@
+             sage: Q = V/W; Q.dimension()
              0
              sage: hash(Q)
-             954887582               # 32-bit
+-            954887582               # 32-bit
 -            -5856620741060301410    # 64-bit
++            -1989510099            # 32-bit
 +            -238982292365704271    # 64-bit
  
          The hash is just got by hashing both `V` and `W`::
  
              sage: hash((V, W))
-             954887582             # 32-bit
+-            954887582             # 32-bit
 -            -5856620741060301410  # 64-bit
++            -1989510099          # 32-bit
 +            -238982292365704271  # 64-bit
          """
          return self.__hash
  
 --- a/sage/src/sage/monoids/free_monoid_element.py
 +++ b/sage/src/sage/monoids/free_monoid_element.py
-@@ -90,13 +90,13 @@
+@@ -90,14 +90,14 @@
  
              sage: R.<x,y> = FreeMonoid(2)
              sage: hash(x)
 -            1914282862589934403  # 64-bit
+-            139098947            # 32-bit
 +            272664117765156425  # 64-bit
-             139098947            # 32-bit
++            -1618080267         # 32-bit
              sage: hash(y)
 -            2996819001369607946  # 64-bit
+-            13025034             # 32-bit
 +            7122689666895196842  # 64-bit
-             13025034             # 32-bit
++            797489490            # 32-bit
              sage: hash(x*y)
 -            7114093379175463612  # 64-bit
+-            2092317372           # 32-bit
 +            -3946460631932601386  # 64-bit
-             2092317372           # 32-bit
++            -958320759            # 32-bit
          """
          return hash(tuple(self._element_list))
+ 
 --- a/sage/src/sage/monoids/indexed_free_monoid.py
 +++ b/sage/src/sage/monoids/indexed_free_monoid.py
-@@ -381,10 +381,10 @@
+@@ -381,11 +381,11 @@
  
              sage: F = FreeMonoid(index_set=tuple('abcde'))
              sage: hash(F ([(1,2),(0,1)]) )
 -            2401565693828035651 # 64-bit
+-            1164080195          # 32-bit
 +            -6432310090824253359 # 64-bit
-             1164080195          # 32-bit
++            -1972263719          # 32-bit
              sage: hash(F ([(0,2),(1,1)]) )
 -            -3359280905493236379 # 64-bit
+-            -1890405019          # 32-bit
 +            -4983300044204922029 # 64-bit
-             -1890405019          # 32-bit
++            -439075274           # 32-bit
          """
          return hash(self._monomial)
+ 
 --- a/sage/src/sage/parallel/map_reduce.py
 +++ b/sage/src/sage/parallel/map_reduce.py
 @@ -1396,7 +1396,7 @@
@@ -1108,31 +1154,37 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          return self
 --- a/sage/src/sage/rings/universal_cyclotomic_field.py
 +++ b/sage/src/sage/rings/universal_cyclotomic_field.py
-@@ -616,7 +616,7 @@
+@@ -615,8 +615,8 @@
+             sage: hash(UCF.zero())  # indirect doctest
              0
              sage: hash(UCF.gen(3,2))
-             313156239               # 32-bit
+-            313156239               # 32-bit
 -            1524600308199219855     # 64-bit
++            -498456644               # 32-bit
 +            -4367827638003713235     # 64-bit
  
          TESTS:
  
 --- a/sage/src/sage/schemes/affine/affine_point.py
 +++ b/sage/src/sage/schemes/affine/affine_point.py
-@@ -153,7 +153,7 @@
+@@ -152,8 +152,8 @@
+ 
              sage: A.<x,y> = AffineSpace(QQ, 2)
              sage: hash(A([1, 1]))
-             1300952125                      # 32-bit
+-            1300952125                      # 32-bit
 -            3713081631935493181             # 64-bit
++            -1668829180                     # 32-bit
 +            8389048192121911274             # 64-bit
          
          ::
  
-@@ -258,7 +258,7 @@
+@@ -257,8 +257,8 @@
+            sage: A.<x,y> = AffineSpace(QQ, 2)
             sage: X = A.subscheme(x - y)
             sage: hash(X([1, 1]))
-            1300952125                      # 32-bit
+-           1300952125                      # 32-bit
 -           3713081631935493181             # 64-bit
++           -1668829180                     # 32-bit
 +           8389048192121911274             # 64-bit
         
         ::
@@ -1184,31 +1236,36 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/schemes/product_projective/point.py
 +++ b/sage/src/sage/schemes/product_projective/point.py
-@@ -272,24 +272,24 @@
+@@ -271,25 +271,25 @@
+ 
              sage: PP = ProductProjectiveSpaces(ZZ, [1, 2])
              sage: hash(PP([1, 1, 2, 2, 2]))
-             805439612                            # 32-bit
+-            805439612                            # 32-bit
 -            7267864846446758012                  # 64-bit
++            -287589391                           # 32-bit
 +            7340327685198478874                  # 64-bit
              sage: hash(PP([1, 1, 1, 1, 1]))
-             805439612                            # 32-bit
+-            805439612                            # 32-bit
 -            7267864846446758012                  # 64-bit
++            -287589391                           # 32-bit
 +            7340327685198478874                  # 64-bit
  
          ::
  
              sage: PP = ProductProjectiveSpaces(QQ, [1, 1])
              sage: hash(PP([1/7, 1, 2, 1]))
-             1139616004                          # 32-bit
+-            1139616004                          # 32-bit
 -            -7585172175017137916                # 64-bit
++            -39187506                           # 32-bit
 +            -2181897694853443466                # 64-bit
  
          ::
  
              sage: PP = ProductProjectiveSpaces(GF(7), [1, 1, 1])
              sage: hash(PP([4, 1, 5, 4, 6, 1]))
-             1796924635                          # 32-bit
+-            1796924635                          # 32-bit
 -            -4539377540667874085                # 64-bit
++            1138988261                          # 32-bit
 +            -7203482134876135567                # 64-bit
          """
          R = self.codomain().base_ring()
@@ -1247,41 +1304,50 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/schemes/projective/projective_point.py
 +++ b/sage/src/sage/schemes/projective/projective_point.py
-@@ -371,10 +371,10 @@
+@@ -370,11 +370,11 @@
+ 
              sage: P.<x,y> = ProjectiveSpace(ZZ, 1)
              sage: hash(P([1, 1]))
-             1300952125                      # 32-bit
+-            1300952125                      # 32-bit
 -            3713081631935493181             # 64-bit
++            -1668829180                     # 32-bit
 +            8389048192121911274             # 64-bit
              sage: hash(P.point([2, 2], False))
-             1300952125                      # 32-bit
+-            1300952125                      # 32-bit
 -            3713081631935493181             # 64-bit
++            -1668829180                     # 32-bit
 +            8389048192121911274             # 64-bit
  
          ::
  
-@@ -384,10 +384,10 @@
+@@ -383,11 +383,11 @@
+             sage: O = K.maximal_order()
              sage: P.<x,y> = ProjectiveSpace(O, 1)
              sage: hash(P([1+w, 2]))
-             -1562365407                    # 32-bit
+-            -1562365407                    # 32-bit
 -            1251212645657227809            # 64-bit
++            -533195335                     # 32-bit
 +            1152259266803555780            # 64-bit
              sage: hash(P([2, 1-w]))
-             -1562365407                    # 32-bit
+-            -1562365407                    # 32-bit
 -            1251212645657227809            # 64-bit
++            -533195335                     # 32-bit
 +            1152259266803555780            # 64-bit
  
          TESTS::
  
-@@ -1098,10 +1098,10 @@
+@@ -1097,11 +1097,11 @@
+ 
              sage: P.<x,y> = ProjectiveSpace(QQ, 1)
              sage: hash(P([1/2, 1]))
-             -1503642134                     # 32-bit
+-            -1503642134                     # 32-bit
 -            -6819944855328768534            # 64-bit
++            1682452973                      # 32-bit
 +            -3482885117540797489            # 64-bit
              sage: hash(P.point([1, 2], False))
-             -1503642134                     # 32-bit
+-            -1503642134                     # 32-bit
 -            -6819944855328768534            # 64-bit
++            1682452973                      # 32-bit
 +            -3482885117540797489            # 64-bit
          """
          P = copy(self)
@@ -1455,44 +1521,53 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/sets/set_from_iterator.py
 +++ b/sage/src/sage/sets/set_from_iterator.py
-@@ -189,7 +189,7 @@
+@@ -189,8 +189,8 @@
              sage: from sage.sets.set_from_iterator import EnumeratedSetFromIterator
              sage: E = EnumeratedSetFromIterator(xsrange, (1,200))
              sage: hash(E)
 -            4600916458883504074 # 64-bit
+-            -2063607862         # 32-bit
 +            -2084731150151504763 # 64-bit
-             -2063607862         # 32-bit
++            -1941857951          # 32-bit
          """
          try:
+             return hash(self._cache[:13])
 --- a/sage/src/sage/structure/sequence.py
 +++ b/sage/src/sage/structure/sequence.py
-@@ -177,7 +177,7 @@
+@@ -176,8 +176,8 @@
+ 
          sage: v = Sequence(range(10), ZZ, immutable=True)
          sage: hash(v)
-         1591723448             # 32-bit
+-        1591723448             # 32-bit
 -        -4181190870548101704   # 64-bit
++        -225017061             # 32-bit
 +        -2040549277248155741   # 64-bit
  
  
      If you really know what you are doing, you can circumvent the type
-@@ -364,7 +364,7 @@
+@@ -363,8 +363,8 @@
+ 
          sage: v = Sequence(range(10), ZZ, immutable=True)
          sage: hash(v)
-         1591723448             # 32-bit
+-        1591723448             # 32-bit
 -        -4181190870548101704   # 64-bit
++        -225017061             # 32-bit
 +        -2040549277248155741   # 64-bit
  
  
      If you really know what you are doing, you can circumvent the type
-@@ -644,10 +644,10 @@
+@@ -643,11 +643,11 @@
+             sage: a[0] = 10
              sage: a.set_immutable()
              sage: a.__hash__()
-             -123014399  # 32-bit
+-            -123014399  # 32-bit
 -            -5823618793256324351  # 64-bit
++            -325399337            # 32-bit
 +            -6735757958465679159  # 64-bit
              sage: hash(a)
-             -123014399  # 32-bit
+-            -123014399  # 32-bit
 -            -5823618793256324351  # 64-bit
++            -325399337            # 32-bit
 +            -6735757958465679159  # 64-bit
          """
          if not self._is_immutable:
