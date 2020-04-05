@@ -318,17 +318,6 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          sage: wrapperdescr_call(Integer.__mul__, 6, other=9)
          Traceback (most recent call last):
          ...
---- a/sage/src/sage/data_structures/mutable_poset.py
-+++ b/sage/src/sage/data_structures/mutable_poset.py
-@@ -3318,7 +3318,7 @@
-             sage: P = MP([T((1, 1)), T((1, 3)), T((2, 1)),
-             ....:         T((1, 2)), T((2, 2))])
-             sage: list(P.maximal_elements())
--            [(1, 3), (2, 2)]
-+            [(2, 2), (1, 3)]
- 
-         .. SEEALSO::
- 
 --- a/sage/src/sage/dynamics/arithmetic_dynamics/generic_ds.py
 +++ b/sage/src/sage/dynamics/arithmetic_dynamics/generic_ds.py
 @@ -476,13 +476,13 @@
