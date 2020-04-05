@@ -5,6 +5,9 @@ sagemath (9.1~beta9-1) UNRELEASED; urgency=medium
   * Remove patches (applied upstream):
     - u0-version-sympy-1.5.patch                 #28911
     - u2-version-rpy-3.patch
+    - d0-nauty.patch
+    - d1-fakeroot.patch
+    - dt-version-glpk-4.65-ignore-warnings.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 05 Apr 2020 14:57:27 +0200
 

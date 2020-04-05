@@ -26,7 +26,6 @@ d0-gsl-cblas.patch
 d0-libgap-path.patch
 d0-maxima.patch
 d0-mathjax.patch
-d0-nauty.patch
 d0-rubiks.patch
 d0-singular.patch
 d0-threejs-default-in-notebooks.patch
@@ -39,7 +38,6 @@ d0-threejs-offline-paths.patch
 d1-install-paths.patch # many things in here could be split into an upstreamable patch
 d1-sage-cli.patch
 d1-sage-env.patch
-d1-fakeroot.patch
 d1-multiarch-python-paths.patch
 d1-doc-docs.patch
 
@@ -54,7 +52,6 @@ df-subprocess-sphinx.patch
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
 dt-version-glpk-4.60-extra-hacky-fixes.patch
-dt-version-glpk-4.65-ignore-warnings.patch
 dt-more-fix-test-cases.patch
 dt-work-around-singular-mips64el-segfault.patch
 dt-version-ipywidgets-6-revert-23177.patch

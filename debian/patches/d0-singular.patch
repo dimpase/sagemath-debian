@@ -8,7 +8,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/interfaces/singular.py
 +++ b/sage/src/sage/interfaces/singular.py
-@@ -2262,7 +2262,7 @@
+@@ -2274,7 +2274,7 @@
      nodes.clear()
      node_names.clear()
  
@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -270,7 +270,7 @@
+@@ -289,7 +289,7 @@
  
  # locate singular shared object
  # On Debian it's libsingular-Singular so try that as well

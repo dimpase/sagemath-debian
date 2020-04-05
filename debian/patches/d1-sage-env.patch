@@ -7,7 +7,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -225,6 +225,23 @@
+@@ -228,6 +228,23 @@
      exit $status
  fi
  
@@ -31,7 +31,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  #####################################################################
  # Report information about the Sage environment
-@@ -255,19 +272,7 @@
+@@ -258,19 +275,7 @@
  fi
  
  
@@ -54,14 +54,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
      export DOT_SAGE="$HOME/.sage"
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -283,13 +283,14 @@
- # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
- export SAGE_ETC="$SAGE_LOCAL/etc"
- export SAGE_SHARE="$SAGE_LOCAL/share"
--export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
-+export SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
- export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
- export SAGE_SPKG_SCRIPTS="$SAGE_LOCAL/var/lib/sage/scripts"
+@@ -289,7 +289,8 @@
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
@@ -71,7 +64,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -342,8 +343,8 @@
+@@ -344,8 +345,8 @@
  [ -z "$CPATH" ] || CPATH="${CPATH}:"
  export CPATH="${CPATH}$SAGE_LOCAL/include"
  
@@ -82,7 +75,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -358,16 +359,6 @@
+@@ -360,16 +361,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -99,7 +92,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -410,8 +401,10 @@
+@@ -412,8 +403,10 @@
      unset PYTHONHOME
  fi
  
@@ -111,7 +104,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -473,7 +466,6 @@
+@@ -475,7 +468,6 @@
      fi
  fi
  
@@ -119,7 +112,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -585,9 +577,6 @@
+@@ -587,9 +579,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -129,20 +122,9 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # Handle parallel building/testing/...
  # See Trac Ticket #12016
  # First, figure out the right values for SAGE_NUM_THREADS (default
---- a/sage/build/make/install
-+++ b/sage/build/make/install
-@@ -16,7 +16,7 @@
- fi
- 
- export SAGE_SHARE="$SAGE_LOCAL/share"
--export SAGE_EXTCODE="$SAGE_SHARE/sage/ext"
-+export SAGE_EXTCODE="$SAGE_SHARE/sagemath/ext"
- export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
- export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
- . "$SAGE_SRC"/bin/sage-version.sh
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -249,7 +249,7 @@
+@@ -259,7 +259,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:
@@ -175,7 +157,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  of the documentation, issue the following command from ``SAGE_ROOT``:
 --- a/sage/src/doc/en/installation/source.rst
 +++ b/sage/src/doc/en/installation/source.rst
-@@ -886,7 +886,7 @@
+@@ -914,7 +914,7 @@
    primarily intended for use when producing certain binary
    distributions of Sage, to lower the size of the distribution. As of
    this writing (December 2014, Sage 6.5), there are only a few such
@@ -197,23 +179,24 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
              # Walk through all of the files in the sage_directory
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -4,15 +4,6 @@
+@@ -4,16 +4,6 @@
  AUTHORS:
  
  - \R. Andrew Ohana (2012): Initial version.
 -
--Verify that Sage can be started without any ``SAGE_`` environment
--variables::
+-Verify that importing ``sage.all`` works in Sage's Python without any ``SAGE_``
+-environment variables, and has the same ``SAGE_ROOT`` and ``SAGE_LOCAL``::
 -
 -    sage: env = {k:v for (k,v) in os.environ.items() if not k.startswith("SAGE_")}
--    sage: import subprocess
--    sage: cmd = "from sage.all import SAGE_ROOT; print(SAGE_ROOT)"
--    sage: res = subprocess.call([sys.executable, "-c", cmd], env=env)  # long time
--    None
+-    sage: from subprocess import check_output
+-    sage: cmd = "from sage.all import SAGE_ROOT, SAGE_LOCAL; print((SAGE_ROOT, SAGE_LOCAL))"
+-    sage: out = check_output([sys.executable, "-c", cmd], env=env).decode().strip()   # long time
+-    sage: out == repr((SAGE_ROOT, SAGE_LOCAL))                                        # long time
+-    True
  """
  
  # ****************************************************************************
-@@ -153,7 +144,7 @@
+@@ -160,7 +150,7 @@
  # bunch of sage directories and files
  var('SAGE_LOCAL',          os.path.abspath(sys.prefix))
  var('SAGE_ETC',            join(SAGE_LOCAL, 'etc'))
@@ -222,10 +205,10 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  var('SAGE_INC',            join(SAGE_LOCAL, 'include'))
  var('SAGE_SHARE',          join(SAGE_LOCAL, 'share'))
  var('SAGE_DOC',            join(SAGE_SHARE, 'doc', 'sage'))
-@@ -171,23 +162,23 @@
+@@ -178,26 +168,26 @@
+ var('SAGE_STARTUP_FILE',   join(DOT_SAGE, 'init.sage'))
  
  # installation directories for various packages
- var('SAGE_EXTCODE',                  join(SAGE_SHARE, 'sage', 'ext'))
 -var('CONWAY_POLYNOMIALS_DATA_DIR',   join(SAGE_SHARE, 'conway_polynomials'))
 -var('GRAPHS_DATA_DIR',               join(SAGE_SHARE, 'graphs'))
 -var('ELLCURVE_DATA_DIR',             join(SAGE_SHARE, 'ellcurves'))
@@ -253,9 +236,15 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 +var('THREEJS_DIR',                   '/usr/share/javascript/three')
  var('SINGULARPATH',                  join(SAGE_SHARE, 'singular'))
 -var('PPLPY_DOCS',                    join(SAGE_SHARE, 'doc', 'pplpy'))
+-var('MAXIMA',                        'maxima')
 -var('MAXIMA_FAS')
+-var('SAGE_NAUTY_BINS_PREFIX',        '')
+-var('ARB_LIBRARY',                   'arb')
 +var('PPLPY_DOCS',                    '/usr/share/doc/python3-ppl/html')
++var('MAXIMA',                        'maxima-sage')
 +var('MAXIMA_FAS',                    '/usr/lib/ecl/maxima.fas')
++var('SAGE_NAUTY_BINS_PREFIX',        'nauty-')
++var('ARB_LIBRARY',                   'flint-arb')
  
  # misc
  var('SAGE_BANNER', '')

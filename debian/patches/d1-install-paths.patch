@@ -15,9 +15,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          sage: for f in stale_iter:
 -        ....:     if f.endswith(skip_extensions): continue
 +        ....:     if f.endswith(skip_extensions) or f.endswith(".pyo"): continue
+         ....:     if '/ext_data/' in f: continue
          ....:     print('Found stale file: ' + f)
      """
- 
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
 @@ -136,9 +136,9 @@
@@ -45,7 +45,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -325,7 +325,7 @@
+@@ -344,7 +344,7 @@
          sage: import sage.env
          sage: sage.env.sage_include_directories()
          ['.../include',
@@ -56,7 +56,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -477,8 +477,7 @@
+@@ -469,8 +469,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else

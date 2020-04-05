@@ -1,15 +1,15 @@
-Description: Use threejs as default 3D viewer in Jupyter and sagenb notebooks
+Description: Use threejs as default 3D viewer in Jupyter notebook
  In Debian we have jmol, which can be used from the sage command line,
  but not jsmol, which is necessary to use jmol in the notebooks. This patch
  makes sure that jmol is the default 3D viewer on the command line and threejs
- is the default in the notebooks.
+ is the default in the notebook.
 Author: Tobias Hansen <thansen@debian.org>
 Bug: https://trac.sagemath.org/ticket/22408
 Forwarded: not-needed
 
 --- a/sage/src/sage/repl/rich_output/backend_ipython.py
 +++ b/sage/src/sage/repl/rich_output/backend_ipython.py
-@@ -499,7 +499,7 @@
+@@ -500,7 +500,7 @@
              OutputHtml,
              OutputImagePng, OutputImageGif, OutputImageJpg,
              OutputImageSvg, OutputImagePdf,
@@ -18,20 +18,9 @@ Forwarded: not-needed
          ])
  
      def displayhook(self, plain_text, rich_output):
---- a/sage/src/sage/repl/rich_output/backend_sagenb.py
-+++ b/sage/src/sage/repl/rich_output/backend_sagenb.py
-@@ -334,7 +334,7 @@
-             OutputHtml,
-             OutputImagePng, OutputImageGif, OutputImageJpg,
-             OutputImagePdf, OutputImageSvg,
--            SageNbOutputSceneJmol, OutputSceneThreejs,
-+            OutputSceneThreejs,
-             OutputSceneCanvas3d,
-             OutputVideoOgg, OutputVideoWebM, OutputVideoMp4,
-         ])
 --- a/sage/src/sage/plot/plot3d/base.pyx
 +++ b/sage/src/sage/plot/plot3d/base.pyx
-@@ -144,8 +144,8 @@
+@@ -145,8 +145,8 @@
          # fall back to 2d image if necessary
          if viewer == 'canvas3d' and not can_view_canvas3d:   viewer = 'jmol'
          if viewer == 'wavefront' and not can_view_wavefront: viewer = 'jmol'
