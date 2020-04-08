@@ -4,7 +4,7 @@
  eclib-tools (>= 20180815),
  fflas-ffpack (>= 2.4.3),
  flintqs,
- gap-dev (>= 4r10p0-3),
+ gap-dev (>= 4.11.0),
  gap-online-help,
  gap-atlasrep (>= 2.1.0-2),
  gap-primgrp,

@@ -1,5 +1,12 @@
 sagemath (9.0-4) UNRELEASED; urgency=medium
 
+  * New (Build-)Depends:
+    - gap-dev (>= 4.11.0)
+    - libgap-dev
+  * New patches:
+    - u0-version-gap-4.11.patch                  #29314
+  * Remove patches:
+    - d0-libgap-path.patch
   * Modified patches:
     - u0-version-python-3.8.patch (add 32-bit hashes)
 

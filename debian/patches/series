@@ -1,5 +1,6 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
+u0-version-gap-4.11.patch                  #29314
 u0-version-python-3.8.patch                #27754
 u0-version-ipython-7.patch                 #28197
 u0-version-ecl-16.1.3.patch                #22191
@@ -25,7 +26,6 @@ u2-allow-override-sage-local.patch
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
 d0-gsl-cblas.patch
-d0-libgap-path.patch
 d0-maxima.patch
 d0-mathjax.patch
 d0-nauty.patch

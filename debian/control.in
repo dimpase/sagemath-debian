@@ -38,6 +38,7 @@ Build-Depends:
  libflint-dev (>= 2.5.2-5),
  libfplll-dev (>= 5.2.1),
  libfreetype6-dev,
+ libgap-dev,
  libgc-dev,
  libgd-dev,
  libgf2x-dev (>= 1.2-4),
