@@ -251,7 +251,7 @@ run_tests_with_retry = \
 
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,65)
+	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,200)
 endif
 
 override_dh_auto_test-indep:

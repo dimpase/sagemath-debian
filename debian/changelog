@@ -10,6 +10,7 @@ sagemath (9.0-4) UNRELEASED; urgency=medium
     - d0-libgap-path.patch
   * Modified patches:
     - u0-version-python-3.8.patch (add 32-bit hashes)
+  * Allow up to 200 failed doctests.
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 05 Apr 2020 14:57:27 +0200
 
