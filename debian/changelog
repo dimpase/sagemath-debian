@@ -8,6 +8,8 @@ sagemath (9.0-4) UNRELEASED; urgency=medium
     - u0-version-sphinx-2.4.patch                #28856
   * Remove patches:
     - d0-libgap-path.patch
+    - df-revert-minor-feature-dependent-on-python-patch.patch
+    - df-subprocess-sphinx.patch
   * Modified patches:
     - u0-version-python-3.8.patch (add 32-bit hashes)
   * Allow up to 200 failed doctests.

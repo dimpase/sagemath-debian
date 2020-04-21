@@ -50,10 +50,8 @@ d1-doc-docs.patch
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
 # It may be possible to drop these now or in the future; test that first.
-df-revert-minor-feature-dependent-on-python-patch.patch
 df-sage-gap-reset-doctest.patch
 df-silence_ecl_opt_signals.patch
-df-subprocess-sphinx.patch
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
