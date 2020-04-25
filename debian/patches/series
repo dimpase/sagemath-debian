@@ -7,6 +7,7 @@ u0-version-ipython-7.patch                 #28197
 u0-version-ecl-16.1.3.patch                #22191
 u0-version-pari-2.11.3.patch               #29313
 u0-version-sympy-1.5.patch                 #28911
+u0-version-scipy-1.4.patch                 #29115
 
 # Patches that have open upstream tickets
 u1-pkgconfig-extra-link-flags.patch        #27205

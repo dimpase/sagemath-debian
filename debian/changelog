@@ -6,6 +6,7 @@ sagemath (9.0-4) UNRELEASED; urgency=medium
   * New patches:
     - u0-version-gap-4.11.patch                  #29314
     - u0-version-sphinx-2.4.patch                #28856
+    - u0-version-scipy-1.4.patch                 #29115
   * Remove patches:
     - d0-libgap-path.patch
     - df-revert-minor-feature-dependent-on-python-patch.patch
