@@ -65,7 +65,7 @@ REBUILD_RULES = debian/rules
 endif
 
 %:
-	dh $@ --with=python3,sphinxdoc
+	dh $@ --with=python3
 
 ###############################################################################
 # 2. GENERATE FILES
@@ -163,12 +163,6 @@ override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
 # them from compression anyway for now, so the build goes quicker.
 	dh_compress -X.pdf -X.pickle -X.doctree
-
-override_dh_sphinxdoc:
-# TODO: fix MathJax.js, Sage needs special treatment
-# `man dh_sphinxdoc` says symlinking translations.js is not yet supported
-# likewise, it seems not to recognise searchtools.js yet
-	dh_sphinxdoc -XMathJax.js -Xtranslations.js -Xsearchtools.js
 
 # If we see "nodoc", don't clean the docs. This allows us to rebuild just the
 # non-docs without wiping away the docs we previously built, to save time.
