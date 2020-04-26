@@ -22,6 +22,7 @@ u2-allow-override-sage-local.patch
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
+d0-arb.patch
 d0-gsl-cblas.patch
 d0-libgap-path.patch
 d0-maxima.patch

@@ -1,0 +1,16 @@
+Description: Link with flint-arb
+ In the future we should make use of this configure file, but
+ with our current hacks it sets the wrong library name.
+Author: Tobias Hansen <thansen@debian.org>
+
+--- a/sage/build/pkgs/arb/spkg-configure.m4
++++ b/sage/build/pkgs/arb/spkg-configure.m4
+@@ -16,7 +16,7 @@
+     fi
+ ], [], [], [
+     if test x$sage_spkg_install_arb = xyes; then
+-        AC_SUBST(SAGE_ARB_LIBRARY,["arb"])
++        AC_SUBST(SAGE_ARB_LIBRARY,["flint-arb"])
+     else
+         AC_SUBST(SAGE_ARB_LIBRARY,[$SAGE_ARB_LIBRARY])
+     fi
