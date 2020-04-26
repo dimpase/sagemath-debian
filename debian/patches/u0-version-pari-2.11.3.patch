@@ -49,7 +49,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
  
 --- a/sage/src/sage/rings/number_field/number_field.py
 +++ b/sage/src/sage/rings/number_field/number_field.py
-@@ -4373,7 +4373,7 @@
+@@ -4550,7 +4550,7 @@
                -1/13*a^2 + 6/13*a + 345/13,
                -1,
                2/13*a^2 + 1/13*a - 755/13,
@@ -58,7 +58,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
               [(Fractional ideal (11, a - 2), 2), (Fractional ideal (19, a + 7), 2)])
  
          Number fields defined by non-monic and non-integral
-@@ -4531,9 +4531,9 @@
+@@ -4708,9 +4708,9 @@
               -1/13*a^2 + 6/13*a + 345/13,
               -1,
               2/13*a^2 + 1/13*a - 755/13,
@@ -71,7 +71,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
  
          Verify that :trac:`16708` is fixed::
  
-@@ -5178,7 +5178,7 @@
+@@ -5355,7 +5355,7 @@
  
              sage: K.<a> = NumberField(7/9*x^3 + 7/3*x^2 - 56*x + 123)
              sage: K.elements_of_norm(7)
@@ -80,7 +80,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
          """
          proof = proof_flag(proof)
          B = self.pari_bnf(proof).bnfisintnorm(n)
-@@ -5281,7 +5281,7 @@
+@@ -5458,7 +5458,7 @@
              sage: pari('setrand(2)')
              sage: L.<b> = K.extension(x^2 - 7)
              sage: f = L.factor(a + 1); f
@@ -89,7 +89,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
              sage: f.value() == a+1
              True
  
-@@ -6358,7 +6358,7 @@
+@@ -6535,7 +6535,7 @@
              sage: [K.uniformizer(P) for P,e in factor(K.ideal(5))]
              [t^2 - t + 1, t + 2, t - 2]
              sage: [K.uniformizer(P) for P,e in factor(K.ideal(7))]
@@ -98,7 +98,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
              sage: [K.uniformizer(P) for P,e in factor(K.ideal(67))]
              [t + 23, t + 26, t - 32, t - 18]
  
-@@ -7602,11 +7602,11 @@
+@@ -7805,11 +7805,11 @@
               Ring morphism:
                 From: Number Field in a1 with defining polynomial x^3 - 7*x - 7
                 To:   Number Field in a with defining polynomial 7/9*x^3 + 7/3*x^2 - 56*x + 123
@@ -156,7 +156,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
          gives the right results (:trac:`25874`)::
 --- a/sage/src/sage/rings/polynomial/polynomial_quotient_ring.py
 +++ b/sage/src/sage/rings/polynomial/polynomial_quotient_ring.py
-@@ -1295,9 +1295,9 @@
+@@ -1293,9 +1293,9 @@
                 1/16*a*xbar^3 + (-1/16*a - 1/8)*xbar^2 + 23/16*a*xbar - 23/16*a - 23/8),
                6),
               ((-5/4*xbar^2 - 115/4,
@@ -169,7 +169,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
                2)]
  
          By using the ideal `(a)`, we cut the part of the class group coming from
-@@ -1427,9 +1427,9 @@
+@@ -1425,9 +1425,9 @@
                 1/16*a*xbar^3 + (-1/16*a - 1/8)*xbar^2 + 23/16*a*xbar - 23/16*a - 23/8),
                6),
               ((-5/4*xbar^2 - 115/4,

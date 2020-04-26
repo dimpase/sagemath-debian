@@ -4,7 +4,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
 
 --- a/sage/src/sage/dynamics/complex_dynamics/mandel_julia.py
 +++ b/sage/src/sage/dynamics/complex_dynamics/mandel_julia.py
-@@ -527,7 +527,7 @@
+@@ -598,7 +598,7 @@
      the form ``f = z^2 + c``)::
  
          sage: julia_plot(interact=True)

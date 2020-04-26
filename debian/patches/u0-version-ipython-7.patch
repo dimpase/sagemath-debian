@@ -1,4 +1,4 @@
-Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipython7.patch?h=packages/sagemath
+Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=sagemath-git
 
 --- a/sage/src/sage/doctest/forker.py
 +++ b/sage/src/sage/doctest/forker.py
@@ -92,7 +92,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          ret = {}
 --- a/sage/src/sage/algebras/weyl_algebra.py
 +++ b/sage/src/sage/algebras/weyl_algebra.py
-@@ -590,7 +590,7 @@
+@@ -583,7 +583,7 @@
              sage: x
              t^3*dt^3 + t^4*dt^2 + 9*t^2*dt^2 + 8*t^3*dt + 18*t*dt + 12*t^2 + 6
              sage: x.factor_differentials()
@@ -101,7 +101,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: D.zero().factor_differentials()
              {}
  
-@@ -602,17 +602,17 @@
+@@ -595,17 +595,17 @@
              x^3*dy^3 + x*y*z*dx*dy*dz + y^3*dx^3 + x^3*dx^3 - x*z*dx^3 + y*z*dy*dz
               + x*z*dx*dz + x*y*dx*dy + 9*x^2*dx^2 + z*dz + y*dy + 19*x*dx + 7
              sage: elt.factor_differentials()
@@ -126,20 +126,9 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
          ret = {}
          DW = self.parent()
---- a/sage/src/sage/all.py
-+++ b/sage/src/sage/all.py
-@@ -19,7 +19,7 @@
- except for the known bad apples::
- 
-     sage: allowed = [
--    ....:     'IPython', 'prompt_toolkit',     # sage dependencies
-+    ....:     'IPython', 'prompt_toolkit', 'jedi',   # sage dependencies
-     ....:     'threading', 'multiprocessing',  # doctest dependencies
-     ....:     '__main__', 'sage.doctest',      # doctesting
-     ....:     'signal', 'enum',                # may appear in Python 3
 --- a/sage/src/sage/categories/category.py
 +++ b/sage/src/sage/categories/category.py
-@@ -1771,8 +1771,8 @@
+@@ -1770,8 +1770,8 @@
              {'element': {'optional': ['_add_', '_mul_'], 'required': ['__nonzero__']},
               'parent': {'optional': ['algebra_generators'], 'required': ['__contains__']}}
              sage: Algebras(QQ).required_methods() # py3
@@ -174,7 +163,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
 --- a/sage/src/sage/categories/crystals.py
 +++ b/sage/src/sage/categories/crystals.py
-@@ -76,7 +76,7 @@
+@@ -75,7 +75,7 @@
  
          sage: from sage.misc.abstract_method import abstract_methods_of_class
          sage: abstract_methods_of_class(Crystals().element_class)
@@ -278,7 +267,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
 --- a/sage/src/sage/coding/linear_code.py
 +++ b/sage/src/sage/coding/linear_code.py
-@@ -3847,22 +3847,22 @@
+@@ -2677,22 +2677,22 @@
              sage: D = codes.decoders.LinearCodeSyndromeDecoder(C, maximum_error_weight = 1)
              sage: D._build_lookup_table()
              {(0, 0, 0, 0): (0, 0, 0, 0, 0, 0, 0, 0),
@@ -313,7 +302,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          TESTS:
  
-@@ -3876,11 +3876,11 @@
+@@ -2706,11 +2706,11 @@
              sage: D = codes.decoders.LinearCodeSyndromeDecoder(C)
              sage: D.syndrome_table()
               {(0, 0): (0, 0, 0),
@@ -329,23 +318,6 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
                (2*a + 2, 2*a + 1): (2*a + 2, 2*a + 1, 0),
                (2*a + 2, 2*a + 2): (2*a + 2, 2*a + 2, 0)}
          """
-@@ -4035,12 +4035,12 @@
-             sage: D = codes.decoders.LinearCodeSyndromeDecoder(C)
-             sage: D.syndrome_table()
-             {(0, 0, 0): (0, 0, 0, 0, 0, 0, 0),
--             (0, 0, 1): (0, 0, 0, 1, 0, 0, 0),
--             (0, 1, 0): (0, 1, 0, 0, 0, 0, 0),
--             (0, 1, 1): (0, 0, 0, 0, 0, 1, 0),
-              (1, 0, 0): (1, 0, 0, 0, 0, 0, 0),
--             (1, 0, 1): (0, 0, 0, 0, 1, 0, 0),
-+             (0, 1, 0): (0, 1, 0, 0, 0, 0, 0),
-              (1, 1, 0): (0, 0, 1, 0, 0, 0, 0),
-+             (0, 0, 1): (0, 0, 0, 1, 0, 0, 0),
-+             (1, 0, 1): (0, 0, 0, 0, 1, 0, 0),
-+             (0, 1, 1): (0, 0, 0, 0, 0, 1, 0),
-              (1, 1, 1): (0, 0, 0, 0, 0, 0, 1)}
-         """
-         return self._lookup_table
 --- a/sage/src/sage/combinat/cluster_algebra_quiver/cluster_seed.py
 +++ b/sage/src/sage/combinat/cluster_algebra_quiver/cluster_seed.py
 @@ -2735,119 +2735,119 @@
@@ -532,74 +504,6 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          """
  
---- a/sage/src/sage/combinat/combinatorial_map.py
-+++ b/sage/src/sage/combinat/combinatorial_map.py
-@@ -257,8 +257,8 @@
-         EXAMPLES::
- 
-             sage: sage.combinat.combinatorial_map.combinatorial_map = sage.combinat.combinatorial_map.combinatorial_map_wrapper
--            sage: import imp
--            sage: _ = imp.reload(sage.combinat.permutation)
-+            sage: import importlib
-+            sage: _ = importlib.reload(sage.combinat.permutation)
-             sage: p = Permutation([1,3,2,4])
-             sage: p.left_tableau.__repr__()
-             'Combinatorial map: Robinson-Schensted insertion tableau'
-@@ -272,8 +272,8 @@
-         EXAMPLES::
- 
-             sage: sage.combinat.combinatorial_map.combinatorial_map = sage.combinat.combinatorial_map.combinatorial_map_wrapper
--            sage: import imp
--            sage: _ = imp.reload(sage.combinat.permutation)
-+            sage: import importlib
-+            sage: _ = importlib.reload(sage.combinat.permutation)
-             sage: p = Permutation([1,3,2,4])
-             sage: cm = p.left_tableau; cm
-             Combinatorial map: Robinson-Schensted insertion tableau
-@@ -293,8 +293,8 @@
-         EXAMPLES::
- 
-             sage: sage.combinat.combinatorial_map.combinatorial_map = sage.combinat.combinatorial_map.combinatorial_map_wrapper
--            sage: import imp
--            sage: _ = imp.reload(sage.combinat.permutation)
-+            sage: import importlib
-+            sage: _ = importlib.reload(sage.combinat.permutation)
-             sage: p = Permutation([1,3,2,4])
-             sage: p.left_tableau #indirect doctest
-             Combinatorial map: Robinson-Schensted insertion tableau
-@@ -309,8 +309,8 @@
-         EXAMPLES::
- 
-             sage: sage.combinat.combinatorial_map.combinatorial_map = sage.combinat.combinatorial_map.combinatorial_map_wrapper
--            sage: import imp
--            sage: _ = imp.reload(sage.combinat.permutation)
-+            sage: import importlib
-+            sage: _ = importlib.reload(sage.combinat.permutation)
-             sage: p = Permutation([1,3,2,4])
-             sage: cm = type(p).left_tableau; cm
-             Combinatorial map: Robinson-Schensted insertion tableau
-@@ -335,8 +335,8 @@
-         EXAMPLES::
- 
-             sage: sage.combinat.combinatorial_map.combinatorial_map = sage.combinat.combinatorial_map.combinatorial_map_wrapper
--            sage: import imp
--            sage: _ = imp.reload(sage.combinat.permutation)
-+            sage: import importlib
-+            sage: _ = importlib.reload(sage.combinat.permutation)
-             sage: from sage.combinat.permutation import Permutation
-             sage: pi = Permutation([1,3,2])
-             sage: f = pi.reverse
-@@ -400,8 +400,8 @@
-     EXAMPLES::
- 
-         sage: sage.combinat.combinatorial_map.combinatorial_map = sage.combinat.combinatorial_map.combinatorial_map_wrapper
--        sage: import imp
--        sage: _ = imp.reload(sage.combinat.permutation)
-+        sage: import importlib
-+        sage: _ = importlib.reload(sage.combinat.permutation)
-         sage: from sage.combinat.combinatorial_map import combinatorial_maps_in_class
-         sage: p = Permutation([1,3,2,4])
-         sage: cmaps = combinatorial_maps_in_class(p)
 --- a/sage/src/sage/combinat/crystals/kirillov_reshetikhin.py
 +++ b/sage/src/sage/combinat/crystals/kirillov_reshetikhin.py
 @@ -1188,11 +1188,11 @@
@@ -674,7 +578,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          .. TODO::
 --- a/sage/src/sage/combinat/finite_state_machine.py
 +++ b/sage/src/sage/combinat/finite_state_machine.py
-@@ -2134,8 +2134,7 @@
+@@ -2133,8 +2133,7 @@
              sage: A.state(0)._in_epsilon_cycle_(A)
              True
              sage: A.state(4)._epsilon_successors_(A)
@@ -684,7 +588,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: A.state(4)._in_epsilon_cycle_(A)
              False
          """
-@@ -7222,7 +7221,7 @@
+@@ -7221,7 +7220,7 @@
              sage: S.epsilon_successors(0)
              {0: [['a', 'b']], 1: [['a']]}
              sage: S.epsilon_successors(1)
@@ -693,7 +597,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
          return self.state(state)._epsilon_successors_(self)
  
-@@ -15056,7 +15055,7 @@
+@@ -15054,7 +15053,7 @@
      This class has the additional attribute ``visited_states``::
  
          sage: it.visited_states
@@ -702,7 +606,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
      This means the following (let us skip the state `0` for a moment):
      State `1` can be reached by a epsilon path which write ``'bc'`` as
-@@ -15083,7 +15082,7 @@
+@@ -15081,7 +15080,7 @@
          +-- tape at 0, [['c']]
          process (0 branches)
          sage: it.visited_states
@@ -711,7 +615,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
      TESTS::
  
-@@ -15111,7 +15110,7 @@
+@@ -15109,7 +15108,7 @@
          +-- tape at 0, [[]]
          process (0 branches)
          sage: it.visited_states
@@ -720,7 +624,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
      At this point note that in the previous output, state `1` (from
      which we started) was also reached by a non-trivial
-@@ -15135,7 +15134,7 @@
+@@ -15133,7 +15132,7 @@
          +-- tape at 0, [[]]
          process (0 branches)
          sage: it.visited_states
@@ -729,7 +633,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          sage: it = _FSMProcessIteratorEpsilon_(A, initial_state=A.state(3))
          sage: for current in it:
          ....:     print(current)
-@@ -15151,7 +15150,7 @@
+@@ -15149,7 +15148,7 @@
          +-- tape at 0, [[]]
          process (0 branches)
          sage: it.visited_states
@@ -738,7 +642,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          sage: it = _FSMProcessIteratorEpsilon_(A, initial_state=A.state(4))
          sage: for current in it:
          ....:     print(current)
-@@ -15188,8 +15187,7 @@
+@@ -15186,8 +15185,7 @@
          +-- tape at 0, [['b', 'c', 'e']]
          process (0 branches)
          sage: it.visited_states
@@ -748,7 +652,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          sage: it = _FSMProcessIteratorEpsilon_(T, initial_state=T.state(2),
          ....:                                  format_output=lambda o: ''.join(o))
          sage: for current in it:
-@@ -15207,8 +15205,7 @@
+@@ -15205,8 +15203,7 @@
          +-- tape at 0, [['c', 'd', 'f']]
          process (0 branches)
          sage: it.visited_states
@@ -758,7 +662,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          sage: it = _FSMProcessIteratorEpsilon_(T, initial_state=T.state(3),
          ....:                                  format_output=lambda o: ''.join(o))
          sage: for current in it:
-@@ -15225,8 +15222,7 @@
+@@ -15223,8 +15220,7 @@
          +-- tape at 0, [['d', 'f']]
          process (0 branches)
          sage: it.visited_states
@@ -768,7 +672,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          sage: it = _FSMProcessIteratorEpsilon_(T, initial_state=T.state(4),
          ....:                                  format_output=lambda o: ''.join(o))
          sage: for current in it:
-@@ -15373,9 +15369,9 @@
+@@ -15371,9 +15367,9 @@
              sage: T.state(0)._epsilon_successors_(T)  # indirect doctest
              {0: [['a', 'b', 'c']], 1: [['a']], 2: [['a', 'b']]}
              sage: T.state(1)._epsilon_successors_(T)  # indirect doctest
@@ -818,7 +722,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: G.shape()
              [3, 2] / [1]
  
-@@ -1538,14 +1538,14 @@
+@@ -1537,14 +1537,14 @@
              sage: labels = [[], [1], [2], [2,1], [1,1], [1], []]
              sage: G = GrowthDiagram(RuleRSK, labels=labels)  # indirect doctest
              sage: G._filling
@@ -1923,36 +1827,36 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: triangulation = polytopes.cube().triangulate(engine='internal')
              sage: triangulation._boundary_simplex_dictionary()
 -            {(0, 1, 2): ((0, 1, 2, 7),),
--             (0, 1, 4): ((0, 1, 4, 7),),
--             (0, 1, 7): ((0, 1, 2, 7), (0, 1, 4, 7)),
--             (0, 2, 4): ((0, 2, 4, 7),),
-+            {(1, 2, 7): ((0, 1, 2, 7), (1, 2, 3, 7)),
-              (0, 2, 7): ((0, 1, 2, 7), (0, 2, 4, 7)),
-+             (0, 1, 7): ((0, 1, 2, 7), (0, 1, 4, 7)),
+-             (0, 1, 5): ((0, 1, 5, 7),),
+-             (0, 1, 7): ((0, 1, 2, 7), (0, 1, 5, 7)),
+-             (0, 2, 3): ((0, 2, 3, 7),),
++            {(1, 2, 7): ((0, 1, 2, 7),),
+              (0, 2, 7): ((0, 1, 2, 7), (0, 2, 3, 7)),
+-             (0, 3, 4): ((0, 3, 4, 7),),
+-             (0, 3, 7): ((0, 2, 3, 7), (0, 3, 4, 7)),
+-             (0, 4, 5): ((0, 4, 5, 7),),
+-             (0, 4, 7): ((0, 3, 4, 7), (0, 4, 5, 7)),
+-             (0, 5, 7): ((0, 1, 5, 7), (0, 4, 5, 7)),
+-             (1, 2, 7): ((0, 1, 2, 7),),
+-             (1, 5, 6): ((1, 5, 6, 7),),
++             (0, 1, 7): ((0, 1, 2, 7), (0, 1, 5, 7)),
 +             (0, 1, 2): ((0, 1, 2, 7),),
-+             (1, 4, 7): ((0, 1, 4, 7), (1, 4, 5, 7)),
-              (0, 4, 7): ((0, 1, 4, 7), (0, 2, 4, 7)),
--             (1, 2, 3): ((1, 2, 3, 7),),
--             (1, 2, 7): ((0, 1, 2, 7), (1, 2, 3, 7)),
-+             (0, 1, 4): ((0, 1, 4, 7),),
-+             (2, 4, 7): ((0, 2, 4, 7), (2, 4, 6, 7)),
-+             (0, 2, 4): ((0, 2, 4, 7),),
-+             (2, 3, 7): ((1, 2, 3, 7),),
-              (1, 3, 7): ((1, 2, 3, 7),),
--             (1, 4, 5): ((1, 4, 5, 7),),
--             (1, 4, 7): ((0, 1, 4, 7), (1, 4, 5, 7)),
-+             (1, 2, 3): ((1, 2, 3, 7),),
-+             (4, 5, 7): ((1, 4, 5, 7),),
-              (1, 5, 7): ((1, 4, 5, 7),),
--             (2, 3, 7): ((1, 2, 3, 7),),
--             (2, 4, 6): ((2, 4, 6, 7),),
--             (2, 4, 7): ((0, 2, 4, 7), (2, 4, 6, 7)),
-+             (1, 4, 5): ((1, 4, 5, 7),),
-+             (4, 6, 7): ((2, 4, 6, 7),),
-              (2, 6, 7): ((2, 4, 6, 7),),
--             (4, 5, 7): ((1, 4, 5, 7),),
--             (4, 6, 7): ((2, 4, 6, 7),)}
-+             (2, 4, 6): ((2, 4, 6, 7),)}
+              (1, 5, 7): ((0, 1, 5, 7), (1, 5, 6, 7)),
+-             (1, 6, 7): ((1, 5, 6, 7),),
++             (0, 5, 7): ((0, 1, 5, 7), (0, 4, 5, 7)),
++             (0, 1, 5): ((0, 1, 5, 7),),
+              (2, 3, 7): ((0, 2, 3, 7),),
++             (0, 3, 7): ((0, 2, 3, 7), (0, 3, 4, 7)),
++             (0, 2, 3): ((0, 2, 3, 7),),
+              (3, 4, 7): ((0, 3, 4, 7),),
++             (0, 4, 7): ((0, 3, 4, 7), (0, 4, 5, 7)),
++             (0, 3, 4): ((0, 3, 4, 7),),
+              (4, 5, 7): ((0, 4, 5, 7),),
+-             (5, 6, 7): ((1, 5, 6, 7),)}
++             (0, 4, 5): ((0, 4, 5, 7),),
++             (5, 6, 7): ((1, 5, 6, 7),),
++             (1, 6, 7): ((1, 5, 6, 7),),
++             (1, 5, 6): ((1, 5, 6, 7),)}
          """
          result = dict()
          for simplex in self:
@@ -2008,7 +1912,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
           2: 0.6,
 --- a/sage/src/sage/graphs/digraph.py
 +++ b/sage/src/sage/graphs/digraph.py
-@@ -2671,7 +2671,7 @@
+@@ -2675,7 +2675,7 @@
          installed, so we don't test its relative values::
  
              sage: H.layout_acyclic()
@@ -2017,7 +1921,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
              sage: H = DiGraph({0: [1]})
              sage: pos = H.layout_acyclic(rankdir='up')
-@@ -2716,15 +2716,15 @@
+@@ -2720,15 +2720,15 @@
  
              sage: H = DiGraph({0: [1, 2], 1: [3], 2: [3], 3: [], 5: [1, 6], 6: [2, 3]})
              sage: H.layout_acyclic_dummy()
@@ -2062,7 +1966,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
 --- a/sage/src/sage/graphs/generic_graph.py
 +++ b/sage/src/sage/graphs/generic_graph.py
-@@ -5155,7 +5155,7 @@
+@@ -5211,7 +5211,7 @@
          This method is deprecated since Sage-4.4.1.alpha2. Please use instead:
  
              sage: g.layout(layout = "planar", save_pos = True)
@@ -2071,7 +1975,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
          deprecation(24494, 'This method is replaced by the method layout. '
                             'Please use layout(layout="planar", save_pos=True) '
-@@ -5209,11 +5209,11 @@
+@@ -5265,11 +5265,11 @@
  
              sage: g = graphs.PathGraph(10)
              sage: g.layout(layout='planar', save_pos=True, test=True)
@@ -2086,7 +1990,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
               5: [5, 2],
               6: [2, 2],
               7: [2, 3],
-@@ -5227,7 +5227,7 @@
+@@ -5283,7 +5283,7 @@
              [93, 14]
              sage: g = graphs.CycleGraph(7)
              sage: g.layout(layout='planar', save_pos=True, test=True)
@@ -2095,7 +1999,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: g = graphs.CompleteGraph(5)
              sage: g.layout(layout='planar', save_pos=True, test=True, set_embedding=True)
              Traceback (most recent call last):
-@@ -5238,9 +5238,9 @@
+@@ -5294,9 +5294,9 @@
  
              sage: g = graphs.CompleteGraph(4)
              sage: g.layout(layout='planar', external_face=(0,1))
@@ -2107,7 +2011,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          TESTS::
  
-@@ -16571,7 +16571,7 @@
+@@ -16511,7 +16511,7 @@
  
              sage: D = graphs.DodecahedralGraph()
              sage: D.shortest_paths(0)
@@ -2116,7 +2020,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          All these paths are obviously induced graphs::
  
-@@ -16581,7 +16581,7 @@
+@@ -16521,7 +16521,7 @@
          ::
  
              sage: D.shortest_paths(0, cutoff=2)
@@ -2125,7 +2029,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: G = Graph( { 0: {1: 1}, 1: {2: 1}, 2: {3: 1}, 3: {4: 2}, 4: {0: 2} }, sparse=True)
              sage: G.plot(edge_labels=True).show() # long time
              sage: G.shortest_paths(0, by_weight=True)
-@@ -16591,7 +16591,7 @@
+@@ -16531,7 +16531,7 @@
  
              sage: D = DiGraph([(0,1,1),(1,2,3),(0,2,5)])
              sage: D.shortest_paths(0)
@@ -2134,7 +2038,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: D.shortest_paths(0, by_weight=True)
              {0: [0], 1: [0, 1], 2: [0, 1, 2]}
  
-@@ -16840,7 +16840,7 @@
+@@ -16780,7 +16780,7 @@
  
              sage: D = graphs.DodecahedralGraph()
              sage: D.shortest_path_lengths(0)
@@ -2143,7 +2047,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          Weighted case::
  
-@@ -18924,18 +18924,18 @@
+@@ -18906,18 +18906,18 @@
               '#00ff00': [((1,3,2,4), (1,4)(2,3), 3), ...],
               '#ff0000': [((1,3,2,4), (1,3)(2,4), 1), ...]}
              sage: G._color_by_label()  # py3
@@ -2166,7 +2070,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          TESTS:
  
-@@ -19080,8 +19080,8 @@
+@@ -19062,8 +19062,8 @@
  
              sage: g.layout(layout="acyclic_dummy", save_pos=True)
              {('0', 0): [0.3..., 0],
@@ -2176,7 +2080,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
               ('1', 1): [0.6..., 1]}
  
              sage: D3 = g.layout(dim=3); D3  # random
-@@ -19217,10 +19217,10 @@
+@@ -19199,10 +19199,10 @@
              sage: g = graphs.LadderGraph(3)
              sage: g.layout_ranked(heights={i: (i, i+3) for i in range(3)})
              {0: [0.668..., 0],
@@ -2189,7 +2093,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
               5: [1.33..., 2]}
              sage: g = graphs.LadderGraph(7)
              sage: g.plot(layout="ranked", heights={i: (i, i+7) for i in range(7)})
-@@ -19404,13 +19404,13 @@
+@@ -19386,13 +19386,13 @@
  
              sage: G = graphs.BalancedTree(2, 2)
              sage: G.layout_tree(tree_root=0)
@@ -2208,7 +2112,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
              sage: G = graphs.BalancedTree(2, 4)
              sage: G.plot(layout="tree", tree_root=0, tree_orientation="up")
-@@ -19422,15 +19422,15 @@
+@@ -19404,15 +19404,15 @@
              sage: T.set_embedding({0: [1, 6, 3], 1: [2, 5, 0], 2: [1], 3: [4, 7, 8, 0],
              ....:     4: [3], 5: [1], 6: [0], 7: [3], 8: [3]})
              sage: T.layout_tree()
@@ -2231,7 +2135,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: T.plot(layout="tree", tree_root=3)
              Graphics object consisting of 18 graphics primitives
  
-@@ -23589,7 +23589,8 @@
+@@ -23571,7 +23571,8 @@
  
              sage: G = DiGraph({1: [10], 2:[10,11], 3:[10,11], 4:[], 5:[11, 4], 6:[11], 7:[10,11], 8:[10,11], 9:[10], 10:[11, 5, 8], 11:[6]})
              sage: G.katz_centrality(.85)
@@ -2241,7 +2145,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
               2: 0.000000000000000,
               3: 0.000000000000000,
               4: 16.7319819819820,
-@@ -23598,7 +23599,6 @@
+@@ -23580,7 +23581,6 @@
               7: 0.000000000000000,
               8: 18.6846846846847,
               9: 0.000000000000000,
@@ -2249,7 +2153,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
               11: 202.778914049184}
  
  
-@@ -23618,7 +23618,7 @@
+@@ -23600,7 +23600,7 @@
              sage: graphs.PathGraph(4).katz_centrality(1/20,3)
              21/379
              sage: (graphs.PathGraph(3) + graphs.PathGraph(4)).katz_centrality(1/20)
@@ -2260,7 +2164,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          n = self.order()
 --- a/sage/src/sage/graphs/graph.py
 +++ b/sage/src/sage/graphs/graph.py
-@@ -3814,7 +3814,7 @@
+@@ -3820,7 +3820,7 @@
          EXAMPLES::
  
              sage: graphs.CycleGraph(4).bipartite_color()
@@ -2269,7 +2173,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: graphs.CycleGraph(5).bipartite_color()
              Traceback (most recent call last):
              ...
-@@ -4097,10 +4097,10 @@
+@@ -4103,10 +4103,10 @@
              sage: G.plot(partition=P)
              Graphics object consisting of 16 graphics primitives
              sage: G.coloring(hex_colors=True, algorithm="MILP")
@@ -2284,7 +2188,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
 --- a/sage/src/sage/graphs/graph_coloring.pyx
 +++ b/sage/src/sage/graphs/graph_coloring.pyx
-@@ -1029,10 +1029,10 @@
+@@ -1028,10 +1028,10 @@
          [(0, 5), (2, 7)],
          [(1, 6), (3, 4), (5, 8), (7, 9)]]
         sage: edge_coloring(g, value_only=False, hex_colors=True, solver='GLPK')
@@ -2574,7 +2478,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          SQLDatabase.__init__(self, dblocation)
 --- a/sage/src/sage/graphs/isgci.py
 +++ b/sage/src/sage/graphs/isgci.py
-@@ -761,7 +761,7 @@
+@@ -759,7 +759,7 @@
              sage: type(t)
              <... 'list'>
              sage: t[0]
@@ -2583,7 +2487,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
          self._get_ISGCI()
          return self.inclusions()
-@@ -778,12 +778,12 @@
+@@ -776,12 +776,12 @@
  
              sage: t = graph_classes.smallgraphs()
              sage: t
@@ -2626,7 +2530,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
      tree_nodes, (v1, v2, v3) = x
 --- a/sage/src/sage/graphs/tutte_polynomial.py
 +++ b/sage/src/sage/graphs/tutte_polynomial.py
-@@ -389,7 +389,7 @@
+@@ -386,7 +386,7 @@
              sage: A.order
              [4, 6, 3, 2, 1, 7]
              sage: A.inverse_order
@@ -2656,7 +2560,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: C.parse("L' R2") == C.parse("L^(-1)*R^2")
 --- a/sage/src/sage/knots/link.py
 +++ b/sage/src/sage/knots/link.py
-@@ -753,47 +753,47 @@
+@@ -752,47 +752,47 @@
              sage: L = Link([[1, 3, 2, 4], [2, 3, 1, 4]])
              sage: tails, heads = L._directions_of_edges()
              sage: tails
@@ -2873,7 +2777,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          ...
 --- a/sage/src/sage/libs/ppl.pyx
 +++ b/sage/src/sage/libs/ppl.pyx
-@@ -2013,10 +2013,10 @@
+@@ -2014,10 +2014,10 @@
              sage: p = C_Polyhedron(cs)
              sage: p.maximize( x+y )
              {'bounded': True,
@@ -2887,7 +2791,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          Unbounded case::
  
-@@ -2027,10 +2027,10 @@
+@@ -2028,10 +2028,10 @@
              {'bounded': False}
              sage: p.maximize( -x )
              {'bounded': True,
@@ -2901,7 +2805,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
          cdef PPL_Coefficient sup_n
          cdef PPL_Coefficient sup_d
-@@ -2092,10 +2092,10 @@
+@@ -2093,10 +2093,10 @@
              sage: p = C_Polyhedron(cs)
              sage: p.minimize( x+y )
              {'bounded': True,
@@ -2915,7 +2819,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          Unbounded case::
  
-@@ -2104,10 +2104,10 @@
+@@ -2105,10 +2105,10 @@
              sage: p = NNC_Polyhedron(cs)
              sage: p.minimize( +x )
              {'bounded': True,
@@ -3156,7 +3060,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: S3 = "(1,3,5)(2,4,6)"
 --- a/sage/src/sage/modular/arithgroup/congroup_gammaH.py
 +++ b/sage/src/sage/modular/arithgroup/congroup_gammaH.py
-@@ -593,6 +593,7 @@
+@@ -595,6 +595,7 @@
              sage: G = GammaH(240,[7,239])
              sage: G._coset_reduction_data_second_coord()
              {1: [1],
@@ -3164,7 +3068,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
               2: [1],
               3: [1],
               4: [1],
-@@ -610,8 +611,7 @@
+@@ -612,8 +613,7 @@
               48: [1, 191],
               60: [1, 49, 137, 233],
               80: [1, 7, 49, 103],
@@ -3203,29 +3107,9 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          """
          return self._nproc
---- a/sage/src/sage/parallel/use_fork.py
-+++ b/sage/src/sage/parallel/use_fork.py
-@@ -279,7 +279,7 @@
-             sage: F._subprocess(operator.add, tmp_dir(), (1, 2))
-             sage: sys.stdout = saved_stdout
-         """
--        import imp, os, sys
-+        import importlib, os, sys
-         from sage.misc.persist import save
- 
-         # Make it so all stdout is sent to a file so it can
-@@ -291,7 +291,7 @@
-         # pid has changed (forcing a reload of
-         # misc).
-         import sage.misc.misc
--        imp.reload(sage.misc.misc)
-+        importlib.reload(sage.misc.misc)
- 
-         # The pexpect interfaces (and objects defined in them) are
-         # not valid.
 --- a/sage/src/sage/plot/graphics.py
 +++ b/sage/src/sage/plot/graphics.py
-@@ -1219,8 +1219,8 @@
+@@ -1297,8 +1297,8 @@
              sage: G_kwds = Graphics._extract_kwds_for_show(kwds, ignore='xmin')
              sage: kwds # Note how this action modifies the passed dictionary
              {'f': <function <lambda> at 0x...>,
@@ -3236,7 +3120,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: G_kwds
              {'figsize': [1, 1]}
  
-@@ -2151,13 +2151,13 @@
+@@ -2244,13 +2244,13 @@
  
              sage: l = line([(1e-19,-1), (-1e-19,+1)], aspect_ratio=1.0)
              sage: l.get_minmax_data()
@@ -3255,7 +3139,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
          objects = self._objects
          if objects:
-@@ -2210,18 +2210,18 @@
+@@ -2303,18 +2303,18 @@
  
              sage: l = line([(0,0), (1,1)], aspect_ratio=1.0)
              sage: l._limit_output_aspect_ratio(1, 2, 1e19, 3)
@@ -3285,7 +3169,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          if aspect_ratio != 'automatic':
 --- a/sage/src/sage/plot/histogram.py
 +++ b/sage/src/sage/plot/histogram.py
-@@ -75,7 +75,7 @@
+@@ -74,7 +74,7 @@
  
              sage: H = histogram([10,3,5], density=True); h = H[0]
              sage: h.get_minmax_data()  # rel tol 1e-15
@@ -3305,24 +3189,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
 --- a/sage/src/sage/repl/attach.py
 +++ b/sage/src/sage/repl/attach.py
-@@ -250,13 +250,13 @@
-         sage: reset_load_attach_path(); load_attach_path()
-         ['.']
-         sage: os.environ['SAGE_LOAD_ATTACH_PATH'] = '/veni/vidi:vici:'
--        sage: import imp
--        sage: imp.reload(sage.repl.attach)    # Simulate startup
-+        sage: import importlib
-+        sage: importlib.reload(sage.repl.attach)    # Simulate startup
-         <module 'sage.repl.attach' from '...'>
-         sage: load_attach_path()
-         ['.', '/veni/vidi', 'vici']
-         sage: del os.environ['SAGE_LOAD_ATTACH_PATH']
--        sage: imp.reload(sage.repl.preparse)    # Simulate startup
-+        sage: importlib.reload(sage.repl.preparse)    # Simulate startup
-         <module 'sage.repl.preparse' from '...'>
-         sage: reset_load_attach_path(); load_attach_path()
-         ['.']
-@@ -596,12 +596,7 @@
+@@ -597,12 +597,7 @@
          basename = os.path.basename(filename)
          timestr = time.strftime('%T', mtime)
          notice = '### reloading attached file {0} modified at {1} ###'.format(basename, timestr)
@@ -3376,17 +3243,6 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
      
          These are overridden in IPython in a way that we feel is somewhat
          confusing, and we prefer to print them like plain Python which is
---- a/sage/src/sage/repl/interface_magic.py
-+++ b/sage/src/sage/repl/interface_magic.py
-@@ -260,7 +260,7 @@
-             2
-             120
-             sage: shell.run_cell('%%gap foo\n1+1;\n')
--            File "<string>", line unknown
-+            ...File "<string>", line unknown
-             SyntaxError: Interface magics have no options, got "foo"
-             <BLANKLINE>
-             sage: shell.run_cell('%%gap?')
 --- a/sage/src/sage/repl/interpreter.py
 +++ b/sage/src/sage/repl/interpreter.py
 @@ -78,7 +78,7 @@
@@ -3702,7 +3558,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              raise ValueError("History is not tracked")
 --- a/sage/src/sage/rings/polynomial/groebner_fan.py
 +++ b/sage/src/sage/rings/polynomial/groebner_fan.py
-@@ -1491,13 +1491,13 @@
+@@ -1504,13 +1504,13 @@
              sage: R.<x,y> = PolynomialRing(QQ)
              sage: G = R.ideal([y^3 - x^2, y^2 - 13*x]).groebner_fan()
              sage: G._gfan_stats()
@@ -3723,7 +3579,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              return self.__stats
 --- a/sage/src/sage/rings/polynomial/laurent_polynomial.pyx
 +++ b/sage/src/sage/rings/polynomial/laurent_polynomial.pyx
-@@ -2093,7 +2093,7 @@
+@@ -2148,7 +2148,7 @@
              sage: L.<w,z> = LaurentPolynomialRing(QQ)
              sage: a = w^2*z^-1 +3
              sage: a.dict()  # indirect doctest
@@ -3745,7 +3601,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
 --- a/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
-@@ -3567,11 +3567,11 @@
+@@ -3577,11 +3577,11 @@
  
              sage: loads(dumps(I)).__getstate__()
              (Monoid of ideals of Multivariate Polynomial Ring in x, y over Finite Field of size 32003,
@@ -3762,7 +3618,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          This example checks :trac:`12802`::
 --- a/sage/src/sage/rings/polynomial/multi_polynomial_libsingular.pyx
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial_libsingular.pyx
-@@ -2990,7 +2990,7 @@
+@@ -2980,7 +2980,7 @@
              sage: R.<x,y,z> = QQ[]
              sage: f=2*x*y^3*z^2 + 1/7*x^2 + 2/3
              sage: f.dict()
@@ -3806,7 +3662,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
 --- a/sage/src/sage/rings/polynomial/polynomial_ring.py
 +++ b/sage/src/sage/rings/polynomial/polynomial_ring.py
-@@ -1205,7 +1205,7 @@
+@@ -1203,7 +1203,7 @@
  
              sage: R.<y,x,a42> = RR[]
              sage: R.gens_dict()
@@ -3817,7 +3673,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          names = self.variable_names()
 --- a/sage/src/sage/rings/qqbar.py
 +++ b/sage/src/sage/rings/qqbar.py
-@@ -8053,13 +8053,13 @@
+@@ -8096,13 +8096,13 @@
          decrease it before we return::
  
              sage: import sys; sys.getrecursionlimit()
@@ -3833,6 +3689,28 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          """
          import sys
+--- a/sage/src/sage/rings/ring_extension.pyx
++++ b/sage/src/sage/rings/ring_extension.pyx
+@@ -379,8 +379,8 @@
+                 To:   Rational Field
+                 Defn: 1 |--> 1, (), ()),
+              {'constructors': [(<type 'sage.rings.ring_extension.RingExtension_generic'>,
+-                {'is_backend_exposed': True,
+-                 'print_options': {'print_elements_as': None, 'print_parent_as': None}})]})
++                {'print_options': {'print_parent_as': None, 'print_elements_as': None},
++                 'is_backend_exposed': True})]})
+ 
+             sage: RingExtension.create_key_and_extra_args(GF(5^4), GF(5^2), names=('a',))
+             ((Ring morphism:
+@@ -388,7 +388,7 @@
+                 To:   Finite Field in z4 of size 5^4
+                 Defn: z2 |--> z4^3 + z4^2 + z4 + 3, (z4,), ('a',)),
+              {'constructors': [(<type 'sage.rings.ring_extension.RingExtensionWithGen'>,
+-                {'gen': z4, 'is_backend_exposed': True, 'names': ('a',)})]})
++                {'gen': z4, 'names': ('a',), 'is_backend_exposed': True})]})
+         """
+         use_generic_constructor = True
+         is_backend_exposed = True
 --- a/sage/src/sage/rings/tate_algebra_element.pyx
 +++ b/sage/src/sage/rings/tate_algebra_element.pyx
 @@ -2221,7 +2221,7 @@
@@ -3857,7 +3735,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          G.allow_multiple_edges(True)  # to ensure each vertex ends up with degree 4
 --- a/sage/src/sage/sandpiles/sandpile.py
 +++ b/sage/src/sage/sandpiles/sandpile.py
-@@ -265,7 +265,7 @@
+@@ -264,7 +264,7 @@
      sage: D.is_linearly_equivalent(E)
      True
      sage: D.q_reduced()
@@ -3866,7 +3744,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
      sage: S = sandpiles.Complete(4)
      sage: D = SandpileDivisor(S, [0,0,0,5])
      sage: E = D.stabilize(); E
-@@ -273,7 +273,7 @@
+@@ -272,7 +272,7 @@
      sage: D.is_linearly_equivalent(E)
      True
      sage: D.q_reduced()
@@ -3875,7 +3753,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
      sage: D.rank()
      2
      sage: sorted(D.effective_div(), key=str)
-@@ -550,7 +550,7 @@
+@@ -549,7 +549,7 @@
              [-1 -2  3  0]
              [ 0  0  0  0]
              sage: s.dict()
@@ -3884,7 +3762,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          Sandpiles can be created from Graphs and DiGraphs. ::
  
-@@ -1978,13 +1978,13 @@
+@@ -1977,13 +1977,13 @@
  
              sage: S = Sandpile({0:[1], 2:[0,1], 1:[2]})
              sage: S.dict()
@@ -3900,7 +3778,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          """
  
          # first order the vertices according to their distance from the sink
-@@ -2079,7 +2079,7 @@
+@@ -2078,7 +2078,7 @@
              sage: s.group_order()
              28
              sage: s.jacobian_representatives()
@@ -3909,7 +3787,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          Let `\tau` be the nonnegative generator of the kernel of the transpose of
          the Laplacian, and let `tau_s` be it sink component, then the sandpile
-@@ -2427,7 +2427,8 @@
+@@ -2426,7 +2426,8 @@
              sage: S = Sandpile({0:{},1:{0: 1, 2: 1, 3: 4},2:{3: 5},3:{1: 1, 2: 1}},0)
              sage: p = S.betti_complexes()
              sage: p[0]
@@ -3919,7 +3797,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: S.resolution()
              'R^1 <-- R^5 <-- R^5 <-- R^1'
              sage: S.betti()
-@@ -3005,9 +3006,9 @@
+@@ -3004,9 +3005,9 @@
              sage: c.equivalent_recurrent()
              {1: 1, 2: 1}
              sage: c.__dict__
@@ -3932,7 +3810,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
  
          .. NOTE::
  
-@@ -4326,12 +4327,12 @@
+@@ -4324,12 +4325,12 @@
              sage: D = SandpileDivisor(S,[0,1,1])
              sage: eff = D.effective_div()
              sage: D.__dict__
@@ -3949,7 +3827,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: D[0] += 1
              sage: D.__dict__
              {'_sandpile': Cycle sandpile graph: 3 vertices, sink = 0,
-@@ -4928,7 +4929,7 @@
+@@ -4926,7 +4927,7 @@
              sage: s = sandpiles.Complete(4)
              sage: D = SandpileDivisor(s,[2,-3,2,0])
              sage: D.q_reduced()
@@ -3958,7 +3836,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
              sage: D.q_reduced(False)
              [-2, 1, 2, 0]
  
-@@ -6360,13 +6361,13 @@
+@@ -6358,13 +6359,13 @@
          sage: glue_y = {0: 1, 1: 2, 3: 1}
          sage: z = glue_graphs(x,y,glue_x,glue_y); z
          {'sink': {},
@@ -4113,7 +3991,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
      if f.parent().ngens() == 1:
 --- a/sage/src/sage/schemes/projective/projective_space.py
 +++ b/sage/src/sage/schemes/projective/projective_space.py
-@@ -1818,13 +1818,13 @@
+@@ -1825,13 +1825,13 @@
              sage: P1 = ProjectiveSpace(GF(7),1,'x')
              sage: P1.rational_points_dictionary()
              {(0 : 1): 0,
@@ -4377,7 +4255,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
          return self.facade_element_constructor_attributes(
 --- a/sage/src/sage/structure/unique_representation.py
 +++ b/sage/src/sage/structure/unique_representation.py
-@@ -874,7 +874,7 @@
+@@ -859,7 +859,7 @@
          arguments in the instance dictionary upon construction::
  
              sage: x.__dict__
@@ -4402,3 +4280,431 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-ipy
    sage: C.show(vertex_colors = C.coloring(hex_colors = True))
  
  Sage example in ./graphtheory.tex, line 644::
+--- a/sage/src/sage/geometry/polyhedron/base.py
++++ b/sage/src/sage/geometry/polyhedron/base.py
+@@ -6072,20 +6072,20 @@
+             sage: P = polytopes.twenty_four_cell()
+             sage: P.flag_f_vector()
+                 {(-1,): 1,
+-                 (0,): 24,
+-                 (0, 1): 192,
+-                 (0, 1, 2): 576,
+                  (0, 1, 2, 3): 1152,
++                 (0, 1, 2): 576,
+                  (0, 1, 3): 576,
+-                 (0, 2): 288,
+                  (0, 2, 3): 576,
+-                 (0, 3): 144,
+-                 (1,): 96,
+-                 (1, 2): 288,
+                  (1, 2, 3): 576,
++                 (0, 1): 192,
++                 (0, 2): 288,
++                 (1, 2): 288,
++                 (0, 3): 144,
+                  (1, 3): 288,
+-                 (2,): 96,
+                  (2, 3): 192,
++                 (0,): 24,
++                 (1,): 96,
++                 (2,): 96,
+                  (3,): 24,
+                  (4,): 1}
+ 
+@@ -6115,18 +6115,18 @@
+             sage: P = (Polyhedron(lines=[[1]]) * polytopes.cross_polytope(3))
+             sage: P.flag_f_vector()
+             {(-1,): 1,
+-             (0, 1): 0,
+              (0, 1, 2): 0,
+              (0, 1, 3): 0,
+-             (0, 2): 0,
+              (0, 2, 3): 0,
++             (1, 2, 3): 48,
++             (0, 1): 0,
++             (0, 2): 0,
+              (0, 3): 0,
+-             (0,): 0,
+              (1, 2): 24,
+-             (1, 2, 3): 48,
+              (1, 3): 24,
+-             (1,): 6,
+              (2, 3): 24,
++             (0,): 0,
++             (1,): 6,
+              (2,): 12,
+              (3,): 8,
+              4: 1}
+@@ -6166,22 +6166,22 @@
+ 
+             sage: polytopes.hypercube(4)._flag_f_vector()
+             {(-1,): 1,
+-            (0,): 16,
+-            (0, 1): 64,
+-            (0, 1, 2): 192,
+-            (0, 1, 2, 3): 384,
+-            (0, 1, 3): 192,
+-            (0, 2): 96,
+-            (0, 2, 3): 192,
+-            (0, 3): 64,
+-            (1,): 32,
+-            (1, 2): 96,
+-            (1, 2, 3): 192,
+-            (1, 3): 96,
+-            (2,): 24,
+-            (2, 3): 48,
+-            (3,): 8,
+-            (4,): 1}
++             (0, 1, 2, 3): 384,
++             (0, 1, 2): 192,
++             (0, 1, 3): 192,
++             (0, 2, 3): 192,
++             (1, 2, 3): 192,
++             (0, 1): 64,
++             (0, 2): 96,
++             (1, 2): 96,
++             (0, 3): 64,
++             (1, 3): 96,
++             (2, 3): 48,
++             (0,): 16,
++             (1,): 32,
++             (2,): 24,
++             (3,): 8,
++             (4,): 1}
+         """
+         return self.combinatorial_polyhedron()._flag_f_vector()
+ 
+--- a/sage/src/sage/geometry/polyhedron/combinatorial_polyhedron/base.pyx
++++ b/sage/src/sage/geometry/polyhedron/combinatorial_polyhedron/base.pyx
+@@ -1347,20 +1347,20 @@
+             sage: C = polytopes.hypercube(4).combinatorial_polyhedron()
+             sage: C.flag_f_vector()
+                 {(-1,): 1,
+-                 (0,): 16,
+-                 (0, 1): 64,
+-                 (0, 1, 2): 192,
+                  (0, 1, 2, 3): 384,
++                 (0, 1, 2): 192,
+                  (0, 1, 3): 192,
+-                 (0, 2): 96,
+                  (0, 2, 3): 192,
+-                 (0, 3): 64,
+-                 (1,): 32,
+-                 (1, 2): 96,
+                  (1, 2, 3): 192,
++                 (0, 1): 64,
++                 (0, 2): 96,
++                 (1, 2): 96,
++                 (0, 3): 64,
+                  (1, 3): 96,
+-                 (2,): 24,
+                  (2, 3): 48,
++                 (0,): 16,
++                 (1,): 32,
++                 (2,): 24,
+                  (3,): 8,
+                  (4,): 1}
+ 
+@@ -1389,7 +1389,7 @@
+ 
+             sage: C = (Polyhedron(lines=[[1]]) * polytopes.hypercube(2)).combinatorial_polyhedron()
+             sage: C.flag_f_vector()
+-            {(-1,): 1, (0, 1): 0, (0, 2): 0, (0,): 0, (1, 2): 8, (1,): 4, (2,): 4, 3: 1}
++            {(-1,): 1, (0, 1): 0, (0, 2): 0, (1, 2): 8, (0,): 0, (1,): 4, (2,): 4, 3: 1}
+ 
+         If the arguments are not stricly increasing or out of range, a key error is raised::
+ 
+@@ -1426,7 +1426,7 @@
+ 
+             sage: C = CombinatorialPolyhedron(3)
+             sage: C._flag_f_vector()
+-            {(-1,): 1, (0, 1): 0, (0, 2): 0, (0,): 0, (1, 2): 0, (1,): 0, (2,): 0, 3: 1}
++            {(-1,): 1, (0, 1): 0, (0, 2): 0, (1, 2): 0, (0,): 0, (1,): 0, (2,): 0, 3: 1}
+         """
+         poly = self.face_lattice().flag_f_polynomial()
+         variables = poly.variables()
+--- a/sage/src/sage/plot/plot3d/index_face_set.pyx
++++ b/sage/src/sage/plot/plot3d/index_face_set.pyx
+@@ -1295,12 +1295,12 @@
+             sage: G = polygon([(0,0,1), (1,1,1), (2,0,1)])
+             sage: G.threejs_repr(G.default_render_params())
+             [('surface',
+-              {'color': '#0000ff',
+-               'faces': [[0, 1, 2]],
+-               'opacity': 1.0,
+-               'vertices': [{'x': 0.0, 'y': 0.0, 'z': 1.0},
++              {'vertices': [{'x': 0.0, 'y': 0.0, 'z': 1.0},
+                 {'x': 1.0, 'y': 1.0, 'z': 1.0},
+-                {'x': 2.0, 'y': 0.0, 'z': 1.0}]})]
++                {'x': 2.0, 'y': 0.0, 'z': 1.0}],
++               'faces': [[0, 1, 2]],
++               'color': '#0000ff',
++               'opacity': 1.0})]
+ 
+         The same but with more options applied::
+ 
+@@ -1309,16 +1309,16 @@
+             ....:             single_side=True, mesh=True)
+             sage: G.threejs_repr(G.default_render_params())
+             [('surface',
+-              {'color': '#ff0000',
++              {'vertices': [{'x': 0.0, 'y': 0.0, 'z': 1.0},
++                {'x': 1.0, 'y': 1.0, 'z': 1.0},
++                {'x': 2.0, 'y': 0.0, 'z': 1.0}],
+                'faces': [[0, 1, 2]],
++               'color': '#ff0000',
+                'opacity': 0.5,
+                'renderOrder': 2.0,
+-               'showMeshGrid': True,
+                'singleSide': True,
+                'useFlatShading': True,
+-               'vertices': [{'x': 0.0, 'y': 0.0, 'z': 1.0},
+-                {'x': 1.0, 'y': 1.0, 'z': 1.0},
+-                {'x': 2.0, 'y': 0.0, 'z': 1.0}]})]
++               'showMeshGrid': True})]
+ 
+         TESTS:
+ 
+@@ -1327,12 +1327,12 @@
+             sage: G = polygon([(0,0,1), (1,1,1), (2,0,1)]).scale(2,1,-1)
+             sage: G.threejs_repr(G.default_render_params())
+             [('surface',
+-              {'color': '#0000ff',
+-               'faces': [[0, 1, 2]],
+-               'opacity': 1.0,
+-               'vertices': [{'x': 0.0, 'y': 0.0, 'z': -1.0},
++              {'vertices': [{'x': 0.0, 'y': 0.0, 'z': -1.0},
+                 {'x': 2.0, 'y': 1.0, 'z': -1.0},
+-                {'x': 4.0, 'y': 0.0, 'z': -1.0}]})]
++                {'x': 4.0, 'y': 0.0, 'z': -1.0}],
++               'faces': [[0, 1, 2]],
++               'color': '#0000ff',
++               'opacity': 1.0})]
+ 
+         Per-face colors::
+ 
+@@ -1345,15 +1345,15 @@
+             sage: S = IndexFaceSet(face_list, point_list, texture_list=t_list)
+             sage: S.threejs_repr(S.default_render_params())
+             [('surface',
+-              {'faceColors': ['#ff0000', '#ff9900', '#cbff00', '#33ff00'],
+-               'faces': [[0, 4, 5], [3, 4, 5], [2, 3, 4], [1, 3, 5]],
+-               'opacity': 1.0,
+-               'vertices': [{'x': 2.0, 'y': 0.0, 'z': 0.0},
++              {'vertices': [{'x': 2.0, 'y': 0.0, 'z': 0.0},
+                 {'x': 0.0, 'y': 2.0, 'z': 0.0},
+                 {'x': 0.0, 'y': 0.0, 'z': 2.0},
+                 {'x': 0.0, 'y': 1.0, 'z': 1.0},
+                 {'x': 1.0, 'y': 0.0, 'z': 1.0},
+-                {'x': 1.0, 'y': 1.0, 'z': 0.0}]})]
++                {'x': 1.0, 'y': 1.0, 'z': 0.0}],
++               'faces': [[0, 4, 5], [3, 4, 5], [2, 3, 4], [1, 3, 5]],
++               'faceColors': ['#ff0000', '#ff9900', '#cbff00', '#33ff00'],
++               'opacity': 1.0})]
+ 
+         """
+         surface = {}
+--- a/sage/src/sage/plot/plot3d/implicit_surface.pyx
++++ b/sage/src/sage/plot/plot3d/implicit_surface.pyx
+@@ -1155,15 +1155,15 @@
+             sage: G = ImplicitSurface(x + y + z, (x,-1, 1), (y,-1, 1), (z,-1, 1))
+             sage: G.threejs_repr(G.default_render_params())
+             [('surface',
+-              {'color': '#6666ff',
+-               'faces': [[0, 1, 2],
+-                ...
+-               'opacity': 1.0,
+-               'vertices': [{'x': ...,
++              {'vertices': [{'x': ...,
+                  'y': -0.9743589743589...,
+                  'z': -0.02564102564102...},
+                 ...
+-                {'x': -1.0, 'y': 0.9487179487179..., 'z': 0.05128205128205...}]})]
++                {'x': -1.0, 'y': 0.9487179487179..., 'z': 0.05128205128205...}],
++                'faces': [[0, 1, 2],
++                 ...
++                'color': '#6666ff',
++                'opacity': 1.0})]
+         """
+         self.triangulate()
+         return IndexFaceSet.threejs_repr(self, render_params)
+--- a/sage/src/sage/plot/plot3d/shapes2.py
++++ b/sage/src/sage/plot/plot3d/shapes2.py
+@@ -826,7 +826,10 @@
+             sage: P = point3d((1,2,3), color=(0,1,0), opacity=0.5, size=10)
+             sage: P.threejs_repr(P.default_render_params())
+             [('point',
+-              {'color': '#00ff00', 'opacity': 0.5, 'point': (1.0, 2.0, 3.0), 'size': 10.0})]
++              {'point': (1.0, 2.0, 3.0),
++               'size': 10.0,
++               'color': '#00ff00',
++               'opacity': 0.5})]
+ 
+         TESTS:
+ 
+@@ -835,7 +838,7 @@
+             sage: P = point3d((1,2,3)).translate(-1, -2, -3)
+             sage: P.threejs_repr(P.default_render_params())
+             [('point',
+-              {'color': '#6666ff', 'opacity': 1.0, 'point': (0.0, 0.0, 0.0), 'size': 5.0})]
++              {'point': (0.0, 0.0, 0.0), 'size': 5.0, 'color': '#6666ff', 'opacity': 1.0})]
+ 
+         """
+         transform = render_params.transform
+@@ -1134,10 +1137,10 @@
+             sage: L = line3d([(1,2,3), (4,5,6)], thickness=10, color=(1,0,0), opacity=0.5)
+             sage: L.threejs_repr(L.default_render_params())
+             [('line',
+-              {'color': '#ff0000',
+-               'linewidth': 10.0,
++              {'points': [(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
++               'color': '#ff0000',
+                'opacity': 0.5,
+-               'points': [(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)]})]
++               'linewidth': 10.0})]
+ 
+         TESTS:
+ 
+@@ -1146,10 +1149,10 @@
+             sage: L = line3d([(1,2,3), (4,5,6)]).translate(-1, -2, -3)
+             sage: L.threejs_repr(L.default_render_params())
+             [('line',
+-              {'color': '#6666ff',
+-               'linewidth': 1.0,
++              {'points': [(0.0, 0.0, 0.0), (3.0, 3.0, 3.0)],
++               'color': '#6666ff',
+                'opacity': 1.0,
+-               'points': [(0.0, 0.0, 0.0), (3.0, 3.0, 3.0)]})]
++               'linewidth': 1.0})]
+ 
+         When setting ``arrow_head=True``, the last line segment is replaced by
+         an arrow with a width half the thickness of the line::
+@@ -1158,10 +1161,10 @@
+             sage: L_repr = L.threejs_repr(L.default_render_params())
+             sage: L_repr[-1]
+             ('line',
+-              {'color': '#6666ff',
+-               'linewidth': 4.0,
+-               'opacity': 1.0,
+-               'points': [(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)]})
++             {'points': [(0.0, 0.0, 0.0), (1.0, 1.0, 1.0)],
++              'color': '#6666ff',
++              'opacity': 1.0,
++              'linewidth': 4.0})
+             sage: A = arrow3d((1,1,1), (2,2,2), width=2)
+             sage: A_repr = A.threejs_repr(A.default_render_params())
+             sage: A_repr == L_repr[:-1]
+@@ -1175,10 +1178,10 @@
+             sage: L_repr = L.threejs_repr(L.default_render_params())
+             sage: L_repr[-1]
+             ('line',
+-              {'color': '#ff0000',
+-               'linewidth': 4.0,
+-               'opacity': 0.5,
+-               'points': [(-1.0, -1.0, -1.0), (0.0, 0.0, 0.0)]})
++             {'points': [(-1.0, -1.0, -1.0), (0.0, 0.0, 0.0)],
++              'color': '#ff0000',
++              'opacity': 0.5,
++              'linewidth': 4.0})
+             sage: A = arrow3d((1,1,1), (2,2,2), width=2, color=(1,0,0), opacity=0.5)
+             sage: A = A.translate(-1, -1, -1)
+             sage: A_repr = A.threejs_repr(A.default_render_params())
+--- a/sage/src/sage/plot/plot3d/shapes.pyx
++++ b/sage/src/sage/plot/plot3d/shapes.pyx
+@@ -1170,7 +1170,7 @@
+ 
+             sage: T = text3d("Hi", (1, 2, 3), color='red')
+             sage: T.threejs_repr(T.default_render_params())
+-            [('text', {'color': '#ff0000', 'text': 'Hi', 'x': 1.0, 'y': 2.0, 'z': 3.0})]
++            [('text', {'text': 'Hi', 'x': 1.0, 'y': 2.0, 'z': 3.0, 'color': '#ff0000'})]
+ 
+         TESTS:
+ 
+@@ -1180,7 +1180,7 @@
+             sage: from sage.plot.plot3d.shapes import Text
+             sage: T = Text("Hi")
+             sage: T.threejs_repr(T.default_render_params())
+-            [('text', {'color': '#6666ff', 'text': 'Hi', 'x': 0.0, 'y': 0.0, 'z': 0.0})]
++            [('text', {'text': 'Hi', 'x': 0.0, 'y': 0.0, 'z': 0.0, 'color': '#6666ff'})]
+ 
+         """
+         center = (float(0), float(0), float(0))
+--- a/sage/src/sage/plot/plot3d/base.pyx
++++ b/sage/src/sage/plot/plot3d/base.pyx
+@@ -2141,14 +2141,14 @@
+             sage: G = point3d((1,2,3)) + point3d((4,5,6)) + line3d([(1,2,3), (4,5,6)])
+             sage: G.threejs_repr(G.default_render_params())
+             [('point',
+-              {'color': '#6666ff', 'opacity': 1.0, 'point': (1.0, 2.0, 3.0), 'size': 5.0}),
++              {'point': (1.0, 2.0, 3.0), 'size': 5.0, 'color': '#6666ff', 'opacity': 1.0}),
+              ('point',
+-              {'color': '#6666ff', 'opacity': 1.0, 'point': (4.0, 5.0, 6.0), 'size': 5.0}),
++              {'point': (4.0, 5.0, 6.0), 'size': 5.0, 'color': '#6666ff', 'opacity': 1.0}),
+              ('line',
+-              {'color': '#6666ff',
+-               'linewidth': 1.0,
++              {'points': [(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)],
++               'color': '#6666ff',
+                'opacity': 1.0,
+-               'points': [(1.0, 2.0, 3.0), (4.0, 5.0, 6.0)]})]
++               'linewidth': 1.0})]
+ 
+         """
+         reprs = []
+@@ -2422,12 +2422,12 @@
+             sage: G = G.translate(-1, -2, -3).scale(10)
+             sage: G.threejs_repr(G.default_render_params())
+             [('point',
+-              {'color': '#6666ff', 'opacity': 1.0, 'point': (0.0, 0.0, 0.0), 'size': 5.0}),
++              {'point': (0.0, 0.0, 0.0), 'size': 5.0, 'color': '#6666ff', 'opacity': 1.0}),
+              ('point',
+-              {'color': '#6666ff',
+-               'opacity': 1.0,
+-               'point': (30.0, 30.0, 30.0),
+-               'size': 5.0})]
++              {'point': (30.0, 30.0, 30.0),
++               'size': 5.0,
++               'color': '#6666ff',
++               'opacity': 1.0})]
+ 
+         """
+         render_params.push_transform(self.get_transformation())
+@@ -2643,12 +2643,12 @@
+             sage: G = SimpleTriangle()
+             sage: G.threejs_repr(G.default_render_params())
+             [('surface',
+-              {'color': '#0000ff',
+-               'faces': [[0, 1, 2]],
+-               'opacity': 1.0,
+-               'vertices': [{'x': 0.0, 'y': 0.0, 'z': 0.0},
++              {'vertices': [{'x': 0.0, 'y': 0.0, 'z': 0.0},
+                 {'x': 1.0, 'y': 0.0, 'z': 0.0},
+-                {'x': 0.0, 'y': 1.0, 'z': 0.0}]})]
++                {'x': 0.0, 'y': 1.0, 'z': 0.0}],
++               'faces': [[0, 1, 2]],
++               'color': '#0000ff',
++               'opacity': 1.0})]
+ 
+         """
+         return self.triangulation().threejs_repr(render_params)
+--- a/sage/src/sage/plot/plot3d/parametric_surface.pyx
++++ b/sage/src/sage/plot/plot3d/parametric_surface.pyx
+@@ -319,13 +319,13 @@
+             sage: P = plot3d(x^2-y^2, (x, -2, 2), (y, -2, 2))
+             sage: P.threejs_repr(P.default_render_params())
+             [('surface',
+-              {'color': '#6666ff',
+-               'faces': [[0, 1, 2, 3],
++              {'vertices': [{'x': -2.0, 'y': -2.0, 'z': 0.0},
+                 ...
+-               'opacity': 1.0,
+-               'vertices': [{'x': -2.0, 'y': -2.0, 'z': 0.0},
++                {'x': 2.0, 'y': 2.0, 'z': 0.0}],
++                'faces': [[0, 1, 2, 3],
+                 ...
+-                {'x': 2.0, 'y': 2.0, 'z': 0.0}]})]
++                'color': '#6666ff',
++                'opacity': 1.0})]
+ 
+         """
+         self.triangulate(render_params)

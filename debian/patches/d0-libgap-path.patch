@@ -4,7 +4,7 @@ Author: Tobias Hansen <thansen@debian.org>
 
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -274,7 +274,7 @@
+@@ -293,7 +293,7 @@
  var('SINGULAR_SO', SINGULAR_SO)
  
  # locate libgap shared object
