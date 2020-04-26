@@ -102,7 +102,6 @@ override_dh_auto_configure: prune
 
 override_dh_auto_build-arch:
 	$(run_build) build
-	cd sage && src/bin/sage-starts
 
 override_dh_auto_build-indep:
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
