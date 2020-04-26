@@ -14,7 +14,7 @@ Bug: https://trac.sagemath.org/ticket/29314
          """
 --- a/sage/src/sage/coding/linear_code.py
 +++ b/sage/src/sage/coding/linear_code.py
-@@ -544,17 +544,17 @@
+@@ -481,17 +481,17 @@
              0
              sage: C = codes.HammingCode(GF(4, 'z'), 3)
              sage: C.automorphism_group_gens()
@@ -37,7 +37,7 @@ Bug: https://trac.sagemath.org/ticket/29314
                  Defn: z |--> z),
                ((z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1); (), Ring endomorphism of Finite Field in z of size 2^2
                  Defn: z |--> z)],
-@@ -820,10 +820,10 @@
+@@ -707,10 +707,10 @@
              sage: C_iso == aut_group_can_label.get_canonical_form()
              True
              sage: aut_group_can_label.get_autom_gens()
@@ -100,7 +100,7 @@ Bug: https://trac.sagemath.org/ticket/29314
  
 --- a/sage/src/sage/groups/finitely_presented.py
 +++ b/sage/src/sage/groups/finitely_presented.py
-@@ -1206,7 +1206,7 @@
+@@ -1201,7 +1201,7 @@
              sage: D = C2.semidirect_product(C8, hom); D
              Finitely presented group < a, b | a^2, b^8, a^-1*b*a*b >
              sage: D = C2.semidirect_product(C8, hom, reduced=True); D
@@ -109,7 +109,7 @@ Bug: https://trac.sagemath.org/ticket/29314
  
              sage: C3 = groups.presentation.Cyclic(3)
              sage: C4 = groups.presentation.Cyclic(4)
-@@ -1448,22 +1448,25 @@
+@@ -1442,22 +1442,25 @@
              sage: H = AlternatingGroup(3)
              sage: G.epimorphisms(H)
              [Generic morphism:
@@ -142,7 +142,7 @@ Bug: https://trac.sagemath.org/ticket/29314
                 To:   Alternating group of order 3!/2 as a permutation group
                 Defn: x0 |--> (1,2,3)
                       x1 |--> (1,2,3)
-@@ -1554,11 +1557,11 @@
+@@ -1548,11 +1551,11 @@
              sage: G = F / [a^2,b^3,(a*b/a)^3,b*a*b*a]
              sage: k = G.rewriting_system()
              sage: k

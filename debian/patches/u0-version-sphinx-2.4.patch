@@ -131,7 +131,7 @@ Subject: add forgotten doctest fix.
 
 --- a/sage/src/sage_setup/docbuild/ext/multidocs.py
 +++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
-@@ -55,27 +55,29 @@
+@@ -52,27 +52,29 @@
          docenv = get_env(app, curdoc)
          if docenv is not None:
              fixpath = lambda path: os.path.join(curdoc, path)
@@ -171,7 +171,7 @@ Subject: add forgotten doctest fix.
              # merge the all_docs links, needed by the js index
              newalldoc = {}
              for ind in docenv.all_docs:
-@@ -89,11 +91,10 @@
+@@ -86,11 +88,10 @@
                  env.metadata[ind] = md
              # merge the citations
              newcite = {}
@@ -185,7 +185,7 @@ Subject: add forgotten doctest fix.
              # merge the py:module indexes
              newmodules = {}
              for ind,(modpath,v1,v2,v3) in (
-@@ -102,11 +103,11 @@
+@@ -99,11 +100,11 @@
              env.domaindata['py']['modules'].update(newmodules)
              logger.info(", %s modules"%(len(newmodules)))
      logger.info('... done (%s todos, %s index, %s citations, %s modules)'%(
@@ -201,7 +201,7 @@ Subject: add forgotten doctest fix.
  
  
  def get_env(app, curdoc):
-@@ -256,7 +257,7 @@
+@@ -253,7 +254,7 @@
      with open(filename, 'rb') as f:
          cache = cPickle.load(f)
      logger.info("done (%s citations)."%len(cache))
@@ -260,7 +260,7 @@ Subject: add forgotten doctest fix.
          sage: for line in open(thematic_index).readlines():  # optional - dochtml
          ....:     if "padics" in line:
          ....:         _ = sys.stdout.write(line)
--        <li><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage Reference Manual: p-Adics v...)"><span>Introduction to the p-adics</span></a></li>
+-        <li><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage... Reference Manual: p-Adics v...)"><span>Introduction to the p-adics</span></a></li>
 +        <li><p><a class="reference external" href="../reference/padics/sage/rings/padics/tutorial.html#sage-rings-padics-tutorial" title="(in Sage... Reference Manual: p-Adics v...)"><span>Introduction to the p-adics</span></a></p></li>
      """
      debug_inf(app, "???? Trying intersphinx for %s" % node['reftarget'])
@@ -367,7 +367,7 @@ Subject: add forgotten doctest fix.
  
 --- a/sage/src/sage/combinat/permutation.py
 +++ b/sage/src/sage/combinat/permutation.py
-@@ -417,9 +417,6 @@
+@@ -415,9 +415,6 @@
          []
          sage: Permutation( [[], []] )
          []
