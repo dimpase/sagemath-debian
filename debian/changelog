@@ -1,4 +1,4 @@
-sagemath (9.1~beta9-1) UNRELEASED; urgency=medium
+sagemath (9.1~rc2-1) UNRELEASED; urgency=medium
 
   * Remove patches (applied upstream):
     - u0-version-scipy-1.4.patch                 #29115
