@@ -72,3 +72,14 @@ Author: Tobias Hansen <thansen@debian.org>
      sage: maxima.eval('plotdf(x+y,[trajectory_at,2,-0.1]); ')  # not tested
  
  This plots a direction field (the plotdf Maxima package was also
+--- a/sage/build/pkgs/sage_conf/src/sage_conf.py.in
++++ b/sage/build/pkgs/sage_conf/src/sage_conf.py.in
+@@ -2,7 +2,7 @@
+ 
+ VERSION = "@PACKAGE_VERSION@"
+ 
+-MAXIMA = "@prefix@/bin/maxima"
++MAXIMA = "maxima-sage"
+ 
+ ARB_LIBRARY = "@SAGE_ARB_LIBRARY@"
+ 
