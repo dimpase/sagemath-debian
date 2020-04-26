@@ -54,7 +54,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
      export DOT_SAGE="$HOME/.sage"
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -289,7 +289,8 @@
+@@ -293,7 +293,8 @@
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
@@ -62,9 +62,9 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 +export SAGE_DOC="$SAGE_SHARE/doc/sagemath"
 +export SAGE_ARB_LIBRARY=flint-arb
  
- if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
-     SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -344,8 +345,8 @@
+ if [ -n "$SAGE_PKG_CONFIG_PATH" ]; then
+     # set up external pkg-config to look into SAGE_LOCAL/lib/pkgconfig/
+@@ -354,8 +355,8 @@
  [ -z "$CPATH" ] || CPATH="${CPATH}:"
  export CPATH="${CPATH}$SAGE_LOCAL/include"
  
@@ -75,7 +75,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -360,16 +361,6 @@
+@@ -370,16 +371,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -92,7 +92,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -412,8 +403,10 @@
+@@ -422,8 +413,10 @@
      unset PYTHONHOME
  fi
  
@@ -104,7 +104,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -475,7 +468,6 @@
+@@ -485,7 +478,6 @@
      fi
  fi
  
@@ -112,7 +112,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -587,9 +579,6 @@
+@@ -592,9 +584,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -124,7 +124,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # First, figure out the right values for SAGE_NUM_THREADS (default
 --- a/sage/build/make/deps
 +++ b/sage/build/make/deps
-@@ -259,7 +259,7 @@
+@@ -264,7 +264,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:
@@ -157,7 +157,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  of the documentation, issue the following command from ``SAGE_ROOT``:
 --- a/sage/src/doc/en/installation/source.rst
 +++ b/sage/src/doc/en/installation/source.rst
-@@ -914,7 +914,7 @@
+@@ -968,7 +968,7 @@
    primarily intended for use when producing certain binary
    distributions of Sage, to lower the size of the distribution. As of
    this writing (December 2014, Sage 6.5), there are only a few such

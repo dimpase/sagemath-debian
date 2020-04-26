@@ -5,7 +5,7 @@ Forwarded: not-needed
 
 --- a/sage/src/sage/docs/conf.py
 +++ b/sage/src/sage/docs/conf.py
-@@ -258,7 +258,7 @@
+@@ -262,7 +262,7 @@
              and os.environ.get('SAGE_DOC_MATHJAX', 'no') != 'False'):
  
      extensions.append('sphinx.ext.mathjax')

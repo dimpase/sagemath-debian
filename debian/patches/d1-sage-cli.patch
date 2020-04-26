@@ -164,7 +164,7 @@ Forwarded: not-needed
      echo "Valgrind memory debugging:"
      echo "  -cachegrind         -- run Sage using Valgrind's cachegrind tool.  The log"
      echo "                         files are named sage-cachegrind.PID can be found in"
-@@ -303,116 +228,6 @@
+@@ -303,110 +228,6 @@
      exit $status
  fi
  
@@ -251,7 +251,6 @@ Forwarded: not-needed
 -        case "$SPKG_TYPE" in
 -            optional|experimental)
 -                ENABLE_ARGS="$ENABLE_ARGS '--enable-$PKG'"
--                continue
 -                ;;
 -        esac
 -        # Otherwise check that $PKG is actually a Makefile target
@@ -263,17 +262,12 @@ Forwarded: not-needed
 -        fi
 -        $MAKE SAGE_SPKG="sage-spkg $INSTALL_OPTIONS" "$PKG"
 -    done
+-    echo "New packages may have been installed."
+-    echo "Re-running configure and make in case any dependent packages need updating."
+-    touch "$SAGE_ROOT/configure" && $MAKE all-build
 -    if [ -n "$ENABLE_ARGS" ]; then
--        # Adapted from config.status --recheck.
--        # ./config.status --config returns single-quoted arguments such as
--        #   'CC=gcc -Wall' '--enable-e_antic'
--        CONFIG_CMD="./configure $(./config.status --config) $ENABLE_ARGS"
--        echo >&2 "running $CONFIG_CMD"
--        bash -c "$CONFIG_CMD" && $MAKE all-build
--    else
--        echo "New packages may have been installed."
--        echo "Re-running configure and make in case any dependent packages need updating."
--        touch "$SAGE_ROOT/configure" && $MAKE all-build
+-        echo >&2 "Hint: These optional/experimental packages can also be configured"
+-        echo >&2 "to be installed by passing$ENABLE_ARGS to ./configure"
 -    fi
 -    exit 0
 -fi
@@ -281,7 +275,7 @@ Forwarded: not-needed
  
  #####################################################################
  # Report information about the Sage environment
-@@ -463,26 +278,6 @@
+@@ -457,26 +278,6 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
@@ -308,7 +302,7 @@ Forwarded: not-needed
      sage-cleaner &>/dev/null &
  }
  
-@@ -539,11 +334,6 @@
+@@ -533,11 +334,6 @@
      exec gap "$@"
  fi
  
@@ -320,7 +314,7 @@ Forwarded: not-needed
  if [ "$1" = '-gp' -o "$1" = '--gp' ]; then
      shift
      exec gp "$@"
-@@ -589,11 +379,6 @@
+@@ -583,11 +379,6 @@
      exec kash "$@"
  fi
  
@@ -332,7 +326,7 @@ Forwarded: not-needed
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift
      exec maxima-sage "$@"
-@@ -609,26 +394,6 @@
+@@ -603,26 +394,6 @@
      exec M2 "$@"
  fi
  
@@ -359,7 +353,7 @@ Forwarded: not-needed
  if [ "$1" = '-python' -o "$1" = '--python' ]; then
      shift
      if [ "$SAGE_PYTHON3" = 'yes' ]; then
-@@ -673,11 +438,6 @@
+@@ -667,11 +438,6 @@
      exec git "$@"
  fi
  
@@ -371,7 +365,7 @@ Forwarded: not-needed
  if [ "$1" = '-sh' -o "$1" = '--sh' -o "$1" = '-buildsh' -o "$1" = '--buildsh' ]; then
      # AUTHORS:
      # - Carl Witty and William Stein: initial version
-@@ -810,20 +570,6 @@
+@@ -804,20 +570,6 @@
  fi
  
  #####################################################################
@@ -392,7 +386,7 @@ Forwarded: not-needed
  # File conversion
  #####################################################################
  
-@@ -854,11 +600,6 @@
+@@ -848,11 +600,6 @@
  # Run Sage's versions of the standard Algebra/Geometry etc. software
  #####################################################################
  
@@ -404,7 +398,7 @@ Forwarded: not-needed
  if [[ "$1" =~ ^--notebook=.* || "$1" =~ ^-n=.* || "$1" =~ ^-notebook=.* ]] ; then
      sage-cleaner &>/dev/null &
      exec sage-notebook "$@"
-@@ -869,13 +610,6 @@
+@@ -863,13 +610,6 @@
      exec sage-notebook "$@"
  fi
  
@@ -418,7 +412,7 @@ Forwarded: not-needed
  if [ "$1" = "-inotebook" -o "$1" = '--inotebook' ]; then
      shift
      sage-cleaner &>/dev/null &
-@@ -894,34 +628,15 @@
+@@ -888,34 +628,15 @@
      exit 0
  fi
  
@@ -455,7 +449,7 @@ Forwarded: not-needed
          shift
          exec sage-runtests -p "$@"
      else
-@@ -930,16 +645,6 @@
+@@ -924,16 +645,6 @@
      fi
  fi
  
@@ -472,7 +466,7 @@ Forwarded: not-needed
  if [ "$1" = '-testall' -o "$1" = "--testall" ]; then
      shift
      sage_setup
-@@ -954,104 +659,6 @@
+@@ -948,104 +659,6 @@
      exec sage-eval "$@"
  fi
  
@@ -577,7 +571,7 @@ Forwarded: not-needed
  if [ "$1" = "-docbuild" -o "$1" = "--docbuild" ]; then
      # Redirect stdin from /dev/null. This helps with running TeX which
      # tends to ask interactive questions if something goes wrong. These
-@@ -1125,10 +732,6 @@
+@@ -1119,10 +732,6 @@
  fi
  
  if [ $# -ge 1 ]; then

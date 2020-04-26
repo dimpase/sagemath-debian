@@ -26,7 +26,7 @@ Forwarded: TODO
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
-@@ -1064,13 +1064,13 @@
+@@ -1058,13 +1058,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -46,7 +46,7 @@ Forwarded: TODO
  fi
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -295,7 +295,7 @@
+@@ -305,7 +305,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
  fi

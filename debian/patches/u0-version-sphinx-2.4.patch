@@ -220,7 +220,7 @@ Subject: add forgotten doctest fix.
  from IPython.lib.lexers import IPythonConsoleLexer, IPyLexer
  
  # If your extensions are in another directory, add it here.
-@@ -169,13 +170,8 @@
+@@ -173,13 +174,8 @@
  
  # Cross-links to other project's online documentation.
  python_version = sys.version_info.major
@@ -235,7 +235,7 @@ Subject: add forgotten doctest fix.
      """
      Add precompiled inventory (the objects.inv)
      """
-@@ -186,7 +182,11 @@
+@@ -190,7 +186,11 @@
          app.config.intersphinx_mapping = {}
          return
  
@@ -248,7 +248,7 @@ Subject: add forgotten doctest fix.
  
      # Add master intersphinx mapping
      dst = os.path.join(invpath, 'objects.inv')
-@@ -201,6 +201,7 @@
+@@ -205,6 +205,7 @@
              dst = os.path.join(invpath, directory, 'objects.inv')
              app.config.intersphinx_mapping[src] = dst
  
@@ -256,7 +256,7 @@ Subject: add forgotten doctest fix.
  
  # By default document are not master.
  multidocs_is_master = True
-@@ -665,11 +666,11 @@
+@@ -669,11 +670,11 @@
          sage: for line in open(thematic_index).readlines():  # optional - dochtml
          ....:     if "padics" in line:
          ....:         _ = sys.stdout.write(line)
@@ -270,7 +270,7 @@ Subject: add forgotten doctest fix.
          app, env, node, contnode)
      if res:
          # Replace absolute links to $SAGE_DOC by relative links: this
-@@ -852,11 +853,10 @@
+@@ -856,11 +857,10 @@
      if app.srcdir.startswith(SAGE_DOC_SRC):
          app.add_config_value('intersphinx_mapping', {}, False)
          app.add_config_value('intersphinx_cache_limit', 5, False)
