@@ -125,7 +125,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
              sage: Q.<X> = K[]
 --- a/sage/src/sage/rings/number_field/number_field_ideal.py
 +++ b/sage/src/sage/rings/number_field/number_field_ideal.py
-@@ -1827,7 +1827,7 @@
+@@ -1824,7 +1824,7 @@
  
              sage: F.<a> = NumberField(2*x^3 + x + 1)
              sage: fact = F.factor(2); fact
@@ -134,7 +134,7 @@ Subject: Adjust doctests for new output with pari 2.11.3
              sage: [p[0].norm() for p in fact]
              [2, 2]
          """
-@@ -2418,7 +2418,7 @@
+@@ -2415,7 +2415,7 @@
              sage: A.is_coprime(B)
              False
              sage: lam = A.idealcoprime(B); lam

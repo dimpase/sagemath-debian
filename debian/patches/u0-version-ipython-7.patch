@@ -3435,7 +3435,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              3*s + 3*t + s^2 + 5*s*t + t^2 + O(s, t)^3
 --- a/sage/src/sage/rings/number_field/S_unit_solver.py
 +++ b/sage/src/sage/rings/number_field/S_unit_solver.py
-@@ -1597,7 +1597,7 @@
+@@ -1596,7 +1596,7 @@
          sage: len(rfv_dict)
          4
          sage: rfv_dict
@@ -3444,7 +3444,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      """
  
      for a, val in list(rfv_dictionary.items()):
-@@ -1761,31 +1761,31 @@
+@@ -1760,31 +1760,31 @@
          sage: from sage.rings.number_field.S_unit_solver import construct_comp_exp_vec
          sage: rfv_to_ev_dict = {(6, 6): [(3, 0)], (5, 6): [(1, 2)], (5, 4): [(5, 3)], (6, 2): [(5, 5)], (2, 5): [(0, 1)], (5, 5): [(3, 4)], (4, 4): [(0, 2)], (6, 3): [(1, 4)], (3, 6): [(5, 4)], (2, 2): [(0, 4)], (3, 5): [(1, 0)], (6, 4): [(1, 1)], (3, 2): [(1, 3)], (2, 6): [(4, 5)], (4, 5): [(4, 3)], (2, 3): [(2, 3)], (4, 2): [(4, 0)], (6, 5): [(5, 2)], (3, 3): [(3, 2)], (5, 3): [(5, 0)], (4, 6): [(2, 1)], (3, 4): [(3, 5)], (4, 3): [(0, 5)], (5, 2): [(3, 1)], (2, 4): [(2, 0)]}
          sage: construct_comp_exp_vec(rfv_to_ev_dict, 7)
@@ -3549,7 +3549,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
-@@ -3641,11 +3641,11 @@
+@@ -3678,11 +3678,11 @@
  
              sage: loads(dumps(I)).__getstate__()
              (Monoid of ideals of Multivariate Polynomial Ring in x, y over Finite Field of size 32003,
