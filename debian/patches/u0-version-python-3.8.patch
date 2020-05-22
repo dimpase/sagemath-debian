@@ -338,7 +338,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              ]
          """
          alg = kwds.get('algorithm', None)
-@@ -3672,13 +3672,13 @@
+@@ -3749,13 +3749,13 @@
              sage: P.<x,y,z> = ProjectiveSpace(K,2)
              sage: f = DynamicalSystem_projective([x^2+z^2, y^2+x^2, z^2+y^2])
              sage: f.preperiodic_points(0,1)
@@ -359,7 +359,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          ::
  
-@@ -3893,13 +3893,13 @@
+@@ -3970,13 +3970,13 @@
              sage: P.<x,y,z> = ProjectiveSpace(K,2)
              sage: f = DynamicalSystem_projective([x^2+z^2, y^2+x^2, z^2+y^2])
              sage: f.periodic_points(1)
@@ -378,7 +378,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          ::
  
-@@ -5497,7 +5497,7 @@
+@@ -5573,7 +5573,7 @@
              sage: f.rational_periodic_points()
              doctest:warning
              ...
@@ -387,7 +387,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          from sage.misc.superseded import deprecation
          deprecation(28109, "use sage.dynamics.arithmetic_dynamics.projective_ds.all_periodic_points instead")
-@@ -5941,8 +5941,8 @@
+@@ -6017,8 +6017,8 @@
               (w^2 + w - 25/16 : 1),
               (-w : 1),
               (-w^2 + 29/16 : 1),
@@ -397,7 +397,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
               (-w^2 + 21/16 : 1),
               (w^2 - 21/16 : 1),
               (w^2 + w - 33/16 : 1),
-@@ -6070,8 +6070,8 @@
+@@ -6146,8 +6146,8 @@
              sage: g = f.conjugate(m)
              sage: f.conjugating_set(g) # long time
              [
