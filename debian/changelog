@@ -3,6 +3,7 @@ sagemath (9.1-1) UNRELEASED; urgency=medium
   * New upstream release.
   * New patches:
     - d0-arb.patch
+    - dt-system-python-undo-29627.patch
   * Remove patches (applied upstream):
     - u0-version-scipy-1.4.patch                 #29115
     - u0-version-sympy-1.5.patch                 #28911

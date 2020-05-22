@@ -1,0 +1,59 @@
+This patch undoes the following commit:
+
+From 248c13b542b12521bd91d6648bd6220fb7593a26 Mon Sep 17 00:00:00 2001
+From: Matthias Koeppe <mkoeppe@math.ucdavis.edu>
+Date: Thu, 30 Apr 2020 22:54:37 -0700
+Subject: "sage -python", "sage -pip", etc.: Do not fall back to system Python
+
+---
+ src/bin/sage | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -406,20 +406,20 @@
+ if [ "$1" = '-python' -o "$1" = '--python' ]; then
+     shift
+     if [ "$SAGE_PYTHON3" = 'yes' ]; then
+-        exec "$SAGE_LOCAL"/bin/python3 "$@"
++        exec python3 "$@"
+     else
+-        exec "$SAGE_LOCAL"/bin/python2 "$@"
++        exec python2 "$@"
+     fi
+ fi
+ 
+ if [ "$1" = '-python2' -o "$1" = '--python2' ]; then
+     shift
+-    exec "$SAGE_LOCAL"/bin/python2 "$@"
++    exec python2 "$@"
+ fi
+ 
+ if [ "$1" = '-python3' -o "$1" = '--python3' ]; then
+     shift
+-    exec "$SAGE_LOCAL"/bin/python3 "$@"
++    exec python3 "$@"
+ fi
+ 
+ if [ "$1" = '-R' -o "$1" = '--R' ]; then
+@@ -429,17 +429,17 @@
+ 
+ if [ "$1" = '-ipython' -o "$1" = '--ipython' ]; then
+     shift
+-    exec "$SAGE_LOCAL"/bin/ipython "$@"
++    exec ipython "$@"
+ fi
+ 
+ if [ "$1" = '-ipython3' -o "$1" = '--ipython3' ]; then
+     shift
+-    exec "$SAGE_LOCAL"/bin/ipython3 "$@"
++    exec ipython3 "$@"
+ fi
+ 
+ if [ "$1" = '-jupyter' -o "$1" = '--jupyter' ]; then
+     shift
+-    exec "$SAGE_LOCAL"/bin/jupyter "$@"
++    exec jupyter "$@"
+ fi
+ 
+ if [ "$1" = '-git' -o "$1" = '--git' ]; then
