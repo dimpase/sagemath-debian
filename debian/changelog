@@ -1,5 +1,6 @@
-sagemath (9.1~rc5-1) UNRELEASED; urgency=medium
+sagemath (9.1-1) UNRELEASED; urgency=medium
 
+  * New upstream release.
   * New patches:
     - d0-arb.patch
   * Remove patches (applied upstream):
