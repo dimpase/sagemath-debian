@@ -13,6 +13,7 @@ sagemath (9.1-1) UNRELEASED; urgency=medium
     - d0-nauty.patch
     - d1-fakeroot.patch
     - dt-version-glpk-4.65-ignore-warnings.patch
+  * Pass --enable-build-as-root to ./configure.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 25 Apr 2020 15:09:00 +0000
 

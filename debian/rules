@@ -95,7 +95,7 @@ prune: debian/control
 	touch prune
 
 run_build = \
-	MAKE='make -j$(NUMJOBS)' PREREQ_OPTIONS="--prefix=$(SAGE_LOCAL)" \
+	MAKE='make -j$(NUMJOBS)' PREREQ_OPTIONS="--enable-build-as-root --prefix=$(SAGE_LOCAL)" \
 	  $(MAKE) --directory=sage
 
 override_dh_auto_configure: prune
