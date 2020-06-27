@@ -42,3 +42,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  standard_libs = [
      'mpfr', 'gmp', 'gmpxx', 'stdc++', 'pari', 'm',
+--- a/sage/src/sage/env.py
++++ b/sage/src/sage/env.py
+@@ -391,7 +391,7 @@
+     aliases = {}
+ 
+     for lib in ['fflas-ffpack', 'givaro', 'gsl', 'linbox', 'Singular',
+-                'libpng', 'gdlib', 'm4ri', 'zlib', 'cblas', 'lapack']:
++                'libpng', 'gdlib', 'm4ri', 'zlib', 'lapack']:
+         var = lib.upper().replace("-", "") + "_"
+         if lib == 'zlib':
+             aliases[var + "CFLAGS"] = ""
