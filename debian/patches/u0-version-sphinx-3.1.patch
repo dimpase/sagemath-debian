@@ -1,0 +1,26 @@
+Bug: https://trac.sagemath.org/ticket/30001
+
+From 07d0daeb83f95d3b9085e721590c22846ae7d899 Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sat, 27 Jun 2020 13:12:16 +0200
+Subject: port 'modules' dict values from tuple to namedtuple
+
+---
+ src/sage_setup/docbuild/ext/multidocs.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- a/sage/src/sage_setup/docbuild/ext/multidocs.py
++++ b/sage/src/sage_setup/docbuild/ext/multidocs.py
+@@ -92,9 +92,9 @@
+             env.domaindata['citation']['citations'].update(newcite)
+             # merge the py:module indexes
+             newmodules = {}
+-            for ind,(modpath,v1,v2,v3,v4) in (
+-                docenv.domaindata['py']['modules'].items()):
+-                newmodules[ind] = (fixpath(modpath),v1,v2,v3,v4)
++            from sphinx.domains.python import ModuleEntry
++            for ind,mod in docenv.domaindata['py']['modules'].items():
++                newmodules[ind] = ModuleEntry(fixpath(mod.docname), mod.node_id, mod.synopsis, mod.platform, mod.deprecated)
+             env.domaindata['py']['modules'].update(newmodules)
+             logger.info(", %s modules"%(len(newmodules)))
+     logger.info('... done (%s todos, %s index, %s citations, %s modules)'%(
