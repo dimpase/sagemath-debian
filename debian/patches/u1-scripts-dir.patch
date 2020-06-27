@@ -26,7 +26,7 @@ Forwarded: TODO
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
-@@ -1046,13 +1046,13 @@
+@@ -1047,13 +1047,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -46,7 +46,7 @@ Forwarded: TODO
  fi
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -305,7 +305,7 @@
+@@ -304,7 +304,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
  fi
@@ -57,7 +57,7 @@ Forwarded: TODO
  # Since the user might do something crazy we do not do any checks, but hope for the best.
 --- a/sage/src/sage/interfaces/maxima.py
 +++ b/sage/src/sage/interfaces/maxima.py
-@@ -472,7 +472,7 @@
+@@ -471,7 +471,7 @@
  
  from random import randrange
  
@@ -66,7 +66,7 @@ Forwarded: TODO
  from sage.misc.misc import ECL_TMP
  
  from .expect import (Expect, ExpectElement, gc_disabled)
-@@ -523,7 +523,7 @@
+@@ -522,7 +522,7 @@
          # setting inchar and outchar..
          eval_using_file_cutoff = 256
          self.__eval_using_file_cutoff = eval_using_file_cutoff
@@ -77,8 +77,8 @@ Forwarded: TODO
              raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
-@@ -26,7 +26,7 @@
- import six
+@@ -30,7 +30,7 @@
+ import types
  import sage.misc.flatten
  from sage.structure.sage_object import SageObject
 -from sage.env import DOT_SAGE, SAGE_LIB, SAGE_SRC, SAGE_LOCAL, SAGE_EXTCODE
@@ -86,7 +86,7 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1070,7 +1070,7 @@
+@@ -1073,7 +1073,7 @@
              return 2
          opt = self.options
          if opt.gdb:

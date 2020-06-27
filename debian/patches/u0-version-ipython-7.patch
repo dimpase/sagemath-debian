@@ -2,7 +2,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
 
 --- a/sage/src/sage/doctest/forker.py
 +++ b/sage/src/sage/doctest/forker.py
-@@ -139,7 +139,7 @@
+@@ -165,7 +165,7 @@
      dictionary output::
  
          sage: {'a':23, 'b':34, 'au':56, 'bbf':234, 'aaa':234}
@@ -11,22 +11,6 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      """
      try:
          # We need to ensure that the Matplotlib font cache is built to
-@@ -183,15 +183,6 @@
-     from sage.repl.rich_output.backend_doctest import BackendDoctest
-     dm.switch_backend(BackendDoctest())
- 
--    # IPython's pretty printer sorts the repr of dicts by their keys by default
--    # (or their keys' str() if they are not otherwise orderable).  However, it
--    # disables this for CPython 3.6+ opting to instead display dicts' "natural"
--    # insertion order, which is preserved in those versions).  This makes for
--    # inconsistent results with Python 2 tests that return dicts, so here we
--    # force the Python 2 style dict printing
--    import IPython.lib.pretty
--    IPython.lib.pretty.DICT_IS_ORDERED = False
--
-     # Switch on extra debugging
-     from sage.structure.debug_options import debug
-     debug.refine_category_hash_check = True
 --- a/sage/src/sage/algebras/cluster_algebra.py
 +++ b/sage/src/sage/algebras/cluster_algebra.py
 @@ -183,7 +183,7 @@
@@ -38,7 +22,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
  Each cluster algebra is endowed with a reference to a current seed;
  it could be useful to assign a name to it::
-@@ -559,7 +559,7 @@
+@@ -557,7 +557,7 @@
              sage: A = ClusterAlgebra(['B', 2], principal_coefficients=True)
              sage: x = A.cluster_variable((1, 0)) + A.cluster_variable((0, 1))
              sage: x.homogeneous_components()
@@ -163,7 +147,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/categories/crystals.py
 +++ b/sage/src/sage/categories/crystals.py
-@@ -75,7 +75,7 @@
+@@ -74,7 +74,7 @@
  
          sage: from sage.misc.abstract_method import abstract_methods_of_class
          sage: abstract_methods_of_class(Crystals().element_class)
@@ -230,7 +214,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
  Documentation about those methods can be obtained with::
  
-@@ -988,9 +988,9 @@
+@@ -985,9 +985,9 @@
  implemented can be found by introspection with::
  
      sage: FiniteSemigroups().required_methods()
@@ -245,7 +229,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  is provided in term of the method ``_mul_`` on elements. Of course, at
 --- a/sage/src/sage/categories/pushout.py
 +++ b/sage/src/sage/categories/pushout.py
-@@ -2387,7 +2387,7 @@
+@@ -2388,7 +2388,7 @@
              sage: F2
              Completion[+Infinity, prec=53]
              sage: F2.extras
@@ -267,7 +251,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/coding/linear_code.py
 +++ b/sage/src/sage/coding/linear_code.py
-@@ -2677,22 +2677,22 @@
+@@ -2676,22 +2676,22 @@
              sage: D = codes.decoders.LinearCodeSyndromeDecoder(C, maximum_error_weight = 1)
              sage: D._build_lookup_table()
              {(0, 0, 0, 0): (0, 0, 0, 0, 0, 0, 0, 0),
@@ -302,7 +286,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          TESTS:
  
-@@ -2706,11 +2706,11 @@
+@@ -2705,11 +2705,11 @@
              sage: D = codes.decoders.LinearCodeSyndromeDecoder(C)
              sage: D.syndrome_table()
               {(0, 0): (0, 0, 0),
@@ -320,7 +304,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
 --- a/sage/src/sage/combinat/cluster_algebra_quiver/cluster_seed.py
 +++ b/sage/src/sage/combinat/cluster_algebra_quiver/cluster_seed.py
-@@ -2735,119 +2735,119 @@
+@@ -2733,119 +2733,119 @@
              sage: B = [[0, 4, 0, -1],[-4,0, 3, 0],[0, -3, 0, 1],[1, 0, -1, 0]]
              sage: S = ClusterSeed(matrix(B)); S.mutate([2,3,1,2,1,3,0,2])
              sage: S.mutation_analysis()
@@ -506,7 +490,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/combinat/crystals/kirillov_reshetikhin.py
 +++ b/sage/src/sage/combinat/crystals/kirillov_reshetikhin.py
-@@ -1188,11 +1188,11 @@
+@@ -1187,11 +1187,11 @@
  
              sage: K = crystals.KirillovReshetikhin(['E',6,1],2,1)
              sage: K.highest_weight_dict_inv()
@@ -522,7 +506,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          hw = [x for x in self.hw_auxiliary() if x.epsilon(6) == 0]
          dic = {(self.affine_weight(x), len(x)): x for x in hw}
-@@ -1944,8 +1944,8 @@
+@@ -1943,8 +1943,8 @@
              sage: K.highest_weight_dict()
              {[]: [],
               [2]: [[1]],
@@ -532,7 +516,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               [4, 2]: [[1, 1], [2]],
               [4, 4]: [[1, 1], [2, 2]]}
          """
-@@ -1964,8 +1964,8 @@
+@@ -1963,8 +1963,8 @@
              sage: K.ambient_highest_weight_dict()
              {[]: [],
               [2]: [[1, 1]],
@@ -560,7 +544,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          return copy(self._latex_options)
 --- a/sage/src/sage/combinat/dyck_word.py
 +++ b/sage/src/sage/combinat/dyck_word.py
-@@ -431,12 +431,12 @@
+@@ -430,12 +430,12 @@
  
              sage: D = DyckWord([1,0,1,0,1,0])
              sage: D.latex_options()
@@ -578,7 +562,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          .. TODO::
 --- a/sage/src/sage/combinat/finite_state_machine.py
 +++ b/sage/src/sage/combinat/finite_state_machine.py
-@@ -2133,8 +2133,7 @@
+@@ -2104,8 +2104,7 @@
              sage: A.state(0)._in_epsilon_cycle_(A)
              True
              sage: A.state(4)._epsilon_successors_(A)
@@ -588,7 +572,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: A.state(4)._in_epsilon_cycle_(A)
              False
          """
-@@ -7221,7 +7220,7 @@
+@@ -7064,7 +7063,7 @@
              sage: S.epsilon_successors(0)
              {0: [['a', 'b']], 1: [['a']]}
              sage: S.epsilon_successors(1)
@@ -597,7 +581,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          return self.state(state)._epsilon_successors_(self)
  
-@@ -15054,7 +15053,7 @@
+@@ -14816,7 +14815,7 @@
      This class has the additional attribute ``visited_states``::
  
          sage: it.visited_states
@@ -606,7 +590,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
      This means the following (let us skip the state `0` for a moment):
      State `1` can be reached by a epsilon path which write ``'bc'`` as
-@@ -15081,7 +15080,7 @@
+@@ -14843,7 +14842,7 @@
          +-- tape at 0, [['c']]
          process (0 branches)
          sage: it.visited_states
@@ -615,7 +599,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
      TESTS::
  
-@@ -15109,7 +15108,7 @@
+@@ -14871,7 +14870,7 @@
          +-- tape at 0, [[]]
          process (0 branches)
          sage: it.visited_states
@@ -624,7 +608,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
      At this point note that in the previous output, state `1` (from
      which we started) was also reached by a non-trivial
-@@ -15133,7 +15132,7 @@
+@@ -14895,7 +14894,7 @@
          +-- tape at 0, [[]]
          process (0 branches)
          sage: it.visited_states
@@ -633,7 +617,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          sage: it = _FSMProcessIteratorEpsilon_(A, initial_state=A.state(3))
          sage: for current in it:
          ....:     print(current)
-@@ -15149,7 +15148,7 @@
+@@ -14911,7 +14910,7 @@
          +-- tape at 0, [[]]
          process (0 branches)
          sage: it.visited_states
@@ -642,7 +626,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          sage: it = _FSMProcessIteratorEpsilon_(A, initial_state=A.state(4))
          sage: for current in it:
          ....:     print(current)
-@@ -15186,8 +15185,7 @@
+@@ -14948,8 +14947,7 @@
          +-- tape at 0, [['b', 'c', 'e']]
          process (0 branches)
          sage: it.visited_states
@@ -652,7 +636,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          sage: it = _FSMProcessIteratorEpsilon_(T, initial_state=T.state(2),
          ....:                                  format_output=lambda o: ''.join(o))
          sage: for current in it:
-@@ -15205,8 +15203,7 @@
+@@ -14967,8 +14965,7 @@
          +-- tape at 0, [['c', 'd', 'f']]
          process (0 branches)
          sage: it.visited_states
@@ -662,7 +646,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          sage: it = _FSMProcessIteratorEpsilon_(T, initial_state=T.state(3),
          ....:                                  format_output=lambda o: ''.join(o))
          sage: for current in it:
-@@ -15223,8 +15220,7 @@
+@@ -14985,8 +14982,7 @@
          +-- tape at 0, [['d', 'f']]
          process (0 branches)
          sage: it.visited_states
@@ -672,7 +656,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          sage: it = _FSMProcessIteratorEpsilon_(T, initial_state=T.state(4),
          ....:                                  format_output=lambda o: ''.join(o))
          sage: for current in it:
-@@ -15371,9 +15367,9 @@
+@@ -15133,9 +15129,9 @@
              sage: T.state(0)._epsilon_successors_(T)  # indirect doctest
              {0: [['a', 'b', 'c']], 1: [['a']], 2: [['a', 'b']]}
              sage: T.state(1)._epsilon_successors_(T)  # indirect doctest
@@ -686,7 +670,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              self.visited_states[state] = []
 --- a/sage/src/sage/combinat/growth.py
 +++ b/sage/src/sage/combinat/growth.py
-@@ -703,7 +703,7 @@
+@@ -704,7 +704,7 @@
              sage: RuleRSK = GrowthDiagram.rules.RSK()
              sage: G = GrowthDiagram(RuleRSK, [[0,1,0], [1,0,2]])
              sage: G.filling()
@@ -695,7 +679,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          return self._filling
  
-@@ -1358,7 +1358,7 @@
+@@ -1359,7 +1359,7 @@
  
              sage: G = GrowthDiagram(RuleRSK, pi.to_matrix())  # indirect doctest
              sage: G._filling
@@ -704,7 +688,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: G.shape()
              [6, 6, 6, 6, 6, 6] / []
  
-@@ -1382,7 +1382,7 @@
+@@ -1383,7 +1383,7 @@
  
              sage: G = GrowthDiagram(RuleRSK, [[1,0,1],[0,1]])  # indirect doctest
              sage: G._filling
@@ -713,7 +697,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: G.shape()
              [3, 2] / []
  
-@@ -1390,7 +1390,7 @@
+@@ -1391,7 +1391,7 @@
  
              sage: G = GrowthDiagram(RuleRSK, [[1,0,1],[0,1]], shape=SkewPartition([[3,2],[1]]))  # indirect doctest
              sage: G._filling
@@ -722,7 +706,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: G.shape()
              [3, 2] / [1]
  
-@@ -1537,14 +1537,14 @@
+@@ -1538,14 +1538,14 @@
              sage: labels = [[], [1], [2], [2,1], [1,1], [1], []]
              sage: G = GrowthDiagram(RuleRSK, labels=labels)  # indirect doctest
              sage: G._filling
@@ -766,7 +750,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
                  "max_sum": self.max_sum,
 --- a/sage/src/sage/combinat/k_tableau.py
 +++ b/sage/src/sage/combinat/k_tableau.py
-@@ -2910,22 +2910,22 @@
+@@ -2908,22 +2908,22 @@
  
              sage: T = StrongTableau([[-1,-2,-4,7],[-3,6,-6,8],[4,-7],[-5,-8]], 3)
              sage: T.cells_head_dictionary()
@@ -799,7 +783,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               sage: StrongTableau([[None, None], [None, -1]], 4).cells_head_dictionary()
               {1: [(1, 1)]}
  
-@@ -4421,21 +4421,21 @@
+@@ -4419,21 +4419,21 @@
          EXAMPLES::
  
              sage: StrongTableaux.cells_head_dictionary([[1,2,4,7],[3,6,6,8],[4,7],[5,8]])
@@ -833,7 +817,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/combinat/matrices/latin.py
 +++ b/sage/src/sage/combinat/matrices/latin.py
-@@ -1101,68 +1101,68 @@
+@@ -1100,68 +1100,68 @@
                [14, 30, 47],
                [15, 31, 47]],
               {(0, 16, 32): (0, 0, 0),
@@ -947,7 +931,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
                (15, 31, 47): (3, 3, 3)})
          """
  
-@@ -2771,12 +2771,12 @@
+@@ -2770,12 +2770,12 @@
            [2, 6, 11],
            [3, 7, 11]],
           {(0, 4, 8): (0, 0, 0),
@@ -965,7 +949,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      assert P.nrows() == P.ncols()
 --- a/sage/src/sage/combinat/multiset_partition_into_sets_ordered.py
 +++ b/sage/src/sage/combinat/multiset_partition_into_sets_ordered.py
-@@ -1498,15 +1498,15 @@
+@@ -1497,15 +1497,15 @@
  
              sage: c = {"length":4, "max_order":6, "alphabet":[2,4,5,6]}
              sage: OrderedMultisetPartitionsIntoSets(**c).constraints
@@ -998,7 +982,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  has several instantiations. However, the most obvious way to write ``1``
 --- a/sage/src/sage/combinat/parallelogram_polyomino.py
 +++ b/sage/src/sage/combinat/parallelogram_polyomino.py
-@@ -559,16 +559,16 @@
+@@ -557,16 +557,16 @@
      ....: )
      sage: opt = ParallelogramPolyominoesOptions['tikz_options']
      sage: opt
@@ -1022,7 +1006,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  """
  
  
-@@ -2566,16 +2566,16 @@
+@@ -2564,16 +2564,16 @@
  
              sage: pp = ParallelogramPolyomino([[0, 1], [1, 0]])
              sage: pp.get_tikz_options()
@@ -1048,7 +1032,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/combinat/partition.py
 +++ b/sage/src/sage/combinat/partition.py
-@@ -3766,11 +3766,11 @@
+@@ -3768,11 +3768,11 @@
          EXAMPLES::
  
              sage: Partition([4,3,2]).block(0)
@@ -1136,7 +1120,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
 --- a/sage/src/sage/combinat/partition_tuple.py
 +++ b/sage/src/sage/combinat/partition_tuple.py
-@@ -1684,7 +1684,7 @@
+@@ -1690,7 +1690,7 @@
          EXAMPLES::
  
              sage: PartitionTuple([[2,2],[2,2]]).block(0,(0,0))
@@ -1147,7 +1131,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: PartitionTuple([[2,2],[2,2]]).block(2,(0,1))
 --- a/sage/src/sage/combinat/posets/posets.py
 +++ b/sage/src/sage/combinat/posets/posets.py
-@@ -4044,7 +4044,7 @@
+@@ -4188,7 +4188,7 @@
          Since :trac:`25576`, one can ask for the isomorphism::
  
              sage: P.is_isomorphic(Q, certificate=True)
@@ -1156,7 +1140,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          if hasattr(other, 'hasse_diagram'):
              return self.hasse_diagram().is_isomorphic(other.hasse_diagram(),
-@@ -7592,60 +7592,60 @@
+@@ -7736,60 +7736,60 @@
              sage: G.edges(sort=True)
              [((-1, 0), (0, -13), None), ((-1, 0), (0, 12), None), ((-1, 0), (0, 14), None), ((-1, 0), (0, 16), None), ((0, -13), (1, -13), None), ((0, -13), (1, 12), None), ((0, -13), (1, 14), None), ((0, -13), (1, 16), None), ((0, 12), (1, 12), None), ((0, 14), (1, 12), None), ((0, 14), (1, 14), None), ((0, 16), (1, 12), None), ((0, 16), (1, 16), None), ((1, -13), (2, 0), None), ((1, 12), (2, 0), None), ((1, 14), (2, 0), None), ((1, 16), (2, 0), None)]
              sage: e
@@ -1339,7 +1323,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      rho = L.rho()
 --- a/sage/src/sage/combinat/set_partition.py
 +++ b/sage/src/sage/combinat/set_partition.py
-@@ -626,13 +626,13 @@
+@@ -624,13 +624,13 @@
              sage: SP.set_latex_options(tikz_scale=2,plot='linear',fill=True,color='blue',angle=45)
              sage: SP.set_latex_options(plot='cyclic')
              sage: SP.latex_options()
@@ -1358,7 +1342,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          """
          valid_args = ['tikz_scale', 'plot', 'color', 'fill', 'show_labels',
-@@ -660,13 +660,13 @@
+@@ -658,13 +658,13 @@
          EXAMPLES::
  
              sage: SP = SetPartition([[1,6], [3,5,4]]); SP.latex_options()
@@ -1378,7 +1362,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          if "tikz_scale" not in opts:
 --- a/sage/src/sage/combinat/similarity_class_type.py
 +++ b/sage/src/sage/combinat/similarity_class_type.py
-@@ -1593,7 +1593,7 @@
+@@ -1591,7 +1591,7 @@
          (q^4 - q^2, 1/2*q^4 - 1/2*q^3)]
          sage: from sage.combinat.similarity_class_type import dictionary_from_generator
          sage: dictionary_from_generator(matrix_centralizer_cardinalities_length_two(2, q = 2))
@@ -1389,7 +1373,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          q = FractionField(QQ['q']).gen()
 --- a/sage/src/sage/combinat/symmetric_group_representations.py
 +++ b/sage/src/sage/combinat/symmetric_group_representations.py
-@@ -540,8 +540,8 @@
+@@ -538,8 +538,8 @@
              sage: orth._tableau_dict
              {(0, -1, 2, 1, 0): [[1, 2, 3], [4, 5]],
               (0, 2, -1, 1, 0): [[1, 2, 4], [3, 5]],
@@ -1399,7 +1383,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               (2, 0, 1, -1, 0): [[1, 3, 5], [2, 4]]}
          """
          # construct a dictionary pairing vertices with tableau
-@@ -565,8 +565,8 @@
+@@ -563,8 +563,8 @@
              sage: orth._word_dict
              {(0, -1, 2, 1, 0): (4, 5, 1, 2, 3),
               (0, 2, -1, 1, 0): (3, 5, 1, 2, 4),
@@ -1411,7 +1395,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          word_dict = {}
 --- a/sage/src/sage/combinat/words/finite_word.py
 +++ b/sage/src/sage/combinat/words/finite_word.py
-@@ -4832,9 +4832,9 @@
+@@ -4828,9 +4828,9 @@
          EXAMPLES::
  
              sage: Word([2,1,4,2,3,4,2]).evaluation_dict()
@@ -1423,7 +1407,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: Word().evaluation_dict()
              {}
  
-@@ -7109,9 +7109,9 @@
+@@ -7105,9 +7105,9 @@
  
          sage: from sage.combinat.words.finite_word import evaluation_dict
          sage: evaluation_dict([2,1,4,2,3,4,2])
@@ -1437,7 +1421,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/combinat/words/suffix_trees.py
 +++ b/sage/src/sage/combinat/words/suffix_trees.py
-@@ -1654,7 +1654,12 @@
+@@ -1652,7 +1652,12 @@
              sage: w = Word('abaababbabba')
              sage: T = DecoratedSuffixTree(w)
              sage: T._partial_labeling()
@@ -1466,7 +1450,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          return {'iter_with_caching': word.Word_iter_with_caching,
 --- a/sage/src/sage/crypto/mq/sr.py
 +++ b/sage/src/sage/crypto/mq/sr.py
-@@ -1654,49 +1654,49 @@
+@@ -1652,49 +1652,49 @@
  
              sage: sr = mq.SR(1,1,1,4)
              sage: sr.variable_dict()
@@ -1697,7 +1681,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              raise RuntimeError('Cannot modify a read only database.')
 --- a/sage/src/sage/doctest/util.py
 +++ b/sage/src/sage/doctest/util.py
-@@ -78,7 +78,7 @@
+@@ -77,7 +77,7 @@
          sage: D1 = DocTestDefaults()
          sage: D2 = DocTestDefaults(foobar="hello", timeout=100)
          sage: dict_difference(D2.__dict__, D1.__dict__)
@@ -1705,10 +1689,10 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
 +        {'timeout': 100, 'foobar': 'hello'}
      """
      D = dict()
-     for k, v in iteritems(self):
+     for k, v in self.items():
 --- a/sage/src/sage/ext/fast_callable.pyx
 +++ b/sage/src/sage/ext/fast_callable.pyx
-@@ -2020,11 +2020,11 @@
+@@ -2015,11 +2015,11 @@
              sage: instr_stream = InstructionStream(metadata, 1)
              sage: instr_stream.get_current()
              {'args': 1,
@@ -1723,7 +1707,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: md = instr_stream.get_metadata()
              sage: type(md)
              <type 'sage.ext.fast_callable.InterpreterMetadata'>
-@@ -2241,11 +2241,11 @@
+@@ -2236,11 +2236,11 @@
              sage: instr_stream = InstructionStream(metadata, 1)
              sage: instr_stream.get_current()
              {'args': 1,
@@ -1738,7 +1722,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: instr_stream.instr('load_arg', 0)
              sage: instr_stream.instr('py_call', math.sin, 1)
              sage: instr_stream.instr('abs')
-@@ -2254,11 +2254,11 @@
+@@ -2249,11 +2249,11 @@
              [('load_arg', 0), ('py_call', <built-in function sin>, 1), 'abs', 'return']
              sage: instr_stream.get_current()
              {'args': 1,
@@ -1753,7 +1737,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          d = {'args': self._n_args,
               'constants': self._constants,
-@@ -2438,11 +2438,11 @@
+@@ -2433,11 +2433,11 @@
              sage: v = Wrapper_py(instr_stream.get_current())
              sage: v.get_orig_args()
              {'args': 1,
@@ -1768,7 +1752,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: v.op_list()
              [('load_arg', 0), ('load_const', pi), 'add', ('load_arg', 0), ('load_const', 1), 'add', 'mul', 'return']
          """
-@@ -2465,11 +2465,11 @@
+@@ -2460,11 +2460,11 @@
  
              sage: fast_callable(sin(x)/x, vars=[x], domain=RDF).get_orig_args()
              {'args': 1,
@@ -1810,7 +1794,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              Traceback (most recent call last):
 --- a/sage/src/sage/graphs/base/boost_graph.pyx
 +++ b/sage/src/sage/graphs/base/boost_graph.pyx
-@@ -1137,10 +1137,10 @@
+@@ -1140,10 +1140,10 @@
           3: {3: 0}}
          sage: g = DiGraph([(1,2,3),(2,3,2),(1,4,1),(4,2,1)], weighted=True)
          sage: johnson_shortest_paths(g, distances=False, predecessors=True)
@@ -1823,7 +1807,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
      TESTS:
  
-@@ -1292,10 +1292,10 @@
+@@ -1295,10 +1295,10 @@
           3: {3: 0}}
          sage: g = DiGraph([(1,2,3),(2,3,2),(1,4,1),(4,2,1)], weighted=True)
          sage: floyd_warshall_shortest_paths(g, distances=False, predecessors=True)
@@ -1860,7 +1844,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
           2: 0.6,
 --- a/sage/src/sage/graphs/digraph.py
 +++ b/sage/src/sage/graphs/digraph.py
-@@ -2675,7 +2675,7 @@
+@@ -3212,7 +3212,7 @@
          installed, so we don't test its relative values::
  
              sage: H.layout_acyclic()
@@ -1869,7 +1853,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
              sage: H = DiGraph({0: [1]})
              sage: pos = H.layout_acyclic(rankdir='up')
-@@ -2720,15 +2720,15 @@
+@@ -3257,15 +3257,15 @@
  
              sage: H = DiGraph({0: [1, 2], 1: [3], 2: [3], 3: [], 5: [1, 6], 6: [2, 3]})
              sage: H.layout_acyclic_dummy()
@@ -1890,7 +1874,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: H = DiGraph({0: [1, 2], 1: [3], 2: [3], 3: [1], 5: [1, 6], 6: [2, 3]})
 --- a/sage/src/sage/graphs/distances_all_pairs.pyx
 +++ b/sage/src/sage/graphs/distances_all_pairs.pyx
-@@ -1548,7 +1548,7 @@
+@@ -1660,7 +1660,7 @@
          sage: g = graphs.PetersenGraph()
          sage: g.add_edge('good','wine')
          sage: g.distances_distribution()
@@ -1899,7 +1883,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
      The de Bruijn digraph dB(2,3)::
  
-@@ -1673,9 +1673,9 @@
+@@ -1785,9 +1785,9 @@
          sage: g = graphs.DiamondGraph()
          sage: floyd_warshall(g, paths=False, distances=True)
          {0: {0: 0, 1: 1, 2: 1, 3: 2},
@@ -1914,7 +1898,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/graphs/generic_graph.py
 +++ b/sage/src/sage/graphs/generic_graph.py
-@@ -5209,7 +5209,7 @@
+@@ -5202,7 +5202,7 @@
          This method is deprecated since Sage-4.4.1.alpha2. Please use instead:
  
              sage: g.layout(layout = "planar", save_pos = True)
@@ -1923,7 +1907,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          deprecation(24494, 'This method is replaced by the method layout. '
                             'Please use layout(layout="planar", save_pos=True) '
-@@ -5263,11 +5263,11 @@
+@@ -5256,11 +5256,11 @@
  
              sage: g = graphs.PathGraph(10)
              sage: g.layout(layout='planar', save_pos=True, test=True)
@@ -1938,7 +1922,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               5: [5, 2],
               6: [2, 2],
               7: [2, 3],
-@@ -5281,7 +5281,7 @@
+@@ -5274,7 +5274,7 @@
              [93, 14]
              sage: g = graphs.CycleGraph(7)
              sage: g.layout(layout='planar', save_pos=True, test=True)
@@ -1947,7 +1931,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: g = graphs.CompleteGraph(5)
              sage: g.layout(layout='planar', save_pos=True, test=True, set_embedding=True)
              Traceback (most recent call last):
-@@ -5292,9 +5292,9 @@
+@@ -5285,9 +5285,9 @@
  
              sage: g = graphs.CompleteGraph(4)
              sage: g.layout(layout='planar', external_face=(0,1))
@@ -1959,7 +1943,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          Choose the embedding:
  
-@@ -16605,7 +16605,7 @@
+@@ -16063,7 +16063,7 @@
  
              sage: D = graphs.DodecahedralGraph()
              sage: D.shortest_paths(0)
@@ -1968,7 +1952,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          All these paths are obviously induced graphs::
  
-@@ -16615,7 +16615,7 @@
+@@ -16073,7 +16073,7 @@
          ::
  
              sage: D.shortest_paths(0, cutoff=2)
@@ -1977,7 +1961,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: G = Graph( { 0: {1: 1}, 1: {2: 1}, 2: {3: 1}, 3: {4: 2}, 4: {0: 2} }, sparse=True)
              sage: G.plot(edge_labels=True).show() # long time
              sage: G.shortest_paths(0, by_weight=True)
-@@ -16625,7 +16625,7 @@
+@@ -16083,7 +16083,7 @@
  
              sage: D = DiGraph([(0,1,1),(1,2,3),(0,2,5)])
              sage: D.shortest_paths(0)
@@ -1986,7 +1970,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: D.shortest_paths(0, by_weight=True)
              {0: [0], 1: [0, 1], 2: [0, 1, 2]}
  
-@@ -16874,7 +16874,7 @@
+@@ -16332,7 +16332,7 @@
  
              sage: D = graphs.DodecahedralGraph()
              sage: D.shortest_path_lengths(0)
@@ -1995,7 +1979,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          Weighted case::
  
-@@ -18993,18 +18993,18 @@
+@@ -18449,18 +18449,18 @@
               '#00ff00': [((1,3,2,4), (1,4)(2,3), 3), ...],
               '#ff0000': [((1,3,2,4), (1,3)(2,4), 1), ...]}
              sage: G._color_by_label()  # py3
@@ -2018,7 +2002,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          TESTS:
  
-@@ -19149,8 +19149,8 @@
+@@ -18605,8 +18605,8 @@
  
              sage: g.layout(layout="acyclic_dummy", save_pos=True)
              {('0', 0): [0.3..., 0],
@@ -2028,7 +2012,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               ('1', 1): [0.6..., 1]}
  
              sage: D3 = g.layout(dim=3); D3  # random
-@@ -19286,10 +19286,10 @@
+@@ -18742,10 +18742,10 @@
              sage: g = graphs.LadderGraph(3)
              sage: g.layout_ranked(heights={i: (i, i+3) for i in range(3)})
              {0: [0.668..., 0],
@@ -2041,7 +2025,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               5: [1.33..., 2]}
              sage: g = graphs.LadderGraph(7)
              sage: g.plot(layout="ranked", heights={i: (i, i+7) for i in range(7)})
-@@ -19473,13 +19473,13 @@
+@@ -18929,13 +18929,13 @@
  
              sage: G = graphs.BalancedTree(2, 2)
              sage: G.layout_tree(tree_root=0)
@@ -2060,7 +2044,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
              sage: G = graphs.BalancedTree(2, 4)
              sage: G.plot(layout="tree", tree_root=0, tree_orientation="up")
-@@ -19491,15 +19491,15 @@
+@@ -18947,15 +18947,15 @@
              sage: T.set_embedding({0: [1, 6, 3], 1: [2, 5, 0], 2: [1], 3: [4, 7, 8, 0],
              ....:     4: [3], 5: [1], 6: [0], 7: [3], 8: [3]})
              sage: T.layout_tree()
@@ -2083,7 +2067,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: T.plot(layout="tree", tree_root=3)
              Graphics object consisting of 18 graphics primitives
  
-@@ -23653,7 +23653,8 @@
+@@ -23109,7 +23109,8 @@
  
              sage: G = DiGraph({1: [10], 2:[10,11], 3:[10,11], 4:[], 5:[11, 4], 6:[11], 7:[10,11], 8:[10,11], 9:[10], 10:[11, 5, 8], 11:[6]})
              sage: G.katz_centrality(.85)
@@ -2093,7 +2077,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               2: 0.000000000000000,
               3: 0.000000000000000,
               4: 16.7319819819820,
-@@ -23662,7 +23663,6 @@
+@@ -23118,7 +23119,6 @@
               7: 0.000000000000000,
               8: 18.6846846846847,
               9: 0.000000000000000,
@@ -2101,7 +2085,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               11: 202.778914049184}
  
  
-@@ -23682,7 +23682,7 @@
+@@ -23138,7 +23138,7 @@
              sage: graphs.PathGraph(4).katz_centrality(1/20,3)
              21/379
              sage: (graphs.PathGraph(3) + graphs.PathGraph(4)).katz_centrality(1/20)
@@ -2112,7 +2096,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          n = self.order()
 --- a/sage/src/sage/graphs/graph.py
 +++ b/sage/src/sage/graphs/graph.py
-@@ -3820,7 +3820,7 @@
+@@ -3818,7 +3818,7 @@
          EXAMPLES::
  
              sage: graphs.CycleGraph(4).bipartite_color()
@@ -2121,7 +2105,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: graphs.CycleGraph(5).bipartite_color()
              Traceback (most recent call last):
              ...
-@@ -4103,10 +4103,10 @@
+@@ -4101,10 +4101,10 @@
              sage: G.plot(partition=P)
              Graphics object consisting of 16 graphics primitives
              sage: G.coloring(hex_colors=True, algorithm="MILP")
@@ -2136,7 +2120,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/graphs/graph_coloring.pyx
 +++ b/sage/src/sage/graphs/graph_coloring.pyx
-@@ -1028,10 +1028,10 @@
+@@ -1029,10 +1029,10 @@
          [(0, 5), (2, 7)],
          [(1, 6), (3, 4), (5, 8), (7, 9)]]
         sage: edge_coloring(g, value_only=False, hex_colors=True, solver='GLPK')
@@ -2426,7 +2410,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          SQLDatabase.__init__(self, dblocation)
 --- a/sage/src/sage/graphs/isgci.py
 +++ b/sage/src/sage/graphs/isgci.py
-@@ -759,7 +759,7 @@
+@@ -762,7 +762,7 @@
              sage: type(t)
              <... 'list'>
              sage: t[0]
@@ -2435,7 +2419,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          self._get_ISGCI()
          return self.inclusions()
-@@ -776,12 +776,12 @@
+@@ -779,12 +779,12 @@
  
              sage: t = graph_classes.smallgraphs()
              sage: t
@@ -2478,7 +2462,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      tree_nodes, (v1, v2, v3) = x
 --- a/sage/src/sage/graphs/tutte_polynomial.py
 +++ b/sage/src/sage/graphs/tutte_polynomial.py
-@@ -386,7 +386,7 @@
+@@ -387,7 +387,7 @@
              sage: A.order
              [4, 6, 3, 2, 1, 7]
              sage: A.inverse_order
@@ -2489,7 +2473,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          self.inverse_order = dict([reversed(_) for _ in enumerate(order)])
 --- a/sage/src/sage/groups/perm_gps/cubegroup.py
 +++ b/sage/src/sage/groups/perm_gps/cubegroup.py
-@@ -691,12 +691,12 @@
+@@ -690,12 +690,12 @@
              sage: C.parse(facets) == g
              True
              sage: faces = C.faces("L"); faces
@@ -2508,7 +2492,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: C.parse("L' R2") == C.parse("L^(-1)*R^2")
 --- a/sage/src/sage/knots/link.py
 +++ b/sage/src/sage/knots/link.py
-@@ -752,47 +752,47 @@
+@@ -746,47 +746,47 @@
              sage: L = Link([[1, 3, 2, 4], [2, 3, 1, 4]])
              sage: tails, heads = L._directions_of_edges()
              sage: tails
@@ -2794,7 +2778,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: M1._is_isomorphic(M2)
 --- a/sage/src/sage/matroids/catalog.py
 +++ b/sage/src/sage/matroids/catalog.py
-@@ -725,7 +725,7 @@
+@@ -724,7 +724,7 @@
          sage: len(list(M.linear_subclasses()))
          72
          sage: M.fundamental_cycle('abc', 'd')
@@ -2997,7 +2981,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      result = { "required"  : [],
 --- a/sage/src/sage/modular/arithgroup/arithgroup_perm.py
 +++ b/sage/src/sage/modular/arithgroup/arithgroup_perm.py
-@@ -2388,7 +2388,7 @@
+@@ -2387,7 +2387,7 @@
              sage: G.cusp_widths()
              [1, 1, 4]
              sage: G.cusp_widths(exp=True)
@@ -3008,7 +2992,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: S3 = "(1,3,5)(2,4,6)"
 --- a/sage/src/sage/modular/arithgroup/congroup_gammaH.py
 +++ b/sage/src/sage/modular/arithgroup/congroup_gammaH.py
-@@ -595,6 +595,7 @@
+@@ -594,6 +594,7 @@
              sage: G = GammaH(240,[7,239])
              sage: G._coset_reduction_data_second_coord()
              {1: [1],
@@ -3016,7 +3000,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               2: [1],
               3: [1],
               4: [1],
-@@ -612,8 +613,7 @@
+@@ -611,8 +612,7 @@
               48: [1, 191],
               60: [1, 49, 137, 233],
               80: [1, 7, 49, 103],
@@ -3028,7 +3012,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: K = sorted(G._coset_reduction_data_second_coord())
 --- a/sage/src/sage/modular/dirichlet.py
 +++ b/sage/src/sage/modular/dirichlet.py
-@@ -2277,7 +2277,7 @@
+@@ -2276,7 +2276,7 @@
          TESTS::
  
              sage: DirichletGroup(5)._zeta_dlog
@@ -3057,7 +3041,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          return self._nproc
 --- a/sage/src/sage/plot/graphics.py
 +++ b/sage/src/sage/plot/graphics.py
-@@ -1297,8 +1297,8 @@
+@@ -1295,8 +1295,8 @@
              sage: G_kwds = Graphics._extract_kwds_for_show(kwds, ignore='xmin')
              sage: kwds # Note how this action modifies the passed dictionary
              {'f': <function <lambda> at 0x...>,
@@ -3068,7 +3052,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: G_kwds
              {'figsize': [1, 1]}
  
-@@ -2244,13 +2244,13 @@
+@@ -2242,13 +2242,13 @@
  
              sage: l = line([(1e-19,-1), (-1e-19,+1)], aspect_ratio=1.0)
              sage: l.get_minmax_data()
@@ -3087,7 +3071,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
          objects = self._objects
          if objects:
-@@ -2303,18 +2303,18 @@
+@@ -2301,18 +2301,18 @@
  
              sage: l = line([(0,0), (1,1)], aspect_ratio=1.0)
              sage: l._limit_output_aspect_ratio(1, 2, 1e19, 3)
@@ -3137,7 +3121,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/repl/attach.py
 +++ b/sage/src/sage/repl/attach.py
-@@ -597,12 +597,7 @@
+@@ -596,12 +596,7 @@
          basename = os.path.basename(filename)
          timestr = time.strftime('%T', mtime)
          notice = '### reloading attached file {0} modified at {1} ###'.format(basename, timestr)
@@ -3153,8 +3137,8 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              ip.run_cell(code)
 --- a/sage/src/sage/repl/display/fancy_repr.py
 +++ b/sage/src/sage/repl/display/fancy_repr.py
-@@ -15,10 +15,12 @@
- import types
+@@ -16,10 +16,12 @@
+ from io import StringIO
  
  from IPython.lib.pretty import (
 -    _safe_getattr, _baseclass_reprs,
@@ -3169,7 +3153,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/repl/display/formatter.py
 +++ b/sage/src/sage/repl/display/formatter.py
-@@ -173,8 +173,8 @@
+@@ -175,8 +175,8 @@
              sage: shell.run_cell('ipython_image')
              <IPython.core.display.Image object>
              sage: shell.run_cell('get_ipython().display_formatter.format(ipython_image)')
@@ -3180,17 +3164,6 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              {})
  
          Test that IPython images still work even in latex output mode::
---- a/sage/src/sage/repl/display/pretty_print.py
-+++ b/sage/src/sage/repl/display/pretty_print.py
-@@ -83,7 +83,7 @@
-             sage: set({1, 2, 3})
-             {1, 2, 3}
-             sage: dict(zzz=123, aaa=99, xab=10)    # sorted by keys
--            {'aaa': 99, 'xab': 10, 'zzz': 123}
-+            {'zzz': 123, 'aaa': 99, 'xab': 10}
-     
-         These are overridden in IPython in a way that we feel is somewhat
-         confusing, and we prefer to print them like plain Python which is
 --- a/sage/src/sage/repl/interpreter.py
 +++ b/sage/src/sage/repl/interpreter.py
 @@ -78,7 +78,7 @@
@@ -3372,7 +3345,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      """
 --- a/sage/src/sage/rings/asymptotic/asymptotics_multivariate_generating_functions.py
 +++ b/sage/src/sage/rings/asymptotic/asymptotics_multivariate_generating_functions.py
-@@ -3791,7 +3791,7 @@
+@@ -3790,7 +3790,7 @@
          sage: a = {'foo': x**2 + y**2, 'bar': x - y}
          sage: b = {x: 1 , y: 2}
          sage: subs_all(a, b)
@@ -3411,7 +3384,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          for a general quintic form::
 --- a/sage/src/sage/rings/multi_power_series_ring_element.py
 +++ b/sage/src/sage/rings/multi_power_series_ring_element.py
-@@ -1109,8 +1109,8 @@
+@@ -1108,8 +1108,8 @@
              sage: s = m + m2
              sage: s.dict()
              {(1, 15, 0, 48): 2/3,
@@ -3421,7 +3394,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               (39, 5, 23, 30): -1/4}
          """
          out_dict = {}
-@@ -1202,9 +1202,9 @@
+@@ -1201,9 +1201,9 @@
              Multivariate Power Series Ring in s, t over Integer Ring
              sage: f = 1 + t + s + s*t + R.O(3)
              sage: f.coefficients()
@@ -3435,7 +3408,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              3*s + 3*t + s^2 + 5*s*t + t^2 + O(s, t)^3
 --- a/sage/src/sage/rings/number_field/S_unit_solver.py
 +++ b/sage/src/sage/rings/number_field/S_unit_solver.py
-@@ -1596,7 +1596,7 @@
+@@ -1595,7 +1595,7 @@
          sage: len(rfv_dict)
          4
          sage: rfv_dict
@@ -3444,7 +3417,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      """
  
      for a, val in list(rfv_dictionary.items()):
-@@ -1760,31 +1760,31 @@
+@@ -1759,31 +1759,31 @@
          sage: from sage.rings.number_field.S_unit_solver import construct_comp_exp_vec
          sage: rfv_to_ev_dict = {(6, 6): [(3, 0)], (5, 6): [(1, 2)], (5, 4): [(5, 3)], (6, 2): [(5, 5)], (2, 5): [(0, 1)], (5, 5): [(3, 4)], (4, 4): [(0, 2)], (6, 3): [(1, 4)], (3, 6): [(5, 4)], (2, 2): [(0, 4)], (3, 5): [(1, 0)], (6, 4): [(1, 1)], (3, 2): [(1, 3)], (2, 6): [(4, 5)], (4, 5): [(4, 3)], (2, 3): [(2, 3)], (4, 2): [(4, 0)], (6, 5): [(5, 2)], (3, 3): [(3, 2)], (5, 3): [(5, 0)], (4, 6): [(2, 1)], (3, 4): [(3, 5)], (4, 3): [(0, 5)], (5, 2): [(3, 1)], (2, 4): [(2, 0)]}
          sage: construct_comp_exp_vec(rfv_to_ev_dict, 7)
@@ -3527,18 +3500,18 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              return self.__stats
 --- a/sage/src/sage/rings/polynomial/laurent_polynomial.pyx
 +++ b/sage/src/sage/rings/polynomial/laurent_polynomial.pyx
-@@ -2148,7 +2148,7 @@
+@@ -2150,7 +2150,7 @@
              sage: L.<w,z> = LaurentPolynomialRing(QQ)
              sage: a = w^2*z^-1 +3
              sage: a.dict()  # indirect doctest
 -            {(0, 0): 3, (2, -1): 1}
 +            {(2, -1): 1, (0, 0): 3}
          """
-         cdef dict D = <dict> self._poly._mpoly_dict_recursive(self._parent.variable_names(),
-                                                               self._parent.base_ring())
+         #cdef dict D = <dict> self._poly._mpoly_dict_recursive(self._parent.variable_names(),
+         #                                                      self._parent.base_ring())
 --- a/sage/src/sage/rings/polynomial/multi_polynomial.pyx
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial.pyx
-@@ -504,7 +504,7 @@
+@@ -489,7 +489,7 @@
              sage: t,s = R.gens()
              sage: x,y,z = R.base_ring().gens()
              sage: (x+y+2*z*s+3*t)._mpoly_dict_recursive(('z','t','s'))
@@ -3549,7 +3522,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
-@@ -3678,11 +3678,11 @@
+@@ -3676,11 +3676,11 @@
  
              sage: loads(dumps(I)).__getstate__()
              (Monoid of ideals of Multivariate Polynomial Ring in x, y over Finite Field of size 32003,
@@ -3566,7 +3539,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          This example checks :trac:`12802`::
 --- a/sage/src/sage/rings/polynomial/multi_polynomial_libsingular.pyx
 +++ b/sage/src/sage/rings/polynomial/multi_polynomial_libsingular.pyx
-@@ -2980,7 +2980,7 @@
+@@ -2979,7 +2979,7 @@
              sage: R.<x,y,z> = QQ[]
              sage: f=2*x*y^3*z^2 + 1/7*x^2 + 2/3
              sage: f.dict()
@@ -3577,7 +3550,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          cdef ring *r = self._parent_ring
 --- a/sage/src/sage/rings/polynomial/plural.pyx
 +++ b/sage/src/sage/rings/polynomial/plural.pyx
-@@ -2197,7 +2197,7 @@
+@@ -2195,7 +2195,7 @@
  
              sage: f = (2*x*y^3*z^2 + (7)*x^2 + (3))
              sage: f.dict()
@@ -3599,7 +3572,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/rings/polynomial/polynomial_element_generic.py
 +++ b/sage/src/sage/rings/polynomial/polynomial_element_generic.py
-@@ -340,7 +340,7 @@
+@@ -338,7 +338,7 @@
              sage: f = w^15 - w*3; f
              w^15 - 3*w
              sage: d = f._dict_unsafe(); d
@@ -3610,7 +3583,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
 --- a/sage/src/sage/rings/polynomial/polynomial_ring.py
 +++ b/sage/src/sage/rings/polynomial/polynomial_ring.py
-@@ -1203,7 +1203,7 @@
+@@ -1201,7 +1201,7 @@
  
              sage: R.<y,x,a42> = RR[]
              sage: R.gens_dict()
@@ -3621,7 +3594,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          names = self.variable_names()
 --- a/sage/src/sage/rings/qqbar.py
 +++ b/sage/src/sage/rings/qqbar.py
-@@ -8096,13 +8096,13 @@
+@@ -8092,13 +8092,13 @@
          decrease it before we return::
  
              sage: import sys; sys.getrecursionlimit()
@@ -3701,7 +3674,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      sage: D.rank()
      2
      sage: sorted(D.effective_div(), key=str)
-@@ -549,7 +549,7 @@
+@@ -548,7 +548,7 @@
              [-1 -2  3  0]
              [ 0  0  0  0]
              sage: s.dict()
@@ -3710,7 +3683,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          Sandpiles can be created from Graphs and DiGraphs. ::
  
-@@ -1977,13 +1977,13 @@
+@@ -1976,13 +1976,13 @@
  
              sage: S = Sandpile({0:[1], 2:[0,1], 1:[2]})
              sage: S.dict()
@@ -3726,7 +3699,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
  
          # first order the vertices according to their distance from the sink
-@@ -2078,7 +2078,7 @@
+@@ -2077,7 +2077,7 @@
              sage: s.group_order()
              28
              sage: s.jacobian_representatives()
@@ -3735,7 +3708,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          Let `\tau` be the nonnegative generator of the kernel of the transpose of
          the Laplacian, and let `tau_s` be it sink component, then the sandpile
-@@ -2426,7 +2426,8 @@
+@@ -2425,7 +2425,8 @@
              sage: S = Sandpile({0:{},1:{0: 1, 2: 1, 3: 4},2:{3: 5},3:{1: 1, 2: 1}},0)
              sage: p = S.betti_complexes()
              sage: p[0]
@@ -3745,7 +3718,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: S.resolution()
              'R^1 <-- R^5 <-- R^5 <-- R^1'
              sage: S.betti()
-@@ -3004,9 +3005,9 @@
+@@ -3003,9 +3004,9 @@
              sage: c.equivalent_recurrent()
              {1: 1, 2: 1}
              sage: c.__dict__
@@ -3758,7 +3731,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          .. NOTE::
  
-@@ -4324,12 +4325,12 @@
+@@ -4323,12 +4324,12 @@
              sage: D = SandpileDivisor(S,[0,1,1])
              sage: eff = D.effective_div()
              sage: D.__dict__
@@ -3775,7 +3748,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: D[0] += 1
              sage: D.__dict__
              {'_sandpile': Cycle sandpile graph: 3 vertices, sink = 0,
-@@ -4926,7 +4927,7 @@
+@@ -4925,7 +4926,7 @@
              sage: s = sandpiles.Complete(4)
              sage: D = SandpileDivisor(s,[2,-3,2,0])
              sage: D.q_reduced()
@@ -3784,7 +3757,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: D.q_reduced(False)
              [-2, 1, 2, 0]
  
-@@ -6358,13 +6359,13 @@
+@@ -6357,13 +6358,13 @@
          sage: glue_y = {0: 1, 1: 2, 3: 1}
          sage: z = glue_graphs(x,y,glue_x,glue_y); z
          {'sink': {},
@@ -3939,7 +3912,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
      if f.parent().ngens() == 1:
 --- a/sage/src/sage/schemes/projective/projective_space.py
 +++ b/sage/src/sage/schemes/projective/projective_space.py
-@@ -1825,13 +1825,13 @@
+@@ -1854,13 +1854,13 @@
              sage: P1 = ProjectiveSpace(GF(7),1,'x')
              sage: P1.rational_points_dictionary()
              {(0 : 1): 0,
@@ -3957,7 +3930,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          R = self.base_ring()
 --- a/sage/src/sage/schemes/riemann_surfaces/riemann_surface.py
 +++ b/sage/src/sage/schemes/riemann_surfaces/riemann_surface.py
-@@ -1012,17 +1012,17 @@
+@@ -1011,17 +1011,17 @@
               (1, 2): (),
               (1, 3): (0,1),
               (1, 6): (),
@@ -3984,7 +3957,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          """
 --- a/sage/src/sage/schemes/toric/morphism.py
 +++ b/sage/src/sage/schemes/toric/morphism.py
-@@ -647,7 +647,7 @@
+@@ -646,7 +646,7 @@
              sage: P1 = P2_112.orbit_closure(Cone([(1,0)]))
              sage: f = P1.embedding_morphism()
              sage: f._ray_map
@@ -3993,7 +3966,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: f._reverse_ray_map()
              {N(-2): 2, N(1): 1}
          """
-@@ -1955,7 +1955,7 @@
+@@ -1954,7 +1954,7 @@
              N(-1, 2) (11, 1)
              N(1, -3) (9, 2)
              sage: f._ray_index_map
@@ -4004,7 +3977,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              image_ray_index = self._ray_index_map[fiber_ray]
 --- a/sage/src/sage/schemes/toric/weierstrass.py
 +++ b/sage/src/sage/schemes/toric/weierstrass.py
-@@ -260,16 +260,16 @@
+@@ -258,16 +258,16 @@
          sage: p = (a30*x^3 + a21*x^2*y + a12*x*y^2 + a03*y^3 + a20*x^2*z +
          ....:      a11*x*y*z + a02*y^2*z + a10*x*z^2 + a01*y*z^2 + a00*z^3)
          sage: p_data = Newton_polytope_vars_coeffs(p, [x,y,z]);  p_data
@@ -4042,7 +4015,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              True
 --- a/sage/src/sage/structure/element.pyx
 +++ b/sage/src/sage/structure/element.pyx
-@@ -537,8 +537,8 @@
+@@ -563,8 +563,8 @@
              sage: i = ideal(x^2 - y^2 + 1)
              sage: i.__getstate__()
              (Monoid of ideals of Multivariate Polynomial Ring in x, y over Rational Field,
@@ -4055,7 +4028,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          return (self._parent, self.__dict__)
 --- a/sage/src/sage/structure/global_options.py
 +++ b/sage/src/sage/structure/global_options.py
-@@ -1311,9 +1311,9 @@
+@@ -1314,9 +1314,9 @@
  
              sage: Partitions.options._reset()
              sage: Partitions.options.__getstate__()
@@ -4203,7 +4176,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
          return self.facade_element_constructor_attributes(
 --- a/sage/src/sage/structure/unique_representation.py
 +++ b/sage/src/sage/structure/unique_representation.py
-@@ -859,7 +859,7 @@
+@@ -858,7 +858,7 @@
          arguments in the instance dictionary upon construction::
  
              sage: x.__dict__
@@ -4230,7 +4203,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  Sage example in ./graphtheory.tex, line 644::
 --- a/sage/src/sage/geometry/polyhedron/base.py
 +++ b/sage/src/sage/geometry/polyhedron/base.py
-@@ -6273,20 +6273,20 @@
+@@ -6337,20 +6337,20 @@
              sage: P = polytopes.twenty_four_cell()
              sage: P.flag_f_vector()
                  {(-1,): 1,
@@ -4259,7 +4232,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
                   (3,): 24,
                   (4,): 1}
  
-@@ -6316,18 +6316,18 @@
+@@ -6380,18 +6380,18 @@
              sage: P = (Polyhedron(lines=[[1]]) * polytopes.cross_polytope(3))
              sage: P.flag_f_vector()
              {(-1,): 1,
@@ -4283,7 +4256,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
               (2,): 12,
               (3,): 8,
               4: 1}
-@@ -6367,22 +6367,22 @@
+@@ -6431,22 +6431,22 @@
  
              sage: polytopes.hypercube(4)._flag_f_vector()
              {(-1,): 1,
@@ -4324,7 +4297,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
 --- a/sage/src/sage/geometry/polyhedron/combinatorial_polyhedron/base.pyx
 +++ b/sage/src/sage/geometry/polyhedron/combinatorial_polyhedron/base.pyx
-@@ -1549,20 +1549,20 @@
+@@ -1572,20 +1572,20 @@
              sage: C = polytopes.hypercube(4).combinatorial_polyhedron()
              sage: C.flag_f_vector()
                  {(-1,): 1,
@@ -4353,7 +4326,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
                   (3,): 8,
                   (4,): 1}
  
-@@ -1591,7 +1591,7 @@
+@@ -1614,7 +1614,7 @@
  
              sage: C = (Polyhedron(lines=[[1]]) * polytopes.hypercube(2)).combinatorial_polyhedron()
              sage: C.flag_f_vector()
@@ -4362,7 +4335,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          If the arguments are not stricly increasing or out of range, a key error is raised::
  
-@@ -1628,7 +1628,7 @@
+@@ -1651,7 +1651,7 @@
  
              sage: C = CombinatorialPolyhedron(3)
              sage: C._flag_f_vector()
@@ -4499,7 +4472,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          """
          transform = render_params.transform
-@@ -1134,10 +1137,10 @@
+@@ -1146,10 +1149,10 @@
              sage: L = line3d([(1,2,3), (4,5,6)], thickness=10, color=(1,0,0), opacity=0.5)
              sage: L.threejs_repr(L.default_render_params())
              [('line',
@@ -4513,7 +4486,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          TESTS:
  
-@@ -1146,10 +1149,10 @@
+@@ -1158,10 +1161,10 @@
              sage: L = line3d([(1,2,3), (4,5,6)]).translate(-1, -2, -3)
              sage: L.threejs_repr(L.default_render_params())
              [('line',
@@ -4527,7 +4500,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
  
          When setting ``arrow_head=True``, the last line segment is replaced by
          an arrow with a width half the thickness of the line::
-@@ -1158,10 +1161,10 @@
+@@ -1170,10 +1173,10 @@
              sage: L_repr = L.threejs_repr(L.default_render_params())
              sage: L_repr[-1]
              ('line',
@@ -4542,7 +4515,7 @@ Origin: https://aur.archlinux.org/cgit/aur.git/plain/sagemath-ipython7.patch?h=s
              sage: A = arrow3d((1,1,1), (2,2,2), width=2)
              sage: A_repr = A.threejs_repr(A.default_render_params())
              sage: A_repr == L_repr[:-1]
-@@ -1175,10 +1178,10 @@
+@@ -1187,10 +1190,10 @@
              sage: L_repr = L.threejs_repr(L.default_render_params())
              sage: L_repr[-1]
              ('line',

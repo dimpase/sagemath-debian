@@ -2,7 +2,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
 
 --- a/sage/src/sage/algebras/lie_algebras/structure_coefficients.py
 +++ b/sage/src/sage/algebras/lie_algebras/structure_coefficients.py
-@@ -126,7 +126,7 @@
+@@ -124,7 +124,7 @@
              try:
                  s_coeff = {(d[k[0]], d[k[1]]): [(d[x], y) for x,y in get_pairs(s_coeff[k])]
                             for k in s_coeff}
@@ -13,7 +13,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/categories/coxeter_groups.py
 +++ b/sage/src/sage/categories/coxeter_groups.py
-@@ -283,7 +283,7 @@
+@@ -282,7 +282,7 @@
                  [[0, 1, 2, 1], [0, 2, 1, 2], [2, 0, 1, 2]]
  
                  sage: W.braid_orbit([2,1,1,2,1])
@@ -39,7 +39,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
                  Note that ``hello!`` actually gets printed twice in
 --- a/sage/src/sage/combinat/colored_permutations.py
 +++ b/sage/src/sage/combinat/colored_permutations.py
-@@ -48,8 +48,8 @@
+@@ -47,8 +47,8 @@
              sage: C = ColoredPermutations(4, 3)
              sage: s1,s2,t = C.gens()
              sage: hash(s1), hash(s2), hash(t)
@@ -52,7 +52,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/combinat/constellation.py
 +++ b/sage/src/sage/combinat/constellation.py
-@@ -222,8 +222,8 @@
+@@ -219,8 +219,8 @@
  
              sage: c = Constellation(([0,2,1],[2,1,0],[1,2,0]), mutable=False)
              sage: c.__hash__()
@@ -65,7 +65,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              raise ValueError("can not hash mutable constellation")
 --- a/sage/src/sage/combinat/e_one_star.py
 +++ b/sage/src/sage/combinat/e_one_star.py
-@@ -888,7 +888,7 @@
+@@ -887,7 +887,7 @@
              sage: from sage.combinat.e_one_star import Face, Patch
              sage: P = Patch([Face((0,0,0),1), Face((1,2,0),3), Face((1,2,0),1)])
              sage: P.faces_of_vector([1,2,0])
@@ -74,7 +74,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          v = vector(v)
          return [f for f in self if f.vector() == v]
-@@ -906,7 +906,7 @@
+@@ -905,7 +905,7 @@
              sage: from sage.combinat.e_one_star import Face, Patch
              sage: P = Patch([Face((0,0,0),1), Face((1,2,0),3), Face((1,2,0),1)])
              sage: P.faces_of_type(1)
@@ -83,7 +83,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          return [f for f in self if f.type() == t]
  
-@@ -923,7 +923,7 @@
+@@ -922,7 +922,7 @@
              sage: from sage.combinat.e_one_star import Face, Patch
              sage: P = Patch([Face((0,0,0),1, 'red'), Face((1,2,0),3, 'blue'), Face((1,2,0),1, 'red')])
              sage: P.faces_of_color('red')
@@ -94,7 +94,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          return [f for f in self if tuple(f.color()) == color]
 --- a/sage/src/sage/combinat/growth.py
 +++ b/sage/src/sage/combinat/growth.py
-@@ -1706,7 +1706,7 @@
+@@ -1707,7 +1707,7 @@
          EXAMPLES::
  
              sage: from sage.combinat.growth import Rule
@@ -116,7 +116,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
 --- a/sage/src/sage/combinat/posets/posets.py
 +++ b/sage/src/sage/combinat/posets/posets.py
-@@ -7844,9 +7844,9 @@
+@@ -7988,9 +7988,9 @@
              sage: P = posets.AntichainPoset(3)
              sage: Pc = P.cuts()
              sage: [list(c) for c in Pc]
@@ -130,7 +130,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/combinat/rooted_tree.py
 +++ b/sage/src/sage/combinat/rooted_tree.py
-@@ -258,8 +258,8 @@
+@@ -257,8 +257,8 @@
  
              sage: RT = RootedTree
              sage: hash(RT([[],[[]]]))  # indirect doctest
@@ -141,7 +141,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          return hash(self.sort_key())
  
-@@ -955,8 +955,8 @@
+@@ -954,8 +954,8 @@
  
              sage: lb = RootedTrees()([[],[[], []]]).canonical_labelling()
              sage: hash(lb)  # indirect doctest
@@ -154,7 +154,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/combinat/similarity_class_type.py
 +++ b/sage/src/sage/combinat/similarity_class_type.py
-@@ -411,14 +411,14 @@
+@@ -409,14 +409,14 @@
              sage: PT2 = PrimarySimilarityClassType(3, [3, 2, 1])
              sage: PT3 = PrimarySimilarityClassType(2, [4, 2, 1])
              sage: hash(PT1)
@@ -177,7 +177,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/combinat/symmetric_group_representations.py
 +++ b/sage/src/sage/combinat/symmetric_group_representations.py
-@@ -295,8 +295,8 @@
+@@ -293,8 +293,8 @@
  
              sage: spc1 = SymmetricGroupRepresentation([3], cache_matrices=True)
              sage: hash(spc1)
@@ -228,7 +228,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/combinat/words/word_infinite_datatypes.py
 +++ b/sage/src/sage/combinat/words/word_infinite_datatypes.py
-@@ -290,14 +290,14 @@
+@@ -289,14 +289,14 @@
              sage: w = Word(lambda n : n%3+10, caching=False)
              sage: w.__reduce__()
              (Infinite words over Set of Python objects of class 'object',
@@ -245,7 +245,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          from sage.misc.fpickle import pickle_function
          try:
-@@ -529,14 +529,14 @@
+@@ -528,14 +528,14 @@
              sage: w = Word(lambda n : n%3+10, caching=True)
              sage: w.__reduce__()
              (Infinite words over Set of Python objects of class 'object',
@@ -264,7 +264,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          then concatenation of words are expanded as a list::
 --- a/sage/src/sage/combinat/yang_baxter_graph.py
 +++ b/sage/src/sage/combinat/yang_baxter_graph.py
-@@ -329,7 +329,7 @@
+@@ -328,7 +328,7 @@
              sage: ops = [SwapIncreasingOperator(i) for i in range(4)]
              sage: Y = YangBaxterGraph(root=(1,0,2,1,0), operators=ops)
              sage: list(Y._edges_in_bfs())
@@ -273,7 +273,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          digraph = self._digraph
          seen = {}
-@@ -382,7 +382,7 @@
+@@ -381,7 +381,7 @@
              sage: Y.successors(Y.root())
              [(1, 2, 0, 1, 0)]
              sage: Y.successors((1, 2, 0, 1, 0))
@@ -306,7 +306,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          ...
 --- a/sage/src/sage/dynamics/arithmetic_dynamics/generic_ds.py
 +++ b/sage/src/sage/dynamics/arithmetic_dynamics/generic_ds.py
-@@ -476,13 +476,13 @@
+@@ -475,13 +475,13 @@
              sage: f.periodic_points(3,minimal=False, R=N)
              [(0 : 1),
               (a : 1),
@@ -410,7 +410,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          ::
 --- a/sage/src/sage/geometry/cone.py
 +++ b/sage/src/sage/geometry/cone.py
-@@ -2281,8 +2281,7 @@
+@@ -2280,8 +2280,7 @@
              sage: face = L.level_sets()[1][0]
              sage: D = L.hasse_diagram()
              sage: D.neighbors(face)
@@ -420,7 +420,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          However, you can achieve some of this functionality using
          :meth:`facets`, :meth:`facet_of`, and :meth:`adjacent` methods::
-@@ -4056,7 +4055,7 @@
+@@ -4055,7 +4054,7 @@
              (N(0, 1), N(1, 0), N(-1, 0))
              sage: line = Cone([(1,1,1),(-1,-1,-1)])
              sage: line.semigroup_generators()
@@ -545,7 +545,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          Coordinate plane inclusion (injective)::
 --- a/sage/src/sage/geometry/lattice_polytope.py
 +++ b/sage/src/sage/geometry/lattice_polytope.py
-@@ -1927,8 +1927,8 @@
+@@ -1921,8 +1921,8 @@
              sage: D = L.hasse_diagram()
              sage: D.neighbors(face)
              [1-d face of 2-d lattice polytope in 2-d lattice M,
@@ -556,7 +556,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          However, you can achieve some of this functionality using
          :meth:`facets`, :meth:`facet_of`, and :meth:`adjacent` methods::
-@@ -3976,7 +3976,7 @@
+@@ -3970,7 +3970,7 @@
  
              sage: p = lattice_polytope.cross_polytope(2).polar()
              sage: p.traverse_boundary()
@@ -567,7 +567,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              raise ValueError("Boundary can be traversed only for 2-polytopes!")
 --- a/sage/src/sage/geometry/linear_expression.py
 +++ b/sage/src/sage/geometry/linear_expression.py
-@@ -385,8 +385,8 @@
+@@ -384,8 +384,8 @@
              sage: from sage.geometry.linear_expression import LinearExpressionModule
              sage: L.<x> = LinearExpressionModule(QQ)
              sage: hash(L([0,1]))
@@ -650,7 +650,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
 --- a/sage/src/sage/graphs/generic_graph.py
 +++ b/sage/src/sage/graphs/generic_graph.py
-@@ -5209,7 +5209,7 @@
+@@ -5202,7 +5202,7 @@
          This method is deprecated since Sage-4.4.1.alpha2. Please use instead:
  
              sage: g.layout(layout = "planar", save_pos = True)
@@ -659,7 +659,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          deprecation(24494, 'This method is replaced by the method layout. '
                             'Please use layout(layout="planar", save_pos=True) '
-@@ -5263,25 +5263,25 @@
+@@ -5256,25 +5256,25 @@
  
              sage: g = graphs.PathGraph(10)
              sage: g.layout(layout='planar', save_pos=True, test=True)
@@ -698,7 +698,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              sage: g = graphs.CompleteGraph(5)
              sage: g.layout(layout='planar', save_pos=True, test=True, set_embedding=True)
              Traceback (most recent call last):
-@@ -5900,17 +5900,17 @@
+@@ -5893,17 +5893,17 @@
              sage: T = graphs.TetrahedralGraph()
              sage: T.faces({0: [1, 3, 2], 1: [0, 2, 3], 2: [0, 3, 1], 3: [0, 1, 2]})
              [[(0, 1), (1, 2), (2, 0)],
@@ -724,7 +724,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/graphs/graph.py
 +++ b/sage/src/sage/graphs/graph.py
-@@ -6780,7 +6780,7 @@
+@@ -7344,7 +7344,7 @@
              sage: all(F.degree(u) == len(cliques) for u,cliques in d.items())
              True
              sage: F.cliques_containing_vertex(vertices=[(0, 1)])
@@ -733,7 +733,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          """
          import networkx
-@@ -7157,7 +7157,7 @@
+@@ -7721,7 +7721,7 @@
          Vertices may be arbitrary --- check that :trac:`24898` is fixed::
  
              sage: Graph({(1,2):[(2,3)],(2,3):[(1,2)]}).modular_decomposition()
@@ -788,7 +788,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
      tree_nodes, (v1, v2, v3) = x
 --- a/sage/src/sage/groups/free_group.py
 +++ b/sage/src/sage/groups/free_group.py
-@@ -237,8 +237,8 @@
+@@ -236,8 +236,8 @@
  
              sage: G.<a,b> = FreeGroup()
              sage: hash(a*b*b*~a)
@@ -801,7 +801,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/homology/cubical_complex.py
 +++ b/sage/src/sage/homology/cubical_complex.py
-@@ -701,8 +701,8 @@
+@@ -700,8 +700,8 @@
              sage: from sage.homology.cubical_complex import Cube
              sage: C1 = Cube([[1,1], [2,3], [4,5]])
              sage: C1.__hash__()
@@ -814,7 +814,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/interacts/debugger.py
 +++ b/sage/src/sage/interacts/debugger.py
-@@ -212,8 +212,8 @@
+@@ -211,8 +211,8 @@
          else:
              file = filename
  
@@ -839,18 +839,18 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              if self._b_invariant is None:
 --- a/sage/src/sage/misc/fpickle.pyx
 +++ b/sage/src/sage/misc/fpickle.pyx
-@@ -41,7 +41,7 @@
-     if six.PY2:
-         co_args = (co.co_argcount,)
-     else:
--        co_args = (co.co_argcount, co.co_kwonlyargcount)
-+        co_args = (co.co_argcount, co.co_posonlyargcount, co.co_kwonlyargcount)
+@@ -37,7 +37,7 @@
+     if co.co_freevars or co.co_cellvars:
+         raise ValueError("Cannot pickle code objects from closures")
  
-     co_args += (co.co_nlocals, co.co_stacksize, co.co_flags, co.co_code,
+-    co_args = (co.co_argcount, co.co_kwonlyargcount, co.co_nlocals,
++    co_args = (co.co_argcount, co.co_posonlyargcount, co.co_kwonlyargcount, co.co_nlocals,
+                 co.co_stacksize, co.co_flags, co.co_code,
                  co.co_consts, co.co_names, co.co_varnames, co.co_filename,
+                 co.co_name, co.co_firstlineno, co.co_lnotab)
 --- a/sage/src/sage/misc/sage_eval.py
 +++ b/sage/src/sage/misc/sage_eval.py
-@@ -160,10 +160,8 @@
+@@ -159,10 +159,8 @@
          sage: sage_eval('RR(22/7]')
          Traceback (most recent call last):
          ...
@@ -865,7 +865,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/misc/sageinspect.py
 +++ b/sage/src/sage/misc/sageinspect.py
-@@ -443,7 +443,7 @@
+@@ -428,7 +428,7 @@
          sage: v = ast.parse("jc = ['veni', 'vidi', 'vici']").body[0]; v
          <_ast.Assign object at ...>
          sage: [x for x in dir(v) if not x.startswith('__')]
@@ -889,7 +889,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              sage: Y._cache_key() == X._cache_key() # optional - magma
 --- a/sage/src/sage/modular/cusps.py
 +++ b/sage/src/sage/modular/cusps.py
-@@ -240,11 +240,11 @@
+@@ -239,11 +239,11 @@
          EXAMPLES::
  
              sage: hash(Cusp(1/3))
@@ -907,7 +907,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/modular/dirichlet.py
 +++ b/sage/src/sage/modular/dirichlet.py
-@@ -417,8 +417,8 @@
+@@ -416,8 +416,8 @@
  
              sage: e = DirichletGroup(16)([-1, 1])
              sage: hash(e)
@@ -968,7 +968,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
        True
 --- a/sage/src/sage/modular/modsym/relation_matrix.py
 +++ b/sage/src/sage/modular/modsym/relation_matrix.py
-@@ -293,7 +293,7 @@
+@@ -292,7 +292,7 @@
          sage: L = sage.modular.modsym.manin_symbol_list.ManinSymbolList_gamma1(4, 3)
          sage: modS = sparse_2term_quotient(modS_relations(L), 24, GF(3))
          sage: gens_to_basis_matrix(L, T_relation_matrix_wtk_g0(L, modS, GF(3), 24), modS, GF(3), True)
@@ -979,7 +979,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
      if not is_Matrix(relation_matrix):
 --- a/sage/src/sage/modular/overconvergent/weightspace.py
 +++ b/sage/src/sage/modular/overconvergent/weightspace.py
-@@ -577,8 +577,8 @@
+@@ -576,8 +576,8 @@
  
              sage: w = pAdicWeightSpace(23)(12, DirichletGroup(23, QQ).0)
              sage: hash(w)
@@ -1025,7 +1025,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/modules/filtered_vector_space.py
 +++ b/sage/src/sage/modules/filtered_vector_space.py
-@@ -753,7 +753,7 @@
+@@ -751,7 +751,7 @@
              sage: F = FilteredVectorSpace(rays, {0:[1, 2], 2:[3]});  F
              QQ^2 >= QQ^1 >= QQ^1 >= 0
              sage: F.presentation()
@@ -1057,7 +1057,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/monoids/free_monoid_element.py
 +++ b/sage/src/sage/monoids/free_monoid_element.py
-@@ -90,14 +90,14 @@
+@@ -89,14 +89,14 @@
  
              sage: R.<x,y> = FreeMonoid(2)
              sage: hash(x)
@@ -1080,7 +1080,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/monoids/indexed_free_monoid.py
 +++ b/sage/src/sage/monoids/indexed_free_monoid.py
-@@ -381,11 +381,11 @@
+@@ -380,11 +380,11 @@
  
              sage: F = FreeMonoid(index_set=tuple('abcde'))
              sage: hash(F ([(1,2),(0,1)]) )
@@ -1098,7 +1098,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/parallel/map_reduce.py
 +++ b/sage/src/sage/parallel/map_reduce.py
-@@ -1402,7 +1402,7 @@
+@@ -1387,7 +1387,7 @@
              sage: EX = RESetMPExample(maxl=6)
              sage: EX.setup_workers(2)
              sage: EX.random_worker()
@@ -1107,7 +1107,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              sage: EX.random_worker() in EX._workers
              True
  
-@@ -1586,7 +1586,7 @@
+@@ -1571,7 +1571,7 @@
              sage: from sage.parallel.map_reduce import RESetMPExample, RESetMapReduceWorker
              sage: EX = RESetMPExample()
              sage: RESetMapReduceWorker(EX, 200, True)
@@ -1118,7 +1118,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          self._iproc = iproc
 --- a/sage/src/sage/rings/finite_rings/element_givaro.pyx
 +++ b/sage/src/sage/rings/finite_rings/element_givaro.pyx
-@@ -1596,7 +1596,7 @@
+@@ -1594,7 +1594,7 @@
              b
              sage: c is b
              True
@@ -1129,7 +1129,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          return self
 --- a/sage/src/sage/rings/universal_cyclotomic_field.py
 +++ b/sage/src/sage/rings/universal_cyclotomic_field.py
-@@ -615,8 +615,8 @@
+@@ -614,8 +614,8 @@
              sage: hash(UCF.zero())  # indirect doctest
              0
              sage: hash(UCF.gen(3,2))
@@ -1329,7 +1329,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          P.normalize_coordinates()
 --- a/sage/src/sage/schemes/riemann_surfaces/riemann_surface.py
 +++ b/sage/src/sage/schemes/riemann_surfaces/riemann_surface.py
-@@ -354,7 +354,7 @@
+@@ -353,7 +353,7 @@
          sage: S = RiemannSurface(f, prec=100); S
          Riemann surface defined by polynomial f = -z^3 + w^2 + 1 = 0, with 100 bits of precision
          sage: S.riemann_matrix() #abs tol 0.00000001
@@ -1403,7 +1403,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  """
  
  #*****************************************************************************
-@@ -714,7 +714,7 @@
+@@ -713,7 +713,7 @@
                From: 1-d toric variety covered by 2 affine patches
                To:   2-d CPR-Fano toric variety covered by 3 affine patches
                Defn: Defined on coordinates by sending [z0 : z1] to
@@ -1412,7 +1412,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          If the toric variety is singular, then some orbit closure
          embeddings cannot be written with homogeneous polynomials::
-@@ -764,7 +764,7 @@
+@@ -763,7 +763,7 @@
              sage: D = P2.divisor([1,2,3]); D
              V(x) + 2*V(y) + 3*V(z)
              sage: f.pullback_divisor(D)
@@ -1421,7 +1421,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          from sage.schemes.toric.divisor import is_ToricDivisor
          if not (is_ToricDivisor(divisor) and divisor.is_QQ_Cartier()):
-@@ -1047,7 +1047,7 @@
+@@ -1046,7 +1046,7 @@
                From: 2-d affine toric variety
                To:   2-d toric variety covered by 3 affine patches
                Defn: Defined on coordinates by sending [z0 : z1] to
@@ -1430,7 +1430,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
          Coordinate plane inclusion (injective)::
  
-@@ -1056,7 +1056,7 @@
+@@ -1055,7 +1055,7 @@
                From: 2-d toric variety covered by 3 affine patches
                To:   3-d CPR-Fano toric variety covered by 4 affine patches
                Defn: Defined on coordinates by sending [z0 : z1 : z2] to
@@ -1439,7 +1439,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
          """
          phi_i, phi_b, phi_s = self.fan_morphism().factor()
          from sage.schemes.toric.all import ToricVariety
-@@ -1952,8 +1952,8 @@
+@@ -1951,8 +1951,8 @@
              sage: for r in fc.fan().rays():
              ....:     print("{} {}".format(r, f._image_ray_multiplicity(r)))
              N(0, 1) (5, 1)
@@ -1449,7 +1449,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              sage: f._ray_index_map
              {N(-3, 4): 10, N(-1, 2): 11, N(0, 1): 5, N(1, 0): 4, N(2, -6): 9}
          """
-@@ -1999,7 +1999,7 @@
+@@ -1998,7 +1998,7 @@
              V(z0) + V(z1) + 3*V(z2) + 4*V(z3)
              sage: fc = f.fiber_component(Cone([(1,1,0)]))
              sage: fc.embedding_morphism().pullback_divisor(D)
@@ -1460,7 +1460,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              -3*V(z0) - 3*V(z1) - V(z2)
 --- a/sage/src/sage/schemes/toric/variety.py
 +++ b/sage/src/sage/schemes/toric/variety.py
-@@ -1688,10 +1688,10 @@
+@@ -1687,10 +1687,10 @@
              sage: P1xP1 = P1.cartesian_product(P1); P1xP1
              2-d toric variety covered by 4 affine patches
              sage: P1xP1.fan().rays()
@@ -1474,7 +1474,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              in 2-d lattice N+N
          """
          return ToricVariety(self.fan().cartesian_product(other.fan()),
-@@ -2767,7 +2767,7 @@
+@@ -2766,7 +2766,7 @@
                From: 1-d toric variety covered by 2 affine patches
                To:   2-d CPR-Fano toric variety covered by 4 affine patches
                Defn: Defined on coordinates by sending [z0 : z1] to
@@ -1496,7 +1496,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
 --- a/sage/src/sage/sets/set_from_iterator.py
 +++ b/sage/src/sage/sets/set_from_iterator.py
-@@ -189,8 +189,8 @@
+@@ -188,8 +188,8 @@
              sage: from sage.sets.set_from_iterator import EnumeratedSetFromIterator
              sage: E = EnumeratedSetFromIterator(xsrange, (1,200))
              sage: hash(E)
@@ -1509,7 +1509,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
              return hash(self._cache[:13])
 --- a/sage/src/sage/structure/sequence.py
 +++ b/sage/src/sage/structure/sequence.py
-@@ -176,8 +176,8 @@
+@@ -175,8 +175,8 @@
  
          sage: v = Sequence(range(10), ZZ, immutable=True)
          sage: hash(v)
@@ -1520,7 +1520,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
  
      If you really know what you are doing, you can circumvent the type
-@@ -363,8 +363,8 @@
+@@ -362,8 +362,8 @@
  
          sage: v = Sequence(range(10), ZZ, immutable=True)
          sage: hash(v)
@@ -1531,7 +1531,7 @@ Origin: https://git.archlinux.org/svntogit/community.git/tree/trunk/sagemath-pyt
  
  
      If you really know what you are doing, you can circumvent the type
-@@ -643,11 +643,11 @@
+@@ -642,11 +642,11 @@
              sage: a[0] = 10
              sage: a.set_immutable()
              sage: a.__hash__()

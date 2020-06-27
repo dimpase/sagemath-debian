@@ -19,7 +19,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -288,7 +288,7 @@
+@@ -287,7 +287,7 @@
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_PKGCONFIG="$SAGE_LOCAL/lib/pkgconfig"
@@ -65,7 +65,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Skip the rest if nothing to do (i.e., to [re]build).
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -96,7 +96,7 @@
+@@ -71,7 +71,7 @@
      SAGE_LOCAL=local
  fi
  SAGE_SRC="$SAGE_ROOT/src"

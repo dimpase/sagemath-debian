@@ -4,7 +4,7 @@ sagemath (9.2~beta2-1) UNRELEASED; urgency=medium
   * New patches:
     - d0-arb.patch
     - dt-system-python-undo-29627.patch
-  * Remove patches (applied upstream):
+  * Remove patches (applied upstream in 9.1):
     - u0-version-scipy-1.4.patch                 #29115
     - u0-version-sympy-1.5.patch                 #28911
     - u1-pkgconfig-extra-link-flags.patch        #27205
@@ -14,6 +14,10 @@ sagemath (9.2~beta2-1) UNRELEASED; urgency=medium
     - d1-fakeroot.patch
     - dt-version-glpk-4.65-ignore-warnings.patch
   * Pass --enable-build-as-root to ./configure.
+  * Remove patches (applied upstream in 9.2):
+    - u0-version-sphinx-2.4.patch                #28856
+    - u0-version-pari-2.11.3.patch               #29313
+    - u2-version-matplotlib-3.2.1.patch
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 16 Jun 2020 20:59:19 +0200
 
