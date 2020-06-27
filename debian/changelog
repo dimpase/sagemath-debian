@@ -18,6 +18,8 @@ sagemath (9.2~beta2-1) UNRELEASED; urgency=medium
     - u0-version-sphinx-2.4.patch                #28856
     - u0-version-pari-2.11.3.patch               #29313
     - u2-version-matplotlib-3.2.1.patch
+  * New (Build-)Depends:
+    - python3-sphinx (>= 3.0)
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 16 Jun 2020 20:59:19 +0200
 

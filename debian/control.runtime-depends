@@ -69,7 +69,7 @@
  python3-simplegeneric,
  python3-singledispatch,
  python3-snowballstemmer,
- python3-sphinx (>= 2.4),
+ python3-sphinx (>= 3.0),
  python3-stemmer,
  python3-sympy,
  python3-terminado,
