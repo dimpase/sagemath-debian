@@ -7,15 +7,15 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/misc/sageinspect.py
 +++ b/sage/src/sage/misc/sageinspect.py
-@@ -125,6 +125,7 @@
- import sys
+@@ -120,6 +120,7 @@
+ import os
  import tokenize
  import re
 +import sysconfig
  EMBEDDED_MODE = False
  from sage.env import SAGE_LIB
  
-@@ -1393,7 +1394,12 @@
+@@ -1365,7 +1366,12 @@
      except TypeError: # this happens for Python builtins
          return ''
      if sourcefile.endswith(loadable_module_extension()):

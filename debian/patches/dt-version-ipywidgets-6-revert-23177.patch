@@ -320,20 +320,6 @@ Subject: Fix doctest in cpython/debug.pyx
        show_median: Checkbox(value=False, description=u'Medians')
        show_pb: Checkbox(value=False, description=u'Perpendicular Bisectors')
        show_alt: Checkbox(value=False, description=u'Altitudes')
-@@ -279,10 +279,9 @@
- 
-     sage: test(interacts.statistics.coin)
-     Interactive function <function coin at ...> with 2 widgets
--      n: IntSlider(value=1000, description=u'Number of Tosses', max=10000, min=2, step=100)
--      interval: IntRangeSlider(value=(0, 0), description=u'Plotting range (y)', max=1)
--    doctest:...: UserWarning: Attempting to set identical bottom==top results
--    in singular transformations; automatically expanding.
-+      n: IntSlider(value=1000, min=2, max=10000, step=100, description=u'Number of Tosses')
-+      interval: IntRangeSlider(value=(0, 0), min=0, max=1, step=1, description=u'Plotting range (y)')
-+    doctest:...: UserWarning: Attempting to set identical bottom==top results in singular transformations; automatically expanding.
-     bottom=0.0, top=0.0
- 
- Test matrix control (see :trac:`27735`)::
 --- a/sage/src/sage/repl/ipython_kernel/interact.py
 +++ b/sage/src/sage/repl/ipython_kernel/interact.py
 @@ -8,7 +8,7 @@
@@ -523,7 +509,7 @@ Subject: Fix doctest in cpython/debug.pyx
      sage: setup_test_comm()
  
  EXAMPLES::
-@@ -79,7 +79,7 @@
+@@ -78,7 +78,7 @@
  
          sage: w = input_box("4+5", type=str, label="enter a string")
          sage: w
@@ -532,7 +518,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          '4+5'
  
-@@ -87,7 +87,7 @@
+@@ -86,7 +86,7 @@
  
          sage: w = input_box("4+5")
          sage: w
@@ -541,7 +527,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          9
  
-@@ -96,7 +96,7 @@
+@@ -95,7 +95,7 @@
  
          sage: w = input_box("4+5", type=float)
          sage: w
@@ -550,7 +536,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          9.0
  
-@@ -104,7 +104,7 @@
+@@ -103,7 +103,7 @@
  
          sage: w = input_box("4+5", type=sqrt)
          sage: w
@@ -559,7 +545,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          3
  
-@@ -112,10 +112,10 @@
+@@ -111,10 +111,10 @@
  
          sage: w = input_box("4+5", width=100, height=1)
          sage: w
@@ -572,7 +558,7 @@ Subject: Fix doctest in cpython/debug.pyx
  
      TESTS::
  
-@@ -180,37 +180,37 @@
+@@ -179,37 +179,37 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import slider
          sage: slider(5, label="slide me")
@@ -619,7 +605,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: parent(w.get_interact_value())
          Real Field with 53 bits of precision
  
-@@ -218,7 +218,7 @@
+@@ -217,7 +217,7 @@
      possible values::
  
          sage: slider(range(10), default=17/10)
@@ -628,7 +614,7 @@ Subject: Fix doctest in cpython/debug.pyx
  
      TESTS::
  
-@@ -354,26 +354,26 @@
+@@ -353,26 +353,26 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import range_slider
          sage: range_slider(5, label="slide me")
@@ -662,7 +648,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: [parent(x) for x in w.get_interact_value()]
          [Real Double Field, Real Double Field]
  
-@@ -442,35 +442,35 @@
+@@ -441,35 +441,35 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import selector
          sage: selector(range(5), label="choose one")
@@ -707,7 +693,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      if isinstance(values, Sequence):
          values = list(values)
-@@ -523,14 +523,14 @@
+@@ -522,14 +522,14 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import input_grid
          sage: input_grid(2, 2, default=42, label="answers")

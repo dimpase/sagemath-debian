@@ -38,7 +38,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ -z "$DOT_SAGE" ]; then
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -293,7 +293,8 @@
+@@ -292,7 +292,8 @@
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
@@ -48,7 +48,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -n "$SAGE_PKG_CONFIG_PATH" ]; then
      # set up external pkg-config to look into SAGE_LOCAL/lib/pkgconfig/
-@@ -354,8 +355,8 @@
+@@ -353,8 +354,8 @@
  [ -z "$CPATH" ] || CPATH=":${CPATH}"
  export CPATH="$SAGE_LOCAL/include${CPATH}"
  
@@ -59,7 +59,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -370,16 +371,6 @@
+@@ -369,16 +370,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -76,7 +76,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -422,11 +413,10 @@
+@@ -421,11 +412,10 @@
      unset PYTHONHOME
  fi
  
@@ -91,7 +91,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -488,7 +478,6 @@
+@@ -487,7 +477,6 @@
      fi
  fi
  
@@ -99,7 +99,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -595,9 +584,6 @@
+@@ -594,9 +583,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -109,17 +109,6 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # Handle parallel building/testing/...
  # See Trac Ticket #12016
  # First, figure out the right values for SAGE_NUM_THREADS (default
---- a/sage/build/make/deps
-+++ b/sage/build/make/deps
-@@ -264,7 +264,7 @@
- 	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
- 
- doc-output-clean:
--	rm -rf "$(SAGE_SHARE)/doc/sage"
-+	rm -rf "$(SAGE_SHARE)/doc/sagemath"
- 
- 
- ###############################################################################
 --- a/sage/src/doc/en/developer/sage_manuals.rst
 +++ b/sage/src/doc/en/developer/sage_manuals.rst
 @@ -54,7 +54,7 @@
@@ -133,7 +122,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  - Do you want to **add a new file** to the documentation? :ref:`Click here
 --- a/sage/src/doc/en/faq/faq-general.rst
 +++ b/sage/src/doc/en/faq/faq-general.rst
-@@ -316,7 +316,7 @@
+@@ -311,7 +311,7 @@
  documentation that makes up the Sage standard documentation. If you
  have downloaded a binary Sage release, the HTML version of the
  corresponding documentation comes pre-built and can be found under the
@@ -155,7 +144,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -415,7 +415,7 @@
+@@ -416,7 +416,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example
@@ -235,3 +224,14 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  # misc
  var('SAGE_BANNER', '')
+--- a/sage/build/make/Makefile.in
++++ b/sage/build/make/Makefile.in
+@@ -399,7 +399,7 @@
+ 	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
+ 
+ doc-output-clean:
+-	rm -rf "$(SAGE_SHARE)/doc/sage"
++	rm -rf "$(SAGE_SHARE)/doc/sagemath"
+ 
+ 
+ ###############################################################################

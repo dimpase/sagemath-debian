@@ -353,7 +353,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
            <div style="white-space: normal;">\
 --- a/sage/src/sage/interacts/test_jupyter.rst
 +++ b/sage/src/sage/interacts/test_jupyter.rst
-@@ -292,7 +292,7 @@
+@@ -291,7 +291,7 @@
      ....:     print(parent(A))
      sage: test(matrix_test)
      Interactive function <function matrix_test at ...> with 1 widget
@@ -375,7 +375,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
          """
 --- a/sage/src/sage/plot/plot3d/plot3d.py
 +++ b/sage/src/sage/plot/plot3d/plot3d.py
-@@ -1005,7 +1005,7 @@
+@@ -1003,7 +1003,7 @@
          ....: def _(which_plot=[A,B,C,D,E]):
          ....:     show(which_plot)
          Interactive function <function _ at ...> with 1 widget
@@ -384,7 +384,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
  
      Now plot a function::
  
-@@ -1019,7 +1019,7 @@
+@@ -1017,7 +1017,7 @@
          ....: def _(which_plot=[F, G, H, I, J]):
          ....:     show(which_plot)
          Interactive function <function _ at ...> with 1 widget

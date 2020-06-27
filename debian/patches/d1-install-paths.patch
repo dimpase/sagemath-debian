@@ -9,7 +9,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage_setup/clean.py
 +++ b/sage/src/sage_setup/clean.py
-@@ -98,7 +98,7 @@
+@@ -93,7 +93,7 @@
          sage: from sage.misc.sageinspect import loadable_module_extension
          sage: skip_extensions = (loadable_module_extension(),)
          sage: for f in stale_iter:
@@ -20,7 +20,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/setup.py
 +++ b/sage/src/setup.py
-@@ -134,9 +134,9 @@
+@@ -135,9 +135,9 @@
  # (that are likely to change on an upgrade) here:
  # [At least at the moment. Make sure the headers aren't copied with "-p",
  # or explicitly touch them in the respective spkg's spkg-install.]
@@ -45,18 +45,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -344,7 +344,7 @@
+@@ -343,7 +343,7 @@
+ 
          sage: import sage.env
          sage: sage.env.sage_include_directories()
-         ['.../include',
--        '.../python.../site-packages/sage/ext',
-+        '.../python.../dist-packages/sage/ext',
+-        ['.../python.../site-packages/sage/ext',
++        ['.../python.../dist-packages/sage/ext',
          '.../include/python...',
          '.../python.../numpy/core/include']
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -487,8 +487,7 @@
+@@ -453,8 +453,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -79,7 +79,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ### pkg-config setup
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -179,10 +179,9 @@
+@@ -178,10 +178,9 @@
  
      EXAMPLES::
  
@@ -92,7 +92,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          sage: from sage.misc.sageinspect import loadable_module_extension
          sage: (f,) = files_by_module['sage.structure.sage_object']; f
          'sage/structure/sage_object...'
-@@ -194,7 +193,7 @@
+@@ -193,7 +192,7 @@
  
      This takes about 30ms with warm cache:
  
@@ -103,7 +103,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      """
 --- a/sage/src/sage/interacts/debugger.py
 +++ b/sage/src/sage/interacts/debugger.py
-@@ -205,9 +205,9 @@
+@@ -204,9 +204,9 @@
          code = code.replace(TRACEBACK, TRACEBACK[:-1])
  
          # Create a hyperlink to the file, if possible.

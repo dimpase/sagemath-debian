@@ -1,6 +1,6 @@
 --- a/sage/src/sage/repl/rich_output/backend_ipython.py
 +++ b/sage/src/sage/repl/rich_output/backend_ipython.py
-@@ -602,14 +602,9 @@
+@@ -603,14 +603,9 @@
              sage: from sage.repl.rich_output.backend_ipython import BackendIPythonNotebook
              sage: backend = BackendIPythonNotebook()
              sage: backend.threejs_offline_scripts()
