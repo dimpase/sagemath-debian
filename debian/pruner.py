@@ -59,7 +59,5 @@ if __name__ == '__main__':
         'for p in {}/build/pkgs/*; do test -e $p/package-version.txt && test $(cat $p/type) = standard && basename $p; done'.format(sr)
     ]).decode().split())
 
-    sage_standard_packages.add('python2')
-
     for key in sage_standard_packages:
         declare_system(key)

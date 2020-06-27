@@ -20,6 +20,7 @@ sagemath (9.2~beta2-1) UNRELEASED; urgency=medium
     - u2-version-matplotlib-3.2.1.patch
   * New (Build-)Depends:
     - python3-sphinx (>= 3.0)
+  * Run bootstrap and configure in d/rules.
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 16 Jun 2020 20:59:19 +0200
 

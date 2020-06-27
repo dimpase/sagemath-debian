@@ -95,10 +95,14 @@ prune: debian/control
 	touch prune
 
 run_build = \
-	MAKE='make -j$(NUMJOBS)' PREREQ_OPTIONS="--enable-build-as-root --prefix=$(SAGE_LOCAL)" \
+	MAKE='make -j$(NUMJOBS)' \
 	  $(MAKE) --directory=sage
 
 override_dh_auto_configure: prune
+	cd sage && ./bootstrap
+	cd sage && ./configure --enable-build-as-root --prefix=$(SAGE_LOCAL)
+
+clean: override_dh_auto_configure
 
 override_dh_auto_build-arch:
 	$(run_build) build
@@ -288,7 +292,7 @@ distclean:
 distclean-sage:
 	cd sage; git clean -fdx && git reset --hard HEAD && git submodule update --force
 
-reset: clean clean-docbuild
+reset: clean-docbuild debian/control
 	QUILT_PATCHES=debian/patches quilt pop -af || true
 	debian/rules distclean-sage
 	QUILT_PATCHES=debian/patches quilt push -a
