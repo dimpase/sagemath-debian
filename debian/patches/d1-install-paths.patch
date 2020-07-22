@@ -18,21 +18,6 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          ....:     if '/ext_data/' in f: continue
          ....:     print('Found stale file: ' + f)
      """
---- a/sage/src/setup.py
-+++ b/sage/src/setup.py
-@@ -135,9 +135,9 @@
- # (that are likely to change on an upgrade) here:
- # [At least at the moment. Make sure the headers aren't copied with "-p",
- # or explicitly touch them in the respective spkg's spkg-install.]
--lib_headers = { "gmp":     [ os.path.join(SAGE_INC, 'gmp.h') ],   # cf. #8664, #9896
--                "gmpxx":   [ os.path.join(SAGE_INC, 'gmpxx.h') ],
--                "ntl":     [ os.path.join(SAGE_INC, 'NTL', 'config.h') ]
-+lib_headers = { "gmp":     [ os.path.join('/usr/include', 'gmp.h') ],   # cf. #8664, #9896
-+                "gmpxx":   [ os.path.join('/usr/include' 'gmpxx.h') ],
-+                "ntl":     [ os.path.join('/usr/include', 'NTL', 'config.h') ]
-               }
- 
- 
 --- a/sage/sage
 +++ b/sage/sage
 @@ -16,6 +16,7 @@
@@ -56,7 +41,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -453,8 +453,7 @@
+@@ -438,8 +438,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -115,14 +100,14 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = '<a href="/src/%s" target="_new">src/sage/%s</a>'%(fname,fname)
          else:
              file = filename
---- a/sage/src/Makefile.in
-+++ b/sage/src/Makefile.in
-@@ -37,7 +37,7 @@
- 	    SAGE_DOC_SRC=/doesnotexist                            \
- 	    SAGE_BUILD_DIR=/doesnotexist                          \
- 	    SAGE_PKGS=$(abs_top_srcdir)/build/pkgs                \
--	&& sage-python -u setup.py --no-user-cfg build install
-+	&& sage-python -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2
- 	if [ "$$UNAME" = "CYGWIN" ]; then                         \
- 	    sage-rebase.sh "$$SAGE_LOCAL" 2>/dev/null;            \
- 	fi
+--- a/sage/build/pkgs/sagelib/spkg-install
++++ b/sage/build/pkgs/sagelib/spkg-install
+@@ -36,7 +36,7 @@
+ # uses this variable.
+ # export SAGE_LOCAL=/doesnotexist
+ 
+-time "$PYTHON" -u setup.py --no-user-cfg build install || exit 1
++time "$PYTHON" -u setup.py --no-user-cfg build install --root ../../debian/build --install-layout deb -O2 || exit 1
+ if [ "$UNAME" = "CYGWIN" ]; then
+     sage-rebase.sh "$SAGE_LOCAL" 2>/dev/null;
+ fi

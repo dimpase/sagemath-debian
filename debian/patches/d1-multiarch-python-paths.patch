@@ -15,7 +15,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  EMBEDDED_MODE = False
  from sage.env import SAGE_LIB
  
-@@ -1365,7 +1366,12 @@
+@@ -1366,7 +1367,12 @@
      except TypeError: # this happens for Python builtins
          return ''
      if sourcefile.endswith(loadable_module_extension()):

@@ -26,7 +26,7 @@ Forwarded: TODO
      else
          . "$SAGE_ROOT/src/bin/sage-version.sh"
      fi
-@@ -1047,13 +1047,13 @@
+@@ -1013,13 +1013,13 @@
      shift
      sage_setup
      if [ "$SAGE_DEBUG" = "no" ]; then
@@ -46,7 +46,7 @@ Forwarded: TODO
  fi
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -304,7 +304,7 @@
+@@ -324,7 +324,7 @@
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
      SAGE_ORIG_PATH_SET=True && export SAGE_ORIG_PATH_SET
  fi
@@ -70,11 +70,11 @@ Forwarded: TODO
          # setting inchar and outchar..
          eval_using_file_cutoff = 256
          self.__eval_using_file_cutoff = eval_using_file_cutoff
--        STARTUP = os.path.join(SAGE_LOCAL,'bin','sage-maxima.lisp')
+-        STARTUP = os.path.join(os.path.dirname(__file__), 'sage-maxima.lisp')
 +        STARTUP = os.path.join(SAGE_SCRIPTS_DIR,'sage-maxima.lisp')
  
          if not os.path.exists(STARTUP):
-             raise RuntimeError('You must get the file local/bin/sage-maxima.lisp')
+             raise RuntimeError('You must get the file sage-maxima.lisp')
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
 @@ -30,7 +30,7 @@
@@ -86,7 +86,7 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1073,7 +1073,7 @@
+@@ -1049,7 +1049,7 @@
              return 2
          opt = self.options
          if opt.gdb:

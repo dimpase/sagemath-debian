@@ -24,15 +24,15 @@ However the test is already removed from Sage 8.2 and the functionality is not
 super-important (being able to unpickle something twice) so just ignore it.
 --- a/sage/src/sage/interfaces/tests.py
 +++ b/sage/src/sage/interfaces/tests.py
-@@ -32,7 +32,7 @@
+@@ -31,7 +31,7 @@
+     ....: except IOError:
      ....:     f = open('/dev/null', 'w')
      sage: kwds = dict(shell=True, stdout=f, stderr=f)
-     sage: subprocess.call("echo syntax error | ecl", **kwds)
--    0
-+    139
+-    sage: subprocess.call("echo syntax error | ecl", **kwds) in (0, 255)
++    sage: subprocess.call("echo syntax error | ecl", **kwds) in (0, 139, 255)
+     True
      sage: subprocess.call("echo syntax error | gap", **kwds) in (0, 1)
      True
-     sage: subprocess.call("echo syntax error | gp", **kwds)
 --- a/sage/src/doc/en/constructions/algebraic_geometry.rst
 +++ b/sage/src/doc/en/constructions/algebraic_geometry.rst
 @@ -143,11 +143,11 @@

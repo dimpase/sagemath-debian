@@ -7,8 +7,8 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -258,19 +258,21 @@
-   fi
+@@ -190,19 +190,21 @@
+     exit 0
  fi
  
 -
@@ -38,7 +38,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ -z "$DOT_SAGE" ]; then
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -292,7 +292,8 @@
+@@ -312,7 +312,8 @@
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
@@ -48,7 +48,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -n "$SAGE_PKG_CONFIG_PATH" ]; then
      # set up external pkg-config to look into SAGE_LOCAL/lib/pkgconfig/
-@@ -353,8 +354,8 @@
+@@ -373,8 +374,8 @@
  [ -z "$CPATH" ] || CPATH=":${CPATH}"
  export CPATH="$SAGE_LOCAL/include${CPATH}"
  
@@ -59,7 +59,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -369,16 +370,6 @@
+@@ -389,16 +390,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -76,7 +76,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -421,11 +412,10 @@
+@@ -441,11 +432,10 @@
      unset PYTHONHOME
  fi
  
@@ -91,7 +91,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -487,7 +477,6 @@
+@@ -507,7 +497,6 @@
      fi
  fi
  
@@ -99,7 +99,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -594,9 +583,6 @@
+@@ -614,9 +603,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -226,7 +226,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  var('SAGE_BANNER', '')
 --- a/sage/build/make/Makefile.in
 +++ b/sage/build/make/Makefile.in
-@@ -399,7 +399,7 @@
+@@ -320,7 +320,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:

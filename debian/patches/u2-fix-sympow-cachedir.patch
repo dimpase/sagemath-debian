@@ -12,9 +12,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 +from sage.env import DOT_SAGE
  from sage.structure.sage_object import SageObject
- from sage.misc.all import pager, verbose
- import sage.rings.all
-@@ -77,7 +78,7 @@
+ from sage.misc.all import pager
+ from sage.misc.verbose import verbose
+@@ -78,7 +79,7 @@
          """
          Used to call sympow with given args
          """

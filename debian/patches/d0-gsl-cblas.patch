@@ -41,7 +41,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +cblas_include_dirs = []
  
  standard_libs = [
-     'mpfr', 'gmp', 'gmpxx', 'stdc++', 'pari', 'm',
+     'mpfr', 'gmp', 'gmpxx', 'pari', 'm',
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
 @@ -391,7 +391,7 @@
