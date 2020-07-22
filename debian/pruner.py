@@ -54,10 +54,10 @@ if __name__ == '__main__':
     with open(dummy_pkg, 'a'):
         os.utime(dummy_pkg, (now, now))
 
-    sage_standard_packages = set(subprocess.check_output([
+    sage_standard_packages = set(subprocess.run([
         '/bin/sh', '-c',
         'for p in {}/build/pkgs/*; do test -e $p/package-version.txt && test $(cat $p/type) = standard && basename $p; done'.format(sr)
-    ]).decode().split())
+    ],stdout=subprocess.PIPE).stdout.decode().split())
 
     for key in sage_standard_packages:
         declare_system(key)

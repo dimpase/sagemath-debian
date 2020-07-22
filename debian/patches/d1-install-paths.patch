@@ -102,6 +102,15 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              file = filename
 --- a/sage/build/pkgs/sagelib/spkg-install
 +++ b/sage/build/pkgs/sagelib/spkg-install
+@@ -20,7 +20,7 @@
+ export SAGE_DOC_SRC=/doesnotexist
+ export SAGE_BUILD_DIR=/doesnotexist
+ 
+-export PYTHON="$SAGE_LOCAL/bin/python3"
++export PYTHON="python3"
+ 
+ # We also poison all directories below SAGE_LOCAL.
+ 
 @@ -36,7 +36,7 @@
  # uses this variable.
  # export SAGE_LOCAL=/doesnotexist
