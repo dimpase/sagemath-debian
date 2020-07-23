@@ -55,26 +55,6 @@ Forwarded: TODO
  
  # We offer a toolchain option, so if $SAGE_LOCAL/toolchain/toolchain-env exists source it.
  # Since the user might do something crazy we do not do any checks, but hope for the best.
---- a/sage/src/sage/interfaces/maxima.py
-+++ b/sage/src/sage/interfaces/maxima.py
-@@ -471,7 +471,7 @@
- 
- from random import randrange
- 
--from sage.env import DOT_SAGE, SAGE_LOCAL, MAXIMA
-+from sage.env import DOT_SAGE, SAGE_SCRIPTS_DIR, MAXIMA
- from sage.misc.misc import ECL_TMP
- 
- from .expect import (Expect, ExpectElement, gc_disabled)
-@@ -522,7 +522,7 @@
-         # setting inchar and outchar..
-         eval_using_file_cutoff = 256
-         self.__eval_using_file_cutoff = eval_using_file_cutoff
--        STARTUP = os.path.join(os.path.dirname(__file__), 'sage-maxima.lisp')
-+        STARTUP = os.path.join(SAGE_SCRIPTS_DIR,'sage-maxima.lisp')
- 
-         if not os.path.exists(STARTUP):
-             raise RuntimeError('You must get the file sage-maxima.lisp')
 --- a/sage/src/sage/doctest/control.py
 +++ b/sage/src/sage/doctest/control.py
 @@ -30,7 +30,7 @@
