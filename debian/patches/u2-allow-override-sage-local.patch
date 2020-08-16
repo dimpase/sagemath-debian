@@ -8,7 +8,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/sage
 +++ b/sage/sage
-@@ -137,6 +137,8 @@
+@@ -140,6 +140,8 @@
  elif [ -x "$SAGE_ROOT/local/bin/sage" ]; then # if in a stripped binary
      # Note in this case we assume that SAGE_LOCAL is the "local" subdirectory
      exec "$SAGE_ROOT/local/bin/sage" "$@"
@@ -19,18 +19,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      exit 1
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -307,7 +307,7 @@
+@@ -287,7 +287,7 @@
+ # depending on SAGE_ROOT and SAGE_LOCAL which are already defined.
  export SAGE_ETC="$SAGE_LOCAL/etc"
  export SAGE_SHARE="$SAGE_LOCAL/share"
- export SAGE_PKGCONFIG="$SAGE_LOCAL/lib/pkgconfig"
 -export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
 +export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
- export SAGE_SPKG_SCRIPTS="$SAGE_LOCAL/var/lib/sage/scripts"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
+ export SAGE_DOC_SRC="$SAGE_SRC/doc"
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -164,11 +164,11 @@
+@@ -165,11 +165,11 @@
  var('SAGE_INC',            join(SAGE_LOCAL, 'include'))
  var('SAGE_SHARE',          join(SAGE_LOCAL, 'share'))
  var('SAGE_DOC',            join(SAGE_SHARE, 'doc', 'sage'))
@@ -45,16 +45,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  var('SAGE_PKGS',           join(SAGE_ROOT, 'build', 'pkgs'))
 --- a/sage/build/make/install
 +++ b/sage/build/make/install
-@@ -18,7 +18,7 @@
+@@ -18,8 +18,8 @@
  export SAGE_SHARE="$SAGE_LOCAL/share"
  export SAGE_PKGCONFIG="$SAGE_LOCAL/lib/pkgconfig"
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
 -export SAGE_SPKG_INST="$SAGE_LOCAL/var/lib/sage/installed"
+-export SAGE_SPKG_SCRIPTS="$SAGE_LOCAL/var/lib/sage/scripts"
 +export SAGE_SPKG_INST="$SAGE_ROOT/local/var/lib/sage/installed"
++export SAGE_SPKG_SCRIPTS="$SAGE_ROOT/local/var/lib/sage/scripts"
  
  if [ -z "${SAGE_ORIG_PATH_SET}" ]; then
      SAGE_ORIG_PATH=$PATH && export SAGE_ORIG_PATH
-@@ -26,7 +26,7 @@
+@@ -27,7 +27,7 @@
  fi
  export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
  
@@ -65,7 +67,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # Skip the rest if nothing to do (i.e., to [re]build).
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -71,7 +71,7 @@
+@@ -72,7 +72,7 @@
      SAGE_LOCAL=local
  fi
  SAGE_SRC="$SAGE_ROOT/src"
