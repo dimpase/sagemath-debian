@@ -30,7 +30,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  # containing this shell script.  If unset, we will try to figure it out
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -343,7 +343,7 @@
+@@ -344,7 +344,7 @@
  
          sage: import sage.env
          sage: sage.env.sage_include_directories()
@@ -41,7 +41,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 --- a/sage/configure.ac
 +++ b/sage/configure.ac
-@@ -438,8 +438,7 @@
+@@ -441,8 +441,7 @@
                  AC_MSG_ERROR([[Cannot perform incremental update, run "make distclean && make"]])
              fi
          else
@@ -53,7 +53,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      [
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -2,7 +2,7 @@
+@@ -10,7 +10,7 @@
  from distutils.extension import Extension
  from sage.env import SAGE_LOCAL
  
@@ -64,7 +64,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ### pkg-config setup
 --- a/sage/src/sage_setup/find.py
 +++ b/sage/src/sage_setup/find.py
-@@ -178,10 +178,9 @@
+@@ -267,10 +267,9 @@
  
      EXAMPLES::
  
@@ -77,7 +77,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          sage: from sage.misc.sageinspect import loadable_module_extension
          sage: (f,) = files_by_module['sage.structure.sage_object']; f
          'sage/structure/sage_object...'
-@@ -193,7 +192,7 @@
+@@ -282,7 +281,7 @@
  
      This takes about 30ms with warm cache:
  

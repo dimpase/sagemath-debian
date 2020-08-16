@@ -12,7 +12,7 @@ Forwarded: not-needed
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/module_list.py
 +++ b/sage/src/module_list.py
-@@ -11,10 +11,9 @@
+@@ -19,10 +19,9 @@
  import pkgconfig
  
  # CBLAS can be one of multiple implementations
@@ -44,7 +44,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      'mpfr', 'gmp', 'gmpxx', 'pari', 'm',
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -391,7 +391,7 @@
+@@ -392,7 +392,7 @@
      aliases = {}
  
      for lib in ['fflas-ffpack', 'givaro', 'gsl', 'linbox', 'Singular',
@@ -53,7 +53,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          var = lib.upper().replace("-", "") + "_"
          if lib == 'zlib':
              aliases[var + "CFLAGS"] = ""
-@@ -413,6 +413,8 @@
+@@ -416,6 +416,8 @@
          aliases[var + "LIBEXTRA"] = list(filter(lambda s: not s.startswith(('-l','-L')), libs.split()))
          aliases[var + "LIBRARIES"] = pc['libraries']
  

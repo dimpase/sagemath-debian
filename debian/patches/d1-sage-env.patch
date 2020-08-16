@@ -7,38 +7,23 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -190,19 +190,21 @@
-     exit 0
- fi
- 
--
- #####################################################################
- # Source sage-env ($0 is the name of this "sage" script, so we can just
- # append -env to that). We redirect stdout to stderr, which is safer
- # for scripts.
- #####################################################################
--if [ -f "$0-env" ]; then
-+if [ "\"$0\"" = "\"/usr/bin/sage\"" ]; then
-+    . "/usr/share/sagemath/bin/sage-env" >&2
+@@ -204,6 +204,13 @@
+         echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
+         exit 1
+     fi
 +else
-     . "$0-env" >&2
--    if [ $? -ne 0 ]; then
--        echo >&2 "Error setting environment variables by sourcing '$0-env';"
--        echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
--        exit 1
--    fi
-+fi
-+
-+if [ $? -ne 0 ]; then
-+    echo >&2 "Error setting environment variables by sourcing '$0-env';"
-+    echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
-+    exit 1
++    . "/usr/share/sagemath/bin/sage-env-config" >&2
++    . "/usr/share/sagemath/bin/sage-env" >&2
++    if [ $? -ne 0 ]; then
++        echo >&2 "Error setting environment variables by sourcing '/usr/share/sagemath/bin/sage-env';"
++        exit 1
++    fi
  fi
  
  if [ -z "$DOT_SAGE" ]; then
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -312,7 +312,8 @@
+@@ -291,7 +291,8 @@
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
@@ -48,7 +33,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -n "$SAGE_PKG_CONFIG_PATH" ]; then
      # set up external pkg-config to look into SAGE_LOCAL/lib/pkgconfig/
-@@ -373,8 +374,8 @@
+@@ -352,8 +353,8 @@
  [ -z "$CPATH" ] || CPATH=":${CPATH}"
  export CPATH="$SAGE_LOCAL/include${CPATH}"
  
@@ -59,7 +44,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -389,16 +390,6 @@
+@@ -368,16 +369,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -76,7 +61,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -441,11 +432,10 @@
+@@ -420,11 +411,10 @@
      unset PYTHONHOME
  fi
  
@@ -91,7 +76,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -507,7 +497,6 @@
+@@ -486,7 +476,6 @@
      fi
  fi
  
@@ -99,7 +84,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -614,9 +603,6 @@
+@@ -593,9 +582,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
@@ -111,7 +96,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  # First, figure out the right values for SAGE_NUM_THREADS (default
 --- a/sage/src/doc/en/developer/sage_manuals.rst
 +++ b/sage/src/doc/en/developer/sage_manuals.rst
-@@ -54,7 +54,7 @@
+@@ -51,7 +51,7 @@
  
      sage --docbuild tutorial html
  
@@ -155,13 +140,14 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
              # Walk through all of the files in the sage_directory
 --- a/sage/src/sage/env.py
 +++ b/sage/src/sage/env.py
-@@ -4,16 +4,6 @@
+@@ -4,17 +4,6 @@
  AUTHORS:
  
  - \R. Andrew Ohana (2012): Initial version.
 -
 -Verify that importing ``sage.all`` works in Sage's Python without any ``SAGE_``
--environment variables, and has the same ``SAGE_ROOT`` and ``SAGE_LOCAL``::
+-environment variables, and has the same ``SAGE_ROOT`` and ``SAGE_LOCAL``
+-(see also :trac:`29446`)::
 -
 -    sage: env = {k:v for (k,v) in os.environ.items() if not k.startswith("SAGE_")}
 -    sage: from subprocess import check_output
@@ -172,7 +158,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  """
  
  # ****************************************************************************
-@@ -160,7 +150,7 @@
+@@ -161,7 +150,7 @@
  # bunch of sage directories and files
  var('SAGE_LOCAL',          os.path.abspath(sys.prefix))
  var('SAGE_ETC',            join(SAGE_LOCAL, 'etc'))
@@ -181,7 +167,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  var('SAGE_INC',            join(SAGE_LOCAL, 'include'))
  var('SAGE_SHARE',          join(SAGE_LOCAL, 'share'))
  var('SAGE_DOC',            join(SAGE_SHARE, 'doc', 'sage'))
-@@ -178,26 +168,26 @@
+@@ -179,26 +168,26 @@
  var('SAGE_STARTUP_FILE',   join(DOT_SAGE, 'init.sage'))
  
  # installation directories for various packages
@@ -226,7 +212,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  var('SAGE_BANNER', '')
 --- a/sage/build/make/Makefile.in
 +++ b/sage/build/make/Makefile.in
-@@ -320,7 +320,7 @@
+@@ -326,7 +326,7 @@
  	cd "$(SAGE_SRC)/doc" && $(MAKE) clean
  
  doc-output-clean:

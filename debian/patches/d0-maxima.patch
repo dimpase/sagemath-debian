@@ -52,7 +52,7 @@ Author: Tobias Hansen <thansen@debian.org>
              ...
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -598,7 +598,7 @@
+@@ -595,7 +595,7 @@
  
  if [ "$1" = '-maxima' -o "$1" = '--maxima' ]; then
      shift

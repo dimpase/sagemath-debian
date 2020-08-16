@@ -1,6 +1,6 @@
 --- a/sage/src/sage/libs/ecl.pyx
 +++ b/sage/src/sage/libs/ecl.pyx
-@@ -144,7 +144,7 @@
+@@ -149,7 +149,7 @@
          ECL_OPT_TRAP_SIGILL = 1
          ECL_OPT_TRAP_SIGBUS = 1
          ECL_OPT_TRAP_SIGPIPE = 1

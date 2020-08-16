@@ -11,7 +11,7 @@ Subject: "sage -python", "sage -pip", etc.: Do not fall back to system Python
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -498,36 +498,36 @@
+@@ -500,36 +500,36 @@
  
  if [ "$1" = '--pip3' ]; then
      shift
