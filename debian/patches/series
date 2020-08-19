@@ -4,50 +4,51 @@ u0-version-gap-4.11.patch                  #29314
 u0-version-python-3.8.patch                #27754
 
 # Patches that have open upstream tickets
-u1-fix-atrocious-symlink-logic.patch       #22444
-u1-looser-doctest-basename.patch           #22445
-u1-scripts-dir.patch                       #22731
-u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
-u1-workaround-sympow-malloc-perturb.patch  #https://salsa.debian.org/science-team/sympow/merge_requests/1, reported to upstream by private email
+#u1-fix-atrocious-symlink-logic.patch       #22444
+#u1-looser-doctest-basename.patch           #22445
+#u1-scripts-dir.patch                       #22731
+#u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
+#u1-workaround-sympow-malloc-perturb.patch  #https://salsa.debian.org/science-team/sympow/merge_requests/1, reported to upstream by private email
 
 # Patches that should be upstreamed (may need some work first)
-u2-fix-sympow-cachedir.patch
-u2-allow-override-sage-local.patch
+#u2-fix-sympow-cachedir.patch
+#u2-allow-override-sage-local.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
-d0-arb.patch
-d0-gsl-cblas.patch
-d0-libgap-path.patch
-d0-maxima.patch
-d0-mathjax.patch
-d0-rubiks.patch
-d0-singular.patch
-d0-threejs-default-in-notebooks.patch
-d0-disable-jsmol.patch
-d0-paths.patch
-d0-threejs-offline-paths.patch
+#d0-arb.patch
+#d0-gsl-cblas.patch
+#d0-libgap-path.patch
+#d0-maxima.patch
+#d0-mathjax.patch
+#d0-rubiks.patch
+#d0-singular.patch
+#d0-threejs-default-in-notebooks.patch
+#d0-disable-jsmol.patch
+#d0-paths.patch
+#d0-threejs-offline-paths.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
-d1-install-paths.patch # many things in here could be split into an upstreamable patch
-d1-sage-cli.patch
-d1-sage-env.patch
-d1-multiarch-python-paths.patch
-d1-doc-docs.patch
+#d1-install-paths.patch # many things in here could be split into an upstreamable patch
+#d1-sage-cli.patch
+#d1-sage-env.patch
+#d1-multiarch-python-paths.patch
+#d1-doc-docs.patch
 
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
 # It may be possible to drop these now or in the future; test that first.
-df-sage-gap-reset-doctest.patch
-df-silence_ecl_opt_signals.patch
+#df-sage-gap-reset-doctest.patch
+#df-silence_ecl_opt_signals.patch
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
-dt-version-glpk-4.60-extra-hacky-fixes.patch
-dt-more-fix-test-cases.patch
-dt-work-around-singular-mips64el-segfault.patch
-dt-version-ipywidgets-6-revert-23177.patch
-dt-version-ipywidgets-6-tests.patch
-dt-system-python-undo-29627.patch
+#dt-version-glpk-4.60-extra-hacky-fixes.patch
+#dt-more-fix-test-cases.patch
+#dt-work-around-singular-mips64el-segfault.patch
+#dt-version-ipywidgets-6-revert-23177.patch
+#dt-version-ipywidgets-6-tests.patch
+#dt-system-python-undo-29627.patch
+d1-no-spkg-builds.patch
