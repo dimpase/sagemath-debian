@@ -13,6 +13,7 @@ u0-version-gap-4.11.patch                  #29314
 # Patches that should be upstreamed (may need some work first)
 #u2-fix-sympow-cachedir.patch
 #u2-allow-override-sage-local.patch
+u2-spkg-configure-python3.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
@@ -36,6 +37,8 @@ u0-version-gap-4.11.patch                  #29314
 #d1-sage-env.patch
 #d1-multiarch-python-paths.patch
 #d1-doc-docs.patch
+d1-no-spkg-builds.patch
+d1-system-python-packages.patch
 
 # Potentially controversial fixes
 # We had to do these to make things work, at some time in the past
@@ -51,6 +54,4 @@ u0-version-gap-4.11.patch                  #29314
 #dt-version-ipywidgets-6-revert-23177.patch
 #dt-version-ipywidgets-6-tests.patch
 #dt-system-python-undo-29627.patch
-u2-spkg-configure-python3.patch
-d1-no-spkg-builds.patch
-d1-system-python-packages.patch
+
