@@ -1,0 +1,11 @@
+--- a/sage/build/pkgs/python3/spkg-configure.m4
++++ b/sage/build/pkgs/python3/spkg-configure.m4
+@@ -18,7 +18,7 @@
+                     | $SED -n -e 's/\([[0-9]]*\.[[0-9]]*\.[[0-9]]*\).*/\1/p'`
+                 AS_IF([test -n "$python3_version"], [
+                     AX_COMPARE_VERSION([$python3_version], [ge], [3.6.0], [
+-                        AX_COMPARE_VERSION([$python3_version], [lt], [3.8.0], [
++                        AX_COMPARE_VERSION([$python3_version], [lt], [3.9.0], [
+                             dnl Because the system python is not used directly but rather in a venv without site-packages,
+                             dnl we test whether the module will be available in a venv.
+                             dnl Otherwise, some system site-package may be providing this module to the system python.

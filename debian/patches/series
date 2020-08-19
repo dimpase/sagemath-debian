@@ -1,7 +1,7 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
 u0-version-gap-4.11.patch                  #29314
-u0-version-python-3.8.patch                #27754
+#u0-version-python-3.8.patch                #27754
 
 # Patches that have open upstream tickets
 #u1-fix-atrocious-symlink-logic.patch       #22444
@@ -51,4 +51,5 @@ u0-version-python-3.8.patch                #27754
 #dt-version-ipywidgets-6-revert-23177.patch
 #dt-version-ipywidgets-6-tests.patch
 #dt-system-python-undo-29627.patch
+u2-spkg-configure-python3.patch
 d1-no-spkg-builds.patch
