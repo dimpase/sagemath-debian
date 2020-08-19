@@ -19,7 +19,7 @@ u2-spkg-configure-python3.patch
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
 #d0-arb.patch
-#d0-gsl-cblas.patch
+d0-gsl-cblas.patch
 #d0-libgap-path.patch
 #d0-maxima.patch
 #d0-mathjax.patch
