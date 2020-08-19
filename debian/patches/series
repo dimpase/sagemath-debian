@@ -24,7 +24,7 @@ u2-spkg-configure-python3.patch
 #d0-maxima.patch
 #d0-mathjax.patch
 #d0-rubiks.patch
-#d0-singular.patch
+d0-singular.patch
 #d0-threejs-default-in-notebooks.patch
 #d0-disable-jsmol.patch
 #d0-paths.patch
