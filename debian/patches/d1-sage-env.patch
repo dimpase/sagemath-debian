@@ -5,22 +5,6 @@ Description: Patch sage-env and env.py
  The LD_LIBRARY_PATH can probably be forwarded upstream, either way is fine.
 Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
---- a/sage/src/bin/sage
-+++ b/sage/src/bin/sage
-@@ -204,6 +204,13 @@
-         echo >&2 "possibly contact sage-devel (see http://groups.google.com/group/sage-devel)."
-         exit 1
-     fi
-+else
-+    . "/usr/share/sagemath/bin/sage-env-config" >&2
-+    . "/usr/share/sagemath/bin/sage-env" >&2
-+    if [ $? -ne 0 ]; then
-+        echo >&2 "Error setting environment variables by sourcing '/usr/share/sagemath/bin/sage-env';"
-+        exit 1
-+    fi
- fi
- 
- if [ -z "$DOT_SAGE" ]; then
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
 @@ -291,7 +291,8 @@
@@ -158,15 +142,6 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  """
  
  # ****************************************************************************
-@@ -161,7 +150,7 @@
- # bunch of sage directories and files
- var('SAGE_LOCAL',          os.path.abspath(sys.prefix))
- var('SAGE_ETC',            join(SAGE_LOCAL, 'etc'))
--var('SAGE_SCRIPTS_DIR',    join(SAGE_LOCAL, 'bin'))
-+var('SAGE_SCRIPTS_DIR',    '/usr/share/sagemath/bin')
- var('SAGE_INC',            join(SAGE_LOCAL, 'include'))
- var('SAGE_SHARE',          join(SAGE_LOCAL, 'share'))
- var('SAGE_DOC',            join(SAGE_SHARE, 'doc', 'sage'))
 @@ -179,26 +168,26 @@
  var('SAGE_STARTUP_FILE',   join(DOT_SAGE, 'init.sage'))
  

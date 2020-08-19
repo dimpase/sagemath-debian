@@ -20,8 +20,8 @@ u2-spkg-configure-python3.patch
 # Not suitable for upstreaming
 #d0-arb.patch
 d0-gsl-cblas.patch
-#d0-libgap-path.patch
-#d0-maxima.patch
+d0-libgap-path.patch
+d0-maxima.patch
 #d0-mathjax.patch
 #d0-rubiks.patch
 d0-singular.patch
@@ -34,7 +34,7 @@ d0-singular.patch
 # Not suitable for upstreaming
 #d1-install-paths.patch # many things in here could be split into an upstreamable patch
 #d1-sage-cli.patch
-#d1-sage-env.patch
+d1-sage-env.patch
 #d1-multiarch-python-paths.patch
 #d1-doc-docs.patch
 d1-no-spkg-builds.patch
