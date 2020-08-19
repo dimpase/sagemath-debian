@@ -53,3 +53,4 @@ u0-version-gap-4.11.patch                  #29314
 #dt-system-python-undo-29627.patch
 u2-spkg-configure-python3.patch
 d1-no-spkg-builds.patch
+d1-system-python-packages.patch

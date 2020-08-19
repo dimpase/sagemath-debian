@@ -1,0 +1,15 @@
+Bug: https://trac.sagemath.org/ticket/29665
+
+--- a/sage/build/make/install
++++ b/sage/build/make/install
+@@ -27,7 +27,9 @@
+ fi
+ export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
+ 
+-export PYTHONPATH="$SAGE_LOCAL"
++PYTHON_SITELIBDIR="/usr/lib/python3/dist-packages"
++REL_PYTHON_SITELIBDIR=`echo $PYTHON_SITELIBDIR | sed -e "s|$PYTHONBASE||"`
++export PYTHONPATH="$SAGE_LOCAL:$SAGE_LOCAL$REL_PYTHON_SITELIBDIR:$PYTHON_SITELIBDIR"
+ 
+ ###############################################################################
+ # Skip the rest if nothing to do (i.e., to [re]build).
