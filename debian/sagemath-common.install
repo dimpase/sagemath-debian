@@ -1,6 +1,4 @@
 usr/bin/sage
-debian/tmp/usr/bin/sage-* usr/share/sagemath/bin
-usr/share/sagemath/ext
+usr/bin/sage-* usr/share/sagemath/bin
 usr/lib/python3/dist-packages/sage*
-sage/local/var/lib/sage/installed usr/share/sagemath
-sage/local/var/lib/sage/scripts usr/share/sagemath
+usr/var/lib/sage/installed usr/share/sagemath
