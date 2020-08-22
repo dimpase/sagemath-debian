@@ -25,7 +25,6 @@ Build-Depends:
  gdb,
  git,
  libc6-dbg <pkg.sagemath.dbg>,
- libblas-dev,
  libboost-dev (>= 1.55),
  libbraiding-dev,
  libbrial-dev (>= 1.2.5-2),
@@ -60,6 +59,7 @@ Build-Depends:
  libmpfi-dev,
  libmpfr-dev,
  libntl-dev (>= 9.9.1-2),
+ libopenblas-dev,
  libpari-dev (>= 2.11.4~pre1),
  libplanarity-dev,
  libpng-dev,
@@ -106,8 +106,7 @@ Recommends:
  sagemath-doc (= ${source:Version}),
  sagemath-jupyter (= ${source:Version}),
  sagetex,
- texlive-latex-base,
- libopenblas-base | libblis2 | libatlas3-base | libblas3 | libblas.so.3
+ texlive-latex-base
 Suggests:
  dot2tex,
  gap-design,
