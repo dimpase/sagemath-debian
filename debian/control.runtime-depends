@@ -13,6 +13,7 @@
  gap-transgrp,
  gap-table-of-marks,
  gfan (>= 0.6.2),
+ glpk-utils,
  gmp-ecm,
  ipython3 (>= 7.11.1),
  iso-codes,
