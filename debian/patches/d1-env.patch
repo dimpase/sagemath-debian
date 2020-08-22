@@ -6,12 +6,13 @@ Forwarded: not-needed
 
 --- a/sage/src/bin/sage
 +++ b/sage/src/bin/sage
-@@ -1,5 +1,12 @@
+@@ -1,5 +1,13 @@
  #!/usr/bin/env bash
  
 +if [ "$0" = "/usr/bin/sage" ]; then
 +    export SAGE_LOCAL="/usr"
 +    export SAGE_SCRIPTS_DIR="/usr/share/sagemath/bin"
++    export SAGE_DOC="/usr/share/doc/sagemath"
 +    export SAGE_PYTHON3=yes
 +    export PATH="$PATH:$SAGE_SCRIPTS_DIR"
 +fi
@@ -19,7 +20,7 @@ Forwarded: not-needed
  # Display the current version of Sage
  # usage: sage_version [-v]
  #   -v    display the full version banner including release date
-@@ -217,26 +224,6 @@
+@@ -217,26 +225,6 @@
  
  # Prepare for running Sage, either interactively or non-interactively.
  sage_setup() {
