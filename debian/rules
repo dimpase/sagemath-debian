@@ -88,6 +88,7 @@ run_build = \
 override_dh_auto_configure:
 	cd sage && ./bootstrap
 	cd sage && ./configure --enable-build-as-root
+	debian/depcheck.py
 
 clean:
 
