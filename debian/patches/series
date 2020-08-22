@@ -23,7 +23,7 @@ d0-gsl-cblas.patch
 d0-libgap-path.patch
 d0-maxima.patch
 #d0-mathjax.patch
-#d0-rubiks.patch
+d0-rubiks.patch
 d0-singular.patch
 #d0-threejs-default-in-notebooks.patch
 #d0-disable-jsmol.patch
@@ -51,7 +51,7 @@ d1-system-python-packages.patch
 #dt-version-glpk-4.60-extra-hacky-fixes.patch
 #dt-more-fix-test-cases.patch
 #dt-work-around-singular-mips64el-segfault.patch
-#dt-version-ipywidgets-6-revert-23177.patch
-#dt-version-ipywidgets-6-tests.patch
+dt-version-ipywidgets-6-revert-23177.patch
+dt-version-ipywidgets-6-tests.patch
 #dt-system-python-undo-29627.patch
 

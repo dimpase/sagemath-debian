@@ -417,7 +417,7 @@ Subject: Fix doctest in cpython/debug.pyx
      sage: setup_test_comm()
  """
  
-@@ -132,7 +132,7 @@
+@@ -102,7 +102,7 @@
          sage: class TransformToggleButtons(TransformWidget, ToggleButtons): pass
          sage: w = TransformToggleButtons(options=["pi", "e"], transform=lambda x: x+x)
          sage: w
@@ -426,7 +426,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          'pipi'
      """
-@@ -202,7 +202,7 @@
+@@ -172,7 +172,7 @@
          sage: class EvalToggleButtons(EvalWidget, ToggleButtons): pass
          sage: w = EvalToggleButtons(options=["pi", "e"], transform=lambda x: x+x)
          sage: w
@@ -435,7 +435,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2*pi
      """
-@@ -217,7 +217,7 @@
+@@ -187,7 +187,7 @@
              sage: class EvalDropdown(EvalWidget, Dropdown): pass
              sage: w = EvalDropdown(options=["the_answer"], transform=RR)
              sage: w
@@ -444,7 +444,7 @@ Subject: Fix doctest in cpython/debug.pyx
              sage: the_answer = 42
              sage: w.get_value()
              42
-@@ -237,7 +237,7 @@
+@@ -207,7 +207,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformIntSlider
          sage: w = TransformIntSlider(min=0, max=100, value=7, transform=lambda x: x^2)
          sage: w
@@ -453,7 +453,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          49
      """
-@@ -254,7 +254,7 @@
+@@ -224,7 +224,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformFloatSlider
          sage: w = TransformFloatSlider(min=0, max=100, value=7, transform=lambda x: sqrt(x))
          sage: w
@@ -462,7 +462,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2.6457513110645907
      """
-@@ -271,7 +271,7 @@
+@@ -241,7 +241,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformIntRangeSlider
          sage: w = TransformIntRangeSlider(min=0, max=100, value=(7,9), transform=lambda x: x[1]-x[0])
          sage: w
@@ -471,7 +471,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2
      """
-@@ -288,7 +288,7 @@
+@@ -258,7 +258,7 @@
          sage: from sage.repl.ipython_kernel.widgets import TransformFloatRangeSlider
          sage: w = TransformFloatRangeSlider(min=0, max=100, value=(7,9), transform=lambda x: x[1]-x[0])
          sage: w
@@ -480,7 +480,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          2.0
      """
-@@ -365,7 +365,7 @@
+@@ -335,7 +335,7 @@
  
  class SageColorPicker(ColorPicker):
      """
@@ -489,7 +489,7 @@ Subject: Fix doctest in cpython/debug.pyx
  
      EXAMPLES::
  
-@@ -428,7 +428,7 @@
+@@ -398,7 +398,7 @@
              sage: w = Grid(2, 2, lambda i,j: EvalText(str(j+4*i)),
              ....:         description="2x2 matrix", transform=matrix)
              sage: w
