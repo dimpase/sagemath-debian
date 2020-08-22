@@ -51,10 +51,6 @@ endif
 #export SAGE_PYTHON3=yes
 #export SAGE_PYTHON_VERSION=3
 
-ifneq (1,$(TRY_AVOID_REBUILD))
-REBUILD_RULES = debian/rules
-endif
-
 %:
 	dh $@ --with=python3
 
@@ -241,13 +237,6 @@ export-build-env:
 	@echo export SAGE_PYTHON3=$(SAGE_PYTHON3)
 	@echo export SAGE_PYTHON_VERSION=$(SAGE_PYTHON_VERSION)
 
-# If the docbuild fails and you want to try again, you should run this first.
-# Otherwise the docbuild gets slower and slower as it re-reads information from
-# its build directory. At least that's my (infinity0) impression; I didn't
-# investigate this in too much detail yet.
-clean-docbuild:
-	rm -rf debian/build/usr/share/doc/sagemath
-
 distclean:
 	# don't git reset --hard on purpose, so it's easier to test
 	git clean -fdx
@@ -269,38 +258,3 @@ build-dep: debian/control
 
 get-orig-source:
 	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
-
-ifneq (1,$(TRY_AVOID_REBUILD))
-REBUILD_RELEASE = ../sagemath_$(DEB_VERSION).dsc
-endif
-
-SBUILD = sbuild --build-failed-commands '%SBUILD_SHELL'
-SBUILD_REPO_EXPERIMENTAL = --extra-repository="deb http://httpredir.debian.org/debian experimental main"
-# Sometimes this is necessary, if the mirrors have different versions for different architectures
-ifeq (1,$(SBUILD_USE_INCOMING))
-SBUILD += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-unstable main"
-SBUILD_REPO_EXPERIMENTAL += --extra-repository="deb http://incoming.debian.org/debian-buildd buildd-experimental main"
-endif
-
-# If the sbuild rules fail for you, try these workarounds:
-#
-# 0 https://wiki.debian.org/sbuild#Using_aliases
-#   if schroot complains about non-existent chroot
-#
-# 1 bottom of https://wiki.debian.org/DebianScience/Sage
-#   for misc other fixes
-#
-# 2 echo "/var/cache/apt/archives /var/cache/apt/archives none rw,bind 0 0" >> /etc/schroot/sbuild/fstab
-#   If you get download errors and sbuild isn't smart enough to ask apt to retry
-#
-
-release: $(REBUILD_RELEASE)
-	cd .. && $(SBUILD) \
-	  $(SBUILD_EXTRA_FLAGS) \
-	  "sagemath_$(DEB_VERSION).dsc"
-
-release-experimental: $(REBUILD_RELEASE)
-	cd .. && $(SBUILD) -d experimental \
-	  $(SBUILD_REPO_EXPERIMENTAL) --build-dep-resolver=aspcud \
-	  $(SBUILD_EXTRA_FLAGS) \
-	  "sagemath_$(DEB_VERSION).dsc"

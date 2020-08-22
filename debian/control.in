@@ -7,7 +7,7 @@ Uploaders: Tobias Hansen <thansen@debian.org>,
            Julien Puydt <julien.puydt@laposte.net>,
            Jerome Benoit <calculus@rezozer.net>,
            Ximin Luo <infinity0@debian.org>
-Standards-Version: 4.4.0
+Standards-Version: 4.5.0
 Homepage: http://www.sagemath.org/
 Vcs-Git: https://salsa.debian.org/science-team/sagemath.git
 Vcs-Browser: https://salsa.debian.org/science-team/sagemath
@@ -17,7 +17,6 @@ Build-Depends:
  RUNTIME_RECOMMENDS
  JUPYTER_DEPENDS
  autoconf,
- ccache <pkg.sagemath.ccache>,
  cython3-dbg <pkg.sagemath.dbg>,
  debhelper (>= 10),
  dh-python (>= 2.20170125),
