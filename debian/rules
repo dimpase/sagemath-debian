@@ -46,7 +46,7 @@ endif
 
 #export SAGE_LOCAL = $(CURDIR)/debian/build/usr
 #export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python3/dist-packages
-#export DOT_SAGE = $(CURDIR)/debian/test
+export DOT_SAGE = $(CURDIR)/debian/test
 #export SAGE_SCRIPTS_DIR = $(CURDIR)/sage/src/bin
 #export SAGE_PYTHON3=yes
 #export SAGE_PYTHON_VERSION=3
