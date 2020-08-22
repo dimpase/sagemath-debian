@@ -22,7 +22,7 @@ u2-spkg-configure-python3.patch
 d0-gsl-cblas.patch
 d0-libgap-path.patch
 d0-maxima.patch
-#d0-mathjax.patch
+d0-mathjax.patch
 d0-rubiks.patch
 d0-singular.patch
 #d0-threejs-default-in-notebooks.patch
@@ -37,6 +37,7 @@ d0-singular.patch
 d1-sage-env.patch
 #d1-multiarch-python-paths.patch
 #d1-doc-docs.patch
+d1-env.patch
 d1-no-spkg-builds.patch
 d1-system-python-packages.patch
 

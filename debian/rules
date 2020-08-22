@@ -85,11 +85,11 @@ run_build = \
 	MAKE='make -j$(NUMJOBS)' \
 	  $(MAKE) --directory=sage
 
-override_dh_auto_configure: prune
+override_dh_auto_configure:
 	cd sage && ./bootstrap
-	cd sage && ./configure --enable-build-as-root --prefix=$(SAGE_LOCAL)
+	cd sage && ./configure --enable-build-as-root
 
-clean: override_dh_auto_configure
+clean:
 
 override_dh_auto_build-arch:
 	$(run_build) build
@@ -97,7 +97,7 @@ override_dh_auto_build-arch:
 override_dh_auto_build-indep:
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
 	$(run_build) doc
-	cd debian/build/usr/share/doc/sagemath/html && \
+	cd sage/local/share/doc/sagemath/html && \
 	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
 	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
 endif
@@ -107,23 +107,25 @@ override_dh_auto_install:
 	mv sage/local debian/tmp/usr
 	mv debian/tmp/usr/lib/python3.8 debian/tmp/usr/lib/python3
 	mv debian/tmp/usr/lib/python3/site-packages debian/tmp/usr/lib/python3/dist-packages
+	mkdir -p debian/tmp/usr/share/sagemath/bin
+	cp sage/src/bin/sage-* debian/tmp/usr/share/sagemath/bin
+# Don't install sage-env-config and sage-env.
+	rm -f debian/tmp/usr/bin/sage-env*
 # We built .pyo to make the docbuild/tests go faster, but as per Debian policy
 # we don't distribute them.
 	find debian/tmp '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
 #	cp -f debian/adhoc/sage-env debian/tmp/usr/bin/
 # Install sage-python23 which is required at runtime but located in build/bin.
 #	cp -f sage/build/bin/sage-python23  debian/tmp/usr/bin/
-# Don't install sage-env-config.
-#	rm -f debian/tmp/usr/bin/sage-env-config
 # Install (renamed) icons.
 	mkdir -p debian/tmp/usr/share/icons/hicolor/64x64/apps
 	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
-	cp -f sage/src/ext/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
-	cp -f sage/src/ext/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
+	cp -f sage/src/sage/ext_data/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
+	cp -f sage/src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
 
 override_dh_auto_clean:
-	dh_auto_clean -Dsage -- maintainer-clean
-	rm -f sage/config.status
+#	dh_auto_clean -Dsage -- maintainer-clean
+#	rm -f sage/config.status
 
 override_dh_install-indep:
 	dh_install --package sagemath-common -X.so
@@ -145,10 +147,10 @@ override_dh_compress:
 # them from compression anyway for now, so the build goes quicker.
 	dh_compress -X.pdf -X.pickle -X.doctree
 
-override_dh_clean:
-	rm -rf $(DOT_SAGE)
-	$(call preserve_docs,dh_clean,debian/tmp)
-	$(call preserve_docs,rm -rf debian/build/*,debian/build)
+#override_dh_clean:
+#	rm -rf $(DOT_SAGE)
+#	$(call preserve_docs,dh_clean,debian/tmp)
+#	$(call preserve_docs,rm -rf debian/build/*,debian/build)
 
 override_dh_strip_nondeterminism:
 	dh_strip_nondeterminism -X.png # On png files it sometimes fails claiming it's not a png file.

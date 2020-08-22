@@ -1,4 +1,4 @@
 usr/bin/sage
-usr/bin/sage-* usr/share/sagemath/bin
+usr/share/sagemath/bin/sage-*
 usr/lib/python3/dist-packages/sage*
 usr/var/lib/sage/installed usr/share/sagemath
