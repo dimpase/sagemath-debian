@@ -2,6 +2,7 @@ sagemath (9.2~beta8-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * New patches:
+    - u0-version-flint-2.6.3.patch                #29719
     - d0-arb.patch
     - dt-system-python-undo-29627.patch
   * Remove patches (applied upstream in 9.1):
