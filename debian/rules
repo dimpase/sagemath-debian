@@ -21,8 +21,6 @@
 include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
 
-MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
-
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 else
@@ -34,14 +32,6 @@ ifneq (,$(filter $(DEB_BUILD_ARCH),armel armhf mips mipsel mips64el))
 export SAGE_TIMEOUT_LONG = 7200
 else
 export SAGE_TIMEOUT_LONG = 3600
-endif
-
-ifeq (,$(filter pkg.sagemath.nolongcheck,$(DEB_BUILD_PROFILES)))
-SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit --long
-SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml --long
-else
-SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit
-SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml
 endif
 
 #export SAGE_LOCAL = $(CURDIR)/debian/build/usr
@@ -65,13 +55,6 @@ debian/control: debian/control.in
 	sed -i -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' "$@"
 	sed -i -e '/RUNTIME_RECOMMENDS/ {' -e 'r debian/control.runtime-recommends' -e 'd' -e '}' "$@"
 	sed -i -e '/JUPYTER_DEPENDS/ {' -e 'r debian/control.jupyter-depends' -e 'd' -e '}' "$@"
-
-../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz: .git/modules/sage/HEAD
-	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
-	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
-
-../sagemath_$(DEB_VERSION).dsc: distclean-sage distclean ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz debian/control
-	dpkg-buildpackage -nc -d -uc -us -S
 
 ###############################################################################
 # 3. PACKAGE BUILD
@@ -156,6 +139,16 @@ override_dh_strip_nondeterminism:
 ###############################################################################
 # 4. TEST SUITE
 ###############################################################################
+
+MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
+
+ifeq (,$(filter pkg.sagemath.nolongcheck,$(DEB_BUILD_PROFILES)))
+SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit --long
+SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml --long
+else
+SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit
+SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml
+endif
 
 TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
 failed-tests%:
@@ -248,5 +241,6 @@ build-dep: debian/control
 	if which aptitude >/dev/null; then sudo -E mk-build-deps -ir -t 'aptitude -R'; \
 	else sudo -E mk-build-deps -ir; fi
 
-get-orig-source:
-	debian/rules ../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
+get-orig-source: .git/modules/sage/HEAD
+	cd sage && git archive --prefix=sagemath_$(DEB_VERSION_UPSTREAM)/sage/ \
+	  --format=tar HEAD | xz -zf > ../../sagemath_$(DEB_VERSION_UPSTREAM).orig.tar.xz
