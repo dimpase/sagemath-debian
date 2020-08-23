@@ -103,6 +103,14 @@ override_dh_auto_install:
 	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
 	cp -f sage/src/sage/ext_data/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
 	cp -f sage/src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
+# Fix up jupyter kernel installation
+	rm -f debian/tmp/usr/share/jupyter/nbextensions/jsmol
+	rm -f debian/tmp/usr/share/jupyter/kernels/sagemath/logo*
+	rm -f debian/tmp/usr/share/jupyter/kernels/sagemath/doc
+	ln -s /usr/share/doc/sagemath/html/en debian/tmp/usr/share/jupyter/kernels/sagemath/doc
+	ln -s /usr/share/icons/hicolor/64x64/apps/sagemath.png debian/tmp/usr/share/jupyter/kernels/sagemath/logo-64x64.png
+	ln -s /usr/share/icons/hicolor/scalable/apps/sagemath.svg debian/tmp/usr/share/jupyter/kernels/sagemath/logo.svg
+	sed -E 's|\[\".+bin/sage\",|\[\"/usr/bin/sage\",|' -i debian/tmp/usr/share/jupyter/kernels/sagemath/kernel.json
 
 override_dh_auto_clean:
 #	dh_auto_clean -Dsage -- maintainer-clean
