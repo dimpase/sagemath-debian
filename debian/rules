@@ -112,7 +112,7 @@ override_dh_auto_install:
 	ln -s /usr/share/icons/hicolor/scalable/apps/sagemath.svg debian/tmp/usr/share/jupyter/kernels/sagemath/logo.svg
 	sed -E 's|\[\".+bin/sage\",|\[\"/usr/bin/sage\",|' -i debian/tmp/usr/share/jupyter/kernels/sagemath/kernel.json
 
-override_dh_auto_clean:
+#override_dh_auto_clean:
 #	dh_auto_clean -Dsage -- maintainer-clean
 #	rm -f sage/config.status
 
@@ -136,10 +136,9 @@ override_dh_compress:
 # them from compression anyway for now, so the build goes quicker.
 	dh_compress -X.pdf -X.pickle -X.doctree
 
-#override_dh_clean:
-#	rm -rf $(DOT_SAGE)
-#	$(call preserve_docs,dh_clean,debian/tmp)
-#	$(call preserve_docs,rm -rf debian/build/*,debian/build)
+override_dh_clean:
+	rm -rf $(DOT_SAGE)
+	dh_clean
 
 override_dh_strip_nondeterminism:
 	dh_strip_nondeterminism -X.png # On png files it sometimes fails claiming it's not a png file.
