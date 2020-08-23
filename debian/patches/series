@@ -12,7 +12,7 @@ u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/i
 #u1-workaround-sympow-malloc-perturb.patch  #https://salsa.debian.org/science-team/sympow/merge_requests/1, reported to upstream by private email
 
 # Patches that should be upstreamed (may need some work first)
-#u2-fix-sympow-cachedir.patch
+u2-fix-sympow-cachedir.patch
 #u2-allow-override-sage-local.patch
 u2-spkg-configure-python3.patch
 
