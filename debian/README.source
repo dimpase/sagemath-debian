@@ -8,9 +8,6 @@ Build instructions
 See https://wiki.debian.org/DebianScience/Sage for instructions on setting your
 system up to work with this source package.
 
-It's recommended that you build with "DEB_BUILD_PROFILES=pkg.sagemath.ccache".
-This uses debian/ccache as a ccache cache, so rebuilds are much quicker.
-
 Local system patches
 --------------------
 
@@ -35,51 +32,17 @@ end of the logging output, there will be a summary of all the failures.
 After a successful build, you can run individual tests as follows. First, make
 sure you're in the top-level package directory, where debian/ is. Then:
 
- $ . <(debian/rules export-build-env)  # assumes you're in bash or zsh
- sage$ ./sage -t -p --long src/sage/file/you/want/to/test
+ $ cd sage && ./sage -t -p --long src/sage/file/you/want/to/test
 
 To run all the tests:
 
- sage$ ./sage -t -p --all --long --logfile=logs/ptestlong.log
+ sage$ cd sage && ./sage -t -p --all --long --logfile=logs/ptestlong.log
 
 See https://www.sagemath.org/git-developer-guide/doctesting.html for more
 information and helpful tips.
 
-Rewinding the build
--------------------
-
-For various technical reasons, you might need to do some extra manual steps for
-the above and below commands to work.
-
-- To run them after `dh_auto_install` has succeeded, first move or symlink
-  debian/tmp to debian/build.
-
-- To run them after `dpkg-buildpackage` has succeeded, you'll need to apply all
-  the debian patches again, then also do the previous point.
-
-Debugging test failures
------------------------
-
-Always focus on the *first failure* in a given test file. In many cases,
-subsequent failures (such as NameErrors) are due to the first failure, and many
-of those will go away after fixing the first one.
-
-We have some test-analysis rules that will print you some nice stats about the
-failures. For example:
-
- $ debian/rules failed-tests-by-count
- $ debian/rules failed-tests-by-error
- $ debian/rules failed-tests-by-cause
-
-Look in debian/rules for more. These are useful if you have hundreds or
-thousands of failures to deal with and don't know where to begin.
-
 Fixing test failures
 --------------------
-
-You should get to know the build process (in debian/rules), so that you can
-make fixes to particular test files without having to rebuild everything again,
-which takes ages!
 
 There are three cases:
 
@@ -99,22 +62,12 @@ There are three cases:
 - Fixing python code. That is, code in a .py file that is not a doctest.
 
   Edit the file in-place in sage/src/a/b/etc, then copy it over to
-  debian/build/usr/lib/python2.7/dist-packages/a/b/etc (or debian/tmp if
+  local/lib/python3.*/site-packages/a/b/etc (or debian/tmp if
   `dh_auto_install` had previously succeeded) then run the tests again.
 
 - Fixing cython code. That is, code in a .pyx file that is not a doctest.
 
-  You'll need to re-run the build again. First, make sure you've followed any
-  applicable commands from the "Rewinding the build" section above. Then:
-
-  $ debian/rules override_dh_auto_build-arch
-
-  This *should* only build the changed files. However we explicitly avoid
-  rebuilding the documentation, because incremental docbuild is currently
-  broken in upstream (#21612).
-
-  If you are impatient, you can even cancel the build early using Ctrl-C -
-  after it copies .so files into debian/build - then run your test again.
+  You'll need to re-run the build again.
 
 You may also find this useful:
 
@@ -144,50 +97,13 @@ Known causes::
 
 sage -t --long src/sage/misc/sagedoc.py  # 7 doctests failed // obviously fails when the documentation is not built
 
-Unknown::
-
-sage -t --long src/sage/geometry/polyhedron/backend_cdd.py  # 1 doctest failed
-
-Matplotlib version mismatch (see https://trac.sagemath.org/ticket/23696):
-
-sage -t --long src/sage/plot/arrow.py  # 1 doctest failed
-sage -t --long src/sage/plot/plot.py  # 1 doctest failed
-
-Sympy (see https://trac.sagemath.org/ticket/23496,
-       maybe fixed with sympy > 1.1.1 by https://github.com/sympy/sympy/pull/12826)
-
-sage -t --long src/sage/interfaces/sympy.py  # 1 doctest failed
-
-GLPK verbosity patch:
-
-sage -t --long src/sage/numerical/backends/glpk_exact_backend.pyx  # 1 doctest failed
-sage -t --long src/sage/numerical/backends/generic_backend.pyx  # 1 doctest failed
-sage -t --long src/sage/numerical/backends/glpk_backend.pyx  # 4 doctests failed
-
-This patch needs to be upstreamed to GLPK:
-https://git.sagemath.org/sage.git/tree/build/pkgs/glpk/patches/glp_exact_verbosity.patch?h=develop
-More discussion in the second half of:
-https://lists.alioth.debian.org/pipermail/debian-science-sagemath/2017-October/001086.html
-
-
 Manual testing
 ==============
-
-Pre-install jupyter notebook tests
-----------------------------------
-
-To test the jupyter notebook without installing anything, first see "rewinding
-the build" above". Then:
-
-1. Copy debian/build/usr/share/jupyter/kernels/sagemath to /usr/share/jupyter/kernels/
-2. Fix up the .svg symlinks there.
-3. Edit /usr/share/jupyter/kernels/sagemath/kernel.json to say "./sage" instead of /usr/bin/sage.
-4. `./sage -n jupyter`
 
 Examples
 --------
 
-These can be tested from the Sage CLI, SageNB, and the Jupyter Notebook.
+These can be tested from the Sage CLI and the Jupyter Notebook.
 
 Typesetting::
 

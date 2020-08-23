@@ -2,6 +2,27 @@
 SageMath in Debian
 ==================
 
+Running doctests
+================
+
+One can run the tests using the installed sage packages. First, get the source
+code for this package (`apt-get source sagemath`), and make sure the Debian
+patches are applied. Then, from the main source directory:
+
+ *$ sage -t -p --long --logfile=ptestlong.log sage/src/sage
+
+It's recommended that you install *all*  sagemath packages when running these
+tests. Otherwise you will see more failures than necessary.
+
+Feel free to upload your test logs somewhere and send links to them to our
+mailing list <debian-science-sagemath@lists.alioth.debian.org>. Please do not
+send your test logs directly, unless they are small (<400KB). Compressing them
+would be a good idea, if that helps to bring the size down.
+
+If you wish to help debug and fix test failures, see debian/README.source in
+the source package for more guidance on how to do that. In particular, you will
+need to build the source from scratch first.
+
 Unavailable features
 ====================
 
@@ -21,12 +42,6 @@ specify a different viewer; one of "threejs", "canvas3d" (SageNB only) or
 In the standard Sage command-line interface, the default viewer is Jmol (the
 Java counterpart to JSmol) and this should work fine.
 
-SageNB
-------
-
-HTTPS is unsupported, because certtool is not yet in Debian - see the sagenb
-package documentation for details.
-
 Optional packages
 -----------------
 
@@ -42,28 +57,3 @@ At the moment, some things are not working, or working a bit roughly:
 
 - Jupyter notebook: there are errors in the browser console relating to loading
   MathJax fonts but this doesn't seem to interfere with the functionality.
-
-
-Running doctests
-================
-
-One can run the tests using the installed sage packages. First, get the source
-code for this package (`apt-get source sagemath`), and make sure the Debian
-patches are applied. Then, from the 'sage' directory in the sources:
-
- *$ export -n SAGE_LOCAL SAGE_ROOT
- *$ SAGE_SRC=$(pwd)/src SAGE_PKGS=$(pwd)/build/pkgs sage -t -p --long --logfile=ptestlong.log --all
-
-It's recommended that you install *all* packages, including all documentation
-packages in all languages, when running these tests. Otherwise you will see
-more failures than necessary. They are easy to ignore, but every person that
-reads the results will have to figure this out, wasting time.
-
-Feel free to upload your test logs somewhere and send links to them to our
-mailing list <debian-science-sagemath@lists.alioth.debian.org>. Please do not
-send your test logs directly, unless they are small (<400KB). Compressing them
-would be a good idea, if that helps to bring the size down.
-
-If you wish to help debug and fix test failures, see debian/README.source in
-the source package for more guidance on how to do that. In particular, you will
-need to build the source from scratch first.

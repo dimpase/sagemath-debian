@@ -107,8 +107,8 @@ override_dh_auto_install:
 	mkdir -p debian/tmp/usr/share/sagemath/bin
 	cp sage/src/bin/sage-* debian/tmp/usr/share/sagemath/bin
 	rm -f debian/tmp/usr/bin/sage-*
-# Don't install sage-env-config and sage-env.
 	rm -f debian/tmp/usr/share/sagemath/bin/sage-env*
+	rm -f debian/tmp/usr/share/sagemath/bin/sage-*.bat
 # We built .pyo to make the docbuild/tests go faster, but as per Debian policy
 # we don't distribute them.
 	find debian/tmp '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
