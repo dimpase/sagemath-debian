@@ -78,6 +78,7 @@
  python3-stemmer,
  python3-sympy,
  python3-terminado,
+ python3-tk,
  python3-tornado,
  python3-traitlets,
  python3-tz,
