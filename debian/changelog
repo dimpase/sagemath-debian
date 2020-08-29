@@ -5,6 +5,16 @@ sagemath (9.2~beta9-1) UNRELEASED; urgency=medium
     - u0-version-flint-2.6.3.patch                #29719
     - d0-arb.patch
     - dt-system-python-undo-29627.patch
+  * Remove patches (in refactoring for 9.2):
+    - u1-fix-atrocious-symlink-logic.patch       #22444
+    - u1-looser-doctest-basename.patch           #22445
+    - u1-workaround-sympow-malloc-perturb.patch
+    - u2-allow-override-sage-local.patch
+    - d0-arb.patch
+    - d0-disable-jsmol.patch
+    - d1-sage-cli.patch
+    - df-sage-gap-reset-doctest.patch
+    - df-silence_ecl_opt_signals.patch
   * Remove patches (applied upstream in 9.1):
     - u0-version-scipy-1.4.patch                 #29115
     - u0-version-sympy-1.5.patch                 #28911
