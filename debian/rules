@@ -230,16 +230,11 @@ check-failed:
 ###############################################################################
 
 distclean:
+	rm -f debian/control
+	cd sage; git clean -fdx && git reset --hard HEAD && git submodule update --force
 	# don't git reset --hard on purpose, so it's easier to test
 	git clean -fdx
-
-distclean-sage:
-	cd sage; git clean -fdx && git reset --hard HEAD && git submodule update --force
-
-reset: clean-docbuild debian/control
-	QUILT_PATCHES=debian/patches quilt pop -af || true
-	debian/rules distclean-sage
-	QUILT_PATCHES=debian/patches quilt push -a
+	debian/rules debian/control
 
 build-dep-maint:
 	sudo apt-get install --no-install-recommends equivs devscripts git iso-codes python3 quilt
