@@ -6,6 +6,7 @@ sagemath (9.2~beta12-1) UNRELEASED; urgency=medium
     - d0-arb.patch
     - dt-system-python-undo-29627.patch
   * Remove patches (in refactoring for 9.2):
+    - u0-version-python-3.8.patch                #27754
     - u1-fix-atrocious-symlink-logic.patch       #22444
     - u1-looser-doctest-basename.patch           #22445
     - u1-workaround-sympow-malloc-perturb.patch

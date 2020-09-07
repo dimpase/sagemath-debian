@@ -14,7 +14,7 @@ Bug: https://trac.sagemath.org/ticket/29314
          """
 --- a/sage/src/sage/coding/linear_code.py
 +++ b/sage/src/sage/coding/linear_code.py
-@@ -480,17 +480,17 @@
+@@ -479,17 +479,17 @@
              0
              sage: C = codes.HammingCode(GF(4, 'z'), 3)
              sage: C.automorphism_group_gens()
@@ -37,7 +37,7 @@ Bug: https://trac.sagemath.org/ticket/29314
                  Defn: z |--> z),
                ((z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1, z + 1); (), Ring endomorphism of Finite Field in z of size 2^2
                  Defn: z |--> z)],
-@@ -706,10 +706,10 @@
+@@ -705,10 +705,10 @@
              sage: C_iso == aut_group_can_label.get_canonical_form()
              True
              sage: aut_group_can_label.get_autom_gens()

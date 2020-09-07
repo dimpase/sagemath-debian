@@ -91,7 +91,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  - Do you want to **add a new file** to the documentation? :ref:`Click here
 --- a/sage/src/doc/en/faq/faq-general.rst
 +++ b/sage/src/doc/en/faq/faq-general.rst
-@@ -311,7 +311,7 @@
+@@ -314,7 +314,7 @@
  documentation that makes up the Sage standard documentation. If you
  have downloaded a binary Sage release, the HTML version of the
  corresponding documentation comes pre-built and can be found under the
@@ -113,7 +113,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
    run ``make doc-clean``, because the presence, or lack, of pictures
 --- a/sage/src/sage_setup/docbuild/__init__.py
 +++ b/sage/src/sage_setup/docbuild/__init__.py
-@@ -416,7 +416,7 @@
+@@ -432,7 +432,7 @@
              document_name = document.split('/')[1]
  
              # the sage directory within a subdocument, for example
