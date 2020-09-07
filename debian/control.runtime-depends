@@ -36,7 +36,6 @@
  python3,
  python3-alabaster,
  python3-babel,
- python3-brial (>= 1.2.5-2),
  python3-cvxopt,
  python3-cycler,
  python3-cypari2 (>= 2.1),
