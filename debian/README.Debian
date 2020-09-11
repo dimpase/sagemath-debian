@@ -9,7 +9,7 @@ One can run the tests using the installed sage packages. First, get the source
 code for this package (`apt-get source sagemath`), and make sure the Debian
 patches are applied. Then, from the main source directory:
 
- *$ sage -t -p --long --logfile=ptestlong.log sage/src/sage
+ *$ SAGE_SRC=$(pwd)/sage/src sage -t -p --long --logfile=ptestlong.log sage/src/sage
 
 It's recommended that you install *all*  sagemath packages when running these
 tests. Otherwise you will see more failures than necessary.
