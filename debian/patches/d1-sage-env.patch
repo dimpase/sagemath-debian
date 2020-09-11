@@ -142,7 +142,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  """
  
  # ****************************************************************************
-@@ -178,26 +167,26 @@
+@@ -179,26 +168,26 @@
  var('SAGE_STARTUP_FILE',   join(DOT_SAGE, 'init.sage'))
  
  # installation directories for various packages
