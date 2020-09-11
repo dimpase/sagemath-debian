@@ -5,6 +5,7 @@ sagemath (9.2~beta12-1) UNRELEASED; urgency=medium
     - u0-version-flint-2.6.3.patch                #29719
     - d0-arb.patch
     - dt-system-python-undo-29627.patch
+    - dt-avoid-giac-segfault.patch
   * Remove patches (in refactoring for 9.2):
     - u1-fix-atrocious-symlink-logic.patch       #22444
     - u1-looser-doctest-basename.patch           #22445

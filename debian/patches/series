@@ -42,3 +42,4 @@ dt-version-ipywidgets-6-revert-23177.patch
 dt-version-ipywidgets-6-tests.patch
 #dt-system-python-undo-29627.patch
 dt-avoid-ecl-timeout.patch
+dt-avoid-giac-segfault.patch
