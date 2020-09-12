@@ -24,7 +24,7 @@ d0-singular.patch
 # Not suitable for upstreaming
 d1-sage-env.patch
 d1-doc-docs.patch
-d1-env.patch
+d1-sage.patch
 d1-no-spkg-builds.patch
 d1-system-python-packages.patch
 

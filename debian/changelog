@@ -35,7 +35,7 @@ sagemath (9.2~beta12-1) UNRELEASED; urgency=medium
   * New patches:
     - u0-version-flint-2.6.3.patch               #29719
     - d0-arb.patch
-    - d1-env.patch
+    - d1-sage.patch
     - d1-no-spkg-builds.patch
     - d1-system-python-packages.patch
     - dt-avoid-ecl-timeout.patch
