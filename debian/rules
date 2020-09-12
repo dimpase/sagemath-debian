@@ -34,12 +34,7 @@ else
 export SAGE_TIMEOUT_LONG = 3600
 endif
 
-#export SAGE_LOCAL = $(CURDIR)/debian/build/usr
-#export PYTHONPATH = $(CURDIR)/debian/build/usr/lib/python3/dist-packages
 export DOT_SAGE = $(CURDIR)/debian/test
-#export SAGE_SCRIPTS_DIR = $(CURDIR)/sage/src/bin
-#export SAGE_PYTHON3=yes
-#export SAGE_PYTHON_VERSION=3
 
 %:
 	dh $@ --with=python3
@@ -95,9 +90,6 @@ override_dh_auto_install:
 # We built .pyo to make the docbuild/tests go faster, but as per Debian policy
 # we don't distribute them.
 	find debian/tmp '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
-#	cp -f debian/adhoc/sage-env debian/tmp/usr/bin/
-# Install sage-python23 which is required at runtime but located in build/bin.
-#	cp -f sage/build/bin/sage-python23  debian/tmp/usr/bin/
 # Install (renamed) icons.
 	mkdir -p debian/tmp/usr/share/icons/hicolor/64x64/apps
 	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps

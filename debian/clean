@@ -1,9 +1,3 @@
-dh_auto_build-stamp
-prune
-debian/pruner/config.log
-debian/pruner/config.status
-debian/pruner/pruner.py
-debian/pruner/configure
 # extra upstream stuff :/
 sage/build/make/Makefile-auto.in
 sage/config/

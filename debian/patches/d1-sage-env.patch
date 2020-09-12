@@ -1,7 +1,4 @@
 Description: Patch sage-env and env.py
- Note that the patched sage-env is only used during the package build and not installed.
- Instead the file debian/adhoc/sage-env is installed.
- .
  The LD_LIBRARY_PATH can probably be forwarded upstream, either way is fine.
 Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
