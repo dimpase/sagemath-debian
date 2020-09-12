@@ -4,17 +4,16 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
 
 --- a/sage/src/bin/sage-env
 +++ b/sage/src/bin/sage-env
-@@ -291,7 +291,8 @@
+@@ -291,7 +291,7 @@
  export SAGE_LOGS="$SAGE_ROOT/logs/pkgs"
  export SAGE_SRC="$SAGE_ROOT/src"
  export SAGE_DOC_SRC="$SAGE_SRC/doc"
 -export SAGE_DOC="$SAGE_SHARE/doc/sage"
 +export SAGE_DOC="$SAGE_SHARE/doc/sagemath"
-+export SAGE_ARB_LIBRARY=flint-arb
  
  if [ -n "$SAGE_PKG_CONFIG_PATH" ]; then
      # set up external pkg-config to look into SAGE_LOCAL/lib/pkgconfig/
-@@ -352,8 +353,8 @@
+@@ -352,8 +352,8 @@
  [ -z "$CPATH" ] || CPATH=":${CPATH}"
  export CPATH="$SAGE_LOCAL/include${CPATH}"
  
@@ -25,7 +24,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$SAGE_REPO_ANONYMOUS" ]; then
      SAGE_REPO_ANONYMOUS="git://trac.sagemath.org/sage.git"
-@@ -368,16 +369,6 @@
+@@ -368,16 +368,6 @@
      export SAGE_DISTFILES
  fi
  
@@ -42,7 +41,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  if [ "$DOT_SAGE" = "" ]; then
      # It is *not* an error if this directory does not exist, it will
      # be created in src/bin/sage or src/sage/misc/misc.py.
-@@ -420,11 +411,10 @@
+@@ -420,11 +410,10 @@
      unset PYTHONHOME
  fi
  
@@ -57,7 +56,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  
  if [ -z "$IPYTHONDIR" ]; then
      # We hardcode a version number in the directory name. The idea is
-@@ -486,7 +476,6 @@
+@@ -486,7 +475,6 @@
      fi
  fi
  
@@ -65,7 +64,7 @@ Author: Tobias Hansen <thansen@debian.org>, Ximin Luo <infinity0@debian.org>
  export MAXIMA_USERDIR="$DOT_SAGE/maxima"
  
  PERL5LIB="$SAGE_LOCAL/lib/perl5:$PERL5LIB" && export PERL5LIB
-@@ -593,9 +582,6 @@
+@@ -593,9 +581,6 @@
      LD_LIBRARY_PATH="$SAGE_LOCAL/bin:$LD_LIBRARY_PATH" && export LD_LIBRARY_PATH
  fi
  
