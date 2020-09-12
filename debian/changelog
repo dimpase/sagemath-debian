@@ -1,10 +1,44 @@
 sagemath (9.2~beta12-1) UNRELEASED; urgency=medium
 
   * New upstream release.
+  * We are now using upstream's new configure script that checks for
+    system packages and configures sage to use them. It does not
+    recognize all system packages yet, so we patched it to never
+    build any spkg's (d1-no-spkg-builds.patch).
+    At the same time we changed some details about how sage is installed
+    and tried to remove as many patches as possible.
+  * Add debian/depcheck.py and run it after configure.
+    This script checks for all (Build-)Depends of the Debian package
+    if they appear in the debian.txt files under sage/build/pkgs/*/distros
+    and reports which ones do not appear in debian.txt files.
+    This can be used to find obsolete package Depends and to help create
+    missing debian.txt files.
+  * New (Build-)Depends:
+    - curl
+    - ecl (>= 20.4.24)
+    - glpk-utils
+    - libcurl4-openssl-dev
+    - libopenblas-dev
+    - libzmq3-dev
+    - maxima-sage (>= 5.44.0)
+    - pari-gp2c
+    - pari-elldata
+    - pari-galpol
+    - ppl-dev
+    - pynac (>= 0.7.26-5)
+    - python3-sphinx (>= 3.0)
+    - python3-tk
+    - yasm
+  * Remove (Build-)Depends:
+    - libblas-dev
+    - python3-brial (>= 1.2.5-2)
   * New patches:
-    - u0-version-flint-2.6.3.patch                #29719
+    - u0-version-flint-2.6.3.patch               #29719
     - d0-arb.patch
-    - dt-system-python-undo-29627.patch
+    - d1-env.patch
+    - d1-no-spkg-builds.patch
+    - d1-system-python-packages.patch
+    - dt-avoid-ecl-timeout.patch
     - dt-avoid-giac-segfault.patch
   * Remove patches (in refactoring for 9.2):
     - u1-fix-atrocious-symlink-logic.patch       #22444
@@ -16,6 +50,21 @@ sagemath (9.2~beta12-1) UNRELEASED; urgency=medium
     - d1-sage-cli.patch
     - df-sage-gap-reset-doctest.patch
     - df-silence_ecl_opt_signals.patch
+    - d0-threejs-default-in-notebooks.patch
+    - d0-paths.patch
+    - d0-threejs-offline-paths.patch
+    - d1-install-paths.patch
+    - d1-multiarch-python-paths.patch
+    - dt-version-glpk-4.60-extra-hacky-fixes.patch
+    - dt-more-fix-test-cases.patch
+    - dt-work-around-singular-mips64el-segfault.patch
+  * Remove patches (applied upstream in 9.2):
+    - u0-version-sphinx-2.4.patch                #28856
+    - u0-version-pari-2.11.3.patch               #29313
+    - u0-version-ecl-16.1.3.patch                #22191
+    - u0-version-ipython-7.patch                 #28197
+    - u2-version-matplotlib-3.2.1.patch
+    - u0-version-python-3.8.patch                #27754
   * Remove patches (applied upstream in 9.1):
     - u0-version-scipy-1.4.patch                 #29115
     - u0-version-sympy-1.5.patch                 #28911
@@ -26,18 +75,6 @@ sagemath (9.2~beta12-1) UNRELEASED; urgency=medium
     - d1-fakeroot.patch
     - dt-version-glpk-4.65-ignore-warnings.patch
   * Pass --enable-build-as-root to ./configure.
-  * Remove patches (applied upstream in 9.2):
-    - u0-version-sphinx-2.4.patch                #28856
-    - u0-version-pari-2.11.3.patch               #29313
-    - u0-version-ecl-16.1.3.patch                #22191
-    - u0-version-ipython-7.patch                 #28197
-    - u2-version-matplotlib-3.2.1.patch
-    - u0-version-python-3.8.patch                #27754
-  * New (Build-)Depends:
-    - python3-sphinx (>= 3.0)
-  * Remove (Build-)Depends:
-    - python3-brial (>= 1.2.5-2)
-  * Run bootstrap and configure in d/rules.
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 16 Jun 2020 20:59:19 +0200
 
