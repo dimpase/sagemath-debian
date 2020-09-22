@@ -322,7 +322,7 @@ Subject: Fix doctest in cpython/debug.pyx
        show_alt: Checkbox(value=False, description=u'Altitudes')
 --- a/sage/src/sage/repl/ipython_kernel/interact.py
 +++ b/sage/src/sage/repl/ipython_kernel/interact.py
-@@ -8,7 +8,7 @@
+@@ -9,7 +9,7 @@
  
  We need to setup a proper test environment for widgets::
  
@@ -331,7 +331,7 @@ Subject: Fix doctest in cpython/debug.pyx
      sage: setup_test_comm()
  
  EXAMPLES::
-@@ -17,10 +17,10 @@
+@@ -18,10 +18,10 @@
      sage: @interact
      ....: def f(x=(0,10)):
      ....:     pass
@@ -345,7 +345,7 @@ Subject: Fix doctest in cpython/debug.pyx
  """
  
  # ****************************************************************************
-@@ -54,10 +54,10 @@
+@@ -56,10 +56,10 @@
          sage: from sage.repl.ipython_kernel.interact import sage_interactive
          sage: def myfunc(x=10, y="hello", z=None): pass
          sage: sage_interactive(myfunc, x=(0,100), z=["one", "two", "three"])
@@ -359,7 +359,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      def __init__(*args, **kwds):
          """
-@@ -196,17 +196,17 @@
+@@ -198,17 +198,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_tuple( (0, 10) )
@@ -383,7 +383,7 @@ Subject: Fix doctest in cpython/debug.pyx
          """
          # Support (description, abbrev)
          if len(abbrev) == 2 and isinstance(abbrev[0], str):
-@@ -240,17 +240,17 @@
+@@ -242,17 +242,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_iterable([1..5])
@@ -500,7 +500,7 @@ Subject: Fix doctest in cpython/debug.pyx
              [4 5]
 --- a/sage/src/sage/repl/ipython_kernel/widgets_sagenb.py
 +++ b/sage/src/sage/repl/ipython_kernel/widgets_sagenb.py
-@@ -7,7 +7,7 @@
+@@ -8,7 +8,7 @@
  
  We need to setup a proper test environment for widgets::
  
@@ -509,7 +509,7 @@ Subject: Fix doctest in cpython/debug.pyx
      sage: setup_test_comm()
  
  EXAMPLES::
-@@ -78,7 +78,7 @@
+@@ -79,7 +79,7 @@
  
          sage: w = input_box("4+5", type=str, label="enter a string")
          sage: w
@@ -518,7 +518,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          '4+5'
  
-@@ -86,7 +86,7 @@
+@@ -87,7 +87,7 @@
  
          sage: w = input_box("4+5")
          sage: w
@@ -527,7 +527,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          9
  
-@@ -95,7 +95,7 @@
+@@ -96,7 +96,7 @@
  
          sage: w = input_box("4+5", type=float)
          sage: w
@@ -536,7 +536,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          9.0
  
-@@ -103,7 +103,7 @@
+@@ -104,7 +104,7 @@
  
          sage: w = input_box("4+5", type=sqrt)
          sage: w
@@ -545,7 +545,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: w.get_interact_value()
          3
  
-@@ -111,10 +111,10 @@
+@@ -112,10 +112,10 @@
  
          sage: w = input_box("4+5", width=100, height=1)
          sage: w
@@ -558,7 +558,7 @@ Subject: Fix doctest in cpython/debug.pyx
  
      TESTS::
  
-@@ -179,37 +179,37 @@
+@@ -180,37 +180,37 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import slider
          sage: slider(5, label="slide me")
@@ -605,7 +605,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: parent(w.get_interact_value())
          Real Field with 53 bits of precision
  
-@@ -217,7 +217,7 @@
+@@ -218,7 +218,7 @@
      possible values::
  
          sage: slider(range(10), default=17/10)
@@ -614,7 +614,7 @@ Subject: Fix doctest in cpython/debug.pyx
  
      TESTS::
  
-@@ -353,26 +353,26 @@
+@@ -354,26 +354,26 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import range_slider
          sage: range_slider(5, label="slide me")
@@ -648,7 +648,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: [parent(x) for x in w.get_interact_value()]
          [Real Double Field, Real Double Field]
  
-@@ -441,35 +441,35 @@
+@@ -442,35 +442,35 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import selector
          sage: selector(range(5), label="choose one")
@@ -693,7 +693,7 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      if isinstance(values, Sequence):
          values = list(values)
-@@ -522,14 +522,14 @@
+@@ -523,14 +523,14 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import input_grid
          sage: input_grid(2, 2, default=42, label="answers")

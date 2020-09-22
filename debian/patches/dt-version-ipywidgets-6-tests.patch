@@ -364,7 +364,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
      Full MatrixSpace of 2 by 2 dense matrices over Rational Field
 --- a/sage/src/sage/repl/ipython_kernel/interact.py
 +++ b/sage/src/sage/repl/ipython_kernel/interact.py
-@@ -163,7 +163,7 @@
+@@ -165,7 +165,7 @@
              EvalText(value=u'sin(x)')
              sage: from sage.plot.colors import Color
              sage: sage_interactive.widget_from_single_value(matrix([[1, 2], [3, 4]]))

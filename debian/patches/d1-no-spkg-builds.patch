@@ -7,8 +7,8 @@
 -        message="will be installed as an SPKG"
 +        message="will not be installed as an SPKG anyway"
          ;;
-     optional)
-         message="optional, use \"$srcdir/configure --enable-$SPKG_NAME\" to install"
+     optional|experimental)
+         AS_VAR_IF([SAGE_ENABLE_]${SPKG_NAME}, [yes], [
 @@ -215,8 +215,12 @@
              ],                               [ message="not required on your platform; SPKG will not be installed"
              ])
