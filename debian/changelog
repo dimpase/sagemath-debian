@@ -1,3 +1,9 @@
+sagemath (9.2~beta13-1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Tobias Hansen <thansen@debian.org>  Tue, 22 Sep 2020 13:11:45 +0200
+
 sagemath (9.2~beta12-1) unstable; urgency=medium
 
   * New upstream release. (Closes: #949023, #963338)
