@@ -3,8 +3,6 @@ sagemath (9.2~rc2-1) UNRELEASED; urgency=medium
   * New upstream release.
   * Remove patches (applied upstream):
     - d0-maxima.patch #30563
-  * New patches:
-    - u0-fix-undefined-bitset-intrinsic.patch
 
  -- Tobias Hansen <thansen@debian.org>  Tue, 22 Sep 2020 13:11:45 +0200
 
