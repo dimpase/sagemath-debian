@@ -66,7 +66,7 @@ Forwarded: TODO
  from sage.misc.temporary_file import tmp_dir
  from cysignals.signals import AlarmInterrupt, init_cysignals
  
-@@ -1076,7 +1076,7 @@
+@@ -1079,7 +1079,7 @@
              return 2
          opt = self.options
          if opt.gdb:

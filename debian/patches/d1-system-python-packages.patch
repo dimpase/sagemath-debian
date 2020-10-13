@@ -2,7 +2,7 @@ Bug: https://trac.sagemath.org/ticket/29665
 
 --- a/sage/build/make/install
 +++ b/sage/build/make/install
-@@ -28,8 +28,6 @@
+@@ -31,8 +31,6 @@
  fi
  export PATH="$SAGE_ROOT/build/bin:$SAGE_SRC/bin:$SAGE_LOCAL/bin:$PATH"
  
