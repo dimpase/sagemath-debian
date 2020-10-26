@@ -1,19 +1,6 @@
 Bug: https://trac.sagemath.org/ticket/29719
 
-From a3981f6eb02a3d9e7a78aa5c81525fbd0e3fbc96 Mon Sep 17 00:00:00 2001
-From: Dima Pasechnik <dima@pasechnik.info>
-Date: Sat, 23 May 2020 10:04:26 +0100
-Subject: skip square-freeness test for polynomials non-fields
-
-Due to change in the way Flint deals with this case,
-which now throws an exception rather than returns 1 regardless,
-we explicitly check for field-ness in the calls to
-HyperellipticCurve
----
- src/sage/schemes/hyperelliptic_curves/monsky_washnitzer.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-From 0d5a2e6b53dca951fb225d38ef9abc45ce264b62 Mon Sep 17 00:00:00 2001
+From 5de748df587599b0d65f6c2981bb85aad7a5c340 Mon Sep 17 00:00:00 2001
 From: Dima Pasechnik <dima@pasechnik.info>
 Date: Sat, 23 May 2020 10:52:07 +0100
 Subject: fix and make robust related doctests
@@ -27,22 +14,6 @@ flint 2.6.0 (stable)
  src/sage/modules/free_module_morphism.py        | 12 +++++++-----
  5 files changed, 25 insertions(+), 25 deletions(-)
 
-
-
---- a/sage/src/sage/schemes/hyperelliptic_curves/monsky_washnitzer.py
-+++ b/sage/src/sage/schemes/hyperelliptic_curves/monsky_washnitzer.py
-@@ -1876,9 +1876,9 @@
-             if not hasattr(self, '_curve'):
-                 if self._Q.degree() == 3:
-                     ainvs = [0, self._Q[2], 0, self._Q[1], self._Q[0]]
--                    self._curve = EllipticCurve(ainvs)
-+                    self._curve = EllipticCurve(ainvs, check_squarefree=R.is_field())
-                 else:
--                    self._curve = HyperellipticCurve(self._Q)
-+                    self._curve = HyperellipticCurve(self._Q, check_squarefree=R.is_field())
- 
-         else:
-             raise NotImplementedError("Must be an elliptic curve or polynomial "
 --- a/sage/src/doc/en/constructions/algebraic_geometry.rst
 +++ b/sage/src/doc/en/constructions/algebraic_geometry.rst
 @@ -142,13 +142,17 @@
