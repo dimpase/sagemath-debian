@@ -1,2 +1,3 @@
 version=4
-http://files.sagemath.org/src/index.html ./sage-([\d\.]+)\.tar\.gz
+opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/sage-$1\.tar\.gz/ \
+  https://github.com/sagemath/sage/tags .*/([\d\.]+)\.tar\.gz
