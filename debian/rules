@@ -80,7 +80,7 @@ endif
 override_dh_auto_install:
 	mkdir -p debian/tmp
 	mv sage/local debian/tmp/usr
-	mv debian/tmp/usr/lib/python3.8 debian/tmp/usr/lib/python3
+	mv debian/tmp/usr/lib/python3.* debian/tmp/usr/lib/python3
 	mv debian/tmp/usr/lib/python3/site-packages debian/tmp/usr/lib/python3/dist-packages
 	mkdir -p debian/tmp/usr/share/sagemath/bin
 	cp sage/src/bin/sage-* debian/tmp/usr/share/sagemath/bin
