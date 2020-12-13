@@ -22,9 +22,7 @@ include /usr/share/dpkg/pkg-info.mk
 include /usr/share/dpkg/architecture.mk
 
 ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-else
-NUMJOBS = 1
+export SAGE_NUM_THREADS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 endif
 
 # Some buildds are a bit slow, see https://buildd.debian.org/status/logs.php?pkg=gcc-7 for a fuller list
