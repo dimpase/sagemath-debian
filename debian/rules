@@ -35,9 +35,10 @@ export SAGE_TIMEOUT_LONG = 3600
 endif
 
 export DOT_SAGE = $(CURDIR)/debian/test
+export PYBUILD_NAME = sage
 
 %:
-	dh $@ --with=python3
+	dh $@ --with=python3 --buildsystem=pybuild --sourcedir=sage/src
 
 ###############################################################################
 # 2. GENERATE FILES
@@ -54,74 +55,6 @@ debian/control: debian/control.in
 ###############################################################################
 # 3. PACKAGE BUILD
 ###############################################################################
-
-run_build = \
-	MAKE='make -j$(NUMJOBS)' \
-	  $(MAKE) --directory=sage
-
-override_dh_auto_configure:
-	cd sage && ./bootstrap
-	cd sage && ./configure --enable-build-as-root
-	debian/depcheck.py
-
-clean:
-
-override_dh_auto_build-arch:
-	$(run_build) build
-
-override_dh_auto_build-indep:
-ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-	$(run_build) doc
-	cd sage/local/share/doc/sagemath/html && \
-	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
-	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
-endif
-
-override_dh_auto_install:
-	mkdir -p debian/tmp
-	mv sage/local debian/tmp/usr
-	mv debian/tmp/usr/lib/python3.* debian/tmp/usr/lib/python3
-	mv debian/tmp/usr/lib/python3/site-packages debian/tmp/usr/lib/python3/dist-packages
-	mkdir -p debian/tmp/usr/share/sagemath/bin
-	cp sage/src/bin/sage-* debian/tmp/usr/share/sagemath/bin
-	rm -f debian/tmp/usr/bin/sage-*
-	rm -f debian/tmp/usr/share/sagemath/bin/sage-env*
-	rm -f debian/tmp/usr/share/sagemath/bin/sage-*.bat
-# We built .pyo to make the docbuild/tests go faster, but as per Debian policy
-# we don't distribute them.
-	find debian/tmp '(' -name '*.pyc' -o -name '*.pyo' ')' -delete
-# Install (renamed) icons.
-	mkdir -p debian/tmp/usr/share/icons/hicolor/64x64/apps
-	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
-	cp -f sage/src/sage/ext_data/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
-	cp -f sage/src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
-# Fix up jupyter kernel installation
-	rm -f debian/tmp/usr/share/jupyter/nbextensions/jsmol
-	rm -f debian/tmp/usr/share/jupyter/kernels/sagemath/logo*
-	rm -f debian/tmp/usr/share/jupyter/kernels/sagemath/doc
-	ln -s /usr/share/doc/sagemath/html/en debian/tmp/usr/share/jupyter/kernels/sagemath/doc
-	ln -s /usr/share/icons/hicolor/64x64/apps/sagemath.png debian/tmp/usr/share/jupyter/kernels/sagemath/logo-64x64.png
-	ln -s /usr/share/icons/hicolor/scalable/apps/sagemath.svg debian/tmp/usr/share/jupyter/kernels/sagemath/logo.svg
-	sed -E 's|\[\".+bin/sage\",|\[\"/usr/bin/sage\",|' -i debian/tmp/usr/share/jupyter/kernels/sagemath/kernel.json
-
-#override_dh_auto_clean:
-#	dh_auto_clean -Dsage -- maintainer-clean
-#	rm -f sage/config.status
-
-override_dh_install-indep:
-	dh_install --package sagemath-common -X.so
-	dh_install --remaining-packages --list-missing
-# Basic version of deduplicating the docs, for a much smaller install size.
-# Upstream bug report is at https://trac.sagemath.org/ticket/22088
-# Hard links do work in Debian packages, but only within packages.
-	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc; \
-
-override_dh_python3-arch:
-	dh_python3
-	dh_numpy3 --package sagemath # stop lintian complaining at us
-
-override_dh_shlibdeps:
-	dh_shlibdeps -l debian/tmp/usr/lib
 
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
@@ -197,21 +130,6 @@ run_tests_with_retry = \
 	  $(check_test_log) had-few-failures; }; \
 	fi
 
-override_dh_auto_test-arch:
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,200)
-endif
-
-override_dh_auto_test-indep:
-ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	$(call run_tests_with_retry,indep,$(SAGE_TEST_FLAGS_INDEP) src/doc src/sage/misc/sagedoc.py,25)
-	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
-	# Sage doesn't detect this. Here we detect it and fail the build if so.
-	# Also filter out some false positives that are not hard errors.
-	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error\|Citation \[.*Error\] is not referenced")
-endif
-endif
 
 # manual target to re-run only failed tests
 check-failed:
