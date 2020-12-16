@@ -54,6 +54,10 @@ debian/control: debian/control.in
 # 3. PACKAGE BUILD
 ###############################################################################
 
+override_dh_auto_build:
+	cp -f debian/sage_conf.py sage/src/sage/
+	dh_auto_build
+
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
 # them from compression anyway for now, so the build goes quicker.
