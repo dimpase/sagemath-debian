@@ -1,3 +1,9 @@
+sagemath (9.2-3) UNRELEASED; urgency=medium
+
+  * Build standard python package python3-sage.
+
+ -- Tobias Hansen <thansen@debian.org>  Sat, 02 Jan 2021 19:44:42 +0000
+
 sagemath (9.2-2) unstable; urgency=medium
 
   * Do not hardcode python minor version in d/rules. (Closes: #972916)
