@@ -55,8 +55,13 @@ debian/control: debian/control.in
 ###############################################################################
 
 override_dh_auto_build:
-	cp -f debian/sage_conf.py sage/src/sage/
+	cp -f debian/sage_conf.py sage/src/
 	dh_auto_build
+
+override_dh_auto_install:
+	dh_auto_install
+	mkdir -p debian/python3-sage/usr/lib/python3/dist-packages/
+	cp -f debian/sage_conf.py debian/python3-sage/usr/lib/python3/dist-packages/
 
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
