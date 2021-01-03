@@ -32,7 +32,7 @@ else
 export SAGE_TIMEOUT_LONG = 3600
 endif
 
-export DOT_SAGE = $(CURDIR)/debian/test
+export HOME = $(CURDIR)
 export PYBUILD_NAME = sage
 
 %:
