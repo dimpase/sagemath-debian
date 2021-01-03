@@ -54,14 +54,19 @@ debian/control: debian/control.in
 # 3. PACKAGE BUILD
 ###############################################################################
 
+# We install directly after building in order to use the python package for
+# docbuild and testing.
 override_dh_auto_build:
 	cp -f debian/sage_conf.py sage/src/
 	dh_auto_build
+	dh_auto_install
+	mkdir -p debian/python3-sage/usr/lib/python3.9/dist-packages/
+	cp -f debian/sage_conf.py debian/python3-sage/usr/lib/python3.9/dist-packages/
 
 override_dh_auto_install:
-	dh_auto_install
-	mkdir -p debian/python3-sage/usr/lib/python3/dist-packages/
-	cp -f debian/sage_conf.py debian/python3-sage/usr/lib/python3/dist-packages/
+
+override_dh_auto_build-indep:
+	PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages python3 sage/src/sage_setup/docbuild --no-pdf-links --mathjax all html
 
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
@@ -74,8 +79,6 @@ override_dh_clean:
 
 override_dh_strip_nondeterminism:
 	dh_strip_nondeterminism -X.png # On png files it sometimes fails claiming it's not a png file.
-
-override_dh_auto_test:
 
 ###############################################################################
 # 4. TEST SUITE
@@ -126,7 +129,7 @@ had-not-too-many-failures:
 	  fi
 
 run_tests = \
-	cd sage && ./sage -t -p $(NUMJOBS) --logfile=logs/ptestlong-$(1).log $(2)
+	export PATH=$(PATH):$(CURDIR)/debian/python3-sage/usr/bin PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages SAGE_LOCAL=/usr && cd sage && sage -t -p $(NUMJOBS) --logfile=logs/ptestlong-$(1).log $(2)
 # If tests fail but not by too many more, then retry them once not in parallel
 # i386 seems to have issues running parallel tests - TODO: investigate this in more detail
 check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3)
@@ -139,6 +142,21 @@ run_tests_with_retry = \
 	  $(check_test_log) had-few-failures; }; \
 	fi
 
+override_dh_auto_test-arch:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,200)
+endif
+
+override_dh_auto_test-indep:
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	$(call run_tests_with_retry,indep,$(SAGE_TEST_FLAGS_INDEP) src/doc src/sage/misc/sagedoc.py,25)
+	# Sometimes, parts of the docbuild fail with MemoryError or OSError but
+	# Sage doesn't detect this. Here we detect it and fail the build if so.
+	# Also filter out some false positives that are not hard errors.
+	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error\|Citation \[.*Error\] is not referenced")
+endif
+endif
 
 # manual target to re-run only failed tests
 check-failed:
