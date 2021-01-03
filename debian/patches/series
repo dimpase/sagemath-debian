@@ -20,6 +20,7 @@ d0-libgap-path.patch
 d0-mathjax.patch
 d0-rubiks.patch
 d0-singular.patch
+d0-docbuild-main.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
