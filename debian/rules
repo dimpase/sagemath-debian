@@ -77,6 +77,9 @@ override_dh_clean:
 	rm -rf $(DOT_SAGE)
 	dh_clean
 
+override_dh_strip:
+	dh_strip -ppython3-sage --dbg-package=python3-sage-dbg
+
 override_dh_strip_nondeterminism:
 	dh_strip_nondeterminism -X.png # On png files it sometimes fails claiming it's not a png file.
 
