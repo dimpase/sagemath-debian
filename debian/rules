@@ -148,7 +148,7 @@ run_tests_with_retry = \
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	mkdir -p sage/logs
-	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,200)
+	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,250)
 endif
 
 override_dh_auto_test-indep:
