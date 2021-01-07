@@ -56,7 +56,7 @@ debian/control: debian/control.in
 
 # We install directly after building in order to use the python package for
 # docbuild and testing.
-override_dh_auto_build:
+override_dh_auto_build-arch:
 	cp -f debian/sage_conf.py sage/src/
 	dh_auto_build
 	dh_auto_install
