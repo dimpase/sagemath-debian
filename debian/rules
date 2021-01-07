@@ -66,7 +66,11 @@ override_dh_auto_build-arch:
 override_dh_auto_install:
 
 override_dh_auto_build-indep:
-	PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages python3 sage/src/sage_setup/docbuild --no-pdf-links --mathjax all html
+	cd sage/src && \
+	export PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
+	       SAGE_SRC=$(CURDIR)/sage/src \
+	       SAGE_DOC_SRC=$(CURDIR)/sage/src && \
+	python3 sage_setup/docbuild --no-pdf-links --mathjax all html
 
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
