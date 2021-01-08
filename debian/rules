@@ -55,22 +55,29 @@ debian/control: debian/control.in
 ###############################################################################
 
 # We install directly after building in order to use the python package for
-# docbuild and testing.
-override_dh_auto_build-arch:
+# docbuild and testing. This is required both for arch and indep builds.
+debian/python3-sage/usr/bin/sage:
 	cp -f debian/sage_conf.py sage/src/
 	dh_auto_build
 	dh_auto_install
 	mkdir -p debian/python3-sage/usr/lib/python3.9/dist-packages/
 	cp -f debian/sage_conf.py debian/python3-sage/usr/lib/python3.9/dist-packages/
 
-override_dh_auto_install:
+override_dh_auto_build-arch: debian/python3-sage/usr/bin/sage
 
-override_dh_auto_build-indep:
+override_dh_auto_build-indep: debian/python3-sage/usr/bin/sage
+	export PATH=$(PATH):$(CURDIR)/debian/python3-sage/usr/bin \
+	       PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
+	       SAGE_LOCAL=/usr && cd sage && \
+	sage -advanced > $(CURDIR)/sage/src/doc/en/reference/repl/options.txt
 	cd sage/src && \
 	export PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
 	       SAGE_SRC=$(CURDIR)/sage/src \
-	       SAGE_DOC_SRC=$(CURDIR)/sage/src && \
+	       SAGE_DOC_SRC=$(CURDIR)/sage/src/doc \
+	       SAGE_DOC=$(CURDIR)/sage/src/doc && \
 	python3 sage_setup/docbuild --no-pdf-links --mathjax all html
+
+override_dh_auto_install:
 
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
@@ -136,7 +143,10 @@ had-not-too-many-failures:
 	  fi
 
 run_tests = \
-	export PATH=$(PATH):$(CURDIR)/debian/python3-sage/usr/bin PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages SAGE_LOCAL=/usr && cd sage && sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
+	export PATH=$(PATH):$(CURDIR)/debian/python3-sage/usr/bin \
+	       PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
+	       SAGE_LOCAL=/usr && cd sage && \
+	sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
 # If tests fail but not by too many more, then retry them once not in parallel
 # i386 seems to have issues running parallel tests - TODO: investigate this in more detail
 check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3)
