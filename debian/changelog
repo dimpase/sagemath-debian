@@ -1,8 +1,11 @@
 sagemath (9.2-3) UNRELEASED; urgency=medium
 
   * Build standard python package python3-sage.
+  * New patches:
+    - u2-Adapt-to-python2-removal.patch
+    - u2-close-the-internal-pipe-of-multiprocessing.Process.patch
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 02 Jan 2021 19:44:42 +0000
+ -- Tobias Hansen <thansen@debian.org>  Fri, 06 Aug 2021 17:25:48 +0100
 
 sagemath (9.2-2) unstable; urgency=medium
 
