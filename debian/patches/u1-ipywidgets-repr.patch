@@ -9,7 +9,7 @@ Bug: https://github.com/jupyter-widgets/ipywidgets/pull/1031
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/repl/ipython_kernel/widgets.py
 +++ b/sage/src/sage/repl/ipython_kernel/widgets.py
-@@ -27,13 +27,43 @@
+@@ -26,13 +26,43 @@
  from ipywidgets.widgets import (IntSlider, IntRangeSlider,
                                  FloatSlider, FloatRangeSlider, Text,
                                  Textarea, ColorPicker, HTMLMath, Label,

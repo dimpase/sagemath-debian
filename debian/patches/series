@@ -1,41 +1,35 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
-u0-version-pari-2.13-spkg-configure.patch  #30906
-u0-version-pari-2.13.patch                 #30801
-u0-version-gap-4.11.patch                  #29314
-u0-version-flint-2.6.3.patch               #29719
 
 # Patches that have open upstream tickets
-u1-scripts-dir.patch                       #22731
+#u1-scripts-dir.patch                       #22731
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
 
 # Patches that should be upstreamed (may need some work first)
 u2-fix-sympow-cachedir.patch
-u2-Adapt-to-python2-removal.patch
+#u2-Adapt-to-python2-removal.patch
 u2-close-the-internal-pipe-of-multiprocessing.Process.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
-d0-gsl-cblas.patch
-d0-libgap-path.patch
+#d0-gsl-cblas.patch
+#d0-libgap-path.patch
 d0-mathjax.patch
 d0-rubiks.patch
-d0-singular.patch
-d0-docbuild-main.patch
+#d0-singular.patch bring back?
+#d0-docbuild-main.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
-d1-sage-env.patch
+#d1-sage-env.patch bring back?
 d1-doc-docs.patch
-d1-sage.patch
-d1-no-spkg-builds.patch
-d1-system-python-packages.patch
+#d1-sage.patch bring back?
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
+dt-version-ipywidgets-6-revert-31517.patch
 dt-version-ipywidgets-6-revert-23177.patch
 dt-version-ipywidgets-6-tests.patch
 dt-avoid-ecl-timeout.patch
-dt-avoid-giac-segfault.patch
-dt-avoid-pari-timeout.patch
+#dt-avoid-giac-segfault.patch

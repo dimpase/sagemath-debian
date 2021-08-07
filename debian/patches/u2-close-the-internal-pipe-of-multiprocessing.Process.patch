@@ -17,11 +17,9 @@ However, this method is only available since python 3.7.
  sage/src/sage/doctest/forker.py | 12 ++++++++++--
  1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/sage/src/sage/doctest/forker.py b/sage/src/sage/doctest/forker.py
-index 045975c1b5..170ce6824d 100644
 --- a/sage/src/sage/doctest/forker.py
 +++ b/sage/src/sage/doctest/forker.py
-@@ -1891,6 +1891,14 @@ class DocTestDispatcher(SageObject):
+@@ -1883,6 +1883,14 @@
                              # report(), parallel testing can easily fail
                              # with a "Too many open files" error.
                              w.save_result_output()
@@ -36,7 +34,7 @@ index 045975c1b5..170ce6824d 100644
                              finished.append(w)
                      workers = new_workers
  
-@@ -1910,10 +1918,10 @@ class DocTestDispatcher(SageObject):
+@@ -1902,10 +1910,10 @@
                          self.controller.reporter.report(
                              w.source,
                              w.killed,
@@ -49,6 +47,3 @@ index 045975c1b5..170ce6824d 100644
  
                          pending_tests -= 1
  
--- 
-2.30.2
-

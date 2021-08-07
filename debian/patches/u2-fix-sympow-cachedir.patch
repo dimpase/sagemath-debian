@@ -6,7 +6,7 @@ Forwarded: TODO
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/lfunctions/sympow.py
 +++ b/sage/src/sage/lfunctions/sympow.py
-@@ -50,6 +50,7 @@
+@@ -48,6 +48,7 @@
  
  import os
  
@@ -14,7 +14,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  from sage.structure.sage_object import SageObject
  from sage.misc.all import pager
  from sage.misc.verbose import verbose
-@@ -78,7 +79,7 @@
+@@ -76,7 +77,7 @@
          """
          Used to call sympow with given args
          """
