@@ -31,7 +31,7 @@ Build-Depends:
  libcdd-dev (>= 094j),
  libcliquer-dev,
  libcurl4-openssl-dev,
- libec-dev (>= 20190909-3),
+ libec-dev (>= 20210503),
  libecm-dev,
  libflint-arb-dev (>= 1:2.15),
  libflint-dev (>= 2.5.2-5),

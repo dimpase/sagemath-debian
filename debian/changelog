@@ -2,6 +2,9 @@ sagemath (9.4~rc0-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Build standard python package python3-sage.
+  * New (Build-)Depends:
+    - libec-dev (>= 20210503)
+    - python3-memory-allocator
   * New patches:
     - u2-Adapt-to-python2-removal.patch
     - u2-close-the-internal-pipe-of-multiprocessing.Process.patch
