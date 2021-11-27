@@ -2,5 +2,4 @@
  pari-doc (>= 2.11.0),
  python3-sagenb-export (>= 3.2),
  r-cran-lattice,
- singular-doc (>= 1:4.1.1-p2),
- singular-doc (<< 1:4.1.1-p3+ds-1),
+ singular-doc (>= 1:4.2.1-p2),

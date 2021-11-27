@@ -5,6 +5,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
   * New (Build-)Depends:
     - libec-dev (>= 20210503)
     - python3-memory-allocator
+    - singular (>= 1:4.2.1-p2)
   * New patches:
     - u2-Adapt-to-python2-removal.patch
     - u2-close-the-internal-pipe-of-multiprocessing.Process.patch
