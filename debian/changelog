@@ -1,4 +1,4 @@
-sagemath (9.4~rc0-1) UNRELEASED; urgency=medium
+sagemath (9.4-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Build standard python package python3-sage.
