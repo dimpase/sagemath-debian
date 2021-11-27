@@ -1,0 +1,371 @@
+Bug: https://trac.sagemath.org/ticket/32907
+
+From 2673632e6e9e5caa372c448ad71a0c6cfdc9b050 Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sat, 20 Nov 2021 11:31:19 +0100
+Subject: Port to API changes in singular 4.2.1p2
+
+---
+ src/sage/libs/singular/decl.pxd                    |  8 +++----
+ src/sage/libs/singular/polynomial.pyx              |  6 ++---
+ src/sage/libs/singular/singular.pyx                |  4 ++--
+ .../multi_polynomial_ideal_libsingular.pyx         |  2 +-
+ .../polynomial/multi_polynomial_libsingular.pyx    | 26 +++++++++++-----------
+ src/sage/rings/polynomial/plural.pyx               | 10 ++++-----
+ 6 files changed, 28 insertions(+), 28 deletions(-)
+
+From 720d10e8a7f7d2bf4038b65c64e73db494106a57 Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sat, 20 Nov 2021 12:41:06 +0100
+Subject: Update tests for singular 4.2.1p2
+
+---
+ src/sage/modular/modform_hecketriangle/abstract_space.py           | 4 ++--
+ src/sage/modular/modform_hecketriangle/readme.py                   | 4 ++--
+ .../asymptotic/asymptotics_multivariate_generating_functions.py    | 2 +-
+ src/sage/rings/polynomial/hilbert.pyx                              | 7 ++-----
+ src/sage/rings/polynomial/multi_polynomial_ideal.py                | 2 +-
+ src/sage/rings/polynomial/multi_polynomial_libsingular.pyx         | 3 ++-
+ 6 files changed, 10 insertions(+), 12 deletions(-)
+
+From cca353b70b9fdf04ca2fb1b76fff097d6bde940a Mon Sep 17 00:00:00 2001
+From: Matthias Koeppe <mkoeppe@math.ucdavis.edu>
+Date: Sat, 20 Nov 2021 09:48:50 -0800
+Subject: src/sage/rings/polynomial/hilbert.pyx: Fix doctest markup
+
+---
+ src/sage/rings/polynomial/hilbert.pyx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+
+--- a/sage/src/sage/libs/singular/decl.pxd
++++ b/sage/src/sage/libs/singular/decl.pxd
+@@ -747,21 +747,21 @@
+ 
+     # general number constructor
+ 
+-    number *n_Init(int n, ring *r)
++    number *n_Init(int n, n_Procs_s *cf)
+ 
+     # general number destructor
+ 
+-    void n_Delete(number **n, ring *r)
++    void n_Delete(number **n, n_Procs_s *cf)
+ 
+     # Copy this number
+-    number *n_Copy(number *n, ring* r)
++    number *n_Copy(number *n, n_Procs_s *cf)
+ 
+     # Invert this number
+     int n_IsUnit(number *n, const n_Procs_s *cf)
+     number *n_Invers(number *n, const n_Procs_s *cf)
+ 
+     # Characteristic of coefficient domain
+-    int n_GetChar(const ring* r)
++    int n_GetChar(const n_Procs_s *cf)
+ 
+     # rational number from int
+ 
+--- a/sage/src/sage/libs/singular/polynomial.pyx
++++ b/sage/src/sage/libs/singular/polynomial.pyx
+@@ -130,7 +130,7 @@
+         rChangeCurrRing(r)
+     cdef number *_n = sa2si(n, r)
+     ret[0] = pp_Mult_nn(p, _n, r)
+-    n_Delete(&_n, r)
++    n_Delete(&_n, r.cf)
+     return 0
+ 
+ cdef int singular_polynomial_call(poly **ret, poly *p, ring *r, list args, poly *(*get_element)(object)):
+@@ -275,7 +275,7 @@
+             h = r.cf.cfSub(p_GetCoeff(p, r),p_GetCoeff(q, r),r.cf)
+             # compare coeffs
+             ret = -1+r.cf.cfIsZero(h,r.cf)+2*r.cf.cfGreaterZero(h, r.cf) # -1: <, 0:==, 1: >
+-            n_Delete(&h, r)
++            n_Delete(&h, r.cf)
+         p = pNext(p)
+         q = pNext(q)
+ 
+@@ -346,7 +346,7 @@
+     cdef number *n = p_GetCoeff(q, r)
+     n = r.cf.cfInvers(n,r.cf)
+     ret[0] = pp_Mult_nn(p, n, r)
+-    n_Delete(&n, r)
++    n_Delete(&n, r.cf)
+     sig_off()
+     return 0
+ 
+--- a/sage/src/sage/libs/singular/singular.pyx
++++ b/sage/src/sage/libs/singular/singular.pyx
+@@ -669,7 +669,7 @@
+ cdef number *sa2si(Element elem, ring * _ring):
+     cdef int i = 0
+     if isinstance(elem._parent, FiniteField_prime_modn):
+-        return n_Init(int(elem),_ring)
++        return n_Init(int(elem),_ring.cf)
+ 
+     elif isinstance(elem._parent, RationalField):
+         return sa2si_QQ(elem, _ring)
+@@ -690,7 +690,7 @@
+         return sa2si_NF(elem, _ring)
+     elif isinstance(elem._parent, IntegerModRing_generic):
+         if _ring.cf.type == n_unknown:
+-            return n_Init(int(elem),_ring)
++            return n_Init(int(elem),_ring.cf)
+         return sa2si_ZZmod(elem, _ring)
+     else:
+         raise ValueError("cannot convert to SINGULAR number")
+--- a/sage/src/sage/rings/polynomial/multi_polynomial_ideal_libsingular.pyx
++++ b/sage/src/sage/rings/polynomial/multi_polynomial_ideal_libsingular.pyx
+@@ -329,7 +329,7 @@
+                 n = r.cf.cfInvers(n,r.cf)
+             result.m[j] = pp_Mult_nn(p, n, r)
+             p_Delete(&p,r)
+-            n_Delete(&n,r)
++            n_Delete(&n,r.cf)
+ 
+     id_Delete(&i,r)
+ 
+--- a/sage/src/sage/rings/polynomial/multi_polynomial_libsingular.pyx
++++ b/sage/src/sage/rings/polynomial/multi_polynomial_libsingular.pyx
+@@ -1653,7 +1653,7 @@
+             else:
+                 raise ArithmeticError("Cannot divide these coefficients.")
+         else:
+-            p_SetCoeff0(res, n_Init(1, r), r)
++            p_SetCoeff0(res, n_Init(1, r.cf), r)
+         return new_MP(self, res)
+ 
+     def monomial_divides(self, MPolynomial_libsingular a, MPolynomial_libsingular b):
+@@ -1806,7 +1806,7 @@
+                     if r is not currRing:
+                         rChangeCurrRing(r)
+                     flt = pMDivide(f._poly, h._poly)
+-                    p_SetCoeff(flt, n_Init(1, r), r)
++                    p_SetCoeff(flt, n_Init(1, r.cf), r)
+                     return (new_MP(self, flt), h)
+         return (self._zero_element, self._zero_element)
+ 
+@@ -2886,7 +2886,7 @@
+                     flag = 1
+             if flag == 0:
+                 newptemp = p_LmInit(p,r)
+-                p_SetCoeff(newptemp,n_Copy(p_GetCoeff(p,r),r),r)
++                p_SetCoeff(newptemp,n_Copy(p_GetCoeff(p,r),r.cf),r)
+                 for i from 0<=i<gens:
+                     if exps[i] != -1:
+                         p_SetExp(newptemp,i+1,0,r)
+@@ -3188,7 +3188,7 @@
+             t = pNext(p)
+             p.next = NULL
+             coeff = si2sa(p_GetCoeff(p, _ring), _ring, base)
+-            p_SetCoeff(p, n_Init(1,_ring), _ring)
++            p_SetCoeff(p, n_Init(1,_ring.cf), _ring)
+             p_Setm(p, _ring)
+             yield (coeff, new_MP(parent, p))
+             p = t
+@@ -3717,7 +3717,7 @@
+         while p:
+             t = pNext(p)
+             p.next = NULL
+-            p_SetCoeff(p, n_Init(1,_ring), _ring)
++            p_SetCoeff(p, n_Init(1,_ring.cf), _ring)
+             p_Setm(p, _ring)
+             l.append( new_MP(parent,p) )
+             p = t
+@@ -3994,7 +3994,7 @@
+         if self._poly == NULL:
+             return self._parent._zero_element
+         _p = p_Head(self._poly, _ring)
+-        p_SetCoeff(_p, n_Init(1,_ring), _ring)
++        p_SetCoeff(_p, n_Init(1,_ring.cf), _ring)
+         p_Setm(_p,_ring)
+         return new_MP(self._parent, _p)
+ 
+@@ -4143,7 +4143,7 @@
+         elif p_IsOne(_right._poly, r):
+             return self
+ 
+-        if n_GetChar(r) > 1<<29:
++        if n_GetChar(r.cf) > 1<<29:
+             raise NotImplementedError("Division of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
+ 
+         if r.cf.type != n_unknown:
+@@ -4154,7 +4154,7 @@
+                 while p:
+                     if p_DivisibleBy(_right._poly, p, r):
+                         temp = p_MDivide(p, _right._poly, r)
+-                        p_SetCoeff0(temp, n_Copy(p_GetCoeff(p, r), r), r)
++                        p_SetCoeff0(temp, n_Copy(p_GetCoeff(p, r), r.cf), r)
+                         quo = p_Add_q(quo, temp, r)
+                     p = pNext(p)
+                 return new_MP(parent, quo)
+@@ -4459,7 +4459,7 @@
+             except Exception:
+                 raise NotImplementedError("Factorization of multivariate polynomials over %s is not implemented."%self._parent._base)
+ 
+-        if n_GetChar(_ring) > 1<<29:
++        if n_GetChar(_ring.cf) > 1<<29:
+             raise NotImplementedError("Factorization of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
+ 
+         # I make a temporary copy of the poly in self because singclap_factorize appears to modify it's parameter
+@@ -4843,7 +4843,7 @@
+             if _ring.cf.type == n_Znm or _ring.cf.type == n_Zn or _ring.cf.type == n_Z2m :
+                 raise NotImplementedError("GCD over rings not implemented.")
+ 
+-        if n_GetChar(_ring) > 1<<29:
++        if n_GetChar(_ring.cf) > 1<<29:
+             raise NotImplementedError("GCD of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
+ 
+         cdef int count = singular_polynomial_length_bounded(self._poly,20) \
+@@ -4893,7 +4893,8 @@
+ 
+             sage: Pol.<x,y,z> = ZZ[]
+             sage: p = -x*y + x*z + 54*x - 2
+-            sage: (5*p^2).lcm(3*p) == 15*p^2
++            sage: q = (5*p^2).lcm(3*p)
++            sage: q * q.lc().sign() == 15*p^2
+             True
+             sage: lcm(2*x, 2*y)
+             2*x*y
+@@ -4916,7 +4917,7 @@
+         else:
+             _g = <MPolynomial_libsingular>g
+ 
+-        if n_GetChar(_ring) > 1<<29:
++        if n_GetChar(_ring.cf) > 1<<29:
+             raise NotImplementedError("LCM of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
+ 
+         cdef int count = singular_polynomial_length_bounded(self._poly,20) \
+@@ -4996,7 +4997,7 @@
+             py_rem = self - right*py_quo
+             return py_quo, py_rem
+ 
+-        if n_GetChar(r) > 1<<29:
++        if n_GetChar(r.cf) > 1<<29:
+             raise NotImplementedError("Division of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
+ 
+         cdef int count = singular_polynomial_length_bounded(self._poly,15)
+@@ -5451,7 +5452,7 @@
+             raise TypeError("second parameter needs to be an element of self.parent() or None")
+ 
+ 
+-        if n_GetChar(_ring) > 1<<29:
++        if n_GetChar(_ring.cf) > 1<<29:
+             raise NotImplementedError("Resultants of multivariate polynomials over prime fields with characteristic > 2^29 is not implemented.")
+ 
+         if is_IntegerRing(self._parent._base):
+--- a/sage/src/sage/rings/polynomial/plural.pyx
++++ b/sage/src/sage/rings/polynomial/plural.pyx
+@@ -1063,7 +1063,7 @@
+             else:
+                 raise ArithmeticError("Cannot divide these coefficients.")
+         else:
+-            p_SetCoeff0(res, n_Init(1, r), r)
++            p_SetCoeff0(res, n_Init(1, r.cf), r)
+         return new_NCP(self, res)
+ 
+     def monomial_divides(self, NCPolynomial_plural a, NCPolynomial_plural b):
+@@ -1251,7 +1251,7 @@
+                 h = <NCPolynomial_plural>g
+                 if p_LmDivisibleBy(h._poly, m, r):
+                     flt = pMDivide(f._poly, h._poly)
+-                    p_SetCoeff(flt, n_Init(1, r), r)
++                    p_SetCoeff(flt, n_Init(1, r.cf), r)
+                     return (new_NCP(self,flt), h)
+         return (self._zero_element, self._zero_element)
+ 
+@@ -2112,7 +2112,7 @@
+                     flag = 1
+             if flag == 0:
+                 newptemp = p_LmInit(p,r)
+-                p_SetCoeff(newptemp,n_Copy(p_GetCoeff(p,r),r),r)
++                p_SetCoeff(newptemp,n_Copy(p_GetCoeff(p,r),r.cf),r)
+                 for i from 0<=i<gens:
+                     if exps[i] != -1:
+                         p_SetExp(newptemp,i+1,0,r)
+@@ -2545,7 +2545,7 @@
+         while p:
+             t = pNext(p)
+             p.next = NULL
+-            p_SetCoeff(p, n_Init(1,_ring), _ring)
++            p_SetCoeff(p, n_Init(1,_ring.cf), _ring)
+             p_Setm(p, _ring)
+             l.append( new_NCP(parent,p) )
+             p = t
+@@ -2650,7 +2650,7 @@
+         if self._poly == NULL:
+             return (<NCPolynomialRing_plural>self._parent)._zero_element
+         _p = p_Head(self._poly, _ring)
+-        p_SetCoeff(_p, n_Init(1,_ring), _ring)
++        p_SetCoeff(_p, n_Init(1,_ring.cf), _ring)
+         p_Setm(_p,_ring)
+         return new_NCP((<NCPolynomialRing_plural>self._parent), _p)
+ 
+--- a/sage/src/sage/modular/modform_hecketriangle/abstract_space.py
++++ b/sage/src/sage/modular/modform_hecketriangle/abstract_space.py
+@@ -1158,8 +1158,8 @@
+ 
+             sage: MF.F_basis_pol(2)
+             x^13*y*d^2 - 2*x^8*y^3*d^2 + x^3*y^5*d^2
+-            sage: MF.F_basis_pol(1)
+-            (-81*x^13*y*d + 62*x^8*y^3*d + 19*x^3*y^5*d)/(-100)
++            sage: MF.F_basis_pol(1) * 100
++            81*x^13*y*d - 62*x^8*y^3*d - 19*x^3*y^5*d
+             sage: MF.F_basis_pol(0)
+             (141913*x^13*y + 168974*x^8*y^3 + 9113*x^3*y^5)/320000
+ 
+--- a/sage/src/sage/modular/modform_hecketriangle/readme.py
++++ b/sage/src/sage/modular/modform_hecketriangle/readme.py
+@@ -757,8 +757,8 @@
+ 
+   General Eisenstein series in some arithmetic cases::
+ 
+-      sage: ModularFormsRing(n=4).EisensteinSeries(k=8)
+-      (-25*f_rho^4 - 9*f_i^2)/(-34)
++      sage: ModularFormsRing(n=4).EisensteinSeries(k=8) * 34
++      25*f_rho^4 + 9*f_i^2
+       sage: ModularForms(n=3, k=12).EisensteinSeries()
+       1 + 65520/691*q + 134250480/691*q^2 + 11606736960/691*q^3 + 274945048560/691*q^4 + O(q^5)
+       sage: ModularForms(n=6, k=12).EisensteinSeries()
+--- a/sage/src/sage/rings/asymptotic/asymptotics_multivariate_generating_functions.py
++++ b/sage/src/sage/rings/asymptotic/asymptotics_multivariate_generating_functions.py
+@@ -1578,7 +1578,7 @@
+             (1, [(x*y + x + y - 1, 2)])
+             sage: alpha = [4, 3]
+             sage: decomp = F.asymptotic_decomposition(alpha); decomp
+-            (0, []) + (-2*r*(1/x + 1) - 1/2/x - 1/2, [(x*y + x + y - 1, 1)])
++            (0, []) + (... - 1/2, [(x*y + x + y - 1, 1)])
+             sage: F1 = decomp[1]
+             sage: p = {y: 1/3, x: 1/2}
+             sage: asy = F1.asymptotics(p, alpha, 2, verbose=True)
+--- a/sage/src/sage/rings/polynomial/hilbert.pyx
++++ b/sage/src/sage/rings/polynomial/hilbert.pyx
+@@ -576,13 +576,10 @@
+         sage: hilbert_poincare_series(J).denominator().factor()
+         (t - 1)^14
+ 
+-    This example exceeds the current capabilities of Singular::
++    This example exceeded the capabilities of Singular before version 4.2.1p2::
+ 
+         sage: J.hilbert_numerator(algorithm='singular')
+-        Traceback (most recent call last):
+-        ...
+-        RuntimeError: error in Singular function call 'hilb':
+-         int overflow in hilb 1
++        120*t^33 - 3465*t^32 + 48180*t^31 - 429374*t^30 + 2753520*t^29 - 13522410*t^28 + 52832780*t^27 - 168384150*t^26 + 445188744*t^25 - 987193350*t^24 + 1847488500*t^23 + 1372406746*t^22 - 403422496*t^21 - 8403314*t^20 - 471656596*t^19 + 1806623746*t^18 + 752776200*t^17 + 752776200*t^16 - 1580830020*t^15 + 1673936550*t^14 - 1294246800*t^13 + 786893250*t^12 - 382391100*t^11 + 146679390*t^10 - 42299400*t^9 + 7837830*t^8 - 172260*t^7 - 468930*t^6 + 183744*t^5 - 39270*t^4 + 5060*t^3 - 330*t^2 + 1
+ 
+     """
+     cdef Polynomial_integer_dense_flint HP
+--- a/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
++++ b/sage/src/sage/rings/polynomial/multi_polynomial_ideal.py
+@@ -154,7 +154,7 @@
+     which is not 1. ::
+ 
+         sage: I.groebner_basis()
+-        [x + y + 57119*z + 4, y^2 + 3*y + 17220, y*z + y + 26532, 2*y + 158864, z^2 + 17223, 2*z + 41856, 164878]
++        [x + y + 57119*z + 4, y^2 + 3*y + 17220, y*z + ..., 2*y + 158864, z^2 + 17223, 2*z + 41856, 164878]
+ 
+     Now for each prime `p` dividing this integer 164878, the Groebner
+     basis of I modulo `p` will be non-trivial and will thus give a
