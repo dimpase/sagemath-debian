@@ -36,7 +36,7 @@ export HOME = $(CURDIR)
 export PYBUILD_NAME = sage
 
 %:
-	dh $@ --with=python3 --buildsystem=pybuild --sourcedir=sage/src -v
+	dh $@ --with=python3 --buildsystem=pybuild --sourcedir=sage/pkgs/sagemath-standard -v
 
 ###############################################################################
 # 2. GENERATE FILES
@@ -57,7 +57,7 @@ debian/control: debian/control.in
 # We install directly after building in order to use the python package for
 # docbuild and testing. This is required both for arch and indep builds.
 debian/python3-sage/usr/bin/sage:
-	cp -f debian/sage_conf.py sage/src/
+	cp -f debian/sage_conf.py sage/pkgs/sagemath-standard/
 	dh_auto_build
 	dh_auto_install
 	mkdir -p debian/python3-sage/usr/lib/python3.9/dist-packages/
