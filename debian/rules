@@ -66,16 +66,17 @@ debian/python3-sage/usr/bin/sage:
 override_dh_auto_build-arch: debian/python3-sage/usr/bin/sage
 
 override_dh_auto_build-indep: debian/python3-sage/usr/bin/sage
-	export PATH=$(PATH):$(CURDIR)/debian/python3-sage/usr/bin \
-	       PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
-	       SAGE_LOCAL=/usr && cd sage && \
-	sage -advanced > $(CURDIR)/sage/src/doc/en/reference/repl/options.txt
+	cd sage && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin src/doc/bootstrap
+	mv sage/src/sage sage/src/sage.bak # Use the installed sage, not the one from the source tree
 	cd sage/src && \
 	export PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
 	       SAGE_SRC=$(CURDIR)/sage/src \
 	       SAGE_DOC_SRC=$(CURDIR)/sage/src/doc \
-	       SAGE_DOC=$(CURDIR)/sage/src/doc && \
-	python3 sage_setup/docbuild --no-pdf-links --mathjax all html
+	       SAGE_DOC=$(CURDIR)/sage/src/doc \
+	       MATHJAX_DIR=/usr/share/javascript/mathjax \
+	       LANG=C && \
+	python3 -m sage_docbuild --no-pdf-links --mathjax all html
+	mv sage/src/sage.bak sage/src/sage
 
 override_dh_auto_install:
 
