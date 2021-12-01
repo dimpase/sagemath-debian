@@ -1,4 +1,4 @@
 # The private scripts in /usr/share/sagemath/bin are using sage-python23
 # as interpreter in order to allow switching between python 2 and 3. This interpreter
 # is installed to the same directory which is in PATH when the scripts are called.
-sagemath-common: unusual-interpreter
+sagemath: unusual-interpreter

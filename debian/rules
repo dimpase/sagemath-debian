@@ -56,20 +56,21 @@ debian/control: debian/control.in
 
 # We install directly after building in order to use the python package for
 # docbuild and testing. This is required both for arch and indep builds.
-debian/python3-sage/usr/bin/sage:
+debian/tmp/usr/bin/sage:
 	cp -f debian/sage_conf.py sage/pkgs/sagemath-standard/
 	dh_auto_build
 	dh_auto_install
-	mkdir -p debian/python3-sage/usr/lib/python3.9/dist-packages/
-	cp -f debian/sage_conf.py debian/python3-sage/usr/lib/python3.9/dist-packages/
+	mv debian/python3-sage debian/tmp
+	mkdir -p debian/tmp/usr/lib/python3.9/dist-packages/
+	cp -f debian/sage_conf.py debian/tmp/usr/lib/python3.9/dist-packages/
 
-override_dh_auto_build-arch: debian/python3-sage/usr/bin/sage
+override_dh_auto_build-arch: debian/tmp/usr/bin/sage
 
-override_dh_auto_build-indep: debian/python3-sage/usr/bin/sage
+override_dh_auto_build-indep: debian/tmp/usr/bin/sage
 	cd sage && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin src/doc/bootstrap
 	mv sage/src/sage sage/src/sage.bak # Use the installed sage, not the one from the source tree
 	cd sage/src && \
-	export PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
+	export PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.9/dist-packages \
 	       SAGE_SRC=$(CURDIR)/sage/src \
 	       SAGE_DOC_SRC=$(CURDIR)/sage/src/doc \
 	       SAGE_DOC=$(CURDIR)/sage/src/doc \
@@ -79,6 +80,17 @@ override_dh_auto_build-indep: debian/python3-sage/usr/bin/sage
 	mv sage/src/sage.bak sage/src/sage
 
 override_dh_auto_install:
+# Install desktop file
+	mkdir -p debian/tmp/usr/share/applications
+	cp -f debian/sagemath.desktop debian/tmp/usr/share/applications/sagemath.desktop
+# Install (renamed) icons.
+	mkdir -p debian/tmp/usr/share/icons/hicolor/64x64/apps
+	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
+	cp -f sage/src/sage/ext_data/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
+	cp -f sage/src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
+
+override_dh_prep:
+	dh_prep -Xdebian/tmp
 
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
@@ -89,8 +101,8 @@ override_dh_clean:
 	rm -rf $(DOT_SAGE)
 	dh_clean
 
-override_dh_strip:
-	dh_strip -ppython3-sage --dbg-package=python3-sage-dbg
+#override_dh_strip:
+#	dh_strip -ppython3-sage --dbg-package=python3-sage-dbg
 
 override_dh_strip_nondeterminism:
 	dh_strip_nondeterminism -X.png # On png files it sometimes fails claiming it's not a png file.
@@ -144,8 +156,8 @@ had-not-too-many-failures:
 	  fi
 
 run_tests = \
-	export PATH=$(PATH):$(CURDIR)/debian/python3-sage/usr/bin \
-	       PYTHONPATH=$(CURDIR)/debian/python3-sage/usr/lib/python3.9/dist-packages \
+	export PATH=$(PATH):$(CURDIR)/debian/tmp/usr/bin \
+	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.9/dist-packages \
 	       SAGE_LOCAL=/usr && cd sage && \
 	sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
 # If tests fail but not by too many more, then retry them once not in parallel

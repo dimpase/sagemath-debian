@@ -83,8 +83,7 @@ Build-Depends:
  zlib1g-dev,
 
 Package: sagemath
-Architecture: any
-Multi-Arch: same
+Architecture: all
 Description: Open Source Mathematical Software
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
@@ -98,7 +97,7 @@ Description: Open Source Mathematical Software
  This package contains the main SageMath installation.
 Depends: ${misc:Depends}, ${shlibs:Depends}, ${python3:Depends},
  RUNTIME_DEPENDS
- sagemath-common (= ${source:Version})
+ python3-sage (= ${source:Version})
 Recommends:
  RUNTIME_RECOMMENDS
  sagemath-doc (= ${source:Version}),
@@ -116,8 +115,10 @@ Suggests:
  gap-toric
 
 Package: python3-sage
-Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}
+Architecture: any
+Multi-Arch: same
+Depends: ${python3:Depends}, ${misc:Depends},
+         python3-sage-common (= ${source:Version})
 Description: Open Source Mathematical Software - Python 3 library
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
@@ -130,10 +131,11 @@ Description: Open Source Mathematical Software - Python 3 library
  .
  This package installs the library for Python 3.
 
-Package: sagemath-common
+Package: python3-sage-common
 Architecture: all
 Multi-Arch: foreign
-Description: Open Source Mathematical Software - architecture-independent files
+Depends: ${python3:Depends}, ${misc:Depends}
+Description: Open Source Mathematical Software - Python 3 library (common files)
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
  matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
@@ -143,12 +145,10 @@ Description: Open Source Mathematical Software - architecture-independent files
  Mission: Creating a viable free open source alternative to Magma, Maple,
  Mathematica and Matlab.
  .
- This package contains the architecture-independent files of SageMath.
-Depends: ${misc:Depends}, ${python3:Depends}
+ This package contains the architecture independent parts of the library for Python 3.
 
 Package: sagemath-jupyter
 Architecture: all
-Multi-Arch: foreign
 Description: Open Source Mathematical Software - Jupyter kernel
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
@@ -162,7 +162,7 @@ Description: Open Source Mathematical Software - Jupyter kernel
  This package contains the Jupyter kernel of SageMath.
 Depends: ${misc:Depends},
  JUPYTER_DEPENDS
- sagemath (>= ${source:Version}), sagemath (<< ${source:Version}.1~)
+ sagemath (= ${source:Version})
 
 Package: sagemath-doc
 Architecture: all
@@ -191,12 +191,3 @@ Replaces: sagemath-doc-ca (<< 8.9~beta9-1~), sagemath-doc-de (<< 8.9~beta9-1~),
  sagemath-doc-it (<< 8.9~beta9-1~), sagemath-doc-ja (<< 8.9~beta9-1~),
  sagemath-doc-pt (<< 8.9~beta9-1~), sagemath-doc-ru (<< 8.9~beta9-1~),
  sagemath-doc-tr (<< 8.9~beta9-1~)
-
-Package: sagemath-doc-en
-Depends: sagemath-doc, ${misc:Depends}
-Architecture: all
-Multi-Arch: foreign
-Priority: optional
-Section: oldlibs
-Description: transitional package
- This is a transitional package. It can safely be removed.
