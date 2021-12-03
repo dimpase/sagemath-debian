@@ -311,10 +311,6 @@ Copyright: Copyright (C) 2005-2016 The Sage Development Team
            Copyright (C) 2014 James Campbell james.campbell@tanti.org.uk
 License: GPL-3+
 
-Files: sage/build/pkgs/cddlib/patches/random.*
-Copyright: Copyright (C) 1991, 1996 Free Software Foundation, Inc.
-License: LGPL-2.1+
-
 Files: sage/src/doc/*
 Copyright: Copyright (C) 2005-2016 The Sage Development Team
 License: CC-BY-SA-3.0

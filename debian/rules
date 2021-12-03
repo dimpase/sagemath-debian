@@ -96,6 +96,10 @@ override_dh_install-indep:
 	dh_install --package python3-sage-common -X.so
 	dh_install --remaining-packages --list-missing
 
+override_dh_python3-arch:
+	dh_python3
+	dh_numpy3 --package python3-sage # stop lintian complaining at us
+
 override_dh_compress:
 # We probably don't need to install the pickle/doctree files but let's exempt
 # them from compression anyway for now, so the build goes quicker.

@@ -19,6 +19,6 @@ sagemath source: override_dh_clean-does-not-call-dh_clean
 
 # These are just example files that are only used to test if
 # sage is able to reproduce them (in sage/src/doc/en/reference/plot3d/threejs.rst)
-sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/animation.html *
-sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/helix.html *
-sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/spheres.html *
+sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/animation.html
+sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/helix.html
+sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/spheres.html
