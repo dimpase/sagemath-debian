@@ -106,7 +106,8 @@ override_dh_compress:
 	dh_compress -X.pdf -X.pickle -X.doctree
 
 override_dh_clean:
-	rm -rf $(DOT_SAGE)
+	rm -rf .sage .texlive2021 debian/python3-sage-dbg
+	rm -f sage/pkgs/sagemath-standard/sage_conf.py
 	dh_clean
 
 #override_dh_strip:
