@@ -80,6 +80,8 @@ override_dh_auto_build-indep: debian/tmp/usr/bin/sage
 	mv sage/src/sage.bak sage/src/sage
 
 override_dh_auto_install:
+# Delete .bat files
+	rm -f debian/tmp/usr/bin/*.bat
 # Install desktop file
 	mkdir -p debian/tmp/usr/share/applications
 	cp -f debian/sagemath.desktop debian/tmp/usr/share/applications/sagemath.desktop
@@ -90,9 +92,11 @@ override_dh_auto_install:
 	cp -f sage/src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
 
 override_dh_prep:
+# Prevent dh_prep from deleting debian/tmp.
 	dh_prep -Xdebian/tmp
 
 override_dh_install-indep:
+# Remove .so files from common package.
 	dh_install --package python3-sage-common -X.so
 	dh_install --remaining-packages --list-missing
 
