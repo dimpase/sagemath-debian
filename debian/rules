@@ -78,6 +78,11 @@ override_dh_auto_build-indep: debian/tmp/usr/bin/sage
 	       LANG=C && \
 	python3 -m sage_docbuild --no-pdf-links --mathjax all html
 	mv sage/src/sage.bak sage/src/sage
+	mkdir -p debian/tmp/usr/share/doc/sagemath
+	cp -rf sage/src/doc/html debian/tmp/usr/share/doc/sagemath/
+	cd debian/tmp/usr/share/doc/sagemath/html && \
+	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
+	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
 
 override_dh_auto_install:
 # Delete .bat files
@@ -99,6 +104,10 @@ override_dh_install-indep:
 # Remove .so files from common package.
 	dh_install --package python3-sage-common -X.so
 	dh_install --remaining-packages --list-missing
+# Basic version of deduplicating the docs, for a much smaller install size.
+# Upstream bug report is at https://trac.sagemath.org/ticket/22088
+# Hard links do work in Debian packages, but only within packages.
+	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc; \
 
 override_dh_python3-arch:
 	dh_python3
