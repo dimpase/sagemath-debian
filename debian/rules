@@ -58,6 +58,10 @@ debian/control: debian/control.in
 # docbuild and testing. This is required both for arch and indep builds.
 debian/tmp/usr/bin/sage:
 	cp -f debian/sage_conf.py sage/pkgs/sagemath-standard/
+# Generate setup.cfg etc in sage/src from .m4 files:
+	cd sage/build/pkgs/sagelib && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin ./bootstrap
+# Remove sage-conf from setup.cfg, it can lead to a dependency on sagemath-common
+	sed -i '/sage_conf/d' sage/src/setup.cfg
 	dh_auto_build
 	dh_auto_install
 	mv debian/python3-sage debian/tmp
