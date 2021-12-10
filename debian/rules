@@ -83,7 +83,7 @@ override_dh_auto_build-indep: debian/tmp/usr/bin/sage
 	python3 -m sage_docbuild --no-pdf-links --mathjax all html
 	mv sage/src/sage.bak sage/src/sage
 	mkdir -p debian/tmp/usr/share/doc/sagemath
-	cp -rf sage/src/doc/html debian/tmp/usr/share/doc/sagemath/
+	mv sage/src/doc/html debian/tmp/usr/share/doc/sagemath/
 	cd debian/tmp/usr/share/doc/sagemath/html && \
 	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
 	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
