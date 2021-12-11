@@ -64,7 +64,9 @@ debian/tmp/usr/bin/sage:
 	sed -i '/sage_conf/d' sage/src/setup.cfg
 	dh_auto_build
 	dh_auto_install
-	mv debian/python3-sage debian/tmp
+	mkdir -p debian/tmp
+	mv debian/python3-sage/usr debian/tmp/
+	rm -rf debian/python3-sage
 	mkdir -p debian/tmp/usr/lib/python3.9/dist-packages/
 	cp -f debian/sage_conf.py debian/tmp/usr/lib/python3.9/dist-packages/
 
@@ -107,11 +109,17 @@ override_dh_prep:
 override_dh_install-indep:
 # Remove .so files from common package.
 	dh_install --package python3-sage-common -X.so
-	dh_install --remaining-packages --list-missing
+	dh_install --remaining-packages
 # Basic version of deduplicating the docs, for a much smaller install size.
 # Upstream bug report is at https://trac.sagemath.org/ticket/22088
 # Hard links do work in Debian packages, but only within packages.
 	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc; \
+
+override_dh_installman-indep:
+	dh_installman -psagemath debian/sage.1
+
+override_dh_missing:
+	dh_missing --list-missing
 
 override_dh_python3-arch:
 	dh_python3

@@ -38,6 +38,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
     - d1-sage-env.patch
     - d1-sage.patch
     - dt-avoid-giac-segfault.patch
+  * Use dephelper-compat level 13.
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 06 Aug 2021 17:25:48 +0100
 
