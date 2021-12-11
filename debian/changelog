@@ -3,6 +3,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
   * New upstream release.
   * Build standard python package python3-sage.
   * New (Build-)Depends:
+    - Use dependencies as provided by upstream (drop many).
     - libec-dev (>= 20210503)
     - python3-memory-allocator
     - singular (>= 1:4.2.1-p2)

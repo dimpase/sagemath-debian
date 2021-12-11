@@ -1,5 +1,4 @@
  maxima-sage-doc (>= 5.42.2),
  pari-doc (>= 2.11.0),
  python3-sagenb-export (>= 3.2),
- r-cran-lattice,
  singular-doc (>= 1:4.2.1-p2+ds-3),
