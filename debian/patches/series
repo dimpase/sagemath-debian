@@ -12,24 +12,17 @@ u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/i
 
 # Patches that should be upstreamed (may need some work first)
 u2-fix-sympow-cachedir.patch
-#u2-Adapt-to-python2-removal.patch
 u2-close-the-internal-pipe-of-multiprocessing.Process.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
-#d0-gsl-cblas.patch
-#d0-libgap-path.patch
 d0-mathjax.patch
 d0-rubiks.patch
-#d0-singular.patch bring back?
-#d0-docbuild-main.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
-#d1-sage-env.patch bring back?
 d1-doc-docs.patch
-#d1-sage.patch bring back?
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
@@ -37,4 +30,3 @@ dt-version-ipywidgets-6-revert-31517.patch
 dt-version-ipywidgets-6-revert-23177.patch
 dt-version-ipywidgets-6-tests.patch
 dt-avoid-ecl-timeout.patch
-#dt-avoid-giac-segfault.patch

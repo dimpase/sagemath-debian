@@ -1,8 +1,0 @@
-Origin: https://git.archlinux.org/svntogit/community.git/plain/trunk/docbuild_main.patch?h=packages/sagemath-doc
-
---- a/sage/src/sage_setup/docbuild/__main__.py
-+++ b/sage/src/sage_setup/docbuild/__main__.py
-@@ -1,2 +1,2 @@
--from . import main
-+from sage_setup.docbuild import main
- main()

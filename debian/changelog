@@ -12,7 +12,6 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
     - u0-version-lcalc-2.0.patch                 #32037
     - u0-version-gsl-2.7.patch                   #32607
     - u1-version-sphinx-4.3.patch                #32968
-    - u2-Adapt-to-python2-removal.patch
     - u2-close-the-internal-pipe-of-multiprocessing.Process.patch
     - dt-version-ipywidgets-6-revert-31517.patch
   * Remove patches (applied upstream):
@@ -23,6 +22,14 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
     - d1-no-spkg-builds.patch
     - d1-system-python-packages.patch
     - dt-avoid-pari-timeout.patch
+  * Remove patches (no longer required):
+    - d0-gsl-cblas.patch
+    - d0-libgap-path.patch
+    - d0-singular.patch
+    - d0-docbuild-main.patch
+    - d1-sage-env.patch
+    - d1-sage.patch
+    - dt-avoid-giac-segfault.patch
 
  -- Tobias Hansen <thansen@debian.org>  Fri, 06 Aug 2021 17:25:48 +0100
 
