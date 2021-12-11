@@ -94,7 +94,7 @@
  sagemath-database-graphs,
  sagemath-database-mutually-combinatorial-designs,
  sagemath-database-polytopes,
- singular (>= 1:4.2.1-p2),
+ singular (>= 1:4.2.1-p2+ds-3),
  sqlite3,
  sympow (>= 1.023-9),
  tachyon,
