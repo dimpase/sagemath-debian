@@ -13,17 +13,22 @@ Vcs-Git: https://salsa.debian.org/science-team/sagemath.git
 Vcs-Browser: https://salsa.debian.org/science-team/sagemath
 Rules-Requires-Root: no
 Build-Depends:
- RUNTIME_DEPENDS
- RUNTIME_RECOMMENDS
- JUPYTER_DEPENDS
  autoconf,
- cython3-dbg,
  debhelper (>= 10),
  dh-python (>= 2.20170125),
  dpkg-dev (>= 1.17.14),
- gdb,
+ pkg-config,
+ python3-debian,
+ python3-dev,
+ python3-dbg,
+ rdfind,
  git,
+ gdb,
+ cython3-dbg,
  libc6-dbg,
+ RUNTIME_DEPENDS
+ RUNTIME_RECOMMENDS
+ JUPYTER_DEPENDS
  libboost-dev (>= 1.55),
  libbraiding-dev,
  libbrial-dev (>= 1.2.5-2),
@@ -37,7 +42,6 @@ Build-Depends:
  libflint-dev (>= 2.5.2-5),
  libfplll-dev (>= 5.2.1),
  libfreetype6-dev,
- libgap-dev,
  libgc-dev,
  libgd-dev,
  libgf2x-dev (>= 1.2-4),
@@ -63,24 +67,20 @@ Build-Depends:
  libplanarity-dev,
  libpng-dev,
  libppl-dev (>= 1:1.1),
- libpynac-dev (>= 0.7.29-2),
  libratpoints-dev,
  libreadline-dev,
  librw-dev,
- libsingular4-dev (>= 1:4.2.1-p2+ds-3),
  libsqlite3-dev,
  libsymmetrica-dev,
  libzmq3-dev,
  libzn-poly-dev,
- pkg-config,
  ppl-dev,
- python3-debian,
- python3-dev,
- python3-dbg,
  r-base-dev,
- rdfind,
  texlive-latex-base,
  zlib1g-dev,
+ libgap-dev,
+ libpynac-dev (>= 0.7.29-2),
+ libsingular4-dev (>= 1:4.2.1-p2+ds-3),
 
 Package: sagemath
 Architecture: all
@@ -113,6 +113,8 @@ Suggests:
  gap-laguna,
  gap-sonata,
  gap-toric
+Breaks: sagemath-common (<< 9.4-1)
+Replaces: sagemath-common (<< 9.4-1)
 
 Package: python3-sage
 Architecture: any
@@ -130,6 +132,8 @@ Description: Open Source Mathematical Software - Python 3 library
  Mathematica and Matlab.
  .
  This package installs the library for Python 3.
+Breaks: sagemath (<< 9.4-1)
+Replaces: sagemath (<< 9.4-1)
 
 Package: python3-sage-common
 Architecture: all
@@ -146,6 +150,8 @@ Description: Open Source Mathematical Software - Python 3 library (common files)
  Mathematica and Matlab.
  .
  This package contains the architecture independent parts of the library.
+Breaks: sagemath-common (<< 9.4-1)
+Replaces: sagemath-common (<< 9.4-1)
 
 Package: sagemath-jupyter
 Architecture: all
