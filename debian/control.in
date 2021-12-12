@@ -206,7 +206,7 @@ Description: Open Source Mathematical Software - documentation
  Mathematica and Matlab.
  .
  This package contains the documentation.
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, libjs-mathjax
 Breaks: sagemath-doc-ca (<< 8.9~beta9-1~), sagemath-doc-de (<< 8.9~beta9-1~),
  sagemath-doc-en (<< 8.9~beta9-1~), sagemath-doc-es (<< 8.9~beta9-1~),
  sagemath-doc-fr (<< 8.9~beta9-1~), sagemath-doc-hu (<< 8.9~beta9-1~),
