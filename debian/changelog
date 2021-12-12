@@ -8,6 +8,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
     - Use dependencies as provided by upstream (drop many).
     - libec-dev (>= 20210503)
     - python3-memory-allocator
+    - python3-sphinx (>= 4.3.1-2) (includes fix to dh_sphinxdoc)
     - singular (>= 1:4.2.1-p2)
   * Add dependency on libjs-mathjax to sagemath-doc.
     (Closes: #988681)
