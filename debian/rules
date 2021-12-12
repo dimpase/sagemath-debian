@@ -73,6 +73,7 @@ debian/tmp/usr/bin/sage:
 override_dh_auto_build-arch: debian/tmp/usr/bin/sage
 
 override_dh_auto_build-indep: debian/tmp/usr/bin/sage
+ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 	cd sage && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin src/doc/bootstrap
 	mv sage/src/sage sage/src/sage.bak # Use the installed sage, not the one from the source tree
 	cd sage/src && \
@@ -89,6 +90,7 @@ override_dh_auto_build-indep: debian/tmp/usr/bin/sage
 	cd debian/tmp/usr/share/doc/sagemath/html && \
 	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
 	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
+endif
 
 override_dh_auto_install:
 # Delete .bat files
@@ -110,10 +112,12 @@ override_dh_install-indep:
 # Remove .so files from common package.
 	dh_install --package python3-sage-common -X.so
 	dh_install --remaining-packages
+ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 # Basic version of deduplicating the docs, for a much smaller install size.
 # Upstream bug report is at https://trac.sagemath.org/ticket/22088
 # Hard links do work in Debian packages, but only within packages.
-	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc; \
+	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc;
+endif
 
 override_dh_installman-indep:
 	dh_installman -psagemath debian/sage.1
@@ -131,10 +135,12 @@ override_dh_compress:
 	dh_compress -X.pdf -X.pickle -X.doctree
 
 override_dh_sphinxdoc:
+ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 # TODO: fix MathJax.js, Sage needs special treatment
 # `man dh_sphinxdoc` says symlinking translations.js is not yet supported
 # likewise, it seems not to recognise searchtools.js yet
 	dh_sphinxdoc -XMathJax.js -Xtranslations.js -Xsearchtools.js
+endif
 
 override_dh_clean:
 	rm -rf .sage .texlive2021 debian/python3-sage-dbg
@@ -219,7 +225,7 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 endif
 
 override_dh_auto_test-indep:
-ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	mkdir -p sage/logs
 	$(call run_tests_with_retry,indep,$(SAGE_TEST_FLAGS_INDEP) src/doc src/sage/misc/sagedoc.py,25)

@@ -196,6 +196,7 @@ Depends: ${misc:Depends},
 Package: sagemath-doc
 Architecture: all
 Multi-Arch: foreign
+Build-Profiles: <!nodoc>
 Description: Open Source Mathematical Software - documentation
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
