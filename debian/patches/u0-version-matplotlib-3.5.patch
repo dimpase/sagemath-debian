@@ -1,0 +1,26 @@
+Bug: https://trac.sagemath.org/ticket/32909
+
+From a5127dc56fdf5c2e82f6bc781cfe78dbd04e97b7 Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sat, 20 Nov 2021 10:00:14 +0100
+Subject: get_path_in_displaycoord was made private in matplotlib 3.5
+
+---
+ src/sage/plot/arrow.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+--- a/sage/src/sage/plot/arrow.py
++++ b/sage/src/sage/plot/arrow.py
+@@ -405,7 +405,11 @@
+                     self._n = n
+ 
+                 def get_paths(self, renderer):
+-                    paths, fillables = self._patch.get_path_in_displaycoord()
++                    # get_path_in_displaycoord was made private in matplotlib 3.5
++                    try:
++                        paths, fillables = self._patch._get_path_in_displaycoord()
++                    except AttributeError:
++                        paths, fillables = self._patch.get_path_in_displaycoord()
+                     return paths
+ 
+                 def __call__(self, renderer, gc, tpath, affine, rgbFace):

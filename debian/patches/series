@@ -1,6 +1,7 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
 u0-trac32799-set-MPMATH_SAGE.patch         #32799
+u0-version-matplotlib-3.5.patch            #32909
 u0-version-singular-4.2.1.patch            #32001
 u0-version-singular-4.2.1p2.patch          #32907
 u0-version-lcalc-2.0.patch                 #32037
