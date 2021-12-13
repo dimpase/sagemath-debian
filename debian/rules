@@ -103,6 +103,11 @@ override_dh_auto_install:
 	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
 	cp -f sage/src/sage/ext_data/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
 	cp -f sage/src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
+# Fix links to icons.
+	cd debian/tmp/usr/share/jupyter/kernels/sagemath && rm -f logo-64x64.png && \
+	   ln -s ../../../icons/hicolor/64x64/apps/sagemath.png logo-64x64.png
+	cd debian/tmp/usr/share/jupyter/kernels/sagemath && rm -f logo.svg && \
+	   ln -s ../../../icons/hicolor/scalable/apps/sagemath.svg logo.svg
 
 override_dh_prep:
 # Prevent dh_prep from deleting debian/tmp.
