@@ -3,3 +3,7 @@ sagemath-doc binary: extra-license-file usr/share/doc/sagemath/html/en/reference
 
 # Lintian's warning is only about cross-device links, I was advised to override it by another DD
 sagemath-doc binary: package-contains-hardlink usr/share/doc/sagemath/html/*
+
+# Some of these are not dealt with by dh_sphinxdoc.
+sagemath-doc: duplicate-font-file
+sagemath-doc: embedded-javascript-library

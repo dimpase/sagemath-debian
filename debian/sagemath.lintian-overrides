@@ -1,4 +1,7 @@
-# The private scripts in /usr/share/sagemath/bin are using sage-python23
-# as interpreter in order to allow switching between python 2 and 3. This interpreter
-# is installed to the same directory which is in PATH when the scripts are called.
-sagemath: unusual-interpreter
+# Installing these scripts somewhere else than in /usr/bin
+# is currently not supported by upstream and would cause a
+# lot of complexity in packaging.
+# This is mentioned in https://trac.sagemath.org/ticket/22731
+sagemath: executable-not-elf-or-script usr/bin/*
+sagemath: no-manual-page usr/bin/*
+sagemath: script-with-language-extension usr/bin/*
