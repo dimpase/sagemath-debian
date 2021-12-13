@@ -1,9 +1,10 @@
 sagemath (9.4-1) UNRELEASED; urgency=medium
 
-  * New upstream release.
-    (Closes: #964848, #984326, #986527, #993149, #998190)
+  * New upstream release. (Closes: #951592, #960925, #964848,
+    #984326, #986527, #993149, #998190)
   * Doctests work out of the box now. (Closes: #931223)
   * Build standard python package python3-sage.
+  * Install scripts to /usr/bin (Closes: #972346)
   * New (Build-)Depends:
     - Use dependencies as provided by upstream (drop many).
     - libec-dev (>= 20210503)
