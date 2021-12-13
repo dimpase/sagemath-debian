@@ -43,13 +43,11 @@ Build-Depends:
  libflint-dev,
  libfreetype6-dev,
  libgc-dev,
- libgd-dev,
  libgf2x-dev,
  libgiac-dev,
  libgivaro-dev,
  libglpk-dev,
  libgmp-dev,
- libgsl-dev,
  libhomfly-dev,
  libiml-dev,
  liblfunction-dev,
@@ -99,10 +97,8 @@ Build-Depends:
  python3-sympy,
 # Additional library dependencies not provided by upstream:
  libgap-dev,
- liblinbox-dev,
  libpynac-dev (>= 0.7.29-2),
  libratpoints-dev,
- libsingular4-dev (>= 1:4.2.1-p2+ds-3),
 
 Package: sagemath
 Architecture: all
