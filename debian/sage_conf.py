@@ -1,7 +1,7 @@
 r"""
 Sage variable definitions for Debian
 """
-SAGE_DOC                      = '/usr/share/sagemath/doc/sagemath'
+SAGE_DOC                      = '/usr/share/doc/sagemath'
 
 CONWAY_POLYNOMIALS_DATA_DIR   = '/usr/share/sagemath/conway_polynomials'
 GRAPHS_DATA_DIR               = '/usr/share/sagemath/graphs'
