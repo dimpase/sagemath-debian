@@ -137,6 +137,7 @@ Breaks: sagemath-common (<< 9.4-1)
 Replaces: sagemath-common (<< 9.4-1)
 
 Package: python3-sage
+Section: python
 Architecture: any
 Multi-Arch: same
 Depends: ${python3:Depends}, ${misc:Depends}, ${shlibs:Depends},
@@ -159,6 +160,7 @@ Breaks: sagemath (<< 9.4-1)
 Replaces: sagemath (<< 9.4-1)
 
 Package: python3-sage-common
+Section: python
 Architecture: all
 Multi-Arch: foreign
 Depends: ${python3:Depends}, ${misc:Depends}
@@ -194,6 +196,7 @@ Depends: ${misc:Depends},
  sagemath (= ${source:Version})
 
 Package: sagemath-doc
+Section: doc
 Architecture: all
 Multi-Arch: foreign
 Build-Profiles: <!nodoc>

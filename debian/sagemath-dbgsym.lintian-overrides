@@ -1,3 +1,0 @@
-# The field Build-Ids is generated automatically for dbgsym packages
-# and can be long, see #942493.
-sagemath-dbgsym: field-too-long 'Build-Ids'

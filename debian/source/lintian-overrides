@@ -13,10 +13,6 @@ sagemath source: source-is-missing sage/src/sage/ext_data/doctest/rich_output/ex
 # used for testing basic functionality for handling flv files.
 sagemath source: source-contains-prebuilt-flash-object sage/src/sage/ext_data/doctest/rich_output/example.flv
 
-# It does in fact call dh_clean, unless one builds with the option 'nodoc',
-# in which case previously generated docs are preserved.
-sagemath source: override_dh_clean-does-not-call-dh_clean
-
 # These are just example files that are only used to test if
 # sage is able to reproduce them (in sage/src/doc/en/reference/plot3d/threejs.rst)
 sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/animation.html
