@@ -1,7 +1,7 @@
 sagemath (9.4-1) UNRELEASED; urgency=medium
 
   * New upstream release.
-    (Closes: #984326, #986527, #993149, #998190)
+    (Closes: #964848, #984326, #986527, #993149, #998190)
   * Doctests work out of the box now. (Closes: #931223)
   * Build standard python package python3-sage.
   * New (Build-)Depends:
