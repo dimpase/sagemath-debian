@@ -36,7 +36,7 @@ export HOME = $(CURDIR)
 export PYBUILD_NAME = sage
 
 %:
-	dh $@ --with=python3,sphinxdoc --buildsystem=pybuild --sourcedir=sage/pkgs/sagemath-standard -v
+	dh $@ --with=python3,sphinxdoc --buildsystem=pybuild --sourcedir=sage/pkgs/sagemath-standard
 
 ###############################################################################
 # 2. GENERATE FILES
