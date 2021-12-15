@@ -1,0 +1,3 @@
+Test-Command: HOME=$(pwd) SAGE_SRC=$(pwd)/sage/src sage -t -p --long --logfile=ptestlong.log sage/src/sage || make -s --no-print-directory -f debian/tests.mk had-few-failures
+Depends: sagemath-jupyter, sagemath-doc
+Restrictions: rw-build-tree

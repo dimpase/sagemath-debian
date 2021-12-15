@@ -5,6 +5,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
   * Doctests work out of the box now. (Closes: #931223)
   * Build standard python package python3-sage.
   * Install scripts to /usr/bin (Closes: #972346)
+  * Activate autopkgtest.
   * New (Build-)Depends:
     - Use dependencies as provided by upstream (drop many).
     - libec-dev (>= 20210503)
