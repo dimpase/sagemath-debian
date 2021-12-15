@@ -21,6 +21,10 @@ sagedeps = subprocess.run([
 sagedeps = sorted(set(' '.join([re.sub(r'#.*', r'', x) for x in sagedeps]).split()))
 
 onlypkg = [x for x in pkgdeps if not x in sagedeps]
+onlysage = [x for x in sagedeps if not x in pkgdeps]
 
 print("Package dependencies that do not appear in debian.txt files:")
 print(' '.join(onlypkg))
+
+print("Entries in debian.txt files that do not appear in package dependencies:")
+print(' '.join(onlysage))
