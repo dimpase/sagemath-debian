@@ -162,8 +162,6 @@ override_dh_strip_nondeterminism:
 # 4. TEST SUITE
 ###############################################################################
 
-MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
-
 ifeq (,$(filter pkg.sagemath.nolongcheck,$(DEB_BUILD_PROFILES)))
 SAGE_TEST_FLAGS_ARCH = --optional=sage,python3,memlimit --long
 SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml --long
@@ -173,38 +171,6 @@ SAGE_TEST_FLAGS_INDEP = --optional=sage,python3,memlimit,dochtml
 endif
 
 TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
-failed-tests%:
-	@$(TESTS_MK) "$@"
-
-# We used to set this for i386 but it seems to be OK now.
-# Perhaps we should set it for armhf, let's see the buildd test results...
-ifneq (,$(filter $(DEB_BUILD_ARCH),))
-IGNORE_FAILURES = | sed -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}' -e '0,/Timed out/{//d;}'
-else
-IGNORE_FAILURES =
-endif
-had-few-failures:
-	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
-	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
-	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES); then \
-	    echo "Error: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
-	    false; \
-	  else \
-	    echo "Success: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES) failures are tolerated"; \
-	  fi
-	if ! test -z "$$($(TESTS_MK) failed-tests-special $(IGNORE_FAILURES))"; then \
-	  echo "Error: critical test failures (e.g. timeout, segfault, etc.)"; false; fi
-
-had-not-too-many-failures:
-	echo "Checking number of failed tests to determine whether to rerun tests in series..."
-	if ! test -f $(LOGFILE); then echo "Error: log file $(LOGFILE) not found"; false; fi
-	N_TEST_FAILURES="$$($(TESTS_MK) failed-tests-total-normal)"; \
-	  if ! test $${N_TEST_FAILURES} -le $(MAX_TEST_FAILURES_RERUN); then \
-	    echo "No: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
-	    false; \
-	  else \
-	    echo "Yes: $${N_TEST_FAILURES} tests failed, up to $(MAX_TEST_FAILURES_RERUN) failures are tolerated for rerun"; \
-	  fi
 
 run_tests = \
 	export PATH=$(PATH):$(CURDIR)/debian/tmp/usr/bin \
@@ -212,22 +178,20 @@ run_tests = \
 	       SAGE_DOC=$(CURDIR)/sage/src/doc \
 	       SAGE_LOCAL=/usr && cd sage && \
 	sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
-# If tests fail but not by too many more, then retry them once not in parallel
-# i386 seems to have issues running parallel tests - TODO: investigate this in more detail
-check_test_log = debian/rules -s LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3)
+
 run_tests_with_retry = \
 	$(run_tests); cd "$(CURDIR)" && \
-	if $(check_test_log) had-few-failures; then :; else \
-	  $(check_test_log) had-not-too-many-failures && \
+	if $(TESTS_MK) LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3) had-few-failures; then :; else \
+	  $(TESTS_MK) LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3) had-not-too-many-failures && \
 	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
 	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && \
-	  $(check_test_log) had-few-failures; }; \
+	  $(TESTS_MK) LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3) had-few-failures; }; \
 	fi
 
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	mkdir -p sage/logs
-	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,250)
+	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,150)
 endif
 
 override_dh_auto_test-indep:
@@ -241,10 +205,6 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	! (grep Error sage/logs/dochtml.log | grep -v "citation not found: .*Error\|Citation \[.*Error\] is not referenced")
 endif
 endif
-
-# manual target to re-run only failed tests
-check-failed:
-	$(call run_tests,all,--all -f)
 
 ###############################################################################
 # 5. MAINTAINER TARGETS
