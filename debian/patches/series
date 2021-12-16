@@ -31,4 +31,3 @@ d1-doc-docs.patch
 dt-version-ipywidgets-6-revert-31517.patch
 dt-version-ipywidgets-6-revert-23177.patch
 dt-version-ipywidgets-6-tests.patch
-dt-avoid-ecl-timeout.patch
