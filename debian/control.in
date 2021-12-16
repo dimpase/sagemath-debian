@@ -82,9 +82,7 @@ Replaces: sagemath-common (<< 9.4-1)
 Package: python3-sage
 Section: python
 Architecture: any
-Multi-Arch: same
 Depends: ${python3:Depends}, ${misc:Depends}, ${shlibs:Depends},
- python3-sage-common (= ${source:Version}),
  RUNTIME_DEPENDS
 Recommends:
  RUNTIME_RECOMMENDS
@@ -101,25 +99,6 @@ Description: Open Source Mathematical Software - Python 3 library
  This package installs the library for Python 3.
 Breaks: sagemath (<< 9.4-1)
 Replaces: sagemath (<< 9.4-1)
-
-Package: python3-sage-common
-Section: python
-Architecture: all
-Multi-Arch: foreign
-Depends: ${python3:Depends}, ${misc:Depends}
-Description: Open Source Mathematical Software - Python 3 library (common files)
- SageMath is a free open-source mathematics software system licensed under the
- GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
- matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined
- power through a common, Python-based language or directly via interfaces or
- wrappers.
- .
- Mission: Creating a viable free open source alternative to Magma, Maple,
- Mathematica and Matlab.
- .
- This package contains the architecture independent parts of the library.
-Breaks: sagemath-common (<< 9.4-1)
-Replaces: sagemath-common (<< 9.4-1)
 
 Package: sagemath-jupyter
 Architecture: all

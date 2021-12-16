@@ -1,4 +1,4 @@
-# The sage command is in the package sagemath-common on which
+# The sage command is in the package sagemath on which
 # sagemath-jupyter depends. Since the command in the desktop file
 # starts a jupyter notebook it must be in sagemath-jupyter.
 sagemath-jupyter: desktop-command-not-in-package
