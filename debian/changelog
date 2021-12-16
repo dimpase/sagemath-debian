@@ -35,6 +35,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
     - d1-system-python-packages.patch
     - dt-avoid-pari-timeout.patch
   * Remove patches (no longer required):
+    - u1-scripts-dir.patch                       #22731
     - d0-gsl-cblas.patch
     - d0-libgap-path.patch
     - d0-singular.patch
