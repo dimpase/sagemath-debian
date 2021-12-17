@@ -1,0 +1,73 @@
+Bug: https://trac.sagemath.org/ticket/32959
+
+From 6eca64f2d602947df90cfb8fa75e4a17fca1435a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Cl=C3=A9ment=20Pernet?= <clement.pernet@gmail.com>
+Date: Tue, 7 Dec 2021 14:08:49 +0100
+Subject: fix with LinBox new API
+
+---
+ src/sage/libs/linbox/conversion.pxd | 3 +--
+ src/sage/libs/linbox/linbox.pxd     | 5 ++---
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+
+From 5a968caa953a61c0c89cbd33707ba0b13430fd62 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Cl=C3=A9ment=20Pernet?= <clement.pernet@gmail.com>
+Date: Tue, 7 Dec 2021 14:09:29 +0100
+Subject: LinBox new API for DenseMatrix
+
+---
+ src/sage/matrix/matrix_modn_dense_template.pxi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/sage/src/sage/libs/linbox/conversion.pxd
++++ b/sage/src/sage/libs/linbox/conversion.pxd
+@@ -177,9 +177,8 @@
+     - v -- linbox vector
+     """
+     cdef Vector_integer_dense res = P()
+-    cdef cppvector[Integer] * vec = &v.refRep()
+     cdef size_t i
+     for i in range(<size_t> res._degree):
+-        mpz_set(res._entries[i], vec[0][i].get_mpz_const())
++        mpz_set(res._entries[i], v.getEntry(i).get_mpz_const())
+ 
+     return res
+--- a/sage/src/sage/libs/linbox/linbox.pxd
++++ b/sage/src/sage/libs/linbox/linbox.pxd
+@@ -32,7 +32,7 @@
+         ctypedef Modular_double Field
+         ctypedef double Element
+         DenseMatrix_Modular_double(Field F, size_t m, size_t n)
+-        DenseMatrix_Modular_double(Field F, Element*, size_t m, size_t n)
++        DenseMatrix_Modular_double(Field F, size_t m, size_t n, Element*)
+         void setEntry(size_t i, size_t j, Element& a)
+         Element &getEntry(size_t i, size_t j)
+ 
+@@ -42,7 +42,7 @@
+         ctypedef Modular_float Field
+         ctypedef float Element
+         DenseMatrix_Modular_float(Field F, size_t m, size_t n)
+-        DenseMatrix_Modular_float(Field F, Element*, size_t m, size_t n)
++        DenseMatrix_Modular_float(Field F, size_t m, size_t n, Element*)
+         void setEntry(size_t i, size_t j, Element& a)
+         Element &getEntry(size_t i, size_t j)
+ 
+@@ -101,7 +101,6 @@
+         DenseVector_integer (Field &F)
+         DenseVector_integer (Field &F, long& m)
+         DenseVector_integer (Field &F, cppvector[Integer]&)
+-        cppvector[Element]& refRep()
+         size_t size()
+         void resize(size_t)
+         void resize(size_t n, const Element&)
+--- a/sage/src/sage/matrix/matrix_modn_dense_template.pxi
++++ b/sage/src/sage/matrix/matrix_modn_dense_template.pxi
+@@ -219,7 +219,7 @@
+         return 0,[]
+ 
+     cdef ModField *F = new ModField(<long>modulus)
+-    cdef DenseMatrix *A = new DenseMatrix(F[0], <ModField.Element*>entries,<Py_ssize_t>nrows, <Py_ssize_t>ncols)
++    cdef DenseMatrix *A = new DenseMatrix(F[0], <Py_ssize_t>nrows, <Py_ssize_t>ncols, <ModField.Element*>entries)
+     cdef Py_ssize_t r = reducedRowEchelonize(A[0])
+     cdef Py_ssize_t i,j
+     for i in range(nrows):
