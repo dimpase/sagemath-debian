@@ -104,6 +104,7 @@
  gap-transgrp,
  gap-table-of-marks,
  jmol,
+ libfplll-dev,
  libjs-mathjax,
  libjs-three (>= 111),
  liblinbox-dev,
