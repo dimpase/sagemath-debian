@@ -6,6 +6,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
   * Build standard python package python3-sage.
   * Install scripts to /usr/bin (Closes: #972346)
   * Activate autopkgtest.
+  * Move package to Debian Math Team.
   * New (Build-)Depends:
     - Use dependencies as provided by upstream (drop many).
     - libec-dev (>= 20210503)
