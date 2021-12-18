@@ -1,4 +1,4 @@
-sagemath (9.4-1) UNRELEASED; urgency=medium
+sagemath (9.4-1) unstable; urgency=medium
 
   * New upstream release. (Closes: #951592, #960925, #964848,
     #984326, #986527, #993149, #998190)
@@ -48,7 +48,7 @@ sagemath (9.4-1) UNRELEASED; urgency=medium
     - dt-avoid-ecl-timeout.patch
   * Use dephelper-compat level 13.
 
- -- Tobias Hansen <thansen@debian.org>  Fri, 06 Aug 2021 17:25:48 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sat, 18 Dec 2021 00:15:17 +0000
 
 sagemath (9.2-2) unstable; urgency=medium
 
