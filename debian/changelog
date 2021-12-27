@@ -2,6 +2,10 @@ sagemath (9.4-2) UNRELEASED; urgency=medium
 
   * Remove (Build-)Depends:
     - libfplll-dev
+  * Autopkgtests:
+    - Do not run long tests to avoid timeouts.
+    - Set restriction skip-not-installable since sagemath
+      is not available on all architectures.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 18 Dec 2021 21:33:48 +0000
 
