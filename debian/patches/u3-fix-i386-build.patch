@@ -1,0 +1,17 @@
+https://trac.sagemath.org/ticket/33073
+
+From 5f492e3b7f45e65e8db8ae74d6b3aee20912a14b Fri Dec 24 11:56:56 +0100 2021
+From: Jonathan Kliem <jonathan.kliem@fu-berlin.de>
+Date: Fri, 24 Dec 2021 11:56:56 +0100
+Subject: work around an issue with ubuntu-bionic
+--- a/sage/src/sage/data_structures/bitset_intrinsics.h
++++ b/sage/src/sage/data_structures/bitset_intrinsics.h
+@@ -29,7 +29,7 @@
+ #elif __SSE4_1__
+     const mp_bitcnt_t ALIGNMENT = 16;
+ #else
+-    const mp_bitcnt_t ALIGNMENT = 8;
++    const mp_bitcnt_t ALIGNMENT = sizeof(mp_limb_t);
+ #endif
+ 
+ // We assume that ``GMP_LIMB_BITS`` is a divisor of 64
