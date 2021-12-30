@@ -97,8 +97,8 @@ Description: Open Source Mathematical Software - Python 3 library
  Mathematica and Matlab.
  .
  This package installs the library for Python 3.
-Breaks: sagemath (<< 9.4-1)
-Replaces: sagemath (<< 9.4-1)
+Breaks: sagemath (<< 9.4-1), sagemath-common (<< 9.4-1)
+Replaces: sagemath (<< 9.4-1), sagemath-common (<< 9.4-1)
 
 Package: sagemath-jupyter
 Architecture: all
