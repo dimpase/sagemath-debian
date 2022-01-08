@@ -5,6 +5,7 @@ sagemath (9.4-3) UNRELEASED; urgency=medium
   * Build-Depend on and Recommend cysignals-tools to obtain backtraces
     during build.
   * Set autopkgtest restriction allow-stderr.
+  * Allow up to 100 test failures during build.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 08 Jan 2022 11:32:03 +0000
 
