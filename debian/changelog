@@ -2,8 +2,10 @@ sagemath (9.4-3) UNRELEASED; urgency=medium
 
   * Add Breaks+Replaces: sagemath-common (<< 9.4-1) for python3-sage.
     (Closes: #1002849)
+  * Build-Depend on and Recommend cysignals-tools to obtain backtraces
+    during build.
 
- -- Tobias Hansen <thansen@debian.org>  Thu, 30 Dec 2021 21:23:11 +0100
+ -- Tobias Hansen <thansen@debian.org>  Sat, 08 Jan 2022 11:32:03 +0000
 
 sagemath (9.4-2) unstable; urgency=medium
 

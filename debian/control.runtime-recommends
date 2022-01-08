@@ -1,3 +1,4 @@
+ cysignals-tools,
  maxima-sage-doc (>= 5.42.2),
  pari-doc (>= 2.11.0),
  python3-sagenb-export (>= 3.2),
