@@ -1,4 +1,4 @@
-sagemath (9.4-3) UNRELEASED; urgency=medium
+sagemath (9.4-3) unstable; urgency=medium
 
   * Add Breaks+Replaces: sagemath-common (<< 9.4-1) for python3-sage.
     (Closes: #1002849)
@@ -9,7 +9,7 @@ sagemath (9.4-3) UNRELEASED; urgency=medium
   * debian/watch: Check github releases rather than tags page,
     the latter may contain only prereleases on page 1.
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 08 Jan 2022 11:32:03 +0000
+ -- Tobias Hansen <thansen@debian.org>  Sat, 08 Jan 2022 11:50:35 +0000
 
 sagemath (9.4-2) unstable; urgency=medium
 
