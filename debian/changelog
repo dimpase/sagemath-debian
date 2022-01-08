@@ -6,6 +6,8 @@ sagemath (9.4-3) UNRELEASED; urgency=medium
     during build.
   * Set autopkgtest restriction allow-stderr.
   * Allow up to 100 test failures during build.
+  * debian/watch: Check github releases rather than tags page,
+    the latter may contain only prereleases on page 1.
 
  -- Tobias Hansen <thansen@debian.org>  Sat, 08 Jan 2022 11:32:03 +0000
 
