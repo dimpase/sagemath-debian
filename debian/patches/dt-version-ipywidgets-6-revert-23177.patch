@@ -336,12 +336,12 @@ Subject: Fix doctest in cpython/debug.pyx
      ....: def f(x=(0,10)):
      ....:     pass
 -    Interactive function <function f at ...> with 1 widget
--      x: IntSlider(value=5, description=u'x', max=10)
+-      x: IntSlider(value=5, description='x', max=10)
 +    Interactive function <function f ...> with 1 widget
-+      x: IntSlider(value=5, min=0, max=10, step=1, description=u'x')
++      x: IntSlider(value=5, min=0, max=10, step=1, description='x')
      sage: f.widget.children
--    (IntSlider(value=5, description=u'x', max=10), Output())
-+    (IntSlider(value=5, min=0, max=10, step=1, description=u'x'), Output())
+-    (IntSlider(value=5, description='x', max=10), Output())
++    (IntSlider(value=5, min=0, max=10, step=1, description='x'), Output())
  """
  
  # ****************************************************************************
@@ -350,40 +350,37 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: def myfunc(x=10, y="hello", z=None): pass
          sage: sage_interactive(myfunc, x=(0,100), z=["one", "two", "three"])
 -        Interactive function <function myfunc at ...> with 3 widgets
--          x: IntSlider(value=10, description=u'x')
+-          x: IntSlider(value=10, description='x')
 +        Interactive function <function myfunc ...> with 3 widgets
-+          x: IntSlider(value=10, min=0, max=100, step=1, description=u'x')
-           y: Text(value=u'hello', description=u'y')
--          z: Dropdown(description=u'z', options=('one', 'two', 'three'), value=None)
-+          z: Dropdown(value='one', options=['one', 'two', 'three'], description=u'z')
++          x: IntSlider(value=10, min=0, max=100, step=1, description='x')
+           y: Text(value='hello', description='y')
+-          z: Dropdown(description='z', options=('one', 'two', 'three'), value=None)
++          z: Dropdown(value='one', options=['one', 'two', 'three'], description='z')
      """
      def __init__(*args, **kwds):
          """
-@@ -198,17 +198,17 @@
+@@ -196,15 +196,15 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_tuple( (0, 10) )
 -            IntSlider(value=5, max=10)
 +            IntSlider(value=5, min=0, max=10, step=1)
              sage: sage_interactive.widget_from_tuple( ("number", (0, 10)) )
--            IntSlider(value=5, description=u'number', max=10)
-+            IntSlider(value=5, min=0, max=10, step=1, description=u'number')
+-            IntSlider(value=5, description='number', max=10)
++            IntSlider(value=5, min=0, max=10, step=1, description='number')
              sage: sage_interactive.widget_from_tuple( (3, (0, 10)) )
 -            IntSlider(value=3, max=10)
 +            IntSlider(value=3, min=0, max=10, step=1)
-             sage: sage_interactive.widget_from_tuple((2, dict(one=1, two=2, three=3))) # py2
--            Dropdown(index=1, options={'three': 3, 'two': 2, 'one': 1}, value=2)
-+            Dropdown(value=2, options={'three': 3, 'two': 2, 'one': 1})
-             sage: sage_interactive.widget_from_tuple((2, dict(one=1, two=2, three=3))) # py3
+             sage: sage_interactive.widget_from_tuple((2, dict(one=1, two=2, three=3)))
 -            Dropdown(index=1, options={'one': 1, 'two': 2, 'three': 3}, value=2)
 +            Dropdown(value=2, options={'one': 1, 'two': 2, 'three': 3})
              sage: sage_interactive.widget_from_tuple( (sqrt(2), pi) )
 -            FloatSlider(value=2.277903107981444, max=3.141592653589793, min=1.4142135623730951)
 +            FloatSlider(value=2.277903107981444, min=1.4142135623730951, max=3.141592653589793, step=0.1)
-         """
-         # Support (description, abbrev)
-         if len(abbrev) == 2 and isinstance(abbrev[0], str):
-@@ -242,17 +242,17 @@
+ 
+         TESTS:
+ 
+@@ -246,17 +246,17 @@
  
              sage: from sage.repl.ipython_kernel.interact import sage_interactive
              sage: sage_interactive.widget_from_iterable([1..5])
@@ -493,8 +490,8 @@ Subject: Fix doctest in cpython/debug.pyx
              sage: w = Grid(2, 2, lambda i,j: EvalText(str(j+4*i)),
              ....:         description="2x2 matrix", transform=matrix)
              sage: w
--            Grid(value=[[0, 1], [4, 5]], children=(Label(value=u'2x2 matrix'), VBox(children=(EvalText(value=u'0'), EvalText(value=u'4'))), VBox(children=(EvalText(value=u'1'), EvalText(value=u'5')))))
-+            Grid(value=[[0, 1], [4, 5]], description=u'2x2 matrix', children=(Label(value=u'2x2 matrix'), VBox(children=(EvalText(value=u'0'), EvalText(value=u'4'))), VBox(children=(EvalText(value=u'1'), EvalText(value=u'5')))))
+-            Grid(value=[[0, 1], [4, 5]], children=(Label(value='2x2 matrix'), VBox(children=(EvalText(value='0'), EvalText(value='4'))), VBox(children=(EvalText(value='1'), EvalText(value='5')))))
++            Grid(value=[[0, 1], [4, 5]], description='2x2 matrix', children=(Label(value='2x2 matrix'), VBox(children=(EvalText(value='0'), EvalText(value='4'))), VBox(children=(EvalText(value='1'), EvalText(value='5')))))
              sage: w.get_interact_value()
              [0 1]
              [4 5]
@@ -509,61 +506,61 @@ Subject: Fix doctest in cpython/debug.pyx
      sage: setup_test_comm()
  
  EXAMPLES::
-@@ -79,7 +79,7 @@
+@@ -78,7 +78,7 @@
  
          sage: w = input_box("4+5", type=str, label="enter a string")
          sage: w
--        TransformText(value=u'4+5', description=u'enter a string', layout=Layout(max_width=u'81em'))
-+        TransformText(value=u'4+5', description=u'enter a string')
+-        TransformText(value='4+5', description='enter a string', layout=Layout(max_width='81em'))
++        TransformText(value='4+5', description='enter a string')
          sage: w.get_interact_value()
          '4+5'
  
-@@ -87,7 +87,7 @@
+@@ -86,7 +86,7 @@
  
          sage: w = input_box("4+5")
          sage: w
--        EvalText(value=u'4+5', layout=Layout(max_width=u'81em'))
-+        EvalText(value=u'4+5')
+-        EvalText(value='4+5', layout=Layout(max_width='81em'))
++        EvalText(value='4+5')
          sage: w.get_interact_value()
          9
  
-@@ -96,7 +96,7 @@
+@@ -95,7 +95,7 @@
  
          sage: w = input_box("4+5", type=float)
          sage: w
--        EvalText(value=u'4+5', layout=Layout(max_width=u'81em'))
-+        EvalText(value=u'4+5')
+-        EvalText(value='4+5', layout=Layout(max_width='81em'))
++        EvalText(value='4+5')
          sage: w.get_interact_value()
          9.0
  
-@@ -104,7 +104,7 @@
+@@ -103,7 +103,7 @@
  
          sage: w = input_box("4+5", type=sqrt)
          sage: w
--        EvalText(value=u'4+5', layout=Layout(max_width=u'81em'))
-+        EvalText(value=u'4+5')
+-        EvalText(value='4+5', layout=Layout(max_width='81em'))
++        EvalText(value='4+5')
          sage: w.get_interact_value()
          3
  
-@@ -112,10 +112,10 @@
+@@ -111,10 +111,10 @@
  
          sage: w = input_box("4+5", width=100, height=1)
          sage: w
--        EvalText(value=u'4+5', layout=Layout(max_width=u'101em'))
-+        EvalText(value=u'4+5')
+-        EvalText(value='4+5', layout=Layout(max_width='101em'))
++        EvalText(value='4+5')
          sage: w = input_box("4+5", width=100, height=5)
          sage: w
--        EvalTextarea(value=u'4+5', layout=Layout(max_width=u'101em'))
-+        EvalTextarea(value=u'4+5')
+-        EvalTextarea(value='4+5', layout=Layout(max_width='101em'))
++        EvalTextarea(value='4+5')
  
      TESTS::
  
-@@ -180,37 +180,37 @@
+@@ -179,37 +179,37 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import slider
          sage: slider(5, label="slide me")
--        TransformIntSlider(value=5, description=u'slide me', min=5)
-+        TransformIntSlider(value=5, min=5, max=100, step=1, description=u'slide me')
+-        TransformIntSlider(value=5, description='slide me', min=5)
++        TransformIntSlider(value=5, min=5, max=100, step=1, description='slide me')
          sage: slider(5, 20)
 -        TransformIntSlider(value=5, max=20, min=5)
 +        TransformIntSlider(value=5, min=5, max=20, step=1)
@@ -605,7 +602,7 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: parent(w.get_interact_value())
          Real Field with 53 bits of precision
  
-@@ -218,7 +218,7 @@
+@@ -217,7 +217,7 @@
      possible values::
  
          sage: slider(range(10), default=17/10)
@@ -614,12 +611,12 @@ Subject: Fix doctest in cpython/debug.pyx
  
      TESTS::
  
-@@ -354,26 +354,26 @@
+@@ -362,26 +362,26 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import range_slider
          sage: range_slider(5, label="slide me")
--        TransformIntRangeSlider(value=(28, 76), description=u'slide me', min=5)
-+        TransformIntRangeSlider(value=(28, 76), min=5, max=100, step=1, description=u'slide me')
+-        TransformIntRangeSlider(value=(28, 76), description='slide me', min=5)
++        TransformIntRangeSlider(value=(28, 76), min=5, max=100, step=1, description='slide me')
          sage: range_slider(5, 20)
 -        TransformIntRangeSlider(value=(8, 16), max=20, min=5)
 +        TransformIntRangeSlider(value=(8, 16), min=5, max=20, step=1)
@@ -648,12 +645,12 @@ Subject: Fix doctest in cpython/debug.pyx
          sage: [parent(x) for x in w.get_interact_value()]
          [Real Double Field, Real Double Field]
  
-@@ -442,35 +442,35 @@
+@@ -450,31 +450,31 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import selector
          sage: selector(range(5), label="choose one")
--        Dropdown(description=u'choose one', options=(0, 1, 2, 3, 4), value=0)
-+        Dropdown(value=0, options=[0, 1, 2, 3, 4], description=u'choose one')
+-        Dropdown(description='choose one', options=(0, 1, 2, 3, 4), value=0)
++        Dropdown(value=0, options=[0, 1, 2, 3, 4], description='choose one')
          sage: selector(range(5), buttons=True, default=4)
 -        ToggleButtons(index=4, options=(0, 1, 2, 3, 4), value=4)
 +        ToggleButtons(value=4, options=[0, 1, 2, 3, 4])
@@ -672,16 +669,10 @@ Subject: Fix doctest in cpython/debug.pyx
      is not ordered, it is better to use an :class:`OrderedDict`::
  
          sage: from collections import OrderedDict
-         sage: selector(OrderedDict(one=1, two=2, three=3))  # py2
--        Dropdown(options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]), value=1)
-+        Dropdown(value=1, options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]))
-         sage: selector(OrderedDict(one=1, two=2, three=3))  # py3
+         sage: selector(OrderedDict(one=1, two=2, three=3))
 -        Dropdown(options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]), value=1)
 +        Dropdown(value=1, options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]))
-         sage: selector(OrderedDict(one=1, two=2, three=3), buttons=True) # py2
--        ToggleButtons(options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]), value=1)
-+        ToggleButtons(value=1, options=OrderedDict([('one', 1), ('three', 3), ('two', 2)]))
-         sage: selector(OrderedDict(one=1, two=2, three=3), buttons=True) # py3
+         sage: selector(OrderedDict(one=1, two=2, three=3), buttons=True)
 -        ToggleButtons(options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]), value=1)
 +        ToggleButtons(value=1, options=OrderedDict([('one', 1), ('two', 2), ('three', 3)]))
  
@@ -693,21 +684,21 @@ Subject: Fix doctest in cpython/debug.pyx
      """
      if isinstance(values, Sequence):
          values = list(values)
-@@ -523,14 +523,14 @@
+@@ -527,14 +527,14 @@
  
          sage: from sage.repl.ipython_kernel.all_jupyter import input_grid
          sage: input_grid(2, 2, default=42, label="answers")
--        Grid(value=[[42, 42], [42, 42]], children=(Label(value=u'answers'), VBox(children=(EvalText(value=u'42', layout=Layout(max_width=u'5em')), EvalText(value=u'42', layout=Layout(max_width=u'5em')))), VBox(children=(EvalText(value=u'42', layout=Layout(max_width=u'5em')), EvalText(value=u'42', layout=Layout(max_width=u'5em'))))))
-+        Grid(value=[[42, 42], [42, 42]], description=u'answers', children=(Label(value=u'answers'), VBox(children=(EvalText(value=u'42'), EvalText(value=u'42'))), VBox(children=(EvalText(value=u'42'), EvalText(value=u'42')))))
+-        Grid(value=[[42, 42], [42, 42]], children=(Label(value='answers'), VBox(children=(EvalText(value='42', layout=Layout(max_width='5em')), EvalText(value='42', layout=Layout(max_width='5em')))), VBox(children=(EvalText(value='42', layout=Layout(max_width='5em')), EvalText(value='42', layout=Layout(max_width='5em'))))))
++        Grid(value=[[42, 42], [42, 42]], description='answers', children=(Label(value='answers'), VBox(children=(EvalText(value='42'), EvalText(value='42'))), VBox(children=(EvalText(value='42'), EvalText(value='42')))))
          sage: w = input_grid(2, 2, default=[[cos(x), sin(x)], [-sin(x), cos(x)]], to_value=matrix); w
--        Grid(value=[[cos(x), sin(x)], [-sin(x), cos(x)]], children=(Label(value=u''), VBox(children=(EvalText(value=u'cos(x)', layout=Layout(max_width=u'5em')), EvalText(value=u'-sin(x)', layout=Layout(max_width=u'5em')))), VBox(children=(EvalText(value=u'sin(x)', layout=Layout(max_width=u'5em')), EvalText(value=u'cos(x)', layout=Layout(max_width=u'5em'))))))
-+        Grid(value=[[cos(x), sin(x)], [-sin(x), cos(x)]], children=(Label(value=u''), VBox(children=(EvalText(value=u'cos(x)'), EvalText(value=u'-sin(x)'))), VBox(children=(EvalText(value=u'sin(x)'), EvalText(value=u'cos(x)')))))
+-        Grid(value=[[cos(x), sin(x)], [-sin(x), cos(x)]], children=(Label(value=''), VBox(children=(EvalText(value='cos(x)', layout=Layout(max_width='5em')), EvalText(value='-sin(x)', layout=Layout(max_width='5em')))), VBox(children=(EvalText(value='sin(x)', layout=Layout(max_width='5em')), EvalText(value='cos(x)', layout=Layout(max_width='5em'))))))
++        Grid(value=[[cos(x), sin(x)], [-sin(x), cos(x)]], children=(Label(value=''), VBox(children=(EvalText(value='cos(x)'), EvalText(value='-sin(x)'))), VBox(children=(EvalText(value='sin(x)'), EvalText(value='cos(x)')))))
          sage: w.get_interact_value()
          [ cos(x)  sin(x)]
          [-sin(x)  cos(x)]
          sage: w = input_grid(2, 2, default=[1, x, x^2, x^3], to_value=lambda x: x[1][1]); w
--        Grid(value=[[1, x], [x^2, x^3]], children=(Label(value=u''), VBox(children=(EvalText(value=u'1', layout=Layout(max_width=u'5em')), EvalText(value=u'x^2', layout=Layout(max_width=u'5em')))), VBox(children=(EvalText(value=u'x', layout=Layout(max_width=u'5em')), EvalText(value=u'x^3', layout=Layout(max_width=u'5em'))))))
-+        Grid(value=[[1, x], [x^2, x^3]], children=(Label(value=u''), VBox(children=(EvalText(value=u'1'), EvalText(value=u'x^2'))), VBox(children=(EvalText(value=u'x'), EvalText(value=u'x^3')))))
+-        Grid(value=[[1, x], [x^2, x^3]], children=(Label(value=''), VBox(children=(EvalText(value='1', layout=Layout(max_width='5em')), EvalText(value='x^2', layout=Layout(max_width='5em')))), VBox(children=(EvalText(value='x', layout=Layout(max_width='5em')), EvalText(value='x^3', layout=Layout(max_width='5em'))))))
++        Grid(value=[[1, x], [x^2, x^3]], children=(Label(value=''), VBox(children=(EvalText(value='1'), EvalText(value='x^2'))), VBox(children=(EvalText(value='x'), EvalText(value='x^3')))))
          sage: w.get_interact_value()
          x^3
      """
@@ -720,5 +711,5 @@ Subject: Fix doctest in cpython/debug.pyx
 -        getattr_debug(obj=IntSlider(value=0), name='value'):
 +        getattr_debug(obj=IntSlider(value=0, min=0, max=100, step=1), name='value'):
            type(obj) = <class 'ipywidgets.widgets.widget_int.IntSlider'>
-           object has __dict__ slot (<type 'dict'>)
+           object has __dict__ slot (<class 'dict'>)
            found 'value' in dict of <class 'ipywidgets.widgets.widget_int._Int'>
