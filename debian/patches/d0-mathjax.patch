@@ -5,12 +5,12 @@ Forwarded: not-needed
 
 --- a/sage/src/sage/docs/conf.py
 +++ b/sage/src/sage/docs/conf.py
-@@ -251,7 +251,7 @@
+@@ -246,7 +246,7 @@
  
- if (os.environ.get('SAGE_DOC_MATHJAX', 'no') not in ['no', 'False']):
-     extensions.append('sphinx.ext.mathjax')
--    mathjax_path = 'MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js'
-+    mathjax_path = 'mathjax/MathJax.js?config=TeX-AMS_HTML-full,../../mathjax_sage.js'
+ # We use MathJax to build the documentation.
+ extensions.append('sphinx.ext.mathjax')
+-mathjax_path = 'MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js'
++mathjax_path = 'mathjax/MathJax.js?config=TeX-AMS_HTML-full,../../mathjax_sage.js'
  
-     from sage.misc.latex_macros import sage_mathjax_macros
-     html_theme_options['mathjax_macros'] = sage_mathjax_macros()
+ from sage.misc.latex_macros import sage_mathjax_macros
+ html_theme_options['mathjax_macros'] = sage_mathjax_macros()

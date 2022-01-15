@@ -4,7 +4,7 @@ Bug: https://trac.sagemath.org/ticket/32968
 
 --- a/sage/src/sage/docs/conf.py
 +++ b/sage/src/sage/docs/conf.py
-@@ -923,6 +923,7 @@
+@@ -911,6 +911,7 @@
      if app.srcdir.startswith(SAGE_DOC_SRC):
          app.add_config_value('intersphinx_mapping', {}, False)
          app.add_config_value('intersphinx_cache_limit', 5, False)
