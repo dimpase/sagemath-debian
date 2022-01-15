@@ -54,6 +54,11 @@ debian/control: debian/control.in
 # 3. PACKAGE BUILD
 ###############################################################################
 
+override_dh_auto_configure:
+	cd sage/pkgs/sage-setup && python3 setup.py build
+	cd sage/pkgs/sage-setup && python3 setup.py install --root=$(CURDIR)/debian/tmp0 --install-layout=deb
+	export PYTHONPATH=$(CURDIR)/debian/tmp0/usr/lib/python3/dist-packages && dh_auto_configure
+
 # We install directly after building in order to use the python package for
 # docbuild and testing. This is required both for arch and indep builds.
 debian/tmp/usr/bin/sage:
@@ -62,8 +67,8 @@ debian/tmp/usr/bin/sage:
 	cd sage/build/pkgs/sagelib && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin ./bootstrap
 # Remove sage-conf from setup.cfg, it can lead to a dependency on sagemath-common
 	sed -i '/sage_conf/d' sage/src/setup.cfg
-	dh_auto_build
-	dh_auto_install
+	export PYTHONPATH=$(CURDIR)/debian/tmp0/usr/lib/python3/dist-packages && dh_auto_build
+	export PYTHONPATH=$(CURDIR)/debian/tmp0/usr/lib/python3/dist-packages && dh_auto_install
 	mkdir -p debian/tmp
 	mv debian/python3-sage/usr debian/tmp/
 	rm -rf debian/python3-sage
@@ -149,6 +154,8 @@ override_dh_clean:
 	rm -rf .sage .texlive2021 debian/python3-sage-dbg
 	rm -f sage/pkgs/sagemath-standard/sage_conf.py
 	dh_clean
+
+override_dh_auto_clean:
 
 #override_dh_strip:
 #	dh_strip -ppython3-sage --dbg-package=python3-sage-dbg
