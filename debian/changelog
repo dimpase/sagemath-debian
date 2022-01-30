@@ -1,4 +1,4 @@
-sagemath (9.5~rc1-1) UNRELEASED; urgency=medium
+sagemath (9.5-1) UNRELEASED; urgency=medium
 
   * New upstream release.
   * Remove patches (applied upstream):
