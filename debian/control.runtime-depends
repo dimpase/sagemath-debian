@@ -94,6 +94,7 @@
  ppl-dev,
 # Additional dependencies not provided by upstream:
  python3-memory-allocator,
+ python3-primecountpy,
  python-ppl-doc,
  singular (>= 1:4.2.1-p2+ds-3),
  gap-dev (>= 4.11.0),
@@ -115,7 +116,7 @@
  sagemath-database-graphs,
  sagemath-database-mutually-combinatorial-designs,
  sagemath-database-polytopes,
+ sed,
 # Additional library dependencies not provided by upstream:
  libgap-dev,
- libpynac-dev (>= 0.7.29-2),
  libratpoints-dev,
