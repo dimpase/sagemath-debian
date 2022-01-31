@@ -1,0 +1,15 @@
+Description: Find cygdb binary
+ cygdb is called cygdb3 in Debian.
+Author: Tobias Hansen <thansen@debian.org>
+
+--- a/sage/src/bin/sage
++++ b/sage/src/bin/sage
+@@ -1085,7 +1085,7 @@
+             -args python "${SELF}-ipython" "$@" -i
+     else
+         sage_dir=$(sage-python -c 'import os, sage; print(os.path.dirname(sage.__file__))')
+-        cygdb "$sage_dir" "$SAGE_SRC/sage" \
++        cygdb3 "$sage_dir" "$SAGE_SRC/sage" \
+             -- -x "${SELF}-gdb-commands" \
+             -args python "${SELF}-ipython" "$@" -i
+     fi
