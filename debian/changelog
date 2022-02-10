@@ -1,4 +1,4 @@
-sagemath (9.5-1) UNRELEASED; urgency=medium
+sagemath (9.5-1) unstable; urgency=medium
 
   * New upstream release.
   * New (Build-)Depends:
@@ -19,7 +19,7 @@ sagemath (9.5-1) UNRELEASED; urgency=medium
     - u1-close-the-internal-pipe-of-multiprocessing.Process.patch #33032
     - u3-fix-i386-build.patch                    #33073
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 15 Jan 2022 14:00:53 +0000
+ -- Tobias Hansen <thansen@debian.org>  Thu, 10 Feb 2022 21:58:08 +0000
 
 sagemath (9.4-3) unstable; urgency=medium
 
