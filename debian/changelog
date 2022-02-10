@@ -6,6 +6,7 @@ sagemath (9.5-1) UNRELEASED; urgency=medium
   * Remove (Build-)Depends:
     - libpynac-dev
   * New patches:
+    - u0-version-arb-2.22.patch                  #33189
     - d0-cygdb3.patch
   * Remove patches (applied upstream):
     - u0-trac32799-set-MPMATH_SAGE.patch         #32799
