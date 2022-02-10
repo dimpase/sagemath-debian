@@ -116,7 +116,6 @@
  sagemath-database-graphs,
  sagemath-database-mutually-combinatorial-designs,
  sagemath-database-polytopes,
- sed,
 # Additional library dependencies not provided by upstream:
  libgap-dev,
  libratpoints-dev,

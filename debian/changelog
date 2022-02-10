@@ -3,7 +3,6 @@ sagemath (9.5-1) UNRELEASED; urgency=medium
   * New upstream release.
   * New (Build-)Depends:
     - python3-primecountpy
-    - sed
   * Remove (Build-)Depends:
     - libpynac-dev
   * Remove patches (applied upstream):
