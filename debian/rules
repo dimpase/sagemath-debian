@@ -66,7 +66,7 @@ debian/tmp/usr/bin/sage:
 # Generate setup.cfg etc in sage/src from .m4 files:
 	cd sage/build/pkgs/sagelib && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin ./bootstrap
 # Remove sage-conf from setup.cfg, it can lead to a dependency on sagemath-common
-	sed -i '/sage_conf/d' sage/src/setup.cfg
+	sed -i '/sage-conf/d' sage/src/setup.cfg
 	export PYTHONPATH=$(CURDIR)/debian/tmp0/usr/lib/python3/dist-packages && dh_auto_build
 	export PYTHONPATH=$(CURDIR)/debian/tmp0/usr/lib/python3/dist-packages && dh_auto_install
 	mkdir -p debian/tmp
@@ -184,12 +184,19 @@ run_tests = \
 	       SAGE_LOCAL=/usr && cd sage && \
 	sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
 
+rerun_tests = \
+	export PATH=$(PATH):$(CURDIR)/debian/tmp/usr/bin \
+	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.9/dist-packages \
+	       SAGE_DOC=$(CURDIR)/sage/src/doc \
+	       SAGE_LOCAL=/usr && cd sage && \
+	sage -t -p 1 -f --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
+
 run_tests_with_retry = \
 	$(run_tests); cd "$(CURDIR)" && \
 	if $(TESTS_MK) LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3) had-few-failures; then :; else \
 	  $(TESTS_MK) LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3) had-not-too-many-failures && \
 	  mv sage/logs/ptestlong-$(1).log sage/logs/ptestlong-$(1).log.1 && \
-	  { $(run_tests) -p 1 -f; cd "$(CURDIR)" && \
+	  { $(rerun_tests); cd "$(CURDIR)" && \
 	  $(TESTS_MK) LOGFILE=sage/logs/ptestlong-$(1).log MAX_TEST_FAILURES=$(3) had-few-failures; }; \
 	fi
 
