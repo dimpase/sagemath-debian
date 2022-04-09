@@ -1,3 +1,9 @@
+sagemath (9.5-3) UNRELEASED; urgency=medium
+
+  * Update debian/rules for Python 3.10.
+
+ -- Tobias Hansen <thansen@debian.org>  Sat, 09 Apr 2022 16:25:34 +0100
+
 sagemath (9.5-2) unstable; urgency=medium
 
   * Fix command removing sage-conf dependency from setup.cfg to avoid
