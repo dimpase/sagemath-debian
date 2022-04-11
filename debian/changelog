@@ -1,8 +1,8 @@
-sagemath (9.5-3) UNRELEASED; urgency=medium
+sagemath (9.5-3) unstable; urgency=medium
 
   * Update debian/rules for Python 3.10.
 
- -- Tobias Hansen <thansen@debian.org>  Sat, 09 Apr 2022 16:25:34 +0100
+ -- Tobias Hansen <thansen@debian.org>  Mon, 11 Apr 2022 08:53:24 +0000
 
 sagemath (9.5-2) unstable; urgency=medium
 
