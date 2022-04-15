@@ -1,3 +1,10 @@
+sagemath (9.5-4) unstable; urgency=medium
+
+  * Remove armel, armhf, mips64el and mipsel from Architecture list
+    due to continual test failures. (Closes: #1009241)
+
+ -- Tobias Hansen <thansen@debian.org>  Fri, 15 Apr 2022 17:38:10 +0100
+
 sagemath (9.5-3) unstable; urgency=medium
 
   * Update debian/rules for Python 3.10.

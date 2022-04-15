@@ -81,7 +81,7 @@ Replaces: sagemath-common (<< 9.4-1)
 
 Package: python3-sage
 Section: python
-Architecture: any
+Architecture: amd64 arm64 i386 ppc64el s390x alpha hppa hurd-i386 ia64 kfreebsd-amd64 kfreebsd-i386 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Depends: ${python3:Depends}, ${misc:Depends}, ${shlibs:Depends},
  RUNTIME_DEPENDS
 Recommends:
