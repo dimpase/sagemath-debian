@@ -1,3 +1,10 @@
+sagemath (9.5-5) UNRELEASED; urgency=medium
+
+  * New (Build-)Depends:
+    - libgiac-dev >= 1.9.0.19+dfsg2-2
+
+ -- Tobias Hansen <thansen@debian.org>  Sun, 16 Oct 2022 17:28:13 +0100
+
 sagemath (9.5-4) unstable; urgency=medium
 
   * Remove armel, armhf, mips64el and mipsel from Architecture list
