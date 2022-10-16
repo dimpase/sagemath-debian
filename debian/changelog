@@ -4,6 +4,7 @@ sagemath (9.5-5) UNRELEASED; urgency=medium
     - libgiac-dev >= 1.9.0.19+dfsg2-2
   * New patches:
     - u0-version-pari-2.15.patch                 #34537
+    - u0-version-sphinx-4.4.patch                #33272
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 16 Oct 2022 17:28:13 +0100
 
