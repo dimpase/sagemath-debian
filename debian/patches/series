@@ -1,5 +1,6 @@
 # Patches already applied upstream or committed in a side branch
 # Or nearly-finished patches that they'll very probably merge.
+u0-version-pari-2.15.patch                 #34537
 u0-version-linbox-1.7.patch                #32959
 u0-version-sphinx-4.3.patch                #32968
 u0-version-arb-2.22.patch                  #33189
