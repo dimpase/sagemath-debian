@@ -6,6 +6,7 @@ u0-version-sphinx-4.3.patch                #32968
 u0-version-sphinx-4.4.patch                #33272
 u0-version-arb-2.22.patch                  #33189
 u0-version-gap-4.12.patch                  #34391
+u0-version-python-3.11.patch               #33842
 
 # Patches that have open upstream tickets
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031

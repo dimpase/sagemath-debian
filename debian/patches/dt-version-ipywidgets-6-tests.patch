@@ -376,7 +376,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
          """
 --- a/sage/src/sage/plot/plot3d/plot3d.py
 +++ b/sage/src/sage/plot/plot3d/plot3d.py
-@@ -1007,7 +1007,7 @@
+@@ -1013,7 +1013,7 @@
          ....: def _(which_plot=[A,B,C,D,E]):
          ....:     show(which_plot)
          Interactive function <function _ at ...> with 1 widget
@@ -385,7 +385,7 @@ Author: Martin von Gagern <Martin.vGagern@gmx.net>
  
      Now plot a function::
  
-@@ -1021,7 +1021,7 @@
+@@ -1027,7 +1027,7 @@
          ....: def _(which_plot=[F, G, H, I, J]):
          ....:     show(which_plot)
          Interactive function <function _ at ...> with 1 widget
