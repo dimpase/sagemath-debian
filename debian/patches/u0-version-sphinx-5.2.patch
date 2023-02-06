@@ -1,0 +1,87 @@
+Bug: https://trac.sagemath.org/ticket/34615
+
+From 3ee509aec951c3bfae59c8da6cf5764f014c51f8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fran=C3=A7ois=20Bissey?= <frp.bissey@gmail.com>
+Date: Mon, 11 Jul 2022 22:25:34 +1200
+Subject: [PATCH] remove unused, and removed from sphinx 5, imported
+ get_module_members
+
+---
+ src/sage_docbuild/ext/sage_autodoc.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+From 18c92459b336b2b7b641fd544a12b04467822271 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fran=C3=A7ois=20Bissey?= <frp.bissey@gmail.com>
+Date: Mon, 11 Jul 2022 22:26:56 +1200
+Subject: [PATCH] fix syntax so extlinks stop complaining
+
+---
+ src/sage/misc/sagedoc.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+From c27e4e4c979776c7bab8c35a2f8965df07a8c75b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fran=C3=A7ois=20Bissey?= <frp.bissey@gmail.com>
+Date: Mon, 11 Jul 2022 22:58:36 +1200
+Subject: [PATCH] migrate from filename_set to record_dependencies as suggested
+ in https://www.sphinx-doc.org/en/master/extdev/deprecated.html
+
+---
+ src/sage_docbuild/ext/sage_autodoc.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+From c2e610cfba02a8cb4db7d7691bfc8210be8a1ffb Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Thu, 29 Sep 2022 21:29:04 +0200
+Subject: [PATCH] Fix build with sphinx 5.2
+
+---
+ src/sage_docbuild/ext/multidocs.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/sage/src/sage_docbuild/ext/sage_autodoc.py
++++ b/sage/src/sage_docbuild/ext/sage_autodoc.py
+@@ -35,7 +35,7 @@
+ 
+ import sphinx
+ from sphinx.ext.autodoc import mock, ObjectMember
+-from sphinx.ext.autodoc.importer import import_object, get_object_members, get_module_members
++from sphinx.ext.autodoc.importer import import_object, get_object_members
+ from sphinx.locale import _, __
+ from sphinx.pycode import ModuleAnalyzer
+ from sphinx.errors import PycodeError
+@@ -786,9 +786,9 @@
+                 except PycodeError:
+                     pass
+             if fname is not None:
+-                self.directive.filename_set.add(fname)
++                self.directive.record_dependencies.add(fname)
+         else:
+-            self.directive.filename_set.add(self.analyzer.srcname)
++            self.directive.record_dependencies.add(self.analyzer.srcname)
+ 
+         # check __module__ of object (for members not given explicitly)
+         if check_module:
+--- a/sage/src/sage/misc/sagedoc.py
++++ b/sage/src/sage/misc/sagedoc.py
+@@ -494,7 +494,7 @@
+ # Sage trac ticket shortcuts. For example, :trac:`7549` .
+ pythonversion = sys.version.split(' ')[0]
+ extlinks = {
+-    'python': ('https://docs.python.org/release/'+pythonversion+'/%s', ''),
++    'python': ('https://docs.python.org/release/'+pythonversion+'/%s', None),
+     'trac': ('https://trac.sagemath.org/%s', 'trac ticket #%s'),
+     'wikipedia': ('https://en.wikipedia.org/wiki/%s', 'Wikipedia article %s'),
+     'arxiv': ('https://arxiv.org/abs/%s', 'arXiv %s'),
+--- a/sage/src/sage_docbuild/ext/multidocs.py
++++ b/sage/src/sage_docbuild/ext/multidocs.py
+@@ -148,6 +148,10 @@
+             titles = app.builder.indexer._titles
+             for (res, title) in index._titles.items():
+                 titles[fixpath(res)] = title
++            # merge the alltitles
++            alltitles = app.builder.indexer._all_titles
++            for (res, alltitle) in index._all_titles.items():
++                alltitles[fixpath(res)] = alltitle
+             # merge the filenames
+             filenames = app.builder.indexer._filenames
+             for (res, filename) in index._filenames.items():

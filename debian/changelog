@@ -6,6 +6,7 @@ sagemath (9.5-5) UNRELEASED; urgency=medium
   * New patches:
     - u0-version-pari-2.15.patch                 #34537
     - u0-version-sphinx-4.4.patch                #33272
+    - u0-version-sphinx-5.2.patch                #34615
     - u0-version-gap-4.12.patch                  #34391
     - u0-version-python-3.11.patch               #33842
 

@@ -4,6 +4,7 @@ u0-version-pari-2.15.patch                 #34537
 u0-version-linbox-1.7.patch                #32959
 u0-version-sphinx-4.3.patch                #32968
 u0-version-sphinx-4.4.patch                #33272
+u0-version-sphinx-5.2.patch                #34615
 u0-version-arb-2.22.patch                  #33189
 u0-version-gap-4.12.patch                  #34391
 u0-version-python-3.11.patch               #33842
