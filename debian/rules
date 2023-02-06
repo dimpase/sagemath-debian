@@ -72,8 +72,8 @@ debian/tmp/usr/bin/sage:
 	mkdir -p debian/tmp
 	mv debian/python3-sage/usr debian/tmp/
 	rm -rf debian/python3-sage
-	mkdir -p debian/tmp/usr/lib/python3.10/dist-packages/
-	cp -f debian/sage_conf.py debian/tmp/usr/lib/python3.10/dist-packages/
+	mkdir -p debian/tmp/usr/lib/python3.11/dist-packages/
+	cp -f debian/sage_conf.py debian/tmp/usr/lib/python3.11/dist-packages/
 
 override_dh_auto_build-arch: debian/tmp/usr/bin/sage
 
@@ -82,7 +82,7 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 	cd sage && SAGE_ROOT=$(CURDIR)/sage PATH=$(PATH):$(CURDIR)/sage/build/bin src/doc/bootstrap
 	mv sage/src/sage sage/src/sage.bak # Use the installed sage, not the one from the source tree
 	cd sage/src && \
-	export PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.10/dist-packages \
+	export PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.11/dist-packages \
 	       SAGE_SRC=$(CURDIR)/sage/src \
 	       SAGE_DOC_SRC=$(CURDIR)/sage/src/doc \
 	       SAGE_DOC=$(CURDIR)/sage/src/doc \
@@ -179,14 +179,14 @@ TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
 
 run_tests = \
 	export PATH=$(PATH):$(CURDIR)/debian/tmp/usr/bin \
-	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.10/dist-packages \
+	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.11/dist-packages \
 	       SAGE_DOC=$(CURDIR)/sage/src/doc \
 	       SAGE_LOCAL=/usr && cd sage && \
 	sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
 
 rerun_tests = \
 	export PATH=$(PATH):$(CURDIR)/debian/tmp/usr/bin \
-	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.10/dist-packages \
+	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3.11/dist-packages \
 	       SAGE_DOC=$(CURDIR)/sage/src/doc \
 	       SAGE_LOCAL=/usr && cd sage && \
 	sage -t -p 1 -f --logfile=$(CURDIR)/sage/logs/ptestlong-$(1).log $(2)
