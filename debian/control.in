@@ -7,7 +7,7 @@ Uploaders: Tobias Hansen <thansen@debian.org>,
            Julien Puydt <jpuydt@debian.org>,
            Jerome Benoit <calculus@rezozer.net>,
            Ximin Luo <infinity0@debian.org>
-Standards-Version: 4.6.0
+Standards-Version: 4.6.2
 Homepage: http://www.sagemath.org/
 Vcs-Git: https://salsa.debian.org/math-team/sagemath.git
 Vcs-Browser: https://salsa.debian.org/math-team/sagemath
