@@ -1,0 +1,25 @@
+From 9c8235e44ffb509efa8a3ca6cdb55154e2b5066d Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sun, 13 Feb 2022 19:53:14 +0100
+Subject: [PATCH] Fix deprecation warning with scipy 1.8
+
+---
+ .../computational-mathematics-with-sagemath/linsolve_doctest.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/sage/tests/books/computational-mathematics-with-sagemath/linsolve_doctest.py b/src/sage/tests/books/computational-mathematics-with-sagemath/linsolve_doctest.py
+index e9b60dae5ec..7932167b41d 100644
+--- a/sage/src/sage/tests/books/computational-mathematics-with-sagemath/linsolve_doctest.py
++++ b/sage/src/sage/tests/books/computational-mathematics-with-sagemath/linsolve_doctest.py
+@@ -356,7 +356,7 @@ Sage example in ./linsolve.tex, line 2230::
+ 
+ Sage example in ./linsolve.tex, line 2609::
+ 
+-  sage: from scipy.sparse.linalg.dsolve import *
++  sage: from scipy.sparse.linalg import factorized
+   sage: from scipy.sparse import lil_matrix
+   sage: from numpy import array
+   sage: n = 200
+-- 
+2.30.2
+

@@ -11,6 +11,7 @@ sagemath (9.5-5) UNRELEASED; urgency=medium
     - u0-version-python-3.11.patch               #33842
     - u0-version-matplotlib-3.6.patch
     - u0-version-sympy-1.10.patch
+    - u0-version-scipy-1.8.patch
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 16 Oct 2022 17:28:13 +0100
 

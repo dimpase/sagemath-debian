@@ -10,6 +10,7 @@ u0-version-gap-4.12.patch                  #34391
 u0-version-python-3.11.patch               #33842
 u0-version-matplotlib-3.6.patch
 u0-version-sympy-1.10.patch
+u0-version-scipy-1.8.patch
 
 # Patches that have open upstream tickets
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
