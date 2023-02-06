@@ -1,0 +1,24 @@
+Description: ignore some deprecation warnings
+Author: Rogo <rogo95@proton.me>
+
+--- a/sage/src/sage/all.py
++++ b/sage/src/sage/all.py
+@@ -126,6 +126,18 @@ warnings.filterwarnings('ignore', category=DeprecationWarning,
+                         message=r"Use setlocale\(\), getencoding\(\) and getlocale\(\) instead",
+                         module='docutils.io')
+ 
++# ignore some deprecation warnings
++warnings.filterwarnings('ignore', category=DeprecationWarning,
++                        message="msvccompiler is deprecated and slated to be removed in the future. Please discontinue use or file an issue with pypa/distutils describing your use case.")
++warnings.filterwarnings('ignore', category=FutureWarning,
++                        message=r"In the future `np.(bool|bytes)` will be defined as the corresponding NumPy scalar.  \(This may have returned Python scalars in past versions.")
++warnings.filterwarnings('ignore', category=DeprecationWarning,
++                        message="'imghdr' is deprecated and slated for removal in Python 3.13")
++warnings.filterwarnings('ignore', category=DeprecationWarning,
++                        message="'cgi' is deprecated and slated for removal in Python 3.13")
++warnings.filterwarnings('ignore', category=DeprecationWarning,
++                        message=r"Passing unrecognized arguments to super\(ToggleButtons\).__init__\(style=\{'button_width': 'initial'\}\).")
++
+ ################ end setup warnings ###############################
+ 
+ 
