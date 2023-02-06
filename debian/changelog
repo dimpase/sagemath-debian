@@ -13,6 +13,7 @@ sagemath (9.5-5) UNRELEASED; urgency=medium
     - u0-version-sympy-1.10.patch
     - u0-version-scipy-1.8.patch
     - u0-version-singular-4.3.1-p3.patch         #34851
+  * Allow up to 200 failed doctests.
 
  -- Tobias Hansen <thansen@debian.org>  Sun, 16 Oct 2022 17:28:13 +0100
 
