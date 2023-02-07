@@ -1,0 +1,74 @@
+Bug: https://github.com/sagemath/sage/pull/34997
+
+From c1632f49a3821deb5345c645e559b12f5fa319e5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Gonzalo=20Tornar=C3=ADa?= <tornaria@cmat.edu.uy>
+Date: Wed, 4 Jan 2023 20:21:51 -0300
+Subject: [PATCH] Fix bug in conversion from python int to ZZ (python 3.11, 32
+ bit)
+
+This affects 32 bit architectures, where the representation of python
+integers changed in cpython 3.11, when compiled with gcc12.
+
+As part of #33842, the function `sage.arith.long.integer_check_long_py()`
+was rewritten to support the new representation.  Unfortunately a bug
+remained that triggers UB for the conversion of integers between 2^60
+and 2^63-1. Alas, the undesired behaviour does not happen with gcc10;
+it only started when I switched to gcc12.
+
+The bug manifests in lots of doctests failing, but a quick way to
+demonstrate the issue is
+
+  sage: ZZ ( int(1152921504606847018) )  # 2^60 + 42
+  42
+
+The function `integer_check_long_py()` has good unit testing, checking
+values around the word size, but this range was missing.
+
+This commit adds a simple fix and new test cases for a few integers in
+this range.
+
+Technical explanation:
+
+The UB is in the line
+
+  cdef long lead_3_overflow = (<long>1) << (BITS_IN_LONG - 2 * PyLong_SHIFT)
+
+In our case we have `BITS_IN_LONG == 31` and `PyLong_SHIFT == 30` so the
+computed value is `<long>1 << -29` which is UB and it happens to
+evaluate to 0 with gcc10 but 8 with gcc12.
+
+The solution is to set the value to 0 when `BITS_IN_LONG < 2 * PyLong_SHIFT`.
+---
+ src/sage/arith/long.pxd | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+--- a/sage/src/sage/arith/long.pxd
++++ b/sage/src/sage/arith/long.pxd
+@@ -270,6 +270,17 @@
+         sage: L += [-x for x in L] + [0, long_min()]
+         sage: for v in L:
+         ....:     assert check_long_py(int(v)) == v
++        sage: check_long_py(int(2^60))
++        1152921504606846976                 # 64-bit
++        'Overflow (...)'                    # 32-bit
++        sage: check_long_py(int(2^61))
++        2305843009213693952                 # 64-bit
++        'Overflow (...)'                    # 32-bit
++        sage: check_long_py(int(2^62))
++        4611686018427387904                 # 64-bit
++        'Overflow (...)'                    # 32-bit
++        sage: check_long_py(int(2^63))
++        'Overflow (...)'
+         sage: check_long_py(int(2^100))
+         'Overflow (...)'
+         sage: check_long_py(int(long_max() + 1))
+@@ -315,6 +326,9 @@
+     cdef long lead
+     cdef long lead_2_overflow = (<long>1) << (BITS_IN_LONG - PyLong_SHIFT)
+     cdef long lead_3_overflow = (<long>1) << (BITS_IN_LONG - 2 * PyLong_SHIFT)
++    if BITS_IN_LONG < 2 * PyLong_SHIFT:
++        # in this case 3 digit is always overflow
++        lead_3_overflow = 0
+     if size == 0:
+         value[0] = 0
+         err[0] = 0
