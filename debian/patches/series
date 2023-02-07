@@ -13,6 +13,7 @@ u0-version-sympy-1.10.patch
 u0-version-scipy-1.8.patch
 u0-version-singular-4.3.1-p3.patch         #34851
 u0-32bit-integer-check.patch
+u0-fix-arm64-libgap-segfaults.patch        #34701
 
 # Patches that have open upstream tickets
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
