@@ -1,10 +1,10 @@
-sagemath (9.5-6) UNRELEASED; urgency=medium
+sagemath (9.5-6) unstable; urgency=high
 
-  * New patch to fix builds on i386 and arm64:
+  * Add patches to fix builds on i386 and arm64:
     - u0-32bit-integer-check.patch
     - u0-fix-arm64-libgap-segfaults.patch        #34701
 
- -- Tobias Hansen <thansen@debian.org>  Tue, 07 Feb 2023 14:10:49 +0000
+ -- Tobias Hansen <thansen@debian.org>  Tue, 07 Feb 2023 15:47:13 +0000
 
 sagemath (9.5-5) unstable; urgency=high
 
