@@ -1,4 +1,4 @@
-sagemath (9.5-5) UNRELEASED; urgency=medium
+sagemath (9.5-5) unstable; urgency=high
 
   * Rebuild against current dependencies
     (Closes: #1013399, #1020576, #1022254, #1022278,
@@ -20,7 +20,7 @@ sagemath (9.5-5) UNRELEASED; urgency=medium
     - dt-ignore-deprecation-warnings.patch
   * Allow up to 200 failed doctests.
 
- -- Tobias Hansen <thansen@debian.org>  Sun, 16 Oct 2022 17:28:13 +0100
+ -- Tobias Hansen <thansen@debian.org>  Tue, 07 Feb 2023 07:40:09 +0000
 
 sagemath (9.5-4) unstable; urgency=medium
 
