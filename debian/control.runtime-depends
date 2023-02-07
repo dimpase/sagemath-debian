@@ -60,7 +60,7 @@
  libgc-dev,
  libgd-dev,
  libgf2x-dev,
- libgiac-dev (>= 1.9.0.19+dfsg2-2),
+ libgiac-dev (>= 1.9.0.35+dfsg2-1.1),
  libgivaro-dev,
  libglpk-dev,
  libgmp-dev,
