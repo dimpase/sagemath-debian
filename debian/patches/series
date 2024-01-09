@@ -11,7 +11,6 @@ u2-fix-sympow-cachedir.patch
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
 d0-cygdb3.patch
-d0-mathjax.patch
 d0-rubiks.patch
 
 # Patch Sage to behave as a Debian package
