@@ -12,7 +12,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
 +from sage.env import DOT_SAGE
  from sage.structure.sage_object import SageObject
- from sage.misc.all import pager
+ from sage.misc.pager import pager
  from sage.misc.verbose import verbose
 @@ -76,7 +77,7 @@
          """
