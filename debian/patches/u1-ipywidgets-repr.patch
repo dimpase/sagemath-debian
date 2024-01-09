@@ -9,7 +9,7 @@ Bug: https://github.com/jupyter-widgets/ipywidgets/pull/1031
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/sage/src/sage/repl/ipython_kernel/widgets.py
 +++ b/sage/src/sage/repl/ipython_kernel/widgets.py
-@@ -26,13 +26,43 @@
+@@ -26,7 +26,7 @@
  from ipywidgets.widgets import (IntSlider, IntRangeSlider,
                                  FloatSlider, FloatRangeSlider, Text,
                                  Textarea, ColorPicker, HTMLMath, Label,
@@ -18,8 +18,9 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  from traitlets import List, Unicode, link
  
  from sage.misc.sage_eval import sage_eval
- from sage.repl.user_globals import get_globals
- from sage.plot.colors import Color
+@@ -34,6 +34,36 @@
+ from sage.misc.lazy_import import lazy_import
+ lazy_import("sage.plot.colors", "Color")
  
 +def __widgets__repr__(self):
 +    """
