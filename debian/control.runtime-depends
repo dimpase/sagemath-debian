@@ -54,7 +54,7 @@
  libec-dev,
  libecm-dev,
  libffi-dev,
- libflint-dev,
+ libflint-dev (>= 3.0.0),
  libfreetype6-dev,
  libgc-dev,
  libgd-dev,
