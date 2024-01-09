@@ -2,32 +2,32 @@ Description: Find rubiks binaries
  They have different names in Debian.
 Author: Tobias Hansen <thansen@debian.org>
 
---- a/sage/src/sage/interfaces/rubik.py
-+++ b/sage/src/sage/interfaces/rubik.py
-@@ -96,7 +96,7 @@
-     """
-     Interface to Michael Reid's optimal Rubik's Cube solver.
-     """
--    __cmd = "optimal"
-+    __cmd = "rubiks_optimal"
+--- a/sage/src/sage/features/rubiks.py
++++ b/sage/src/sage/features/rubiks.py
+@@ -80,7 +80,7 @@
+             sage: isinstance(optimal(), optimal)
+             True
+         """
+-        Executable.__init__(self, "optimal", executable=RUBIKS_BINS_PREFIX + "optimal",
++        Executable.__init__(self, "optimal", executable=RUBIKS_BINS_PREFIX + "rubiks_optimal",
+                             spkg="rubiks")
  
-     def __init__(self, verbose=False, wait=True):
-         self.verbose = verbose
-@@ -185,7 +185,7 @@
  
- class CubexSolver:
+@@ -124,7 +124,7 @@
+             sage: isinstance(dikcube(), dikcube)
+             True
+         """
+-        Executable.__init__(self, "dikcube", executable=RUBIKS_BINS_PREFIX + "dikcube",
++        Executable.__init__(self, "dikcube", executable=RUBIKS_BINS_PREFIX + "rubiks_dikcube",
+                             spkg="rubiks")
  
--    __cmd = "cubex"
-+    __cmd = "rubiks_cubex"
  
-     def __call__(self, facets):
-         return self.solve(facets)
-@@ -238,7 +238,7 @@
+@@ -146,7 +146,7 @@
+             sage: isinstance(cubex(), cubex)
+             True
+         """
+-        Executable.__init__(self, "cubex", executable=RUBIKS_BINS_PREFIX + "cubex",
++        Executable.__init__(self, "cubex", executable=RUBIKS_BINS_PREFIX + "rubiks_cubex",
+                             spkg="rubiks")
  
- class DikSolver:
  
--    __cmd = "dikcube"
-+    __cmd = "rubiks_dikcube"
- 
-     def __call__(self, facets):
-         return self.solve(facets)
