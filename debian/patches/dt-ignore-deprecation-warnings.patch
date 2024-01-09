@@ -3,9 +3,9 @@ Author: Rogo <rogo95@proton.me>
 
 --- a/sage/src/sage/all.py
 +++ b/sage/src/sage/all.py
-@@ -126,6 +126,18 @@ warnings.filterwarnings('ignore', category=DeprecationWarning,
-                         message=r"Use setlocale\(\), getencoding\(\) and getlocale\(\) instead",
-                         module='docutils.io')
+@@ -57,6 +57,18 @@
+ import operator
+ import math
  
 +# ignore some deprecation warnings
 +warnings.filterwarnings('ignore', category=DeprecationWarning,
@@ -21,4 +21,4 @@ Author: Rogo <rogo95@proton.me>
 +
  ################ end setup warnings ###############################
  
- 
+ from .all__sagemath_repl import *  # includes .all__sagemath_objects, .all__sagemath_environment
