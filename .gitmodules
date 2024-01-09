@@ -1,4 +1,4 @@
 [submodule "sage"]
 	path = sage
-	url = git://git.sagemath.org/sage.git
+	url = https://github.com/sagemath/sage
 	branch = develop
