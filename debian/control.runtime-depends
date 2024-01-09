@@ -54,7 +54,6 @@
  libec-dev,
  libecm-dev,
  libffi-dev,
- libflint-arb-dev,
  libflint-dev,
  libfreetype6-dev,
  libgc-dev,
