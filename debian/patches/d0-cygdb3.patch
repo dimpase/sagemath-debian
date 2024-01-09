@@ -10,6 +10,6 @@ Author: Tobias Hansen <thansen@debian.org>
          sage_dir=$(sage-python -c 'import os, sage; print(os.path.dirname(sage.__file__))')
 -        cygdb "$sage_dir" "$SAGE_SRC/sage" \
 +        cygdb3 "$sage_dir" "$SAGE_SRC/sage" \
-             -- -x "${SELF}-gdb-commands" \
+             -- --eval-command "run" \
              -args python "${SELF}-ipython" "$@" -i
      fi
