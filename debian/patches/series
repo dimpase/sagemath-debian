@@ -19,7 +19,7 @@ d1-doc-docs.patch
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
-dt-version-ipywidgets-6-revert-31517.patch
-dt-version-ipywidgets-6-revert-23177.patch
-dt-version-ipywidgets-6-tests.patch
+#dt-version-ipywidgets-6-revert-31517.patch
+#dt-version-ipywidgets-6-revert-23177.patch
+#dt-version-ipywidgets-6-tests.patch
 dt-ignore-deprecation-warnings.patch
