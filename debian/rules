@@ -54,6 +54,9 @@ debian/control: debian/control.in
 # 3. PACKAGE BUILD
 ###############################################################################
 
+override_dh_autoreconf:
+	$(MAKE) -C sage configure
+
 override_dh_auto_configure:
 	cd sage/pkgs/sage-setup && python3 setup.py build
 	cd sage/pkgs/sage-setup && python3 setup.py install --root=$(CURDIR)/debian/tmp0 --install-layout=deb
