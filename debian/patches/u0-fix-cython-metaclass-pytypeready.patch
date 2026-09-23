@@ -1,0 +1,29 @@
+From 464180120ef1650f834a6fc1a143c9b4724bbfb0 Mon Sep 17 00:00:00 2001
+From: Yutao Yuan <infmagic2047reg@outlook.com>
+Date: Sun, 20 Aug 2023 21:26:54 +0800
+Subject: [PATCH] fix cython metaclass Sage_PyType_Ready
+
+---
+ src/sage/cpython/cython_metaclass.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+Index: sage-test/sage/src/sage/cpython/cython_metaclass.h
+===================================================================
+--- sage-test.orig/sage/src/sage/cpython/cython_metaclass.h
++++ sage-test/sage/src/sage/cpython/cython_metaclass.h
+@@ -52,6 +52,15 @@ static CYTHON_INLINE int Sage_PyType_Rea
+     if (r < 0)
+         return r;
+ 
++#if PY_VERSION_HEX >= 0x03050000
++    // Cython 3 sets Py_TPFLAGS_HEAPSIZE before calling PyType_Ready,
++    // and resets just after the call. We need to do the same, or it may
++    // end up with illegal memory accesses.
++    // See also:
++    // https://github.com/cython/cython/issues/3603
++    t->tp_flags &= ~Py_TPFLAGS_HEAPTYPE;
++#endif
++
+     /* Set or get metaclass (the type of t) */
+     PyTypeObject* metaclass;
+ 

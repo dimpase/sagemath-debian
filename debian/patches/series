@@ -16,6 +16,17 @@ u0-32bit-integer-check.patch
 u0-fix-arm64-libgap-segfaults.patch        #34701
 u0-fix-multiprocessing-start-method.patch
 u0-cython-legacy-directives.patch
+u0-fix-py-new-signature.patch
+u0-pass-empty-tuple-to-tp-new.patch
+u0-get-rid-of-some-usage-of-long.patch
+u0-using-pylong-api-instead-of-legacy-pyint.patch
+u0-py312-changes-in-pylong-internals.patch
+u0-remove-rtruediv-definitions.patch
+u0-remove-coxeter-coxgraph.patch
+u0-fix-structmember-defines-cython3.patch
+u0-avoid-naming-cython-attributes-module.patch
+u0-fix-cython-metaclass-pytypeready.patch
+u0-drop-wrapperdescr-fastcall.patch
 
 # Patches that have open upstream tickets
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
