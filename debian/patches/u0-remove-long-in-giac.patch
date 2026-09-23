@@ -1,0 +1,29 @@
+From f16dacb5afa7b8f556becd93272842f242070188 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Chapoton?= <chapoton@unistra.fr>
+Date: Wed, 22 Jun 2022 16:47:23 +0200
+Subject: [PATCH] tweaking the giac / libgiac interface
+
+---
+ src/sage/libs/giac/giac.pyx | 70 +++++++++++++------------------------
+ 1 file changed, 24 insertions(+), 46 deletions(-)
+
+Index: sage-test/sage/src/sage/libs/giac/giac.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/giac/giac.pyx
++++ sage-test/sage/src/sage/libs/giac/giac.pyx
+@@ -870,15 +870,6 @@ cdef class Pygen(GiacMethods_base):
+              self.gptr = new gen(<double>s)
+              sig_off()
+ 
+-
+-         elif isinstance(s,long):
+-             #s=str(s)
+-             #self.gptr = new gen(<string>s,context_ptr)
+-             sig_on()
+-             self.gptr = new gen(pylongtogen(s))
+-             sig_off()
+-
+-
+          elif isinstance(s,Pygen):
+              #in the test: x,y=Pygen('x,y');((x+2*y).sin()).texpand()
+              # the y are lost without this case.

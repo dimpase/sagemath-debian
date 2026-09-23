@@ -1,0 +1,22 @@
+From d38cf38c03328479aec6a8e88bb77eccaf0b6c66 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Chapoton?= <chapoton@unistra.fr>
+Date: Wed, 12 Jul 2023 09:07:02 +0200
+Subject: [PATCH] cython-lint for imports in rings
+
+---
+ src/sage/rings/rational.pyx | 2 --
+ 1 file changed, 2 deletions(-)
+
+Index: sage-patch-test/sage/src/sage/rings/rational.pyx
+===================================================================
+--- sage-patch-test.orig/sage/src/sage/rings/rational.pyx
++++ sage-patch-test/sage/src/sage/rings/rational.pyx
+@@ -97,8 +97,6 @@ import sage.rings.real_double
+ from libc.stdint cimport uint64_t
+ from sage.libs.gmp.binop cimport mpq_add_z, mpq_mul_z, mpq_div_zz
+ 
+-from cpython.int cimport PyInt_AS_LONG
+-
+ cimport sage.rings.fast_arith
+ import  sage.rings.fast_arith
+ 

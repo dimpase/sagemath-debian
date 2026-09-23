@@ -1,0 +1,259 @@
+From 057771ebfd6f23f2540ed62c38ab0fb9c8ffe9cf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Chapoton?= <chapoton@unistra.fr>
+Date: Thu, 19 Jan 2023 11:52:17 +0100
+Subject: [PATCH] less usage of python2 "long" type in p-adics
+
+---
+ src/sage/rings/padics/CA_template.pxi            |  7 +++----
+ src/sage/rings/padics/CR_template.pxi            |  6 +++---
+ src/sage/rings/padics/FP_template.pxi            |  2 +-
+ src/sage/rings/padics/padic_ZZ_pX_CA_element.pyx |  6 +++---
+ src/sage/rings/padics/padic_ZZ_pX_CR_element.pyx |  8 ++++----
+ src/sage/rings/padics/padic_ZZ_pX_FM_element.pyx |  2 +-
+ src/sage/rings/padics/padic_ZZ_pX_element.pyx    |  8 ++++----
+ src/sage/rings/padics/padic_template_element.pxi | 11 +++++------
+ 8 files changed, 24 insertions(+), 26 deletions(-)
+
+Index: sage-test/sage/src/sage/rings/padics/CA_template.pxi
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/CA_template.pxi
++++ sage-test/sage/src/sage/rings/padics/CA_template.pxi
+@@ -54,7 +54,7 @@ cdef class CAElement(pAdicTemplateElemen
+ 
+         INPUT:
+ 
+-        - ``x`` -- data defining a `p`-adic element: int, long,
++        - ``x`` -- data defining a `p`-adic element: int,
+           Integer, Rational, other `p`-adic element...
+ 
+         - ``val`` -- the valuation of the resulting element
+@@ -467,8 +467,7 @@ cdef class CAElement(pAdicTemplateElemen
+         cdef Integer right
+         cdef CAElement pright, ans
+         cdef bint exact_exp
+-        if isinstance(_right, Integer) or isinstance(_right, (int, long)) \
+-                                          or isinstance(_right, Rational):
++        if isinstance(_right, (Integer, int, Rational)):
+             if _right < 0:
+                 base = ~self
+                 return base.__pow__(-_right, dummy)
+@@ -489,7 +488,7 @@ cdef class CAElement(pAdicTemplateElemen
+         elif ciszero(self.value, self.prime_pow):
+             # We may assume from above that right > 0 if exact.
+             # So we return a zero of precision right * self.ordp.
+-            if isinstance(_right, (int, long)):
++            if isinstance(_right, int):
+                 _right = Integer(_right)
+             if isinstance(_right, Integer):
+                 right = <Integer>_right
+Index: sage-test/sage/src/sage/rings/padics/CR_template.pxi
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/CR_template.pxi
++++ sage-test/sage/src/sage/rings/padics/CR_template.pxi
+@@ -80,7 +80,7 @@ cdef class CRElement(pAdicTemplateElemen
+ 
+         INPUT:
+ 
+-        - ``x`` -- data defining a `p`-adic element: int, long,
++        - ``x`` -- data defining a `p`-adic element: int,
+           Integer, Rational, other `p`-adic element...
+ 
+         - ``val`` -- the valuation of the resulting element
+@@ -670,7 +670,7 @@ cdef class CRElement(pAdicTemplateElemen
+         cdef Integer right
+         cdef CRElement base, pright, ans
+         cdef bint exact_exp
+-        if (isinstance(_right, Integer) or isinstance(_right, (int, long)) or isinstance(_right, Rational)):
++        if isinstance(_right, (Integer, int, Rational)):
+             if _right < 0:
+                 base = ~self
+                 return base.__pow__(-_right, dummy)
+@@ -700,7 +700,7 @@ cdef class CRElement(pAdicTemplateElemen
+         ans = self._new_c()
+         if self.relprec == 0:
+             # If a positive integer exponent, return an inexact zero of valuation right * self.ordp.  Otherwise raise an error.
+-            if isinstance(_right, (int, long)):
++            if isinstance(_right, int):
+                 _right = Integer(_right)
+             if isinstance(_right, Integer):
+                 right = <Integer>_right
+Index: sage-test/sage/src/sage/rings/padics/FP_template.pxi
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/FP_template.pxi
++++ sage-test/sage/src/sage/rings/padics/FP_template.pxi
+@@ -616,7 +616,7 @@ cdef class FPElement(pAdicTemplateElemen
+         cdef Integer right
+         cdef FPElement base, pright, ans
+         cdef bint exact_exp
+-        if isinstance(_right, (Integer, int, long, Rational)):
++        if isinstance(_right, (Integer, int, Rational)):
+             if _right < 0:
+                 self = ~self
+                 _right = -_right
+Index: sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_CA_element.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/padic_ZZ_pX_CA_element.pyx
++++ sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_CA_element.pyx
+@@ -361,7 +361,7 @@ cdef class pAdicZZpXCAElement(pAdicZZpXE
+             tmp_Int = PY_NEW(Integer)
+             ZZ_to_mpz(tmp_Int.value, &(<ntl_ZZ>x).x)
+             x = tmp_Int
+-        elif isinstance(x, (int, long)):
++        elif isinstance(x, int):
+             x = Integer(x)
+         elif x in parent.residue_field() and x.parent().is_finite():
+             # Should only reach here if x is not in F_p
+@@ -1253,7 +1253,7 @@ cdef class pAdicZZpXCAElement(pAdicZZpXE
+         cdef long i
+         if self._is_inexact_zero():
+             # If an integer exponent, return an inexact zero of valuation right * self_ordp.  Otherwise raise an error.
+-            if isinstance(_right, (int, long)):
++            if isinstance(_right, int):
+                 _right = Integer(_right)
+             if isinstance(_right, Integer):
+                 mpz_init_set_si(tmp, self_ordp)
+@@ -1270,7 +1270,7 @@ cdef class pAdicZZpXCAElement(pAdicZZpXE
+                 raise ValueError("need more precision")
+             else:
+                 raise TypeError("exponent must be an integer, rational or base p-adic with the same prime")
+-        if isinstance(_right, (int, long)):
++        if isinstance(_right, int):
+             _right = Integer(_right)
+         cdef pAdicZZpXCAElement unit
+         if isinstance(_right, Integer):
+Index: sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_CR_element.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/padic_ZZ_pX_CR_element.pyx
++++ sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_CR_element.pyx
+@@ -388,7 +388,7 @@ cdef class pAdicZZpXCRElement(pAdicZZpXE
+             tmp_Int = PY_NEW(Integer)
+             ZZ_to_mpz(tmp_Int.value, &(<ntl_ZZ>x).x)
+             x = tmp_Int
+-        elif isinstance(x, (int, long)):
++        elif isinstance(x, int):
+             x = Integer(x)
+         elif x in parent.residue_field() and x.parent().is_finite():
+             # Should only reach here if x is not in F_p
+@@ -1939,7 +1939,7 @@ cdef class pAdicZZpXCRElement(pAdicZZpXE
+         cdef long i
+         if self._is_exact_zero():
+             # Return 0 except for 0^0 error or type error on the exponent.
+-            if isinstance(_right, Integer) or isinstance(_right, Rational) or (isinstance(_right, pAdicGenericElement) and _right._is_base_elt(self.prime_pow.prime))  or isinstance(_right, (int, long)):
++            if isinstance(_right, (Integer, Rational, int)) or (isinstance(_right, pAdicGenericElement) and _right._is_base_elt(self.prime_pow.prime)):
+                 if _right == 0:
+                     return self.parent(1)
+                 return self
+@@ -1947,7 +1947,7 @@ cdef class pAdicZZpXCRElement(pAdicZZpXE
+                 raise TypeError("exponent must be an integer, rational or base p-adic with the same prime")
+         elif self._is_inexact_zero():
+             # If an integer exponent, return an inexact zero of valuation right * self.ordp.  Otherwise raise an error.
+-            if isinstance(_right, (int, long)):
++            if isinstance(_right, int):
+                 _right = Integer(_right)
+             if isinstance(_right, Integer):
+                 ans = self._new_c(0)
+@@ -1962,7 +1962,7 @@ cdef class pAdicZZpXCRElement(pAdicZZpXE
+                 raise ValueError("Need more precision")
+             else:
+                 raise TypeError("exponent must be an integer, rational or base p-adic with the same prime")
+-        if isinstance(_right, (int, long)):
++        if isinstance(_right, int):
+             _right = Integer(_right)
+         if isinstance(_right, Integer):
+             right = <Integer> _right
+Index: sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_FM_element.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/padic_ZZ_pX_FM_element.pyx
++++ sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_FM_element.pyx
+@@ -260,7 +260,7 @@ cdef class pAdicZZpXFMElement(pAdicZZpXE
+             tmp_Int = Integer.__new__(Integer)
+             ZZ_to_mpz(tmp_Int.value, &(<ntl_ZZ>x).x)
+             x = tmp_Int
+-        elif isinstance(x, (int, long)):
++        elif isinstance(x, int):
+             x = Integer(x)
+         if isinstance(x, Integer):
+             self._set_from_mpz((<Integer>x).value)
+Index: sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_element.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/padic_ZZ_pX_element.pyx
++++ sage-test/sage/src/sage/rings/padics/padic_ZZ_pX_element.pyx
+@@ -643,7 +643,7 @@ cdef preprocess_list(pAdicZZpXElement el
+         for i from 0 <= i < len(L):
+             if isinstance(L[i], ntl_ZZ):
+                 L[i] = ntl_ZZ_p(L[i]*pshift_z, ctx)
+-            elif isinstance(L[i], Integer) or isinstance(L[i], Rational) or isinstance(L[i], (int, long)):
++            elif isinstance(L[i], (Integer, Rational, int)):
+                 L[i] = ntl_ZZ_p(L[i]*pshift_m, ctx)
+             elif isinstance(L[i], pAdicGenericElement) and L[i]._is_base_elt(elt.prime_pow.prime):
+                 L[i] = ntl_ZZ_p((L[i] >> min_val).lift(), ctx)
+@@ -661,7 +661,7 @@ cdef preprocess_list(pAdicZZpXElement el
+                 py_tmp = ntl_ZZ.__new__(ntl_ZZ)
+                 py_tmp.x = tmp
+                 L[i] = ntl_ZZ_p(py_tmp, ctx)
+-            elif isinstance(L[i], Integer) or isinstance(L[i], Rational) or isinstance(L[i], (int, long)):
++            elif isinstance(L[i], (Integer, Rational, int)):
+                 L[i] = ntl_ZZ_p(L[i]//pshift_m, ctx)
+             elif isinstance(L[i], pAdicGenericElement) and L[i]._is_base_elt(elt.prime_pow.prime):
+                 L[i] = ntl_ZZ_p((L[i] >> min_val).lift(), ctx)
+@@ -674,7 +674,7 @@ cdef preprocess_list(pAdicZZpXElement el
+                 L[i] = ntl_ZZ_p(py_tmp, ctx)
+     else:
+         for i from 0 <= i < len(L):
+-            if isinstance(L[i], ntl_ZZ) or isinstance(L[i], Integer) or isinstance(L[i], Rational) or isinstance(L[i], (int, long)):
++            if isinstance(L[i], (ntl_ZZ, Integer, Rational, int)):
+                 L[i] = ntl_ZZ_p(L[i], ctx)
+             elif (isinstance(L[i], pAdicGenericElement) and L[i]._is_base_elt(elt.prime_pow.prime)) or is_IntegerMod(L[i]) or (L[i].modulus_context() is not ctx):
+                 L[i] = ntl_ZZ_p(L[i].lift(), ctx)
+@@ -850,7 +850,7 @@ cdef get_val_prec(PowComputer_ext pp, a)
+         py_tmp = ntl_ZZ.__new__(ntl_ZZ)
+         py_tmp.x = pp.pow_ZZ_tmp(1)[0]
+         return (Integer(a.valuation(py_tmp)), big, two)
+-    if isinstance(a, (int, long)):
++    if isinstance(a, int):
+         if a == 0:
+             return (big, big, two)
+         return (Integer(a).valuation(pp.prime), big, two)
+Index: sage-test/sage/src/sage/rings/padics/padic_template_element.pxi
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/padics/padic_template_element.pxi
++++ sage-test/sage/src/sage/rings/padics/padic_template_element.pxi
+@@ -11,8 +11,7 @@ AUTHORS:
+ 
+ - David Roe -- initial version (2012-3-1)
+ """
+-
+-#*****************************************************************************
++# ****************************************************************************
+ #       Copyright (C) 2007-2013 David Roe <roed.math@gmail.com>
+ #                               William Stein <wstein@gmail.com>
+ #
+@@ -20,8 +19,8 @@ AUTHORS:
+ #  as published by the Free Software Foundation; either version 2 of
+ #  the License, or (at your option) any later version.
+ #
+-#                  http://www.gnu.org/licenses/
+-#*****************************************************************************
++#                  https://www.gnu.org/licenses/
++# ****************************************************************************
+ 
+ from cpython.long cimport *
+ 
+@@ -112,7 +111,7 @@ cdef class pAdicTemplateElement(pAdicGen
+         pAdicGenericElement.__init__(self, parent)
+         cdef long val, xprec
+         cdef GEN pari_tmp
+-        if isinstance(x, (int, long)):
++        if isinstance(x, int):
+             x = Integer(x)
+         elif isinstance(x, pari_gen):
+             pari_tmp = (<pari_gen>x).g
+@@ -766,7 +765,7 @@ cdef Integer exact_pow_helper(long *ansr
+     cdef Integer right, p = prime_pow.prime
+     cdef long exp_val
+     cdef bint isbase
+-    if isinstance(_right, (int, long)):
++    if isinstance(_right, int):
+         _right = Integer(_right)
+     if isinstance(_right, Integer):
+         right = <Integer> _right

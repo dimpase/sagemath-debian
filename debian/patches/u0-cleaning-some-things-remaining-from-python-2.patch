@@ -1,0 +1,112 @@
+From 9f4a2941237202085d69fbcab2932c0dc62218d3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Chapoton?= <chapoton@unistra.fr>
+Date: Sun, 18 Jun 2023 08:38:21 +0200
+Subject: [PATCH] cleaning some things remaining from python 2
+
+---
+ src/sage/rings/rational.pyx      | 55 ++------------------------------
+ src/sage/rings/rational_field.py |  2 +-
+ 2 files changed, 3 insertions(+), 54 deletions(-)
+
+Index: sage-patch-test/sage/src/sage/rings/rational.pyx
+===================================================================
+--- sage-patch-test.orig/sage/src/sage/rings/rational.pyx
++++ sage-patch-test/sage/src/sage/rings/rational.pyx
+@@ -4186,7 +4186,7 @@ cdef class Q_to_Z(Map):
+ 
+ cdef class int_to_Q(Morphism):
+     r"""
+-    A morphism from Python 2 ``int`` to `\QQ`.
++    A morphism from Python 3 ``int`` to `\QQ`.
+     """
+     def __init__(self):
+         """
+@@ -4202,57 +4202,6 @@ cdef class int_to_Q(Morphism):
+         from . import rational_field
+         import sage.categories.homset
+         from sage.sets.pythonclass import Set_PythonType
+-        Morphism.__init__(self, sage.categories.homset.Hom(Set_PythonType(int), rational_field.QQ))
+-
+-    cpdef Element _call_(self, a):
+-        """
+-        Return the image of the morphism on ``a``.
+-
+-        EXAMPLES::
+-
+-            sage: f = sage.rings.rational.int_to_Q()
+-            sage: f(int(4)) # indirect doctest
+-            4
+-        """
+-        cdef Rational rat
+-
+-        if type(a) is not int:
+-            raise TypeError("must be a Python int object")
+-
+-        rat = <Rational> Rational.__new__(Rational)
+-        mpq_set_si(rat.value, PyInt_AS_LONG(a), 1)
+-        return rat
+-
+-    def _repr_type(self):
+-        """
+-        Return string that describes the type of morphism.
+-
+-        EXAMPLES::
+-
+-            sage: sage.rings.rational.int_to_Q()._repr_type()
+-            'Native'
+-        """
+-        return "Native"
+-
+-
+-cdef class long_to_Q(Morphism):
+-    r"""
+-    A morphism from Python 2 ``long``/Python 3 ``int`` to `\QQ`.
+-    """
+-    def __init__(self):
+-        """
+-        Initialize ``self``.
+-
+-        EXAMPLES::
+-
+-            sage: sage.rings.rational.long_to_Q()
+-            Native morphism:
+-              From: Set of Python objects of class 'int'
+-              To:   Rational Field
+-        """
+-        from . import rational_field
+-        import sage.categories.homset
+-        from sage.sets.pythonclass import Set_PythonType
+         Morphism.__init__(self, sage.categories.homset.Hom(
+             Set_PythonType(long), rational_field.QQ))
+ 
+@@ -4262,7 +4211,7 @@ cdef class long_to_Q(Morphism):
+ 
+         EXAMPLES::
+ 
+-            sage: f = sage.rings.rational.long_to_Q()
++            sage: f = sage.rings.rational.int_to_Q()
+             sage: f(4^100)
+             1606938044258990275541962092341162602522202993782792835301376
+         """
+@@ -4288,7 +4237,7 @@ cdef class long_to_Q(Morphism):
+ 
+         EXAMPLES::
+ 
+-            sage: sage.rings.rational.long_to_Q()._repr_type()
++            sage: sage.rings.rational.int_to_Q()._repr_type()
+             'Native'
+         """
+         return "Native"
+Index: sage-patch-test/sage/src/sage/rings/rational_field.py
+===================================================================
+--- sage-patch-test.orig/sage/src/sage/rings/rational_field.py
++++ sage-patch-test/sage/src/sage/rings/rational_field.py
+@@ -374,7 +374,7 @@ class RationalField(Singleton, number_fi
+         if S is ZZ:
+             return rational.Z_to_Q()
+         elif S is int:
+-            return rational.long_to_Q()
++            return rational.int_to_Q()
+         elif ZZ.has_coerce_map_from(S):
+             return rational.Z_to_Q() * ZZ._internal_coerce_map_from(S)
+         from sage.rings.localization import Localization

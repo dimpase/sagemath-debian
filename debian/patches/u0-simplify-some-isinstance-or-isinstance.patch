@@ -1,0 +1,84 @@
+From 1747c1040a0021497bc5b16c62a9109af83c6353 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Chapoton?= <chapoton@unistra.fr>
+Date: Tue, 12 Apr 2022 20:18:52 +0200
+Subject: [PATCH] simplify some isinstance or isinstance
+
+---
+ src/sage/libs/mpmath/ext_main.pyx               | 6 +++---
+ src/sage/libs/ntl/ntl_GF2.pyx                   | 2 +-
+ src/sage/libs/singular/function.pyx             | 2 +-
+ src/sage/rings/finite_rings/element_ntl_gf2e.pyx| 4 +---
+ 4 files changed, 5 insertions(+), 9 deletions(-)
+
+Index: sage-test/sage/src/sage/libs/mpmath/ext_main.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/mpmath/ext_main.pyx
++++ sage-test/sage/src/sage/libs/mpmath/ext_main.pyx
+@@ -126,7 +126,7 @@ cdef int MPF_set_any(MPF *re, MPF *im, x
+         MPF_set(re, &(<mpc>x).re)
+         MPF_set(im, &(<mpc>x).im)
+         return 2
+-    if isinstance(x, int) or isinstance(x, long) or isinstance(x, Integer):
++    if isinstance(x, (int, Integer)):
+         MPF_set_int(re, x)
+         return 1
+     if isinstance(x, float):
+@@ -994,7 +994,7 @@ cdef class Context:
+         """
+         cdef MPF v
+         cdef bint ismpf, ismpc
+-        if isinstance(x, int) or isinstance(x, long) or isinstance(x, Integer):
++        if isinstance(x, (int, Integer)):
+             return int(x), 'Z'
+         if isinstance(x, tuple):
+             p, q = x
+@@ -1071,7 +1071,7 @@ cdef class Context:
+ 
+         """
+         cdef int typ
+-        if isinstance(x, int) or isinstance(x, long) or isinstance(x, Integer):
++        if isinstance(x, (int, Integer)):
+             mpz_set_integer(tmp_opx_re.man, x)
+             if mpz_sgn(tmp_opx_re.man) == 0:
+                 return global_context.ninf
+Index: sage-test/sage/src/sage/libs/ntl/ntl_GF2.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ntl/ntl_GF2.pyx
++++ sage-test/sage/src/sage/libs/ntl/ntl_GF2.pyx
+@@ -56,7 +56,7 @@ cdef class ntl_GF2(object):
+         """
+         if isinstance(v, ntl_GF2):
+             self.x = (<ntl_GF2>v).x
+-        elif isinstance(v, int) or isinstance(v, long) or isinstance(v, Integer):
++        elif isinstance(v, (int, Integer)):
+             GF2_conv_long(self.x, int(v) % 2)
+         elif v is not None:
+             ccreadstr(self.x, str(v))
+Index: sage-test/sage/src/sage/libs/singular/function.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/singular/function.pyx
++++ sage-test/sage/src/sage/libs/singular/function.pyx
+@@ -531,7 +531,7 @@ cdef class Converter(SageObject):
+                     isinstance(a, NCPolynomialIdeal):
+                 v = self.append_ideal(a)
+ 
+-            elif isinstance(a, int) or isinstance(a, long):
++            elif isinstance(a, int):
+                 v = self.append_int(a)
+ 
+             elif isinstance(a, str):
+Index: sage-test/sage/src/sage/rings/finite_rings/element_ntl_gf2e.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/finite_rings/element_ntl_gf2e.pyx
++++ sage-test/sage/src/sage/rings/finite_rings/element_ntl_gf2e.pyx
+@@ -308,9 +308,7 @@ cdef class Cache_ntl_gf2e(Cache_base):
+ 
+         if is_IntegerMod(e):
+             e = e.lift()
+-        if isinstance(e, int) or \
+-             isinstance(e, Integer) or \
+-             isinstance(e, long):
++        if isinstance(e, (int, Integer)):
+             GF2E_conv_long(res.x,int(e&1))
+             return res
+ 

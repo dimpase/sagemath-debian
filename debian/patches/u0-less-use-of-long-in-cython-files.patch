@@ -1,0 +1,268 @@
+From 8fc9e87186d9ae1483fe1b8ae8ffdd1c071e5c77 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Chapoton?= <chapoton@unistra.fr>
+Date: Sun, 27 Nov 2022 09:52:03 +0100
+Subject: [PATCH] less use of type "long" in pyx files (outside of p-adics)
+
+---
+ src/sage/libs/ecl.pyx             | 18 ++++++++----------
+ src/sage/libs/mpmath/ext_impl.pyx |  4 +---
+ src/sage/libs/ntl/ntl_ZZ.pyx      |  5 +----
+ src/sage/libs/ntl/ntl_ZZ_p.pyx    |  4 +---
+ src/sage/libs/ntl/ntl_ZZ_pE.pyx   |  4 +---
+ src/sage/libs/ntl/ntl_lzz_p.pyx   |  2 +-
+ src/sage/libs/ntl/ntl_lzz_pX.pyx  |  2 +-
+ src/sage/rings/integer.pyx        |  9 +++------
+ src/sage/rings/rational.pyx       | 18 +++++-------------
+ src/sage/rings/real_mpfr.pyx      |  4 +---
+ 10 files changed, 23 insertions(+), 47 deletions(-)
+
+Index: sage-test/sage/src/sage/libs/ecl.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ecl.pyx
++++ sage-test/sage/src/sage/libs/ecl.pyx
+@@ -435,16 +435,14 @@ cdef cl_object python_to_ecl(pyobj, bint
+             return ECL_NIL
+     elif pyobj is None:
+         return ECL_NIL
+-    elif isinstance(pyobj,long):
+-        if pyobj >= MOST_NEGATIVE_FIXNUM and pyobj <= MOST_POSITIVE_FIXNUM:
++    elif isinstance(pyobj, int):
++        if MOST_NEGATIVE_FIXNUM <= pyobj <= MOST_POSITIVE_FIXNUM:
+             return ecl_make_integer(pyobj)
+         else:
+             return python_to_ecl(Integer(pyobj), read_strings)
+-    elif isinstance(pyobj,int):
+-        return ecl_make_integer(pyobj)
+-    elif isinstance(pyobj,float):
++    elif isinstance(pyobj, float):
+         return ecl_make_doublefloat(pyobj)
+-    elif isinstance(pyobj,unicode):
++    elif isinstance(pyobj, unicode):
+         try:
+             s = str_to_bytes(pyobj, 'ascii')
+         except UnicodeEncodeError:
+@@ -458,22 +456,22 @@ cdef cl_object python_to_ecl(pyobj, bint
+             return ecl_safe_funcall(read_from_string_clobj, o)
+         else:
+             return o
+-    elif isinstance(pyobj,bytes):
++    elif isinstance(pyobj, bytes):
+         s=<bytes>pyobj
+         if read_strings:
+             return ecl_safe_read_string(s)
+         else:
+             return ecl_cstring_to_base_string_or_nil(s)
+-    elif isinstance(pyobj,Integer):
++    elif isinstance(pyobj, Integer):
+         if pyobj >= MOST_NEGATIVE_FIXNUM and pyobj <= MOST_POSITIVE_FIXNUM:
+             return ecl_make_integer(pyobj)
+         else:
+             return ecl_bignum_from_mpz( (<Integer>pyobj).value )
+-    elif isinstance(pyobj,Rational):
++    elif isinstance(pyobj, Rational):
+         return ecl_make_ratio(
+                 python_to_ecl( (<Rational>pyobj).numerator(),   read_strings ),
+                 python_to_ecl( (<Rational>pyobj).denominator(), read_strings ))
+-    elif isinstance(pyobj,EclObject):
++    elif isinstance(pyobj, EclObject):
+         return (<EclObject>pyobj).obj
+     elif isinstance(pyobj, list):
+         L = ECL_NIL
+Index: sage-test/sage/src/sage/libs/mpmath/ext_impl.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/mpmath/ext_impl.pyx
++++ sage-test/sage/src/sage/libs/mpmath/ext_impl.pyx
+@@ -43,10 +43,8 @@ from sage.rings.integer cimport Integer
+ from sage.libs.gmp.pylong cimport *
+ 
+ cdef mpz_set_integer(mpz_t v, x):
+-    if isinstance(x, long):
++    if isinstance(x, int):
+         mpz_set_pylong(v, x)
+-    elif isinstance(x, int):
+-        mpz_set_si(v, PyInt_AS_LONG(x))
+     elif isinstance(x, Integer):
+         mpz_set(v, (<Integer>x).value)
+     else:
+Index: sage-test/sage/src/sage/libs/ntl/ntl_ZZ.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ntl/ntl_ZZ.pyx
++++ sage-test/sage/src/sage/libs/ntl/ntl_ZZ.pyx
+@@ -85,11 +85,8 @@ cdef class ntl_ZZ(object):
+         """
+         if isinstance(v, ntl_ZZ):
+             self.x = (<ntl_ZZ>v).x
+-        elif isinstance(v, long):
+-            # Note: This case should be first since on Python 3 long is int
+-            PyLong_to_ZZ(&self.x, v)
+         elif isinstance(v, int):
+-            ZZ_conv_from_int(self.x, PyInt_AS_LONG(v))
++            PyLong_to_ZZ(&self.x, v)
+         elif isinstance(v, Integer):
+             self.set_from_sage_int(v)
+         elif v is not None:
+Index: sage-test/sage/src/sage/libs/ntl/ntl_ZZ_p.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ntl/ntl_ZZ_p.pyx
++++ sage-test/sage/src/sage/libs/ntl/ntl_ZZ_p.pyx
+@@ -117,11 +117,9 @@ cdef class ntl_ZZ_p(object):
+         if v is not None:
+             if isinstance(v, ntl_ZZ_p):
+                 self.x = (<ntl_ZZ_p>v).x
+-            elif isinstance(v, long):
++            elif isinstance(v, int):
+                 PyLong_to_ZZ(&temp, v)
+                 self.x = ZZ_to_ZZ_p(temp)
+-            elif isinstance(v, int):
+-                self.x = int_to_ZZ_p(v)
+             elif isinstance(v, Integer):
+                 mpz_to_ZZ(&temp, (<Integer>v).value)
+                 self.x = ZZ_to_ZZ_p(temp)
+Index: sage-test/sage/src/sage/libs/ntl/ntl_ZZ_pE.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ntl/ntl_ZZ_pE.pyx
++++ sage-test/sage/src/sage/libs/ntl/ntl_ZZ_pE.pyx
+@@ -117,11 +117,9 @@ cdef class ntl_ZZ_pE(object):
+                 tmp_zzpx = <ntl_ZZ_pX>ntl_ZZ_pX(v, self.c.pc)
+                 self.c.restore_c()   # allocating tmp_zzpx can change the current modulus trac #25790
+                 self.x = ZZ_pX_to_ZZ_pE(tmp_zzpx.x)
+-            elif isinstance(v, long):
++            elif isinstance(v, int):
+                 PyLong_to_ZZ(&temp, v)
+                 self.x = ZZ_to_ZZ_pE(temp)
+-            elif isinstance(v, int):
+-                self.x = long_to_ZZ_pE(v)
+             elif isinstance(v, ntl_ZZ_p):
+                 self.x = ZZ_p_to_ZZ_pE((<ntl_ZZ_p>v).x)
+             elif isinstance(v, ntl_ZZ):
+Index: sage-test/sage/src/sage/libs/ntl/ntl_lzz_p.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ntl/ntl_lzz_p.pyx
++++ sage-test/sage/src/sage/libs/ntl/ntl_lzz_p.pyx
+@@ -139,7 +139,7 @@ cdef class ntl_zz_p(object):
+             self.c = <ntl_zz_pContext_class>modulus
+         elif isinstance(modulus, Integer):
+             self.c = <ntl_zz_pContext_class>ntl_zz_pContext(modulus)
+-        elif isinstance(modulus, long):
++        elif isinstance(modulus, int):
+             self.c = <ntl_zz_pContext_class>ntl_zz_pContext(modulus)
+         else:
+             try:
+Index: sage-test/sage/src/sage/libs/ntl/ntl_lzz_pX.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/libs/ntl/ntl_lzz_pX.pyx
++++ sage-test/sage/src/sage/libs/ntl/ntl_lzz_pX.pyx
+@@ -155,7 +155,7 @@ cdef class ntl_zz_pX(object):
+             self.c = <ntl_zz_pContext_class>modulus
+         elif isinstance(modulus, Integer):
+             self.c = <ntl_zz_pContext_class>ntl_zz_pContext(modulus)
+-        elif isinstance(modulus, long):
++        elif isinstance(modulus, int):
+             self.c = <ntl_zz_pContext_class>ntl_zz_pContext(modulus)
+         else:
+             try:
+Index: sage-test/sage/src/sage/rings/integer.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/integer.pyx
++++ sage-test/sage/src/sage/rings/integer.pyx
+@@ -632,14 +632,11 @@ cdef class Integer(sage.structure.elemen
+             if isinstance(x, Integer):
+                 set_from_Integer(self, <Integer>x)
+ 
+-            elif isinstance(x, long):
+-                mpz_set_pylong(self.value, x)
+-
+             elif isinstance(x, int):
+-                mpz_set_si(self.value, PyInt_AS_LONG(x))
++                mpz_set_pylong(self.value, x)
+ 
+             elif isinstance(x, float):
+-                n = long(x)
++                n = int(x)
+                 if n == x:
+                     mpz_set_pylong(self.value, n)
+                 else:
+@@ -702,7 +699,7 @@ cdef class Integer(sage.structure.elemen
+                 elif is_numpy_type(type(x)):
+                     import numpy
+                     if isinstance(x, numpy.integer):
+-                        mpz_set_pylong(self.value, long(x))
++                        mpz_set_pylong(self.value, int(x))
+                         return
+ 
+                 elif type(x) is gmpy2.mpz:
+Index: sage-test/sage/src/sage/rings/rational.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/rational.pyx
++++ sage-test/sage/src/sage/rings/rational.pyx
+@@ -576,12 +576,8 @@ cdef class Rational(sage.structure.eleme
+         if isinstance(x, Rational):
+             set_from_Rational(self, x)
+ 
+-        elif isinstance(x, long):
+-            mpz_set_pylong(mpq_numref(self.value), x)
+-
+         elif isinstance(x, int):
+-            i = x
+-            mpq_set_si(self.value, i, 1)
++            mpz_set_pylong(mpq_numref(self.value), x)
+ 
+         elif isinstance(x, integer.Integer):
+             set_from_Integer(self, x)
+@@ -629,19 +625,15 @@ cdef class Rational(sage.structure.eleme
+             num = x[0]
+             denom = x[1]
+ 
+-            if isinstance(num, long):
++            if isinstance(num, int):
+                 mpz_set_pylong(mpq_numref(self.value), num)
+-            elif isinstance(num, int):  # Python 2 only
+-                mpz_set_si(mpq_numref(self.value), num)
+             else:
+                 if not isinstance(num, integer.Integer):
+                     num = integer.Integer(num, base)
+                 mpz_set(mpq_numref(self.value), (<integer.Integer>num).value)
+ 
+-            if isinstance(denom, long):
++            if isinstance(denom, int):
+                 mpz_set_pylong(mpq_denref(self.value), denom)
+-            elif isinstance(denom, int):  # Python 2 only
+-                mpz_set_si(mpq_denref(self.value), denom)
+             else:
+                 if not isinstance(denom, integer.Integer):
+                     denom = integer.Integer(denom, base)
+@@ -3696,7 +3688,7 @@ cdef class Rational(sage.structure.eleme
+             32/3
+         """
+         if isinstance(x, Rational):
+-            if isinstance(y, (int, long, integer.Integer)):
++            if isinstance(y, (int, integer.Integer)):
+                 return (<Rational>x)._lshift(y)
+             if isinstance(y, Rational):
+                 if mpz_cmp_si(mpq_denref((<Rational>y).value), 1) != 0:
+@@ -3744,7 +3736,7 @@ cdef class Rational(sage.structure.eleme
+             1/8
+         """
+         if isinstance(x, Rational):
+-            if isinstance(y, (int, long, integer.Integer)):
++            if isinstance(y, (int, integer.Integer)):
+                 return (<Rational>x)._rshift(y)
+             if isinstance(y, Rational):
+                 if mpz_cmp_si(mpq_denref((<Rational>y).value), 1) != 0:
+Index: sage-test/sage/src/sage/rings/real_mpfr.pyx
+===================================================================
+--- sage-test.orig/sage/src/sage/rings/real_mpfr.pyx
++++ sage-test/sage/src/sage/rings/real_mpfr.pyx
+@@ -1472,11 +1472,9 @@ cdef class RealNumber(sage.structure.ele
+         elif isinstance(x, Gen) and typ((<Gen>x).g) == t_REAL:
+             _gen = x
+             self._set_from_GEN_REAL(_gen.g)
+-        elif isinstance(x, long):
++        elif isinstance(x, int):
+             x = Integer(x)
+             mpfr_set_z(self.value, (<Integer>x).value, parent.rnd)
+-        elif isinstance(x, int):
+-            mpfr_set_si(self.value, x, parent.rnd)
+         elif isinstance(x, float):
+             mpfr_set_d(self.value, x, parent.rnd)
+         elif isinstance(x, complex) and x.imag == 0:

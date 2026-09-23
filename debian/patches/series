@@ -27,6 +27,16 @@ u0-fix-structmember-defines-cython3.patch
 u0-avoid-naming-cython-attributes-module.patch
 u0-fix-cython-metaclass-pytypeready.patch
 u0-drop-wrapperdescr-fastcall.patch
+u0-simplify-some-isinstance-or-isinstance.patch
+u0-remove-long-in-giac.patch
+u0-less-use-of-long-in-cython-files.patch
+u0-less-usage-of-long-in-padics.patch
+u0-cleaning-some-things-remaining-from-python-2.patch
+u0-cython-lint-for-imports-in-libs.patch
+u0-cython-lint-for-imports-in-rings.patch
+u0-remove-long-int-relic.patch
+u0-replace-python2-long-with-int.patch
+u0-fix-ecl-cython3.patch
 
 # Patches that have open upstream tickets
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
