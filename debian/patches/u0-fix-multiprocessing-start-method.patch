@@ -1,0 +1,94 @@
+From: cxzhong <chenxin.zhong@outlook.com>
+Date: Fri, 10 Oct 2025 11:33:40 +0800
+Subject: Fix multiprocessing start method for Python 3.14 compatibility
+
+Python 3.14 changed the default multiprocessing start method from 'fork'
+to 'forkserver' on Linux. This caused pickling errors in the doctest
+framework because DocTestWorker objects contained unpicklable local
+functions.
+
+The fix ensures that the 'fork' start method is always used on all
+platforms, not just macOS, since Sage's doctesting framework requires
+the 'fork' method to function correctly.
+---
+ sage/pkgs/sagemath-standard/setup.py | 3 +--
+ sage/src/sage/doctest/external.py    | 3 +--
+ sage/src/sage/doctest/forker.py      | 3 +--
+ sage/src/sage_docbuild/utils.py      | 3 +--
+ sage/src/setup.py                    | 3 +--
+ 5 files changed, 5 insertions(+), 10 deletions(-)
+
+Index: sagemath_9.5/sage/pkgs/sagemath-standard/setup.py
+===================================================================
+--- sagemath_9.5.orig/sage/pkgs/sagemath-standard/setup.py
++++ sagemath_9.5/sage/pkgs/sagemath-standard/setup.py
+@@ -11,9 +11,8 @@ from setuptools import setup
+ 
+ # Work around a Cython problem in Python 3.8.x on macOS
+ # https://github.com/cython/cython/issues/3262
+-if os.uname().sysname == 'Darwin':
+-    import multiprocessing
+-    multiprocessing.set_start_method('fork', force=True)
++import multiprocessing
++multiprocessing.set_start_method('fork', force=True)
+ 
+ #########################################################
+ ### Set source directory
+Index: sagemath_9.5/sage/src/setup.py
+===================================================================
+--- sagemath_9.5.orig/sage/src/setup.py
++++ sagemath_9.5/sage/src/setup.py
+@@ -31,9 +31,8 @@ from sage_setup.excepthook import except
+ 
+ # Work around a Cython problem in Python 3.8.x on macOS
+ # https://github.com/cython/cython/issues/3262
+-if platform.system() == 'Darwin':
+-    import multiprocessing
+-    multiprocessing.set_start_method('fork', force=True)
++import multiprocessing
++multiprocessing.set_start_method('fork', force=True)
+ 
+ # ########################################################
+ # ## Set source directory
+Index: sagemath_9.5/sage/src/sage/doctest/external.py
+===================================================================
+--- sagemath_9.5.orig/sage/src/sage/doctest/external.py
++++ sagemath_9.5/sage/src/sage/doctest/external.py
+@@ -31,8 +31,7 @@ import os
+ # With OS X, Python 3.8 defaults to use 'spawn' instead of 'fork' in
+ # multiprocessing, and Sage doctesting doesn't work with 'spawn'. See
+ # trac #27754.
+-if os.uname().sysname == 'Darwin':
+-    multiprocessing.set_start_method('fork', force=True)
++multiprocessing.set_start_method('fork', force=True)
+ Array = multiprocessing.Array
+ 
+ # Functions in this module whose name is of the form 'has_xxx' tests if the
+Index: sagemath_9.5/sage/src/sage/doctest/forker.py
+===================================================================
+--- sagemath_9.5.orig/sage/src/sage/doctest/forker.py
++++ sagemath_9.5/sage/src/sage/doctest/forker.py
+@@ -65,8 +65,7 @@ from sage.cpython.string import bytes_to
+ # With OS X, Python 3.8 defaults to use 'spawn' instead of 'fork' in
+ # multiprocessing, and Sage doctesting doesn't work with 'spawn'. See
+ # trac #27754.
+-if os.uname().sysname == 'Darwin':
+-    multiprocessing.set_start_method('fork', force=True)
++multiprocessing.set_start_method('fork', force=True)
+ 
+ 
+ def _sorted_dict_pprinter_factory(start, end):
+Index: sagemath_9.5/sage/src/sage_docbuild/utils.py
+===================================================================
+--- sagemath_9.5.orig/sage/src/sage_docbuild/utils.py
++++ sagemath_9.5/sage/src/sage_docbuild/utils.py
+@@ -116,8 +116,7 @@ def build_many(target, args, processes=N
+     # With OS X, Python 3.8 defaults to use 'spawn' instead of 'fork'
+     # in multiprocessing, and Sage docbuilding doesn't work with
+     # 'spawn'. See trac #27754.
+-    if os.uname().sysname == 'Darwin':
+-        set_start_method('fork', force=True)
++    set_start_method('fork', force=True)
+     from queue import Empty
+ 
+     if processes is None:
