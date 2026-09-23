@@ -31,7 +31,7 @@
  pkg-config,
  planarity,
  python3,
- python3-distutils,
+ python3-setuptools,
  r-base-dev,
  r-cran-lattice,
  sqlite3,
