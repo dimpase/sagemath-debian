@@ -23,7 +23,6 @@ Build-Depends:
  pkg-config,
  python3-debian,
  python3-dev,
- python3-dbg,
  python3-mesonpy,
  rdfind,
  RUNTIME_DEPENDS

@@ -1,1 +1,1 @@
-extend-diff-ignore="^sage/(m4/sage_spkg_configures.m4|src/doc/en/installation/.*\.txt|build/bin/sage-build-env-config|build/pkgs/sage_conf/src/sage_conf.py|build/pkgs/sage_conf/src/setup.cfg)"
+extend-diff-ignore="^(m4/sage_spkg_configures.m4|src/doc/en/installation/.*\.txt|build/bin/sage-build-env-config|build/pkgs/sage_conf/src/sage_conf.py|build/pkgs/sage_conf/src/setup.cfg)"
