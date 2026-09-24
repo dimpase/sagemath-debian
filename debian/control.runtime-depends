@@ -40,7 +40,6 @@
  tox,
  xcas,
  xz-utils,
- yasm,
 # Library dependencies provided by upstream doc in sage/src/doc/en/installation/debian.txt:
  libatomic-ops-dev,
  libboost-dev,
