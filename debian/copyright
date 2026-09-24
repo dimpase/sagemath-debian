@@ -3,7 +3,7 @@ Upstream-Name: SageMath
 Source: https://www.sagemath.org/
 
 Files: *
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
            Copyright 1984-2006 The MathWorks, Inc.
            Copyright 2004 by Peter Dobcsanyi peter@designtheory.org, and copyright
            Copyright by Jonathan Hanke 2007 <jonhanke@gmail.com>
@@ -303,64 +303,124 @@ Copyright: Copyright (C) 2005-2016 The Sage Development Team
 License: GPL-2+
 
 Files: debian/*
-Copyright: Copyright (C) 2013-2016 Jerome Benoit, Tobias Hansen, Ximin Luo, Julien Puydt, Felix Salfelder
+Copyright: Copyright (C) 2013-2026 Jerome Benoit, Tobias Hansen, Ximin Luo, Julien Puydt, Felix Salfelder
 License: GPL-2+
 
-Files: sage/src/sage/game_theory/*
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Files: src/sage/game_theory/*
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
            Copyright (C) 2014 James Campbell james.campbell@tanti.org.uk
 License: GPL-3+
 
-Files: sage/src/doc/*
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Files: src/doc/*
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
 License: CC-BY-SA-3.0
 Comment:
- The file sage/src/doc/en/reference/history_and_license/index.rst contains the incorrect
+ The file src/doc/en/reference/history_and_license/index.rst contains the incorrect
  statement "All documentation is released under the GNU Free Documentation License."
  This is in contradiction to several statements placing documentation under CC-BY-SA-3.0,
- e.g. in sage/src/doc/en/reference/index.rst.
+ e.g. in src/doc/en/reference/index.rst.
  This oversight was fixed in the upstream git repo, the reference to the GFDL was removed.
  See
  https://trac.sagemath.org/ticket/22041
  https://git.sagemath.org/sage.git/diff?id=20bd83fbed668c9f7beaad9c1d8c21c95808a785
  https://groups.google.com/forum/#!topic/sage-devel/78zfWLa1ohE
 
-Files: sage/src/sage/rings/bernmm/*
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Files: src/sage/rings/bernmm/*
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
            Copyright (C) 2008, 2009, David Harvey
 License: BSD-2-clause
 
-Files: sage/src/sage/stats/distributions/*
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
-           Copyright (c) 2014, Martin Albrecht  <martinralbrecht+dgs@googlemail.com>
+Files: src/sage/stats/distributions/*
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
+           Copyright (c) 2014, Martin Albrecht <martinralbrecht+dgs@googlemail.com>
 License: BSD-2-clause
 
-Files: sage/src/sage/misc/function_mangling.pyx
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Files: src/sage/misc/function_mangling.pyx
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
            Copyright (c) 2009, Tom Boothby <boothby@math.washington.edu>
 License: BSD-3-clause
 
-Files: sage/src/sage/misc/lazy_string.pyx
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Files: src/sage/misc/lazy_string.pyx
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
            Copyright (c) 2009 by Armin Ronacher
 License: BSD-3-clause
 
-Files: sage/src/sage/parallel/ncpus.py
-Copyright: Copyright (C) 2005-2016 The Sage Development Team
+Files: src/sage/parallel/ncpus.py
+Copyright: Copyright (C) 2005-2026 The Sage Development Team
            Copyright (c) 2005-2008, Vitalii Vanovschi
 License: BSD-3-clause
 
-Files: sage/m4/ax_cxx_compile_stdcxx_11.m4
+Files: src/sage/plot/plot3d/implicit_surface.pyx
+Copyright: Copyright (C) 2009 Carl Witty <Carl.Witty@gmail.com>
+           Copyright (C) 2007 Miguel, Bob, Jmol Development
+License: LGPL-2.1+ and GPL-2+
+
+Files: src/sage/symbolic/ginac/optional.hpp
+Copyright: Copyright (c) 2014-2018 Martin Moene
+License: BSL-1.0
+
+Files: m4/ax_*.m4
 Copyright: Copyright (c) 2008 Benjamin Kosnik <bkoz@redhat.com>
            Copyright (c) 2012 Zack Weinberg <zackw@panix.com>
            Copyright (c) 2013 Roy Stogner <roystgnr@ices.utexas.edu>
            Copyright (c) 2014, 2015 Google Inc.; contributed by Alexey Sokolov <sokolov@google.com>
            Copyright (c) 2015 Paul Norman <penorman@mac.com>
+           Copyright (c) 2008 Guido U. Draheim <guidod@gmx.de>
+           Copyright (c) 2015 Moritz Klammler <moritz@klammler.eu>
+           Copyright (c) 2016-2018 Krzesimir Nowak <qdlacz@gmail.com>
+           Copyright (c) 2011 Maarten Bosmans <mkbosmans@gmail.com>
+           Copyright (c) 2008 Thomas Porschberg <thomas@randspringer.de>
+           Copyright (c) 2008 Tim Toolan <toolan@ele.uri.edu>
+           Copyright (c) 2009 Dean Povey <povey@wedgetail.com>
+           Copyright (c) 2009-2010 Dustin J. Mitchell <dustin@zmanda.com>
 License: permissive
  Copying and distribution of this file, with or without modification, are
  permitted in any medium without royalty provided the copyright notice
  and this notice are preserved. This file is offered as-is, without any
  warranty.
+
+License: BSL-1.0
+ Boost Software License - Version 1.0 - August 17th, 2003
+ .
+ Permission is hereby granted, free of charge, to any person or organization
+ obtaining a copy of the software and accompanying documentation covered by
+ this license (the "Software") to use, reproduce, display, distribute,
+ execute, and transmit the Software, and to prepare derivative works of the
+ Software, and to permit third-parties to whom the Software is furnished to
+ do so, all subject to the following:
+ .
+ The copyright notices in the Software and this entire statement, including
+ the above license grant, this restriction and the following disclaimer,
+ must be included in all copies of the Software, in whole or in part, and
+ all derivative works of the Software, unless such copies or derivative
+ works are solely in the form of machine-executable object code generated by
+ a source language processor.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+ SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
+ FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
+ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.
+
+License: LGPL-2.1+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ .
+ On Debian systems, the complete text of the GNU Lesser General
+ Public License version 2.1 can be found in `/usr/share/common-licenses/LGPL-2.1'.
 
 License: GPL-2+
  This program is free software; you can redistribute it and/or modify
