@@ -1,7 +1,7 @@
 # Python dependencies from sagelib's install_requires:
- python3-ipykernel,
- python3-ipython,
- python3-ipywidgets (>= 6.0.0),
+ python3-ipykernel (>= 5.2.1),
+ python3-ipython (>= 8.9.0),
+ python3-ipywidgets (>= 7.5.1),
  python3-jupyter-client,
  python3-jupyter-core,
 # Additional dependencies not provided by upstream:

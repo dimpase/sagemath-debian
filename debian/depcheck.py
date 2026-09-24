@@ -16,7 +16,7 @@ pkgdeps = sorted(set([re.sub(r' .*', r'', x) for x in pkgdeps]))
 
 sagedeps = subprocess.run([
     '/bin/sh', '-c',
-    'for dt in sage/build/pkgs/*/distros/debian.txt; do cat $dt; done'
+    'for dt in build/pkgs/*/distros/debian.txt; do cat $dt; done'
 ],stdout=subprocess.PIPE).stdout.decode().split('\n')
 sagedeps = sorted(set(' '.join([re.sub(r'#.*', r'', x) for x in sagedeps]).split()))
 
