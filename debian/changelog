@@ -1,15 +1,32 @@
 sagemath (10.9-0.1) UNRELEASED; urgency=medium
 
   * Non-Maintainer upload.
+  * New upstream release 10.9 (Closes: #1010735).
+  * Update watch file to format version 5.
+  * Build system and dependency updates:
+    - Switch to mesonpy build system with meson and ninja-build.
+    - Drop obsolete distutils dependencies (Closes: #1065953).
+    - Drop obsolete yasm runtime dependency (Closes: #1104216).
+    - Drop obsolete pcre3 dependencies (Closes: #1050182).
+    - Add native Cython 3 compatibility (Closes: #1056885).
+    - Add support for Python 3.12/3.13 and drop removed stdlib modules
+      (Closes: #1084585, #1051153, #1057328).
+    - Fix FTBFS with Sphinx >= 7.1 (Closes: #1042683).
+    - Rebuild and update dependencies for Singular 4.3/4.4, FLINT 3, and
+      GAP 4.13+ (Closes: #1052051, #1063302, #1075836, #1076651).
+    - Fix autopkgtest failures on i386 (Closes: #1042935).
+  * Patches:
+    - Drop patches applied upstream (all u0-*, dt-version-ipywidgets-6-*,
+      d0-mathjax.patch, d0-rubiks.patch).
+    - Forward-port d0-cygdb3.patch, d1-doc-docs.patch, u1-ipywidgets-repr.patch,
+      u2-fix-sympow-cachedir.patch, dt-ignore-deprecation-warnings.patch.
+  * Install and packaging metadata:
+    - Update python3-sage.install for dist-info metadata.
+    - Update debian/clean and debian/depcheck.py for upstream root layout.
+    - Update debian/copyright with 10.9 paths, BSL-1.0 and LGPL-2.1+ licenses,
+      verified with decopy.
 
-  [ Maximiliano Curia ]
-  * Update watch file to version 5
-  * Update package dependencies
-
-  [ Alexandre Detiste ]
-  * drop unused python3-six dependency
-
- -- Maximiliano Curia <maxy@debian.org>  Wed, 23 Sep 2026 22:41:33 +0200
+ -- Maximiliano Curia <maxy@debian.org>  Thu, 24 Sep 2026 19:05:00 +0200
 
 sagemath (9.5-6) unstable; urgency=high
 
