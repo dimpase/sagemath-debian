@@ -1,4 +1,4 @@
-Description: Money-patch ipywidgets in the way that Sage upstream expects
+Description: Monkey-patch ipywidgets in the way that Sage upstream expects
  Sage upstream patches ipywidgets, but this is still being discussed
  upstream (see Bug below). In the meantime, we can have Sage monkey-patch
  ipywidgets at runtime, to prevent other users of ipywidgets being affected.
@@ -7,19 +7,21 @@ Author: Jeroen Demeyer <jdemeyer@cage.ugent.be>
 Bug: https://github.com/jupyter-widgets/ipywidgets/pull/1031
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/sage/src/sage/repl/ipython_kernel/widgets.py
-+++ b/sage/src/sage/repl/ipython_kernel/widgets.py
-@@ -26,13 +26,43 @@
+Index: sagemath/src/sage/repl/ipython_kernel/widgets.py
+===================================================================
+--- sagemath.orig/src/sage/repl/ipython_kernel/widgets.py
++++ sagemath/src/sage/repl/ipython_kernel/widgets.py
+@@ -26,6 +26,7 @@ We need to setup a proper test environme
  from ipywidgets.widgets import (IntSlider, IntRangeSlider,
                                  FloatSlider, FloatRangeSlider, Text,
                                  Textarea, ColorPicker, HTMLMath, Label,
--                                HBox, VBox, ValueWidget)
-+                                HBox, VBox, ValueWidget, Widget)
++                                Widget,
+                                 HBox, VBox, ValueWidget)
  from traitlets import List, Unicode, link
  
- from sage.misc.sage_eval import sage_eval
- from sage.repl.user_globals import get_globals
- from sage.plot.colors import Color
+@@ -34,6 +35,36 @@ from sage.repl.user_globals import get_g
+ from sage.misc.lazy_import import lazy_import
+ lazy_import("sage.plot.colors", "Color")
  
 +def __widgets__repr__(self):
 +    """
