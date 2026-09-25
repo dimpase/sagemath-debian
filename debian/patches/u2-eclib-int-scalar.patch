@@ -16,16 +16,7 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
  
  
  # NOTE: eclib used to have specific dependencies, so that they had to
-@@ -17,6 +18,8 @@ from sage.libs.ntl.types cimport ZZ_c
- # case, we start by listing all relevant include files in the correct
- # order.
- 
-+cdef extern from "<signal.h>": pass
-+cdef extern from "<setjmp.h>": pass
- cdef extern from "eclib/vector.h": pass
- cdef extern from "eclib/xmod.h": pass
- cdef extern from "eclib/svector.h": pass
-@@ -39,7 +42,12 @@ cdef extern from "eclib/newforms.h": pas
+@@ -39,7 +40,12 @@ cdef extern from "eclib/newforms.h": pas
  
  # Now the actual declarations, where the order no longer matters
  cdef extern from "eclib/vector.h":
@@ -39,7 +30,7 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
  
      cdef cppclass vec:
          scalar operator[](long)
-@@ -73,8 +81,9 @@ cdef extern from "eclib/smatrix.h":
+@@ -73,8 +79,9 @@ cdef extern from "eclib/smatrix.h":
          scalar elem(int, int) const
          svec row(int) const
  
@@ -50,7 +41,7 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
      int I2int(bigint)
  
  cdef extern from "eclib/rat.h":
-@@ -121,11 +130,10 @@ cdef extern from "eclib/descent.h":
+@@ -121,11 +128,10 @@ cdef extern from "eclib/descent.h":
  
  cdef extern from "eclib/homspace.h":
      cdef cppclass homspace:
@@ -64,7 +55,7 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
  
          int h1dim()
          int h1cuspdim()
-@@ -143,7 +151,7 @@ cdef extern from "eclib/newforms.h":
+@@ -143,7 +149,7 @@ cdef extern from "eclib/newforms.h":
          long cuspidal
          long sign
  

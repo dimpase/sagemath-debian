@@ -18,7 +18,8 @@ sagemath (10.9-0.1) UNRELEASED; urgency=medium
     - Fix autopkgtest failures on i386 (Closes: #1042935).
   * Patches:
     - Add d0-meson-debian-fixes.patch for Meson configure fixes and Python 3.15.
-    - Add u1-eclib-int-scalar.patch to support eclib with INT scalar class.
+    - Add d0-pari-cxx-signal.patch to fix PARI C++ signal namespace clash.
+    - Add u2-eclib-int-scalar.patch to support eclib with INT scalar class.
     - Drop patches applied upstream (all u0-*, dt-version-ipywidgets-6-*,
       d0-mathjax.patch, d0-rubiks.patch).
     - Forward-port d0-cygdb3.patch, d1-doc-docs.patch, u1-ipywidgets-repr.patch,
