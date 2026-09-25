@@ -1,5 +1,6 @@
 # Patches that have open upstream tickets
 u1-ipywidgets-repr.patch                   #https://github.com/jupyter-widgets/ipywidgets/pull/1031
+u1-eclib-int-scalar.patch
 
 # Patches that should be upstreamed (may need some work first)
 u2-fix-sympow-cachedir.patch

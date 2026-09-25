@@ -1,0 +1,149 @@
+Description: Adapt to eclib using INT class for scalar
+ In newer eclib versions, scalar is INT (a wrapper around FLINT's fmpz)
+ rather than int. Update Cython declarations and conversions.
+Author: Debian Science Maintainers
+Forwarded: https://github.com/sagemath/sage/issues
+
+Index: sagemath/src/sage/libs/eclib/__init__.pxd
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/__init__.pxd
++++ sagemath/src/sage/libs/eclib/__init__.pxd
+@@ -10,6 +10,7 @@ from libcpp.map cimport map
+ from libcpp.vector cimport vector
+ from libcpp.pair cimport pair
+ from sage.libs.ntl.types cimport ZZ_c
++from sage.libs.flint.types cimport fmpz_t
+ 
+ 
+ # NOTE: eclib used to have specific dependencies, so that they had to
+@@ -39,7 +40,12 @@ cdef extern from "eclib/newforms.h": pas
+ 
+ # Now the actual declarations, where the order no longer matters
+ cdef extern from "eclib/vector.h":
+-    ctypedef int scalar
++    cdef cppclass scalar:
++        scalar()
++        scalar(long)
++        scalar(fmpz_t)
++        scalar(const scalar&)
++        void get_fmpz(fmpz_t) const
+ 
+     cdef cppclass vec:
+         scalar operator[](long)
+Index: sagemath/src/sage/libs/eclib/homspace.pyx
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/homspace.pyx
++++ sagemath/src/sage/libs/eclib/homspace.pyx
+@@ -5,7 +5,7 @@ from cython.operator cimport dereference
+ from cython.operator cimport preincrement as inc
+ 
+ from sage.libs.eclib cimport svec, mat, smat
+-from sage.libs.eclib.mat cimport MatrixFactory
++from sage.libs.eclib.mat cimport MatrixFactory, scalar_to_integer
+ 
+ from sage.matrix.matrix_space import MatrixSpace
+ from sage.rings.integer_ring import ZZ
+@@ -277,7 +277,7 @@ cdef class ModularSymbols:
+             sv = M.row(i+1)
+             iter = sv.begin()
+             while iter != sv.end():
+-                d[(i,deref(iter).first-1)] = deref(iter).second
++                d[(i,deref(iter).first-1)] = scalar_to_integer(deref(iter).second)
+                 inc(iter)
+         MS = MatrixSpace(base_ring, n, sparse=True)
+         # The next step is the bottleneck.
+Index: sagemath/src/sage/libs/eclib/mat.pxd
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/mat.pxd
++++ sagemath/src/sage/libs/eclib/mat.pxd
+@@ -1,7 +1,31 @@
+-from sage.libs.eclib cimport mat
++from sage.libs.eclib cimport mat, scalar
++from sage.rings.integer cimport Integer
++from sage.libs.flint.types cimport fmpz_t
++from sage.libs.flint.fmpz cimport fmpz_init, fmpz_clear, fmpz_get_mpz, fmpz_set_mpz
+ 
+ cdef class Matrix:
+     cdef mat* M
+ 
+ cdef class MatrixFactory:
+     cdef new_matrix(self, mat M)
++
++cdef inline Integer scalar_to_integer(const scalar& s):
++    cdef fmpz_t z
++    s.get_fmpz(z)
++    cdef Integer res = Integer.__new__(Integer)
++    fmpz_get_mpz(res.value, z)
++    fmpz_clear(z)
++    return res
++
++cdef inline scalar integer_to_scalar(s):
++    cdef Integer si
++    if isinstance(s, Integer):
++        si = <Integer>s
++    else:
++        si = Integer(s)
++    cdef fmpz_t z
++    fmpz_init(z)
++    fmpz_set_mpz(z, si.value)
++    cdef scalar res = scalar(z)
++    fmpz_clear(z)
++    return res
+Index: sagemath/src/sage/libs/eclib/mat.pyx
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/mat.pyx
++++ sagemath/src/sage/libs/eclib/mat.pyx
+@@ -3,6 +3,7 @@ Cremona matrices
+ """
+ 
+ from sage.libs.eclib cimport scalar, addscalar
++from sage.libs.eclib.mat cimport scalar_to_integer, integer_to_scalar
+ 
+ from sage.matrix.matrix_space import MatrixSpace
+ from sage.rings.integer_ring import ZZ
+@@ -92,7 +93,7 @@ cdef class Matrix:
+         if self.M:
+             i, j = ij
+             if 0<i and i<=self.M[0].nrows() and 0<j and j<=self.M[0].ncols():
+-                return self.M.sub(i,j)
++                return scalar_to_integer(self.M.sub(i,j))
+             raise IndexError("matrix indices out of range")
+         raise IndexError("cannot index into an undefined matrix")
+ 
+@@ -148,7 +149,7 @@ cdef class Matrix:
+ ##         """
+ ##         return rank(self.M[0])
+ 
+-    def add_scalar(self, scalar s):
++    def add_scalar(self, s):
+         """
+         Return new matrix obtained by adding `s` to each diagonal entry of ``self``.
+ 
+@@ -162,7 +163,8 @@ cdef class Matrix:
+             [3 1]
+             [1 2]
+         """
+-        return new_Matrix(addscalar(self.M[0], s))
++        cdef scalar val = integer_to_scalar(s)
++        return new_Matrix(addscalar(self.M[0], val))
+ 
+     def charpoly(self, var='x'):
+         """
+@@ -221,7 +223,7 @@ cdef class Matrix:
+             Ts = MatrixSpace(ZZ, n, sparse=sparse).zero_matrix().__copy__()
+             for i from 0 <= i < n:
+                 for j from 0 <= j < n:
+-                    Mij = Integer(self.M.sub(i+1,j+1))
++                    Mij = scalar_to_integer(self.M.sub(i+1,j+1))
+                     if Mij:
+                         Ts.set_unsafe(i, j, Mij)
+             return Ts
+@@ -229,7 +231,7 @@ cdef class Matrix:
+             Td = MatrixSpace(ZZ, n, sparse=sparse).zero_matrix().__copy__()
+             for i from 0 <= i < n:
+                 for j from 0 <= j < n:
+-                    Mij = Integer(self.M.sub(i+1,j+1))
++                    Mij = scalar_to_integer(self.M.sub(i+1,j+1))
+                     if Mij:
+                         Td.set_unsafe(i, j, Mij)
+             return Td
