@@ -12,10 +12,13 @@ sagemath (10.9-0.1) UNRELEASED; urgency=medium
     - Add support for Python 3.12/3.13 and drop removed stdlib modules
       (Closes: #1084585, #1051153, #1057328).
     - Fix FTBFS with Sphinx >= 7.1 (Closes: #1042683).
-    - Rebuild and update dependencies for Singular 4.3/4.4, FLINT 3, and
-      GAP 4.13+ (Closes: #1052051, #1063302, #1075836, #1076651).
+    - Rebuild and update dependencies for Singular 4.3/4.4, FLINT 3,
+      libec-dev (>= 20260707), and GAP 4.13+
+      (Closes: #1052051, #1063302, #1075836, #1076651).
     - Fix autopkgtest failures on i386 (Closes: #1042935).
   * Patches:
+    - Add d0-meson-debian-fixes.patch for Meson configure fixes and Python 3.15.
+    - Add u1-eclib-int-scalar.patch to support eclib with INT scalar class.
     - Drop patches applied upstream (all u0-*, dt-version-ipywidgets-6-*,
       d0-mathjax.patch, d0-rubiks.patch).
     - Forward-port d0-cygdb3.patch, d1-doc-docs.patch, u1-ipywidgets-repr.patch,
