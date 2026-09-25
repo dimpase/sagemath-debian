@@ -3,7 +3,6 @@ Description: Fix meson build on Debian
  - Fallback sage_maxima to /usr/lib/ecl/maxima.fas when SAGE_LOCAL is unset
  - Use project version for PACKAGE_VERSION in config.py
  - Allow building on Python >= 3.12 (e.g. Python 3.15)
- - Default build-docs option to false in meson.options
 Author: Maximiliano Curia <maxy@debian.org>
 Forwarded: not-needed
 
@@ -20,18 +19,6 @@ Index: sagemath/pyproject.toml
  urls = { Homepage = "https://www.sagemath.org" }
  
  [project.optional-dependencies]
-Index: sagemath/meson.options
-===================================================================
---- sagemath.orig/meson.options
-+++ sagemath/meson.options
-@@ -14,6 +14,7 @@ option(
- option(
-   'build-docs',
-   type: 'boolean',
-+  value: false,
-   description: 'Build the HTML / PDF documentation'
- )
- 
 Index: sagemath/src/sage/libs/meson.build
 ===================================================================
 --- sagemath.orig/src/sage/libs/meson.build

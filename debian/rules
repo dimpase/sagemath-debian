@@ -76,17 +76,14 @@ override_dh_auto_build-arch: debian/tmp/usr/bin/sage
 
 override_dh_auto_build-indep: debian/tmp/usr/bin/sage
 ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
-	python3 tools/bootstrap-docs.py src/doc
-	cd src && \
-	export PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3/dist-packages:$(CURDIR)/debian/tmp/usr/lib/python$(PY3VER)/dist-packages \
-	       SAGE_SRC=$(CURDIR)/src \
-	       SAGE_DOC_SRC=$(CURDIR)/src/doc \
-	       SAGE_DOC=$(CURDIR)/src/doc \
-	       MATHJAX_DIR=/usr/share/javascript/mathjax \
-	       LANG=C && \
-	python3 -m sage_docbuild --no-pdf-links --mathjax all html
+	PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3/dist-packages:$(CURDIR)/debian/tmp/usr/lib/python$(PY3VER)/dist-packages \
+	SAGE_SRC=$(CURDIR)/src \
+	SAGE_DOC_SRC=$(CURDIR)/src/doc \
+	MATHJAX_DIR=/usr/share/javascript/mathjax \
+	LANG=C.UTF-8 \
+	ninja -C .pybuild/cpython3_$(PY3VER)_sage/meson-build doc-html
 	mkdir -p debian/tmp/usr/share/doc/sagemath
-	mv src/doc/html debian/tmp/usr/share/doc/sagemath/
+	mv .pybuild/cpython3_$(PY3VER)_sage/meson-build/src/doc/html debian/tmp/usr/share/doc/sagemath/
 	cd debian/tmp/usr/share/doc/sagemath/html && \
 	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
 	for statdir in */_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done
