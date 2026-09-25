@@ -1,6 +1,8 @@
-Description: Include planarity/planarity.h instead of planarity/graph.h
- In newer planarity versions (>= 5.0), the public entrypoint header is
- planarity/planarity.h.
+Description: Adapt planarity wrapper for planarity >= 5.0
+ In planarity 5.0:
+ - The public entrypoint header is planarity/graphLib.h instead of planarity/graph.h.
+ - The graph struct is struct graphStruct instead of struct BM_graph.
+ - gp_InitGraph is replaced by gp_EnsureVertexCapacity.
 Author: Maximiliano Curia <maxy@debian.org>
 
 Index: sagemath/src/sage/graphs/planarity.pyx
@@ -12,7 +14,40 @@ Index: sagemath/src/sage/graphs/planarity.pyx
  """
  
 -cdef extern from "planarity/graph.h":
-+cdef extern from "planarity/planarity.h":
++cdef extern from "planarity/graphLib.h":
      ctypedef struct vertexRec:
          int link[2]
          int index
+@@ -14,17 +14,17 @@ cdef extern from "planarity/graph.h":
+         int neighbor
+     ctypedef edgeRec * edgeRecP
+ 
+-    ctypedef struct BM_graph:
++    ctypedef struct graphStruct:
+         vertexRecP V
+         edgeRecP E
+         int N
+-    ctypedef BM_graph * graphP
++    ctypedef graphStruct * graphP
+ 
+     cdef int OK, EMBEDFLAGS_PLANAR, NONEMBEDDABLE, NOTOK
+ 
+     cdef graphP gp_New()
+     cdef void gp_Free(graphP *pGraph)
+-    cdef int gp_InitGraph(graphP theGraph, int N)
++    cdef int gp_EnsureVertexCapacity(graphP theGraph, int N)
+     cdef int gp_AddEdge(graphP theGraph, int u, int ulink, int v, int vlink)
+     cdef int gp_Embed(graphP theGraph, int embedFlags)
+     cdef int gp_SortVertices(graphP theGraph)
+@@ -144,9 +144,9 @@ def is_planar(g, kuratowski=False, set_p
+     cdef graphP theGraph
+     theGraph = gp_New()
+     cdef int status
+-    status = gp_InitGraph(theGraph, g.order())
++    status = gp_EnsureVertexCapacity(theGraph, g.order())
+     if status != OK:
+-        raise RuntimeError("gp_InitGraph status is not ok")
++        raise RuntimeError("gp_EnsureVertexCapacity status is not ok")
+     for u, v in g.edge_iterator(labels=False):
+         status = gp_AddEdge(theGraph, ffrom[u], 0, ffrom[v], 0)
+         if status == NOTOK:

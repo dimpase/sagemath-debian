@@ -80,7 +80,7 @@
  libntl-dev,
  libopenblas-dev,
  libpari-dev,
- libplanarity-dev,
+ libplanarity-dev (>= 5.0.0.0),
  libppl-dev,
  libprimecount-dev,
  libprimesieve-dev,
