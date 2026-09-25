@@ -2,7 +2,7 @@ Description: Include signal.h and setjmp.h before eclib headers
  In Debian's PARI C++ headers, <signal.h> and <setjmp.h> are included
  within namespace PARI, hiding global signal definitions from cysignals.
  Including them beforehand in global namespace ensures cysignals works properly.
-Author: Debian Science Maintainers
+Author: Maximiliano Curia <maxy@debian.org>
 Forwarded: not-needed
 
 Index: sagemath/src/sage/libs/eclib/__init__.pxd
