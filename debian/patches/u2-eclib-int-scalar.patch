@@ -2,7 +2,6 @@ Description: Adapt to eclib using INT class for scalar
  In newer eclib versions, scalar is INT (a wrapper around FLINT's fmpz)
  rather than int. Update Cython declarations and conversions.
 Author: Debian Science Maintainers
-Forwarded: https://github.com/sagemath/sage/issues
 
 Index: sagemath/src/sage/libs/eclib/__init__.pxd
 ===================================================================

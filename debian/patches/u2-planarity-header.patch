@@ -2,7 +2,6 @@ Description: Include planarity/planarity.h instead of planarity/graph.h
  In newer planarity versions (>= 5.0), the public entrypoint header is
  planarity/planarity.h.
 Author: Debian Science Maintainers
-Forwarded: https://github.com/sagemath/sage/issues
 
 Index: sagemath/src/sage/graphs/planarity.pyx
 ===================================================================
