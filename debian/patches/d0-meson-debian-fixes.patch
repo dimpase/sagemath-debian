@@ -1,0 +1,42 @@
+Description: Fix meson build on Debian
+ - Support finding maxima-sage in addition to maxima
+ - Fallback sage_maxima to /usr/lib/ecl/maxima.fas when SAGE_LOCAL is unset
+ - Use project version for PACKAGE_VERSION in config.py
+Author: Debian Science Maintainers
+Forwarded: not-needed
+
+Index: sagemath/src/sage/libs/meson.build
+===================================================================
+--- sagemath.orig/src/sage/libs/meson.build
++++ sagemath/src/sage/libs/meson.build
+@@ -29,7 +29,7 @@ if ecl_bin.found()
+   else
+     # Try Sage's custom maxima location
+     sage_maxima = join_paths(
+-      get_option('SAGE_LOCAL'),
++      get_option('SAGE_LOCAL') != '' ? get_option('SAGE_LOCAL') : '/usr',
+       'lib',
+       'ecl',
+       'maxima.fas',
+@@ -45,7 +45,7 @@ if ecl_bin.found()
+     conf_data.set('SAGE_MAXIMA_FAS', sage_maxima)
+   endif
+ 
+-  maxima_bin = find_program('maxima', required: false, disabler: true)
++  maxima_bin = find_program(['maxima-sage', 'maxima'], required: false, disabler: true)
+   maxima_present = maxima_check.returncode() == 0 and maxima_bin.found()
+ else
+   maxima_present = false
+Index: sagemath/src/sage/meson.build
+===================================================================
+--- sagemath.orig/src/sage/meson.build
++++ sagemath/src/sage/meson.build
+@@ -4,7 +4,7 @@ sage_install_dir = py.get_install_dir()
+ conf_data = configuration_data()
+ conf_data.set('EDITABLE_SRC', root)
+ conf_data.set('EDITABLE_BUILD', root_build)
+-conf_data.set('PACKAGE_VERSION', '1.2.3')
++conf_data.set('PACKAGE_VERSION', meson.project_version())
+ # We use Python's prefix here to make it work with conda
+ prefix = fs.as_posix(py.get_variable('prefix', ''))
+ conf_data.set('prefix', prefix)

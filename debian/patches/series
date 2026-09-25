@@ -8,6 +8,7 @@ u2-fix-sympow-cachedir.patch
 # These won't change even if Debian and Sage use the same version
 # Not suitable for upstreaming
 d0-cygdb3.patch
+d0-meson-debian-fixes.patch
 
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
