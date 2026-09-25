@@ -50,9 +50,15 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
      int I2int(bigint)
  
  cdef extern from "eclib/rat.h":
-@@ -125,7 +134,7 @@ cdef extern from "eclib/homspace.h":
+@@ -121,11 +130,11 @@ cdef extern from "eclib/descent.h":
+ 
+ cdef extern from "eclib/homspace.h":
+     cdef cppclass homspace:
+-        long modulus
++        scalar modulus
          int plusflag # sign
-         int cuspidal
+-        int cuspidal
++        int cuspidalpart
  
 -        homspace(long n, int hp, int hcusp, int verbose)
 +        homspace(long n, scalar hp, int hcusp, int verbose)
@@ -92,6 +98,24 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
          sig_off()
  
      def __dealloc__(self):
+@@ -86,7 +86,7 @@ cdef class ModularSymbols:
+             sage: M.level()
+             1234
+         """
+-        return self.H.modulus
++        return scalar_to_integer(self.H.modulus)
+ 
+     #cpdef int dimension(self):
+     def dimension(self):
+@@ -151,7 +151,7 @@ cdef class ModularSymbols:
+             sage: M = CremonaModularSymbols(1122, cuspidal=True); M.is_cuspidal()
+             1
+         """
+-        return self.H.cuspidal
++        return self.H.cuspidalpart
+ 
+     def hecke_matrix(self, long p, dual=False, verbose=False):
+         """
 @@ -277,7 +277,7 @@ cdef class ModularSymbols:
              sv = M.row(i+1)
              iter = sv.begin()
