@@ -16,7 +16,16 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
  
  
  # NOTE: eclib used to have specific dependencies, so that they had to
-@@ -39,7 +40,12 @@ cdef extern from "eclib/newforms.h": pas
+@@ -17,6 +18,8 @@ from sage.libs.ntl.types cimport ZZ_c
+ # case, we start by listing all relevant include files in the correct
+ # order.
+ 
++cdef extern from "<signal.h>": pass
++cdef extern from "<setjmp.h>": pass
+ cdef extern from "eclib/vector.h": pass
+ cdef extern from "eclib/xmod.h": pass
+ cdef extern from "eclib/svector.h": pass
+@@ -39,7 +42,12 @@ cdef extern from "eclib/newforms.h": pas
  
  # Now the actual declarations, where the order no longer matters
  cdef extern from "eclib/vector.h":
@@ -30,19 +39,59 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
  
      cdef cppclass vec:
          scalar operator[](long)
+@@ -73,8 +81,9 @@ cdef extern from "eclib/smatrix.h":
+         scalar elem(int, int) const
+         svec row(int) const
+ 
++ctypedef ZZ_c bigint
++
+ cdef extern from "eclib/interface.h":
+-    ctypedef ZZ_c bigint
+     int I2int(bigint)
+ 
+ cdef extern from "eclib/rat.h":
+@@ -125,7 +134,7 @@ cdef extern from "eclib/homspace.h":
+         int plusflag # sign
+         int cuspidal
+ 
+-        homspace(long n, int hp, int hcusp, int verbose)
++        homspace(long n, scalar hp, int hcusp, int verbose)
+ 
+         int h1dim()
+         int h1cuspdim()
+@@ -143,7 +152,7 @@ cdef extern from "eclib/newforms.h":
+         long cuspidal
+         long sign
+ 
+-        newforms(long n, int disp)
++        newforms(long n, scalar mod, int disp)
+ 
+         void createfromcurve(int sign, CurveRed CR, int nap)
+         void display()
 Index: sagemath/src/sage/libs/eclib/homspace.pyx
 ===================================================================
 --- sagemath.orig/src/sage/libs/eclib/homspace.pyx
 +++ sagemath/src/sage/libs/eclib/homspace.pyx
-@@ -5,7 +5,7 @@ from cython.operator cimport dereference
+@@ -4,8 +4,8 @@ from cysignals.signals cimport sig_on, s
+ from cython.operator cimport dereference as deref
  from cython.operator cimport preincrement as inc
  
- from sage.libs.eclib cimport svec, mat, smat
+-from sage.libs.eclib cimport svec, mat, smat
 -from sage.libs.eclib.mat cimport MatrixFactory
++from sage.libs.eclib cimport svec, mat, smat, scalar
 +from sage.libs.eclib.mat cimport MatrixFactory, scalar_to_integer
  
  from sage.matrix.matrix_space import MatrixSpace
  from sage.rings.integer_ring import ZZ
+@@ -50,7 +50,7 @@ cdef class ModularSymbols:
+         if level <= 1:
+             raise ValueError("the level (= %s) must be at least 2" % level)
+         sig_on()
+-        self.H = new homspace(level, sign, cuspidal, verbose)
++        self.H = new homspace(level, scalar(sign), cuspidal, verbose)
+         sig_off()
+ 
+     def __dealloc__(self):
 @@ -277,7 +277,7 @@ cdef class ModularSymbols:
              sv = M.row(i+1)
              iter = sv.begin()
@@ -147,3 +196,38 @@ Index: sagemath/src/sage/libs/eclib/mat.pyx
                      if Mij:
                          Td.set_unsafe(i, j, Mij)
              return Td
+Index: sagemath/src/sage/libs/eclib/newforms.pyx
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/newforms.pyx
++++ sagemath/src/sage/libs/eclib/newforms.pyx
+@@ -215,7 +215,7 @@ cdef class ECModularSymbol:
+             raise ValueError("ECModularSymbol can only be created with signs +1 or 0, not {}".format(sign))
+         self.sign = sign
+ 
+-        self.nfs = new newforms(n, 0)
++        self.nfs = new newforms(n, scalar(0), 0)
+         self.nfs.createfromcurve(sign, CR, nap)
+         sig_off()
+ 
+Index: sagemath/src/sage/libs/eclib/wrap.cpp
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/wrap.cpp
++++ sagemath/src/sage/libs/eclib/wrap.cpp
+@@ -1,6 +1,8 @@
+ #include <iostream>
+ #include <sstream>
++#include <NTL/ZZ.h>
+ using namespace std;
++typedef NTL::ZZ bigint;
+ 
+ /**************** Miscellaneous functions ****************/
+ 
+@@ -128,7 +130,7 @@ int mw_process(struct Curvedata* curve,
+                       const bigint* x, const bigint* y,
+                       const bigint* z, int sat)
+ {
+-  Point P(*curve, *x, *y, *z);
++  Point P(curve, *x, *y, *z);
+   if (!P.isvalid())
+     return 1;
+   m->process(P, sat);
