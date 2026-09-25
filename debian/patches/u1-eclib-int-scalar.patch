@@ -50,7 +50,7 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
      int I2int(bigint)
  
  cdef extern from "eclib/rat.h":
-@@ -121,11 +130,11 @@ cdef extern from "eclib/descent.h":
+@@ -121,11 +130,10 @@ cdef extern from "eclib/descent.h":
  
  cdef extern from "eclib/homspace.h":
      cdef cppclass homspace:
@@ -58,14 +58,13 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
 +        scalar modulus
          int plusflag # sign
 -        int cuspidal
-+        int cuspidalpart
  
 -        homspace(long n, int hp, int hcusp, int verbose)
 +        homspace(long n, scalar hp, int hcusp, int verbose)
  
          int h1dim()
          int h1cuspdim()
-@@ -143,7 +152,7 @@ cdef extern from "eclib/newforms.h":
+@@ -143,7 +151,7 @@ cdef extern from "eclib/newforms.h":
          long cuspidal
          long sign
  
@@ -89,16 +88,18 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
  
  from sage.matrix.matrix_space import MatrixSpace
  from sage.rings.integer_ring import ZZ
-@@ -50,7 +50,7 @@ cdef class ModularSymbols:
+@@ -49,8 +49,9 @@ cdef class ModularSymbols:
+             raise ValueError("sign (= %s) is not supported; use 0, +1 or -1" % sign)
          if level <= 1:
              raise ValueError("the level (= %s) must be at least 2" % level)
++        self._cuspidal = cuspidal
          sig_on()
 -        self.H = new homspace(level, sign, cuspidal, verbose)
 +        self.H = new homspace(level, scalar(sign), cuspidal, verbose)
          sig_off()
  
      def __dealloc__(self):
-@@ -86,7 +86,7 @@ cdef class ModularSymbols:
+@@ -86,7 +87,7 @@ cdef class ModularSymbols:
              sage: M.level()
              1234
          """
@@ -107,16 +108,16 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
  
      #cpdef int dimension(self):
      def dimension(self):
-@@ -151,7 +151,7 @@ cdef class ModularSymbols:
+@@ -151,7 +152,7 @@ cdef class ModularSymbols:
              sage: M = CremonaModularSymbols(1122, cuspidal=True); M.is_cuspidal()
              1
          """
 -        return self.H.cuspidal
-+        return self.H.cuspidalpart
++        return int(self._cuspidal)
  
      def hecke_matrix(self, long p, dual=False, verbose=False):
          """
-@@ -277,7 +277,7 @@ cdef class ModularSymbols:
+@@ -277,7 +278,7 @@ cdef class ModularSymbols:
              sv = M.row(i+1)
              iter = sv.begin()
              while iter != sv.end():
@@ -255,3 +256,12 @@ Index: sagemath/src/sage/libs/eclib/wrap.cpp
    if (!P.isvalid())
      return 1;
    m->process(P, sat);
+Index: sagemath/src/sage/libs/eclib/homspace.pxd
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/homspace.pxd
++++ sagemath/src/sage/libs/eclib/homspace.pxd
+@@ -2,3 +2,4 @@ from sage.libs.eclib cimport homspace
+ 
+ cdef class ModularSymbols:
+     cdef homspace* H
++    cdef bint _cuspidal
