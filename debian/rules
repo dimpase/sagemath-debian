@@ -48,8 +48,8 @@ export PYBUILD_DISABLE = *dbg
 
 binary build clean install: debian/control
 
-debian/control: debian/control.in
-	cat $^ > "$@"
+debian/control: debian/control.in debian/control.runtime-depends debian/control.runtime-recommends debian/control.jupyter-depends
+	cat $< > "$@"
 	sed -i -e '/RUNTIME_DEPENDS/ {' -e 'r debian/control.runtime-depends' -e 'd' -e '}' "$@"
 	sed -i -e '/RUNTIME_RECOMMENDS/ {' -e 'r debian/control.runtime-recommends' -e 'd' -e '}' "$@"
 	sed -i -e '/JUPYTER_DEPENDS/ {' -e 'r debian/control.jupyter-depends' -e 'd' -e '}' "$@"

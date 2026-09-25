@@ -51,7 +51,7 @@
  libcdd-dev,
  libcliquer-dev,
  libcurl4-openssl-dev,
- libec-dev,
+ libec-dev (>= 20260707),
  libecm-dev,
  libffi-dev,
  libflint-dev (>= 3.0.0),
