@@ -1,0 +1,68 @@
+Description: Defer heavy imports in sage.cli until command execution
+ Importing sage.all and preparse during module import in sage.cli prevents
+ generating --help when compiled extensions are not present in PYTHONPATH,
+ and slows down CLI startup. Defer those imports into run() and set PYTHONPATH
+ in repl documentation options custom_target.
+Author: Maximiliano Curia <maxy@debian.org>
+
+Index: sagemath/src/sage/cli/eval_cmd.py
+===================================================================
+--- sagemath.orig/src/sage/cli/eval_cmd.py
++++ sagemath/src/sage/cli/eval_cmd.py
+@@ -1,8 +1,6 @@
+ import argparse
+ 
+ from sage.cli.options import CliOptions
+-from sage.repl.preparse import preparse
+-from sage.all import sage_globals
+ 
+ 
+ class EvalCmd:
+@@ -36,6 +34,9 @@ class EvalCmd:
+         r"""
+         Execute the given command.
+         """
++        from sage.repl.preparse import preparse
++        from sage.all import sage_globals
++
+         code = preparse(self.options.command)
+         eval(compile(code, "<cmdline>", "exec"), sage_globals())
+         return 0
+Index: sagemath/src/sage/cli/run_file_cmd.py
+===================================================================
+--- sagemath.orig/src/sage/cli/run_file_cmd.py
++++ sagemath/src/sage/cli/run_file_cmd.py
+@@ -2,10 +2,6 @@ import argparse
+ import sys
+ 
+ from sage.cli.options import CliOptions
+-from sage.repl.preparse import preparse_file_named
+-from sage.repl.load import load_cython
+-from sage.misc.temporary_file import tmp_filename
+-from sage.all import sage_globals
+ 
+ 
+ class RunFileCmd:
+@@ -40,6 +36,11 @@ class RunFileCmd:
+         r"""
+         Execute the given command.
+         """
++        from sage.repl.preparse import preparse_file_named
++        from sage.repl.load import load_cython
++        from sage.misc.temporary_file import tmp_filename
++        from sage.all import sage_globals
++
+         input_file = self.options.file[0]
+         if input_file.endswith('.sage'):
+             input_file = str(preparse_file_named(input_file))
+Index: sagemath/src/doc/en/reference/repl/meson.build
+===================================================================
+--- sagemath.orig/src/doc/en/reference/repl/meson.build
++++ sagemath/src/doc/en/reference/repl/meson.build
+@@ -14,5 +14,6 @@ doc_src_repl = custom_target(
+   'options',
+   output: ['options.txt'],
+   command: [py, src / 'sage' / 'cli', '--help'],
++  env: {'PYTHONPATH': [meson.project_source_root() / 'src']},
+   capture: true,
+ )
