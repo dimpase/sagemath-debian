@@ -1,0 +1,40 @@
+Description: Autoload standard GAP packages in libgap and GAP interface
+ In GAP >= 4.13, smallgrp, primgrp, and transgrp are separate packages.
+ When GAP is initialized with -A, these packages must be explicitly loaded
+ via LoadPackage if available so that group database functions work.
+Author: Maximiliano Curia <maxy@debian.org>
+
+Index: sagemath/src/sage/libs/gap/sage.gaprc
+===================================================================
+--- sagemath.orig/src/sage/libs/gap/sage.gaprc
++++ sagemath/src/sage/libs/gap/sage.gaprc
+@@ -23,9 +23,9 @@ ColorPrompt(false);
+ _orig_warn_level := InfoLevel(InfoWarning);
+ SetInfoLevel(InfoWarning, 0);
+ 
+-_autoloads := [ "autpgrp", "alnuth", "crisp", "ctbllib", "factint", "fga",
+-                "irredsol", "laguna", "polenta", "polycyclic", "resclasses",
+-                "sophus", "tomlib" ];
++_autoloads := [ "alnuth", "atlasrep", "autpgrp", "crisp", "ctbllib", "factint", "fga",
++                "irredsol", "laguna", "polenta", "polycyclic", "primgrp", "resclasses",
++                "smallgrp", "sophus", "tomlib", "transgrp" ];
+ for p in _autoloads do
+   LoadPackage(p);
+ od;
+Index: sagemath/src/sage/ext_data/gap/sage.g
+===================================================================
+--- sagemath.orig/src/sage/ext_data/gap/sage.g
++++ sagemath/src/sage/ext_data/gap/sage.g
+@@ -145,9 +145,9 @@ end;
+ # allows us to load the usual set of packages, but only if they are
+ # installed. So most people will get exactly the default behavior,
+ # but minimal installations won't throw warnings and fail tests.
+-_autoloads := [ "autpgrp", "alnuth", "crisp", "ctbllib", "factint", "fga",
+-                "irredsol", "laguna", "polenta", "polycyclic", "resclasses",
+-                "sophus", "tomlib" ];
++_autoloads := [ "alnuth", "atlasrep", "autpgrp", "crisp", "ctbllib", "factint", "fga",
++                "irredsol", "laguna", "polenta", "polycyclic", "primgrp", "resclasses",
++                "smallgrp", "sophus", "tomlib", "transgrp" ];
+ for p in _autoloads do
+   LoadPackage(p);
+ od;
