@@ -1,0 +1,44 @@
+Description: Use lazy_import for lrcalc in orthogonal and symplectic symmetric functions
+ Defer loading sage.libs.lrcalc until actually used, matching sage.combinat.sf.schur,
+ so that importing orthogonal and symplectic symmetric functions does not fail when
+ lrcalc is not installed.
+Author: Maximiliano Curia <maxy@debian.org>
+
+Index: sagemath/src/sage/combinat/sf/orthogonal.py
+===================================================================
+--- sagemath.orig/src/sage/combinat/sf/orthogonal.py
++++ sagemath/src/sage/combinat/sf/orthogonal.py
+@@ -22,11 +22,13 @@
+ # ****************************************************************************
+ 
+ from sage.combinat.partition import Partitions
+-from sage.libs.lrcalc import lrcalc
+ from sage.misc.cachefunc import cached_method
++from sage.misc.lazy_import import lazy_import
+ 
+ from . import sfa
+ 
++lazy_import('sage.libs.lrcalc', 'lrcalc')
++
+ 
+ class SymmetricFunctionAlgebra_orthogonal(sfa.SymmetricFunctionAlgebra_generic):
+     r"""
+Index: sagemath/src/sage/combinat/sf/symplectic.py
+===================================================================
+--- sagemath.orig/src/sage/combinat/sf/symplectic.py
++++ sagemath/src/sage/combinat/sf/symplectic.py
+@@ -22,11 +22,13 @@
+ # ****************************************************************************
+ 
+ from sage.combinat.partition import Partitions
+-from sage.libs.lrcalc import lrcalc
+ from sage.misc.cachefunc import cached_method
++from sage.misc.lazy_import import lazy_import
+ 
+ from . import sfa
+ 
++lazy_import('sage.libs.lrcalc', 'lrcalc')
++
+ 
+ class SymmetricFunctionAlgebra_symplectic(sfa.SymmetricFunctionAlgebra_generic):
+     r"""

@@ -1,0 +1,27 @@
+Description: Add autodoc_mock_imports for optional packages in Sphinx docbuild conf
+ Configure Sphinx autodoc to mock optional Python dependencies that might not
+ be installed in the build environment, allowing the reference manual to be
+ built completely without failure.
+Author: Maximiliano Curia <maxy@debian.org>
+
+Index: sagemath/src/sage_docbuild/conf.py
+===================================================================
+--- sagemath.orig/src/sage_docbuild/conf.py
++++ sagemath/src/sage_docbuild/conf.py
+@@ -59,6 +59,16 @@ extensions = [
+ if JupyterSphinx().is_present():
+     extensions.append('jupyter_sphinx')
+ 
++autodoc_mock_imports = [
++    'cvxpy',
++    'lrcalc',
++    'pyscipopt',
++    'pycosat',
++    'pynormaliz',
++    'sage_numerical_backends_coin',
++    'symengine',
++]
++
+ jupyter_execute_default_kernel = 'sagemath'
+ 
+ if SAGE_LIVE_DOC == 'yes':
