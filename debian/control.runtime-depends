@@ -98,7 +98,6 @@
  ppl-dev,
 # Additional dependencies not provided by upstream:
  python3-cysignals-bare (>= 1.12.1),
- python3-lrcalc,
  python3-memory-allocator,
  python3-platformdirs,
  python3-primecountpy,
