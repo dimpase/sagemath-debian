@@ -6,6 +6,7 @@ u2-cli-lazy-imports.patch
 u2-lrcalc-lazy-import.patch
 u2-doc-mock-imports.patch
 u2-gap-autoload-packages.patch
+u2-braid-libbraiding-fallback.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version
