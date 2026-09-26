@@ -100,6 +100,7 @@ Depends: ${python3:Depends}, ${misc:Depends}, ${shlibs:Depends},
  RUNTIME_DEPENDS
 Recommends:
  RUNTIME_RECOMMENDS
+ python3-lrcalc,
 Description: Open Source Mathematical Software - Python 3 library
  SageMath is a free open-source mathematics software system licensed under the
  GPL. It builds on top of many existing open-source packages: NumPy, SciPy,
