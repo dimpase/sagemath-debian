@@ -146,7 +146,7 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 endif
 
 override_dh_clean:
-	rm -rf .sage .texlive2021 .pybuild debian/python3-sage-dbg debian/stamp-build-install
+	rm -rf .sage .texlive2021 .pybuild debian/python3-sage-dbg debian/stamp-build-install logs
 	rm -f sage_conf.py
 	dh_clean
 
@@ -175,14 +175,14 @@ run_tests = \
 	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3/dist-packages:$(CURDIR)/debian/tmp/usr/lib/python$(PY3VER)/dist-packages \
 	       SAGE_DOC=$(CURDIR)/src/doc \
 	       SAGE_LOCAL=/usr && \
-	sage -t -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
+	python3 -m sage.doctest -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
 
 rerun_tests = \
 	export PATH=$(PATH):$(CURDIR)/debian/tmp/usr/bin \
 	       PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3/dist-packages:$(CURDIR)/debian/tmp/usr/lib/python$(PY3VER)/dist-packages \
 	       SAGE_DOC=$(CURDIR)/src/doc \
 	       SAGE_LOCAL=/usr && \
-	sage -t -p 1 -f --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
+	python3 -m sage.doctest -p 1 -f --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
 
 run_tests_with_retry = \
 	$(run_tests); cd "$(CURDIR)" && \

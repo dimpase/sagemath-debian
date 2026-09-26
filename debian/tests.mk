@@ -2,7 +2,7 @@
 # Makefile containing shell snippets to help with running sage tests and
 # analysing the output.
 
-SAGE = sage
+SAGE = python3 -m sage.doctest
 SAGE_TEST_FLAGS =
 LOGFILE = ptestlong.log
 MAX_TEST_FAILURES = 200
@@ -10,12 +10,12 @@ MAX_TEST_FAILURES_RERUN = $(shell expr 2 \* $(MAX_TEST_FAILURES))
 TESTS_MK = $(MAKE) -s --no-print-directory -f debian/tests.mk LOGFILE=$(LOGFILE)
 
 check:
-	$(SAGE) -t -p --all --long --logfile=$(LOGFILE) $(SAGE_TEST_FLAGS)
+	$(SAGE) -p --all --long --logfile=$(LOGFILE) $(SAGE_TEST_FLAGS)
 
 check-failed:
-	$(SAGE) -t -p --all --long --logfile=$(LOGFILE) -f $(SAGE_TEST_FLAGS)
+	$(SAGE) -p --all --long --logfile=$(LOGFILE) -f $(SAGE_TEST_FLAGS)
 
-FAILED_TESTS = grep '^sage -t .*  \#' $(LOGFILE)
+FAILED_TESTS = grep -E '^(sage -t|python3 -m sage\.doctest) .*  \#' $(LOGFILE)
 failed-tests:
 	$(FAILED_TESTS)
 
