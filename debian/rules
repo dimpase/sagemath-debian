@@ -63,7 +63,7 @@ override_dh_auto_configure:
 
 # We install directly after building in order to use the python package for
 # docbuild and testing. This is required both for arch and indep builds.
-debian/tmp/usr/bin/sage:
+debian/stamp-build-install:
 	dh_auto_build
 	dh_auto_install --destdir=debian/tmp
 	mkdir -p debian/tmp/usr/lib/python3/dist-packages/
@@ -71,10 +71,11 @@ debian/tmp/usr/bin/sage:
 	if [ -d debian/tmp/usr/lib/python$(PY3VER)/dist-packages ]; then \
 		cp -f debian/sage_conf.py debian/tmp/usr/lib/python$(PY3VER)/dist-packages/; \
 	fi
+	touch $@
 
-override_dh_auto_build-arch: debian/tmp/usr/bin/sage
+override_dh_auto_build-arch: debian/stamp-build-install
 
-override_dh_auto_build-indep: debian/tmp/usr/bin/sage
+override_dh_auto_build-indep: debian/stamp-build-install
 ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 	PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3/dist-packages:$(CURDIR)/debian/tmp/usr/lib/python$(PY3VER)/dist-packages \
 	SAGE_SRC=$(CURDIR)/src \
@@ -144,7 +145,7 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 endif
 
 override_dh_clean:
-	rm -rf .sage .texlive2021 .pybuild debian/python3-sage-dbg
+	rm -rf .sage .texlive2021 .pybuild debian/python3-sage-dbg debian/stamp-build-install
 	rm -f sage_conf.py
 	dh_clean
 
