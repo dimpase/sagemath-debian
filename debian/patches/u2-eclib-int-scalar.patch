@@ -1,6 +1,6 @@
 Description: Adapt to eclib using INT class for scalar
  In newer eclib versions, scalar is INT (a wrapper around FLINT's fmpz)
- rather than int. Update Cython declarations and conversions.
+ rather than int. Update Cython declarations, constructors, and conversions.
 Author: Maximiliano Curia <maxy@debian.org>
 
 Index: sagemath/src/sage/libs/eclib/__init__.pxd
@@ -40,21 +40,37 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
      int I2int(bigint)
  
  cdef extern from "eclib/rat.h":
-@@ -121,11 +128,10 @@ cdef extern from "eclib/descent.h":
+@@ -119,19 +126,22 @@ cdef extern from "eclib/descent.h":
+     cdef cppclass mw:
+         mw(Curvedata* curve, int verb, int pp, int maxr)
  
++cdef extern from "eclib/modulus.h":
++    scalar default_modulus[T]()
++
  cdef extern from "eclib/homspace.h":
      cdef cppclass homspace:
 -        long modulus
-+        scalar modulus
++        long N
          int plusflag # sign
 -        int cuspidal
++        long dimension, cuspidal_dimension
  
 -        homspace(long n, int hp, int hcusp, int verbose)
-+        homspace(long n, scalar hp, int hcusp, int verbose)
++        homspace(long n, scalar mod, int hp, int verbose)
  
-         int h1dim()
-         int h1cuspdim()
-@@ -143,7 +149,7 @@ cdef extern from "eclib/newforms.h":
+-        int h1dim()
+-        int h1cuspdim()
+-        mat heckeop(long p, int dual, int display)
++        long h1dim()
++        long h1cuspdim()
++        mat heckeop(long p, int cuspidal, int dual, int display)
+         vec heckeop_col(long p, int j, int display)
+-        smat s_heckeop(long p, int dual, int display)
++        smat s_heckeop(long p, int cuspidal, int dual, int display)
+         long h1ncusps()
+ 
+ cdef extern from "eclib/newforms.h":
+@@ -143,7 +153,7 @@ cdef extern from "eclib/newforms.h":
          long cuspidal
          long sign
  
@@ -63,6 +79,15 @@ Index: sagemath/src/sage/libs/eclib/__init__.pxd
  
          void createfromcurve(int sign, CurveRed CR, int nap)
          void display()
+Index: sagemath/src/sage/libs/eclib/homspace.pxd
+===================================================================
+--- sagemath.orig/src/sage/libs/eclib/homspace.pxd
++++ sagemath/src/sage/libs/eclib/homspace.pxd
+@@ -2,3 +2,4 @@ from sage.libs.eclib cimport homspace
+ 
+ cdef class ModularSymbols:
+     cdef homspace* H
++    cdef bint _cuspidal
 Index: sagemath/src/sage/libs/eclib/homspace.pyx
 ===================================================================
 --- sagemath.orig/src/sage/libs/eclib/homspace.pyx
@@ -73,7 +98,7 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
  
 -from sage.libs.eclib cimport svec, mat, smat
 -from sage.libs.eclib.mat cimport MatrixFactory
-+from sage.libs.eclib cimport svec, mat, smat, scalar
++from sage.libs.eclib cimport svec, mat, smat, scalar, default_modulus
 +from sage.libs.eclib.mat cimport MatrixFactory, scalar_to_integer
  
  from sage.matrix.matrix_space import MatrixSpace
@@ -85,7 +110,7 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
 +        self._cuspidal = cuspidal
          sig_on()
 -        self.H = new homspace(level, sign, cuspidal, verbose)
-+        self.H = new homspace(level, scalar(sign), cuspidal, verbose)
++        self.H = new homspace(level, default_modulus[scalar](), sign, verbose)
          sig_off()
  
      def __dealloc__(self):
@@ -94,10 +119,19 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
              1234
          """
 -        return self.H.modulus
-+        return scalar_to_integer(self.H.modulus)
++        return self.H.N
  
      #cpdef int dimension(self):
      def dimension(self):
+@@ -99,7 +100,7 @@ cdef class ModularSymbols:
+             sage: M.dimension()
+             156
+         """
+-        if self.is_cuspidal():
++        if self._cuspidal:
+             return self.H.h1cuspdim()
+         else:
+             return self.H.h1dim()
 @@ -151,7 +152,7 @@ cdef class ModularSymbols:
              sage: M = CremonaModularSymbols(1122, cuspidal=True); M.is_cuspidal()
              1
@@ -107,7 +141,23 @@ Index: sagemath/src/sage/libs/eclib/homspace.pyx
  
      def hecke_matrix(self, long p, dual=False, verbose=False):
          """
-@@ -277,7 +278,7 @@ cdef class ModularSymbols:
+@@ -207,7 +208,7 @@ cdef class ModularSymbols:
+             True
+         """
+         sig_on()
+-        cdef mat M = self.H.heckeop(p, dual, verbose)
++        cdef mat M = self.H.heckeop(p, int(self._cuspidal), dual, verbose)
+         sig_off()
+         return MF.new_matrix(M)
+ 
+@@ -271,13 +272,13 @@ cdef class ModularSymbols:
+         cdef svec sv
+         d = {}
+         sig_on()
+-        cdef smat M = self.H.s_heckeop(p, dual, verbose)
++        cdef smat M = self.H.s_heckeop(p, int(self._cuspidal), dual, verbose)
+         sig_off()
+         for i in range(n):
              sv = M.row(i+1)
              iter = sv.begin()
              while iter != sv.end():
@@ -136,7 +186,7 @@ Index: sagemath/src/sage/libs/eclib/mat.pxd
 +cdef inline Integer scalar_to_integer(const scalar& s):
 +    cdef fmpz_t z
 +    s.get_fmpz(z)
-+    cdef Integer res = Integer.__new__(Integer)
++    cdef Integer res = Integer()
 +    fmpz_get_mpz(res.value, z)
 +    fmpz_clear(z)
 +    return res
@@ -220,7 +270,7 @@ Index: sagemath/src/sage/libs/eclib/newforms.pyx
          self.sign = sign
  
 -        self.nfs = new newforms(n, 0)
-+        self.nfs = new newforms(n, scalar(0), 0)
++        self.nfs = new newforms(n, default_modulus[scalar](), 0)
          self.nfs.createfromcurve(sign, CR, nap)
          sig_off()
  
@@ -246,12 +296,3 @@ Index: sagemath/src/sage/libs/eclib/wrap.cpp
    if (!P.isvalid())
      return 1;
    m->process(P, sat);
-Index: sagemath/src/sage/libs/eclib/homspace.pxd
-===================================================================
---- sagemath.orig/src/sage/libs/eclib/homspace.pxd
-+++ sagemath/src/sage/libs/eclib/homspace.pxd
-@@ -2,3 +2,4 @@ from sage.libs.eclib cimport homspace
- 
- cdef class ModularSymbols:
-     cdef homspace* H
-+    cdef bint _cuspidal
