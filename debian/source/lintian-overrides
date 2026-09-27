@@ -18,3 +18,7 @@ sagemath source: source-contains-prebuilt-flash-object sage/src/sage/ext_data/do
 sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/animation.html
 sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/helix.html
 sagemath source: source-is-missing sage/src/doc/en/reference/plot3d/threejs_examples/spheres.html
+
+# kfreebsd-* architectures are unofficial Debian ports
+sagemath source: unknown-architecture kfreebsd-amd64
+sagemath source: unknown-architecture kfreebsd-i386
