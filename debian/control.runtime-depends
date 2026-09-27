@@ -28,7 +28,7 @@
  pari-seadata,
  patch,
  perl,
- pkg-config,
+ pkgconf,
  planarity,
  python3,
  python3-setuptools,
