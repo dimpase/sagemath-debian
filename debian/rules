@@ -120,10 +120,8 @@ override_dh_prep:
 override_dh_install-indep:
 	dh_install
 ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
-# Basic version of deduplicating the docs, for a much smaller install size.
-# Upstream bug report is at https://trac.sagemath.org/ticket/22088
-# Hard links do work in Debian packages, but only within packages.
-	rdfind -outputname /dev/null -makehardlinks true debian/sagemath-doc;
+	# Deduplicate documentation files using symlinks to reduce package size.
+	rdfind -outputname /dev/null -makesymlinks true debian/sagemath-doc;
 endif
 
 override_dh_installman-indep:
