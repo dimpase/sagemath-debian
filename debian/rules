@@ -35,6 +35,7 @@ export SAGE_TIMEOUT_LONG = 3600
 endif
 
 export HOME = $(CURDIR)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export PYBUILD_NAME = sage
 export PYBUILD_SYSTEM = pyproject
 export PYBUILD_DISABLE = *dbg
@@ -234,6 +235,3 @@ build-dep-maint:
 build-dep: debian/control
 	if which aptitude >/dev/null; then sudo -E mk-build-deps -ir -t 'aptitude -R'; \
 	else sudo -E mk-build-deps -ir; fi
-
-get-orig-source:
-	uscan --download-current-version --destdir=..
