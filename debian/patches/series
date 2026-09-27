@@ -18,6 +18,7 @@ d0-pari-cxx-signal.patch
 # Patch Sage to behave as a Debian package
 # Not suitable for upstreaming
 d1-doc-docs.patch
+d1-doc-privacy-breach.patch
 
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
