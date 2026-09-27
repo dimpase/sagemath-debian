@@ -25,3 +25,20 @@ Index: sagemath/src/sage_docbuild/conf.py
  jupyter_execute_default_kernel = 'sagemath'
  
  if SAGE_LIVE_DOC == 'yes':
+Index: sagemath/src/sage_docbuild/builders.py
+===================================================================
+--- sagemath.orig/src/sage_docbuild/builders.py
++++ sagemath/src/sage_docbuild/builders.py
+@@ -828,8 +828,10 @@ class ReferenceSubBuilder(DocBuilder):
+                     warnings.simplefilter("ignore")
+                     __import__(module_name)
+             except ImportError as err:
+-                logger.error("Warning: Could not import %s %s", module_name, err)
+-                raise
++                logger.warning("Warning: Could not import %s %s", module_name, err)
++                new_modules.append(module_name)
++                yield module_name
++                continue
+ 
+             module_filename = sys.modules[module_name].__file__
+             if module_filename is None:

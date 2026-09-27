@@ -38,6 +38,7 @@ export HOME = $(CURDIR)
 export PYBUILD_NAME = sage
 export PYBUILD_SYSTEM = pyproject
 export PYBUILD_DISABLE = *dbg
+unexport DISPLAY
 export PYBUILD_DESTDIR = debian/tmp
 
 %:
@@ -85,6 +86,7 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 	LANG=C.UTF-8 \
 	ninja -C .pybuild/cpython3_$(PY3VER)_sage/meson-build doc-html
 	mkdir -p debian/tmp/usr/share/doc/sagemath
+	rm -rf debian/tmp/usr/share/doc/sagemath/html
 	mv .pybuild/cpython3_$(PY3VER)_sage/meson-build/src/doc/html debian/tmp/usr/share/doc/sagemath/
 	cd debian/tmp/usr/share/doc/sagemath/html && \
 	for statdir in */*/_static; do ln -s /usr/share/javascript/mathjax "$$statdir"; done && \
@@ -177,6 +179,7 @@ run_tests = \
 	       SAGE_LOCAL=/usr \
 	       OPENBLAS_NUM_THREADS=1 \
 	       OMP_NUM_THREADS=1 && \
+	unset DISPLAY && \
 	python3 -m sage.doctest -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
 
 rerun_tests = \
@@ -186,6 +189,7 @@ rerun_tests = \
 	       SAGE_LOCAL=/usr \
 	       OPENBLAS_NUM_THREADS=1 \
 	       OMP_NUM_THREADS=1 && \
+	unset DISPLAY && \
 	python3 -m sage.doctest -p 1 -f --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
 
 run_tests_with_retry = \
@@ -200,7 +204,7 @@ run_tests_with_retry = \
 override_dh_auto_test-arch:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	mkdir -p logs
-	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,500)
+	$(call run_tests_with_retry,arch,$(SAGE_TEST_FLAGS_ARCH) src/sage,2000)
 endif
 
 override_dh_auto_test-indep:

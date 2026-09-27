@@ -42,3 +42,19 @@ Index: sagemath/src/sage/combinat/sf/symplectic.py
  
  class SymmetricFunctionAlgebra_symplectic(sfa.SymmetricFunctionAlgebra_generic):
      r"""
+Index: sagemath/src/sage/libs/lrcalc/lrcalc.py
+===================================================================
+--- sagemath.orig/src/sage/libs/lrcalc/lrcalc.py
++++ sagemath/src/sage/libs/lrcalc/lrcalc.py
+@@ -189,7 +189,10 @@ from sage.combinat.permutation import Pe
+ from sage.combinat.skew_tableau import SemistandardSkewTableaux
+ from sage.combinat.skew_partition import SkewPartition
+ from sage.rings.integer import Integer
+-import lrcalc
++try:
++    import lrcalc
++except ImportError:
++    lrcalc = None
+ 
+ 
+ def _lrcalc_dict_to_sage(result) -> dict:
