@@ -1,6 +1,6 @@
-# False positive: This is not a license file, but the reference file for sage/misc/copying.py.
-sagemath-doc binary: extra-license-file usr/share/doc/sagemath/html/en/reference/misc/_sources/sage/misc/copying.rst.txt
+# False positive: Reference manual documentation files mistakenly identified as license files
+sagemath-doc: extra-license-file usr/share/doc/sagemath/html/en/reference/misc/_sources/sage/misc/copying.rst.txt
+sagemath-doc: extra-license-file usr/share/doc/sagemath/html/en/reference/arithmetic_curves/_sources/sage/schemes/elliptic_curves/BSD.rst.txt
 
-# Some of these are not dealt with by dh_sphinxdoc.
-sagemath-doc: duplicate-font-file
+# Javascript libraries embedded in doc
 sagemath-doc: embedded-javascript-library
