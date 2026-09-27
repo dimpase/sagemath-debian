@@ -42,7 +42,7 @@ Build-Depends:
  python3-memory-allocator,
  python3-mpmath (>= 1.1.0),
  python3-networkx (>= 3.1),
- python3-numpy (>= 1:1.25),
+ python3-numpy-dev (>= 1:1.25),
  python3-pexpect (>= 4.8.0),
  python3-pil (>= 7.2.0),
  python3-pkgconfig,
