@@ -14,6 +14,7 @@ Vcs-Browser: https://salsa.debian.org/math-team/sagemath
 Rules-Requires-Root: no
 Build-Depends:
  autoconf,
+ chrpath,
  debhelper (>= 13~),
  debhelper-compat (= 13),
  dh-python (>= 2.20170125),

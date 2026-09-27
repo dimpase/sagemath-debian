@@ -94,22 +94,24 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 endif
 
 override_dh_auto_install:
-# Delete .bat files
+	# Delete .bat files
 	rm -f debian/tmp/usr/bin/*.bat
-# Install desktop file
+	# Install desktop file
 	mkdir -p debian/tmp/usr/share/applications
 	cp -f debian/sagemath.desktop debian/tmp/usr/share/applications/sagemath.desktop
-# Install (renamed) icons.
+	# Install (renamed) icons.
 	mkdir -p debian/tmp/usr/share/icons/hicolor/64x64/apps
 	mkdir -p debian/tmp/usr/share/icons/hicolor/scalable/apps
 	cp -f src/sage/ext_data/notebook-ipython/logo-64x64.png debian/tmp/usr/share/icons/hicolor/64x64/apps/sagemath.png
 	cp -f src/sage/ext_data/notebook-ipython/logo.svg debian/tmp/usr/share/icons/hicolor/scalable/apps/sagemath.svg
-# Fix links to icons.
+	# Fix links to icons.
 	mkdir -p debian/tmp/usr/share/jupyter/kernels/sagemath
 	cd debian/tmp/usr/share/jupyter/kernels/sagemath && rm -f logo-64x64.png && \
 	   ln -s ../../../icons/hicolor/64x64/apps/sagemath.png logo-64x64.png
 	cd debian/tmp/usr/share/jupyter/kernels/sagemath && rm -f logo.svg && \
 	   ln -s ../../../icons/hicolor/scalable/apps/sagemath.svg logo.svg
+	# Remove non-standard RPATH/RUNPATH from python extension modules
+	find debian/tmp -name "*.so" -exec chrpath -d {} + 2>/dev/null || true
 
 override_dh_prep:
 # Prevent dh_prep from deleting debian/tmp.
