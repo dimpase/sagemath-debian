@@ -31,8 +31,47 @@ sagemath (10.9-0.1) UNRELEASED; urgency=medium
     - Update debian/clean and debian/depcheck.py for upstream root layout.
     - Update debian/copyright with 10.9 paths, BSL-1.0 and LGPL-2.1+ licenses,
       verified with decopy.
+  * Use debian/stamp-build-install instead of debian/tmp/usr/bin/sage
+  * Export PYBUILD_DESTDIR = debian/tmp in debian/rules
+  * Add furo, python3-sphinx-copybutton, python3-sphinx-inline-tabs to
+    Build-Depends
+  * Add u2-lrcalc-lazy-import.patch and u2-doc-mock-imports.patch for optional
+    packages
+  * Use python3 -m sage.doctest instead of sage -t for running doctests
+  * Add python3-pytest to Build-Depends and autopkgtest Depends
+  * Update u2-eclib-int-scalar.patch for eclib 2026 API changes
+  * d0-meson-debian-fixes.patch: Add fallback to find libbraiding without
+    pkg-config
+  * Drop obsolete u1-ipywidgets-repr.patch
+  * Add u2-gap-autoload-packages.patch to autoload standard GAP packages
+  * Add python3-lrcalc to debian/control.runtime-depends
+  * Limit OPENBLAS_NUM_THREADS and OMP_NUM_THREADS to 1 during test suite
+    execution
+  * Add u2-braid-libbraiding-fallback.patch to handle missing libbraiding
+  * Revert python3-lrcalc dependency since it is not yet in unstable
+  * Add python3-lrcalc to Recommends of python3-sage and adjust test failure
+    threshold
+  * Do not attempt to compile against older libbraiding 1.1 in Debian
+  * Fix docbuild and test execution environment for missing optional
+    dependencies
+  * Build-Depend on python3-numpy-dev instead of python3-numpy
+  * Strip non-standard RUNPATH from compiled extension modules with chrpath
+  * Deduplicate documentation with symlinks instead of hardlinks
+  * Add d1-doc-privacy-breach.patch to eliminate remote badges in developer
+    doc
+  * Replace obsolete pkg-config dependency with pkgconf
+  * Override unknown-architecture for unofficial kfreebsd-* ports
+  * Update autopkgtest paths and remove deprecated skip-not-installable
+    restriction
+  * Update FSF license URL in debian/copyright
+  * Clean up and update Lintian overrides for current source and tag formats
+  * Bump Standards-Version to 4.7.4
+  * Add Keywords entry to debian/sagemath.desktop
+  * Enable hardening=+all and remove obsolete get-orig-source target
+  * Run rdfind after dh_sphinxdoc and ensure relative symlinks in sagemath-doc
+  * Add patchelf to Build-Depends for meson-python wheel building
 
- -- Maximiliano Curia <maxy@debian.org>  Thu, 24 Sep 2026 19:05:00 +0200
+ -- Maximiliano Curia <maxy@debian.org>  Sun, 27 Sep 2026 21:53:11 +0200
 
 sagemath (9.5-6) unstable; urgency=high
 
