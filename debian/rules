@@ -113,6 +113,8 @@ override_dh_auto_install:
 	   ln -s ../../../icons/hicolor/scalable/apps/sagemath.svg logo.svg
 	# Remove non-standard RPATH/RUNPATH from python extension modules
 	find debian/tmp -name "*.so" -exec chrpath -d {} + 2>/dev/null || true
+	# Remove shebang from non-executable ext_data test script
+	find debian/tmp -name "testall" -exec sed -i '1{/^#!/d}' {} +
 
 override_dh_prep:
 # Prevent dh_prep from deleting debian/tmp.
@@ -120,10 +122,6 @@ override_dh_prep:
 
 override_dh_install-indep:
 	dh_install
-ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
-	# Deduplicate documentation files using symlinks to reduce package size.
-	rdfind -outputname /dev/null -makesymlinks true debian/sagemath-doc;
-endif
 
 override_dh_installman-indep:
 	dh_installman -psagemath debian/sage.1
@@ -146,6 +144,10 @@ ifeq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 # `man dh_sphinxdoc` says symlinking translations.js is not yet supported
 # likewise, it seems not to recognise searchtools.js yet
 	dh_sphinxdoc -XMathJax.js -Xtranslations.js -Xsearchtools.js
+	# Deduplicate remaining documentation files using symlinks to reduce package size.
+	rdfind -outputname /dev/null -makesymlinks true debian/sagemath-doc;
+	# Convert any absolute build-tree symlinks from rdfind into relative symlinks
+	python3 -c 'import os; pkg = os.path.abspath("debian/sagemath-doc"); [(os.unlink(p), os.symlink(os.path.relpath(t, r), p)) for r, _, fs in os.walk(pkg) for f in fs for p in [os.path.join(r, f)] if os.path.islink(p) for t in [os.readlink(p)] if t.startswith(pkg)]'
 endif
 
 override_dh_clean:

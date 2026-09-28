@@ -1,6 +1,6 @@
 # False positive: Reference manual documentation files mistakenly identified as license files
-sagemath-doc: extra-license-file usr/share/doc/sagemath/html/en/reference/misc/_sources/sage/misc/copying.rst.txt
-sagemath-doc: extra-license-file usr/share/doc/sagemath/html/en/reference/arithmetic_curves/_sources/sage/schemes/elliptic_curves/BSD.rst.txt
+sagemath-doc: extra-license-file [*copying.rst.txt]
+sagemath-doc: extra-license-file [*BSD.rst.txt]
 
 # Javascript libraries embedded in doc
-sagemath-doc: embedded-javascript-library
+sagemath-doc: embedded-javascript-library *
