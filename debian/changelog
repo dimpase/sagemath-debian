@@ -70,6 +70,8 @@ sagemath (10.9-0.1) UNRELEASED; urgency=medium
   * Enable hardening=+all and remove obsolete get-orig-source target
   * Run rdfind after dh_sphinxdoc and ensure relative symlinks in sagemath-doc
   * Add patchelf to Build-Depends for meson-python wheel building
+  * Update debian/tests/control: add make to Depends, set environment
+    variables and failure threshold for doctest execution
 
  -- Maximiliano Curia <maxy@debian.org>  Sun, 27 Sep 2026 21:53:11 +0200
 
