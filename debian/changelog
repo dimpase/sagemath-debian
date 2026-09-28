@@ -1,77 +1,63 @@
 sagemath (10.9-1) unstable; urgency=medium
 
-  * Team upload
+  * Team upload.
   * New upstream release 10.9 (Closes: #1010735).
   * Update watch file to format version 5.
   * Build system and dependency updates:
-    - Switch to mesonpy build system with meson and ninja-build.
-    - Drop obsolete distutils dependencies (Closes: #1065953).
-    - Drop obsolete yasm runtime dependency (Closes: #1104216).
-    - Drop obsolete pcre3 dependencies (Closes: #1050182).
+    - Switch build system to mesonpy with meson, ninja-build, and patchelf.
+    - Export PYBUILD_DESTDIR = debian/tmp and use debian/stamp-build-install.
+    - Enable hardening=+all and remove obsolete get-orig-source target.
+    - Strip non-standard RUNPATH from compiled extension modules with chrpath.
     - Add native Cython 3 compatibility (Closes: #1056885).
     - Add support for Python 3.12/3.13 and drop removed stdlib modules
       (Closes: #1084585, #1051153, #1057328).
-    - Fix FTBFS with Sphinx >= 7.1 (Closes: #1042683).
+    - Build-Depend on python3-numpy-dev instead of python3-numpy.
+    - Replace obsolete pkg-config dependency with pkgconf.
+    - Drop obsolete distutils dependencies (Closes: #1065953).
+    - Drop obsolete yasm runtime dependency (Closes: #1104216).
+    - Drop obsolete pcre3 dependencies (Closes: #1050182).
+    - Add furo, python3-sphinx-copybutton, and python3-sphinx-inline-tabs to
+      Build-Depends; fix FTBFS with Sphinx >= 7.1 (Closes: #1042683).
     - Rebuild and update dependencies for Singular 4.3/4.4, FLINT 3,
       libec-dev (>= 20260707), libplanarity-dev (>= 5.0.0.0), and GAP 4.13+
       (Closes: #1052051, #1063302, #1075836, #1076651).
-    - Fix autopkgtest failures on i386 (Closes: #1042935).
+    - Add python3-lrcalc to Recommends of python3-sage.
+    - Bump Standards-Version to 4.7.4.
   * Patches:
-    - Add d0-meson-debian-fixes.patch for Meson configure fixes and Python 3.15.
+    - Add d0-meson-debian-fixes.patch for Meson build fixes and Python 3.15.
     - Add d0-pari-cxx-signal.patch to fix PARI C++ signal namespace clash.
+    - Add d1-doc-privacy-breach.patch to eliminate remote badges in
+      developer doc.
     - Add u2-eclib-int-scalar.patch to support eclib with INT scalar class.
     - Add u2-planarity-header.patch to adapt to planarity >= 5.0 API.
     - Add u2-cli-lazy-imports.patch to defer heavy imports in sage.cli.
-    - Drop patches applied upstream (all u0-*, dt-version-ipywidgets-6-*,
-      d0-mathjax.patch, d0-rubiks.patch).
-    - Forward-port d0-cygdb3.patch, d1-doc-docs.patch, u1-ipywidgets-repr.patch,
+    - Add u2-lrcalc-lazy-import.patch and u2-doc-mock-imports.patch for optional
+      packages.
+    - Add u2-gap-autoload-packages.patch to autoload standard GAP packages.
+    - Add u2-braid-libbraiding-fallback.patch to handle missing libbraiding.
+    - Forward-port d0-cygdb3.patch, d1-doc-docs.patch,
       u2-fix-sympow-cachedir.patch, dt-ignore-deprecation-warnings.patch.
-  * Install and packaging metadata:
+    - Drop patches applied upstream or no longer needed (all u0-*,
+      dt-version-ipywidgets-6-*, d0-mathjax.patch, d0-rubiks.patch,
+      u1-ipywidgets-repr.patch).
+  * Documentation & Packaging metadata:
     - Update python3-sage.install for dist-info metadata.
     - Update debian/clean and debian/depcheck.py for upstream root layout.
     - Update debian/copyright with 10.9 paths, BSL-1.0 and LGPL-2.1+ licenses,
-      verified with decopy.
-  * Use debian/stamp-build-install instead of debian/tmp/usr/bin/sage
-  * Export PYBUILD_DESTDIR = debian/tmp in debian/rules
-  * Add furo, python3-sphinx-copybutton, python3-sphinx-inline-tabs to
-    Build-Depends
-  * Add u2-lrcalc-lazy-import.patch and u2-doc-mock-imports.patch for optional
-    packages
-  * Use python3 -m sage.doctest instead of sage -t for running doctests
-  * Add python3-pytest to Build-Depends and autopkgtest Depends
-  * Update u2-eclib-int-scalar.patch for eclib 2026 API changes
-  * d0-meson-debian-fixes.patch: Add fallback to find libbraiding without
-    pkg-config
-  * Drop obsolete u1-ipywidgets-repr.patch
-  * Add u2-gap-autoload-packages.patch to autoload standard GAP packages
-  * Add python3-lrcalc to debian/control.runtime-depends
-  * Limit OPENBLAS_NUM_THREADS and OMP_NUM_THREADS to 1 during test suite
-    execution
-  * Add u2-braid-libbraiding-fallback.patch to handle missing libbraiding
-  * Revert python3-lrcalc dependency since it is not yet in unstable
-  * Add python3-lrcalc to Recommends of python3-sage and adjust test failure
-    threshold
-  * Do not attempt to compile against older libbraiding 1.1 in Debian
-  * Fix docbuild and test execution environment for missing optional
-    dependencies
-  * Build-Depend on python3-numpy-dev instead of python3-numpy
-  * Strip non-standard RUNPATH from compiled extension modules with chrpath
-  * Deduplicate documentation with symlinks instead of hardlinks
-  * Add d1-doc-privacy-breach.patch to eliminate remote badges in developer
-    doc
-  * Replace obsolete pkg-config dependency with pkgconf
-  * Override unknown-architecture for unofficial kfreebsd-* ports
-  * Update autopkgtest paths and remove deprecated skip-not-installable
-    restriction
-  * Update FSF license URL in debian/copyright
-  * Clean up and update Lintian overrides for current source and tag formats
-  * Bump Standards-Version to 4.7.4
-  * Add Keywords entry to debian/sagemath.desktop
-  * Enable hardening=+all and remove obsolete get-orig-source target
-  * Run rdfind after dh_sphinxdoc and ensure relative symlinks in sagemath-doc
-  * Add patchelf to Build-Depends for meson-python wheel building
-  * Update debian/tests/control: add make to Depends, set environment
-    variables and failure threshold for doctest execution
+      and current FSF license URL (verified with decopy).
+    - Deduplicate documentation using relative symlinks after dh_sphinxdoc.
+    - Add Keywords entry to debian/sagemath.desktop.
+    - Override unknown-architecture for unofficial kfreebsd-* ports.
+    - Clean up and update Lintian overrides for current source and tag formats.
+  * Test suite & autopkgtest:
+    - Use python3 -m sage.doctest and python3-pytest instead of sage -t.
+    - Add python3-pytest and make to autopkgtest Depends.
+    - Limit OPENBLAS_NUM_THREADS and OMP_NUM_THREADS to 1 during test suite
+      execution.
+    - Update debian/tests/control environment variables and failure threshold
+      for doctest execution.
+    - Remove deprecated skip-not-installable restriction.
+    - Fix autopkgtest failures on i386 (Closes: #1042935).
 
  -- Maximiliano Curia <maxy@debian.org>  Mon, 28 Sep 2026 18:03:12 +0200
 
