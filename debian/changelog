@@ -1,6 +1,6 @@
-sagemath (10.9-0.1) UNRELEASED; urgency=medium
+sagemath (10.9-1) unstable; urgency=medium
 
-  * Non-Maintainer upload.
+  * Team upload
   * New upstream release 10.9 (Closes: #1010735).
   * Update watch file to format version 5.
   * Build system and dependency updates:
@@ -73,7 +73,7 @@ sagemath (10.9-0.1) UNRELEASED; urgency=medium
   * Update debian/tests/control: add make to Depends, set environment
     variables and failure threshold for doctest execution
 
- -- Maximiliano Curia <maxy@debian.org>  Sun, 27 Sep 2026 21:53:11 +0200
+ -- Maximiliano Curia <maxy@debian.org>  Mon, 28 Sep 2026 18:03:12 +0200
 
 sagemath (9.5-6) unstable; urgency=high
 
