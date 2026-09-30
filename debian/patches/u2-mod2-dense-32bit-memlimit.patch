@@ -1,0 +1,16 @@
+Description: Skip GF(2) matrix memory limit doctest on 32-bit
+ A 4 GiB RLIMIT_AS does not limit a 32-bit process, the allocation
+ size overflows and the test segfaults.
+Author: Maximiliano Curia <maxy@debian.org>
+
+--- a/src/sage/matrix/matrix_mod2_dense.pyx
++++ b/src/sage/matrix/matrix_mod2_dense.pyx
+@@ -176,7 +176,7 @@ cdef class Matrix_mod2_dense(matrix_dens
+             sage: from platform import system
+             sage: import resource
+             sage: orig_soft, orig_hard = resource.getrlimit(resource.RLIMIT_AS)
+-            sage: if system() != "Linux":
++            sage: if system() != "Linux":  # needs !32_bit
+             ....:     raise RuntimeError("matrix allocation failed")
+             ....: else:
+             ....:     four_GiB = 4*1024^3
