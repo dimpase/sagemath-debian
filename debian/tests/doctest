@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+mkdir -p "$HOME/.sage"
+
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export LANG=C.UTF-8
+export SAGE_LOCAL=/usr
+export SAGE_DOC="$(pwd)/src/doc"
+export SAGE_SRC="$(pwd)/src"
+
+jobs=$(guess_concurrency --max 8 --require-mem 2G)
+
+python3 -m sage.doctest -p "$jobs" --logfile=ptestlong.log src/sage ||
+	make -s --no-print-directory -f debian/tests.mk \
+		MAX_TEST_FAILURES=1000 had-few-failures
