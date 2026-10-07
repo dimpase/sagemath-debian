@@ -8,6 +8,7 @@ u2-doc-mock-imports.patch
 u2-gap-autoload-packages.patch
 u2-braid-libbraiding-fallback.patch
 u2-mod2-dense-32bit-memlimit.patch
+u2-ecl-skip-interrupt-doctest.patch
 
 # Patch Sage to work with dependency Debian packages
 # These won't change even if Debian and Sage use the same version

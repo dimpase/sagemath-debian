@@ -1,3 +1,9 @@
+sagemath (10.9-3) UNRELEASED; urgency=medium
+
+  * Add u2-ecl-skip-interrupt-doctest.patch.
+
+ -- Maximiliano Curia <maxy@debian.org>  Wed, 07 Oct 2026 11:56:44 +0200
+
 sagemath (10.9-2) unstable; urgency=medium
 
   * Add u2-mod2-dense-32bit-memlimit.patch to fix FTBFS on i386.
