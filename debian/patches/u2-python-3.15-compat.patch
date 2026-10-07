@@ -1,0 +1,76 @@
+Description: Compatibility header for Python 3.15 weakref C-API removal
+ Provide a compatibility implementation of PyWeakref_GetObject and
+ PyWeakref_GET_OBJECT using PyWeakref_GetRef for Python 3.15+.
+Bug-Sage: https://github.com/sagemath/sage/issues/42891
+Author: Maximiliano Curia <maxy@debian.org>
+
+Index: sagemath/src/meson.build
+===================================================================
+--- sagemath.orig/src/meson.build	2026-09-23 22:00:16.656890601 +0200
++++ sagemath/src/meson.build	2026-10-07 16:59:49.180607182 +0200
+@@ -292,6 +292,10 @@
+   '-X preliminary_late_includes_cy28=True',
+   language: 'cython',
+ )
++add_project_arguments(
++  '-include', meson.current_source_dir() / 'sage' / 'cpython' / 'compat.h',
++  language: ['c', 'cpp'],
++)
+ 
+ inc_cpython = include_directories('sage/cpython')
+ inc_rings = include_directories('sage/rings')
+Index: sagemath/src/sage/cpython/compat.h
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ sagemath/src/sage/cpython/compat.h	2026-10-07 16:59:30.088211774 +0200
+@@ -0,0 +1,38 @@
++#ifndef SAGE_CPYTHON_COMPAT_H
++#define SAGE_CPYTHON_COMPAT_H
++
++#include <patchlevel.h>
++
++#if PY_VERSION_HEX >= 0x030f0000
++#include <Python.h>
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++static inline PyObject* PyWeakref_GetObject(PyObject *ref)
++{
++    PyObject *obj = NULL;
++    if (ref == NULL) {
++        PyErr_BadInternalCall();
++        return NULL;
++    }
++    if (PyWeakref_GetRef(ref, &obj) < 0) {
++        return NULL;
++    }
++    if (obj == NULL) {
++        return Py_None;
++    }
++    Py_DECREF(obj);
++    return obj;
++}
++
++#define PyWeakref_GET_OBJECT(ref) PyWeakref_GetObject((PyObject *)(ref))
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif
++
++#endif
+Index: sagemath/src/sage/cpython/meson.build
+===================================================================
+--- sagemath.orig/src/sage/cpython/meson.build	2026-09-23 22:00:16.771863106 +0200
++++ sagemath/src/sage/cpython/meson.build	2026-10-07 16:59:39.804413020 +0200
+@@ -3,6 +3,7 @@
+   'all.py',
+   'atexit.pyx',
+   'builtin_types.pyx',
++  'compat.h',
+   'cython_metaclass.h',
+   'cython_metaclass.pxd',
+   'cython_metaclass.pyx',
