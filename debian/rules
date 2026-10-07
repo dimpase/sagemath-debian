@@ -120,6 +120,10 @@ override_dh_prep:
 # Prevent dh_prep from deleting debian/tmp.
 	dh_prep -Xdebian/tmp
 
+override_dh_install-arch:
+	find debian/tmp -type d -name cysignals_crash_logs -exec rm -rf {} +
+	dh_install
+
 override_dh_install-indep:
 	dh_install
 
@@ -152,6 +156,7 @@ endif
 
 override_dh_clean:
 	rm -rf .sage .texlive2021 .pybuild debian/python3-sage-dbg debian/stamp-build-install logs
+	find . -type d -name cysignals_crash_logs -exec rm -rf {} + 2>/dev/null || true
 	rm -f sage_conf.py
 	dh_clean
 
@@ -181,7 +186,8 @@ run_tests = \
 	       SAGE_DOC=$(CURDIR)/src/doc \
 	       SAGE_LOCAL=/usr \
 	       OPENBLAS_NUM_THREADS=1 \
-	       OMP_NUM_THREADS=1 && \
+	       OMP_NUM_THREADS=1 \
+	       CYSIGNALS_CRASH_LOGS= && \
 	unset DISPLAY && \
 	python3 -m sage.doctest -p $(SAGE_NUM_THREADS) --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
 
@@ -191,7 +197,8 @@ rerun_tests = \
 	       SAGE_DOC=$(CURDIR)/src/doc \
 	       SAGE_LOCAL=/usr \
 	       OPENBLAS_NUM_THREADS=1 \
-	       OMP_NUM_THREADS=1 && \
+	       OMP_NUM_THREADS=1 \
+	       CYSIGNALS_CRASH_LOGS= && \
 	unset DISPLAY && \
 	python3 -m sage.doctest -p 1 -f --logfile=$(CURDIR)/logs/ptestlong-$(1).log $(2)
 
