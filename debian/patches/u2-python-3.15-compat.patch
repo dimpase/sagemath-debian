@@ -1,13 +1,15 @@
-Description: Compatibility header for Python 3.15 weakref C-API removal
- Provide a compatibility implementation of PyWeakref_GetObject and
- PyWeakref_GET_OBJECT using PyWeakref_GetRef for Python 3.15+.
+Description: Compatibility fixes for Python 3.15
+ - Provide a compatibility implementation of PyWeakref_GetObject and
+   PyWeakref_GET_OBJECT using PyWeakref_GetRef.
+ - Fix undefined _Py_tss_interp in atexit.pyx by defining Py_BUILD_CORE_MODULE
+   and using PyInterpreterState_Get().
 Bug-Sage: https://github.com/sagemath/sage/issues/42891
 Author: Maximiliano Curia <maxy@debian.org>
 
 Index: sagemath/src/meson.build
 ===================================================================
---- sagemath.orig/src/meson.build	2026-09-23 22:00:16.656890601 +0200
-+++ sagemath/src/meson.build	2026-10-07 16:59:49.180607182 +0200
+--- sagemath.orig/src/meson.build	2026-10-07 18:13:58.778175137 +0200
++++ sagemath/src/meson.build	2026-10-07 18:13:58.777823512 +0200
 @@ -292,6 +292,10 @@
    '-X preliminary_late_includes_cy28=True',
    language: 'cython',
@@ -22,7 +24,7 @@ Index: sagemath/src/meson.build
 Index: sagemath/src/sage/cpython/compat.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ sagemath/src/sage/cpython/compat.h	2026-10-07 16:59:30.088211774 +0200
++++ sagemath/src/sage/cpython/compat.h	2026-10-07 18:13:58.778030595 +0200
 @@ -0,0 +1,38 @@
 +#ifndef SAGE_CPYTHON_COMPAT_H
 +#define SAGE_CPYTHON_COMPAT_H
@@ -64,8 +66,8 @@ Index: sagemath/src/sage/cpython/compat.h
 +#endif
 Index: sagemath/src/sage/cpython/meson.build
 ===================================================================
---- sagemath.orig/src/sage/cpython/meson.build	2026-09-23 22:00:16.771863106 +0200
-+++ sagemath/src/sage/cpython/meson.build	2026-10-07 16:59:39.804413020 +0200
+--- sagemath.orig/src/sage/cpython/meson.build	2026-10-07 18:13:58.778175137 +0200
++++ sagemath/src/sage/cpython/meson.build	2026-10-07 18:13:58.778169166 +0200
 @@ -3,6 +3,7 @@
    'all.py',
    'atexit.pyx',
@@ -74,3 +76,35 @@ Index: sagemath/src/sage/cpython/meson.build
    'cython_metaclass.h',
    'cython_metaclass.pxd',
    'cython_metaclass.pyx',
+Index: sagemath/src/sage/cpython/atexit.pyx
+===================================================================
+--- sagemath.orig/src/sage/cpython/atexit.pyx	2026-09-23 22:00:16.771863106 +0200
++++ sagemath/src/sage/cpython/atexit.pyx	2026-10-07 18:14:27.772748463 +0200
+@@ -152,6 +152,9 @@
+     #ifndef Py_BUILD_CORE
+     #define Py_BUILD_CORE
+     #endif
++    #ifndef Py_BUILD_CORE_MODULE
++    #define Py_BUILD_CORE_MODULE 1
++    #endif
+     #undef _PyGC_FINALIZED
+     #include "internal/pycore_interp.h"
+     #include "internal/pycore_pystate.h"
+@@ -168,7 +171,7 @@
+     // Note: In Python 3.14 the atexit_state struct changed - callbacks is now a PyObject* (PyList)
+     
+     static PyObject* get_atexit_callbacks_list(PyObject *self) {
+-        PyInterpreterState *interp = _PyInterpreterState_GET();
++        PyInterpreterState *interp = PyInterpreterState_Get();
+         // Access the callbacks list directly from the interpreter state
+         // We return a new reference because Cython expects an owned reference
+         PyObject *callbacks = interp->atexit.callbacks;
+@@ -184,7 +187,7 @@
+     #else
+     // Python < 3.14: atexit uses C array
+     static atexit_callback_struct** get_atexit_callbacks_array(PyObject *self) {
+-        PyInterpreterState *interp = _PyInterpreterState_GET();
++        PyInterpreterState *interp = PyInterpreterState_Get();
+         struct atexit_state state = interp->atexit;
+         // Cast from atexit_callback** to our struct type
+         return (atexit_callback_struct**)state.callbacks;
