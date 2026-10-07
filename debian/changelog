@@ -1,11 +1,12 @@
-sagemath (10.9-3) UNRELEASED; urgency=medium
+sagemath (10.9-3) unstable; urgency=medium
 
   * Add u2-ecl-skip-interrupt-doctest.patch.
   * Add u2-doc-reproducible-svg.patch.
   * Avoid installing cysignals crash logs.
   * Add u2-python-3.15-compat.patch.
+  * Fix undefined _Py_tss_interp on Python 3.15 in atexit.pyx
 
- -- Maximiliano Curia <maxy@debian.org>  Wed, 07 Oct 2026 11:56:44 +0200
+ -- Maximiliano Curia <maxy@debian.org>  Wed, 07 Oct 2026 19:36:21 +0200
 
 sagemath (10.9-2) unstable; urgency=medium
 
