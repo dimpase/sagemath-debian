@@ -1,0 +1,26 @@
+Description: Set svg.hashsalt in docbuild for reproducible SVG plots
+ Matplotlib generates random UUIDs for SVG element IDs unless svg.hashsalt
+ is configured, causing non-reproducible documentation builds.
+Author: Maximiliano Curia <maxy@debian.org>
+
+Index: sagemath/src/sage_docbuild/conf.py
+===================================================================
+--- sagemath.orig/src/sage_docbuild/conf.py	2026-10-07 11:28:44.099052302 +0200
++++ sagemath/src/sage_docbuild/conf.py	2026-10-07 11:29:41.228848062 +0200
+@@ -132,6 +132,8 @@
+ # in tachyon input (see https://github.com/sagemath/sage/issues/28971)
+ import locale
+ locale.setlocale(locale.LC_NUMERIC, 'C')
++import matplotlib as mpl
++mpl.rcParams['svg.hashsalt'] = 'sagemath'
+ def sphinx_plot(graphics, **kwds):
+     import matplotlib.image as mpimg
+     import matplotlib.pyplot as plt
+@@ -186,6 +188,7 @@
+ 
+ plot_html_show_formats = False
+ plot_formats = ['svg', 'pdf', 'png']
++plot_rcparams = {'svg.hashsalt': 'sagemath'}
+ 
+ # We do *not* fully initialize intersphinx since we call it by hand
+ # in find_sage_dangling_links.
