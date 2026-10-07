@@ -94,7 +94,6 @@
  libsymmetrica-dev,
  libz-dev,
  libzmq3-dev,
- libzn-poly-dev,
  ppl-dev,
 # Additional dependencies not provided by upstream:
  python3-cysignals-bare (>= 1.12.1),
@@ -126,4 +125,3 @@
  sagemath-database-polytopes,
 # Additional library dependencies not provided by upstream:
  libgap-dev,
- libratpoints-dev,
