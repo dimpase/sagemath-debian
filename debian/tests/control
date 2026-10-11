@@ -1,3 +1,7 @@
 Tests: doctest
 Depends: sagemath-jupyter, sagemath-doc, python3-pytest, make, guess-concurrency
 Restrictions: rw-build-tree, allow-stderr
+
+Tests: ecl-maxima
+Depends: python3-sage, python3-cysignals-bare
+Restrictions: allow-stderr

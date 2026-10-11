@@ -1,3 +1,11 @@
+sagemath (10.9-4) UNRELEASED; urgency=medium
+
+  * Require ECL 26.5.5 and maxima-sage rebuilt for libecl26.5.
+  * Drop the ECL interrupt doctest workaround, fixed in ECL 26.5.5.
+  * Add a focused autopkgtest for ECL interrupts and embedded Maxima.
+
+ -- Dima Pasechnik <dima@pasechnik.info>  Sun, 11 Oct 2026 12:00:00 -0500
+
 sagemath (10.9-3) unstable; urgency=medium
 
   * Add u2-ecl-skip-interrupt-doctest.patch.

@@ -8,7 +8,6 @@ u2-doc-mock-imports.patch
 u2-gap-autoload-packages.patch
 u2-braid-libbraiding-fallback.patch
 u2-mod2-dense-32bit-memlimit.patch
-u2-ecl-skip-interrupt-doctest.patch
 u2-doc-reproducible-svg.patch
 u2-python-3.15-compat.patch
 

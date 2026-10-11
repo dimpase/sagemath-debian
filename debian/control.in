@@ -30,6 +30,7 @@ Build-Depends:
  python3-pytest,
  rdfind,
  furo,
+ libecl-dev (>= 26.5.5+dfsg-1~),
  RUNTIME_DEPENDS
  RUNTIME_RECOMMENDS
  JUPYTER_DEPENDS
