@@ -63,13 +63,15 @@ the Fresnel antiderivative has a different expression, but applying
 radcan(exponentialize(diff(F,x)-sin(x^2))) returns zero with both ECL
 versions, confirming that its derivative equals the original integrand.
 
-Broader Sage calculus and interface tests were attempted, not declared
-passing. The installed archive Sage 10.9-3 also has PARI extensions linked
-to libpari-gmp-tls.so.9, while current cypari2 uses .so.10. A fresh process
+The installed archive Sage 10.9-3 has PARI extensions linked to
+libpari-gmp-tls.so.9, while current cypari2 uses .so.10. A fresh process
 reproduces its rational-to-PARI conversion crash without loading ECL.
-Only Sage's ECL extension was rebuilt for these checks. A complete Sage
-rebuild against the current PARI/cypari2 is needed before interpreting
-those broader tests, and the integration timeouts remain unresolved.
+The full Debian Sage rebuild on 2026-10-12 resolves this ABI mismatch:
+its PARI extensions link to .so.10, and rational conversion and the
+minimal polynomial of sqrt(2) pass. The native and HTML documentation
+builds complete after backporting upstream #42888's NTL macro fix.
+See README.ecl-build for the complete build and test results. The
+integration timeouts remain unresolved.
 
 These are draft source-package changes, not a claim that the complete
 Sage testsuite passes or that Maxima 5.50.0 is ready for stable migration.

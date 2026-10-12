@@ -1,0 +1,54 @@
+Draft PARI/GP bug report, not submitted
+=====================================
+Subject: hyperellcharpoly segfault over F_(23^3) with curve variable t
+
+Found while checking Debian Sage's ECL rebuild on 2026-10-12.
+Reproduced directly in Debian pari-gp 2.19.0-1 on Linux arm64,
+compiled with GCC 16.2.0 and GMP 6.3.0. Sage, cypari2, and ECL are
+not needed to reproduce it.
+
+Run in a fresh gp -q -f process:
+
+  a = ffgen(Mod(1,23)*(a^3+2*a+18), 'a);
+  hyperellcharpoly([x^3+a*x+4, 0])
+  hyperellcharpoly([t^3+a*t+4, 0])
+
+The first call returns x^2 - 15*x + 12167. The second prints:
+
+  *** hyperellcharpoly: bug in PARI/GP (Segmentation Fault), please report.
+
+Both calls describe the same curve with a different polynomial variable.
+The documented interface accepts nonsingular hyperelliptic curves over
+finite fields, including the [P,Q] form used here:
+https://pari.math.u-bordeaux.fr/dochtml/ref/Hyperelliptic_curves.html#hyperellcharpoly
+The model is nonsingular: its cubic discriminant is 8*(a+1), which
+is nonzero in this extension field.
+
+A second fresh-process example gives an internal error instead:
+
+  a = ffgen(Mod(1,7)*(a^2+6*a+3), 'a);
+  hyperellcharpoly([x^5+a*x+1, 0])
+  hyperellcharpoly([t^5+a*t+1, 0])
+
+The first returns x^4 + 4*x^3 + 84*x^2 + 196*x + 2401.
+The second reports:
+
+  bug in RgXX_to_Kronecker, P is not reduced mod Q, please report
+
+The same behavior is reproduced using cypari2 alone. Creating t before
+the field generator does not avoid it. A fresh Sage process reproduces
+both failures while sage.libs.ecl is absent from sys.modules.
+
+No version before 2.19.0 has been checked for this specific bug, and
+no bisect, upstream submission, or workaround patch has been made.
+
+Possible source-code lead, not yet verified with a patched build:
+ZlXQX_hyperellpadicfrobenius in src/basemath/hyperell.c constructs the
+monomial passed to Fq_diff_red using variable number 0, even when the
+input polynomial Q uses another variable:
+
+  monomial(pp,p*i-1,0)
+
+This agrees with the observation that x works and t fails. The same
+expression is present in upstream master fetched on 2026-10-12, commit
+d9f68890aee63df522bc0f69a913488e3fc3ffa7, at line 777.
