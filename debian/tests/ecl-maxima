@@ -4,7 +4,9 @@ from cysignals.tests import interrupt_after_delay
 from sage.libs.ecl import ecl_eval
 from sage.interfaces.maxima_lib import maxima_lib
 from sage.all import integrate, pi, var
+from sage.env import MAXIMA_FAS
 
+assert MAXIMA_FAS == "", "Maxima should be discovered by ECL's module provider"
 assert ecl_eval("(+ 40 2)").python() == 42
 assert maxima_lib("integrate(x,x)-x^2/2").sage() == 0
 assert maxima_lib("determinant(matrix([1,2],[3,8]))").sage() == 2

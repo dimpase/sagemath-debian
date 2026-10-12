@@ -8,6 +8,11 @@ rebuild. Keep its upstream version unchanged for this transition.
 maxima-sage was already at 5.50.0-2 in unstable before this work;
 the proposed 5.50.0-3 rebuild keeps that upstream version.
 
+The patched ECL discovers /usr/lib/ecl/maxima.fas via (require :maxima).
+Debian Sage therefore uses an empty MAXIMA_FAS, and the Debian-specific
+Meson pathname fallback is removed. Maxima installs its FAS with dh_install;
+ECL creates the default module directory even without Maxima installed.
+
 Reviewed regular Maxima's seven active patches:
 
   5.29-refresh: viewer and Emacs integration, not shipped by maxima-sage.

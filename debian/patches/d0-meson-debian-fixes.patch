@@ -1,6 +1,5 @@
 Description: Fix meson build on Debian
  - Support finding maxima-sage in addition to maxima
- - Fallback sage_maxima to /usr/lib/ecl/maxima.fas when SAGE_LOCAL is unset
  - Use project version for PACKAGE_VERSION in config.py
  - Allow building on Python >= 3.12 (e.g. Python 3.15)
 Author: Maximiliano Curia <maxy@debian.org>
@@ -23,15 +22,6 @@ Index: sagemath/src/sage/libs/meson.build
 ===================================================================
 --- sagemath.orig/src/sage/libs/meson.build
 +++ sagemath/src/sage/libs/meson.build
-@@ -29,7 +29,7 @@ if ecl_bin.found()
-   else
-     # Try Sage's custom maxima location
-     sage_maxima = join_paths(
--      get_option('SAGE_LOCAL'),
-+      get_option('SAGE_LOCAL') != '' ? get_option('SAGE_LOCAL') : '/usr',
-       'lib',
-       'ecl',
-       'maxima.fas',
 @@ -45,7 +45,7 @@ if ecl_bin.found()
      conf_data.set('SAGE_MAXIMA_FAS', sage_maxima)
    endif

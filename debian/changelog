@@ -5,6 +5,8 @@ sagemath (10.9-4) UNRELEASED; urgency=medium
   * Add a focused autopkgtest for ECL interrupts and embedded Maxima.
   * Backport the upstream Maxima principal-value variable fix and cover
     divergent integrals in the focused test.
+  * Let ECL discover Maxima without a hardcoded FAS path; remove the Debian
+    Meson fallback and clear MAXIMA_FAS in the legacy Sage configuration.
 
  -- Dima Pasechnik <dima@pasechnik.info>  Sun, 11 Oct 2026 12:00:00 -0500
 

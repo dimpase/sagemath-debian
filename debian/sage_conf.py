@@ -18,7 +18,7 @@ THREEJS_DIR                   = '/usr/share/javascript/three'
 
 PPLPY_DOCS                    = '/usr/share/doc/python3-ppl/html'
 MAXIMA                        = 'maxima-sage'
-MAXIMA_FAS                    = '/usr/lib/ecl/maxima.fas'
+MAXIMA_FAS                    = ''
 SAGE_NAUTY_BINS_PREFIX        = 'nauty-'
 RUBIKS_BINS_PREFIX            = 'rubiks_'
 ARB_LIBRARY                   = 'flint-arb'
