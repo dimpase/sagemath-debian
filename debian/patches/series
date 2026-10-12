@@ -29,3 +29,6 @@ d1-doc-privacy-breach.patch
 # Temporary patches for whatever reason
 # They will eventually be gotten rid of
 dt-ignore-deprecation-warnings.patch
+
+# Upstream dependency compatibility fixes
+u0-pari-ntl-coeff.patch
