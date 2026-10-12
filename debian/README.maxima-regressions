@@ -1,0 +1,70 @@
+Maxima regression checks for the ECL transition
+==============================================
+Checked 2026-10-11 in Debian unstable arm64, limited to CPUs 0-3.
+
+The regular maxima source package in testing and unstable is
+5.49.0+dsfg-6. Its binary uses GCL, so it does not need an ECL ABI
+rebuild. Keep its upstream version unchanged for this transition.
+maxima-sage was already at 5.50.0-2 in unstable before this work;
+the proposed 5.50.0-3 rebuild keeps that upstream version.
+
+Reviewed regular Maxima's seven active patches:
+
+  5.29-refresh: viewer and Emacs integration, not shipped by maxima-sage.
+  sys-proclaim-fix: GCL build machinery, not the ECL build.
+  create_index: CHM index generation, not used for these Debian packages.
+  cl-info and cl-info-2: relocated documentation indexes. maxima-sage
+    already has its own relocation patch and installs the index and
+    uncompressed info files together. describe(integrate,exact) works.
+  wna-err-fix: present upstream in 5.50.0. errcatch(nfloat()) gives the
+    correct argument error in regular Maxima and both ECL builds.
+  draw-take-into-account-gnuplot_file_args: present upstream in 5.50.0.
+
+Packaging was read from the current archive Sources index and verified
+against SHA256 b5ba8a234bd2046d0f7bd058a8ce7c53c064cc52a4c24005baecdfa504e0fca2
+for maxima_5.49.0+dsfg-6.debian.tar.xz. Commented-out patches in its
+series file were not treated as applied downstream fixes.
+
+An upstream Sage compatibility fix was missing from Debian Sage 10.9:
+the overridden Maxima principal function used pcprntd instead of
+*pcprntd*. With the original wrapper, integrate(1/x^3,x,-1,3,
+algorithm='maxima') raises an unbound-variable error; default integration
+falls back to another integrator and returns NaN. Backport
+u0-maxima-principal-value.patch takes the exact one-line correction from
+https://github.com/sagemath/sage/commit/7881362be8336b8e66fee7cce97befcc9a252404
+
+The added focused regression rejects the original wrapper. After the
+fix, both default and explicit Maxima integration raise the expected
+ValueError, while the convergent integral of 1/(x^2+1) on [-1,1]
+still returns pi/2. These checks pass with the archive ECL 24.5/Maxima
+5.50.0-2 pair and with the updated ECL 26.5.5/Maxima 5.50.0-3 pair.
+All 204 sage.libs.ecl and 227 maxima_lib doctests pass with the update.
+The focused autopkgtest also passes, including the restored interrupt.
+
+There is still a genuine upstream-version performance regression:
+
+  integrate(log(1+4/5*sin(x)),x,-3.1415,3.1415)
+
+Regular Debian Maxima 5.49.0 returns the unevaluated integral in about
+0.2 seconds. Archive Maxima 5.50.0/ECL 24.5 exceeds 15 seconds; the
+updated 5.50.0/ECL 26.5.5 build exceeds 30 seconds standalone and via
+Sage. Each reproduction was stopped with a bounded timeout. This is
+already reported at https://bugs.debian.org/1150619 and is not introduced
+by the ECL rebuild. The report's other timeout involves SymPy and also
+occurs with Maxima 5.49.0. This backport does not fix those timeouts.
+
+Other 5.50.0 output changes still need Sage doctest updates. For example,
+the Fresnel antiderivative has a different expression, but applying
+radcan(exponentialize(diff(F,x)-sin(x^2))) returns zero with both ECL
+versions, confirming that its derivative equals the original integrand.
+
+Broader Sage calculus and interface tests were attempted, not declared
+passing. The installed archive Sage 10.9-3 also has PARI extensions linked
+to libpari-gmp-tls.so.9, while current cypari2 uses .so.10. A fresh process
+reproduces its rational-to-PARI conversion crash without loading ECL.
+Only Sage's ECL extension was rebuilt for these checks. A complete Sage
+rebuild against the current PARI/cypari2 is needed before interpreting
+those broader tests, and the integration timeouts remain unresolved.
+
+These are draft source-package changes, not a claim that the complete
+Sage testsuite passes or that Maxima 5.50.0 is ready for stable migration.

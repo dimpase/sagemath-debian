@@ -1,3 +1,6 @@
+# Backports from upstream Sage
+u0-maxima-principal-value.patch
+
 # Patches that should be upstreamed (may need some work first)
 u2-fix-sympow-cachedir.patch
 u2-eclib-int-scalar.patch

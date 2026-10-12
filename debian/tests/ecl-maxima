@@ -3,10 +3,23 @@ import sage.all  # Initialize Sage before importing its embedded Maxima interfac
 from cysignals.tests import interrupt_after_delay
 from sage.libs.ecl import ecl_eval
 from sage.interfaces.maxima_lib import maxima_lib
+from sage.all import integrate, pi, var
 
 assert ecl_eval("(+ 40 2)").python() == 42
 assert maxima_lib("integrate(x,x)-x^2/2").sage() == 0
 assert maxima_lib("determinant(matrix([1,2],[3,8]))").sage() == 2
+
+# A stale pcprntd name raises an unbound-variable error; the default
+# integration fallback then returns NaN instead of rejecting this integral.
+x = var("x")
+for options in ({}, {"algorithm": "maxima"}):
+    try:
+        integrate(x**-3, x, -1, 3, **options)
+    except ValueError as error:
+        assert str(error) == "Integral is divergent.", str(error)
+    else:
+        raise AssertionError("The divergent integral was not rejected")
+assert integrate(1/(x**2 + 1), x, -1, 1, algorithm="maxima") == pi/2
 
 ecl_eval("(defun debian-test-infinite () (loop))")
 interrupt_after_delay(100)
@@ -18,4 +31,4 @@ else:
     raise AssertionError("ECL did not report KeyboardInterrupt")
 
 assert ecl_eval("(+ 40 2)").python() == 42
-print("ECL evaluation, interrupts, and embedded Maxima passed")
+print("ECL evaluation, interrupts, embedded Maxima, and divergent integrals passed")

@@ -1,0 +1,21 @@
+Description: Use Maxima's current principal-value state variable
+ Maxima uses *pcprntd*, not pcprntd. The obsolete name raises an
+ unbound-variable error instead of reporting a divergent integral;
+ Sage's default integration fallback can then return NaN.
+ This is the principal-value hunk from upstream's Maxima/ECL update.
+Origin: backport, https://github.com/sagemath/sage/commit/7881362be8336b8e66fee7cce97befcc9a252404
+Author: Chenxin Zhong <chenxin.zhong@outlook.com>
+Forwarded: not-needed
+Last-Update: 2026-10-11
+
+--- a/src/sage/interfaces/maxima_lib.py
++++ b/src/sage/interfaces/maxima_lib.py
+@@ -168,7 +168,7 @@
+ ecl_eval("(setq $nolabels t))")
+ ecl_eval("(defun add-lineinfo (x) x)")
+ ecl_eval(r"(defun tex-derivative (x l r) (tex (if $derivabbrev (tex-dabbrev x) (tex-d x '\\partial)) l r lop rop ))")
+-ecl_eval('(defun principal nil (cond ($noprincipal (diverg)) ((not pcprntd) (merror "Divergent Integral"))))')
++ecl_eval('(defun principal nil (cond ($noprincipal (diverg)) ((not *pcprntd*) (merror "Divergent Integral"))))')
+ ecl_eval("(remprop 'mfactorial 'grind)")  # don't use ! for factorials (#11539)
+ ecl_eval("(setf $errormsg nil)")
+ 
